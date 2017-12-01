@@ -1,0 +1,229 @@
+\hypertarget{classngine_1_1query_1_1TaatRetriever}{}\section{ngine\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$ Class Template Reference}
+\label{classngine_1_1query_1_1TaatRetriever}\index{ngine\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$@{ngine\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}}
+
+
+{\ttfamily \#include $<$taat.\+hpp$>$}
+
+Inheritance diagram for ngine\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classngine_1_1query_1_1TaatRetriever}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classngine_1_1query_1_1TaatRetriever_a7e9f75a28a1af01b28ec37df96c944fe}{Taat\+Retriever} (std\+::size\+\_\+t collection\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Constructs a \hyperlink{classngine_1_1query_1_1TaatRetriever}{Taat\+Retriever} with an accumulator array of collection\+\_\+size. \end{DoxyCompactList}\item 
+void \hyperlink{classngine_1_1query_1_1TaatRetriever_af2a95fa756403a71243379451ddde620}{accumulate\+\_\+posting} (\hyperlink{structngine_1_1Doc}{Doc} doc, \hyperlink{structngine_1_1Score}{Score} score\+\_\+delta)
+\begin{DoxyCompactList}\small\item\em Accumulates the posting that is being processed. \end{DoxyCompactList}\item 
+void \hyperlink{classngine_1_1query_1_1TaatRetriever_a0eab909f9d3ac3d9f09752a581e8bf54}{traverse} (const std\+::vector$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List} $>$ \&lists\+\_\+for\+\_\+terms, const std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \&term\+\_\+weights)
+\begin{DoxyCompactList}\small\item\em Traverses the postings and accumulates the scores. \end{DoxyCompactList}\item 
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever_abebbcb23c11cbc5cc3628d8c5234e94b}{score\+\_\+of} (\hyperlink{structngine_1_1Doc}{Doc} doc) const
+\begin{DoxyCompactList}\small\item\em Returns the accumulated score of doc. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structngine_1_1query_1_1Result}{Result} $>$ \hyperlink{classngine_1_1query_1_1TaatRetriever_a5b79dd87bef881e991d73f8cb42247b1}{aggregate\+\_\+top} (std\+::size\+\_\+t k)
+\item 
+void \hyperlink{classngine_1_1query_1_1TaatRetriever_a06a032c0bbde9724e4bd7e82d82d8534}{clear\+\_\+accumulator\+\_\+array} ()
+\begin{DoxyCompactList}\small\item\em Fill the accumulator array with zeroes. \end{DoxyCompactList}\item 
+void \hyperlink{classngine_1_1query_1_1TaatRetriever_a817e3b8640ff2dc99614aa201774bb58}{clear\+\_\+blocks} ()
+\begin{DoxyCompactList}\small\item\em Set all block maximum scores with zeroes. \end{DoxyCompactList}\item 
+void \hyperlink{classngine_1_1query_1_1TaatRetriever_aa8821cfb9b805f6f40541d21451d96e9}{next\+\_\+query} ()
+\item 
+virtual std\+::vector$<$ \hyperlink{structngine_1_1query_1_1Result}{Result} $>$ \hyperlink{classngine_1_1query_1_1TaatRetriever_a81d0ee715edbd1a105476e4bb7e7273d}{retrieve} (const std\+::vector$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List} $>$ \&lists\+\_\+for\+\_\+terms, const std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \&term\+\_\+weights, std\+::size\+\_\+t k)
+\begin{DoxyCompactList}\small\item\em Retrieves top-\/k results for the given posting lists and term weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacengine_1_1query_a3deddbc36af48dca2072f880a752b001}{Query\+Id} \hyperlink{classngine_1_1query_1_1TaatRetriever_a32220db1f5ce3701ef674071551c3179}{query\+\_\+id}
+\item 
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever_a6886c978fc175aa197c0ab2cecb94756}{qidx\+\_\+shifted}
+\item 
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever_a2aadff690e54f22078b1bca5102c8bd0}{score\+\_\+mask}
+\item 
+unsigned int \hyperlink{classngine_1_1query_1_1TaatRetriever_ace294f37e49fcb504681c94a46917bb1}{bits\+\_\+to\+\_\+shift}
+\item 
+std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \hyperlink{classngine_1_1query_1_1TaatRetriever_afbc8b5606edd1c8709791437e2a95d45}{accumulator\+\_\+array}
+\begin{DoxyCompactList}\small\item\em The array of accumulated values for each document. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \hyperlink{classngine_1_1query_1_1TaatRetriever_a63715b843da0889a264365a3379418fa}{block\+\_\+max\+\_\+scores}
+\item 
+std\+::size\+\_\+t \hyperlink{classngine_1_1query_1_1TaatRetriever_a6562a6b51152f7e28c65de1905a8c24d}{nblocks}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Posting\+List, bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$\newline
+class ngine\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}
+
+Term-\/at-\/a-\/time document retriever.
+
+\hyperlink{classngine_1_1PostingList}{Posting\+List} requires\+:
+\begin{DoxyItemize}
+\item doc\+\_\+begin() and doc\+\_\+end()\+: document start and end iterator, respectively;
+\item score\+\_\+begin() and score\+\_\+end()\+: score start and end iterator, respectively;
+\item length()\+: posting list length; 
+\end{DoxyItemize}
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a7e9f75a28a1af01b28ec37df96c944fe}\label{classngine_1_1query_1_1TaatRetriever_a7e9f75a28a1af01b28ec37df96c944fe}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!Taat\+Retriever@{Taat\+Retriever}}
+\index{Taat\+Retriever@{Taat\+Retriever}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{Taat\+Retriever()}{TaatRetriever()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+\hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::\hyperlink{classngine_1_1query_1_1TaatRetriever}{Taat\+Retriever} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{collection\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \hyperlink{classngine_1_1query_1_1TaatRetriever}{Taat\+Retriever} with an accumulator array of collection\+\_\+size. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_af2a95fa756403a71243379451ddde620}\label{classngine_1_1query_1_1TaatRetriever_af2a95fa756403a71243379451ddde620}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!accumulate\+\_\+posting@{accumulate\+\_\+posting}}
+\index{accumulate\+\_\+posting@{accumulate\+\_\+posting}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{accumulate\+\_\+posting()}{accumulate\_posting()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+void \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::accumulate\+\_\+posting (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc}}]{doc,  }\item[{\hyperlink{structngine_1_1Score}{Score}}]{score\+\_\+delta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Accumulates the posting that is being processed. 
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a5b79dd87bef881e991d73f8cb42247b1}\label{classngine_1_1query_1_1TaatRetriever_a5b79dd87bef881e991d73f8cb42247b1}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!aggregate\+\_\+top@{aggregate\+\_\+top}}
+\index{aggregate\+\_\+top@{aggregate\+\_\+top}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{aggregate\+\_\+top()}{aggregate\_top()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+std\+::vector$<$\hyperlink{structngine_1_1query_1_1Result}{Result}$>$ \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::aggregate\+\_\+top (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the top-\/k highest ranked documents.
+
+It may return fewer documents if fewer of them contain any term. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a06a032c0bbde9724e4bd7e82d82d8534}\label{classngine_1_1query_1_1TaatRetriever_a06a032c0bbde9724e4bd7e82d82d8534}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!clear\+\_\+accumulator\+\_\+array@{clear\+\_\+accumulator\+\_\+array}}
+\index{clear\+\_\+accumulator\+\_\+array@{clear\+\_\+accumulator\+\_\+array}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{clear\+\_\+accumulator\+\_\+array()}{clear\_accumulator\_array()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+void \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::clear\+\_\+accumulator\+\_\+array (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Fill the accumulator array with zeroes. 
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a817e3b8640ff2dc99614aa201774bb58}\label{classngine_1_1query_1_1TaatRetriever_a817e3b8640ff2dc99614aa201774bb58}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!clear\+\_\+blocks@{clear\+\_\+blocks}}
+\index{clear\+\_\+blocks@{clear\+\_\+blocks}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{clear\+\_\+blocks()}{clear\_blocks()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+void \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::clear\+\_\+blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set all block maximum scores with zeroes. 
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_aa8821cfb9b805f6f40541d21451d96e9}\label{classngine_1_1query_1_1TaatRetriever_aa8821cfb9b805f6f40541d21451d96e9}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!next\+\_\+query@{next\+\_\+query}}
+\index{next\+\_\+query@{next\+\_\+query}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{next\+\_\+query()}{next\_query()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+void \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::next\+\_\+query (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Proceed to the next query.
+
+Clears the accumulators if necessary and keeps track of the query I\+Ds. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a81d0ee715edbd1a105476e4bb7e7273d}\label{classngine_1_1query_1_1TaatRetriever_a81d0ee715edbd1a105476e4bb7e7273d}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!retrieve@{retrieve}}
+\index{retrieve@{retrieve}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{retrieve()}{retrieve()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+virtual std\+::vector$<$\hyperlink{structngine_1_1query_1_1Result}{Result}$>$ \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::retrieve (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \&}]{term\+\_\+weights,  }\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Retrieves top-\/k results for the given posting lists and term weights. 
+
+
+
+Implements \hyperlink{classngine_1_1query_1_1Retriever_ac5549667cbb5927ec4ead8b9ec8aece0}{ngine\+::query\+::\+Retriever$<$ Posting\+List $>$}.
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_abebbcb23c11cbc5cc3628d8c5234e94b}\label{classngine_1_1query_1_1TaatRetriever_abebbcb23c11cbc5cc3628d8c5234e94b}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!score\+\_\+of@{score\+\_\+of}}
+\index{score\+\_\+of@{score\+\_\+of}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{score\+\_\+of()}{score\_of()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::score\+\_\+of (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the accumulated score of doc. 
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a0eab909f9d3ac3d9f09752a581e8bf54}\label{classngine_1_1query_1_1TaatRetriever_a0eab909f9d3ac3d9f09752a581e8bf54}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!traverse@{traverse}}
+\index{traverse@{traverse}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+void \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List} $>$ \&}]{lists\+\_\+for\+\_\+terms,  }\item[{const std\+::vector$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \&}]{term\+\_\+weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Traverses the postings and accumulates the scores. 
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_afbc8b5606edd1c8709791437e2a95d45}\label{classngine_1_1query_1_1TaatRetriever_afbc8b5606edd1c8709791437e2a95d45}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!accumulator\+\_\+array@{accumulator\+\_\+array}}
+\index{accumulator\+\_\+array@{accumulator\+\_\+array}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{accumulator\+\_\+array}{accumulator\_array}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+std\+::vector$<$\hyperlink{structngine_1_1Score}{Score}$>$ \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::accumulator\+\_\+array\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The array of accumulated values for each document. 
+
+\mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_ace294f37e49fcb504681c94a46917bb1}\label{classngine_1_1query_1_1TaatRetriever_ace294f37e49fcb504681c94a46917bb1}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!bits\+\_\+to\+\_\+shift@{bits\+\_\+to\+\_\+shift}}
+\index{bits\+\_\+to\+\_\+shift@{bits\+\_\+to\+\_\+shift}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{bits\+\_\+to\+\_\+shift}{bits\_to\_shift}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+unsigned int \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::bits\+\_\+to\+\_\+shift\hspace{0.3cm}{\ttfamily [protected]}}
+
+How many bits are used for the score value. This is only used when init\+\_\+gap $>$ 1. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a63715b843da0889a264365a3379418fa}\label{classngine_1_1query_1_1TaatRetriever_a63715b843da0889a264365a3379418fa}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!block\+\_\+max\+\_\+scores@{block\+\_\+max\+\_\+scores}}
+\index{block\+\_\+max\+\_\+scores@{block\+\_\+max\+\_\+scores}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{block\+\_\+max\+\_\+scores}{block\_max\_scores}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+std\+::vector$<$\hyperlink{structngine_1_1Score}{Score}$>$ \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::block\+\_\+max\+\_\+scores\hspace{0.3cm}{\ttfamily [protected]}}
+
+Maximum scores for each accumulator block. Only used when acc\+\_\+block\+\_\+size $>$ 0. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a6562a6b51152f7e28c65de1905a8c24d}\label{classngine_1_1query_1_1TaatRetriever_a6562a6b51152f7e28c65de1905a8c24d}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!nblocks@{nblocks}}
+\index{nblocks@{nblocks}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{nblocks}{nblocks}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+std\+::size\+\_\+t \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::nblocks\hspace{0.3cm}{\ttfamily [protected]}}
+
+The number of blocks, calculated based on acc\+\_\+block\+\_\+size and the number of documents in the index. Only used when acc\+\_\+block\+\_\+size $>$ 0. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a6886c978fc175aa197c0ab2cecb94756}\label{classngine_1_1query_1_1TaatRetriever_a6886c978fc175aa197c0ab2cecb94756}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!qidx\+\_\+shifted@{qidx\+\_\+shifted}}
+\index{qidx\+\_\+shifted@{qidx\+\_\+shifted}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{qidx\+\_\+shifted}{qidx\_shifted}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::qidx\+\_\+shifted\hspace{0.3cm}{\ttfamily [protected]}}
+
+This is query\+\_\+id shifted to the far left for quick comparison of the accumulated values. This is only used when init\+\_\+gap $>$ 1. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a32220db1f5ce3701ef674071551c3179}\label{classngine_1_1query_1_1TaatRetriever_a32220db1f5ce3701ef674071551c3179}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!query\+\_\+id@{query\+\_\+id}}
+\index{query\+\_\+id@{query\+\_\+id}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{query\+\_\+id}{query\_id}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+\hyperlink{namespacengine_1_1query_a3deddbc36af48dca2072f880a752b001}{Query\+Id} \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::query\+\_\+id\hspace{0.3cm}{\ttfamily [protected]}}
+
+Keeps track of the accumulator clearing cycle. It is always in range \mbox{[}0, init\+\_\+gap), and is increased modulo init\+\_\+gap after each query. This is only used when init\+\_\+gap $>$ 1. \mbox{\Hypertarget{classngine_1_1query_1_1TaatRetriever_a2aadff690e54f22078b1bca5102c8bd0}\label{classngine_1_1query_1_1TaatRetriever_a2aadff690e54f22078b1bca5102c8bd0}} 
+\index{ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}!score\+\_\+mask@{score\+\_\+mask}}
+\index{score\+\_\+mask@{score\+\_\+mask}!ngine\+::query\+::\+Taat\+Retriever@{ngine\+::query\+::\+Taat\+Retriever}}
+\subsubsection{\texorpdfstring{score\+\_\+mask}{score\_mask}}
+{\footnotesize\ttfamily template$<$typename Posting\+List , bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1query_1_1TaatRetriever}{ngine\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classngine_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::score\+\_\+mask\hspace{0.3cm}{\ttfamily [protected]}}
+
+The score mask for fast computing of the accumulated values. This is only used when init\+\_\+gap $>$ 1. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{taat_8hpp}{taat.\+hpp}\end{DoxyCompactItemize}

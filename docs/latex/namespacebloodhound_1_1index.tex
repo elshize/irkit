@@ -1,0 +1,53 @@
+\hypertarget{namespacebloodhound_1_1index}{}\section{bloodhound\+:\+:index Namespace Reference}
+\label{namespacebloodhound_1_1index}\index{bloodhound\+::index@{bloodhound\+::index}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classbloodhound_1_1index_1_1Index}{Index}
+\item 
+struct \hyperlink{structbloodhound_1_1index_1_1PostingListHeader}{Posting\+List\+Header}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ char $>$ \hyperlink{namespacebloodhound_1_1index_a4b6f89a17c10bf2927aff24df7081bb3}{read\+\_\+file} (fs\+::path filepath)
+\item 
+std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \hyperlink{namespacebloodhound_1_1index_ae2ed61317e7a37db7d9f19d2b65e2a11}{terms\+\_\+to\+\_\+postings} (\hyperlink{classbloodhound_1_1index_1_1Index}{Index} \&index, const std\+::vector$<$ \hyperlink{structbloodhound_1_1TermId}{Term\+Id} $>$ terms)
+\begin{DoxyCompactList}\small\item\em Converts a vector of terms to a vector of posting lists. \end{DoxyCompactList}\item 
+\hyperlink{classbloodhound_1_1index_1_1Index}{Index} \hyperlink{namespacebloodhound_1_1index_a95536aba16676e4fd8aefda07f19eaee}{build\+\_\+index\+\_\+from\+\_\+ids} (const std\+::vector$<$ std\+::vector$<$ \hyperlink{structbloodhound_1_1TermWeight}{Term\+Weight} $>$$>$ \&input)
+\item 
+\hyperlink{classbloodhound_1_1index_1_1Index}{Index} \hyperlink{namespacebloodhound_1_1index_ad5486002d12948163bcdeb717c9c611c}{sorted\+\_\+index} (const \hyperlink{classbloodhound_1_1index_1_1Index}{Index} \&index)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacebloodhound_1_1index_a95536aba16676e4fd8aefda07f19eaee}\label{namespacebloodhound_1_1index_a95536aba16676e4fd8aefda07f19eaee}} 
+\index{bloodhound\+::index@{bloodhound\+::index}!build\+\_\+index\+\_\+from\+\_\+ids@{build\+\_\+index\+\_\+from\+\_\+ids}}
+\index{build\+\_\+index\+\_\+from\+\_\+ids@{build\+\_\+index\+\_\+from\+\_\+ids}!bloodhound\+::index@{bloodhound\+::index}}
+\subsubsection{\texorpdfstring{build\+\_\+index\+\_\+from\+\_\+ids()}{build\_index\_from\_ids()}}
+{\footnotesize\ttfamily \hyperlink{classbloodhound_1_1index_1_1Index}{Index} bloodhound\+::index\+::build\+\_\+index\+\_\+from\+\_\+ids (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ \hyperlink{structbloodhound_1_1TermWeight}{Term\+Weight} $>$$>$ \&}]{input }\end{DoxyParamCaption})}
+
+Builds an index based on a collection represented by term I\+Ds.
+
+This function is not efficient and only meant for testing other functionalities. \mbox{\Hypertarget{namespacebloodhound_1_1index_a4b6f89a17c10bf2927aff24df7081bb3}\label{namespacebloodhound_1_1index_a4b6f89a17c10bf2927aff24df7081bb3}} 
+\index{bloodhound\+::index@{bloodhound\+::index}!read\+\_\+file@{read\+\_\+file}}
+\index{read\+\_\+file@{read\+\_\+file}!bloodhound\+::index@{bloodhound\+::index}}
+\subsubsection{\texorpdfstring{read\+\_\+file()}{read\_file()}}
+{\footnotesize\ttfamily std\+::vector$<$char$>$ bloodhound\+::index\+::read\+\_\+file (\begin{DoxyParamCaption}\item[{fs\+::path}]{filepath }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_1_1index_ad5486002d12948163bcdeb717c9c611c}\label{namespacebloodhound_1_1index_ad5486002d12948163bcdeb717c9c611c}} 
+\index{bloodhound\+::index@{bloodhound\+::index}!sorted\+\_\+index@{sorted\+\_\+index}}
+\index{sorted\+\_\+index@{sorted\+\_\+index}!bloodhound\+::index@{bloodhound\+::index}}
+\subsubsection{\texorpdfstring{sorted\+\_\+index()}{sorted\_index()}}
+{\footnotesize\ttfamily \hyperlink{classbloodhound_1_1index_1_1Index}{Index} bloodhound\+::index\+::sorted\+\_\+index (\begin{DoxyParamCaption}\item[{const \hyperlink{classbloodhound_1_1index_1_1Index}{Index} \&}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_1_1index_ae2ed61317e7a37db7d9f19d2b65e2a11}\label{namespacebloodhound_1_1index_ae2ed61317e7a37db7d9f19d2b65e2a11}} 
+\index{bloodhound\+::index@{bloodhound\+::index}!terms\+\_\+to\+\_\+postings@{terms\+\_\+to\+\_\+postings}}
+\index{terms\+\_\+to\+\_\+postings@{terms\+\_\+to\+\_\+postings}!bloodhound\+::index@{bloodhound\+::index}}
+\subsubsection{\texorpdfstring{terms\+\_\+to\+\_\+postings()}{terms\_to\_postings()}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ bloodhound\+::index\+::terms\+\_\+to\+\_\+postings (\begin{DoxyParamCaption}\item[{\hyperlink{classbloodhound_1_1index_1_1Index}{Index} \&}]{index,  }\item[{const std\+::vector$<$ \hyperlink{structbloodhound_1_1TermId}{Term\+Id} $>$}]{terms }\end{DoxyParamCaption})}
+
+
+
+Converts a vector of terms to a vector of posting lists. 
+

@@ -1,0 +1,157 @@
+\hypertarget{classbloodhound_1_1Heap}{}\section{bloodhound\+:\+:Heap$<$ Key, Value, Compare $>$ Class Template Reference}
+\label{classbloodhound_1_1Heap}\index{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$@{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$}}
+
+
+{\ttfamily \#include $<$heap.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry}
+\begin{DoxyCompactList}\small\item\em The type of objects stored internally in the heap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbloodhound_1_1Heap_a4bfb303b963ce1fb618fe52f1c594548}{Heap} (std\+::size\+\_\+t capacity=0)
+\item 
+std\+::size\+\_\+t \hyperlink{classbloodhound_1_1Heap_a747e3e3ebfe9c41ab9a37daa9af63212}{size} ()
+\item 
+bool \hyperlink{classbloodhound_1_1Heap_aac3a949dc1e68b9cb50256dd64b0dd0e}{empty} ()
+\item 
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap_af13e8e8fe8a0ae8f683421a79d97c30a}{top} ()
+\begin{DoxyCompactList}\small\item\em Returns a copy of the top element; does not modify the heap. \end{DoxyCompactList}\item 
+void \hyperlink{classbloodhound_1_1Heap_af1ded1a305b458eae6d759b6df657632}{push} (Key key, Value value)
+\begin{DoxyCompactList}\small\item\em Adds a new element to the heap. \end{DoxyCompactList}\item 
+void \hyperlink{classbloodhound_1_1Heap_ab4abf883beaba0f75992267a6fe31133}{push\+\_\+with\+\_\+limit} (Key key, Value value, std\+::size\+\_\+t limit)
+\item 
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap_a211e187399a6b25d77a6daf309dc4dd0}{pop\+\_\+push} (Key key, Value value)
+\begin{DoxyCompactList}\small\item\em Replaces the top element with a given value and returns the former. \end{DoxyCompactList}\item 
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap_a8dd7cfa3a7829bafe05a407c36160574}{pop} ()
+\begin{DoxyCompactList}\small\item\em Returns the top element and removes it from the heap. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} $>$\+::iterator \hyperlink{classbloodhound_1_1Heap_a4f854be1d5a292ee3854373367ca89f3}{begin} ()
+\item 
+std\+::vector$<$ \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} $>$\+::iterator \hyperlink{classbloodhound_1_1Heap_acf2ab6a5ec00cd57632c5cee032cb15d}{end} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$\newline
+class bloodhound\+::\+Heap$<$ Key, Value, Compare $>$}
+
+A vector-\/based heap priority queue; a min-\/heap by default.
+
+This implementation provides an implementation of an atomic pull-\/push operation, which is faster than a pull followed by push. Additionally, it forces you to always indicate the key and the value; it makes it easier to declare heaps without a need to create separate structures sorted by the key alone\+: all the heavy lifting is implemented within the \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Heap\+::\+Entry} type.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Key} & the type of the key \\
+\hline
+{\em Value} & the type of the value \\
+\hline
+{\em Compare} & a compare type providing a weak ordering \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classbloodhound_1_1Heap_a4bfb303b963ce1fb618fe52f1c594548}\label{classbloodhound_1_1Heap_a4bfb303b963ce1fb618fe52f1c594548}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!Heap@{Heap}}
+\index{Heap@{Heap}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{Heap()}{Heap()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::\hyperlink{classbloodhound_1_1Heap}{Heap} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{capacity = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\hyperlink{classbloodhound_1_1Heap}{Heap} constructor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity} & the initial capacity of the internal vector; use whenever the (max) size is known beforehand \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classbloodhound_1_1Heap_a4f854be1d5a292ee3854373367ca89f3}\label{classbloodhound_1_1Heap_a4f854be1d5a292ee3854373367ca89f3}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!begin@{begin}}
+\index{begin@{begin}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+std\+::vector$<$\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry}$>$\+::iterator \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_aac3a949dc1e68b9cb50256dd64b0dd0e}\label{classbloodhound_1_1Heap_aac3a949dc1e68b9cb50256dd64b0dd0e}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!empty@{empty}}
+\index{empty@{empty}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_acf2ab6a5ec00cd57632c5cee032cb15d}\label{classbloodhound_1_1Heap_acf2ab6a5ec00cd57632c5cee032cb15d}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!end@{end}}
+\index{end@{end}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+std\+::vector$<$\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry}$>$\+::iterator \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_a8dd7cfa3a7829bafe05a407c36160574}\label{classbloodhound_1_1Heap_a8dd7cfa3a7829bafe05a407c36160574}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!pop@{pop}}
+\index{pop@{pop}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the top element and removes it from the heap. 
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_a211e187399a6b25d77a6daf309dc4dd0}\label{classbloodhound_1_1Heap_a211e187399a6b25d77a6daf309dc4dd0}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!pop\+\_\+push@{pop\+\_\+push}}
+\index{pop\+\_\+push@{pop\+\_\+push}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{pop\+\_\+push()}{pop\_push()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::pop\+\_\+push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Replaces the top element with a given value and returns the former. 
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_af1ded1a305b458eae6d759b6df657632}\label{classbloodhound_1_1Heap_af1ded1a305b458eae6d759b6df657632}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!push@{push}}
+\index{push@{push}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+void \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a new element to the heap. 
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_ab4abf883beaba0f75992267a6fe31133}\label{classbloodhound_1_1Heap_ab4abf883beaba0f75992267a6fe31133}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!push\+\_\+with\+\_\+limit@{push\+\_\+with\+\_\+limit}}
+\index{push\+\_\+with\+\_\+limit@{push\+\_\+with\+\_\+limit}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{push\+\_\+with\+\_\+limit()}{push\_with\_limit()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+void \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::push\+\_\+with\+\_\+limit (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value,  }\item[{std\+::size\+\_\+t}]{limit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Adds a new element to the heap unless the capacity limit is reached; in case of an overflow, the new element replaces the top element only if it is not smaller (for min-\/heap) than the current top key. \mbox{\Hypertarget{classbloodhound_1_1Heap_a747e3e3ebfe9c41ab9a37daa9af63212}\label{classbloodhound_1_1Heap_a747e3e3ebfe9c41ab9a37daa9af63212}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!size@{size}}
+\index{size@{size}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+std\+::size\+\_\+t \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1Heap_af13e8e8fe8a0ae8f683421a79d97c30a}\label{classbloodhound_1_1Heap_af13e8e8fe8a0ae8f683421a79d97c30a}} 
+\index{bloodhound\+::\+Heap@{bloodhound\+::\+Heap}!top@{top}}
+\index{top@{top}!bloodhound\+::\+Heap@{bloodhound\+::\+Heap}}
+\subsubsection{\texorpdfstring{top()}{top()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a copy of the top element; does not modify the heap. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{heap_8hpp}{heap.\+hpp}\end{DoxyCompactItemize}

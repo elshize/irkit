@@ -1,0 +1,56 @@
+\hypertarget{ngine_8cpp}{}\section{ngine.\+cpp File Reference}
+\label{ngine_8cpp}\index{ngine.\+cpp@{ngine.\+cpp}}
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include \char`\"{}daat.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}index.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}query.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}taat.\+hpp\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ngine_8cpp_ad56ac02048a828d5401f884bbbe846ab}{S\+T\+A\+TS}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::tuple$<$ Term\+Id, Score $>$ $>$ \hyperlink{ngine_8cpp_a87489cd09b789da5adbd8285a5098520}{parse\+\_\+query} (std\+::string \&query\+\_\+line)
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{ngine_8cpp_a3ef37056433b3eb491952d765d6ca4ce}{load\+\_\+titles} (fs\+::path titles\+\_\+path)
+\item 
+int \hyperlink{ngine_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{ngine_8cpp_ad56ac02048a828d5401f884bbbe846ab}\label{ngine_8cpp_ad56ac02048a828d5401f884bbbe846ab}} 
+\index{ngine.\+cpp@{ngine.\+cpp}!S\+T\+A\+TS@{S\+T\+A\+TS}}
+\index{S\+T\+A\+TS@{S\+T\+A\+TS}!ngine.\+cpp@{ngine.\+cpp}}
+\subsubsection{\texorpdfstring{S\+T\+A\+TS}{STATS}}
+{\footnotesize\ttfamily \#define S\+T\+A\+TS}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ngine_8cpp_a3ef37056433b3eb491952d765d6ca4ce}\label{ngine_8cpp_a3ef37056433b3eb491952d765d6ca4ce}} 
+\index{ngine.\+cpp@{ngine.\+cpp}!load\+\_\+titles@{load\+\_\+titles}}
+\index{load\+\_\+titles@{load\+\_\+titles}!ngine.\+cpp@{ngine.\+cpp}}
+\subsubsection{\texorpdfstring{load\+\_\+titles()}{load\_titles()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ load\+\_\+titles (\begin{DoxyParamCaption}\item[{fs\+::path}]{titles\+\_\+path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ngine_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{ngine_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{ngine.\+cpp@{ngine.\+cpp}!main@{main}}
+\index{main@{main}!ngine.\+cpp@{ngine.\+cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ngine_8cpp_a87489cd09b789da5adbd8285a5098520}\label{ngine_8cpp_a87489cd09b789da5adbd8285a5098520}} 
+\index{ngine.\+cpp@{ngine.\+cpp}!parse\+\_\+query@{parse\+\_\+query}}
+\index{parse\+\_\+query@{parse\+\_\+query}!ngine.\+cpp@{ngine.\+cpp}}
+\subsubsection{\texorpdfstring{parse\+\_\+query()}{parse\_query()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::tuple$<$Term\+Id, Score$>$ $>$ parse\+\_\+query (\begin{DoxyParamCaption}\item[{std\+::string \&}]{query\+\_\+line }\end{DoxyParamCaption})}
+

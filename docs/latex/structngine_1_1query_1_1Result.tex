@@ -1,0 +1,93 @@
+\hypertarget{structngine_1_1query_1_1Result}{}\section{ngine\+:\+:query\+:\+:Result Struct Reference}
+\label{structngine_1_1query_1_1Result}\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+
+
+{\ttfamily \#include $<$query.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structngine_1_1query_1_1Result_a4c8dd32e3e13ffc27de46483c077d99c}{Result} ()
+\item 
+\hyperlink{structngine_1_1query_1_1Result_aca94fc1de597366c47d3ab5930c029f3}{Result} (\hyperlink{structngine_1_1Doc}{Doc} d, \hyperlink{structngine_1_1Score}{Score} s)
+\item 
+bool \hyperlink{structngine_1_1query_1_1Result_a34eb1df1154ab0ab492ee95e77edf234}{operator==} (const \hyperlink{structngine_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structngine_1_1query_1_1Result_a6df5141cfffe710ff3e5b43358d94ddf}{operator$<$} (const \hyperlink{structngine_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structngine_1_1query_1_1Result_ae563d95194ce9ff905a8f4cede93c812}{operator$>$=} (const \hyperlink{structngine_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structngine_1_1query_1_1Result_a52c1869064bfd7f51476c4d8560f05f2}{operator$>$} (const \hyperlink{structngine_1_1query_1_1Result}{Result} \&rhs) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structngine_1_1Doc}{Doc} \hyperlink{structngine_1_1query_1_1Result_a5e60300ed3018f83db817b5f8c5c014c}{doc}
+\item 
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{structngine_1_1query_1_1Result_acc2d6248efc5b0b80104b61cbeb9ca7a}{score}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Search result, consisting of the document\textquotesingle{}s ID and score. Any external ID or title is excluded, you must use a title mapping to retrieve it. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_a4c8dd32e3e13ffc27de46483c077d99c}\label{structngine_1_1query_1_1Result_a4c8dd32e3e13ffc27de46483c077d99c}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!Result@{Result}}
+\index{Result@{Result}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{Result()}{Result()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ngine\+::query\+::\+Result\+::\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_aca94fc1de597366c47d3ab5930c029f3}\label{structngine_1_1query_1_1Result_aca94fc1de597366c47d3ab5930c029f3}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!Result@{Result}}
+\index{Result@{Result}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{Result()}{Result()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ngine\+::query\+::\+Result\+::\+Result (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc}}]{d,  }\item[{\hyperlink{structngine_1_1Score}{Score}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_a6df5141cfffe710ff3e5b43358d94ddf}\label{structngine_1_1query_1_1Result_a6df5141cfffe710ff3e5b43358d94ddf}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool ngine\+::query\+::\+Result\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structngine_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_a34eb1df1154ab0ab492ee95e77edf234}\label{structngine_1_1query_1_1Result_a34eb1df1154ab0ab492ee95e77edf234}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!operator==@{operator==}}
+\index{operator==@{operator==}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool ngine\+::query\+::\+Result\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{structngine_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_a52c1869064bfd7f51476c4d8560f05f2}\label{structngine_1_1query_1_1Result_a52c1869064bfd7f51476c4d8560f05f2}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily bool ngine\+::query\+::\+Result\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structngine_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_ae563d95194ce9ff905a8f4cede93c812}\label{structngine_1_1query_1_1Result_ae563d95194ce9ff905a8f4cede93c812}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$>$=()}{operator>=()}}
+{\footnotesize\ttfamily bool ngine\+::query\+::\+Result\+::operator$>$= (\begin{DoxyParamCaption}\item[{const \hyperlink{structngine_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_a5e60300ed3018f83db817b5f8c5c014c}\label{structngine_1_1query_1_1Result_a5e60300ed3018f83db817b5f8c5c014c}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!doc@{doc}}
+\index{doc@{doc}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{doc}{doc}}
+{\footnotesize\ttfamily \hyperlink{structngine_1_1Doc}{Doc} ngine\+::query\+::\+Result\+::doc}
+
+\mbox{\Hypertarget{structngine_1_1query_1_1Result_acc2d6248efc5b0b80104b61cbeb9ca7a}\label{structngine_1_1query_1_1Result_acc2d6248efc5b0b80104b61cbeb9ca7a}} 
+\index{ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}!score@{score}}
+\index{score@{score}!ngine\+::query\+::\+Result@{ngine\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily \hyperlink{structngine_1_1Score}{Score} ngine\+::query\+::\+Result\+::score}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{query_8hpp}{query.\+hpp}\end{DoxyCompactItemize}
