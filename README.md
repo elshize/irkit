@@ -1,3 +1,3 @@
 ## Documentation
 
-Please visit https://elshize.github.io/bloodhound/html/ for the Doxygen documentation.
+Please visit https://elshize.github.io/bloodhound/docs/html/ for the Doxygen documentation.
