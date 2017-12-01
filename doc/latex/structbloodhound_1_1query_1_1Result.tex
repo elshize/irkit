@@ -1,0 +1,93 @@
+\hypertarget{structbloodhound_1_1query_1_1Result}{}\section{bloodhound\+:\+:query\+:\+:Result Struct Reference}
+\label{structbloodhound_1_1query_1_1Result}\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+
+
+{\ttfamily \#include $<$query.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structbloodhound_1_1query_1_1Result_a6a9aaa804dbe3929b653b614e18408e1}{Result} ()=default
+\item 
+\hyperlink{structbloodhound_1_1query_1_1Result_ac4c15cb4d9e60b3e7bf37bd813215f55}{Result} (\hyperlink{structbloodhound_1_1Doc}{Doc} d, \hyperlink{structbloodhound_1_1Score}{Score} s)
+\item 
+bool \hyperlink{structbloodhound_1_1query_1_1Result_af7fa537e271f9f8b213e207331d5e647}{operator==} (const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1query_1_1Result_aafd7ab327a6ae26df25272b1ad1ec4c0}{operator$<$} (const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1query_1_1Result_a5af24f990ab7687d25e25b1f66dfb8a3}{operator$>$=} (const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1query_1_1Result_af04b71da89ecfa88ee4836dd82fdc058}{operator$>$} (const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&rhs) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structbloodhound_1_1Doc}{Doc} \hyperlink{structbloodhound_1_1query_1_1Result_a5f6acbb120aaf435333e410c0595962a}{doc}
+\item 
+\hyperlink{structbloodhound_1_1Score}{Score} \hyperlink{structbloodhound_1_1query_1_1Result_af9f240e486460b5130eff110b0f3c7a3}{score}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Search result, consisting of the document\textquotesingle{}s ID and score. Any external ID or title is excluded, you must use a title mapping to retrieve it. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_a6a9aaa804dbe3929b653b614e18408e1}\label{structbloodhound_1_1query_1_1Result_a6a9aaa804dbe3929b653b614e18408e1}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!Result@{Result}}
+\index{Result@{Result}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{Result()}{Result()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bloodhound\+::query\+::\+Result\+::\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_ac4c15cb4d9e60b3e7bf37bd813215f55}\label{structbloodhound_1_1query_1_1Result_ac4c15cb4d9e60b3e7bf37bd813215f55}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!Result@{Result}}
+\index{Result@{Result}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{Result()}{Result()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bloodhound\+::query\+::\+Result\+::\+Result (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{d,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_aafd7ab327a6ae26df25272b1ad1ec4c0}\label{structbloodhound_1_1query_1_1Result_aafd7ab327a6ae26df25272b1ad1ec4c0}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool bloodhound\+::query\+::\+Result\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_af7fa537e271f9f8b213e207331d5e647}\label{structbloodhound_1_1query_1_1Result_af7fa537e271f9f8b213e207331d5e647}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!operator==@{operator==}}
+\index{operator==@{operator==}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool bloodhound\+::query\+::\+Result\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_af04b71da89ecfa88ee4836dd82fdc058}\label{structbloodhound_1_1query_1_1Result_af04b71da89ecfa88ee4836dd82fdc058}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily bool bloodhound\+::query\+::\+Result\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_a5af24f990ab7687d25e25b1f66dfb8a3}\label{structbloodhound_1_1query_1_1Result_a5af24f990ab7687d25e25b1f66dfb8a3}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{operator$>$=()}{operator>=()}}
+{\footnotesize\ttfamily bool bloodhound\+::query\+::\+Result\+::operator$>$= (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1query_1_1Result}{Result} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_a5f6acbb120aaf435333e410c0595962a}\label{structbloodhound_1_1query_1_1Result_a5f6acbb120aaf435333e410c0595962a}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!doc@{doc}}
+\index{doc@{doc}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{doc}{doc}}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1Doc}{Doc} bloodhound\+::query\+::\+Result\+::doc}
+
+\mbox{\Hypertarget{structbloodhound_1_1query_1_1Result_af9f240e486460b5130eff110b0f3c7a3}\label{structbloodhound_1_1query_1_1Result_af9f240e486460b5130eff110b0f3c7a3}} 
+\index{bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}!score@{score}}
+\index{score@{score}!bloodhound\+::query\+::\+Result@{bloodhound\+::query\+::\+Result}}
+\subsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1Score}{Score} bloodhound\+::query\+::\+Result\+::score}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{query_8hpp}{query.\+hpp}\end{DoxyCompactItemize}

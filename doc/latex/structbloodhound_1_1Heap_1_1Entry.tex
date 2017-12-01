@@ -1,0 +1,133 @@
+\hypertarget{structbloodhound_1_1Heap_1_1Entry}{}\section{bloodhound\+:\+:Heap$<$ Key, Value, Compare $>$\+:\+:Entry Struct Reference}
+\label{structbloodhound_1_1Heap_1_1Entry}\index{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$\+::\+Entry@{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$\+::\+Entry}}
+
+
+The type of objects stored internally in the heap.  
+
+
+
+
+{\ttfamily \#include $<$heap.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structbloodhound_1_1Heap_1_1Entry_ad445248902c7d7f3e79bf58acf24e58b}{Entry} ()=default
+\item 
+\hyperlink{structbloodhound_1_1Heap_1_1Entry_a66cc03955b70ebbadf7536f6ebf963f2}{Entry} (Key \hyperlink{structbloodhound_1_1Heap_1_1Entry_abc30d59b3c7bd01c36df918c8a2dd597}{key}, Value \hyperlink{structbloodhound_1_1Heap_1_1Entry_a4f777f54235490b4eb2f0f3af22b9c8b}{value})
+\item 
+bool \hyperlink{structbloodhound_1_1Heap_1_1Entry_a83880fd9d00a65e577e75f6dacee0322}{operator==} (const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1Heap_1_1Entry_a17049d7313c3c1cd51f9c684ddb50500}{operator$<$} (const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1Heap_1_1Entry_a5425815681ee88c97babbee6e9b8c0eb}{operator$>$} (const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1Heap_1_1Entry_a334618ef77d48b67a148d2f7414416e2}{operator$<$=} (const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&rhs) const
+\item 
+bool \hyperlink{structbloodhound_1_1Heap_1_1Entry_ae6c13b04614fc5bc287577d83a524831}{operator$>$=} (const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&rhs) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Key \hyperlink{structbloodhound_1_1Heap_1_1Entry_abc30d59b3c7bd01c36df918c8a2dd597}{key}
+\item 
+Value \hyperlink{structbloodhound_1_1Heap_1_1Entry_a4f777f54235490b4eb2f0f3af22b9c8b}{value}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \hyperlink{structbloodhound_1_1Heap_1_1Entry_a885f1645de32df3dbfbf9f2f47f7ea1f}{operator$<$$<$} (std\+::ostream \&os, \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&he)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$\newline
+struct bloodhound\+::\+Heap$<$ Key, Value, Compare $>$\+::\+Entry}
+
+The type of objects stored internally in the heap. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_ad445248902c7d7f3e79bf58acf24e58b}\label{structbloodhound_1_1Heap_1_1Entry_ad445248902c7d7f3e79bf58acf24e58b}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!Entry@{Entry}}
+\index{Entry@{Entry}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{Entry()}{Entry()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a66cc03955b70ebbadf7536f6ebf963f2}\label{structbloodhound_1_1Heap_1_1Entry_a66cc03955b70ebbadf7536f6ebf963f2}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!Entry@{Entry}}
+\index{Entry@{Entry}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{Entry()}{Entry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+\hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::\+Entry (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a17049d7313c3c1cd51f9c684ddb50500}\label{structbloodhound_1_1Heap_1_1Entry_a17049d7313c3c1cd51f9c684ddb50500}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a334618ef77d48b67a148d2f7414416e2}\label{structbloodhound_1_1Heap_1_1Entry_a334618ef77d48b67a148d2f7414416e2}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator$<$=@{operator$<$=}}
+\index{operator$<$=@{operator$<$=}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator$<$=()}{operator<=()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::operator$<$= (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a83880fd9d00a65e577e75f6dacee0322}\label{structbloodhound_1_1Heap_1_1Entry_a83880fd9d00a65e577e75f6dacee0322}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator==@{operator==}}
+\index{operator==@{operator==}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a5425815681ee88c97babbee6e9b8c0eb}\label{structbloodhound_1_1Heap_1_1Entry_a5425815681ee88c97babbee6e9b8c0eb}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_ae6c13b04614fc5bc287577d83a524831}\label{structbloodhound_1_1Heap_1_1Entry_ae6c13b04614fc5bc287577d83a524831}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator$>$=()}{operator>=()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+bool \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::operator$>$= (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a885f1645de32df3dbfbf9f2f47f7ea1f}\label{structbloodhound_1_1Heap_1_1Entry_a885f1645de32df3dbfbf9f2f47f7ea1f}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{\hyperlink{structbloodhound_1_1Heap_1_1Entry}{Entry} \&}]{he }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_abc30d59b3c7bd01c36df918c8a2dd597}\label{structbloodhound_1_1Heap_1_1Entry_abc30d59b3c7bd01c36df918c8a2dd597}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!key@{key}}
+\index{key@{key}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+Key \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::key}
+
+\mbox{\Hypertarget{structbloodhound_1_1Heap_1_1Entry_a4f777f54235490b4eb2f0f3af22b9c8b}\label{structbloodhound_1_1Heap_1_1Entry_a4f777f54235490b4eb2f0f3af22b9c8b}} 
+\index{bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}!value@{value}}
+\index{value@{value}!bloodhound\+::\+Heap\+::\+Entry@{bloodhound\+::\+Heap\+::\+Entry}}
+\subsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$$>$ \\
+Value \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap}$<$ Key, Value, Compare $>$\+::Entry\+::value}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{heap_8hpp}{heap.\+hpp}\end{DoxyCompactItemize}

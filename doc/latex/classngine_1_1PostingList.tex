@@ -1,0 +1,178 @@
+\hypertarget{classngine_1_1PostingList}{}\section{ngine\+:\+:Posting\+List Class Reference}
+\label{classngine_1_1PostingList}\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+
+
+{\ttfamily \#include $<$index.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classngine_1_1PostingList_ae1fe89ac9f77d8f73083fa71ed3abcfd}{Posting\+List} (\hyperlink{structngine_1_1Doc}{Doc} $\ast$d, \hyperlink{structngine_1_1Score}{Score} $\ast$s, uint32\+\_\+t l)
+\item 
+\hyperlink{classngine_1_1PostingList_a3c6df1462eaf6e8037871941dc667df8}{Posting\+List} (\hyperlink{structngine_1_1Doc}{Doc} $\ast$d, \hyperlink{structngine_1_1Score}{Score} $\ast$s, uint32\+\_\+t l, \hyperlink{structngine_1_1Score}{Score} ms)
+\item 
+std\+::size\+\_\+t \hyperlink{classngine_1_1PostingList_a26b18cbed78dd66dab739abef4d8db64}{length} () const
+\item 
+bool \hyperlink{classngine_1_1PostingList_a1da152c2368b34a2c5d00acae4a57284}{empty} () const
+\item 
+\hyperlink{structngine_1_1Doc}{Doc} \hyperlink{classngine_1_1PostingList_a25beb7e8eba030e57290f72277ab6893}{current\+\_\+doc} () const
+\item 
+\hyperlink{structngine_1_1Score}{Score} \hyperlink{classngine_1_1PostingList_a028af2db5a5232f15a12e914c13be902}{current\+\_\+score} () const
+\item 
+std\+::tuple$<$ \hyperlink{structngine_1_1Doc}{Doc}, \hyperlink{structngine_1_1Score}{Score} $>$ \hyperlink{classngine_1_1PostingList_a4b286d31784bd384865e981e4e27815e}{current\+\_\+tuple} () const
+\item 
+void \hyperlink{classngine_1_1PostingList_a1420be319189871bbb7f7514dc20a312}{increment} ()
+\item 
+void \hyperlink{classngine_1_1PostingList_ad4d7f09342e73fd944be41e324ff90c5}{next\+\_\+ge} (\hyperlink{structngine_1_1Doc}{Doc} doc)
+\item 
+Posting\+List\+Iterator \hyperlink{classngine_1_1PostingList_abec7714715aa8bc59ff3df232e2083a3}{begin} () const
+\item 
+Posting\+List\+Iterator \hyperlink{classngine_1_1PostingList_a2ff54c421c572d7c45dea2debc76e573}{end} () const
+\item 
+auto \hyperlink{classngine_1_1PostingList_a99364a59a6078e1a58d29c4246872d47}{doc\+\_\+begin} () const
+\item 
+auto \hyperlink{classngine_1_1PostingList_a69d22ec64820b204c5446429ae0f2631}{doc\+\_\+end} () const
+\item 
+auto \hyperlink{classngine_1_1PostingList_ae40f0a86bb9ea55ee42015ff64e4344a}{score\+\_\+begin} () const
+\item 
+auto \hyperlink{classngine_1_1PostingList_a1a16e66065722828d2c2fed0029bb7d8}{score\+\_\+end} () const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+gsl\+::span$<$ \hyperlink{structngine_1_1Doc}{Doc} $>$ \hyperlink{classngine_1_1PostingList_a576b13bd7cd2ff09b8795424ba484a7a}{docs}
+\item 
+gsl\+::span$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \hyperlink{classngine_1_1PostingList_afbb6ea1aacb70cf1f63cc326ab152606}{scores}
+\item 
+std\+::optional$<$ \hyperlink{structngine_1_1Score}{Score} $>$ \hyperlink{classngine_1_1PostingList_a11449cec5e29b130a17a001d9b7c93e9}{max\+\_\+score}
+\item 
+std\+::size\+\_\+t \hyperlink{classngine_1_1PostingList_af30eae543501057e70288d14477896a5}{idx}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classngine_1_1PostingList_ae1fe89ac9f77d8f73083fa71ed3abcfd}\label{classngine_1_1PostingList_ae1fe89ac9f77d8f73083fa71ed3abcfd}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!Posting\+List@{Posting\+List}}
+\index{Posting\+List@{Posting\+List}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{Posting\+List()}{PostingList()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily ngine\+::\+Posting\+List\+::\+Posting\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc} $\ast$}]{d,  }\item[{\hyperlink{structngine_1_1Score}{Score} $\ast$}]{s,  }\item[{uint32\+\_\+t}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a3c6df1462eaf6e8037871941dc667df8}\label{classngine_1_1PostingList_a3c6df1462eaf6e8037871941dc667df8}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!Posting\+List@{Posting\+List}}
+\index{Posting\+List@{Posting\+List}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{Posting\+List()}{PostingList()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily ngine\+::\+Posting\+List\+::\+Posting\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc} $\ast$}]{d,  }\item[{\hyperlink{structngine_1_1Score}{Score} $\ast$}]{s,  }\item[{uint32\+\_\+t}]{l,  }\item[{\hyperlink{structngine_1_1Score}{Score}}]{ms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classngine_1_1PostingList_abec7714715aa8bc59ff3df232e2083a3}\label{classngine_1_1PostingList_abec7714715aa8bc59ff3df232e2083a3}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!begin@{begin}}
+\index{begin@{begin}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily Posting\+List\+Iterator ngine\+::\+Posting\+List\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a25beb7e8eba030e57290f72277ab6893}\label{classngine_1_1PostingList_a25beb7e8eba030e57290f72277ab6893}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!current\+\_\+doc@{current\+\_\+doc}}
+\index{current\+\_\+doc@{current\+\_\+doc}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{current\+\_\+doc()}{current\_doc()}}
+{\footnotesize\ttfamily \hyperlink{structngine_1_1Doc}{Doc} ngine\+::\+Posting\+List\+::current\+\_\+doc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a028af2db5a5232f15a12e914c13be902}\label{classngine_1_1PostingList_a028af2db5a5232f15a12e914c13be902}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!current\+\_\+score@{current\+\_\+score}}
+\index{current\+\_\+score@{current\+\_\+score}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{current\+\_\+score()}{current\_score()}}
+{\footnotesize\ttfamily \hyperlink{structngine_1_1Score}{Score} ngine\+::\+Posting\+List\+::current\+\_\+score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a4b286d31784bd384865e981e4e27815e}\label{classngine_1_1PostingList_a4b286d31784bd384865e981e4e27815e}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!current\+\_\+tuple@{current\+\_\+tuple}}
+\index{current\+\_\+tuple@{current\+\_\+tuple}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{current\+\_\+tuple()}{current\_tuple()}}
+{\footnotesize\ttfamily std\+::tuple$<$\hyperlink{structngine_1_1Doc}{Doc}, \hyperlink{structngine_1_1Score}{Score}$>$ ngine\+::\+Posting\+List\+::current\+\_\+tuple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a99364a59a6078e1a58d29c4246872d47}\label{classngine_1_1PostingList_a99364a59a6078e1a58d29c4246872d47}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!doc\+\_\+begin@{doc\+\_\+begin}}
+\index{doc\+\_\+begin@{doc\+\_\+begin}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{doc\+\_\+begin()}{doc\_begin()}}
+{\footnotesize\ttfamily auto ngine\+::\+Posting\+List\+::doc\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a69d22ec64820b204c5446429ae0f2631}\label{classngine_1_1PostingList_a69d22ec64820b204c5446429ae0f2631}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!doc\+\_\+end@{doc\+\_\+end}}
+\index{doc\+\_\+end@{doc\+\_\+end}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{doc\+\_\+end()}{doc\_end()}}
+{\footnotesize\ttfamily auto ngine\+::\+Posting\+List\+::doc\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a1da152c2368b34a2c5d00acae4a57284}\label{classngine_1_1PostingList_a1da152c2368b34a2c5d00acae4a57284}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!empty@{empty}}
+\index{empty@{empty}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool ngine\+::\+Posting\+List\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a2ff54c421c572d7c45dea2debc76e573}\label{classngine_1_1PostingList_a2ff54c421c572d7c45dea2debc76e573}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!end@{end}}
+\index{end@{end}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily Posting\+List\+Iterator ngine\+::\+Posting\+List\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a1420be319189871bbb7f7514dc20a312}\label{classngine_1_1PostingList_a1420be319189871bbb7f7514dc20a312}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!increment@{increment}}
+\index{increment@{increment}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{increment()}{increment()}}
+{\footnotesize\ttfamily void ngine\+::\+Posting\+List\+::increment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a26b18cbed78dd66dab739abef4d8db64}\label{classngine_1_1PostingList_a26b18cbed78dd66dab739abef4d8db64}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!length@{length}}
+\index{length@{length}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily std\+::size\+\_\+t ngine\+::\+Posting\+List\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_ad4d7f09342e73fd944be41e324ff90c5}\label{classngine_1_1PostingList_ad4d7f09342e73fd944be41e324ff90c5}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!next\+\_\+ge@{next\+\_\+ge}}
+\index{next\+\_\+ge@{next\+\_\+ge}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{next\+\_\+ge()}{next\_ge()}}
+{\footnotesize\ttfamily void ngine\+::\+Posting\+List\+::next\+\_\+ge (\begin{DoxyParamCaption}\item[{\hyperlink{structngine_1_1Doc}{Doc}}]{doc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_ae40f0a86bb9ea55ee42015ff64e4344a}\label{classngine_1_1PostingList_ae40f0a86bb9ea55ee42015ff64e4344a}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!score\+\_\+begin@{score\+\_\+begin}}
+\index{score\+\_\+begin@{score\+\_\+begin}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{score\+\_\+begin()}{score\_begin()}}
+{\footnotesize\ttfamily auto ngine\+::\+Posting\+List\+::score\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a1a16e66065722828d2c2fed0029bb7d8}\label{classngine_1_1PostingList_a1a16e66065722828d2c2fed0029bb7d8}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!score\+\_\+end@{score\+\_\+end}}
+\index{score\+\_\+end@{score\+\_\+end}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{score\+\_\+end()}{score\_end()}}
+{\footnotesize\ttfamily auto ngine\+::\+Posting\+List\+::score\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classngine_1_1PostingList_a576b13bd7cd2ff09b8795424ba484a7a}\label{classngine_1_1PostingList_a576b13bd7cd2ff09b8795424ba484a7a}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!docs@{docs}}
+\index{docs@{docs}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{docs}{docs}}
+{\footnotesize\ttfamily gsl\+::span$<$\hyperlink{structngine_1_1Doc}{Doc}$>$ ngine\+::\+Posting\+List\+::docs}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_af30eae543501057e70288d14477896a5}\label{classngine_1_1PostingList_af30eae543501057e70288d14477896a5}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!idx@{idx}}
+\index{idx@{idx}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{idx}{idx}}
+{\footnotesize\ttfamily std\+::size\+\_\+t ngine\+::\+Posting\+List\+::idx}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_a11449cec5e29b130a17a001d9b7c93e9}\label{classngine_1_1PostingList_a11449cec5e29b130a17a001d9b7c93e9}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!max\+\_\+score@{max\+\_\+score}}
+\index{max\+\_\+score@{max\+\_\+score}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{max\+\_\+score}{max\_score}}
+{\footnotesize\ttfamily std\+::optional$<$\hyperlink{structngine_1_1Score}{Score}$>$ ngine\+::\+Posting\+List\+::max\+\_\+score}
+
+\mbox{\Hypertarget{classngine_1_1PostingList_afbb6ea1aacb70cf1f63cc326ab152606}\label{classngine_1_1PostingList_afbb6ea1aacb70cf1f63cc326ab152606}} 
+\index{ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}!scores@{scores}}
+\index{scores@{scores}!ngine\+::\+Posting\+List@{ngine\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{scores}{scores}}
+{\footnotesize\ttfamily gsl\+::span$<$\hyperlink{structngine_1_1Score}{Score}$>$ ngine\+::\+Posting\+List\+::scores}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{index_8hpp}{index.\+hpp}\end{DoxyCompactItemize}
