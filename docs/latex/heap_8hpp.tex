@@ -3,22 +3,34 @@
 {\ttfamily \#include $<$functional$>$}\newline
 {\ttfamily \#include $<$gsl/span$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classbloodhound_1_1Heap}{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$}
+struct \hyperlink{structskit_1_1has__default__constructor}{skit\+::has\+\_\+default\+\_\+constructor$<$ T, typename $>$}
 \item 
-struct \hyperlink{structbloodhound_1_1Heap_1_1Entry}{bloodhound\+::\+Heap$<$ Key, Value, Compare $>$\+::\+Entry}
-\begin{DoxyCompactList}\small\item\em The type of objects stored internally in the heap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \hyperlink{structskit_1_1has__default__constructor_3_01T_00_01void__t_3_01decltype_07std_1_1declval_3_01T_01_6_01_4_07_08_08_4_01_4}{skit\+::has\+\_\+default\+\_\+constructor$<$ T, void\+\_\+t$<$ decltype(std\+::declval$<$ T \& $>$())$>$ $>$}
+\item 
+class \hyperlink{classskit_1_1EmptyMapping}{skit\+::\+Empty\+Mapping}
+\item 
+struct \hyperlink{structskit_1_1Entry}{skit\+::\+Entry$<$ Key, Value $>$}
+\begin{DoxyCompactList}\small\item\em The type of objects stored internally in the heap. \end{DoxyCompactList}\item 
+class \hyperlink{classskit_1_1Heap}{skit\+::\+Heap$<$ Key, Value, Compare, Mapping $>$}
+\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespacebloodhound}{bloodhound}
+ \hyperlink{namespaceskit}{skit}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\using \hyperlink{namespaceskit_a827cfc47784c1ce9cc3e7c583ac3b1cb}{skit\+::void\+\_\+t} = void
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Key , class Value $>$ }\\Heap$<$ Key, Value $>$\+::Entry \hyperlink{namespacebloodhound_a64cca068dad32570cb036b6057cc86b6}{bloodhound\+::make\+\_\+entry} (Key key, Value value)
+{\footnotesize template$<$class Key , class Value $>$ }\\Entry$<$ Key, Value $>$ \hyperlink{namespaceskit_a33324a7bd87ff2a6800c5b530cb46a7f}{skit\+::make\+\_\+entry} (Key key, Value value)
 \end{DoxyCompactItemize}

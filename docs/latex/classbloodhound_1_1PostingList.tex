@@ -7,12 +7,12 @@
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+struct \hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator}
+\item 
 struct \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator}
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
-\item 
-\hyperlink{classbloodhound_1_1PostingList_aec7755e1f3b276b65f474fb1d85620a7}{Posting\+List} (\hyperlink{structbloodhound_1_1Doc}{Doc} $\ast$d, \hyperlink{structbloodhound_1_1Score}{Score} $\ast$s, uint32\+\_\+t l)
 \item 
 \hyperlink{classbloodhound_1_1PostingList_a725f1df76c8278f1d927fff3ed4c496e}{Posting\+List} (\hyperlink{structbloodhound_1_1Doc}{Doc} $\ast$d, \hyperlink{structbloodhound_1_1Score}{Score} $\ast$s, uint32\+\_\+t l, \hyperlink{structbloodhound_1_1Score}{Score} ms)
 \item 
@@ -22,17 +22,23 @@ bool \hyperlink{classbloodhound_1_1PostingList_a28ec60331aec6acaa9c281d4d412bf26
 \item 
 \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} \hyperlink{classbloodhound_1_1PostingList_abd082192a0339062d318de73c95f1ee5}{next\+\_\+ge} (\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} current, \hyperlink{structbloodhound_1_1Doc}{Doc} doc) const
 \item 
+\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} \hyperlink{classbloodhound_1_1PostingList_aae5c35208d6fb36f611f952ba57add0f}{next\+\_\+ge} (\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} current, \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} \hyperlink{classbloodhound_1_1PostingList_a2e1f899bd04ae64e1318494d358ade94}{end}, \hyperlink{structbloodhound_1_1Doc}{Doc} doc) const
+\item 
 virtual \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} \hyperlink{classbloodhound_1_1PostingList_a274f57f133cd6763e0d8cc3e00fa1be3}{begin} () const
 \item 
 virtual \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} \hyperlink{classbloodhound_1_1PostingList_a2e1f899bd04ae64e1318494d358ade94}{end} () const
 \item 
-virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Doc}{Doc} $>$\+::const\+\_\+iterator \hyperlink{classbloodhound_1_1PostingList_aac3dbe7fbf43ce93031e97b16bcfc888}{doc\+\_\+begin} () const
+virtual \hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_a44980317210bfe6c9f7d59dbea1cbd4a}{cbegin} () const
 \item 
-virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Doc}{Doc} $>$\+::const\+\_\+iterator \hyperlink{classbloodhound_1_1PostingList_aac468540b0a376d9b378a4333546245c}{doc\+\_\+end} () const
+virtual \hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_a7eca0ae1f54ddc48757a4fb3c0b885ce}{cend} () const
 \item 
-virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$\+::const\+\_\+iterator \hyperlink{classbloodhound_1_1PostingList_aec5d5bb81622fb64d7b64416a8491456}{score\+\_\+begin} () const
+virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Doc}{Doc} $>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_aac3dbe7fbf43ce93031e97b16bcfc888}{doc\+\_\+begin} () const
 \item 
-virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$\+::const\+\_\+iterator \hyperlink{classbloodhound_1_1PostingList_ae89abf9882f73f35a6e106c5a328ca6f}{score\+\_\+end} () const
+virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Doc}{Doc} $>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_aac468540b0a376d9b378a4333546245c}{doc\+\_\+end} () const
+\item 
+virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_aec5d5bb81622fb64d7b64416a8491456}{score\+\_\+begin} () const
+\item 
+virtual gsl\+::span$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classbloodhound_1_1PostingList_ae89abf9882f73f35a6e106c5a328ca6f}{score\+\_\+end} () const
 \item 
 void \hyperlink{classbloodhound_1_1PostingList_a3c9d6c5e88a7aae2642ff1d0f52160c0}{make\+\_\+et} (double et\+\_\+threshold)
 \item 
@@ -47,7 +53,7 @@ gsl\+::span$<$ \hyperlink{structbloodhound_1_1Doc}{Doc} $>$ \hyperlink{classbloo
 \item 
 gsl\+::span$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \hyperlink{classbloodhound_1_1PostingList_a2c773bffa3d78d2e7a7e04d918b064da}{scores}
 \item 
-std\+::optional$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \hyperlink{classbloodhound_1_1PostingList_acf53d7e16fd974982801783dce7127d4}{max\+\_\+score}
+\hyperlink{structbloodhound_1_1Score}{Score} \hyperlink{classbloodhound_1_1PostingList_ab840a6f9ddf8de353cbdd09b3a184bfa}{max\+\_\+score}
 \item 
 std\+::size\+\_\+t \hyperlink{classbloodhound_1_1PostingList_a9aa9a9d1db46c6858fa952a36e1bf8fa}{idx}
 \item 
@@ -56,16 +62,10 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1PostingList_a7c4d53dfa824951670
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classbloodhound_1_1PostingList_aec7755e1f3b276b65f474fb1d85620a7}\label{classbloodhound_1_1PostingList_aec7755e1f3b276b65f474fb1d85620a7}} 
-\index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!Posting\+List@{Posting\+List}}
-\index{Posting\+List@{Posting\+List}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
-\subsubsection{\texorpdfstring{Posting\+List()}{PostingList()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily bloodhound\+::\+Posting\+List\+::\+Posting\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc} $\ast$}]{d,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score} $\ast$}]{s,  }\item[{uint32\+\_\+t}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_a725f1df76c8278f1d927fff3ed4c496e}\label{classbloodhound_1_1PostingList_a725f1df76c8278f1d927fff3ed4c496e}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!Posting\+List@{Posting\+List}}
 \index{Posting\+List@{Posting\+List}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
-\subsubsection{\texorpdfstring{Posting\+List()}{PostingList()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{\texorpdfstring{Posting\+List()}{PostingList()}}
 {\footnotesize\ttfamily bloodhound\+::\+Posting\+List\+::\+Posting\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc} $\ast$}]{d,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score} $\ast$}]{s,  }\item[{uint32\+\_\+t}]{l,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score}}]{ms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -77,17 +77,29 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1PostingList_a7c4d53dfa824951670
 \subsubsection{\texorpdfstring{begin()}{begin()}}
 {\footnotesize\ttfamily virtual \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} bloodhound\+::\+Posting\+List\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
+\mbox{\Hypertarget{classbloodhound_1_1PostingList_a44980317210bfe6c9f7d59dbea1cbd4a}\label{classbloodhound_1_1PostingList_a44980317210bfe6c9f7d59dbea1cbd4a}} 
+\index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily virtual \hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1PostingList_a7eca0ae1f54ddc48757a4fb3c0b885ce}\label{classbloodhound_1_1PostingList_a7eca0ae1f54ddc48757a4fb3c0b885ce}} 
+\index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!cend@{cend}}
+\index{cend@{cend}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily virtual \hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_aac3dbe7fbf43ce93031e97b16bcfc888}\label{classbloodhound_1_1PostingList_aac3dbe7fbf43ce93031e97b16bcfc888}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!doc\+\_\+begin@{doc\+\_\+begin}}
 \index{doc\+\_\+begin@{doc\+\_\+begin}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
 \subsubsection{\texorpdfstring{doc\+\_\+begin()}{doc\_begin()}}
-{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Doc}{Doc}$>$\+::const\+\_\+iterator bloodhound\+::\+Posting\+List\+::doc\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Doc}{Doc}$>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::doc\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_aac468540b0a376d9b378a4333546245c}\label{classbloodhound_1_1PostingList_aac468540b0a376d9b378a4333546245c}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!doc\+\_\+end@{doc\+\_\+end}}
 \index{doc\+\_\+end@{doc\+\_\+end}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
 \subsubsection{\texorpdfstring{doc\+\_\+end()}{doc\_end()}}
-{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Doc}{Doc}$>$\+::const\+\_\+iterator bloodhound\+::\+Posting\+List\+::doc\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Doc}{Doc}$>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::doc\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_acfca9e8ad1fd94461b56390fdd60779f}\label{classbloodhound_1_1PostingList_acfca9e8ad1fd94461b56390fdd60779f}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!docs\+\_\+ptr@{docs\+\_\+ptr}}
@@ -122,20 +134,26 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1PostingList_a7c4d53dfa824951670
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_abd082192a0339062d318de73c95f1ee5}\label{classbloodhound_1_1PostingList_abd082192a0339062d318de73c95f1ee5}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!next\+\_\+ge@{next\+\_\+ge}}
 \index{next\+\_\+ge@{next\+\_\+ge}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
-\subsubsection{\texorpdfstring{next\+\_\+ge()}{next\_ge()}}
+\subsubsection{\texorpdfstring{next\+\_\+ge()}{next\_ge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} bloodhound\+::\+Posting\+List\+::next\+\_\+ge (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator}}]{current,  }\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1PostingList_aae5c35208d6fb36f611f952ba57add0f}\label{classbloodhound_1_1PostingList_aae5c35208d6fb36f611f952ba57add0f}} 
+\index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!next\+\_\+ge@{next\+\_\+ge}}
+\index{next\+\_\+ge@{next\+\_\+ge}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
+\subsubsection{\texorpdfstring{next\+\_\+ge()}{next\_ge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator} bloodhound\+::\+Posting\+List\+::next\+\_\+ge (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator}}]{current,  }\item[{\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{iterator}}]{end,  }\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_aec5d5bb81622fb64d7b64416a8491456}\label{classbloodhound_1_1PostingList_aec5d5bb81622fb64d7b64416a8491456}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!score\+\_\+begin@{score\+\_\+begin}}
 \index{score\+\_\+begin@{score\+\_\+begin}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
 \subsubsection{\texorpdfstring{score\+\_\+begin()}{score\_begin()}}
-{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$\+::const\+\_\+iterator bloodhound\+::\+Posting\+List\+::score\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::score\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_ae89abf9882f73f35a6e106c5a328ca6f}\label{classbloodhound_1_1PostingList_ae89abf9882f73f35a6e106c5a328ca6f}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!score\+\_\+end@{score\+\_\+end}}
 \index{score\+\_\+end@{score\+\_\+end}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
 \subsubsection{\texorpdfstring{score\+\_\+end()}{score\_end()}}
-{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$\+::const\+\_\+iterator bloodhound\+::\+Posting\+List\+::score\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual gsl\+::span$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$\+::\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{const\+\_\+iterator} bloodhound\+::\+Posting\+List\+::score\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_a79be9c874bb91e17ca308ae0528e9277}\label{classbloodhound_1_1PostingList_a79be9c874bb91e17ca308ae0528e9277}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!scores\+\_\+ptr@{scores\+\_\+ptr}}
@@ -164,11 +182,11 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1PostingList_a7c4d53dfa824951670
 \subsubsection{\texorpdfstring{idx}{idx}}
 {\footnotesize\ttfamily std\+::size\+\_\+t bloodhound\+::\+Posting\+List\+::idx}
 
-\mbox{\Hypertarget{classbloodhound_1_1PostingList_acf53d7e16fd974982801783dce7127d4}\label{classbloodhound_1_1PostingList_acf53d7e16fd974982801783dce7127d4}} 
+\mbox{\Hypertarget{classbloodhound_1_1PostingList_ab840a6f9ddf8de353cbdd09b3a184bfa}\label{classbloodhound_1_1PostingList_ab840a6f9ddf8de353cbdd09b3a184bfa}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!max\+\_\+score@{max\+\_\+score}}
 \index{max\+\_\+score@{max\+\_\+score}!bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}}
 \subsubsection{\texorpdfstring{max\+\_\+score}{max\_score}}
-{\footnotesize\ttfamily std\+::optional$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$ bloodhound\+::\+Posting\+List\+::max\+\_\+score}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1Score}{Score} bloodhound\+::\+Posting\+List\+::max\+\_\+score}
 
 \mbox{\Hypertarget{classbloodhound_1_1PostingList_a2c773bffa3d78d2e7a7e04d918b064da}\label{classbloodhound_1_1PostingList_a2c773bffa3d78d2e7a7e04d918b064da}} 
 \index{bloodhound\+::\+Posting\+List@{bloodhound\+::\+Posting\+List}!scores@{scores}}

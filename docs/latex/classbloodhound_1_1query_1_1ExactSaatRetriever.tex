@@ -17,7 +17,7 @@ Inheritance diagram for bloodhound\+:\+:query\+:\+:Exact\+Saat\+Retriever$<$ Pos
 \item 
 std\+::size\+\_\+t \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a21f4192190392fee8d8b12b99c6bbe0e}{count\+\_\+postings} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings)
 \item 
-virtual \hyperlink{classbloodhound_1_1Heap}{Heap}$<$ \hyperlink{structbloodhound_1_1Score}{Score}, unsigned int $>$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aeadc34f7b5116c79d723cb39e673c6ff}{post\+\_\+lists\+\_\+by\+\_\+score} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights)
+virtual irkit\+::\+Heap$<$ \hyperlink{structbloodhound_1_1Score}{Score}, unsigned int $>$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a180277ad96862e92c102066586edc74f}{post\+\_\+lists\+\_\+by\+\_\+score} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights)
 \item 
 virtual std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{Result} $>$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}{retrieve} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights, std\+::size\+\_\+t k)
 \begin{DoxyCompactList}\small\item\em Retrieves top-\/k results for the given posting lists and term weights. \end{DoxyCompactList}\item 
@@ -28,6 +28,8 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a5d
 std\+::size\+\_\+t \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a43b6bd8cdc3a64c5eabf778230c53419}{get\+\_\+posting\+\_\+count} ()
 \item 
 void \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a78016cfffe921ed440dec62c6f82f4cc}{set\+\_\+et\+\_\+threshold} (double et)
+\item 
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a716838f463f124964e76f48bc37d32cc}{stats} ()
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
@@ -71,12 +73,12 @@ std\+::size\+\_\+t \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bl
 {\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
 std\+::size\+\_\+t \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::get\+\_\+processed\+\_\+postings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classbloodhound_1_1query_1_1ExactSaatRetriever_aeadc34f7b5116c79d723cb39e673c6ff}\label{classbloodhound_1_1query_1_1ExactSaatRetriever_aeadc34f7b5116c79d723cb39e673c6ff}} 
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ExactSaatRetriever_a180277ad96862e92c102066586edc74f}\label{classbloodhound_1_1query_1_1ExactSaatRetriever_a180277ad96862e92c102066586edc74f}} 
 \index{bloodhound\+::query\+::\+Exact\+Saat\+Retriever@{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}!post\+\_\+lists\+\_\+by\+\_\+score@{post\+\_\+lists\+\_\+by\+\_\+score}}
 \index{post\+\_\+lists\+\_\+by\+\_\+score@{post\+\_\+lists\+\_\+by\+\_\+score}!bloodhound\+::query\+::\+Exact\+Saat\+Retriever@{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}}
 \subsubsection{\texorpdfstring{post\+\_\+lists\+\_\+by\+\_\+score()}{post\_lists\_by\_score()}}
 {\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
-virtual \hyperlink{classbloodhound_1_1Heap}{Heap}$<$\hyperlink{structbloodhound_1_1Score}{Score}, unsigned int$>$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::post\+\_\+lists\+\_\+by\+\_\+score (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&}]{term\+\_\+weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+virtual irkit\+::\+Heap$<$\hyperlink{structbloodhound_1_1Score}{Score}, unsigned int$>$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::post\+\_\+lists\+\_\+by\+\_\+score (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&}]{term\+\_\+weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 \mbox{\Hypertarget{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}\label{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}} 
 \index{bloodhound\+::query\+::\+Exact\+Saat\+Retriever@{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}!retrieve@{retrieve}}
@@ -99,6 +101,17 @@ Reimplemented from \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_ab80b486
 \subsubsection{\texorpdfstring{set\+\_\+et\+\_\+threshold()}{set\_et\_threshold()}}
 {\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
 void \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::set\+\_\+et\+\_\+threshold (\begin{DoxyParamCaption}\item[{double}]{et }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ExactSaatRetriever_a716838f463f124964e76f48bc37d32cc}\label{classbloodhound_1_1query_1_1ExactSaatRetriever_a716838f463f124964e76f48bc37d32cc}} 
+\index{bloodhound\+::query\+::\+Exact\+Saat\+Retriever@{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}!stats@{stats}}
+\index{stats@{stats}!bloodhound\+::query\+::\+Exact\+Saat\+Retriever@{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}}
+\subsubsection{\texorpdfstring{stats()}{stats()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \hyperlink{classbloodhound_1_1query_1_1Retriever_a58da32a5139b980ba874f8b5e6bb89ec}{bloodhound\+::query\+::\+Retriever$<$ Posting\+List $>$}.
 
 
 

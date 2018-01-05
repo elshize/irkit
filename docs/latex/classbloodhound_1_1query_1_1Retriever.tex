@@ -12,14 +12,16 @@ A base abstract super-\/class of all document retrievers.
 Inheritance diagram for bloodhound\+:\+:query\+:\+:Retriever$<$ Posting\+List $>$\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=0.678788cm]{classbloodhound_1_1query_1_1Retriever}
+\includegraphics[height=0.484848cm]{classbloodhound_1_1query_1_1Retriever}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 virtual std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{Result} $>$ \hyperlink{classbloodhound_1_1query_1_1Retriever_ae3c6a4628c5580e620c213b3dcd47c2b}{retrieve} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights, std\+::size\+\_\+t k)=0
-\begin{DoxyCompactList}\small\item\em Retrieves top-\/k results for the given posting lists and term weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Retrieves top-\/k results for the given posting lists and term weights. \end{DoxyCompactList}\item 
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1Retriever_a58da32a5139b980ba874f8b5e6bb89ec}{stats} ()
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -42,7 +44,18 @@ Retrieves top-\/k results for the given posting lists and term weights.
 
 
 
-Implemented in \hyperlink{classbloodhound_1_1query_1_1RawTaatRetriever_aafaaf842fdaef297a255e28766af2c0d}{bloodhound\+::query\+::\+Raw\+Taat\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a58284f19458689021a083c07ea627485}{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}, \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a58284f19458689021a083c07ea627485}{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, false, 0, 0 $>$}, \hyperlink{classbloodhound_1_1query_1_1WandRetriever_a5f3068bc363c16c5b7255a925ea5af8c}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever$<$ Posting\+List $>$}, and \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_ab80b4867fc263827dc2fdbe0965a2e8c}{bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$}.
+Implemented in \hyperlink{classbloodhound_1_1query_1_1TaatMaxScoreRetriever_af4d96478395b58527969526c3068e7b9}{bloodhound\+::query\+::\+Taat\+Max\+Score\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1RawTaatRetriever_aafaaf842fdaef297a255e28766af2c0d}{bloodhound\+::query\+::\+Raw\+Taat\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a58284f19458689021a083c07ea627485}{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}, \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a58284f19458689021a083c07ea627485}{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, false, 0, 0 $>$}, \hyperlink{classbloodhound_1_1query_1_1WandRetriever_a5f3068bc363c16c5b7255a925ea5af8c}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_a06750450e1246e755ebad2d5dac6e8a8}{bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_ab80b4867fc263827dc2fdbe0965a2e8c}{bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$}, and \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever$<$ Posting\+List $>$}.
+
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1Retriever_a58da32a5139b980ba874f8b5e6bb89ec}\label{classbloodhound_1_1query_1_1Retriever_a58da32a5139b980ba874f8b5e6bb89ec}} 
+\index{bloodhound\+::query\+::\+Retriever@{bloodhound\+::query\+::\+Retriever}!stats@{stats}}
+\index{stats@{stats}!bloodhound\+::query\+::\+Retriever@{bloodhound\+::query\+::\+Retriever}}
+\subsubsection{\texorpdfstring{stats()}{stats()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1Retriever}{bloodhound\+::query\+::\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \hyperlink{classbloodhound_1_1query_1_1WandRetriever_a1e593c2cddb2ca4f2415c59ca26e6a36}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_aa21e5b44d70bfdf058e5f9c5a1abc008}{bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$}, and \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_a716838f463f124964e76f48bc37d32cc}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever$<$ Posting\+List $>$}.
 
 
 

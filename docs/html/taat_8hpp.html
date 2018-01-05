@@ -66,25 +66,39 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">taat.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;gsl/gsl_assert&gt;</code><br />
+<code>#include &lt;range/v3/all.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="index_8hpp_source.html">index.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="query_8hpp_source.html">query.hpp</a>&quot;</code><br />
 </div>
 <p><a href="taat_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1SimpleAccumulator.html">irkit::SimpleAccumulator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html">bloodhound::query::RawTaatRetriever&lt; PostingList &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html">bloodhound::query::TaatMaxScoreRetriever&lt; PostingList &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr class="memitem:namespaceirkit"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html">irkit</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebloodhound_1_1query"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html">bloodhound::query</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -95,10 +109,30 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abbedf82d8c97ed0f54a4025105288136"><td class="memTemplParams" colspan="2">template&lt;typename Integer &gt; </td></tr>
-<tr class="memitem:abbedf82d8c97ed0f54a4025105288136"><td class="memTemplItemLeft" align="right" valign="top">constexpr unsigned short&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#abbedf82d8c97ed0f54a4025105288136">bloodhound::query::nbits</a> (Integer n)</td></tr>
-<tr class="memdesc:abbedf82d8c97ed0f54a4025105288136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the number of bits required to store an integer n.  <a href="namespacebloodhound_1_1query.html#abbedf82d8c97ed0f54a4025105288136">More...</a><br /></td></tr>
-<tr class="separator:abbedf82d8c97ed0f54a4025105288136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11ecd56a4192fe476a58f84d54733a85"><td class="memTemplParams" colspan="2">template&lt;typename Integer &gt; </td></tr>
+<tr class="memitem:a11ecd56a4192fe476a58f84d54733a85"><td class="memTemplItemLeft" align="right" valign="top">constexpr unsigned short&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a11ecd56a4192fe476a58f84d54733a85">irkit::nbits</a> (Integer n)</td></tr>
+<tr class="memdesc:a11ecd56a4192fe476a58f84d54733a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the number of bits required to store an integer n.  <a href="namespaceirkit.html#a11ecd56a4192fe476a58f84d54733a85">More...</a><br /></td></tr>
+<tr class="separator:a11ecd56a4192fe476a58f84d54733a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5cd7f5c083918572c6b91cd9822768d"><td class="memTemplParams" colspan="2">template&lt;class Doc , class Score , class AccumulatorArray , template&lt; typename T &gt; class Range, class AccumulatorPolicy  = SimpleAccumulator&gt; </td></tr>
+<tr class="memitem:ac5cd7f5c083918572c6b91cd9822768d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#ac5cd7f5c083918572c6b91cd9822768d">irkit::traverse_list</a> (const Range&lt; Doc &gt; &amp;docs, const Range&lt; Score &gt; &amp;scores, Score weight, AccumulatorArray &amp;acc, AccumulatorPolicy &amp;accumulator_policy=default_accumulator)</td></tr>
+<tr class="separator:ac5cd7f5c083918572c6b91cd9822768d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80010d3825abc594bcd8fcc8225804d2"><td class="memTemplParams" colspan="2">template&lt;class Doc , class Score , class AccumulatorArray , template&lt; typename T &gt; class Range, class AccumulatorPolicy  = SimpleAccumulator&gt; </td></tr>
+<tr class="memitem:a80010d3825abc594bcd8fcc8225804d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a80010d3825abc594bcd8fcc8225804d2">irkit::traverse_list</a> (const Range&lt; Doc &gt; &amp;docs, const Range&lt; Score &gt; &amp;scores, Score weight, AccumulatorArray &amp;acc, unsigned int prefetch_ahead, AccumulatorPolicy &amp;accumulator_policy=default_accumulator)</td></tr>
+<tr class="separator:a80010d3825abc594bcd8fcc8225804d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a887e759137d1d5327475cb75039bb5ec"><td class="memTemplParams" colspan="2">template&lt;class Doc , class Score , class AccumulatorArray , template&lt; typename T &gt; class Range, class AccumulatorPolicy  = SimpleAccumulator&gt; </td></tr>
+<tr class="memitem:a887e759137d1d5327475cb75039bb5ec"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a887e759137d1d5327475cb75039bb5ec">irkit::traverse</a> (const std::vector&lt; Range&lt; Doc &gt;&gt; &amp;doc_lists, const std::vector&lt; Range&lt; Score &gt;&gt; &amp;score_lists, const std::vector&lt; Score &gt; &amp;term_weights, AccumulatorArray &amp;acc, AccumulatorPolicy &amp;accumulator_policy=default_accumulator)</td></tr>
+<tr class="separator:a887e759137d1d5327475cb75039bb5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c1a48d323636892a6826df1b8ca25bf"><td class="memTemplParams" colspan="2">template&lt;class Doc , class Score , class AccumulatorArray , template&lt; typename T &gt; class Range, class AccumulatorPolicy  = SimpleAccumulator&gt; </td></tr>
+<tr class="memitem:a8c1a48d323636892a6826df1b8ca25bf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a8c1a48d323636892a6826df1b8ca25bf">irkit::traverse</a> (const std::vector&lt; Range&lt; Doc &gt;&gt; &amp;doc_lists, const std::vector&lt; Range&lt; Score &gt;&gt; &amp;score_lists, const std::vector&lt; Score &gt; &amp;term_weights, AccumulatorArray &amp;acc, unsigned int prefetch_ahead, AccumulatorPolicy &amp;accumulator_policy=default_accumulator)</td></tr>
+<tr class="separator:a8c1a48d323636892a6826df1b8ca25bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabff8eec068dbbd05abad382861327de"><td class="memTemplParams" colspan="2">template&lt;typename Doc  = std::size_t, typename Score , template&lt; typename T &gt; typename Range&gt; </td></tr>
+<tr class="memitem:aabff8eec068dbbd05abad382861327de"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">bloodhound::query::Result</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#aabff8eec068dbbd05abad382861327de">irkit::aggregate_top</a> (std::size_t k, const Range&lt; Score &gt; &amp;acc)</td></tr>
+<tr class="separator:aabff8eec068dbbd05abad382861327de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a823671564bf545991e9708011e4a8df1"><td class="memItemLeft" align="right" valign="top">SimpleAccumulator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a823671564bf545991e9708011e4a8df1">irkit::default_accumulator</a></td></tr>
+<tr class="separator:a823671564bf545991e9708011e4a8df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

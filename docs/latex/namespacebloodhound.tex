@@ -10,9 +10,11 @@
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+struct \hyperlink{structbloodhound_1_1add__postings}{add\+\_\+postings}
+\item 
 struct \hyperlink{structbloodhound_1_1Doc}{Doc}
 \item 
-class \hyperlink{classbloodhound_1_1Heap}{Heap}
+struct \hyperlink{structbloodhound_1_1doc__equal__to}{doc\+\_\+equal\+\_\+to}
 \item 
 struct \hyperlink{structbloodhound_1_1Offset}{Offset}
 \item 
@@ -20,7 +22,11 @@ struct \hyperlink{structbloodhound_1_1Posting}{Posting}
 \item 
 class \hyperlink{classbloodhound_1_1PostingList}{Posting\+List}
 \item 
+struct \hyperlink{structbloodhound_1_1RelativeOffset}{Relative\+Offset}
+\item 
 struct \hyperlink{structbloodhound_1_1Score}{Score}
+\item 
+struct \hyperlink{structbloodhound_1_1score__greater}{score\+\_\+greater}
 \item 
 struct \hyperlink{structbloodhound_1_1TermId}{Term\+Id}
 \item 
@@ -38,7 +44,17 @@ using \hyperlink{namespacebloodhound_a687d80c6f992eba8b820bf30a482f4b4}{Max\+Sco
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Key , class Value $>$ }\\\hyperlink{classbloodhound_1_1Heap}{Heap}$<$ Key, Value $>$\+::Entry \hyperlink{namespacebloodhound_a64cca068dad32570cb036b6057cc86b6}{make\+\_\+entry} (Key key, Value value)
+bool \hyperlink{namespacebloodhound_aa37ad87847e4da8983f626e6c5779c73}{operator==} (const \hyperlink{structbloodhound_1_1Posting}{Posting} \&a, const \hyperlink{structbloodhound_1_1Posting}{Posting} \&b)
+\item 
+bool \hyperlink{namespacebloodhound_a4a683ebe3ff767a829b87a89bade978c}{operator$>$} (const \hyperlink{structbloodhound_1_1Posting}{Posting} \&a, const \hyperlink{structbloodhound_1_1Posting}{Posting} \&b)
+\item 
+bool \hyperlink{namespacebloodhound_ae20cf3f97304dde56dd526eaa08c41dc}{operator$<$} (const \hyperlink{structbloodhound_1_1Posting}{Posting} \&a, const \hyperlink{structbloodhound_1_1Posting}{Posting} \&b)
+\item 
+\hyperlink{structbloodhound_1_1Posting}{Posting} \hyperlink{namespacebloodhound_a0ee8a7512bc2dea6326445fa8b7509b2}{operator$\ast$} (const \hyperlink{structbloodhound_1_1Posting}{Posting} \&p, \hyperlink{structbloodhound_1_1Score}{Score} weight)
+\item 
+std\+::ostream \& \hyperlink{namespacebloodhound_a1422cc04658f6eb8616381224186059f}{operator$<$$<$} (std\+::ostream \&os, const \hyperlink{structbloodhound_1_1Posting}{Posting} \&p)
+\item 
+\hyperlink{structbloodhound_1_1Posting}{Posting} \hyperlink{namespacebloodhound_a0b07d73bf298a56b219b270d5fa70b83}{operator+} (const \hyperlink{structbloodhound_1_1Posting}{Posting} \&lhs, const \hyperlink{structbloodhound_1_1Posting}{Posting} \&rhs)
 \end{DoxyCompactItemize}
 
 
@@ -64,10 +80,39 @@ using \hyperlink{namespacebloodhound_a687d80c6f992eba8b820bf30a482f4b4}{Max\+Sco
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{namespacebloodhound_a64cca068dad32570cb036b6057cc86b6}\label{namespacebloodhound_a64cca068dad32570cb036b6057cc86b6}} 
-\index{bloodhound@{bloodhound}!make\+\_\+entry@{make\+\_\+entry}}
-\index{make\+\_\+entry@{make\+\_\+entry}!bloodhound@{bloodhound}}
-\subsubsection{\texorpdfstring{make\+\_\+entry()}{make\_entry()}}
-{\footnotesize\ttfamily template$<$class Key , class Value $>$ \\
-\hyperlink{classbloodhound_1_1Heap}{Heap}$<$Key, Value$>$\+::Entry bloodhound\+::make\+\_\+entry (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespacebloodhound_a0ee8a7512bc2dea6326445fa8b7509b2}\label{namespacebloodhound_a0ee8a7512bc2dea6326445fa8b7509b2}} 
+\index{bloodhound@{bloodhound}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1Posting}{Posting} bloodhound\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{p,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score}}]{weight }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_a0b07d73bf298a56b219b270d5fa70b83}\label{namespacebloodhound_a0b07d73bf298a56b219b270d5fa70b83}} 
+\index{bloodhound@{bloodhound}!operator+@{operator+}}
+\index{operator+@{operator+}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \hyperlink{structbloodhound_1_1Posting}{Posting} bloodhound\+::operator+ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{lhs,  }\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_ae20cf3f97304dde56dd526eaa08c41dc}\label{namespacebloodhound_ae20cf3f97304dde56dd526eaa08c41dc}} 
+\index{bloodhound@{bloodhound}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool bloodhound\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{a,  }\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_a1422cc04658f6eb8616381224186059f}\label{namespacebloodhound_a1422cc04658f6eb8616381224186059f}} 
+\index{bloodhound@{bloodhound}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily std\+::ostream\& bloodhound\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{p }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_aa37ad87847e4da8983f626e6c5779c73}\label{namespacebloodhound_aa37ad87847e4da8983f626e6c5779c73}} 
+\index{bloodhound@{bloodhound}!operator==@{operator==}}
+\index{operator==@{operator==}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool bloodhound\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{a,  }\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacebloodhound_a4a683ebe3ff767a829b87a89bade978c}\label{namespacebloodhound_a4a683ebe3ff767a829b87a89bade978c}} 
+\index{bloodhound@{bloodhound}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!bloodhound@{bloodhound}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily bool bloodhound\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{a,  }\item[{const \hyperlink{structbloodhound_1_1Posting}{Posting} \&}]{b }\end{DoxyParamCaption})}
 

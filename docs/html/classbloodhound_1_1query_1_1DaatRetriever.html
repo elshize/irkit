@@ -74,16 +74,18 @@ $(function() {
 <p>Document-at-a-time query processor.  
  <a href="classbloodhound_1_1query_1_1DaatRetriever.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="daat_8hpp_source.html">daat.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="retrievers_8hpp_source.html">retrievers.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for bloodhound::query::DaatRetriever&lt; PostingList &gt;:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classbloodhound_1_1query_1_1DaatRetriever.png" usemap="#bloodhound::query::DaatRetriever_3C_20PostingList_20_3E_map" alt=""/>
   <map id="bloodhound::query::DaatRetriever_3C_20PostingList_20_3E_map" name="bloodhound::query::DaatRetriever_3C_20PostingList_20_3E_map">
-<area href="classbloodhound_1_1query_1_1Retriever.html" title="A base abstract super-class of all document retrievers. " alt="bloodhound::query::Retriever&lt; PostingList &gt;" shape="rect" coords="162,0,476,24"/>
-<area href="classbloodhound_1_1query_1_1ExactSaatRetriever.html" alt="bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;" shape="rect" coords="0,112,314,136"/>
-<area href="classbloodhound_1_1query_1_1WandRetriever.html" title="WAND (Weak-AND) query retriever. " alt="bloodhound::query::WandRetriever&lt; PostingList &gt;" shape="rect" coords="324,112,638,136"/>
+<area href="classbloodhound_1_1query_1_1Retriever.html" title="A base abstract super-class of all document retrievers. " alt="bloodhound::query::Retriever&lt; PostingList &gt;" shape="rect" coords="489,0,805,24"/>
+<area href="classbloodhound_1_1query_1_1ExactSaatRetriever.html" alt="bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;" shape="rect" coords="0,112,316,136"/>
+<area href="classbloodhound_1_1query_1_1MaxScoreRetriever.html" alt="bloodhound::query::MaxScoreRetriever&lt; PostingList &gt;" shape="rect" coords="326,112,642,136"/>
+<area href="classbloodhound_1_1query_1_1ThresholdRetriever.html" alt="bloodhound::query::ThresholdRetriever&lt; PostingList &gt;" shape="rect" coords="652,112,968,136"/>
+<area href="classbloodhound_1_1query_1_1WandRetriever.html" title="WAND (Weak-AND) query retriever. " alt="bloodhound::query::WandRetriever&lt; PostingList &gt;" shape="rect" coords="978,112,1294,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -95,14 +97,17 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6ee7e794376c2633089bd13d48b772cf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a6ee7e794376c2633089bd13d48b772cf">post_lists_by_doc</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
-<tr class="memdesc:a6ee7e794376c2633089bd13d48b772cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns initial min-heap of posting lists sorted by their current <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>.  <a href="#a6ee7e794376c2633089bd13d48b772cf">More...</a><br /></td></tr>
-<tr class="separator:a6ee7e794376c2633089bd13d48b772cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf9a1012732fe0879d1bf080faf293b6"><td class="memItemLeft" align="right" valign="top">virtual irkit::Heap&lt; <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6">post_lists_by_doc</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
+<tr class="memdesc:abf9a1012732fe0879d1bf080faf293b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns initial min-heap of posting lists sorted by their current <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>.  <a href="#abf9a1012732fe0879d1bf080faf293b6">More...</a><br /></td></tr>
+<tr class="separator:abf9a1012732fe0879d1bf080faf293b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b10288f90a4fc4d89f56971bdc48363"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html">IteratorPair</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a5b10288f90a4fc4d89f56971bdc48363">to_iterators</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
 <tr class="separator:a5b10288f90a4fc4d89f56971bdc48363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab80b4867fc263827dc2fdbe0965a2e8c"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#ab80b4867fc263827dc2fdbe0965a2e8c">retrieve</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings, const std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;term_weights, std::size_t k)</td></tr>
 <tr class="memdesc:ab80b4867fc263827dc2fdbe0965a2e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves top-k results for the given posting lists and term weights.  <a href="#ab80b4867fc263827dc2fdbe0965a2e8c">More...</a><br /></td></tr>
 <tr class="separator:ab80b4867fc263827dc2fdbe0965a2e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classbloodhound_1_1query_1_1Retriever"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classbloodhound_1_1query_1_1Retriever')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classbloodhound_1_1query_1_1Retriever.html">bloodhound::query::Retriever&lt; PostingList &gt;</a></td></tr>
+<tr class="memitem:a58da32a5139b980ba874f8b5e6bb89ec inherit pub_methods_classbloodhound_1_1query_1_1Retriever"><td class="memItemLeft" align="right" valign="top">virtual nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1Retriever.html#a58da32a5139b980ba874f8b5e6bb89ec">stats</a> ()</td></tr>
+<tr class="separator:a58da32a5139b980ba874f8b5e6bb89ec inherit pub_methods_classbloodhound_1_1query_1_1Retriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename PostingList&gt;<br />
@@ -110,8 +115,8 @@ class bloodhound::query::DaatRetriever&lt; PostingList &gt;</h3>
 
 <p>Document-at-a-time query processor. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ee7e794376c2633089bd13d48b772cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ee7e794376c2633089bd13d48b772cf">&#9670;&nbsp;</a></span>post_lists_by_doc()</h2>
+<a id="abf9a1012732fe0879d1bf080faf293b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf9a1012732fe0879d1bf080faf293b6">&#9670;&nbsp;</a></span>post_lists_by_doc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,7 +127,7 @@ template&lt;typename PostingList &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt;<a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int&gt; <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html">bloodhound::query::DaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;::post_lists_by_doc </td>
+          <td class="memname">virtual irkit::Heap&lt;<a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int&gt; <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html">bloodhound::query::DaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;::post_lists_by_doc </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>term_postings</em></td><td>)</td>
@@ -186,7 +191,7 @@ template&lt;typename PostingList &gt; </div>
 
 <p>Implements <a class="el" href="classbloodhound_1_1query_1_1Retriever.html#ae3c6a4628c5580e620c213b3dcd47c2b">bloodhound::query::Retriever&lt; PostingList &gt;</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html#a5f3068bc363c16c5b7255a925ea5af8c">bloodhound::query::WandRetriever&lt; PostingList &gt;</a>, and <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aced2763cc2a4c12838fef4a20759049e">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html#a5f3068bc363c16c5b7255a925ea5af8c">bloodhound::query::WandRetriever&lt; PostingList &gt;</a>, <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html#a06750450e1246e755ebad2d5dac6e8a8">bloodhound::query::ThresholdRetriever&lt; PostingList &gt;</a>, and <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aced2763cc2a4c12838fef4a20759049e">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>.</p>
 
 </div>
 </div>
@@ -219,7 +224,7 @@ template&lt;typename PostingList &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="daat_8hpp_source.html">daat.hpp</a></li>
+<li>include/<a class="el" href="retrievers_8hpp_source.html">retrievers.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

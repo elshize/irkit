@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['posting',['Posting',['../structbloodhound_1_1Posting.html',1,'bloodhound']]],
-  ['postinglist',['PostingList',['../classbloodhound_1_1PostingList.html',1,'bloodhound']]],
-  ['postinglistheader',['PostingListHeader',['../structbloodhound_1_1index_1_1PostingListHeader.html',1,'bloodhound::index']]]
+  ['maxscorenonessentials',['MaxScoreNonEssentials',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html',1,'bloodhound::query']]],
+  ['maxscoreretriever',['MaxScoreRetriever',['../classbloodhound_1_1query_1_1MaxScoreRetriever.html',1,'bloodhound::query']]]
 ];

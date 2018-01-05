@@ -1,17 +1,49 @@
 \hypertarget{daat_8hpp}{}\section{include/daat.hpp File Reference}
 \label{daat_8hpp}\index{include/daat.\+hpp@{include/daat.\+hpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
 {\ttfamily \#include \char`\"{}query.\+hpp\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+struct \hyperlink{structirkit_1_1moving__range}{irkit\+::moving\+\_\+range$<$ Iter $>$}
+\item 
+class \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range$<$ Range $>$}
+\item 
+struct \hyperlink{structirkit_1_1UnionRange_1_1docterm}{irkit\+::\+Union\+Range$<$ Range $>$\+::docterm}
+\begin{DoxyCompactList}\small\item\em Pair of document ID and term ID to use in D\+A\+AT term heap. \end{DoxyCompactList}\item 
 class \hyperlink{classbloodhound_1_1query_1_1DaatRetriever}{bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$}
 \begin{DoxyCompactList}\small\item\em Document-\/at-\/a-\/time query processor. \end{DoxyCompactList}\item 
 struct \hyperlink{structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair}{bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$\+::\+Iterator\+Pair}
 \begin{DoxyCompactList}\small\item\em Current and end iterators of the same posting list. \end{DoxyCompactList}\item 
 class \hyperlink{classbloodhound_1_1query_1_1WandRetriever}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}
-\begin{DoxyCompactList}\small\item\em W\+A\+ND (Weak-\/\+A\+ND) query retriever. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em W\+A\+ND (Weak-\/\+A\+ND) query retriever. \end{DoxyCompactList}\item 
+class \hyperlink{classbloodhound_1_1query_1_1MaxScoreRetriever}{bloodhound\+::query\+::\+Max\+Score\+Retriever$<$ Posting\+List $>$}
+\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
+ \hyperlink{namespaceirkit}{irkit}
+\item 
  \hyperlink{namespacebloodhound_1_1query}{bloodhound\+::query}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}{irkit\+::element\+\_\+t} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{irkit\+::pure\+\_\+element\+\_\+t} = std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ decltype($\ast$std\+::declval$<$ Range $>$().begin())$>$ $>$
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_af390a50be8f636e7239c650e5043c56f}{irkit\+::iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().begin())
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{irkit\+::const\+\_\+iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().cbegin())
+\item 
+{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}{irkit\+::doc\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().doc)
+\item 
+{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{irkit\+::score\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().score)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \hyperlink{namespaceirkit_ad6a1763616725ecb88e751ea7eb93453}{irkit\+::daat\+\_\+or} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
 \end{DoxyCompactItemize}

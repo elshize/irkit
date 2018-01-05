@@ -3,11 +3,11 @@
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 {\ttfamily \#include \char`\"{}debug\+\_\+assert.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}heap.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}index.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/heap.\+hpp\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,11 +30,6 @@ class \hyperlink{classbloodhound_1_1query_1_1Retriever}{bloodhound\+::query\+::\
 \item 
  \hyperlink{namespacebloodhound_1_1query}{bloodhound\+::query}
 \end{DoxyCompactItemize}
-\subsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \hyperlink{query_8hpp_a80a436a9c869b7ba13a6a49a7bd04681}{G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON}
-\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,15 +38,5 @@ class \hyperlink{classbloodhound_1_1query_1_1Retriever}{bloodhound\+::query\+::\
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ Result $>$ \hyperlink{namespacebloodhound_1_1query_a5a5bc223989deaa8a8d01f86ede9252c}{bloodhound\+::query\+::heap\+\_\+to\+\_\+results} (Heap$<$ Score, Doc $>$ \&heap)
+{\footnotesize template$<$typename Compare  = std\+::less$<$\+Score$>$, typename Mapping  = irkit\+::\+Empty\+Mapping$>$ }\\std\+::vector$<$ Result $>$ \hyperlink{namespacebloodhound_1_1query_a1ec90cdc5f56c17431fd2e2cd2acbb93}{bloodhound\+::query\+::heap\+\_\+to\+\_\+results} (irkit\+::\+Heap$<$ Score, Doc, Compare, Mapping $>$ \&heap)
 \begin{DoxyCompactList}\small\item\em Converts a min-\/heap of top-\/scored documents to a sorted vector of results. \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\subsection{Macro Definition Documentation}
-\mbox{\Hypertarget{query_8hpp_a80a436a9c869b7ba13a6a49a7bd04681}\label{query_8hpp_a80a436a9c869b7ba13a6a49a7bd04681}} 
-\index{query.\+hpp@{query.\+hpp}!G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON@{G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON}}
-\index{G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON@{G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON}!query.\+hpp@{query.\+hpp}}
-\subsubsection{\texorpdfstring{G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON}{GSL\_UNENFORCED\_ON\_CONTRACT\_VIOLATION}}
-{\footnotesize\ttfamily \#define G\+S\+L\+\_\+\+U\+N\+E\+N\+F\+O\+R\+C\+E\+D\+\_\+\+O\+N\+\_\+\+C\+O\+N\+T\+R\+A\+C\+T\+\_\+\+V\+I\+O\+L\+A\+T\+I\+ON}
-
-Code relevant to query processing. 

@@ -3,16 +3,14 @@
  */
 #pragma once
 
-#define GSL_UNENFORCED_ON_CONTRACT_VIOLATION
-
 #include <algorithm>
 #include <chrono>
 #include <iostream>
-#include <type_traits>
 #include <math.h>
+#include <type_traits>
 #include "debug_assert.hpp"
-#include "heap.hpp"
 #include "index.hpp"
+#include "irkit/heap.hpp"
 
 namespace bloodhound::query {
 
@@ -70,6 +68,7 @@ struct Result {
     bool operator>(const Result& rhs) const { return score > rhs.score; }
 };
 
+
 /// A base abstract super-class of all document retrievers.
 template<typename PostingList>
 class Retriever {
@@ -79,10 +78,13 @@ public:
         const std::vector<PostingList>& term_postings,
         const std::vector<Score>& term_weights,
         std::size_t k) = 0;
+
+    virtual nlohmann::json stats() { return {}; }
 };
 
 /// Converts a min-heap of top-scored documents to a sorted vector of results.
-std::vector<Result> heap_to_results(Heap<Score, Doc>& heap)
+template<typename Compare = std::less<Score>, typename Mapping = irkit::EmptyMapping>
+std::vector<Result> heap_to_results(irkit::Heap<Score, Doc, Compare, Mapping>& heap)
 {
     std::vector<Result> top_results;
     while (!heap.empty()) {

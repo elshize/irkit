@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['approxsaatretriever',['ApproxSaatRetriever',['../classbloodhound_1_1query_1_1ApproxSaatRetriever.html',1,'bloodhound::query']]]
+  ['add_5fpostings',['add_postings',['../structbloodhound_1_1add__postings.html',1,'bloodhound']]]
 ];

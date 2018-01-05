@@ -77,9 +77,11 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1add__postings.html">add_postings</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Doc.html">Doc</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1Heap.html">Heap</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1doc__equal__to.html">doc_equal_to</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Offset.html">Offset</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -87,7 +89,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1RelativeOffset.html">RelativeOffset</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Score.html">Score</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1score__greater.html">score_greater</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1TermId.html">TermId</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,9 +111,18 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a64cca068dad32570cb036b6057cc86b6"><td class="memTemplParams" colspan="2">template&lt;class Key , class Value &gt; </td></tr>
-<tr class="memitem:a64cca068dad32570cb036b6057cc86b6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; Key, Value &gt;::Entry&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a64cca068dad32570cb036b6057cc86b6">make_entry</a> (Key key, Value value)</td></tr>
-<tr class="separator:a64cca068dad32570cb036b6057cc86b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa37ad87847e4da8983f626e6c5779c73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#aa37ad87847e4da8983f626e6c5779c73">operator==</a> (const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;a, const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;b)</td></tr>
+<tr class="separator:aa37ad87847e4da8983f626e6c5779c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a683ebe3ff767a829b87a89bade978c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a4a683ebe3ff767a829b87a89bade978c">operator&gt;</a> (const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;a, const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;b)</td></tr>
+<tr class="separator:a4a683ebe3ff767a829b87a89bade978c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae20cf3f97304dde56dd526eaa08c41dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#ae20cf3f97304dde56dd526eaa08c41dc">operator&lt;</a> (const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;a, const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;b)</td></tr>
+<tr class="separator:ae20cf3f97304dde56dd526eaa08c41dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ee8a7512bc2dea6326445fa8b7509b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbloodhound_1_1Posting.html">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a0ee8a7512bc2dea6326445fa8b7509b2">operator*</a> (const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;p, <a class="el" href="structbloodhound_1_1Score.html">Score</a> weight)</td></tr>
+<tr class="separator:a0ee8a7512bc2dea6326445fa8b7509b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1422cc04658f6eb8616381224186059f"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a1422cc04658f6eb8616381224186059f">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;p)</td></tr>
+<tr class="separator:a1422cc04658f6eb8616381224186059f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b07d73bf298a56b219b270d5fa70b83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbloodhound_1_1Posting.html">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a0b07d73bf298a56b219b270d5fa70b83">operator+</a> (const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;lhs, const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;rhs)</td></tr>
+<tr class="separator:a0b07d73bf298a56b219b270d5fa70b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ae863daa54e3092bd2bc335e70f7a9dd7"></a>
@@ -153,25 +168,163 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a64cca068dad32570cb036b6057cc86b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64cca068dad32570cb036b6057cc86b6">&#9670;&nbsp;</a></span>make_entry()</h2>
+<a id="a0ee8a7512bc2dea6326445fa8b7509b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ee8a7512bc2dea6326445fa8b7509b2">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class Key , class Value &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt;Key, Value&gt;::Entry bloodhound::make_entry </td>
+          <td class="memname"><a class="el" href="structbloodhound_1_1Posting.html">Posting</a> bloodhound::operator* </td>
           <td>(</td>
-          <td class="paramtype">Key&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Value&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structbloodhound_1_1Score.html">Score</a>&#160;</td>
+          <td class="paramname"><em>weight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b07d73bf298a56b219b270d5fa70b83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b07d73bf298a56b219b270d5fa70b83">&#9670;&nbsp;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbloodhound_1_1Posting.html">Posting</a> bloodhound::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae20cf3f97304dde56dd526eaa08c41dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae20cf3f97304dde56dd526eaa08c41dc">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bloodhound::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1422cc04658f6eb8616381224186059f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1422cc04658f6eb8616381224186059f">&#9670;&nbsp;</a></span>operator<<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; bloodhound::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa37ad87847e4da8983f626e6c5779c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa37ad87847e4da8983f626e6c5779c73">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bloodhound::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a683ebe3ff767a829b87a89bade978c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a683ebe3ff767a829b87a89bade978c">&#9670;&nbsp;</a></span>operator>()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bloodhound::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
