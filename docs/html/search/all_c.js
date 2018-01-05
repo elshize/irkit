@@ -1,18 +1,15 @@
 var searchData=
 [
-  ['offset',['Offset',['../structbloodhound_1_1Offset.html',1,'bloodhound']]],
-  ['operator_21_3d',['operator!=',['../structbloodhound_1_1PostingList_1_1iterator.html#aa293b4e0607edaca2fde163c8ee0f00e',1,'bloodhound::PostingList::iterator']]],
-  ['operator_28_29',['operator()',['../structstd_1_1hash_3_01bloodhound_1_1TermId_01_4.html#a7318bf08949737e1fb9dff3444fc77a1',1,'std::hash&lt; bloodhound::TermId &gt;::operator()()'],['../structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html#a3f89deb7b2548010c7f3b63afc9d7fa4',1,'std::hash&lt; bloodhound::Doc &gt;::operator()()']]],
-  ['operator_2a',['operator*',['../structbloodhound_1_1PostingList_1_1iterator.html#a386a2af6b962ddd85392f1313eb16eff',1,'bloodhound::PostingList::iterator']]],
-  ['operator_2b',['operator+',['../structbloodhound_1_1Offset.html#aaed86d39530be98502fa1560b323d07b',1,'bloodhound::Offset::operator+()'],['../structbloodhound_1_1Offset.html#aec6c323c060e7a7cae481422f1ecea7a',1,'bloodhound::Offset::operator+()'],['../structbloodhound_1_1PostingList_1_1iterator.html#a8672fb454e60ed068ae02078976543f9',1,'bloodhound::PostingList::iterator::operator+()']]],
-  ['operator_2b_2b',['operator++',['../structbloodhound_1_1PostingList_1_1iterator.html#a8b0c2e4221f0ce3ea893c2fc37edbd53',1,'bloodhound::PostingList::iterator']]],
-  ['operator_2d',['operator-',['../structbloodhound_1_1PostingList_1_1iterator.html#a61a5de181ff84ddc0976957a7a9fcfd7',1,'bloodhound::PostingList::iterator']]],
-  ['operator_2d_3e',['operator-&gt;',['../structbloodhound_1_1PostingList_1_1iterator.html#a8c9120139692d6672b52d96301718614',1,'bloodhound::PostingList::iterator']]],
-  ['operator_3c',['operator&lt;',['../structbloodhound_1_1Heap_1_1Entry.html#a17049d7313c3c1cd51f9c684ddb50500',1,'bloodhound::Heap::Entry::operator&lt;()'],['../structbloodhound_1_1query_1_1Result.html#aafd7ab327a6ae26df25272b1ad1ec4c0',1,'bloodhound::query::Result::operator&lt;()']]],
-  ['operator_3c_3c',['operator&lt;&lt;',['../structbloodhound_1_1Heap_1_1Entry.html#a885f1645de32df3dbfbf9f2f47f7ea1f',1,'bloodhound::Heap::Entry']]],
-  ['operator_3c_3d',['operator&lt;=',['../structbloodhound_1_1Heap_1_1Entry.html#a334618ef77d48b67a148d2f7414416e2',1,'bloodhound::Heap::Entry']]],
-  ['operator_3d_3d',['operator==',['../structbloodhound_1_1Heap_1_1Entry.html#a83880fd9d00a65e577e75f6dacee0322',1,'bloodhound::Heap::Entry::operator==()'],['../structbloodhound_1_1PostingList_1_1iterator.html#af82060f61f9231ee449e43ea347cab29',1,'bloodhound::PostingList::iterator::operator==()'],['../structbloodhound_1_1query_1_1Result.html#af7fa537e271f9f8b213e207331d5e647',1,'bloodhound::query::Result::operator==()']]],
-  ['operator_3e',['operator&gt;',['../structbloodhound_1_1Heap_1_1Entry.html#a5425815681ee88c97babbee6e9b8c0eb',1,'bloodhound::Heap::Entry::operator&gt;()'],['../structbloodhound_1_1query_1_1Result.html#af04b71da89ecfa88ee4836dd82fdc058',1,'bloodhound::query::Result::operator&gt;()']]],
-  ['operator_3e_3d',['operator&gt;=',['../structbloodhound_1_1Heap_1_1Entry.html#ae6c13b04614fc5bc287577d83a524831',1,'bloodhound::Heap::Entry::operator&gt;=()'],['../structbloodhound_1_1query_1_1Result.html#a5af24f990ab7687d25e25b1f66dfb8a3',1,'bloodhound::query::Result::operator&gt;=()']]],
-  ['size_5ft',['size_t',['../structbloodhound_1_1Doc.html#ad27bc07db7657c653075bf8e02191172',1,'bloodhound::Doc']]]
+  ['parse_5fquery',['parse_query',['../run_8hpp.html#a87489cd09b789da5adbd8285a5098520',1,'run.hpp']]],
+  ['payload_5foffset',['payload_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#ab4ff4ee2a0aa56e03d315f6e60adf345',1,'bloodhound::index::PostingListHeader']]],
+  ['pos',['pos',['../structbloodhound_1_1PostingList_1_1iterator.html#a544fdd6020d2ec35d883250dd79115e8',1,'bloodhound::PostingList::iterator']]],
+  ['position_5fcount',['position_count',['../structbloodhound_1_1index_1_1PostingListHeader.html#a88360105ba2e46000621f5bb74b4269c',1,'bloodhound::index::PostingListHeader']]],
+  ['position_5foffset',['position_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#a656267fe79315c04f431f99c1c826fec',1,'bloodhound::index::PostingListHeader']]],
+  ['post_5flists_5fby_5fdoc',['post_lists_by_doc',['../classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6',1,'bloodhound::query::DaatRetriever']]],
+  ['post_5flists_5fby_5fscore',['post_lists_by_score',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a180277ad96862e92c102066586edc74f',1,'bloodhound::query::ExactSaatRetriever']]],
+  ['posting',['Posting',['../structbloodhound_1_1Posting.html',1,'bloodhound']]],
+  ['posting_5flist',['posting_list',['../structbloodhound_1_1PostingList_1_1iterator.html#a3a9afedb85f883831ee68fee0611ca92',1,'bloodhound::PostingList::iterator::posting_list()'],['../classbloodhound_1_1index_1_1Index.html#a24cadb41178b2cc81cf8f3e32a5dd516',1,'bloodhound::index::Index::posting_list(TermId termid, bool load_max_scores=true)'],['../classbloodhound_1_1index_1_1Index.html#ac26271e4e2678e77d46017a24ed7eac5',1,'bloodhound::index::Index::posting_list(TermId termid, double et_threshold)']]],
+  ['postinglist',['PostingList',['../classbloodhound_1_1PostingList.html',1,'bloodhound::PostingList'],['../classbloodhound_1_1PostingList.html#a725f1df76c8278f1d927fff3ed4c496e',1,'bloodhound::PostingList::PostingList()']]],
+  ['postinglistheader',['PostingListHeader',['../structbloodhound_1_1index_1_1PostingListHeader.html',1,'bloodhound::index::PostingListHeader'],['../structbloodhound_1_1index_1_1PostingListHeader.html#a839dc96a649a6a5b381b4e9b93b6e59e',1,'bloodhound::index::PostingListHeader::PostingListHeader()'],['../structbloodhound_1_1index_1_1PostingListHeader.html#a9aec6f6c7099b8ea249dc8af709c2125',1,'bloodhound::index::PostingListHeader::PostingListHeader(uint32_t m, uint32_t d, uint32_t pc, uint32_t pyo, uint32_t poo, uint32_t so)']]],
+  ['postings_5fdata',['postings_data',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#ae760569f621a8b6260cbc50c144be0bf',1,'bloodhound::index::InMemoryPostingPolicy']]]
 ];

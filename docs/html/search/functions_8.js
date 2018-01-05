@@ -1,7 +1,11 @@
 var searchData=
 [
   ['length',['length',['../classbloodhound_1_1PostingList.html#a7af6f4e9fc277dd7c1dc73c2922ceacd',1,'bloodhound::PostingList']]],
-  ['load_5findex',['load_index',['../classbloodhound_1_1index_1_1Index.html#a6728545e1d5eaf5c5f13528c8c96a9ce',1,'bloodhound::index::Index']]],
-  ['load_5fmappings',['load_mappings',['../classbloodhound_1_1index_1_1Index.html#a1e8378387e07c097d793a585b673fbfa',1,'bloodhound::index::Index']]],
-  ['load_5fmeta',['load_meta',['../classbloodhound_1_1index_1_1Index.html#ac2bc4de183ea1d806f450366b92bb059',1,'bloodhound::index::Index']]]
+  ['load_5findex',['load_index',['../classbloodhound_1_1index_1_1Index.html#ad4cd13bef623fc6b786f8003c8826b9c',1,'bloodhound::index::Index']]],
+  ['load_5flexicon',['load_lexicon',['../classbloodhound_1_1index_1_1Index.html#a80968041cad02a4006fd4b633c279030',1,'bloodhound::index::Index']]],
+  ['load_5fmappings',['load_mappings',['../classbloodhound_1_1index_1_1Index.html#a779359e7ce40294dd3d3666c00762700',1,'bloodhound::index::Index']]],
+  ['load_5fmaxscores',['load_maxscores',['../classbloodhound_1_1index_1_1Index.html#a6333778f622dbf964ba6aea29a56dca0',1,'bloodhound::index::Index']]],
+  ['load_5fmeta',['load_meta',['../classbloodhound_1_1index_1_1Index.html#af0d9b72f7cf6b54d7bddbccd3c1898ce',1,'bloodhound::index::Index']]],
+  ['load_5fpostings',['load_postings',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#a68a2a76f7b4349ade63f83acfd6a1dc5',1,'bloodhound::index::InMemoryPostingPolicy']]],
+  ['load_5ftitles',['load_titles',['../run_8hpp.html#a3ef37056433b3eb491952d765d6ca4ce',1,'run.hpp']]]
 ];

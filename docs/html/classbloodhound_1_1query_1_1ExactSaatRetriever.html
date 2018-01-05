@@ -90,8 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a50c5c53b4b7aff76e4eabf040219be52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21f4192190392fee8d8b12b99c6bbe0e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a21f4192190392fee8d8b12b99c6bbe0e">count_postings</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
 <tr class="separator:a21f4192190392fee8d8b12b99c6bbe0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeadc34f7b5116c79d723cb39e673c6ff"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aeadc34f7b5116c79d723cb39e673c6ff">post_lists_by_score</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings, const std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;term_weights)</td></tr>
-<tr class="separator:aeadc34f7b5116c79d723cb39e673c6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180277ad96862e92c102066586edc74f"><td class="memItemLeft" align="right" valign="top">virtual irkit::Heap&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a180277ad96862e92c102066586edc74f">post_lists_by_score</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings, const std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;term_weights)</td></tr>
+<tr class="separator:a180277ad96862e92c102066586edc74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced2763cc2a4c12838fef4a20759049e"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aced2763cc2a4c12838fef4a20759049e">retrieve</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings, const std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;term_weights, std::size_t k)</td></tr>
 <tr class="memdesc:aced2763cc2a4c12838fef4a20759049e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves top-k results for the given posting lists and term weights.  <a href="#aced2763cc2a4c12838fef4a20759049e">More...</a><br /></td></tr>
 <tr class="separator:aced2763cc2a4c12838fef4a20759049e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,21 +103,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a43b6bd8cdc3a64c5eabf778230c53419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78016cfffe921ed440dec62c6f82f4cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a78016cfffe921ed440dec62c6f82f4cc">set_et_threshold</a> (double et)</td></tr>
 <tr class="separator:a78016cfffe921ed440dec62c6f82f4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716838f463f124964e76f48bc37d32cc"><td class="memItemLeft" align="right" valign="top">virtual nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a716838f463f124964e76f48bc37d32cc">stats</a> ()</td></tr>
+<tr class="separator:a716838f463f124964e76f48bc37d32cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classbloodhound_1_1query_1_1DaatRetriever')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a></td></tr>
-<tr class="memitem:a6ee7e794376c2633089bd13d48b772cf inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a6ee7e794376c2633089bd13d48b772cf">post_lists_by_doc</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
-<tr class="memdesc:a6ee7e794376c2633089bd13d48b772cf inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns initial min-heap of posting lists sorted by their current <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>.  <a href="classbloodhound_1_1query_1_1DaatRetriever.html#a6ee7e794376c2633089bd13d48b772cf">More...</a><br /></td></tr>
-<tr class="separator:a6ee7e794376c2633089bd13d48b772cf inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf9a1012732fe0879d1bf080faf293b6 inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memItemLeft" align="right" valign="top">virtual irkit::Heap&lt; <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6">post_lists_by_doc</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
+<tr class="memdesc:abf9a1012732fe0879d1bf080faf293b6 inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns initial min-heap of posting lists sorted by their current <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>.  <a href="classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6">More...</a><br /></td></tr>
+<tr class="separator:abf9a1012732fe0879d1bf080faf293b6 inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b10288f90a4fc4d89f56971bdc48363 inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html">IteratorPair</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a5b10288f90a4fc4d89f56971bdc48363">to_iterators</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;term_postings)</td></tr>
 <tr class="separator:a5b10288f90a4fc4d89f56971bdc48363 inherit pub_methods_classbloodhound_1_1query_1_1DaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classbloodhound_1_1query_1_1TaatRetriever')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">bloodhound::query::TaatRetriever&lt; PostingList, false, 0, 0 &gt;</a></td></tr>
 <tr class="memitem:af443da08f4200fb84a3481d47bc4ac35 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#af443da08f4200fb84a3481d47bc4ac35">TaatRetriever</a> (std::size_t collection_size)</td></tr>
 <tr class="memdesc:af443da08f4200fb84a3481d47bc4ac35 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a TaatRetriever with an accumulator array of collection_size.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#af443da08f4200fb84a3481d47bc4ac35">More...</a><br /></td></tr>
 <tr class="separator:af443da08f4200fb84a3481d47bc4ac35 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9812dfbf0f5ec7fc7668abe22774929 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#aa9812dfbf0f5ec7fc7668abe22774929">accumulate_posting</a> (<a class="el" href="structbloodhound_1_1Doc.html">Doc</a> doc, <a class="el" href="structbloodhound_1_1Score.html">Score</a> score_delta)</td></tr>
-<tr class="memdesc:aa9812dfbf0f5ec7fc7668abe22774929 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumulates the posting that is being processed.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#aa9812dfbf0f5ec7fc7668abe22774929">More...</a><br /></td></tr>
-<tr class="separator:aa9812dfbf0f5ec7fc7668abe22774929 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34def8d627b446d7459792ab9c50dcab inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a34def8d627b446d7459792ab9c50dcab">accumulate_posting</a> (<a class="el" href="structbloodhound_1_1Doc.html">Doc</a> doc, <a class="el" href="structbloodhound_1_1Score.html">Score</a> score_delta, std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;acc)</td></tr>
+<tr class="memdesc:a34def8d627b446d7459792ab9c50dcab inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumulates the posting that is being processed.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#a34def8d627b446d7459792ab9c50dcab">More...</a><br /></td></tr>
+<tr class="separator:a34def8d627b446d7459792ab9c50dcab inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b476e4ada85862cb79a92b6424d2aa2 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a1b476e4ada85862cb79a92b6424d2aa2">traverse</a> (const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;lists_for_terms, const std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &amp;term_weights)</td></tr>
-<tr class="memdesc:a1b476e4ada85862cb79a92b6424d2aa2 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traverses the postings and accumulates the scores.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#a1b476e4ada85862cb79a92b6424d2aa2">More...</a><br /></td></tr>
+<tr class="memdesc:a1b476e4ada85862cb79a92b6424d2aa2 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traverses a single posting lists and accumulates its scores.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#a1b476e4ada85862cb79a92b6424d2aa2">More...</a><br /></td></tr>
 <tr class="separator:a1b476e4ada85862cb79a92b6424d2aa2 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1c8d9643ca85ba7dba32325538e30b5 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbloodhound_1_1Score.html">Score</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#ae1c8d9643ca85ba7dba32325538e30b5">score_of</a> (<a class="el" href="structbloodhound_1_1Doc.html">Doc</a> doc) const</td></tr>
 <tr class="memdesc:ae1c8d9643ca85ba7dba32325538e30b5 inherit pub_methods_classbloodhound_1_1query_1_1TaatRetriever"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the accumulated score of doc.  <a href="classbloodhound_1_1query_1_1TaatRetriever.html#ae1c8d9643ca85ba7dba32325538e30b5">More...</a><br /></td></tr>
@@ -301,8 +303,8 @@ template&lt;typename PostingList &gt; </div>
 
 </div>
 </div>
-<a id="aeadc34f7b5116c79d723cb39e673c6ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeadc34f7b5116c79d723cb39e673c6ff">&#9670;&nbsp;</a></span>post_lists_by_score()</h2>
+<a id="a180277ad96862e92c102066586edc74f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180277ad96862e92c102066586edc74f">&#9670;&nbsp;</a></span>post_lists_by_score()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -313,7 +315,7 @@ template&lt;typename PostingList &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt;<a class="el" href="structbloodhound_1_1Score.html">Score</a>, unsigned int&gt; <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html">bloodhound::query::ExactSaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;::post_lists_by_score </td>
+          <td class="memname">virtual irkit::Heap&lt;<a class="el" href="structbloodhound_1_1Score.html">Score</a>, unsigned int&gt; <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html">bloodhound::query::ExactSaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;::post_lists_by_score </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>term_postings</em>, </td>
@@ -412,6 +414,35 @@ template&lt;typename PostingList &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a716838f463f124964e76f48bc37d32cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a716838f463f124964e76f48bc37d32cc">&#9670;&nbsp;</a></span>stats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename PostingList &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual nlohmann::json <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html">bloodhound::query::ExactSaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;::stats </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classbloodhound_1_1query_1_1Retriever.html#a58da32a5139b980ba874f8b5e6bb89ec">bloodhound::query::Retriever&lt; PostingList &gt;</a>.</p>
 
 </div>
 </div>

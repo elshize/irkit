@@ -2,7 +2,7 @@
 \label{classbloodhound_1_1query_1_1TaatRetriever}\index{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$@{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}}
 
 
-{\ttfamily \#include $<$taat.\+hpp$>$}
+{\ttfamily \#include $<$retrievers.\+hpp$>$}
 
 Inheritance diagram for bloodhound\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+:\begin{figure}[H]
 \begin{center}
@@ -15,10 +15,10 @@ Inheritance diagram for bloodhound\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+L
 \item 
 \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_af443da08f4200fb84a3481d47bc4ac35}{Taat\+Retriever} (std\+::size\+\_\+t collection\+\_\+size)
 \begin{DoxyCompactList}\small\item\em Constructs a \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{Taat\+Retriever} with an accumulator array of collection\+\_\+size. \end{DoxyCompactList}\item 
-void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_aa9812dfbf0f5ec7fc7668abe22774929}{accumulate\+\_\+posting} (\hyperlink{structbloodhound_1_1Doc}{Doc} doc, \hyperlink{structbloodhound_1_1Score}{Score} score\+\_\+delta)
+void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a34def8d627b446d7459792ab9c50dcab}{accumulate\+\_\+posting} (\hyperlink{structbloodhound_1_1Doc}{Doc} doc, \hyperlink{structbloodhound_1_1Score}{Score} score\+\_\+delta, std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&acc)
 \begin{DoxyCompactList}\small\item\em Accumulates the posting that is being processed. \end{DoxyCompactList}\item 
 void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a1b476e4ada85862cb79a92b6424d2aa2}{traverse} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&lists\+\_\+for\+\_\+terms, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights)
-\begin{DoxyCompactList}\small\item\em Traverses the postings and accumulates the scores. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Traverses a single posting lists and accumulates its scores. \end{DoxyCompactList}\item 
 \hyperlink{structbloodhound_1_1Score}{Score} \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_ae1c8d9643ca85ba7dba32325538e30b5}{score\+\_\+of} (\hyperlink{structbloodhound_1_1Doc}{Doc} doc) const
 \begin{DoxyCompactList}\small\item\em Returns the accumulated score of doc. \end{DoxyCompactList}\item 
 std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{Result} $>$ \hyperlink{classbloodhound_1_1query_1_1TaatRetriever_a7f631f87075249c768873d15a59956c5}{aggregate\+\_\+top} (std\+::size\+\_\+t k)
@@ -78,12 +78,12 @@ Constructs a \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{Taat\+Retriev
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classbloodhound_1_1query_1_1TaatRetriever_aa9812dfbf0f5ec7fc7668abe22774929}\label{classbloodhound_1_1query_1_1TaatRetriever_aa9812dfbf0f5ec7fc7668abe22774929}} 
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1TaatRetriever_a34def8d627b446d7459792ab9c50dcab}\label{classbloodhound_1_1query_1_1TaatRetriever_a34def8d627b446d7459792ab9c50dcab}} 
 \index{bloodhound\+::query\+::\+Taat\+Retriever@{bloodhound\+::query\+::\+Taat\+Retriever}!accumulate\+\_\+posting@{accumulate\+\_\+posting}}
 \index{accumulate\+\_\+posting@{accumulate\+\_\+posting}!bloodhound\+::query\+::\+Taat\+Retriever@{bloodhound\+::query\+::\+Taat\+Retriever}}
 \subsubsection{\texorpdfstring{accumulate\+\_\+posting()}{accumulate\_posting()}}
 {\footnotesize\ttfamily template$<$typename Posting\+List, bool prefetch = false, unsigned short init\+\_\+gap = 0, unsigned int acc\+\_\+block\+\_\+size = 0$>$ \\
-void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{bloodhound\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::accumulate\+\_\+posting (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{doc,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score}}]{score\+\_\+delta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{bloodhound\+::query\+::\+Taat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$\+::accumulate\+\_\+posting (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{doc,  }\item[{\hyperlink{structbloodhound_1_1Score}{Score}}]{score\+\_\+delta,  }\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&}]{acc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -168,9 +168,9 @@ void \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{bloodhound\+::query\+
 
 
 
+Traverses a single posting lists and accumulates its scores. 
+
 Traverses the postings and accumulates the scores. 
-
-
 
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{classbloodhound_1_1query_1_1TaatRetriever_a604c7ab279ced03ccc1866d55c844b11}\label{classbloodhound_1_1query_1_1TaatRetriever_a604c7ab279ced03ccc1866d55c844b11}} 
@@ -230,4 +230,4 @@ The score mask for fast computing of the accumulated values. This is only used w
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{taat_8hpp}{taat.\+hpp}\end{DoxyCompactItemize}
+include/\hyperlink{retrievers_8hpp}{retrievers.\+hpp}\end{DoxyCompactItemize}

@@ -65,6 +65,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">heap.hpp File Reference</div>  </div>
@@ -73,6 +74,7 @@ $(function() {
 <div class="textblock"><code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;gsl/span&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
@@ -80,22 +82,34 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1Heap.html">bloodhound::Heap&lt; Key, Value, Compare &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structskit_1_1has__default__constructor.html">skit::has_default_constructor&lt; T, typename &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Heap_1_1Entry.html">bloodhound::Heap&lt; Key, Value, Compare &gt;::Entry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of objects stored internally in the heap.  <a href="structbloodhound_1_1Heap_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structskit_1_1has__default__constructor_3_01T_00_01void__t_3_01decltype_07std_1_1declval_3_01T_01_6_01_4_07_08_08_4_01_4.html">skit::has_default_constructor&lt; T, void_t&lt; decltype(std::declval&lt; T &amp; &gt;())&gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classskit_1_1EmptyMapping.html">skit::EmptyMapping</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structskit_1_1Entry.html">skit::Entry&lt; Key, Value &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of objects stored internally in the heap.  <a href="structskit_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classskit_1_1Heap.html">skit::Heap&lt; Key, Value, Compare, Mapping &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacebloodhound"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html">bloodhound</a></td></tr>
+<tr class="memitem:namespaceskit"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceskit.html">skit</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a827cfc47784c1ce9cc3e7c583ac3b1cb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a827cfc47784c1ce9cc3e7c583ac3b1cb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceskit.html#a827cfc47784c1ce9cc3e7c583ac3b1cb">skit::void_t</a> = void</td></tr>
+<tr class="separator:a827cfc47784c1ce9cc3e7c583ac3b1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a64cca068dad32570cb036b6057cc86b6"><td class="memTemplParams" colspan="2">template&lt;class Key , class Value &gt; </td></tr>
-<tr class="memitem:a64cca068dad32570cb036b6057cc86b6"><td class="memTemplItemLeft" align="right" valign="top">Heap&lt; Key, Value &gt;::Entry&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a64cca068dad32570cb036b6057cc86b6">bloodhound::make_entry</a> (Key key, Value value)</td></tr>
-<tr class="separator:a64cca068dad32570cb036b6057cc86b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33324a7bd87ff2a6800c5b530cb46a7f"><td class="memTemplParams" colspan="2">template&lt;class Key , class Value &gt; </td></tr>
+<tr class="memitem:a33324a7bd87ff2a6800c5b530cb46a7f"><td class="memTemplItemLeft" align="right" valign="top">Entry&lt; Key, Value &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceskit.html#a33324a7bd87ff2a6800c5b530cb46a7f">skit::make_entry</a> (Key key, Value value)</td></tr>
+<tr class="separator:a33324a7bd87ff2a6800c5b530cb46a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

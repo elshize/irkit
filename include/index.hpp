@@ -1,10 +1,12 @@
 #pragma once
 
-#include <assert.h>
 #include <experimental/filesystem>
 #include <fstream>
+#include <gsl/gsl_assert>
 #include <gsl/span>
 #include <iostream>
+//#include <range/v3/all.hpp>
+//#include <range/v3/span.hpp>
 #include <type_safe/strong_typedef.hpp>
 #include <unordered_map>
 #include "json.hpp"
@@ -39,6 +41,22 @@ struct Offset : type_safe::strong_typedef<Offset, uint64_t>,
     }
 };
 
+struct RelativeOffset : type_safe::strong_typedef<RelativeOffset, uint16_t>,
+                type_safe::strong_typedef_op::equality_comparison<RelativeOffset>,
+                type_safe::strong_typedef_op::relational_comparison<RelativeOffset>,
+                type_safe::strong_typedef_op::input_operator<RelativeOffset>,
+                type_safe::strong_typedef_op::output_operator<RelativeOffset> {
+    using strong_typedef::strong_typedef;
+    friend const char* operator+(const char* ptr, RelativeOffset offset)
+    {
+        return ptr + get(offset);
+    }
+    friend char* operator+(char* ptr, RelativeOffset offset)
+    {
+        return ptr + get(offset);
+    }
+};
+
 struct Score : type_safe::strong_typedef<Score, uint32_t>,
                type_safe::strong_typedef_op::integer_arithmetic<Score>,
                type_safe::strong_typedef_op::equality_comparison<Score>,
@@ -56,7 +74,7 @@ struct Doc : type_safe::strong_typedef<Doc, uint32_t>,
              type_safe::strong_typedef_op::input_operator<Doc>,
              type_safe::strong_typedef_op::output_operator<Doc> {
     using strong_typedef::strong_typedef;
-    operator std::size_t() { return static_cast<std::size_t>(get(*this)); }
+    operator std::size_t() const { return static_cast<std::size_t>(get(*this)); }
 };
 
 using AccumulatorArray = std::vector<Score>;
@@ -68,14 +86,120 @@ struct Posting {
     Score score;
 };
 
+template<class Posting>
+struct doc_equal_to {
+    bool operator()(const Posting& lhs, const Posting& rhs)
+    {
+        return lhs.doc == rhs.doc;
+    }
+};
+
+template<class Posting>
+struct add_postings {
+    Posting operator()(const Posting& lhs, const Posting& rhs)
+    {
+        return Posting{lhs.doc, lhs.score + rhs.score};
+    }
+};
+
+template<class Posting>
+struct score_greater {
+    bool operator()(const Posting& lhs, const Posting& rhs)
+    {
+        return lhs.score > rhs.score;
+    }
+};
+
+bool operator==(const Posting& a, const Posting& b)
+{
+    return a.doc == b.doc && a.score == b.score;
+}
+
+bool operator>(const Posting& a, const Posting& b)
+{
+    return a.score < b.score;
+}
+
+bool operator<(const Posting& a, const Posting& b)
+{
+    return a.doc < b.doc;
+}
+
+Posting operator*(const Posting& p, Score weight)
+{
+    return Posting{p.doc, p.score * weight};
+}
+
+std::ostream& operator<<(std::ostream& os, const Posting& p)
+{
+    return os << "{" << p.doc << "," << p.score << "}";
+}
+
+Posting operator+(const Posting& lhs, const Posting& rhs)
+{
+    return Posting{lhs.doc, lhs.score + rhs.score};
+}
+
 struct TermWeight {
     TermId term;
     Score weight;
 };
 
+
+//class PostingView {
+//    Doc* doc_;
+//    Score* score_;
+//
+//public:
+//    PostingView(Doc* doc, Score* score) : doc_(doc), score_(score) {}
+//    Doc doc() { return *doc_; }
+//    Doc score() { return *score_; }
+//}
+
 class PostingList {
 
 public:
+
+    struct const_iterator {
+        gsl::span<Doc>::const_iterator doc_iter;
+        gsl::span<Score>::const_iterator score_iter;
+        mutable Posting current;
+
+        const_iterator(gsl::span<Doc>::const_iterator dbeg,
+            gsl::span<Score>::const_iterator sbeg)
+            : doc_iter(dbeg), score_iter(sbeg)
+        {}
+        const Posting& operator*() const
+        {
+            current = {*doc_iter, *score_iter};
+            return current;
+        }
+        const Posting* operator->() const
+        {
+            current = {*doc_iter, *score_iter};
+            return &current;
+        }
+        const_iterator& operator++()
+        {
+            ++doc_iter;
+            ++score_iter;
+            return *this;
+        }
+        void operator++(int)
+        {
+            doc_iter++;
+            score_iter++;
+        }
+        bool operator==(const const_iterator& rhs) const
+        {
+            return doc_iter == rhs.doc_iter && score_iter == rhs.score_iter;
+        }
+        bool operator!=(const const_iterator& rhs) const
+        {
+            return doc_iter != rhs.doc_iter || score_iter != rhs.score_iter;
+        }
+    };
+
     struct iterator {
         const PostingList* posting_list;
         std::size_t pos;
@@ -99,6 +223,10 @@ public:
             ++pos;
             return *this;
         }
+        iterator operator++(int)
+        {
+            return iterator{posting_list, pos++};
+        }
         iterator operator+(int n) const { return {posting_list, pos + n}; }
         iterator operator-(int n) const
         {
@@ -112,17 +240,16 @@ public:
         {
             return (pos != rhs.pos) || (posting_list != rhs.posting_list);
         }
+        Doc doc() { return posting_list->docs[pos]; }
+        Score score() { return posting_list->scores[pos]; }
     };
 
     gsl::span<Doc> docs;
     gsl::span<Score> scores;
-    std::optional<Score> max_score;
+    Score max_score;
     std::size_t idx;
     std::size_t end_idx;
 
-    PostingList(Doc* d, Score* s, uint32_t l)
-        : docs(d, l), scores(s, l), max_score(std::nullopt), idx(0), end_idx(l)
-    {}
     PostingList(Doc* d, Score* s, uint32_t l, Score ms)
         : docs(d, l), scores(s, l), max_score(ms), idx(0), end_idx(l)
     {}
@@ -131,13 +258,25 @@ public:
     bool empty() const { return docs.size() == 0; }
     iterator next_ge(iterator current, Doc doc) const
     {
-        while (current != end() && current->doc < doc) {
+        while (current != end() && current.doc() < doc) {
+            ++current;
+        }
+        return current;
+    }
+    iterator next_ge(iterator current, iterator end, Doc doc) const
+    {
+        while (current != end && current.doc() < doc) {
             ++current;
         }
         return current;
     }
     virtual iterator begin() const { return {this, 0}; }
     virtual iterator end() const { return {this, end_idx}; }
+    virtual const_iterator cbegin() const
+    {
+        return {docs.cbegin(), scores.cbegin()};
+    }
+    virtual const_iterator cend() const { return {docs.cend(), scores.cend()}; }
     virtual gsl::span<Doc>::const_iterator doc_begin() const
     {
         return docs.cbegin();
@@ -165,7 +304,31 @@ public:
     }
     Doc* docs_ptr() const { return &docs[0]; }
     Score* scores_ptr() const { return &scores[0]; }
+
+    //// Ranges
+    //auto posting_range() {
+    //    ranges::span<Doc> doc_range(docs.data(), docs.size());
+    //    ranges::span<Score> score_range(scores.data(), scores.size());
+    //    return ranges::view::transform(
+    //        ranges::view::zip(doc_range, score_range), [](std::tuple<Doc, Score> tup) {
+    //            Doc doc;
+    //            Score score;
+    //            std::tie(doc, score) = tup;
+    //            return Posting{doc, score};
+    //        });
+    //}
 };
+
+//auto posting_range(gsl::span<Doc> docs, gsl::span<Score> scores)
+//{
+//    return ranges::view::transform(
+//        ranges::view::zip(docs, scores), [](std::tuple<Doc, Score> tup) {
+//            Doc doc;
+//            Score score;
+//            std::tie(doc, score) = tup;
+//            return Posting{doc, score};
+//        });
+//}
 
 }  // namespace bloodhound
 
@@ -175,6 +338,13 @@ struct hash<bloodhound::TermId> {
     std::size_t operator()(bloodhound::TermId const& t) const noexcept
     {
         return std::hash<std::uint64_t>{}(type_safe::get(t));
+    }
+};
+template<>
+struct hash<bloodhound::Score> {
+    std::size_t operator()(bloodhound::Score const& t) const noexcept
+    {
+        return std::hash<std::uint32_t>{}(type_safe::get(t));
     }
 };
 template<>
@@ -227,27 +397,73 @@ struct PostingListHeader {
     bool is_short() const { return checkmask(28); }
 };
 
-class Index {
+class InMemoryPostingPolicy {
+protected:
+    std::vector<char> postings_data;
+    char* read_posting_data(Offset offset)
+    {
+        //std::cout << offset << "/" << postings_data.size() << std::endl;
+        Expects(offset >= Offset(0));
+        Expects(offset < Offset(postings_data.size()));
+        return postings_data.data() + offset;
+    }
+    void load_postings(fs::path postings_file)
+    {
+        postings_data = read_file(postings_file);
+    }
+};
+
+//class DiskPostingPolicy {
+//protected:
+//    std::size_t cache_size;
+//    std::queue<Offset> offset_queue;
+//    std::unordered_map<Offset, std::size_t> counter;
+//    std::unordered_map<Offset, std::vector<char>> data;
+//    fs::path postings_file_;
+//    const char* read_posting_data(Offset offset)
+//    {
+//        std::ifstream file(postings_file_, std::ios::binary | std::ios::ate);
+//        std::streamsize size = file.tellg();
+//        file.seekg(0, std::ios::beg);
+//
+//        std::vector<char> buffer(size);
+//        if (!file.read(buffer.data(), size)) {
+//            // TODO: throw exception
+//        }
+//        return buffer;
+//    }
+//    void load_postings(fs::path postings_file)
+//    {
+//        postings_file_ = postings_file;
+//    }
+//};
+
+template<class PostingPolicy = InMemoryPostingPolicy>
+class Index : public PostingPolicy {
 
 private:
     std::size_t collection_size;
-    std::vector<char> postings_data;
-    Lexicon lexicon;
     MaxScores max_scores;
 
 public:
+    Lexicon lexicon;
+
     std::size_t get_collection_size() const { return collection_size; }
 
-    PostingList posting_list(TermId termid)
+    PostingList posting_list(TermId termid, bool load_max_scores = true)
     {
         const auto term_it = lexicon.find(termid);
         if (term_it == lexicon.end()) {
-            return PostingList(0, 0, 0);
+            return PostingList(0, 0, 0, Score(0));
         }
-        Score max_score = max_scores[term_it->first];
+        Score max_score(0);
+        if (load_max_scores) {
+            //max_score = max_scores.at(term_it->first);
+            max_score = max_scores[term_it->first];
+        }
         Offset offset = term_it->second;
-        auto header =
-            reinterpret_cast<PostingListHeader*>(postings_data.data() + offset);
+        char* posting_data = PostingPolicy::read_posting_data(offset);
+        auto header = reinterpret_cast<PostingListHeader*>(posting_data);
         if (header->is_short()) {
             return PostingList(reinterpret_cast<Doc*>(&header->doc_count),
                 reinterpret_cast<Score*>(&header->payload_offset),
@@ -255,13 +471,12 @@ public:
                 max_score);
         }
         if (header->payload_offset == 0) {
-            return PostingList(0, 0, 0);
+            return PostingList(0, 0, 0, Score(0));
         }
         auto count = header->doc_count;
-        auto docs_ptr = reinterpret_cast<Doc*>(
-            postings_data.data() + offset + sizeof(*header));
-        auto scores_ptr = reinterpret_cast<Score*>(
-            postings_data.data() + offset + header->payload_offset);
+        auto docs_ptr = reinterpret_cast<Doc*>(posting_data + sizeof(*header));
+        auto scores_ptr =
+            reinterpret_cast<Score*>(posting_data + header->payload_offset);
         return PostingList(docs_ptr, scores_ptr, count, max_score);
     }
 
@@ -272,14 +487,34 @@ public:
         return postlist;
     }
 
-    static std::tuple<Lexicon, MaxScores> load_mappings(fs::path index_dir)
+    /// Converts a vector of terms to a vector of posting lists
+    std::vector<PostingList> terms_to_postings(const std::vector<TermId> terms)
+    {
+        std::vector<PostingList> postings;
+        for (auto& term : terms) {
+            postings.push_back(posting_list(term));
+        }
+        return postings;
+    }
+
+    void calc_maxscores()
+    {
+        max_scores.clear();
+        for (auto [termid, offset] : lexicon) {
+            auto postlist = posting_list(termid, false);
+            Score max = Score(0);
+            for (auto& score : postlist.scores) {
+                max = std::max(max, score);
+            }
+            max_scores[termid] = max;
+        }
+    }
+
+    static Lexicon load_lexicon(fs::path index_dir)
     {
         fs::path lexicon_file = index_dir / "dictionary.dat";
-        fs::path maxscore_file = index_dir / "maxscore.dat";
         Lexicon lexicon;
-        MaxScores max_scores;
         std::vector<char> lexicon_buf = read_file(lexicon_file);
-        std::vector<char> max_score_buf = read_file(maxscore_file);
         std::size_t term_count = (lexicon_buf.size() - 24) / 16;
         struct lex_entry_t {
             TermId termid;
@@ -287,12 +522,53 @@ public:
         };
         auto span_beg = reinterpret_cast<lex_entry_t*>(lexicon_buf.data() + 24);
         auto entries = gsl::span<lex_entry_t>(span_beg, term_count);
-        Score* max_score = reinterpret_cast<Score*>(max_score_buf.data());
-        for (auto[termid, offset] : entries) {
+        for (auto [termid, offset] : entries) {
             lexicon[termid] = offset;
-            max_scores[termid] = *(max_score++);
         }
-        return std::make_tuple(lexicon, max_scores);
+        return lexicon;
+    }
+
+    static MaxScores load_maxscores(fs::path index_dir)
+    {
+        fs::path maxscore_file = index_dir / "maxscore.dat";
+        MaxScores max_scores;
+        std::vector<char> maxscore_buf = read_file(maxscore_file);
+        struct maxscore_entry_t {
+            TermId termid;
+            Score maxscore;
+        };
+        std::size_t term_count = maxscore_buf.size() / sizeof(maxscore_entry_t);
+        auto span_beg =
+            reinterpret_cast<maxscore_entry_t*>(maxscore_buf.data());
+        auto entries = gsl::span<maxscore_entry_t>(span_beg, term_count);
+        for (auto [termid, score] : entries) {
+            max_scores[termid] = score;
+        }
+        return max_scores;
+    }
+
+    static std::tuple<Lexicon, MaxScores> load_mappings(fs::path index_dir)
+    {
+        //fs::path lexicon_file = index_dir / "dictionary.dat";
+        //fs::path maxscore_file = index_dir / "maxscore.dat";
+        //Lexicon lexicon;
+        //MaxScores max_scores;
+        //std::vector<char> lexicon_buf = read_file(lexicon_file);
+        //std::vector<char> max_score_buf = read_file(maxscore_file);
+        //std::size_t term_count = (lexicon_buf.size() - 24) / 16;
+        //struct lex_entry_t {
+        //    TermId termid;
+        //    Offset offset;
+        //};
+        //auto span_beg = reinterpret_cast<lex_entry_t*>(lexicon_buf.data() + 24);
+        //auto entries = gsl::span<lex_entry_t>(span_beg, term_count);
+        //Score* max_score = reinterpret_cast<Score*>(max_score_buf.data());
+        //for (auto[termid, offset] : entries) {
+        //    lexicon[termid] = offset;
+        //    max_scores[termid] = *(max_score++);
+        //}
+        return std::make_tuple(
+            load_lexicon(index_dir), load_maxscores(index_dir));
     }
 
     static json::json load_meta(fs::path meta_file)
@@ -303,7 +579,42 @@ public:
         return meta;
     }
 
-    static Index load_index(fs::path index_dir)
+    static void verify(Index& index)
+    {
+        for (auto& [termid, offset] : index.lexicon) {
+            auto postlist = index.posting_list(termid);
+            Score max = Score(0);
+            for (auto& score : postlist.scores) {
+                max = std::max(max, score);
+            }
+            assert(max == postlist.max_score);
+        }
+    }
+
+    static void write_maxscores(Index& index, fs::path out)
+    {
+        std::vector<std::tuple<TermId, Score>> maxscores;
+        std::size_t terms = 0;
+        for (auto& [termid, offset] : index.lexicon) {
+            terms++;
+            auto postlist = index.posting_list(termid, false);
+            Score max = Score(0);
+            for (auto& score : postlist.scores) {
+                max = std::max(max, score);
+            }
+            maxscores.push_back({termid, max});
+        }
+        std::cout << "Terms: " << terms << std::endl;
+        std::sort(maxscores.begin(), maxscores.end());
+        std::ofstream file(out, std::ios::binary);
+        for (auto& [termid, maxscore] : maxscores) {
+           file.write((char*)&termid, sizeof(TermId));
+           file.write((char*)&maxscore, sizeof(Score));
+        }
+        file.close();
+    }
+
+    static Index write_maxscores(fs::path index_dir)
     {
         Index index;
 
@@ -311,37 +622,53 @@ public:
         auto meta = load_meta(meta_file);
         index.collection_size = meta["collection_size"];
 
-        fs::path postings_file = index_dir / "postings.dat";
-        auto[lexicon, max_scores] = load_mappings(index_dir);
+        auto lexicon = load_lexicon(index_dir);
         index.lexicon = std::move(lexicon);
-        index.max_scores = std::move(max_scores);
-        index.postings_data = read_file(postings_file);
+
+        fs::path postings_file = index_dir / "postings.dat";
+        index.load_postings(postings_file);
+
+        write_maxscores(index, index_dir / "maxscore.dat");
+
         return index;
     }
 
-    friend Index build_index_from_ids(
-        const std::vector<std::vector<TermWeight>>& input);
-    friend Index sorted_index(const Index& index);
-};
+    static Index load_index(fs::path index_dir, bool verify_maxscores = false)
+    {
+        Index index;
 
-/// Converts a vector of terms to a vector of posting lists
-std::vector<PostingList> terms_to_postings(
-    Index& index, const std::vector<TermId> terms)
-{
-    std::vector<PostingList> postings;
-    for (auto& term : terms) {
-        postings.push_back(index.posting_list(term));
+        fs::path meta_file = index_dir / "manifest.json";
+        auto meta = load_meta(meta_file);
+        index.collection_size = meta["collection_size"];
+
+        //auto[lexicon, max_scores] = load_mappings(index_dir);
+        index.lexicon = std::move(load_lexicon(index_dir));
+        //index.max_scores = std::move(max_scores);
+
+        fs::path postings_file = index_dir / "postings.dat";
+        index.load_postings(postings_file);
+        //index.calc_maxscores();
+
+        if (verify_maxscores) {
+            verify(index);
+        }
+
+        return index;
     }
-    return postings;
-}
+
+    friend Index<InMemoryPostingPolicy> build_index_from_ids(
+        const std::vector<std::vector<TermWeight>>& input);
+    friend Index<InMemoryPostingPolicy> sorted_index(
+        const Index<InMemoryPostingPolicy>& index);
+};
 
 /// Builds an index based on a collection represented by term IDs.
 ///
 /// This function is not efficient and only meant for testing other
 /// functionalities.
-Index build_index_from_ids(const std::vector<std::vector<TermWeight>>& input)
+Index<InMemoryPostingPolicy> build_index_from_ids(const std::vector<std::vector<TermWeight>>& input)
 {
-    Index index;
+    Index<> index;
     std::vector<char>& idx_postings = index.postings_data;
     std::size_t collection_size = 0;
     std::map<TermId, std::vector<Posting>> term2doc;
@@ -390,9 +717,9 @@ Index build_index_from_ids(const std::vector<std::vector<TermWeight>>& input)
     return index;
 }
 
-Index sorted_index(const Index& index)
+Index<InMemoryPostingPolicy> sorted_index(const Index<InMemoryPostingPolicy>& index)
 {
-    Index sorted;
+    Index<> sorted;
     sorted.lexicon = Lexicon(index.lexicon);
     sorted.max_scores = MaxScores(index.max_scores);
     sorted.postings_data = std::vector<char>(index.postings_data);

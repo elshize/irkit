@@ -1,0 +1,82 @@
+\hypertarget{classbloodhound_1_1query_1_1ThresholdRetriever}{}\section{bloodhound\+:\+:query\+:\+:Threshold\+Retriever$<$ Posting\+List $>$ Class Template Reference}
+\label{classbloodhound_1_1query_1_1ThresholdRetriever}\index{bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$@{bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$}}
+
+
+{\ttfamily \#include $<$saat.\+hpp$>$}
+
+Inheritance diagram for bloodhound\+:\+:query\+:\+:Threshold\+Retriever$<$ Posting\+List $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classbloodhound_1_1query_1_1ThresholdRetriever}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_a425d17d048e1fd3fd8157450c99df5bc}{Threshold\+Retriever} (std\+::size\+\_\+t collection\+\_\+size)
+\item 
+\hyperlink{structbloodhound_1_1Score}{Score} \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_ac0a8731d270c477e04f24b89850a7d4a}{score\+\_\+with\+\_\+lookups} (\hyperlink{structbloodhound_1_1Doc}{Doc} doc, std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&acc)
+\item 
+virtual std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{Result} $>$ \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_a06750450e1246e755ebad2d5dac6e8a8}{retrieve} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&term\+\_\+weights, std\+::size\+\_\+t k)
+\begin{DoxyCompactList}\small\item\em Retrieves top-\/k results for the given posting lists and term weights. \end{DoxyCompactList}\item 
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_aa21e5b44d70bfdf058e5f9c5a1abc008}{stats} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Posting\+List$>$\newline
+class bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$}
+
+Implementation of Fagin\textquotesingle{}s Threshold Algorithm.
+
+Assumes that postings are sorted by their partial scores. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ThresholdRetriever_a425d17d048e1fd3fd8157450c99df5bc}\label{classbloodhound_1_1query_1_1ThresholdRetriever_a425d17d048e1fd3fd8157450c99df5bc}} 
+\index{bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}!Threshold\+Retriever@{Threshold\+Retriever}}
+\index{Threshold\+Retriever@{Threshold\+Retriever}!bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}}
+\subsubsection{\texorpdfstring{Threshold\+Retriever()}{ThresholdRetriever()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+\hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{bloodhound\+::query\+::\+Threshold\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::\hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{Threshold\+Retriever} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{collection\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ThresholdRetriever_a06750450e1246e755ebad2d5dac6e8a8}\label{classbloodhound_1_1query_1_1ThresholdRetriever_a06750450e1246e755ebad2d5dac6e8a8}} 
+\index{bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}!retrieve@{retrieve}}
+\index{retrieve@{retrieve}!bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}}
+\subsubsection{\texorpdfstring{retrieve()}{retrieve()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+virtual std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{Result}$>$ \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{bloodhound\+::query\+::\+Threshold\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::retrieve (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&}]{term\+\_\+weights,  }\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Retrieves top-\/k results for the given posting lists and term weights. 
+
+
+
+Reimplemented from \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_ab80b4867fc263827dc2fdbe0965a2e8c}{bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$}.
+
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ThresholdRetriever_ac0a8731d270c477e04f24b89850a7d4a}\label{classbloodhound_1_1query_1_1ThresholdRetriever_ac0a8731d270c477e04f24b89850a7d4a}} 
+\index{bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}!score\+\_\+with\+\_\+lookups@{score\+\_\+with\+\_\+lookups}}
+\index{score\+\_\+with\+\_\+lookups@{score\+\_\+with\+\_\+lookups}!bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}}
+\subsubsection{\texorpdfstring{score\+\_\+with\+\_\+lookups()}{score\_with\_lookups()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+\hyperlink{structbloodhound_1_1Score}{Score} \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{bloodhound\+::query\+::\+Threshold\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::score\+\_\+with\+\_\+lookups (\begin{DoxyParamCaption}\item[{\hyperlink{structbloodhound_1_1Doc}{Doc}}]{doc,  }\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&}]{acc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1ThresholdRetriever_aa21e5b44d70bfdf058e5f9c5a1abc008}\label{classbloodhound_1_1query_1_1ThresholdRetriever_aa21e5b44d70bfdf058e5f9c5a1abc008}} 
+\index{bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}!stats@{stats}}
+\index{stats@{stats}!bloodhound\+::query\+::\+Threshold\+Retriever@{bloodhound\+::query\+::\+Threshold\+Retriever}}
+\subsubsection{\texorpdfstring{stats()}{stats()}}
+{\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
+virtual nlohmann\+::json \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{bloodhound\+::query\+::\+Threshold\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \hyperlink{classbloodhound_1_1query_1_1Retriever_a58da32a5139b980ba874f8b5e6bb89ec}{bloodhound\+::query\+::\+Retriever$<$ Posting\+List $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{saat_8hpp}{saat.\+hpp}\end{DoxyCompactItemize}

@@ -1,0 +1,158 @@
+\hypertarget{namespaceirkit}{}\section{irkit Namespace Reference}
+\label{namespaceirkit}\index{irkit@{irkit}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structirkit_1_1moving__range}{moving\+\_\+range}
+\item 
+class \hyperlink{classirkit_1_1SimpleAccumulator}{Simple\+Accumulator}
+\item 
+class \hyperlink{classirkit_1_1UnionRange}{Union\+Range}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}{element\+\_\+t} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{pure\+\_\+element\+\_\+t} = std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ decltype($\ast$std\+::declval$<$ Range $>$().begin())$>$ $>$
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_af390a50be8f636e7239c650e5043c56f}{iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().begin())
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{const\+\_\+iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().cbegin())
+\item 
+{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}{doc\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().doc)
+\item 
+{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{score\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().score)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{pure\+\_\+element\+\_\+t}$<$ Range $>$ $>$ \hyperlink{namespaceirkit_ad6a1763616725ecb88e751ea7eb93453}{daat\+\_\+or} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
+\item 
+{\footnotesize template$<$typename Integer $>$ }\\constexpr unsigned short \hyperlink{namespaceirkit_a11ecd56a4192fe476a58f84d54733a85}{nbits} (Integer n)
+\begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_ac5cd7f5c083918572c6b91cd9822768d}{traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a80010d3825abc594bcd8fcc8225804d2}{traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a887e759137d1d5327475cb75039bb5ec}{traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a8c1a48d323636892a6826df1b8ca25bf}{traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$typename Doc  = std\+::size\+\_\+t, typename Score , template$<$ typename T $>$ typename Range$>$ }\\std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{bloodhound\+::query\+::\+Result} $>$ \hyperlink{namespaceirkit_aabff8eec068dbbd05abad382861327de}{aggregate\+\_\+top} (std\+::size\+\_\+t k, const Range$<$ Score $>$ \&acc)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classirkit_1_1SimpleAccumulator}{Simple\+Accumulator} \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}\label{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}} 
+\index{irkit@{irkit}!const\+\_\+iterator\+\_\+t@{const\+\_\+iterator\+\_\+t}}
+\index{const\+\_\+iterator\+\_\+t@{const\+\_\+iterator\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{const\+\_\+iterator\+\_\+t}{const\_iterator\_t}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+using \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{irkit\+::const\+\_\+iterator\+\_\+t} = typedef decltype(std\+::declval$<$Range$>$().cbegin())}
+
+\mbox{\Hypertarget{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}\label{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}} 
+\index{irkit@{irkit}!doc\+\_\+t@{doc\+\_\+t}}
+\index{doc\+\_\+t@{doc\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{doc\+\_\+t}{doc\_t}}
+{\footnotesize\ttfamily template$<$class Posting $>$ \\
+using \hyperlink{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}{irkit\+::doc\+\_\+t} = typedef decltype(std\+::declval$<$Posting$>$().doc)}
+
+\mbox{\Hypertarget{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}\label{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}} 
+\index{irkit@{irkit}!element\+\_\+t@{element\+\_\+t}}
+\index{element\+\_\+t@{element\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{element\+\_\+t}{element\_t}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+using \hyperlink{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}{irkit\+::element\+\_\+t} = typedef decltype($\ast$std\+::declval$<$Range$>$().begin())}
+
+\mbox{\Hypertarget{namespaceirkit_af390a50be8f636e7239c650e5043c56f}\label{namespaceirkit_af390a50be8f636e7239c650e5043c56f}} 
+\index{irkit@{irkit}!iterator\+\_\+t@{iterator\+\_\+t}}
+\index{iterator\+\_\+t@{iterator\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{iterator\+\_\+t}{iterator\_t}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+using \hyperlink{namespaceirkit_af390a50be8f636e7239c650e5043c56f}{irkit\+::iterator\+\_\+t} = typedef decltype(std\+::declval$<$Range$>$().begin())}
+
+\mbox{\Hypertarget{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}\label{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}} 
+\index{irkit@{irkit}!pure\+\_\+element\+\_\+t@{pure\+\_\+element\+\_\+t}}
+\index{pure\+\_\+element\+\_\+t@{pure\+\_\+element\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{pure\+\_\+element\+\_\+t}{pure\_element\_t}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+using \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{irkit\+::pure\+\_\+element\+\_\+t} = typedef std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$decltype($\ast$std\+::declval$<$Range$>$().begin())$>$ $>$}
+
+\mbox{\Hypertarget{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}\label{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}} 
+\index{irkit@{irkit}!score\+\_\+t@{score\+\_\+t}}
+\index{score\+\_\+t@{score\+\_\+t}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{score\+\_\+t}{score\_t}}
+{\footnotesize\ttfamily template$<$class Posting $>$ \\
+using \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{irkit\+::score\+\_\+t} = typedef decltype(std\+::declval$<$Posting$>$().score)}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirkit_aabff8eec068dbbd05abad382861327de}\label{namespaceirkit_aabff8eec068dbbd05abad382861327de}} 
+\index{irkit@{irkit}!aggregate\+\_\+top@{aggregate\+\_\+top}}
+\index{aggregate\+\_\+top@{aggregate\+\_\+top}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{aggregate\+\_\+top()}{aggregate\_top()}}
+{\footnotesize\ttfamily template$<$typename Doc  = std\+::size\+\_\+t, typename Score , template$<$ typename T $>$ typename Range$>$ \\
+std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{bloodhound\+::query\+::\+Result}$>$ irkit\+::aggregate\+\_\+top (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k,  }\item[{const Range$<$ Score $>$ \&}]{acc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_ad6a1763616725ecb88e751ea7eb93453}\label{namespaceirkit_ad6a1763616725ecb88e751ea7eb93453}} 
+\index{irkit@{irkit}!daat\+\_\+or@{daat\+\_\+or}}
+\index{daat\+\_\+or@{daat\+\_\+or}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{daat\+\_\+or()}{daat\_or()}}
+{\footnotesize\ttfamily template$<$class Range , class Score $>$ \\
+std\+::vector$<$\hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{pure\+\_\+element\+\_\+t}$<$Range$>$ $>$ irkit\+::daat\+\_\+or (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{std\+::size\+\_\+t}]{k,  }\item[{const std\+::vector$<$ Score $>$ \&}]{weights }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_a11ecd56a4192fe476a58f84d54733a85}\label{namespaceirkit_a11ecd56a4192fe476a58f84d54733a85}} 
+\index{irkit@{irkit}!nbits@{nbits}}
+\index{nbits@{nbits}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{nbits()}{nbits()}}
+{\footnotesize\ttfamily template$<$typename Integer $>$ \\
+constexpr unsigned short irkit\+::nbits (\begin{DoxyParamCaption}\item[{Integer}]{n }\end{DoxyParamCaption})}
+
+
+
+Computes the number of bits required to store an integer n. 
+
+\mbox{\Hypertarget{namespaceirkit_a887e759137d1d5327475cb75039bb5ec}\label{namespaceirkit_a887e759137d1d5327475cb75039bb5ec}} 
+\index{irkit@{irkit}!traverse@{traverse}}
+\index{traverse@{traverse}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void irkit\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range$<$ Doc $>$$>$ \&}]{doc\+\_\+lists,  }\item[{const std\+::vector$<$ Range$<$ Score $>$$>$ \&}]{score\+\_\+lists,  }\item[{const std\+::vector$<$ Score $>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_a8c1a48d323636892a6826df1b8ca25bf}\label{namespaceirkit_a8c1a48d323636892a6826df1b8ca25bf}} 
+\index{irkit@{irkit}!traverse@{traverse}}
+\index{traverse@{traverse}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void irkit\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range$<$ Doc $>$$>$ \&}]{doc\+\_\+lists,  }\item[{const std\+::vector$<$ Range$<$ Score $>$$>$ \&}]{score\+\_\+lists,  }\item[{const std\+::vector$<$ Score $>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{unsigned int}]{prefetch\+\_\+ahead,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_ac5cd7f5c083918572c6b91cd9822768d}\label{namespaceirkit_ac5cd7f5c083918572c6b91cd9822768d}} 
+\index{irkit@{irkit}!traverse\+\_\+list@{traverse\+\_\+list}}
+\index{traverse\+\_\+list@{traverse\+\_\+list}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{traverse\+\_\+list()}{traverse\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void irkit\+::traverse\+\_\+list (\begin{DoxyParamCaption}\item[{const Range$<$ Doc $>$ \&}]{docs,  }\item[{const Range$<$ Score $>$ \&}]{scores,  }\item[{Score}]{weight,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_a80010d3825abc594bcd8fcc8225804d2}\label{namespaceirkit_a80010d3825abc594bcd8fcc8225804d2}} 
+\index{irkit@{irkit}!traverse\+\_\+list@{traverse\+\_\+list}}
+\index{traverse\+\_\+list@{traverse\+\_\+list}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{traverse\+\_\+list()}{traverse\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void irkit\+::traverse\+\_\+list (\begin{DoxyParamCaption}\item[{const Range$<$ Doc $>$ \&}]{docs,  }\item[{const Range$<$ Score $>$ \&}]{scores,  }\item[{Score}]{weight,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{unsigned int}]{prefetch\+\_\+ahead,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceirkit_a823671564bf545991e9708011e4a8df1}\label{namespaceirkit_a823671564bf545991e9708011e4a8df1}} 
+\index{irkit@{irkit}!default\+\_\+accumulator@{default\+\_\+accumulator}}
+\index{default\+\_\+accumulator@{default\+\_\+accumulator}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{default\+\_\+accumulator}{default\_accumulator}}
+{\footnotesize\ttfamily \hyperlink{classirkit_1_1SimpleAccumulator}{Simple\+Accumulator} irkit\+::default\+\_\+accumulator}
+

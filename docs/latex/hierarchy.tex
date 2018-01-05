@@ -1,15 +1,18 @@
 \section{Class Hierarchy}
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
+\item \contentsline{section}{bloodhound\+:\+:add\+\_\+postings$<$ Posting $>$}{\pageref{structbloodhound_1_1add__postings}}{}
 \item bitmask\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \end{DoxyCompactList}
+\item \contentsline{section}{bloodhound\+:\+:Posting\+List\+:\+:const\+\_\+iterator}{\pageref{structbloodhound_1_1PostingList_1_1const__iterator}}{}
 \item default\+\_\+handler\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:debug}{\pageref{structbloodhound_1_1query_1_1debug}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{bloodhound\+:\+:Heap$<$ Key, Value, Compare $>$\+:\+:Entry}{\pageref{structbloodhound_1_1Heap_1_1Entry}}{}
+\item \contentsline{section}{bloodhound\+:\+:doc\+\_\+equal\+\_\+to$<$ Posting $>$}{\pageref{structbloodhound_1_1doc__equal__to}}{}
 \item equality\+\_\+comparison\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Doc}{\pageref{structbloodhound_1_1Doc}}{}
 \item \contentsline{section}{bloodhound\+:\+:Offset}{\pageref{structbloodhound_1_1Offset}}{}
+\item \contentsline{section}{bloodhound\+:\+:Relative\+Offset}{\pageref{structbloodhound_1_1RelativeOffset}}{}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \item \contentsline{section}{bloodhound\+:\+:Term\+Id}{\pageref{structbloodhound_1_1TermId}}{}
 \end{DoxyCompactList}
@@ -18,12 +21,13 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:has\+\_\+posting\+\_\+iterator$<$ T, typename $>$}{\pageref{structbloodhound_1_1query_1_1has__posting__iterator}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{std\+:\+:hash$<$ bloodhound\+:\+:Doc $>$}{\pageref{structstd_1_1hash_3_01bloodhound_1_1Doc_01_4}}{}
+\item \contentsline{section}{std\+:\+:hash$<$ bloodhound\+:\+:Score $>$}{\pageref{structstd_1_1hash_3_01bloodhound_1_1Score_01_4}}{}
 \item \contentsline{section}{std\+:\+:hash$<$ bloodhound\+:\+:Term\+Id $>$}{\pageref{structstd_1_1hash_3_01bloodhound_1_1TermId_01_4}}{}
-\item \contentsline{section}{bloodhound\+:\+:Heap$<$ Key, Value, Compare $>$}{\pageref{classbloodhound_1_1Heap}}{}
-\item \contentsline{section}{bloodhound\+:\+:index\+:\+:Index}{\pageref{classbloodhound_1_1index_1_1Index}}{}
+\item \contentsline{section}{bloodhound\+:\+:index\+:\+:In\+Memory\+Posting\+Policy}{\pageref{classbloodhound_1_1index_1_1InMemoryPostingPolicy}}{}
 \item input\+\_\+operator\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Doc}{\pageref{structbloodhound_1_1Doc}}{}
 \item \contentsline{section}{bloodhound\+:\+:Offset}{\pageref{structbloodhound_1_1Offset}}{}
+\item \contentsline{section}{bloodhound\+:\+:Relative\+Offset}{\pageref{structbloodhound_1_1RelativeOffset}}{}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \item \contentsline{section}{bloodhound\+:\+:Term\+Id}{\pageref{structbloodhound_1_1TermId}}{}
 \end{DoxyCompactList}
@@ -33,18 +37,24 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \end{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Posting\+List\+:\+:iterator}{\pageref{structbloodhound_1_1PostingList_1_1iterator}}{}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Daat\+Retriever$<$ Posting\+List $>$\+:\+:Iterator\+Pair}{\pageref{structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair}}{}
+\item \contentsline{section}{bloodhound\+:\+:query\+:\+:Max\+Score\+Non\+Essentials$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1MaxScoreNonEssentials}}{}
 \item output\+\_\+operator\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Doc}{\pageref{structbloodhound_1_1Doc}}{}
 \item \contentsline{section}{bloodhound\+:\+:Offset}{\pageref{structbloodhound_1_1Offset}}{}
+\item \contentsline{section}{bloodhound\+:\+:Relative\+Offset}{\pageref{structbloodhound_1_1RelativeOffset}}{}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \item \contentsline{section}{bloodhound\+:\+:Term\+Id}{\pageref{structbloodhound_1_1TermId}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Posting}{\pageref{structbloodhound_1_1Posting}}{}
 \item \contentsline{section}{bloodhound\+:\+:Posting\+List}{\pageref{classbloodhound_1_1PostingList}}{}
 \item \contentsline{section}{bloodhound\+:\+:index\+:\+:Posting\+List\+Header}{\pageref{structbloodhound_1_1index_1_1PostingListHeader}}{}
+\item Posting\+Policy\begin{DoxyCompactList}
+\item \contentsline{section}{bloodhound\+:\+:index\+:\+:Index$<$ Posting\+Policy $>$}{\pageref{classbloodhound_1_1index_1_1Index}}{}
+\end{DoxyCompactList}
 \item relational\+\_\+comparison\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Doc}{\pageref{structbloodhound_1_1Doc}}{}
 \item \contentsline{section}{bloodhound\+:\+:Offset}{\pageref{structbloodhound_1_1Offset}}{}
+\item \contentsline{section}{bloodhound\+:\+:Relative\+Offset}{\pageref{structbloodhound_1_1RelativeOffset}}{}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \item \contentsline{section}{bloodhound\+:\+:Term\+Id}{\pageref{structbloodhound_1_1TermId}}{}
 \end{DoxyCompactList}
@@ -54,22 +64,26 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Daat\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1DaatRetriever}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Exact\+Saat\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1ExactSaatRetriever}}{}
+\item \contentsline{section}{bloodhound\+:\+:query\+:\+:Max\+Score\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1MaxScoreRetriever}}{}
+\item \contentsline{section}{bloodhound\+:\+:query\+:\+:Threshold\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1ThresholdRetriever}}{}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Wand\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1WandRetriever}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Raw\+Taat\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1RawTaatRetriever}}{}
+\item \contentsline{section}{bloodhound\+:\+:query\+:\+:Taat\+Max\+Score\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1TaatMaxScoreRetriever}}{}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}{\pageref{classbloodhound_1_1query_1_1TaatRetriever}}{}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Taat\+Retriever$<$ Posting\+List, false, 0, 0 $>$}{\pageref{classbloodhound_1_1query_1_1TaatRetriever}}{}
 \begin{DoxyCompactList}
-\item \contentsline{section}{bloodhound\+:\+:query\+:\+:Approx\+Saat\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1ApproxSaatRetriever}}{}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:Exact\+Saat\+Retriever$<$ Posting\+List $>$}{\pageref{classbloodhound_1_1query_1_1ExactSaatRetriever}}{}
 \end{DoxyCompactList}
 \end{DoxyCompactList}
+\item \contentsline{section}{bloodhound\+:\+:score\+\_\+greater$<$ Posting $>$}{\pageref{structbloodhound_1_1score__greater}}{}
 \item set\+\_\+level\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:query\+:\+:debug}{\pageref{structbloodhound_1_1query_1_1debug}}{}
 \end{DoxyCompactList}
 \item strong\+\_\+typedef\begin{DoxyCompactList}
 \item \contentsline{section}{bloodhound\+:\+:Doc}{\pageref{structbloodhound_1_1Doc}}{}
 \item \contentsline{section}{bloodhound\+:\+:Offset}{\pageref{structbloodhound_1_1Offset}}{}
+\item \contentsline{section}{bloodhound\+:\+:Relative\+Offset}{\pageref{structbloodhound_1_1RelativeOffset}}{}
 \item \contentsline{section}{bloodhound\+:\+:Score}{\pageref{structbloodhound_1_1Score}}{}
 \item \contentsline{section}{bloodhound\+:\+:Term\+Id}{\pageref{structbloodhound_1_1TermId}}{}
 \end{DoxyCompactList}

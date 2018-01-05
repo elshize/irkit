@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key',['key',['../structbloodhound_1_1Heap_1_1Entry.html#abc30d59b3c7bd01c36df918c8a2dd597',1,'bloodhound::Heap::Entry']]]
+  ['lexicon',['lexicon',['../classbloodhound_1_1index_1_1Index.html#a746d80c2fb411f512726c8d37cad78fc',1,'bloodhound::index::Index']]]
 ];

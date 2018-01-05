@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heap_2ehpp',['heap.hpp',['../heap_8hpp.html',1,'']]]
+  ['query_2ehpp',['query.hpp',['../query_8hpp.html',1,'']]]
 ];

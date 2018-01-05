@@ -73,8 +73,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ApproxSaatRetriever.html">ApproxSaatRetriever</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html">DaatRetriever</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Document-at-a-time query processor.  <a href="classbloodhound_1_1query_1_1DaatRetriever.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,6 +88,10 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1query_1_1has__posting__iterator_3_01T_00_01std_1_1enable__if__t_3_01std_1_1i3aad327a30d60305d06d5c73680c1a38.html">has_posting_iterator&lt; T, std::enable_if_t&lt; std::is_convertible&lt; decltype(std::declval&lt; T &amp; &gt;().end()), typename T::iterator &gt;::value &amp;&amp;std::is_convertible&lt; decltype(std::declval&lt; T &amp; &gt;().begin()), typename T::iterator &gt;::value &amp;&amp;std::is_convertible&lt; decltype(*std::declval&lt; T &amp; &gt;().begin()), Posting &amp; &gt;::value &amp;&amp;std::is_convertible&lt; decltype(*std::declval&lt; T &amp; &gt;().end()), Posting &amp; &gt;::value &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html">MaxScoreNonEssentials</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1MaxScoreRetriever.html">MaxScoreRetriever</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html">RawTaatRetriever</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a></td></tr>
@@ -97,7 +99,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1Retriever.html">Retriever</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A base abstract super-class of all document retrievers.  <a href="classbloodhound_1_1query_1_1Retriever.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html">TaatMaxScoreRetriever</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">TaatRetriever</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html">ThresholdRetriever</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html">WandRetriever</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">WAND (Weak-AND) query retriever.  <a href="classbloodhound_1_1query_1_1WandRetriever.html#details">More...</a><br /></td></tr>
@@ -113,15 +119,14 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5a5bc223989deaa8a8d01f86ede9252c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#a5a5bc223989deaa8a8d01f86ede9252c">heap_to_results</a> (<a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, <a class="el" href="structbloodhound_1_1Doc.html">Doc</a> &gt; &amp;heap)</td></tr>
-<tr class="memdesc:a5a5bc223989deaa8a8d01f86ede9252c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a min-heap of top-scored documents to a sorted vector of results.  <a href="#a5a5bc223989deaa8a8d01f86ede9252c">More...</a><br /></td></tr>
-<tr class="separator:a5a5bc223989deaa8a8d01f86ede9252c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbedf82d8c97ed0f54a4025105288136"><td class="memTemplParams" colspan="2">template&lt;typename Integer &gt; </td></tr>
-<tr class="memitem:abbedf82d8c97ed0f54a4025105288136"><td class="memTemplItemLeft" align="right" valign="top">constexpr unsigned short&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#abbedf82d8c97ed0f54a4025105288136">nbits</a> (Integer n)</td></tr>
-<tr class="memdesc:abbedf82d8c97ed0f54a4025105288136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the number of bits required to store an integer n.  <a href="#abbedf82d8c97ed0f54a4025105288136">More...</a><br /></td></tr>
-<tr class="separator:abbedf82d8c97ed0f54a4025105288136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memTemplParams" colspan="2">template&lt;typename Compare  = std::less&lt;Score&gt;, typename Mapping  = irkit::EmptyMapping&gt; </td></tr>
+<tr class="memitem:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#a1ec90cdc5f56c17431fd2e2cd2acbb93">heap_to_results</a> (irkit::Heap&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, Compare, Mapping &gt; &amp;heap)</td></tr>
+<tr class="memdesc:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a min-heap of top-scored documents to a sorted vector of results.  <a href="#a1ec90cdc5f56c17431fd2e2cd2acbb93">More...</a><br /></td></tr>
+<tr class="separator:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Code relevant to query processing. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="aa67214af106292b2483995adea986b08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa67214af106292b2483995adea986b08">&#9670;&nbsp;</a></span>QueryId</h2>
 
@@ -153,16 +158,18 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5a5bc223989deaa8a8d01f86ede9252c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a5bc223989deaa8a8d01f86ede9252c">&#9670;&nbsp;</a></span>heap_to_results()</h2>
+<a id="a1ec90cdc5f56c17431fd2e2cd2acbb93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ec90cdc5f56c17431fd2e2cd2acbb93">&#9670;&nbsp;</a></span>heap_to_results()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Compare  = std::less&lt;Score&gt;, typename Mapping  = irkit::EmptyMapping&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structbloodhound_1_1query_1_1Result.html">Result</a>&gt; bloodhound::query::heap_to_results </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classbloodhound_1_1Heap.html">Heap</a>&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, <a class="el" href="structbloodhound_1_1Doc.html">Doc</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">irkit::Heap&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a>, <a class="el" href="structbloodhound_1_1Doc.html">Doc</a>, Compare, Mapping &gt; &amp;&#160;</td>
           <td class="paramname"><em>heap</em></td><td>)</td>
           <td></td>
         </tr>
@@ -170,28 +177,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Converts a min-heap of top-scored documents to a sorted vector of results. </p>
-
-</div>
-</div>
-<a id="abbedf82d8c97ed0f54a4025105288136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbedf82d8c97ed0f54a4025105288136">&#9670;&nbsp;</a></span>nbits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Integer &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned short bloodhound::query::nbits </td>
-          <td>(</td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>n</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Computes the number of bits required to store an integer n. </p>
 
 </div>
 </div>

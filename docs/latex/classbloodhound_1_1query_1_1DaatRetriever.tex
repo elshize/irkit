@@ -7,12 +7,12 @@ Document-\/at-\/a-\/time query processor.
 
 
 
-{\ttfamily \#include $<$daat.\+hpp$>$}
+{\ttfamily \#include $<$retrievers.\+hpp$>$}
 
 Inheritance diagram for bloodhound\+:\+:query\+:\+:Daat\+Retriever$<$ Posting\+List $>$\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.608696cm]{classbloodhound_1_1query_1_1DaatRetriever}
+\includegraphics[height=1.296296cm]{classbloodhound_1_1query_1_1DaatRetriever}
 \end{center}
 \end{figure}
 \subsection*{Classes}
@@ -23,7 +23,7 @@ struct \hyperlink{structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair}{It
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual \hyperlink{classbloodhound_1_1Heap}{Heap}$<$ \hyperlink{structbloodhound_1_1Doc}{Doc}, unsigned int $>$ \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_a6ee7e794376c2633089bd13d48b772cf}{post\+\_\+lists\+\_\+by\+\_\+doc} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings)
+virtual irkit\+::\+Heap$<$ \hyperlink{structbloodhound_1_1Doc}{Doc}, unsigned int $>$ \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_abf9a1012732fe0879d1bf080faf293b6}{post\+\_\+lists\+\_\+by\+\_\+doc} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings)
 \begin{DoxyCompactList}\small\item\em Returns initial min-\/heap of posting lists sorted by their current \hyperlink{structbloodhound_1_1Doc}{Doc}. \end{DoxyCompactList}\item 
 virtual std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair}{Iterator\+Pair} $>$ \hyperlink{classbloodhound_1_1query_1_1DaatRetriever_a5b10288f90a4fc4d89f56971bdc48363}{to\+\_\+iterators} (const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&term\+\_\+postings)
 \item 
@@ -38,12 +38,12 @@ class bloodhound\+::query\+::\+Daat\+Retriever$<$ Posting\+List $>$}
 Document-\/at-\/a-\/time query processor. 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classbloodhound_1_1query_1_1DaatRetriever_a6ee7e794376c2633089bd13d48b772cf}\label{classbloodhound_1_1query_1_1DaatRetriever_a6ee7e794376c2633089bd13d48b772cf}} 
+\mbox{\Hypertarget{classbloodhound_1_1query_1_1DaatRetriever_abf9a1012732fe0879d1bf080faf293b6}\label{classbloodhound_1_1query_1_1DaatRetriever_abf9a1012732fe0879d1bf080faf293b6}} 
 \index{bloodhound\+::query\+::\+Daat\+Retriever@{bloodhound\+::query\+::\+Daat\+Retriever}!post\+\_\+lists\+\_\+by\+\_\+doc@{post\+\_\+lists\+\_\+by\+\_\+doc}}
 \index{post\+\_\+lists\+\_\+by\+\_\+doc@{post\+\_\+lists\+\_\+by\+\_\+doc}!bloodhound\+::query\+::\+Daat\+Retriever@{bloodhound\+::query\+::\+Daat\+Retriever}}
 \subsubsection{\texorpdfstring{post\+\_\+lists\+\_\+by\+\_\+doc()}{post\_lists\_by\_doc()}}
 {\footnotesize\ttfamily template$<$typename Posting\+List $>$ \\
-virtual \hyperlink{classbloodhound_1_1Heap}{Heap}$<$\hyperlink{structbloodhound_1_1Doc}{Doc}, unsigned int$>$ \hyperlink{classbloodhound_1_1query_1_1DaatRetriever}{bloodhound\+::query\+::\+Daat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::post\+\_\+lists\+\_\+by\+\_\+doc (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+virtual irkit\+::\+Heap$<$\hyperlink{structbloodhound_1_1Doc}{Doc}, unsigned int$>$ \hyperlink{classbloodhound_1_1query_1_1DaatRetriever}{bloodhound\+::query\+::\+Daat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$\+::post\+\_\+lists\+\_\+by\+\_\+doc (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&}]{term\+\_\+postings }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
 
@@ -66,7 +66,7 @@ Implements \hyperlink{classbloodhound_1_1query_1_1Retriever_ae3c6a4628c5580e620c
 
 
 
-Reimplemented in \hyperlink{classbloodhound_1_1query_1_1WandRetriever_a5f3068bc363c16c5b7255a925ea5af8c}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}, and \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever$<$ Posting\+List $>$}.
+Reimplemented in \hyperlink{classbloodhound_1_1query_1_1WandRetriever_a5f3068bc363c16c5b7255a925ea5af8c}{bloodhound\+::query\+::\+Wand\+Retriever$<$ Posting\+List $>$}, \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever_a06750450e1246e755ebad2d5dac6e8a8}{bloodhound\+::query\+::\+Threshold\+Retriever$<$ Posting\+List $>$}, and \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever_aced2763cc2a4c12838fef4a20759049e}{bloodhound\+::query\+::\+Exact\+Saat\+Retriever$<$ Posting\+List $>$}.
 
 \mbox{\Hypertarget{classbloodhound_1_1query_1_1DaatRetriever_a5b10288f90a4fc4d89f56971bdc48363}\label{classbloodhound_1_1query_1_1DaatRetriever_a5b10288f90a4fc4d89f56971bdc48363}} 
 \index{bloodhound\+::query\+::\+Daat\+Retriever@{bloodhound\+::query\+::\+Daat\+Retriever}!to\+\_\+iterators@{to\+\_\+iterators}}
@@ -79,4 +79,4 @@ virtual std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1DaatRetriever_1_
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{daat_8hpp}{daat.\+hpp}\end{DoxyCompactItemize}
+include/\hyperlink{retrievers_8hpp}{retrievers.\+hpp}\end{DoxyCompactItemize}

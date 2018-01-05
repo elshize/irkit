@@ -1,0 +1,174 @@
+\hypertarget{namespaceskit}{}\section{skit Namespace Reference}
+\label{namespaceskit}\index{skit@{skit}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classskit_1_1EmptyMapping}{Empty\+Mapping}
+\item 
+struct \hyperlink{structskit_1_1Entry}{Entry}
+\begin{DoxyCompactList}\small\item\em The type of objects stored internally in the heap. \end{DoxyCompactList}\item 
+struct \hyperlink{structskit_1_1has__default__constructor}{has\+\_\+default\+\_\+constructor}
+\item 
+struct \hyperlink{structskit_1_1has__default__constructor_3_01T_00_01void__t_3_01decltype_07std_1_1declval_3_01T_01_6_01_4_07_08_08_4_01_4}{has\+\_\+default\+\_\+constructor$<$ T, void\+\_\+t$<$ decltype(std\+::declval$<$ T \& $>$())$>$ $>$}
+\item 
+class \hyperlink{classskit_1_1Heap}{Heap}
+\item 
+class \hyperlink{classskit_1_1SimpleAccumulator}{Simple\+Accumulator}
+\item 
+class \hyperlink{classskit_1_1union__merge__view}{union\+\_\+merge\+\_\+view}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Rng $>$ }\\using \hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{range\+\_\+value\+\_\+type} = ranges\+::range\+\_\+value\+\_\+type\+\_\+t$<$ Rng $>$
+\item 
+{\footnotesize template$<$class Rngs $>$ }\\using \hyperlink{namespaceskit_a018f1a68fe40fa3792a5038ef842e116}{range\+\_\+range\+\_\+value\+\_\+type} = \hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{range\+\_\+value\+\_\+type}$<$ \hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{range\+\_\+value\+\_\+type}$<$ Rngs $>$ $>$
+\item 
+{\footnotesize template$<$typename T $>$ }\\using \hyperlink{namespaceskit_a827cfc47784c1ce9cc3e7c583ac3b1cb}{void\+\_\+t} = void
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \hyperlink{namespaceskit_a9a77a1f66da908b18436e900cf702ab3}{union\+\_\+merge} ()
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::equal\+\_\+to$>$ }\\auto \hyperlink{namespaceskit_aad93ce20d3eee4cb9dea8ed3986f93a5}{group\+\_\+sorted} (Fun equal\+\_\+to=ranges\+::equal\+\_\+to\{\})
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::plus$>$ }\\auto \hyperlink{namespaceskit_a9c5865c7949c108631955466c92bf042}{accumulate\+\_\+groups} (Fun add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Equals  = ranges\+::equal\+\_\+to, class Add  = ranges\+::plus$>$ }\\auto \hyperlink{namespaceskit_af5e774baebeeafedfe9ead9cbab087f5}{accumulate\+\_\+sorted} (Equals equal\+\_\+to=ranges\+::equal\+\_\+to\{\}, Add add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Key , class Value $>$ }\\\hyperlink{structskit_1_1Entry}{Entry}$<$ Key, Value $>$ \hyperlink{namespaceskit_a33324a7bd87ff2a6800c5b530cb46a7f}{make\+\_\+entry} (Key key, Value value)
+\item 
+{\footnotesize template$<$typename Integer $>$ }\\constexpr unsigned short \hyperlink{namespaceskit_a382221ec05008d035dc2d11156c38392}{nbits} (Integer n)
+\begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceskit_ad38cea8db5133ec3f3065bc1de0bfd06}{traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceskit_aefabf6dd95494e20f6a58ad8b20e7bf9}{traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceskit_a974ce69b911c54f77fe9df504cd0990e}{traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceskit_aa94138220b211447e88e37f43de5a313}{traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=\hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator})
+\item 
+{\footnotesize template$<$typename Doc  = std\+::size\+\_\+t, typename Score , template$<$ typename T $>$ typename Range$>$ }\\std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{bloodhound\+::query\+::\+Result} $>$ \hyperlink{namespaceskit_a5ef8c0239941e3274b7d2ca79bf0ac0d}{aggregate\+\_\+top} (std\+::size\+\_\+t k, const Range$<$ Score $>$ \&acc)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classskit_1_1SimpleAccumulator}{Simple\+Accumulator} \hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceskit_a018f1a68fe40fa3792a5038ef842e116}\label{namespaceskit_a018f1a68fe40fa3792a5038ef842e116}} 
+\index{skit@{skit}!range\+\_\+range\+\_\+value\+\_\+type@{range\+\_\+range\+\_\+value\+\_\+type}}
+\index{range\+\_\+range\+\_\+value\+\_\+type@{range\+\_\+range\+\_\+value\+\_\+type}!skit@{skit}}
+\subsubsection{\texorpdfstring{range\+\_\+range\+\_\+value\+\_\+type}{range\_range\_value\_type}}
+{\footnotesize\ttfamily template$<$class Rngs $>$ \\
+using \hyperlink{namespaceskit_a018f1a68fe40fa3792a5038ef842e116}{skit\+::range\+\_\+range\+\_\+value\+\_\+type} = typedef \hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{range\+\_\+value\+\_\+type}$<$\hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{range\+\_\+value\+\_\+type}$<$Rngs$>$ $>$}
+
+\mbox{\Hypertarget{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}\label{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}} 
+\index{skit@{skit}!range\+\_\+value\+\_\+type@{range\+\_\+value\+\_\+type}}
+\index{range\+\_\+value\+\_\+type@{range\+\_\+value\+\_\+type}!skit@{skit}}
+\subsubsection{\texorpdfstring{range\+\_\+value\+\_\+type}{range\_value\_type}}
+{\footnotesize\ttfamily template$<$class Rng $>$ \\
+using \hyperlink{namespaceskit_ab6185faee3b25c70e0b355c7ce30a8ed}{skit\+::range\+\_\+value\+\_\+type} = typedef ranges\+::range\+\_\+value\+\_\+type\+\_\+t$<$Rng$>$}
+
+\mbox{\Hypertarget{namespaceskit_a827cfc47784c1ce9cc3e7c583ac3b1cb}\label{namespaceskit_a827cfc47784c1ce9cc3e7c583ac3b1cb}} 
+\index{skit@{skit}!void\+\_\+t@{void\+\_\+t}}
+\index{void\+\_\+t@{void\+\_\+t}!skit@{skit}}
+\subsubsection{\texorpdfstring{void\+\_\+t}{void\_t}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+using \hyperlink{namespaceskit_a827cfc47784c1ce9cc3e7c583ac3b1cb}{skit\+::void\+\_\+t} = typedef void}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceskit_a9c5865c7949c108631955466c92bf042}\label{namespaceskit_a9c5865c7949c108631955466c92bf042}} 
+\index{skit@{skit}!accumulate\+\_\+groups@{accumulate\+\_\+groups}}
+\index{accumulate\+\_\+groups@{accumulate\+\_\+groups}!skit@{skit}}
+\subsubsection{\texorpdfstring{accumulate\+\_\+groups()}{accumulate\_groups()}}
+{\footnotesize\ttfamily template$<$class Fun  = ranges\+::plus$>$ \\
+auto skit\+::accumulate\+\_\+groups (\begin{DoxyParamCaption}\item[{Fun}]{add = {\ttfamily ranges\+:\+:plus\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups. Out\+: Range$<$\+T$>$, where each element is a sum of the corresponding group. \mbox{\Hypertarget{namespaceskit_af5e774baebeeafedfe9ead9cbab087f5}\label{namespaceskit_af5e774baebeeafedfe9ead9cbab087f5}} 
+\index{skit@{skit}!accumulate\+\_\+sorted@{accumulate\+\_\+sorted}}
+\index{accumulate\+\_\+sorted@{accumulate\+\_\+sorted}!skit@{skit}}
+\subsubsection{\texorpdfstring{accumulate\+\_\+sorted()}{accumulate\_sorted()}}
+{\footnotesize\ttfamily template$<$class Equals  = ranges\+::equal\+\_\+to, class Add  = ranges\+::plus$>$ \\
+auto skit\+::accumulate\+\_\+sorted (\begin{DoxyParamCaption}\item[{Equals}]{equal\+\_\+to = {\ttfamily ranges\+:\+:equal\+\_\+to\{\}},  }\item[{Add}]{add = {\ttfamily ranges\+:\+:plus\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$\+T$>$, where each element is a sum of the consecutive elements that are equal according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceskit_a5ef8c0239941e3274b7d2ca79bf0ac0d}\label{namespaceskit_a5ef8c0239941e3274b7d2ca79bf0ac0d}} 
+\index{skit@{skit}!aggregate\+\_\+top@{aggregate\+\_\+top}}
+\index{aggregate\+\_\+top@{aggregate\+\_\+top}!skit@{skit}}
+\subsubsection{\texorpdfstring{aggregate\+\_\+top()}{aggregate\_top()}}
+{\footnotesize\ttfamily template$<$typename Doc  = std\+::size\+\_\+t, typename Score , template$<$ typename T $>$ typename Range$>$ \\
+std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{bloodhound\+::query\+::\+Result}$>$ skit\+::aggregate\+\_\+top (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k,  }\item[{const Range$<$ Score $>$ \&}]{acc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_aad93ce20d3eee4cb9dea8ed3986f93a5}\label{namespaceskit_aad93ce20d3eee4cb9dea8ed3986f93a5}} 
+\index{skit@{skit}!group\+\_\+sorted@{group\+\_\+sorted}}
+\index{group\+\_\+sorted@{group\+\_\+sorted}!skit@{skit}}
+\subsubsection{\texorpdfstring{group\+\_\+sorted()}{group\_sorted()}}
+{\footnotesize\ttfamily template$<$class Fun  = ranges\+::equal\+\_\+to$>$ \\
+auto skit\+::group\+\_\+sorted (\begin{DoxyParamCaption}\item[{Fun}]{equal\+\_\+to = {\ttfamily ranges\+:\+:equal\+\_\+to\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups of equal elements according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceskit_a33324a7bd87ff2a6800c5b530cb46a7f}\label{namespaceskit_a33324a7bd87ff2a6800c5b530cb46a7f}} 
+\index{skit@{skit}!make\+\_\+entry@{make\+\_\+entry}}
+\index{make\+\_\+entry@{make\+\_\+entry}!skit@{skit}}
+\subsubsection{\texorpdfstring{make\+\_\+entry()}{make\_entry()}}
+{\footnotesize\ttfamily template$<$class Key , class Value $>$ \\
+\hyperlink{structskit_1_1Entry}{Entry}$<$Key, Value$>$ skit\+::make\+\_\+entry (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_a382221ec05008d035dc2d11156c38392}\label{namespaceskit_a382221ec05008d035dc2d11156c38392}} 
+\index{skit@{skit}!nbits@{nbits}}
+\index{nbits@{nbits}!skit@{skit}}
+\subsubsection{\texorpdfstring{nbits()}{nbits()}}
+{\footnotesize\ttfamily template$<$typename Integer $>$ \\
+constexpr unsigned short skit\+::nbits (\begin{DoxyParamCaption}\item[{Integer}]{n }\end{DoxyParamCaption})}
+
+
+
+Computes the number of bits required to store an integer n. 
+
+\mbox{\Hypertarget{namespaceskit_a974ce69b911c54f77fe9df504cd0990e}\label{namespaceskit_a974ce69b911c54f77fe9df504cd0990e}} 
+\index{skit@{skit}!traverse@{traverse}}
+\index{traverse@{traverse}!skit@{skit}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void skit\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range$<$ Doc $>$$>$ \&}]{doc\+\_\+lists,  }\item[{const std\+::vector$<$ Range$<$ Score $>$$>$ \&}]{score\+\_\+lists,  }\item[{const std\+::vector$<$ Score $>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_aa94138220b211447e88e37f43de5a313}\label{namespaceskit_aa94138220b211447e88e37f43de5a313}} 
+\index{skit@{skit}!traverse@{traverse}}
+\index{traverse@{traverse}!skit@{skit}}
+\subsubsection{\texorpdfstring{traverse()}{traverse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void skit\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range$<$ Doc $>$$>$ \&}]{doc\+\_\+lists,  }\item[{const std\+::vector$<$ Range$<$ Score $>$$>$ \&}]{score\+\_\+lists,  }\item[{const std\+::vector$<$ Score $>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{unsigned int}]{prefetch\+\_\+ahead,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_ad38cea8db5133ec3f3065bc1de0bfd06}\label{namespaceskit_ad38cea8db5133ec3f3065bc1de0bfd06}} 
+\index{skit@{skit}!traverse\+\_\+list@{traverse\+\_\+list}}
+\index{traverse\+\_\+list@{traverse\+\_\+list}!skit@{skit}}
+\subsubsection{\texorpdfstring{traverse\+\_\+list()}{traverse\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void skit\+::traverse\+\_\+list (\begin{DoxyParamCaption}\item[{const Range$<$ Doc $>$ \&}]{docs,  }\item[{const Range$<$ Score $>$ \&}]{scores,  }\item[{Score}]{weight,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_aefabf6dd95494e20f6a58ad8b20e7bf9}\label{namespaceskit_aefabf6dd95494e20f6a58ad8b20e7bf9}} 
+\index{skit@{skit}!traverse\+\_\+list@{traverse\+\_\+list}}
+\index{traverse\+\_\+list@{traverse\+\_\+list}!skit@{skit}}
+\subsubsection{\texorpdfstring{traverse\+\_\+list()}{traverse\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ \\
+void skit\+::traverse\+\_\+list (\begin{DoxyParamCaption}\item[{const Range$<$ Doc $>$ \&}]{docs,  }\item[{const Range$<$ Score $>$ \&}]{scores,  }\item[{Score}]{weight,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{unsigned int}]{prefetch\+\_\+ahead,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \hyperlink{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}{default\+\_\+accumulator}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceskit_a9a77a1f66da908b18436e900cf702ab3}\label{namespaceskit_a9a77a1f66da908b18436e900cf702ab3}} 
+\index{skit@{skit}!union\+\_\+merge@{union\+\_\+merge}}
+\index{union\+\_\+merge@{union\+\_\+merge}!skit@{skit}}
+\subsubsection{\texorpdfstring{union\+\_\+merge()}{union\_merge()}}
+{\footnotesize\ttfamily auto skit\+::union\+\_\+merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+In\+: Range$<$Range$<$\+T$>$$>$, where the inner ranges are sorted. Out\+: Range$<$\+T$>$, which is a sorted union of the input ranges. 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}\label{namespaceskit_ae63f577a3ddf7bf051ff06113593330e}} 
+\index{skit@{skit}!default\+\_\+accumulator@{default\+\_\+accumulator}}
+\index{default\+\_\+accumulator@{default\+\_\+accumulator}!skit@{skit}}
+\subsubsection{\texorpdfstring{default\+\_\+accumulator}{default\_accumulator}}
+{\footnotesize\ttfamily \hyperlink{classskit_1_1SimpleAccumulator}{Simple\+Accumulator} skit\+::default\+\_\+accumulator}
+
