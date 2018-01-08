@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['score',['score',['../structbloodhound_1_1PostingList_1_1iterator.html#a5c94dca7f430ac78f0db3f0fe2c01c75',1,'bloodhound::PostingList::iterator']]],
-  ['score_5fbegin',['score_begin',['../classbloodhound_1_1PostingList.html#aec5d5bb81622fb64d7b64416a8491456',1,'bloodhound::PostingList']]],
-  ['score_5fend',['score_end',['../classbloodhound_1_1PostingList.html#ae89abf9882f73f35a6e106c5a328ca6f',1,'bloodhound::PostingList']]],
-  ['score_5fof',['score_of',['../classbloodhound_1_1query_1_1TaatRetriever.html#ae1c8d9643ca85ba7dba32325538e30b5',1,'bloodhound::query::TaatRetriever']]],
-  ['score_5fwith_5flookups',['score_with_lookups',['../classbloodhound_1_1query_1_1ThresholdRetriever.html#ac0a8731d270c477e04f24b89850a7d4a',1,'bloodhound::query::ThresholdRetriever']]],
-  ['scores_5fptr',['scores_ptr',['../classbloodhound_1_1PostingList.html#a79be9c874bb91e17ca308ae0528e9277',1,'bloodhound::PostingList']]],
-  ['set_5fet_5fthreshold',['set_et_threshold',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a78016cfffe921ed440dec62c6f82f4cc',1,'bloodhound::query::ExactSaatRetriever']]],
-  ['setmask',['setmask',['../structbloodhound_1_1index_1_1PostingListHeader.html#ab9bb3cd3201527041e86a7fec0bd385d',1,'bloodhound::index::PostingListHeader']]],
-  ['sorted_5fby_5flength',['sorted_by_length',['../classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#a4c5253dee6541cf173f4f2e16803c702',1,'bloodhound::query::TaatMaxScoreRetriever']]],
-  ['sorted_5findex',['sorted_index',['../namespacebloodhound_1_1index.html#a306f62c55e8d06a9703f552f7cf312c5',1,'bloodhound::index']]],
-  ['stats',['stats',['../classbloodhound_1_1query_1_1Retriever.html#a58da32a5139b980ba874f8b5e6bb89ec',1,'bloodhound::query::Retriever::stats()'],['../classbloodhound_1_1query_1_1WandRetriever.html#a1e593c2cddb2ca4f2415c59ca26e6a36',1,'bloodhound::query::WandRetriever::stats()'],['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#afb9b4ca76cca49d32ba584555d0b91fe',1,'bloodhound::query::MaxScoreNonEssentials::stats()'],['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a716838f463f124964e76f48bc37d32cc',1,'bloodhound::query::ExactSaatRetriever::stats()'],['../classbloodhound_1_1query_1_1ThresholdRetriever.html#aa21e5b44d70bfdf058e5f9c5a1abc008',1,'bloodhound::query::ThresholdRetriever::stats()']]]
+  ['parse',['parse',['../run__queries_8cpp.html#a72a7accc4aac02043b4942649bd3fe88',1,'run_queries.cpp']]],
+  ['parse_5fquery',['parse_query',['../run_8hpp.html#a87489cd09b789da5adbd8285a5098520',1,'parse_query(std::string &amp;query_line):&#160;run.hpp'],['../ngine_8cpp.html#a87489cd09b789da5adbd8285a5098520',1,'parse_query(std::string &amp;query_line):&#160;ngine.cpp'],['../run_8cpp.html#a87489cd09b789da5adbd8285a5098520',1,'parse_query(std::string &amp;query_line):&#160;run.cpp'],['../rundaat_8cpp.html#a87489cd09b789da5adbd8285a5098520',1,'parse_query(std::string &amp;query_line):&#160;rundaat.cpp'],['../server_8cpp.html#a33ce10061a427c3bd4e874a4c38b6e9a',1,'parse_query(const std::string &amp;query_line):&#160;server.cpp']]],
+  ['peek_5fposting',['peek_posting',['../classirkit_1_1UnionRange.html#a5c2f9a6ec77c812febdf1778e4b9b3f6',1,'irkit::UnionRange']]],
+  ['peek_5fterm',['peek_term',['../classirkit_1_1UnionRange.html#aa985f4985486d3df259be0c932340f18',1,'irkit::UnionRange']]],
+  ['pop',['pop',['../classirkit_1_1Heap.html#afd4759dce1fe72d513e4b8e7766ec94e',1,'irkit::Heap']]],
+  ['pop_5fpush',['pop_push',['../classirkit_1_1Heap.html#aa94f791b5b26659cc41a39fd58d138e4',1,'irkit::Heap']]],
+  ['post_5flists_5fby_5fdoc',['post_lists_by_doc',['../classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6',1,'bloodhound::query::DaatRetriever']]],
+  ['post_5flists_5fby_5fscore',['post_lists_by_score',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a180277ad96862e92c102066586edc74f',1,'bloodhound::query::ExactSaatRetriever']]],
+  ['posting_5flist',['posting_list',['../classbloodhound_1_1index_1_1Index.html#a24cadb41178b2cc81cf8f3e32a5dd516',1,'bloodhound::index::Index::posting_list(TermId termid, bool load_max_scores=true)'],['../classbloodhound_1_1index_1_1Index.html#ac26271e4e2678e77d46017a24ed7eac5',1,'bloodhound::index::Index::posting_list(TermId termid, double et_threshold)']]],
+  ['posting_5frange',['posting_range',['../classirkit_1_1Index.html#adf8d2508d3f7a5085468b3dc8e25036b',1,'irkit::Index::posting_range(const std::string &amp;term)'],['../classirkit_1_1Index.html#a1b906859b75305b79835a2f0955168b9',1,'irkit::Index::posting_range(TermId term_id)']]],
+  ['posting_5franges',['posting_ranges',['../classirkit_1_1Index.html#a95b2c99d94538638d93e990152e09cab',1,'irkit::Index']]],
+  ['posting_5fzip',['posting_zip',['../namespaceirkit_1_1view.html#ab95e8c27c68f8d9864b2704de089abec',1,'irkit::view']]],
+  ['postinglist',['PostingList',['../classbloodhound_1_1PostingList.html#a725f1df76c8278f1d927fff3ed4c496e',1,'bloodhound::PostingList']]],
+  ['postinglistheader',['PostingListHeader',['../structbloodhound_1_1index_1_1PostingListHeader.html#a839dc96a649a6a5b381b4e9b93b6e59e',1,'bloodhound::index::PostingListHeader::PostingListHeader()'],['../structbloodhound_1_1index_1_1PostingListHeader.html#a9aec6f6c7099b8ea249dc8af709c2125',1,'bloodhound::index::PostingListHeader::PostingListHeader(uint32_t m, uint32_t d, uint32_t pc, uint32_t pyo, uint32_t poo, uint32_t so)']]],
+  ['push',['push',['../classirkit_1_1Heap.html#a8e2dfbd02e7411fe97281b5e7d19f12c',1,'irkit::Heap']]],
+  ['push_5fwith_5flimit',['push_with_limit',['../classirkit_1_1Heap.html#ae4652d2601229e4de97f0321adf5f3c6',1,'irkit::Heap']]]
 ];

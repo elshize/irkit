@@ -1,7 +1,28 @@
 var searchData=
 [
-  ['empty',['empty',['../classbloodhound_1_1PostingList.html#a28ec60331aec6acaa9c281d4d412bf26',1,'bloodhound::PostingList']]],
-  ['end',['end',['../structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html#af2205effb4b97e6351c3d32c034342c2',1,'bloodhound::query::DaatRetriever::IteratorPair::end()'],['../classbloodhound_1_1PostingList.html#a2e1f899bd04ae64e1318494d358ade94',1,'bloodhound::PostingList::end()']]],
-  ['end_5fidx',['end_idx',['../classbloodhound_1_1PostingList.html#a7c4d53dfa824951670d68ef57cd2068d',1,'bloodhound::PostingList']]],
-  ['exactsaatretriever',['ExactSaatRetriever',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html',1,'bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;'],['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a50c5c53b4b7aff76e4eabf040219be52',1,'bloodhound::query::ExactSaatRetriever::ExactSaatRetriever()']]]
+  ['daat',['daat',['../server_8cpp.html#a467ff4473bec58bdb5d218810c30c596',1,'server.cpp']]],
+  ['daat_2ehpp',['daat.hpp',['../daat_8hpp.html',1,'']]],
+  ['daat_5for',['daat_or',['../namespaceirkit.html#ad6a1763616725ecb88e751ea7eb93453',1,'irkit']]],
+  ['daatretriever',['DaatRetriever',['../classbloodhound_1_1query_1_1DaatRetriever.html',1,'bloodhound::query']]],
+  ['debug',['debug',['../structbloodhound_1_1query_1_1debug.html',1,'bloodhound::query']]],
+  ['default_5faccumulator',['default_accumulator',['../namespaceirkit.html#a823671564bf545991e9708011e4a8df1',1,'irkit']]],
+  ['defaultindex',['DefaultIndex',['../namespaceirkit.html#a6f3d282716b38521a43b65100a6d337b',1,'irkit']]],
+  ['defaultindexbuilder',['DefaultIndexBuilder',['../namespaceirkit.html#aefd5a5c2f1136e9c2224a4b4d659d4a9',1,'irkit']]],
+  ['doc',['Doc',['../structbloodhound_1_1Doc.html',1,'bloodhound::Doc'],['../classirkit_1_1UnionRange.html#a387589b1f09868b60485c4ab8c61f97a',1,'irkit::UnionRange::Doc()'],['../structbloodhound_1_1Posting.html#ae39f120507b708385e754c693109e384',1,'bloodhound::Posting::doc()'],['../structirkit_1_1UnionRange_1_1docterm.html#a4fe1c3b4721f619f688189d6b5e4afe2',1,'irkit::UnionRange::docterm::doc()'],['../structirkit_1_1__Posting.html#a6ee624b39c69f2b8701701ecc8fe6a0b',1,'irkit::_Posting::doc()'],['../structbloodhound_1_1query_1_1Result.html#a5f6acbb120aaf435333e410c0595962a',1,'bloodhound::query::Result::doc()'],['../structbloodhound_1_1PostingList_1_1iterator.html#a995d206215c6a01d7a183666502e2628',1,'bloodhound::PostingList::iterator::doc()']]],
+  ['doc_5fbegin',['doc_begin',['../classbloodhound_1_1PostingList.html#aac3dbe7fbf43ce93031e97b16bcfc888',1,'bloodhound::PostingList']]],
+  ['doc_5fcount',['doc_count',['../structbloodhound_1_1index_1_1PostingListHeader.html#ac22a6d1974badac6cbedfb69f9c9bf5c',1,'bloodhound::index::PostingListHeader']]],
+  ['doc_5fcounts_5foff_5fpath',['doc_counts_off_path',['../namespaceirkit_1_1index.html#a161f08dc57d21f41a9c03c7f97646e76',1,'irkit::index']]],
+  ['doc_5fcounts_5fpath',['doc_counts_path',['../namespaceirkit_1_1index.html#a5146ae382a6daf964681a09c55cdce93',1,'irkit::index']]],
+  ['doc_5fend',['doc_end',['../classbloodhound_1_1PostingList.html#aac468540b0a376d9b378a4333546245c',1,'bloodhound::PostingList']]],
+  ['doc_5fequal_5fto',['doc_equal_to',['../structbloodhound_1_1doc__equal__to.html',1,'bloodhound']]],
+  ['doc_5fids_5foff_5fpath',['doc_ids_off_path',['../namespaceirkit_1_1index.html#a86d50e7aaf2bbdebf3e7a71623f4706e',1,'irkit::index']]],
+  ['doc_5fids_5fpath',['doc_ids_path',['../namespaceirkit_1_1index.html#aab3491ded0cd4660b55f6c8f8c289428',1,'irkit::index']]],
+  ['doc_5fiter',['doc_iter',['../structbloodhound_1_1PostingList_1_1const__iterator.html#a6eddc76eb3741c66f9bf3b7d99312087',1,'bloodhound::PostingList::const_iterator']]],
+  ['doc_5foffset',['doc_offset',['../structbloodhound_1_1index_1_1format_1_1TermDetails.html#a4361db3ce131c8c7beadf58bd651f1c3',1,'bloodhound::index::format::TermDetails']]],
+  ['doc_5ft',['doc_t',['../namespaceirkit.html#a595d83053e112c98ab2a1b65e5dd74be',1,'irkit']]],
+  ['docs',['docs',['../classbloodhound_1_1PostingList.html#a11749c12634d86c73b7d9c150acaac03',1,'bloodhound::PostingList']]],
+  ['docs_5fptr',['docs_ptr',['../classbloodhound_1_1PostingList.html#acfca9e8ad1fd94461b56390fdd60779f',1,'bloodhound::PostingList']]],
+  ['docterm',['docterm',['../structirkit_1_1UnionRange_1_1docterm.html',1,'irkit::UnionRange&lt; Range &gt;::docterm'],['../structirkit_1_1UnionRange_1_1docterm.html#a5a45bee16d82935e804cf2a0a492a3c5',1,'irkit::UnionRange::docterm::docterm()']]],
+  ['document_5ffrequency',['document_frequency',['../classirkit_1_1IndexBuilder.html#ac4c8613d07637de4b67d61df2910bbd0',1,'irkit::IndexBuilder']]],
+  ['dynamiclyscoredpostingrange',['DynamiclyScoredPostingRange',['../classirkit_1_1DynamiclyScoredPostingRange.html',1,'irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;'],['../classirkit_1_1DynamiclyScoredPostingRange.html#ad92fb9fb1d2923ca2f51ce938db18cfb',1,'irkit::DynamiclyScoredPostingRange::DynamiclyScoredPostingRange()']]]
 ];

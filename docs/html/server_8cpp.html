@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>beagle: server.cpp File Reference</title>
+<title>IRKit: src/server.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">beagle
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -56,32 +59,146 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">server.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;daat.hpp&quot;</code><br />
-<code>#include &quot;index.hpp&quot;</code><br />
-<code>#include &quot;mongoose.h&quot;</code><br />
-<code>#include &quot;taat.hpp&quot;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;tuple&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="index_8hpp_source.html">index.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daat_8hpp_source.html">irkit/daat.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="taat_8hpp_source.html">irkit/taat.hpp</a>&quot;</code><br />
+<code>#include &quot;mongoose.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="saat_8hpp_source.html">saat.hpp</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a33ce10061a427c3bd4e874a4c38b6e9a"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; std::vector&lt; PostingList &gt;, std::vector&lt; Score &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a33ce10061a427c3bd4e874a4c38b6e9a">parse_query</a> (const std::string &amp;query_line)</td></tr>
+<tr class="memitem:a33ce10061a427c3bd4e874a4c38b6e9a"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;, std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a33ce10061a427c3bd4e874a4c38b6e9a">parse_query</a> (const std::string &amp;query_line)</td></tr>
 <tr class="separator:a33ce10061a427c3bd4e874a4c38b6e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6631ca553490591b918ba542bfff8d6d"><td class="memTemplParams" colspan="2">template&lt;class Posting &gt; </td></tr>
+<tr class="memitem:a6631ca553490591b918ba542bfff8d6d"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">query::Result</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a6631ca553490591b918ba542bfff8d6d">to_results</a> (std::vector&lt; <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &gt; postings)</td></tr>
+<tr class="separator:a6631ca553490591b918ba542bfff8d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467ff4473bec58bdb5d218810c30c596"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structbloodhound_1_1query_1_1Result.html">query::Result</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a467ff4473bec58bdb5d218810c30c596">daat</a> (std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; postings, std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt; weights, std::size_t k)</td></tr>
+<tr class="separator:a467ff4473bec58bdb5d218810c30c596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba86c770ebbd05d2b8f80e9ad37a4d9d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#aba86c770ebbd05d2b8f80e9ad37a4d9d">ev_handler</a> (struct mg_connection *connection, int ev, void *p)</td></tr>
+<tr class="separator:aba86c770ebbd05d2b8f80e9ad37a4d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae8cd2568135b6d62b19d7eedae9c3618"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classbloodhound_1_1index_1_1Index.html">index::Index</a>&lt; <a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html">index::InMemoryPostingPolicy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#ae8cd2568135b6d62b19d7eedae9c3618">index_ref</a></td></tr>
+<tr class="separator:ae8cd2568135b6d62b19d7eedae9c3618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5de8e81fd2190e0855481efc7c7b4dfb"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">query::TaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>, false, 0, 0 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a5de8e81fd2190e0855481efc7c7b4dfb">taat</a></td></tr>
+<tr class="separator:a5de8e81fd2190e0855481efc7c7b4dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff518e94de6961322354ac64428327d"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">query::TaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>, true, 0, 0 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a1ff518e94de6961322354ac64428327d">taat_plus</a></td></tr>
+<tr class="separator:a1ff518e94de6961322354ac64428327d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35e26d7929f5c307688ef4be9cc2146a"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html">query::RawTaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a35e26d7929f5c307688ef4be9cc2146a">raw_taat</a></td></tr>
+<tr class="separator:a35e26d7929f5c307688ef4be9cc2146a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d1e8f6afbd8102db1abe925abbded1"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html">query::WandRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a04d1e8f6afbd8102db1abe925abbded1">wand</a></td></tr>
+<tr class="separator:a04d1e8f6afbd8102db1abe925abbded1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cd1bb0f1ef3b2eee55f99544ed84b0e"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1MaxScoreRetriever.html">query::MaxScoreRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a1cd1bb0f1ef3b2eee55f99544ed84b0e">mscore</a></td></tr>
+<tr class="separator:a1cd1bb0f1ef3b2eee55f99544ed84b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a7a220ba0437d0a072590d45eae0504"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html">query::TaatMaxScoreRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a3a7a220ba0437d0a072590d45eae0504">tmscore</a></td></tr>
+<tr class="separator:a3a7a220ba0437d0a072590d45eae0504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b8403422e6fabe1222c6bee08e5a0c"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html">query::ExactSaatRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a29b8403422e6fabe1222c6bee08e5a0c">saat</a></td></tr>
+<tr class="separator:a29b8403422e6fabe1222c6bee08e5a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a96d77bca92d82ea0c2075cc446d230"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html">query::MaxScoreNonEssentials</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#a7a96d77bca92d82ea0c2075cc446d230">ness</a></td></tr>
+<tr class="separator:a7a96d77bca92d82ea0c2075cc446d230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee23689d4fc48f2c95fd3231a8323457"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html">query::ThresholdRetriever</a>&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#aee23689d4fc48f2c95fd3231a8323457">ta</a></td></tr>
+<tr class="separator:aee23689d4fc48f2c95fd3231a8323457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad81943c6f5b9391bd23b123e55445d48"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classbloodhound_1_1index_1_1Index.html">index::Index</a>&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8cpp.html#ad81943c6f5b9391bd23b123e55445d48">index_ptr</a></td></tr>
+<tr class="separator:ad81943c6f5b9391bd23b123e55445d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a467ff4473bec58bdb5d218810c30c596"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a467ff4473bec58bdb5d218810c30c596">&#9670;&nbsp;</a></span>daat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structbloodhound_1_1query_1_1Result.html">query::Result</a>&gt; daat </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a> &gt;&#160;</td>
+          <td class="paramname"><em>postings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structbloodhound_1_1Score.html">Score</a> &gt;&#160;</td>
+          <td class="paramname"><em>weights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>k</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba86c770ebbd05d2b8f80e9ad37a4d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba86c770ebbd05d2b8f80e9ad37a4d9d">&#9670;&nbsp;</a></span>ev_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ev_handler </td>
+          <td>(</td>
+          <td class="paramtype">struct mg_connection *&#160;</td>
+          <td class="paramname"><em>connection</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&nbsp;</a></span>main()</h2>
 
@@ -117,13 +234,276 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::tuple&lt;std::vector&lt;PostingList&gt;, std::vector&lt;Score&gt; &gt; parse_query </td>
+          <td class="memname">std::tuple&lt;std::vector&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt;, std::vector&lt;<a class="el" href="structbloodhound_1_1Score.html">Score</a>&gt; &gt; parse_query </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>query_line</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6631ca553490591b918ba542bfff8d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6631ca553490591b918ba542bfff8d6d">&#9670;&nbsp;</a></span>to_results()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Posting &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structbloodhound_1_1query_1_1Result.html">query::Result</a>&gt; to_results </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structbloodhound_1_1Posting.html">Posting</a> &gt;&#160;</td>
+          <td class="paramname"><em>postings</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ad81943c6f5b9391bd23b123e55445d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad81943c6f5b9391bd23b123e55445d48">&#9670;&nbsp;</a></span>index_ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1index_1_1Index.html">index::Index</a>&lt;&gt; &gt; index_ptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8cd2568135b6d62b19d7eedae9c3618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cd2568135b6d62b19d7eedae9c3618">&#9670;&nbsp;</a></span>index_ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbloodhound_1_1index_1_1Index.html">index::Index</a>&lt;<a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html">index::InMemoryPostingPolicy</a>&gt; index_ref</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1cd1bb0f1ef3b2eee55f99544ed84b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cd1bb0f1ef3b2eee55f99544ed84b0e">&#9670;&nbsp;</a></span>mscore</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1MaxScoreRetriever.html">query::MaxScoreRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; mscore</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a96d77bca92d82ea0c2075cc446d230"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a96d77bca92d82ea0c2075cc446d230">&#9670;&nbsp;</a></span>ness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html">query::MaxScoreNonEssentials</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; ness</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a35e26d7929f5c307688ef4be9cc2146a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35e26d7929f5c307688ef4be9cc2146a">&#9670;&nbsp;</a></span>raw_taat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html">query::RawTaatRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; raw_taat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29b8403422e6fabe1222c6bee08e5a0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b8403422e6fabe1222c6bee08e5a0c">&#9670;&nbsp;</a></span>saat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html">query::ExactSaatRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; saat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee23689d4fc48f2c95fd3231a8323457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee23689d4fc48f2c95fd3231a8323457">&#9670;&nbsp;</a></span>ta</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html">query::ThresholdRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; ta</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5de8e81fd2190e0855481efc7c7b4dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de8e81fd2190e0855481efc7c7b4dfb">&#9670;&nbsp;</a></span>taat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">query::TaatRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>, false, 0, 0&gt; &gt; taat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ff518e94de6961322354ac64428327d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff518e94de6961322354ac64428327d">&#9670;&nbsp;</a></span>taat_plus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html">query::TaatRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>, true, 0, 0&gt; &gt; taat_plus</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a7a220ba0437d0a072590d45eae0504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a7a220ba0437d0a072590d45eae0504">&#9670;&nbsp;</a></span>tmscore</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html">query::TaatMaxScoreRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; tmscore</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04d1e8f6afbd8102db1abe925abbded1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d1e8f6afbd8102db1abe925abbded1">&#9670;&nbsp;</a></span>wand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html">query::WandRetriever</a>&lt;<a class="el" href="classbloodhound_1_1PostingList.html">PostingList</a>&gt; &gt; wand</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

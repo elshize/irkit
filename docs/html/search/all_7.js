@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['idx',['idx',['../classbloodhound_1_1PostingList.html#a9aa9a9d1db46c6858fa952a36e1bf8fa',1,'bloodhound::PostingList']]],
-  ['index',['Index',['../classbloodhound_1_1index_1_1Index.html',1,'bloodhound::index']]],
-  ['index_2ehpp',['index.hpp',['../index_8hpp.html',1,'']]],
-  ['inmemorypostingpolicy',['InMemoryPostingPolicy',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html',1,'bloodhound::index']]],
-  ['is_5fshort',['is_short',['../structbloodhound_1_1index_1_1PostingListHeader.html#acf8fd2592a71083d37bb7bb58fc8c544',1,'bloodhound::index::PostingListHeader']]],
-  ['iterator',['iterator',['../structbloodhound_1_1PostingList_1_1iterator.html',1,'bloodhound::PostingList::iterator'],['../structbloodhound_1_1PostingList_1_1iterator.html#af815248890d1f92dbd2cc3fa5813875a',1,'bloodhound::PostingList::iterator::iterator()']]],
-  ['iteratorpair',['IteratorPair',['../structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html',1,'bloodhound::query::DaatRetriever']]]
+  ['get_5fcollection_5fsize',['get_collection_size',['../classbloodhound_1_1index_1_1Index.html#aead1eb965d1607d25398b874cbd8a269',1,'bloodhound::index::Index']]],
+  ['get_5fposting_5fcount',['get_posting_count',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a43b6bd8cdc3a64c5eabf778230c53419',1,'bloodhound::query::ExactSaatRetriever']]],
+  ['get_5fposting_5fthreshold',['get_posting_threshold',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a5d3a882f8f117130a4be46e711397e3c',1,'bloodhound::query::ExactSaatRetriever']]],
+  ['get_5fprocessed_5fpostings',['get_processed_postings',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a1cf3c5e50a72880e1eb8d995ff22b20a',1,'bloodhound::query::ExactSaatRetriever']]],
+  ['greater',['greater',['../structirkit_1_1view_1_1greater.html',1,'irkit::view']]],
+  ['group_5fsorted',['group_sorted',['../namespaceirkit_1_1view.html#a7aa21c7e2a7953e6b669b2bad7f7102f',1,'irkit::view']]]
 ];

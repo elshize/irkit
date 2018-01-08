@@ -1,0 +1,59 @@
+\hypertarget{irkit_2index_8hpp}{}\section{include/irkit/index.hpp File Reference}
+\label{irkit_2index_8hpp}\index{include/irkit/index.\+hpp@{include/irkit/index.\+hpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$}
+\begin{DoxyCompactList}\small\item\em A posting range with scores calculated on the fly. \end{DoxyCompactList}\item 
+class \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$\+::iterator}
+\item 
+class \hyperlink{classirkit_1_1Index}{irkit\+::\+Index$<$ Doc, Term, Term\+Id, Freq $>$}
+\item 
+class \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder$<$ Doc, Term, Term\+Id, Freq $>$}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceirkit}{irkit}
+\item 
+ \hyperlink{namespaceirkit_1_1index}{irkit\+::index}
+\item 
+ \hyperlink{namespaceirkit_1_1score}{irkit\+::score}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{namespaceirkit_aefd5a5c2f1136e9c2224a4b4d659d4a9}{irkit\+::\+Default\+Index\+Builder} = Index\+Builder$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+\item 
+using \hyperlink{namespaceirkit_a6f3d282716b38521a43b65100a6d337b}{irkit\+::\+Default\+Index} = Index$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_aab3491ded0cd4660b55f6c8f8c289428}{irkit\+::index\+::doc\+\_\+ids\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_a86d50e7aaf2bbdebf3e7a71623f4706e}{irkit\+::index\+::doc\+\_\+ids\+\_\+off\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_a5146ae382a6daf964681a09c55cdce93}{irkit\+::index\+::doc\+\_\+counts\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_a161f08dc57d21f41a9c03c7f97646e76}{irkit\+::index\+::doc\+\_\+counts\+\_\+off\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_ad05e7b96e9fec4cb7f93df6ea934c063}{irkit\+::index\+::terms\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_a28db3dab0a7fd926c5a4e6a4d37755c3}{irkit\+::index\+::term\+\_\+doc\+\_\+freq\+\_\+path} (fs\+::path dir)
+\item 
+fs\+::path \hyperlink{namespaceirkit_1_1index_a556d5fca1ddd33b4c09cd470ad7f9861}{irkit\+::index\+::titles\+\_\+path} (fs\+::path dir)
+\item 
+{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\double \hyperlink{namespaceirkit_1_1score_a2d7234c47ea67229e19640f34ee97e62}{irkit\+::score\+::tfidf} (Freq tf, Freq df, std\+::size\+\_\+t N)
+\begin{DoxyCompactList}\small\item\em Calculates a simple tf-\/idf score. \end{DoxyCompactList}\end{DoxyCompactItemize}

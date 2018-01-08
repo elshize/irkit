@@ -12,14 +12,22 @@ struct \hyperlink{structirkit_1_1UnionRange_1_1docterm}{docterm}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classirkit_1_1UnionRange_ae37ac22afd534bf0f7c2df98911723f3}{Union\+Range} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&weights)
-\item 
+\hyperlink{classirkit_1_1UnionRange_a23072335eaa144321314fbbdd39e9423}{Union\+Range} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&weights, const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&max\+\_\+scores=std\+::move(std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$()))
+\begin{DoxyCompactList}\small\item\em Creates new union range from posting lists and term weights. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classirkit_1_1UnionRange_aa985f4985486d3df259be0c932340f18}{peek\+\_\+term} ()
+\begin{DoxyCompactList}\small\item\em Returns the next posting\textquotesingle{}s term without advancing to the next one. \end{DoxyCompactList}\item 
+\hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange_a5c2f9a6ec77c812febdf1778e4b9b3f6}{peek\+\_\+posting} ()
+\begin{DoxyCompactList}\small\item\em Returns the next posting without advancing to the next one. \end{DoxyCompactList}\item 
 \hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange_aedb2ab6f4a5f0b9f57cf2c55214ed42e}{next\+\_\+posting} ()
 \begin{DoxyCompactList}\small\item\em Returns the next posting in sorted union order. \end{DoxyCompactList}\item 
 \hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange_a9161a468e74df4e76cd04104763f7d97}{next\+\_\+doc} ()
+\begin{DoxyCompactList}\small\item\em Returns the next {\itshape accumulated posting} in sorted union order. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structirkit_1_1UnionRange_1_1docterm}{docterm} $>$ \hyperlink{classirkit_1_1UnionRange_aacb1050fb1d624260c4013f4ba1939a6}{select\+\_\+pivot} (\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} threshold)
+\item 
+\hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange_a6f6bf3aa9d7d273371a9477b88c54737}{next\+\_\+doc\+\_\+wand} (\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} threshold)
 \item 
 bool \hyperlink{classirkit_1_1UnionRange_af12b028d791c9d9821c17ae30084fa86}{empty} () const
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns true if no further postings are available. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,11 +41,15 @@ using \hyperlink{classirkit_1_1UnionRange_a387589b1f09868b60485c4ab8c61f97a}{Doc
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{classirkit_1_1UnionRange_aabdf133213056f20e0526c6736dbff3e}{init} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings)
-\begin{DoxyCompactList}\small\item\em Initilizes moving ranges and heap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initilizes moving ranges and heap. \end{DoxyCompactList}\item 
+void \hyperlink{classirkit_1_1UnionRange_ab0548ed7d94aece8f72d0ca4db65b456}{nextge} (unsigned int term, \hyperlink{classirkit_1_1UnionRange_a387589b1f09868b60485c4ab8c61f97a}{Doc} doc)
+\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \& \hyperlink{classirkit_1_1UnionRange_a0c53eb9b1c9e8aa18621f4c129a6ff90}{weights\+\_\+}
+\item 
+const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \& \hyperlink{classirkit_1_1UnionRange_a980f7cfaf14c7c4d93b13b6d7ce6a859}{max\+\_\+scores\+\_\+}
 \item 
 std\+::vector$<$ \hyperlink{structirkit_1_1moving__range}{moving\+\_\+range}$<$ \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{const\+\_\+iterator\+\_\+t}$<$ Range $>$ $>$ $>$ \hyperlink{classirkit_1_1UnionRange_acb9b9e969f1c90bb18bf1e4eb99f124b}{ranges\+\_\+}
 \item 
@@ -76,15 +88,19 @@ using \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirkit_1_1UnionRange_ae37ac22afd534bf0f7c2df98911723f3}\label{classirkit_1_1UnionRange_ae37ac22afd534bf0f7c2df98911723f3}} 
+\mbox{\Hypertarget{classirkit_1_1UnionRange_a23072335eaa144321314fbbdd39e9423}\label{classirkit_1_1UnionRange_a23072335eaa144321314fbbdd39e9423}} 
 \index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!Union\+Range@{Union\+Range}}
 \index{Union\+Range@{Union\+Range}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
 \subsubsection{\texorpdfstring{Union\+Range()}{UnionRange()}}
 {\footnotesize\ttfamily template$<$class Range $>$ \\
-\hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::\hyperlink{classirkit_1_1UnionRange}{Union\+Range} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::\hyperlink{classirkit_1_1UnionRange}{Union\+Range} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&}]{weights,  }\item[{const std\+::vector$<$ \hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score} $>$ \&}]{max\+\_\+scores = {\ttfamily std\+:\+:move(std\+:\+:vector$<$\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score}$>$())} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Creates new union range from posting lists and term weights. \begin{DoxyPrecond}{Precondition}
-each posting list must be sorted by increasing document I\+Ds 
+
+
+Creates new union range from posting lists and term weights. 
+
+\begin{DoxyPrecond}{Precondition}
+Each posting list must be sorted by increasing document I\+Ds. 
 \end{DoxyPrecond}
 
 \begin{DoxyParams}{Parameters}
@@ -102,6 +118,10 @@ each posting list must be sorted by increasing document I\+Ds
 \subsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily template$<$class Range $>$ \\
 bool \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if no further postings are available. 
 
 \mbox{\Hypertarget{classirkit_1_1UnionRange_aabdf133213056f20e0526c6736dbff3e}\label{classirkit_1_1UnionRange_aabdf133213056f20e0526c6736dbff3e}} 
 \index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!init@{init}}
@@ -121,6 +141,19 @@ Initilizes moving ranges and heap.
 {\footnotesize\ttfamily template$<$class Range $>$ \\
 \hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::next\+\_\+doc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Returns the next {\itshape accumulated posting} in sorted union order. 
+
+An accumulated posting is an object of the same type as posting, but its score is a sum of all the partial scores for the next available document.
+
+Note that if {\itshape next\+\_\+posting} is invoked independently, this will either return an incorrect score or will skip a document (or documents). \mbox{\Hypertarget{classirkit_1_1UnionRange_a6f6bf3aa9d7d273371a9477b88c54737}\label{classirkit_1_1UnionRange_a6f6bf3aa9d7d273371a9477b88c54737}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!next\+\_\+doc\+\_\+wand@{next\+\_\+doc\+\_\+wand}}
+\index{next\+\_\+doc\+\_\+wand@{next\+\_\+doc\+\_\+wand}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{next\+\_\+doc\+\_\+wand()}{next\_doc\_wand()}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+\hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::next\+\_\+doc\+\_\+wand (\begin{DoxyParamCaption}\item[{\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score}}]{threshold }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{classirkit_1_1UnionRange_aedb2ab6f4a5f0b9f57cf2c55214ed42e}\label{classirkit_1_1UnionRange_aedb2ab6f4a5f0b9f57cf2c55214ed42e}} 
 \index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!next\+\_\+posting@{next\+\_\+posting}}
 \index{next\+\_\+posting@{next\+\_\+posting}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
@@ -132,7 +165,43 @@ Initilizes moving ranges and heap.
 
 Returns the next posting in sorted union order. 
 
+\mbox{\Hypertarget{classirkit_1_1UnionRange_ab0548ed7d94aece8f72d0ca4db65b456}\label{classirkit_1_1UnionRange_ab0548ed7d94aece8f72d0ca4db65b456}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!nextge@{nextge}}
+\index{nextge@{nextge}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{nextge()}{nextge()}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+void \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::nextge (\begin{DoxyParamCaption}\item[{unsigned int}]{term,  }\item[{\hyperlink{classirkit_1_1UnionRange_a387589b1f09868b60485c4ab8c61f97a}{Doc}}]{doc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
+\mbox{\Hypertarget{classirkit_1_1UnionRange_a5c2f9a6ec77c812febdf1778e4b9b3f6}\label{classirkit_1_1UnionRange_a5c2f9a6ec77c812febdf1778e4b9b3f6}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!peek\+\_\+posting@{peek\+\_\+posting}}
+\index{peek\+\_\+posting@{peek\+\_\+posting}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{peek\+\_\+posting()}{peek\_posting()}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+\hyperlink{classirkit_1_1UnionRange_a5f694970419f5a60d7fd41d740556229}{Posting} \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::peek\+\_\+posting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the next posting without advancing to the next one. 
+
+\mbox{\Hypertarget{classirkit_1_1UnionRange_aa985f4985486d3df259be0c932340f18}\label{classirkit_1_1UnionRange_aa985f4985486d3df259be0c932340f18}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!peek\+\_\+term@{peek\+\_\+term}}
+\index{peek\+\_\+term@{peek\+\_\+term}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{peek\+\_\+term()}{peek\_term()}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+unsigned int \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::peek\+\_\+term (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the next posting\textquotesingle{}s term without advancing to the next one. 
+
+\mbox{\Hypertarget{classirkit_1_1UnionRange_aacb1050fb1d624260c4013f4ba1939a6}\label{classirkit_1_1UnionRange_aacb1050fb1d624260c4013f4ba1939a6}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!select\+\_\+pivot@{select\+\_\+pivot}}
+\index{select\+\_\+pivot@{select\+\_\+pivot}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{select\+\_\+pivot()}{select\_pivot()}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+std\+::vector$<$\hyperlink{structirkit_1_1UnionRange_1_1docterm}{docterm}$>$ \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::select\+\_\+pivot (\begin{DoxyParamCaption}\item[{\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score}}]{threshold }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the docterm entries for all terms preceding (and including) pivot. 
 
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{classirkit_1_1UnionRange_a613eebb9b7b8601bffdad1d842c8c7f0}\label{classirkit_1_1UnionRange_a613eebb9b7b8601bffdad1d842c8c7f0}} 
@@ -141,6 +210,13 @@ Returns the next posting in sorted union order.
 \subsubsection{\texorpdfstring{heap\+\_\+}{heap\_}}
 {\footnotesize\ttfamily template$<$class Range $>$ \\
 std\+::vector$<$\hyperlink{structirkit_1_1UnionRange_1_1docterm}{docterm}$>$ \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirkit_1_1UnionRange_a980f7cfaf14c7c4d93b13b6d7ce6a859}\label{classirkit_1_1UnionRange_a980f7cfaf14c7c4d93b13b6d7ce6a859}} 
+\index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!max\+\_\+scores\+\_\+@{max\+\_\+scores\+\_\+}}
+\index{max\+\_\+scores\+\_\+@{max\+\_\+scores\+\_\+}!irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}}
+\subsubsection{\texorpdfstring{max\+\_\+scores\+\_\+}{max\_scores\_}}
+{\footnotesize\ttfamily template$<$class Range $>$ \\
+const std\+::vector$<$\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f4203e16245dae}{Score}$>$\& \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range}$<$ Range $>$\+::max\+\_\+scores\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirkit_1_1UnionRange_acb9b9e969f1c90bb18bf1e4eb99f124b}\label{classirkit_1_1UnionRange_acb9b9e969f1c90bb18bf1e4eb99f124b}} 
 \index{irkit\+::\+Union\+Range@{irkit\+::\+Union\+Range}!ranges\+\_\+@{ranges\+\_\+}}
@@ -160,4 +236,4 @@ const std\+::vector$<$\hyperlink{classirkit_1_1UnionRange_a47fb098a85581f5e33f42
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/\hyperlink{daat_8hpp}{daat.\+hpp}\end{DoxyCompactItemize}
+include/irkit/\hyperlink{daat_8hpp}{daat.\+hpp}\end{DoxyCompactItemize}

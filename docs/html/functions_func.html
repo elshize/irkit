@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bloodhound: Class Members - Functions</title>
+<title>IRKit: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Bloodhound
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -61,327 +64,30 @@ $(function() {
 &#160;
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>accumulate()
+: <a class="el" href="classirkit_1_1TopKAccumulator.html#a6caae6de2f8f555b4ad728d8819d1633">irkit::TopKAccumulator&lt; Posting &gt;</a>
+</li>
 <li>accumulate_posting()
 : <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a34def8d627b446d7459792ab9c50dcab">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
+, <a class="el" href="classirkit_1_1SimpleAccumulator.html#af747d80dbebe394e3ebe920afeeac810">irkit::SimpleAccumulator</a>
+</li>
+<li>add_document()
+: <a class="el" href="classirkit_1_1IndexBuilder.html#a8a18c112d48e21a89aefa9a931a536ab">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
+<li>add_term()
+: <a class="el" href="classirkit_1_1IndexBuilder.html#a6005b21c9a24cb54fe54957e21c0487a">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
+<li>advance()
+: <a class="el" href="structirkit_1_1moving__range.html#a792efd70f3efcb651bff438a0e0814ce">irkit::moving_range&lt; Iter &gt;</a>
+</li>
+<li>aggregate_sorted_view()
+: <a class="el" href="classirkit_1_1view_1_1aggregate__sorted__view.html#ac4bb5feea5faf3bc58d662bd5c8d4de5">irkit::view::aggregate_sorted_view&lt; Rng, Equals, Aggregate &gt;</a>
 </li>
 <li>aggregate_top()
 : <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a7f631f87075249c768873d15a59956c5">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
 </li>
-</ul>
-
-
-<h3><a id="index_b"></a>- b -</h3><ul>
-<li>begin()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a274f57f133cd6763e0d8cc3e00fa1be3">bloodhound::PostingList</a>
-</li>
-</ul>
-
-
-<h3><a id="index_c"></a>- c -</h3><ul>
-<li>calc_maxscores()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a00eb8ae8cf8f24430fe170095c4aa4d9">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>calc_threshold()
-: <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a99253d51fb9d66cb6c4fd97e499ab1b0">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-</li>
-<li>cbegin()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a44980317210bfe6c9f7d59dbea1cbd4a">bloodhound::PostingList</a>
-</li>
-<li>cend()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a7eca0ae1f54ddc48757a4fb3c0b885ce">bloodhound::PostingList</a>
-</li>
-<li>checkmask()
-: <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#a4202dde165e19c7dceec520a19d753e9">bloodhound::index::PostingListHeader</a>
-</li>
-<li>clear_accumulator_array()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a6fedf448e3d9394ecaa787bf60a9cb84">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-<li>clear_blocks()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a00a64711e5d865ba4c53e3accdb61d3f">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-<li>compare_len()
-: <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a2ea9f46aa9175fe20243e7cb2886f1f0">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-</li>
-<li>compare_maxscore()
-: <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a758b1b31a3ec9b563978ed7a11e3987c">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-</li>
-<li>const_iterator()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#acdd2e534f35cf6e082cc9d126b36f3b4">bloodhound::PostingList::const_iterator</a>
-</li>
-<li>count_postings()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a21f4192190392fee8d8b12b99c6bbe0e">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_d"></a>- d -</h3><ul>
-<li>doc()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a995d206215c6a01d7a183666502e2628">bloodhound::PostingList::iterator</a>
-</li>
-<li>doc_begin()
-: <a class="el" href="classbloodhound_1_1PostingList.html#aac3dbe7fbf43ce93031e97b16bcfc888">bloodhound::PostingList</a>
-</li>
-<li>doc_end()
-: <a class="el" href="classbloodhound_1_1PostingList.html#aac468540b0a376d9b378a4333546245c">bloodhound::PostingList</a>
-</li>
-<li>docs_ptr()
-: <a class="el" href="classbloodhound_1_1PostingList.html#acfca9e8ad1fd94461b56390fdd60779f">bloodhound::PostingList</a>
-</li>
-</ul>
-
-
-<h3><a id="index_e"></a>- e -</h3><ul>
-<li>empty()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a28ec60331aec6acaa9c281d4d412bf26">bloodhound::PostingList</a>
-</li>
-<li>end()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a2e1f899bd04ae64e1318494d358ade94">bloodhound::PostingList</a>
-</li>
-<li>ExactSaatRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a50c5c53b4b7aff76e4eabf040219be52">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_g"></a>- g -</h3><ul>
-<li>get_collection_size()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#aead1eb965d1607d25398b874cbd8a269">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>get_posting_count()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a43b6bd8cdc3a64c5eabf778230c53419">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>get_posting_threshold()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a5d3a882f8f117130a4be46e711397e3c">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>get_processed_postings()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a1cf3c5e50a72880e1eb8d995ff22b20a">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_i"></a>- i -</h3><ul>
-<li>is_short()
-: <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#acf8fd2592a71083d37bb7bb58fc8c544">bloodhound::index::PostingListHeader</a>
-</li>
-<li>iterator()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#af815248890d1f92dbd2cc3fa5813875a">bloodhound::PostingList::iterator</a>
-</li>
-</ul>
-
-
-<h3><a id="index_l"></a>- l -</h3><ul>
-<li>length()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a7af6f4e9fc277dd7c1dc73c2922ceacd">bloodhound::PostingList</a>
-</li>
-<li>load_index()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#ad4cd13bef623fc6b786f8003c8826b9c">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>load_lexicon()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a80968041cad02a4006fd4b633c279030">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>load_mappings()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a779359e7ce40294dd3d3666c00762700">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>load_maxscores()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a6333778f622dbf964ba6aea29a56dca0">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>load_meta()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#af0d9b72f7cf6b54d7bddbccd3c1898ce">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>load_postings()
-: <a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#a68a2a76f7b4349ade63f83acfd6a1dc5">bloodhound::index::InMemoryPostingPolicy</a>
-</li>
-</ul>
-
-
-<h3><a id="index_m"></a>- m -</h3><ul>
-<li>make_et()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a3c9d6c5e88a7aae2642ff1d0f52160c0">bloodhound::PostingList</a>
-</li>
-<li>MaxScoreNonEssentials()
-: <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a4ca74b906a87120ffcad3bc6edcc148c">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_n"></a>- n -</h3><ul>
-<li>next_ge()
-: <a class="el" href="classbloodhound_1_1PostingList.html#abd082192a0339062d318de73c95f1ee5">bloodhound::PostingList</a>
-</li>
-<li>next_query()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#ad6739ab7025c6de9e65945cff25c55b4">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_o"></a>- o -</h3><ul>
-<li>operator std::size_t()
-: <a class="el" href="structbloodhound_1_1Doc.html#afb469079253eb5b66e0b613f873ae81d">bloodhound::Doc</a>
-</li>
-<li>operator!=()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a65b36dcc2e29d9d2f67859a795b9d318">bloodhound::PostingList::const_iterator</a>
-, <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#aa293b4e0607edaca2fde163c8ee0f00e">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator()()
-: <a class="el" href="structbloodhound_1_1add__postings.html#ab57eba72e4d13d7f3c74d749d51c0f34">bloodhound::add_postings&lt; Posting &gt;</a>
-, <a class="el" href="structbloodhound_1_1doc__equal__to.html#a5a8e28107bb693527fa4c513b3678b1b">bloodhound::doc_equal_to&lt; Posting &gt;</a>
-, <a class="el" href="structbloodhound_1_1score__greater.html#a56a430279ebf5d6b2526335fe3b2d668">bloodhound::score_greater&lt; Posting &gt;</a>
-, <a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html#a3f89deb7b2548010c7f3b63afc9d7fa4">std::hash&lt; bloodhound::Doc &gt;</a>
-, <a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Score_01_4.html#a8e9e8081ca942b25eafe41f8f76a584b">std::hash&lt; bloodhound::Score &gt;</a>
-, <a class="el" href="structstd_1_1hash_3_01bloodhound_1_1TermId_01_4.html#a7318bf08949737e1fb9dff3444fc77a1">std::hash&lt; bloodhound::TermId &gt;</a>
-</li>
-<li>operator*()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a0e64366185c712b9f399c4bf31ff804d">bloodhound::PostingList::const_iterator</a>
-, <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a386a2af6b962ddd85392f1313eb16eff">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator+()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a8672fb454e60ed068ae02078976543f9">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator++()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#ab50270b2e0e133f6e026b330c83f2fe3">bloodhound::PostingList::const_iterator</a>
-, <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a9923c5a81b77562a06a48562babcdc9b">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator-()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a61a5de181ff84ddc0976957a7a9fcfd7">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator-&gt;()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a04f6e78b6434e52526d5cc28ca3ca24a">bloodhound::PostingList::const_iterator</a>
-, <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a8c9120139692d6672b52d96301718614">bloodhound::PostingList::iterator</a>
-</li>
-<li>operator&lt;()
-: <a class="el" href="structbloodhound_1_1query_1_1Result.html#aafd7ab327a6ae26df25272b1ad1ec4c0">bloodhound::query::Result</a>
-</li>
-<li>operator==()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a7826592d30cee67d4af4fbda6f089fc8">bloodhound::PostingList::const_iterator</a>
-, <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#af82060f61f9231ee449e43ea347cab29">bloodhound::PostingList::iterator</a>
-, <a class="el" href="structbloodhound_1_1query_1_1Result.html#af7fa537e271f9f8b213e207331d5e647">bloodhound::query::Result</a>
-</li>
-<li>operator&gt;()
-: <a class="el" href="structbloodhound_1_1query_1_1Result.html#af04b71da89ecfa88ee4836dd82fdc058">bloodhound::query::Result</a>
-</li>
-<li>operator&gt;=()
-: <a class="el" href="structbloodhound_1_1query_1_1Result.html#a5af24f990ab7687d25e25b1f66dfb8a3">bloodhound::query::Result</a>
-</li>
-</ul>
-
-
-<h3><a id="index_p"></a>- p -</h3><ul>
-<li>post_lists_by_doc()
-: <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#abf9a1012732fe0879d1bf080faf293b6">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>post_lists_by_score()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a180277ad96862e92c102066586edc74f">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>posting_list()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#ac26271e4e2678e77d46017a24ed7eac5">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>PostingList()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a725f1df76c8278f1d927fff3ed4c496e">bloodhound::PostingList</a>
-</li>
-<li>PostingListHeader()
-: <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#a839dc96a649a6a5b381b4e9b93b6e59e">bloodhound::index::PostingListHeader</a>
-</li>
-</ul>
-
-
-<h3><a id="index_r"></a>- r -</h3><ul>
-<li>RawTaatRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html#a859b1cd2092da229964e2795c4445d72">bloodhound::query::RawTaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>read_posting_data()
-: <a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#acc5567fd6ba17861290ba045567e7e1a">bloodhound::index::InMemoryPostingPolicy</a>
-</li>
-<li>Result()
-: <a class="el" href="structbloodhound_1_1query_1_1Result.html#ac4c15cb4d9e60b3e7bf37bd813215f55">bloodhound::query::Result</a>
-</li>
-<li>retrieve()
-: <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#ab80b4867fc263827dc2fdbe0965a2e8c">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aced2763cc2a4c12838fef4a20759049e">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a71c9050ca5961f061a659250932b42c2">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html#aafaaf842fdaef297a255e28766af2c0d">bloodhound::query::RawTaatRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1Retriever.html#ae3c6a4628c5580e620c213b3dcd47c2b">bloodhound::query::Retriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#af4d96478395b58527969526c3068e7b9">bloodhound::query::TaatMaxScoreRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a58284f19458689021a083c07ea627485">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html#a06750450e1246e755ebad2d5dac6e8a8">bloodhound::query::ThresholdRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html#a5f3068bc363c16c5b7255a925ea5af8c">bloodhound::query::WandRetriever&lt; PostingList &gt;</a>
-</li>
-<li>run_for()
-: <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a8ae12fdfe4bedefa5811bd89ffcf5597">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_s"></a>- s -</h3><ul>
-<li>score()
-: <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a5c94dca7f430ac78f0db3f0fe2c01c75">bloodhound::PostingList::iterator</a>
-</li>
-<li>score_begin()
-: <a class="el" href="classbloodhound_1_1PostingList.html#aec5d5bb81622fb64d7b64416a8491456">bloodhound::PostingList</a>
-</li>
-<li>score_end()
-: <a class="el" href="classbloodhound_1_1PostingList.html#ae89abf9882f73f35a6e106c5a328ca6f">bloodhound::PostingList</a>
-</li>
-<li>score_of()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#ae1c8d9643ca85ba7dba32325538e30b5">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-<li>score_with_lookups()
-: <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html#ac0a8731d270c477e04f24b89850a7d4a">bloodhound::query::ThresholdRetriever&lt; PostingList &gt;</a>
-</li>
-<li>scores_ptr()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a79be9c874bb91e17ca308ae0528e9277">bloodhound::PostingList</a>
-</li>
-<li>set_et_threshold()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a78016cfffe921ed440dec62c6f82f4cc">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>setmask()
-: <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#ab9bb3cd3201527041e86a7fec0bd385d">bloodhound::index::PostingListHeader</a>
-</li>
-<li>sorted_by_length()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#a4c5253dee6541cf173f4f2e16803c702">bloodhound::query::TaatMaxScoreRetriever&lt; PostingList &gt;</a>
-</li>
-<li>stats()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a716838f463f124964e76f48bc37d32cc">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#afb9b4ca76cca49d32ba584555d0b91fe">bloodhound::query::MaxScoreNonEssentials&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1Retriever.html#a58da32a5139b980ba874f8b5e6bb89ec">bloodhound::query::Retriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html#aa21e5b44d70bfdf058e5f9c5a1abc008">bloodhound::query::ThresholdRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html#a1e593c2cddb2ca4f2415c59ca26e6a36">bloodhound::query::WandRetriever&lt; PostingList &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_t"></a>- t -</h3><ul>
-<li>TaatMaxScoreRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#a8f452aa87a82194bf337e4ce6a06c1f4">bloodhound::query::TaatMaxScoreRetriever&lt; PostingList &gt;</a>
-</li>
-<li>TaatRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#af443da08f4200fb84a3481d47bc4ac35">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-<li>terms_to_postings()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#ae36f606ee2206c44d44d0a11ae91b04c">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-<li>ThresholdRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1ThresholdRetriever.html#a425d17d048e1fd3fd8157450c99df5bc">bloodhound::query::ThresholdRetriever&lt; PostingList &gt;</a>
-</li>
-<li>to_iterators()
-: <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a5b10288f90a4fc4d89f56971bdc48363">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>traverse()
-: <a class="el" href="classbloodhound_1_1query_1_1RawTaatRetriever.html#a70007a6dd5213e9c28266e38b424ba20">bloodhound::query::RawTaatRetriever&lt; PostingList &gt;</a>
-, <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a1b476e4ada85862cb79a92b6424d2aa2">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_v"></a>- v -</h3><ul>
-<li>verify()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a6f1e18905c2b5babd30f33467c79018a">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
-</li>
-</ul>
-
-
-<h3><a id="index_w"></a>- w -</h3><ul>
-<li>write_maxscores()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a02e947bdd77e51dcb09db5b7f03f14c7">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
+<li>any_range()
+: <a class="el" href="classirkit_1_1view_1_1any__range.html#ac131324e05db1e661c610ee577c7ac7f">irkit::view::any_range&lt; Rng &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

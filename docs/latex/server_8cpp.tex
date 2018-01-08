@@ -1,24 +1,68 @@
-\hypertarget{server_8cpp}{}\section{server.\+cpp File Reference}
-\label{server_8cpp}\index{server.\+cpp@{server.\+cpp}}
-{\ttfamily \#include \char`\"{}daat.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}index.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}mongoose.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}taat.\+hpp\char`\"{}}\newline
+\hypertarget{server_8cpp}{}\section{src/server.cpp File Reference}
+\label{server_8cpp}\index{src/server.\+cpp@{src/server.\+cpp}}
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$tuple$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}index.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/daat.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/taat.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mongoose.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}saat.\+hpp\char`\"{}}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::tuple$<$ std\+::vector$<$ Posting\+List $>$, std\+::vector$<$ Score $>$ $>$ \hyperlink{server_8cpp_a33ce10061a427c3bd4e874a4c38b6e9a}{parse\+\_\+query} (const std\+::string \&query\+\_\+line)
+std\+::tuple$<$ std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$, std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ $>$ \hyperlink{server_8cpp_a33ce10061a427c3bd4e874a4c38b6e9a}{parse\+\_\+query} (const std\+::string \&query\+\_\+line)
+\item 
+{\footnotesize template$<$class Posting $>$ }\\std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result} $>$ \hyperlink{server_8cpp_a6631ca553490591b918ba542bfff8d6d}{to\+\_\+results} (std\+::vector$<$ \hyperlink{structbloodhound_1_1Posting}{Posting} $>$ postings)
+\item 
+std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result} $>$ \hyperlink{server_8cpp_a467ff4473bec58bdb5d218810c30c596}{daat} (std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ postings, std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ weights, std\+::size\+\_\+t k)
+\item 
+static void \hyperlink{server_8cpp_aba86c770ebbd05d2b8f80e9ad37a4d9d}{ev\+\_\+handler} (struct mg\+\_\+connection $\ast$connection, int ev, void $\ast$p)
 \item 
 int \hyperlink{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$ \hyperlink{classbloodhound_1_1index_1_1InMemoryPostingPolicy}{index\+::\+In\+Memory\+Posting\+Policy} $>$ \hyperlink{server_8cpp_ae8cd2568135b6d62b19d7eedae9c3618}{index\+\_\+ref}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{query\+::\+Taat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, false, 0, 0 $>$ $>$ \hyperlink{server_8cpp_a5de8e81fd2190e0855481efc7c7b4dfb}{taat}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{query\+::\+Taat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, true, 0, 0 $>$ $>$ \hyperlink{server_8cpp_a1ff518e94de6961322354ac64428327d}{taat\+\_\+plus}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1RawTaatRetriever}{query\+::\+Raw\+Taat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a35e26d7929f5c307688ef4be9cc2146a}{raw\+\_\+taat}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1WandRetriever}{query\+::\+Wand\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a04d1e8f6afbd8102db1abe925abbded1}{wand}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1MaxScoreRetriever}{query\+::\+Max\+Score\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a1cd1bb0f1ef3b2eee55f99544ed84b0e}{mscore}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1TaatMaxScoreRetriever}{query\+::\+Taat\+Max\+Score\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a3a7a220ba0437d0a072590d45eae0504}{tmscore}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{query\+::\+Exact\+Saat\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a29b8403422e6fabe1222c6bee08e5a0c}{saat}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1MaxScoreNonEssentials}{query\+::\+Max\+Score\+Non\+Essentials}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_a7a96d77bca92d82ea0c2075cc446d230}{ness}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{query\+::\+Threshold\+Retriever}$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ $>$ \hyperlink{server_8cpp_aee23689d4fc48f2c95fd3231a8323457}{ta}
+\item 
+static std\+::shared\+\_\+ptr$<$ \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ $>$ \hyperlink{server_8cpp_ad81943c6f5b9391bd23b123e55445d48}{index\+\_\+ptr}
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
+\mbox{\Hypertarget{server_8cpp_a467ff4473bec58bdb5d218810c30c596}\label{server_8cpp_a467ff4473bec58bdb5d218810c30c596}} 
+\index{server.\+cpp@{server.\+cpp}!daat@{daat}}
+\index{daat@{daat}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{daat()}{daat()}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result}$>$ daat (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$}]{postings,  }\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$}]{weights,  }\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{server_8cpp_aba86c770ebbd05d2b8f80e9ad37a4d9d}\label{server_8cpp_aba86c770ebbd05d2b8f80e9ad37a4d9d}} 
+\index{server.\+cpp@{server.\+cpp}!ev\+\_\+handler@{ev\+\_\+handler}}
+\index{ev\+\_\+handler@{ev\+\_\+handler}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{ev\+\_\+handler()}{ev\_handler()}}
+{\footnotesize\ttfamily static void ev\+\_\+handler (\begin{DoxyParamCaption}\item[{struct mg\+\_\+connection $\ast$}]{connection,  }\item[{int}]{ev,  }\item[{void $\ast$}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
 \mbox{\Hypertarget{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{server.\+cpp@{server.\+cpp}!main@{main}}
 \index{main@{main}!server.\+cpp@{server.\+cpp}}
@@ -29,5 +73,81 @@ int \hyperlink{server_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, c
 \index{server.\+cpp@{server.\+cpp}!parse\+\_\+query@{parse\+\_\+query}}
 \index{parse\+\_\+query@{parse\+\_\+query}!server.\+cpp@{server.\+cpp}}
 \subsubsection{\texorpdfstring{parse\+\_\+query()}{parse\_query()}}
-{\footnotesize\ttfamily std\+::tuple$<$std\+::vector$<$Posting\+List$>$, std\+::vector$<$Score$>$ $>$ parse\+\_\+query (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{query\+\_\+line }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::tuple$<$std\+::vector$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$, std\+::vector$<$\hyperlink{structbloodhound_1_1Score}{Score}$>$ $>$ parse\+\_\+query (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{query\+\_\+line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{server_8cpp_a6631ca553490591b918ba542bfff8d6d}\label{server_8cpp_a6631ca553490591b918ba542bfff8d6d}} 
+\index{server.\+cpp@{server.\+cpp}!to\+\_\+results@{to\+\_\+results}}
+\index{to\+\_\+results@{to\+\_\+results}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{to\+\_\+results()}{to\_results()}}
+{\footnotesize\ttfamily template$<$class Posting $>$ \\
+std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result}$>$ to\+\_\+results (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1Posting}{Posting} $>$}]{postings }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{server_8cpp_ad81943c6f5b9391bd23b123e55445d48}\label{server_8cpp_ad81943c6f5b9391bd23b123e55445d48}} 
+\index{server.\+cpp@{server.\+cpp}!index\+\_\+ptr@{index\+\_\+ptr}}
+\index{index\+\_\+ptr@{index\+\_\+ptr}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{index\+\_\+ptr}{index\_ptr}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ $>$ index\+\_\+ptr\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_ae8cd2568135b6d62b19d7eedae9c3618}\label{server_8cpp_ae8cd2568135b6d62b19d7eedae9c3618}} 
+\index{server.\+cpp@{server.\+cpp}!index\+\_\+ref@{index\+\_\+ref}}
+\index{index\+\_\+ref@{index\+\_\+ref}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{index\+\_\+ref}{index\_ref}}
+{\footnotesize\ttfamily \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$\hyperlink{classbloodhound_1_1index_1_1InMemoryPostingPolicy}{index\+::\+In\+Memory\+Posting\+Policy}$>$ index\+\_\+ref\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a1cd1bb0f1ef3b2eee55f99544ed84b0e}\label{server_8cpp_a1cd1bb0f1ef3b2eee55f99544ed84b0e}} 
+\index{server.\+cpp@{server.\+cpp}!mscore@{mscore}}
+\index{mscore@{mscore}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{mscore}{mscore}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1MaxScoreRetriever}{query\+::\+Max\+Score\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ mscore\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a7a96d77bca92d82ea0c2075cc446d230}\label{server_8cpp_a7a96d77bca92d82ea0c2075cc446d230}} 
+\index{server.\+cpp@{server.\+cpp}!ness@{ness}}
+\index{ness@{ness}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{ness}{ness}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1MaxScoreNonEssentials}{query\+::\+Max\+Score\+Non\+Essentials}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ ness\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a35e26d7929f5c307688ef4be9cc2146a}\label{server_8cpp_a35e26d7929f5c307688ef4be9cc2146a}} 
+\index{server.\+cpp@{server.\+cpp}!raw\+\_\+taat@{raw\+\_\+taat}}
+\index{raw\+\_\+taat@{raw\+\_\+taat}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{raw\+\_\+taat}{raw\_taat}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1RawTaatRetriever}{query\+::\+Raw\+Taat\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ raw\+\_\+taat\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a29b8403422e6fabe1222c6bee08e5a0c}\label{server_8cpp_a29b8403422e6fabe1222c6bee08e5a0c}} 
+\index{server.\+cpp@{server.\+cpp}!saat@{saat}}
+\index{saat@{saat}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{saat}{saat}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1ExactSaatRetriever}{query\+::\+Exact\+Saat\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ saat\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_aee23689d4fc48f2c95fd3231a8323457}\label{server_8cpp_aee23689d4fc48f2c95fd3231a8323457}} 
+\index{server.\+cpp@{server.\+cpp}!ta@{ta}}
+\index{ta@{ta}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{ta}{ta}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1ThresholdRetriever}{query\+::\+Threshold\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ ta\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a5de8e81fd2190e0855481efc7c7b4dfb}\label{server_8cpp_a5de8e81fd2190e0855481efc7c7b4dfb}} 
+\index{server.\+cpp@{server.\+cpp}!taat@{taat}}
+\index{taat@{taat}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{taat}{taat}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{query\+::\+Taat\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, false, 0, 0$>$ $>$ taat\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a1ff518e94de6961322354ac64428327d}\label{server_8cpp_a1ff518e94de6961322354ac64428327d}} 
+\index{server.\+cpp@{server.\+cpp}!taat\+\_\+plus@{taat\+\_\+plus}}
+\index{taat\+\_\+plus@{taat\+\_\+plus}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{taat\+\_\+plus}{taat\_plus}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{query\+::\+Taat\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}, true, 0, 0$>$ $>$ taat\+\_\+plus\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a3a7a220ba0437d0a072590d45eae0504}\label{server_8cpp_a3a7a220ba0437d0a072590d45eae0504}} 
+\index{server.\+cpp@{server.\+cpp}!tmscore@{tmscore}}
+\index{tmscore@{tmscore}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{tmscore}{tmscore}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1TaatMaxScoreRetriever}{query\+::\+Taat\+Max\+Score\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ tmscore\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{server_8cpp_a04d1e8f6afbd8102db1abe925abbded1}\label{server_8cpp_a04d1e8f6afbd8102db1abe925abbded1}} 
+\index{server.\+cpp@{server.\+cpp}!wand@{wand}}
+\index{wand@{wand}!server.\+cpp@{server.\+cpp}}
+\subsubsection{\texorpdfstring{wand}{wand}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\hyperlink{classbloodhound_1_1query_1_1WandRetriever}{query\+::\+Wand\+Retriever}$<$\hyperlink{classbloodhound_1_1PostingList}{Posting\+List}$>$ $>$ wand\hspace{0.3cm}{\ttfamily [static]}}
 

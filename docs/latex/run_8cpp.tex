@@ -1,0 +1,43 @@
+\hypertarget{run_8cpp}{}\section{src/run.cpp File Reference}
+\label{run_8cpp}\index{src/run.\+cpp@{src/run.\+cpp}}
+{\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}retrievers.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}run.\+hpp\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::tuple$<$ \hyperlink{structbloodhound_1_1TermId}{Term\+Id}, \hyperlink{structbloodhound_1_1Score}{Score} $>$ $>$ \hyperlink{run_8cpp_a87489cd09b789da5adbd8285a5098520}{parse\+\_\+query} (std\+::string \&query\+\_\+line)
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{run_8cpp_a3ef37056433b3eb491952d765d6ca4ce}{load\+\_\+titles} (fs\+::path titles\+\_\+path)
+\item 
+std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result} $>$ \hyperlink{run_8cpp_a2f2551f30f22dc8d3249d1162a94c75a}{to\+\_\+results} (std\+::vector$<$ \hyperlink{structbloodhound_1_1Posting}{Posting} $>$ \&postings)
+\item 
+void \hyperlink{run_8cpp_a8a96b78740ebdc82301565813ae03600}{run\+\_\+with} (std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result} $>$($\ast$run)(const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&, std\+::size\+\_\+t, \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ \&), \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ \&ind, fs\+::path query\+\_\+file)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{run_8cpp_a3ef37056433b3eb491952d765d6ca4ce}\label{run_8cpp_a3ef37056433b3eb491952d765d6ca4ce}} 
+\index{run.\+cpp@{run.\+cpp}!load\+\_\+titles@{load\+\_\+titles}}
+\index{load\+\_\+titles@{load\+\_\+titles}!run.\+cpp@{run.\+cpp}}
+\subsubsection{\texorpdfstring{load\+\_\+titles()}{load\_titles()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ load\+\_\+titles (\begin{DoxyParamCaption}\item[{fs\+::path}]{titles\+\_\+path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{run_8cpp_a87489cd09b789da5adbd8285a5098520}\label{run_8cpp_a87489cd09b789da5adbd8285a5098520}} 
+\index{run.\+cpp@{run.\+cpp}!parse\+\_\+query@{parse\+\_\+query}}
+\index{parse\+\_\+query@{parse\+\_\+query}!run.\+cpp@{run.\+cpp}}
+\subsubsection{\texorpdfstring{parse\+\_\+query()}{parse\_query()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::tuple$<$\hyperlink{structbloodhound_1_1TermId}{Term\+Id}, \hyperlink{structbloodhound_1_1Score}{Score}$>$ $>$ parse\+\_\+query (\begin{DoxyParamCaption}\item[{std\+::string \&}]{query\+\_\+line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{run_8cpp_a8a96b78740ebdc82301565813ae03600}\label{run_8cpp_a8a96b78740ebdc82301565813ae03600}} 
+\index{run.\+cpp@{run.\+cpp}!run\+\_\+with@{run\+\_\+with}}
+\index{run\+\_\+with@{run\+\_\+with}!run.\+cpp@{run.\+cpp}}
+\subsubsection{\texorpdfstring{run\+\_\+with()}{run\_with()}}
+{\footnotesize\ttfamily void run\+\_\+with (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result} $>$($\ast$)(const std\+::vector$<$ \hyperlink{classbloodhound_1_1PostingList}{Posting\+List} $>$ \&, const std\+::vector$<$ \hyperlink{structbloodhound_1_1Score}{Score} $>$ \&, std\+::size\+\_\+t, \hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ \&)}]{run,  }\item[{\hyperlink{classbloodhound_1_1index_1_1Index}{index\+::\+Index}$<$$>$ \&}]{ind,  }\item[{fs\+::path}]{query\+\_\+file }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{run_8cpp_a2f2551f30f22dc8d3249d1162a94c75a}\label{run_8cpp_a2f2551f30f22dc8d3249d1162a94c75a}} 
+\index{run.\+cpp@{run.\+cpp}!to\+\_\+results@{to\+\_\+results}}
+\index{to\+\_\+results@{to\+\_\+results}!run.\+cpp@{run.\+cpp}}
+\subsubsection{\texorpdfstring{to\+\_\+results()}{to\_results()}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{structbloodhound_1_1query_1_1Result}{query\+::\+Result}$>$ to\+\_\+results (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{structbloodhound_1_1Posting}{Posting} $>$ \&}]{postings }\end{DoxyParamCaption})}
+

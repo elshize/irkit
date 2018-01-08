@@ -36,9 +36,9 @@ import ycm_core
 flags = [
     '-x',
     'c++',
-    '-I/home/elshize/dev/ngine/include',
-    '-I/home/elshize/dev/ngine/lib/include',
-    '-I/usr/local/include',
+    '-I/home/elshize/dev/irkit/include',
+    '-I/home/elshize/dev/irkit/lib/include',
+    #'-I/usr/local/include',
     '-Wall',
     '-std=c++17',
 ]

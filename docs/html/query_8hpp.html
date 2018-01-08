@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bloodhound: include/query.hpp File Reference</title>
+<title>IRKit: include/query.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Bloodhound
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -78,7 +81,7 @@ $(function() {
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &quot;debug_assert.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="index_8hpp_source.html">index.hpp</a>&quot;</code><br />
-<code>#include &quot;irkit/heap.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="heap_8hpp_source.html">irkit/heap.hpp</a>&quot;</code><br />
 </div>
 <p><a href="query_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -114,7 +117,7 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memTemplParams" colspan="2">template&lt;typename Compare  = std::less&lt;Score&gt;, typename Mapping  = irkit::EmptyMapping&gt; </td></tr>
-<tr class="memitem:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; Result &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#a1ec90cdc5f56c17431fd2e2cd2acbb93">bloodhound::query::heap_to_results</a> (irkit::Heap&lt; Score, Doc, Compare, Mapping &gt; &amp;heap)</td></tr>
+<tr class="memitem:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; Result &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html#a1ec90cdc5f56c17431fd2e2cd2acbb93">bloodhound::query::heap_to_results</a> (<a class="el" href="classirkit_1_1Heap.html">irkit::Heap</a>&lt; Score, Doc, Compare, Mapping &gt; &amp;heap)</td></tr>
 <tr class="memdesc:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a min-heap of top-scored documents to a sorted vector of results.  <a href="namespacebloodhound_1_1query.html#a1ec90cdc5f56c17431fd2e2cd2acbb93">More...</a><br /></td></tr>
 <tr class="separator:a1ec90cdc5f56c17431fd2e2cd2acbb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

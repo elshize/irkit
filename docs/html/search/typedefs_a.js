@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['void_5ft',['void_t',['../namespacebloodhound_1_1query.html#afd658a38b784a8187f8782905cb901e6',1,'bloodhound::query']]]
+  ['score',['Score',['../classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae',1,'irkit::UnionRange']]],
+  ['score_5ft',['score_t',['../namespaceirkit.html#a754dabe3346f950c948e7596d9d46c71',1,'irkit']]]
 ];

@@ -27,12 +27,6 @@ Score operator*=(Score& lhs, const IdWeight& rhs) {
     return lhs;
 }
 
-template<class Doc, class Score>
-struct _Posting {
-    Doc doc;
-    Score score;
-};
-
 //! Traverses and accumulates scores in a single posting list.
 //! TODO: Document
 //! TODO: Define the rest of the concepts

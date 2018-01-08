@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['nblocks',['nblocks',['../classbloodhound_1_1query_1_1TaatRetriever.html#a87786d9af7993da498d60304eab245cf',1,'bloodhound::query::TaatRetriever']]],
-  ['next_5fge',['next_ge',['../classbloodhound_1_1PostingList.html#abd082192a0339062d318de73c95f1ee5',1,'bloodhound::PostingList::next_ge(iterator current, Doc doc) const'],['../classbloodhound_1_1PostingList.html#aae5c35208d6fb36f611f952ba57add0f',1,'bloodhound::PostingList::next_ge(iterator current, iterator end, Doc doc) const']]],
-  ['next_5fquery',['next_query',['../classbloodhound_1_1query_1_1TaatRetriever.html#ad6739ab7025c6de9e65945cff25c55b4',1,'bloodhound::query::TaatRetriever']]]
+  ['key',['key',['../structirkit_1_1Entry.html#aeae4387483b4905afd7dfd71df9104fc',1,'irkit::Entry']]],
+  ['key_5for',['key_or',['../classirkit_1_1Heap.html#a2fffaaf281662d57d13dcc1b0618dc0d',1,'irkit::Heap']]]
 ];
