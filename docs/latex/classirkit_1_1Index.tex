@@ -1,0 +1,110 @@
+\hypertarget{classirkit_1_1Index}{}\section{irkit\+:\+:Index$<$ Doc, Term, Term\+Id, Freq $>$ Class Template Reference}
+\label{classirkit_1_1Index}\index{irkit\+::\+Index$<$ Doc, Term, Term\+Id, Freq $>$@{irkit\+::\+Index$<$ Doc, Term, Term\+Id, Freq $>$}}
+
+
+{\ttfamily \#include $<$index.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classirkit_1_1Index_a38ba1f601738f30be7d38232cd172f16}{Index} (fs\+::path dir)
+\item 
+void \hyperlink{classirkit_1_1Index_af8a4dd64292b2b7f7359ef1e62d75147}{load\+\_\+term\+\_\+dfs} (fs\+::path term\+\_\+df\+\_\+file)
+\item 
+void \hyperlink{classirkit_1_1Index_acd33c3a279e165a71594843d70e281f1}{load\+\_\+titles} (fs\+::path titles\+\_\+file)
+\item 
+void \hyperlink{classirkit_1_1Index_a2071c83ea3a4f128ea624fea8a24c9c9}{load\+\_\+term\+\_\+map} (fs\+::path term\+\_\+file)
+\item 
+void \hyperlink{classirkit_1_1Index_a1d44636a2174a740a9e648d2587254a6}{load\+\_\+offsets} (fs\+::path offset\+\_\+file, std\+::vector$<$ std\+::size\+\_\+t $>$ \&offsets)
+\item 
+void \hyperlink{classirkit_1_1Index_ad3f9d2490c25541bb7906cb17f76a0c2}{load\+\_\+data} (fs\+::path data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+\item 
+std\+::size\+\_\+t \hyperlink{classirkit_1_1Index_a45ede4e9e43c8a813d13467d97c084a1}{collection\+\_\+size} () const
+\item 
+std\+::vector$<$ \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$ \hyperlink{structirkit_1_1__Posting}{Posting}, Freq $>$ $>$ \hyperlink{classirkit_1_1Index_a95b2c99d94538638d93e990152e09cab}{posting\+\_\+ranges} (const std\+::vector$<$ std\+::string $>$ \&terms)
+\item 
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$ \hyperlink{structirkit_1_1__Posting}{Posting}, Freq $>$ \hyperlink{classirkit_1_1Index_adf8d2508d3f7a5085468b3dc8e25036b}{posting\+\_\+range} (const std\+::string \&term)
+\item 
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$ \hyperlink{structirkit_1_1__Posting}{Posting}, Freq $>$ \hyperlink{classirkit_1_1Index_a1b906859b75305b79835a2f0955168b9}{posting\+\_\+range} (Term\+Id term\+\_\+id)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1Index_a38ba1f601738f30be7d38232cd172f16}\label{classirkit_1_1Index_a38ba1f601738f30be7d38232cd172f16}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!Index@{Index}}
+\index{Index@{Index}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{Index()}{Index()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+\hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::\hyperlink{classirkit_1_1Index}{Index} (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1Index_a45ede4e9e43c8a813d13467d97c084a1}\label{classirkit_1_1Index_a45ede4e9e43c8a813d13467d97c084a1}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!collection\+\_\+size@{collection\+\_\+size}}
+\index{collection\+\_\+size@{collection\+\_\+size}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+std\+::size\+\_\+t \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_ad3f9d2490c25541bb7906cb17f76a0c2}\label{classirkit_1_1Index_ad3f9d2490c25541bb7906cb17f76a0c2}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!load\+\_\+data@{load\+\_\+data}}
+\index{load\+\_\+data@{load\+\_\+data}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{load\+\_\+data()}{load\_data()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+data (\begin{DoxyParamCaption}\item[{fs\+::path}]{data\+\_\+file,  }\item[{std\+::vector$<$ char $>$ \&}]{data\+\_\+container }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_a1d44636a2174a740a9e648d2587254a6}\label{classirkit_1_1Index_a1d44636a2174a740a9e648d2587254a6}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!load\+\_\+offsets@{load\+\_\+offsets}}
+\index{load\+\_\+offsets@{load\+\_\+offsets}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{load\+\_\+offsets()}{load\_offsets()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+offsets (\begin{DoxyParamCaption}\item[{fs\+::path}]{offset\+\_\+file,  }\item[{std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{offsets }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_af8a4dd64292b2b7f7359ef1e62d75147}\label{classirkit_1_1Index_af8a4dd64292b2b7f7359ef1e62d75147}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!load\+\_\+term\+\_\+dfs@{load\+\_\+term\+\_\+dfs}}
+\index{load\+\_\+term\+\_\+dfs@{load\+\_\+term\+\_\+dfs}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{load\+\_\+term\+\_\+dfs()}{load\_term\_dfs()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+term\+\_\+dfs (\begin{DoxyParamCaption}\item[{fs\+::path}]{term\+\_\+df\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_a2071c83ea3a4f128ea624fea8a24c9c9}\label{classirkit_1_1Index_a2071c83ea3a4f128ea624fea8a24c9c9}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!load\+\_\+term\+\_\+map@{load\+\_\+term\+\_\+map}}
+\index{load\+\_\+term\+\_\+map@{load\+\_\+term\+\_\+map}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{load\+\_\+term\+\_\+map()}{load\_term\_map()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+term\+\_\+map (\begin{DoxyParamCaption}\item[{fs\+::path}]{term\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_acd33c3a279e165a71594843d70e281f1}\label{classirkit_1_1Index_acd33c3a279e165a71594843d70e281f1}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!load\+\_\+titles@{load\+\_\+titles}}
+\index{load\+\_\+titles@{load\+\_\+titles}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{load\+\_\+titles()}{load\_titles()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+titles (\begin{DoxyParamCaption}\item[{fs\+::path}]{titles\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_adf8d2508d3f7a5085468b3dc8e25036b}\label{classirkit_1_1Index_adf8d2508d3f7a5085468b3dc8e25036b}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!posting\+\_\+range@{posting\+\_\+range}}
+\index{posting\+\_\+range@{posting\+\_\+range}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{posting\+\_\+range()}{posting\_range()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$\hyperlink{structirkit_1_1__Posting}{Posting}, Freq$>$ \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::posting\+\_\+range (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_a1b906859b75305b79835a2f0955168b9}\label{classirkit_1_1Index_a1b906859b75305b79835a2f0955168b9}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!posting\+\_\+range@{posting\+\_\+range}}
+\index{posting\+\_\+range@{posting\+\_\+range}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{posting\+\_\+range()}{posting\_range()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$\hyperlink{structirkit_1_1__Posting}{Posting}, Freq$>$ \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::posting\+\_\+range (\begin{DoxyParamCaption}\item[{Term\+Id}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1Index_a95b2c99d94538638d93e990152e09cab}\label{classirkit_1_1Index_a95b2c99d94538638d93e990152e09cab}} 
+\index{irkit\+::\+Index@{irkit\+::\+Index}!posting\+\_\+ranges@{posting\+\_\+ranges}}
+\index{posting\+\_\+ranges@{posting\+\_\+ranges}!irkit\+::\+Index@{irkit\+::\+Index}}
+\subsubsection{\texorpdfstring{posting\+\_\+ranges()}{posting\_ranges()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+std\+::vector$<$\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range}$<$\hyperlink{structirkit_1_1__Posting}{Posting}, Freq$>$ $>$ \hyperlink{classirkit_1_1Index}{irkit\+::\+Index}$<$ Doc, Term, Term\+Id, Freq $>$\+::posting\+\_\+ranges (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{terms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\hyperlink{irkit_2index_8hpp}{index.\+hpp}\end{DoxyCompactItemize}

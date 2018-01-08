@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['maxscorenonessentials',['MaxScoreNonEssentials',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html',1,'bloodhound::query']]],
-  ['maxscoreretriever',['MaxScoreRetriever',['../classbloodhound_1_1query_1_1MaxScoreRetriever.html',1,'bloodhound::query']]]
+  ['greater',['greater',['../structirkit_1_1view_1_1greater.html',1,'irkit::view']]]
 ];

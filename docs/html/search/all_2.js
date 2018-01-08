@@ -1,15 +1,12 @@
 var searchData=
 [
-  ['calc_5fmaxscores',['calc_maxscores',['../classbloodhound_1_1index_1_1Index.html#a00eb8ae8cf8f24430fe170095c4aa4d9',1,'bloodhound::index::Index']]],
-  ['calc_5fthreshold',['calc_threshold',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a99253d51fb9d66cb6c4fd97e499ab1b0',1,'bloodhound::query::MaxScoreNonEssentials']]],
-  ['cbegin',['cbegin',['../classbloodhound_1_1PostingList.html#a44980317210bfe6c9f7d59dbea1cbd4a',1,'bloodhound::PostingList']]],
-  ['cend',['cend',['../classbloodhound_1_1PostingList.html#a7eca0ae1f54ddc48757a4fb3c0b885ce',1,'bloodhound::PostingList']]],
-  ['checkmask',['checkmask',['../structbloodhound_1_1index_1_1PostingListHeader.html#a4202dde165e19c7dceec520a19d753e9',1,'bloodhound::index::PostingListHeader']]],
-  ['clear_5faccumulator_5farray',['clear_accumulator_array',['../classbloodhound_1_1query_1_1TaatRetriever.html#a6fedf448e3d9394ecaa787bf60a9cb84',1,'bloodhound::query::TaatRetriever']]],
-  ['clear_5fblocks',['clear_blocks',['../classbloodhound_1_1query_1_1TaatRetriever.html#a00a64711e5d865ba4c53e3accdb61d3f',1,'bloodhound::query::TaatRetriever']]],
-  ['compare_5flen',['compare_len',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a2ea9f46aa9175fe20243e7cb2886f1f0',1,'bloodhound::query::MaxScoreNonEssentials']]],
-  ['compare_5fmaxscore',['compare_maxscore',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a758b1b31a3ec9b563978ed7a11e3987c',1,'bloodhound::query::MaxScoreNonEssentials']]],
-  ['const_5fiterator',['const_iterator',['../structbloodhound_1_1PostingList_1_1const__iterator.html',1,'bloodhound::PostingList::const_iterator'],['../structbloodhound_1_1PostingList_1_1const__iterator.html#acdd2e534f35cf6e082cc9d126b36f3b4',1,'bloodhound::PostingList::const_iterator::const_iterator()']]],
-  ['count_5fpostings',['count_postings',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a21f4192190392fee8d8b12b99c6bbe0e',1,'bloodhound::query::ExactSaatRetriever']]],
-  ['current',['current',['../structbloodhound_1_1PostingList_1_1const__iterator.html#a97406308f5973366ea220f68c0d515d7',1,'bloodhound::PostingList::const_iterator::current()'],['../structbloodhound_1_1PostingList_1_1iterator.html#ae4e6a0f32f80ac9f64558843a0a0cf0e',1,'bloodhound::PostingList::iterator::current()'],['../structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html#a39776930389d36b2b0da49c3b5685ec4',1,'bloodhound::query::DaatRetriever::IteratorPair::current()']]]
+  ['begin',['begin',['../classbloodhound_1_1PostingList.html#a274f57f133cd6763e0d8cc3e00fa1be3',1,'bloodhound::PostingList::begin()'],['../structirkit_1_1moving__range.html#af58c3dbe1e87c3222ee4a80aa745d9a1',1,'irkit::moving_range::begin()'],['../classirkit_1_1Heap.html#af996708917bb42b8cc660988c5c5ed62',1,'irkit::Heap::begin()'],['../classirkit_1_1DynamiclyScoredPostingRange.html#a291cd11bd9c0216c64b252a79e4ff9a8',1,'irkit::DynamiclyScoredPostingRange::begin()'],['../classirkit_1_1view_1_1ZipView.html#af278d23b14dd71c1c5d7e145a5d0771b',1,'irkit::view::ZipView::begin()'],['../classirkit_1_1view_1_1any__range.html#a99da248f7fb3fa9e78300f80ee9c8409',1,'irkit::view::any_range::begin()'],['../classirkit_1_1view_1_1iterator__range.html#a510f0a679cad2562b8537fafef71cf5e',1,'irkit::view::iterator_range::begin()'],['../classirkit_1_1view_1_1transform__view.html#a6a4643fb239fa9ac74bbc9bfbfd806e9',1,'irkit::view::transform_view::begin()'],['../classirkit_1_1view_1_1fast__union__merge__view.html#ae204e072ecbd702c09c7813e05828138',1,'irkit::view::fast_union_merge_view::begin()'],['../classirkit_1_1view_1_1aggregate__sorted__view.html#a6e45f5ee40da2b8f4fed52e0b8fec8de',1,'irkit::view::aggregate_sorted_view::begin()']]],
+  ['bits_5fto_5fshift',['bits_to_shift',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa2b4875de4f02a856e64560bf002296f',1,'bloodhound::query::TaatRetriever']]],
+  ['block_5fmax_5fscores',['block_max_scores',['../classbloodhound_1_1query_1_1TaatRetriever.html#ac870574844dc3be6c40cf1236e1ff6cc',1,'bloodhound::query::TaatRetriever']]],
+  ['bloodhound',['bloodhound',['../namespacebloodhound.html',1,'']]],
+  ['build_5findex_2ecpp',['build_index.cpp',['../build__index_8cpp.html',1,'']]],
+  ['build_5findex_5ffrom_5fids',['build_index_from_ids',['../classbloodhound_1_1index_1_1Index.html#a0343a97c005a2df437a955c308d376e6',1,'bloodhound::index::Index::build_index_from_ids()'],['../namespacebloodhound_1_1index.html#ac508959a4f3ab5ce65d62f1c294359e2',1,'bloodhound::index::build_index_from_ids()']]],
+  ['format',['format',['../namespacebloodhound_1_1index_1_1format.html',1,'bloodhound::index']]],
+  ['index',['index',['../namespacebloodhound_1_1index.html',1,'bloodhound']]],
+  ['query',['query',['../namespacebloodhound_1_1query.html',1,'bloodhound']]]
 ];

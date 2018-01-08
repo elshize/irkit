@@ -1,0 +1,32 @@
+\hypertarget{utils_8hpp}{}\section{include/irkit/utils.hpp File Reference}
+\label{utils_8hpp}\index{include/irkit/utils.\+hpp@{include/irkit/utils.\+hpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classirkit_1_1TopKAccumulator}{irkit\+::\+Top\+K\+Accumulator$<$ Posting $>$}
+\begin{DoxyCompactList}\small\item\em An container accumulating top-\/k postings (or results). \end{DoxyCompactList}\item 
+class \hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}
+\begin{DoxyCompactList}\small\item\em A zip view of two ranges. \end{DoxyCompactList}\item 
+class \hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{irkit\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::const\+\_\+iterator}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceirkit}{irkit}
+\item 
+ \hyperlink{namespaceirkit_1_1view}{irkit\+::view}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \hyperlink{namespaceirkit_aeba2b79c033dd9d3f1a920eba838d184}{irkit\+::nbits} (T n)
+\begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ }\\auto \hyperlink{namespaceirkit_1_1view_ad4847c0d8f90f3c8854994d3289d51d6}{irkit\+::view\+::zip} (Left\+Range left, Right\+Range right, Zip\+Fn zip\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Posting , class Left\+Range , class Right\+Range $>$ }\\auto \hyperlink{namespaceirkit_1_1view_ab95e8c27c68f8d9864b2704de089abec}{irkit\+::view\+::posting\+\_\+zip} (Left\+Range left, Right\+Range right)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view of Posting elements. \end{DoxyCompactList}\end{DoxyCompactItemize}

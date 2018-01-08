@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['term',['term',['../structbloodhound_1_1TermWeight.html#a8606421116b89015b89272bd5e2602a9',1,'bloodhound::TermWeight']]]
+  ['qidx_5fshifted',['qidx_shifted',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa27d16b326df60affe26e005f9abb4f6',1,'bloodhound::query::TaatRetriever']]],
+  ['query_5fid',['query_id',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa9a1b8ca0cb570bcffe6b6c68e8c2e20',1,'bloodhound::query::TaatRetriever']]]
 ];

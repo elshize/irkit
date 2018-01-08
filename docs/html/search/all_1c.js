@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['_7ebasic_5fjson',['~basic_json',['../classnlohmann_1_1basic__json.html#a42347bbce75ba5571e292a3540af30e0',1,'nlohmann::basic_json']]],
+  ['_7ebasic_5foptional',['~basic_optional',['../classtype__safe_1_1basic__optional.html#ac7563e58c0ca602cd247a142a4c5a838',1,'type_safe::basic_optional']]],
+  ['_7ebasic_5fvariant',['~basic_variant',['../classtype__safe_1_1basic__variant.html#aea4a87130d55df3b36d20b482209d981',1,'type_safe::basic_variant']]],
+  ['_7econstrained_5fmodifier',['~constrained_modifier',['../classtype__safe_1_1constrained__modifier.html#a96ddc9d91aaedae047388dd3cb3b194e',1,'type_safe::constrained_modifier']]],
+  ['_7econstrained_5ftype',['~constrained_type',['../classtype__safe_1_1constrained__type.html#a630407537335f5c0752c69351c1115d4',1,'type_safe::constrained_type']]],
+  ['_7ecoroutine_5fowner',['~coroutine_owner',['../structranges_1_1v3_1_1experimental_1_1coroutine__owner.html#aea6a2bb9653fafef1ca51fa70367be3d',1,'ranges::v3::experimental::coroutine_owner']]],
+  ['_7edeferred_5fconstruction',['~deferred_construction',['../classtype__safe_1_1deferred__construction.html#a18b9ea7765250b0d57b9b570b937fd5b',1,'type_safe::deferred_construction']]],
+  ['_7einput_5fadapter_5fprotocol',['~input_adapter_protocol',['../structnlohmann_1_1detail_1_1input__adapter__protocol.html#a92dac74def4ac5adacd0684088bd4082',1,'nlohmann::detail::input_adapter_protocol']]],
+  ['_7einput_5fstream_5fadapter',['~input_stream_adapter',['../classnlohmann_1_1detail_1_1input__stream__adapter.html#a2d71eb469267abd864f765481d1e823f',1,'nlohmann::detail::input_stream_adapter']]],
+  ['_7eoptional_5fstorage',['~optional_storage',['../structtype__safe_1_1detail_1_1optional__storage.html#a59844d7f64c105a5966806b086539e58',1,'type_safe::detail::optional_storage']]],
+  ['_7eoutput_5fadapter_5fprotocol',['~output_adapter_protocol',['../structnlohmann_1_1detail_1_1output__adapter__protocol.html#ad71cdc057030f8a775a191face25061a',1,'nlohmann::detail::output_adapter_protocol']]],
+  ['_7eoutput_5fparameter',['~output_parameter',['../classtype__safe_1_1output__parameter.html#ae5b7e9f1ce76891d20d2b66100fce87e',1,'type_safe::output_parameter']]],
+  ['_7eraw_5fbuffer',['~raw_buffer',['../structranges_1_1v3_1_1raw__buffer.html#a36988728a994eefbcb35b1e7e20d19a4',1,'ranges::v3::raw_buffer']]],
+  ['_7escope_5fexit',['~scope_exit',['../structranges_1_1v3_1_1scope__exit.html#a5e852178deb8316b4ab9c3eae6f8af6a',1,'ranges::v3::scope_exit']]],
+  ['_7etagged_5funion',['~tagged_union',['../classtype__safe_1_1tagged__union.html#a7f5b639fd521b9d45868e3ae253d21f6',1,'type_safe::tagged_union']]],
+  ['_7evariant_5fstorage',['~variant_storage',['../classtype__safe_1_1detail_1_1variant__storage.html#a2bb4eb18cb9b2d14c15c3ee14a8d42c3',1,'type_safe::detail::variant_storage']]],
+  ['_7eview_5fadaptor',['~view_adaptor',['../structranges_1_1v3_1_1view__adaptor.html#afb74f0eecc36ed4c630b4c9a7f8179ae',1,'ranges::v3::view_adaptor']]],
+  ['_7eview_5finterface',['~view_interface',['../structranges_1_1v3_1_1view__interface.html#ab356e666dff0ce482dcdc2c9012ba2f8',1,'ranges::v3::view_interface']]]
+];

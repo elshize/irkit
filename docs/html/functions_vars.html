@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bloodhound: Class Members - Variables</title>
+<title>IRKit: Class Members - Variables</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Bloodhound
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -83,6 +86,9 @@ $(function() {
 , <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#ae4e6a0f32f80ac9f64558843a0a0cf0e">bloodhound::PostingList::iterator</a>
 , <a class="el" href="structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html#a39776930389d36b2b0da49c3b5685ec4">bloodhound::query::DaatRetriever&lt; PostingList &gt;::IteratorPair</a>
 </li>
+<li>current_doc_
+: <a class="el" href="classirkit_1_1IndexBuilder.html#a52d46fb2bd04b9e5ee0e9fdcf98e2f7b">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
 </ul>
 
 
@@ -90,12 +96,17 @@ $(function() {
 <li>doc
 : <a class="el" href="structbloodhound_1_1Posting.html#ae39f120507b708385e754c693109e384">bloodhound::Posting</a>
 , <a class="el" href="structbloodhound_1_1query_1_1Result.html#a5f6acbb120aaf435333e410c0595962a">bloodhound::query::Result</a>
+, <a class="el" href="structirkit_1_1__Posting.html#a6ee624b39c69f2b8701701ecc8fe6a0b">irkit::_Posting&lt; Doc, Score &gt;</a>
+, <a class="el" href="structirkit_1_1UnionRange_1_1docterm.html#a4fe1c3b4721f619f688189d6b5e4afe2">irkit::UnionRange&lt; Range &gt;::docterm</a>
 </li>
 <li>doc_count
 : <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#ac22a6d1974badac6cbedfb69f9c9bf5c">bloodhound::index::PostingListHeader</a>
 </li>
 <li>doc_iter
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a6eddc76eb3741c66f9bf3b7d99312087">bloodhound::PostingList::const_iterator</a>
+</li>
+<li>doc_offset
+: <a class="el" href="structbloodhound_1_1index_1_1format_1_1TermDetails.html#a4361db3ce131c8c7beadf58bd651f1c3">bloodhound::index::format::TermDetails</a>
 </li>
 <li>docs
 : <a class="el" href="classbloodhound_1_1PostingList.html#a11749c12634d86c73b7d9c150acaac03">bloodhound::PostingList</a>
@@ -113,6 +124,16 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>head
+: <a class="el" href="structbloodhound_1_1index_1_1format_1_1PostingBlock.html#a0820d9474f2563bf913457e3b8681370">bloodhound::index::format::PostingBlock&lt; Value &gt;</a>
+</li>
+<li>heap_
+: <a class="el" href="classirkit_1_1UnionRange.html#a613eebb9b7b8601bffdad1d842c8c7f0">irkit::UnionRange&lt; Range &gt;</a>
+</li>
+</ul>
+
+
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>idx
 : <a class="el" href="classbloodhound_1_1PostingList.html#a9aa9a9d1db46c6858fa952a36e1bf8fa">bloodhound::PostingList</a>
@@ -120,7 +141,17 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_k"></a>- k -</h3><ul>
+<li>key
+: <a class="el" href="structirkit_1_1Entry.html#aeae4387483b4905afd7dfd71df9104fc">irkit::Entry&lt; Key, Value &gt;</a>
+</li>
+</ul>
+
+
 <h3><a id="index_l"></a>- l -</h3><ul>
+<li>left
+: <a class="el" href="structirkit_1_1moving__range.html#a175a0bc6996715ea27e6b87abff03139">irkit::moving_range&lt; Iter &gt;</a>
+</li>
 <li>lexicon
 : <a class="el" href="classbloodhound_1_1index_1_1Index.html#a746d80c2fb411f512726c8d37cad78fc">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
 </li>
@@ -134,12 +165,18 @@ $(function() {
 <li>max_score
 : <a class="el" href="classbloodhound_1_1PostingList.html#ab840a6f9ddf8de353cbdd09b3a184bfa">bloodhound::PostingList</a>
 </li>
+<li>max_scores_
+: <a class="el" href="classirkit_1_1UnionRange.html#a980f7cfaf14c7c4d93b13b6d7ce6a859">irkit::UnionRange&lt; Range &gt;</a>
+</li>
 </ul>
 
 
 <h3><a id="index_n"></a>- n -</h3><ul>
 <li>nblocks
 : <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#a87786d9af7993da498d60304eab245cf">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
+</li>
+<li>next_block
+: <a class="el" href="structbloodhound_1_1index_1_1format_1_1PostingBlock.html#ad7e7da1b1f4ed16a0b51ba9c8fbac401">bloodhound::index::format::PostingBlock&lt; Value &gt;</a>
 </li>
 </ul>
 
@@ -160,6 +197,9 @@ $(function() {
 <li>posting_list
 : <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a3a9afedb85f883831ee68fee0611ca92">bloodhound::PostingList::iterator</a>
 </li>
+<li>postings_
+: <a class="el" href="classirkit_1_1IndexBuilder.html#a4dcd133d2afe183e6f5bb379592391c4">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
 <li>postings_data
 : <a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#ae760569f621a8b6260cbc50c144be0bf">bloodhound::index::InMemoryPostingPolicy</a>
 </li>
@@ -176,10 +216,21 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>ranges_
+: <a class="el" href="classirkit_1_1UnionRange.html#acb9b9e969f1c90bb18bf1e4eb99f124b">irkit::UnionRange&lt; Range &gt;</a>
+</li>
+<li>right
+: <a class="el" href="structirkit_1_1moving__range.html#aa64b16b98bdd7b627ecceb82c8ef3bec">irkit::moving_range&lt; Iter &gt;</a>
+</li>
+</ul>
+
+
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>score
 : <a class="el" href="structbloodhound_1_1Posting.html#afcdc4c2d2486c04feee39077122e1622">bloodhound::Posting</a>
 , <a class="el" href="structbloodhound_1_1query_1_1Result.html#af9f240e486460b5130eff110b0f3c7a3">bloodhound::query::Result</a>
+, <a class="el" href="structirkit_1_1__Posting.html#a3c5cc3b179d8fb975d3356847e34955f">irkit::_Posting&lt; Doc, Score &gt;</a>
 </li>
 <li>score_iter
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#ade7c448dfba393cc9e34a901461b6b77">bloodhound::PostingList::const_iterator</a>
@@ -187,18 +238,39 @@ $(function() {
 <li>score_mask
 : <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#ac38b873ceff34b55bb8ac82800946825">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
 </li>
+<li>score_offset
+: <a class="el" href="structbloodhound_1_1index_1_1format_1_1TermDetails.html#aec8833fdbf2ae61ade0fe42ce8a7240c">bloodhound::index::format::TermDetails</a>
+</li>
 <li>scores
 : <a class="el" href="classbloodhound_1_1PostingList.html#a2c773bffa3d78d2e7a7e04d918b064da">bloodhound::PostingList</a>
 </li>
 <li>section_offset
 : <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#a0c073440a09f22e0e277d3935d6b9158">bloodhound::index::PostingListHeader</a>
 </li>
+<li>sorted_terms_
+: <a class="el" href="classirkit_1_1IndexBuilder.html#a7a6b13e964f05c659fe17cf61a9738e9">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
 </ul>
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>term
-: <a class="el" href="structbloodhound_1_1TermWeight.html#a8606421116b89015b89272bd5e2602a9">bloodhound::TermWeight</a>
+: <a class="el" href="structbloodhound_1_1index_1_1format_1_1TermDetails.html#a05890ba855986755276485d7753201ca">bloodhound::index::format::TermDetails</a>
+, <a class="el" href="structbloodhound_1_1TermWeight.html#a8606421116b89015b89272bd5e2602a9">bloodhound::TermWeight</a>
+, <a class="el" href="structirkit_1_1UnionRange_1_1docterm.html#aa8219ac3bc95a63da177aaf0689eaff0">irkit::UnionRange&lt; Range &gt;::docterm</a>
+</li>
+<li>term_map_
+: <a class="el" href="classirkit_1_1IndexBuilder.html#aeebb03b89eeab532f62239e4ea4f0bee">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
+<li>term_occurrences_
+: <a class="el" href="classirkit_1_1IndexBuilder.html#aaa27520f3a0fb37dba049d2c26ad9484">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>value
+: <a class="el" href="structirkit_1_1Entry.html#a72e5dd8efe13d360f7b97c37d05b99b8">irkit::Entry&lt; Key, Value &gt;</a>
 </li>
 </ul>
 
@@ -206,6 +278,9 @@ $(function() {
 <h3><a id="index_w"></a>- w -</h3><ul>
 <li>weight
 : <a class="el" href="structbloodhound_1_1TermWeight.html#a1abc2c53928fbaa8dcf617e72e1afced">bloodhound::TermWeight</a>
+</li>
+<li>weights_
+: <a class="el" href="classirkit_1_1UnionRange.html#a0c53eb9b1c9e8aa18621f4c129a6ff90">irkit::UnionRange&lt; Range &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

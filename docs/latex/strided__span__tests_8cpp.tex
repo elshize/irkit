@@ -1,0 +1,142 @@
+\hypertarget{strided__span__tests_8cpp}{}\section{build/gsl-\/prefix/src/gsl/tests/strided\+\_\+span\+\_\+tests.cpp File Reference}
+\label{strided__span__tests_8cpp}\index{build/gsl-\/prefix/src/gsl/tests/strided\+\_\+span\+\_\+tests.\+cpp@{build/gsl-\/prefix/src/gsl/tests/strided\+\_\+span\+\_\+tests.\+cpp}}
+{\ttfamily \#include $<$catch/catch.\+hpp$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+byte$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+util$>$}\newline
+{\ttfamily \#include $<$gsl/multi\+\_\+span$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacegsl}{gsl}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{strided__span__tests_8cpp_a0ddce587e9b840dedd2a3e5899685d8d}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}span\+\_\+section\+\_\+test\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_ac09b7c631df16725813203851bb9ae34}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}span\+\_\+section\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_a29cff30d0afaea71522596c1a587e3cb}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+constructors\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_af8d42e4519e887c76e78b857593705d7}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+slice\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_ac3c43b271c1b523e44c919dcbaa29eea}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+column\+\_\+major\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_ab11f70cc53dba13fb08864432c410db8}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+bounds\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_a90891af74dd86fb62058c8c5ff72b40f}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+type\+\_\+conversion\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_aff928ff38e44ce8f0f39d0a544c01535}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}empty\+\_\+strided\+\_\+spans\char`\"{})
+\item 
+void \hyperlink{strided__span__tests_8cpp_a05c000d435882fe13dd1e9535bd22290}{iterate\+\_\+every\+\_\+other\+\_\+element} (multi\+\_\+span$<$ int, dynamic\+\_\+range $>$ av)
+\item 
+\hyperlink{strided__span__tests_8cpp_a8bfbf45cd9272d431206a7c7b2b45595}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+section\+\_\+iteration\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_a406fef124e33dce336b8d482ef2048e3}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}dynamic\+\_\+strided\+\_\+span\+\_\+section\+\_\+iteration\char`\"{})
+\item 
+void \hyperlink{strided__span__tests_8cpp_a90a16cbddcfbe5e4953a9ffe1c6814f4}{iterate\+\_\+second\+\_\+slice} (multi\+\_\+span$<$ int, dynamic\+\_\+range, dynamic\+\_\+range, dynamic\+\_\+range $>$ av)
+\item 
+\hyperlink{strided__span__tests_8cpp_a92c7fccdf48f931aeac5d7ba313be0c5}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+section\+\_\+iteration\+\_\+3d\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_a010826aa0890e4df6b40de4388f05075}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}dynamic\+\_\+strided\+\_\+span\+\_\+section\+\_\+iteration\+\_\+3d\char`\"{})
+\item 
+\hyperlink{strided__span__tests_8cpp_a36b530a338b10112f5f2512139db12d9}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}strided\+\_\+span\+\_\+conversion\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{strided__span__tests_8cpp_a05c000d435882fe13dd1e9535bd22290}\label{strided__span__tests_8cpp_a05c000d435882fe13dd1e9535bd22290}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!iterate\+\_\+every\+\_\+other\+\_\+element@{iterate\+\_\+every\+\_\+other\+\_\+element}}
+\index{iterate\+\_\+every\+\_\+other\+\_\+element@{iterate\+\_\+every\+\_\+other\+\_\+element}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{iterate\+\_\+every\+\_\+other\+\_\+element()}{iterate\_every\_other\_element()}}
+{\footnotesize\ttfamily void iterate\+\_\+every\+\_\+other\+\_\+element (\begin{DoxyParamCaption}\item[{multi\+\_\+span$<$ int, dynamic\+\_\+range $>$}]{av }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a90a16cbddcfbe5e4953a9ffe1c6814f4}\label{strided__span__tests_8cpp_a90a16cbddcfbe5e4953a9ffe1c6814f4}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!iterate\+\_\+second\+\_\+slice@{iterate\+\_\+second\+\_\+slice}}
+\index{iterate\+\_\+second\+\_\+slice@{iterate\+\_\+second\+\_\+slice}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{iterate\+\_\+second\+\_\+slice()}{iterate\_second\_slice()}}
+{\footnotesize\ttfamily void iterate\+\_\+second\+\_\+slice (\begin{DoxyParamCaption}\item[{multi\+\_\+span$<$ int, dynamic\+\_\+range, dynamic\+\_\+range, dynamic\+\_\+range $>$}]{av }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a0ddce587e9b840dedd2a3e5899685d8d}\label{strided__span__tests_8cpp_a0ddce587e9b840dedd2a3e5899685d8d}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}span\+\_\+section\+\_\+test\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_ac09b7c631df16725813203851bb9ae34}\label{strided__span__tests_8cpp_ac09b7c631df16725813203851bb9ae34}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}span\+\_\+section\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a29cff30d0afaea71522596c1a587e3cb}\label{strided__span__tests_8cpp_a29cff30d0afaea71522596c1a587e3cb}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+constructors\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_af8d42e4519e887c76e78b857593705d7}\label{strided__span__tests_8cpp_af8d42e4519e887c76e78b857593705d7}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+slice\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_ac3c43b271c1b523e44c919dcbaa29eea}\label{strided__span__tests_8cpp_ac3c43b271c1b523e44c919dcbaa29eea}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+column\+\_\+major\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_ab11f70cc53dba13fb08864432c410db8}\label{strided__span__tests_8cpp_ab11f70cc53dba13fb08864432c410db8}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+bounds\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a90891af74dd86fb62058c8c5ff72b40f}\label{strided__span__tests_8cpp_a90891af74dd86fb62058c8c5ff72b40f}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+type\+\_\+conversion\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_aff928ff38e44ce8f0f39d0a544c01535}\label{strided__span__tests_8cpp_aff928ff38e44ce8f0f39d0a544c01535}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}empty\+\_\+strided\+\_\+spans\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a8bfbf45cd9272d431206a7c7b2b45595}\label{strided__span__tests_8cpp_a8bfbf45cd9272d431206a7c7b2b45595}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [9/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+section\+\_\+iteration\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a406fef124e33dce336b8d482ef2048e3}\label{strided__span__tests_8cpp_a406fef124e33dce336b8d482ef2048e3}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [10/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}dynamic\+\_\+strided\+\_\+span\+\_\+section\+\_\+iteration\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a92c7fccdf48f931aeac5d7ba313be0c5}\label{strided__span__tests_8cpp_a92c7fccdf48f931aeac5d7ba313be0c5}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [11/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+section\+\_\+iteration\+\_\+3d\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a010826aa0890e4df6b40de4388f05075}\label{strided__span__tests_8cpp_a010826aa0890e4df6b40de4388f05075}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [12/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}dynamic\+\_\+strided\+\_\+span\+\_\+section\+\_\+iteration\+\_\+3d\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{strided__span__tests_8cpp_a36b530a338b10112f5f2512139db12d9}\label{strided__span__tests_8cpp_a36b530a338b10112f5f2512139db12d9}} 
+\index{strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!strided\+\_\+span\+\_\+tests.\+cpp@{strided\+\_\+span\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [13/13]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}strided\+\_\+span\+\_\+conversion\char`\"{}}]{ }\end{DoxyParamCaption})}
+

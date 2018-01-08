@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bloodhound: include/daat.hpp File Reference</title>
+<title>IRKit: include/irkit/daat.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Bloodhound
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -58,21 +61,21 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_e2b1385af50a95c3b479df693b85d63e.html">irkit</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">daat.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
+<code>#include &quot;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils_8hpp_source.html">irkit/utils.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="query_8hpp_source.html">query.hpp</a>&quot;</code><br />
 </div>
 <p><a href="daat_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -86,51 +89,22 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirkit_1_1UnionRange_1_1docterm.html">irkit::UnionRange&lt; Range &gt;::docterm</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pair of document ID and term ID to use in DAAT term heap.  <a href="structirkit_1_1UnionRange_1_1docterm.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Document-at-a-time query processor.  <a href="classbloodhound_1_1query_1_1DaatRetriever.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html">bloodhound::query::DaatRetriever&lt; PostingList &gt;::IteratorPair</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current and end iterators of the same posting list.  <a href="structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1WandRetriever.html">bloodhound::query::WandRetriever&lt; PostingList &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">WAND (Weak-AND) query retriever.  <a href="classbloodhound_1_1query_1_1WandRetriever.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1query_1_1MaxScoreRetriever.html">bloodhound::query::MaxScoreRetriever&lt; PostingList &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceirkit"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html">irkit</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebloodhound_1_1query"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1query.html">bloodhound::query</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a40deb8b0d47ecaada4b47270b97d5469"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
-<tr class="memitem:a40deb8b0d47ecaada4b47270b97d5469"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a40deb8b0d47ecaada4b47270b97d5469">irkit::element_t</a> = decltype(*std::declval&lt; Range &gt;().begin())</td></tr>
-<tr class="separator:a40deb8b0d47ecaada4b47270b97d5469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcffab67300c5c703cb38a363c9a6f1d"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
-<tr class="memitem:afcffab67300c5c703cb38a363c9a6f1d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#afcffab67300c5c703cb38a363c9a6f1d">irkit::pure_element_t</a> = std::remove_const_t&lt; std::remove_reference_t&lt; decltype(*std::declval&lt; Range &gt;().begin())&gt; &gt;</td></tr>
-<tr class="separator:afcffab67300c5c703cb38a363c9a6f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af390a50be8f636e7239c650e5043c56f"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
-<tr class="memitem:af390a50be8f636e7239c650e5043c56f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#af390a50be8f636e7239c650e5043c56f">irkit::iterator_t</a> = decltype(std::declval&lt; Range &gt;().begin())</td></tr>
-<tr class="separator:af390a50be8f636e7239c650e5043c56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1668583041117eb42c1b5a1091b804"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
-<tr class="memitem:a4b1668583041117eb42c1b5a1091b804"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a4b1668583041117eb42c1b5a1091b804">irkit::const_iterator_t</a> = decltype(std::declval&lt; Range &gt;().cbegin())</td></tr>
-<tr class="separator:a4b1668583041117eb42c1b5a1091b804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a595d83053e112c98ab2a1b65e5dd74be"><td class="memTemplParams" colspan="2">template&lt;class Posting &gt; </td></tr>
-<tr class="memitem:a595d83053e112c98ab2a1b65e5dd74be"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a595d83053e112c98ab2a1b65e5dd74be">irkit::doc_t</a> = decltype(std::declval&lt; Posting &gt;().doc)</td></tr>
-<tr class="separator:a595d83053e112c98ab2a1b65e5dd74be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a754dabe3346f950c948e7596d9d46c71"><td class="memTemplParams" colspan="2">template&lt;class Posting &gt; </td></tr>
-<tr class="memitem:a754dabe3346f950c948e7596d9d46c71"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a754dabe3346f950c948e7596d9d46c71">irkit::score_t</a> = decltype(std::declval&lt; Posting &gt;().score)</td></tr>
-<tr class="separator:a754dabe3346f950c948e7596d9d46c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad6a1763616725ecb88e751ea7eb93453"><td class="memTemplParams" colspan="2">template&lt;class Range , class Score &gt; </td></tr>
 <tr class="memitem:ad6a1763616725ecb88e751ea7eb93453"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; pure_element_t&lt; Range &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#ad6a1763616725ecb88e751ea7eb93453">irkit::daat_or</a> (const std::vector&lt; Range &gt; &amp;query_postings, std::size_t k, const std::vector&lt; Score &gt; &amp;weights)</td></tr>
+<tr class="memdesc:ad6a1763616725ecb88e751ea7eb93453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns top-*k* results, given vectors of posting lists and term weights.  <a href="namespaceirkit.html#ad6a1763616725ecb88e751ea7eb93453">More...</a><br /></td></tr>
 <tr class="separator:ad6a1763616725ecb88e751ea7eb93453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea02f4f5f20e40308d5f07ce72d79d60"><td class="memTemplParams" colspan="2">template&lt;class Range , class Score &gt; </td></tr>
+<tr class="memitem:aea02f4f5f20e40308d5f07ce72d79d60"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; pure_element_t&lt; Range &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#aea02f4f5f20e40308d5f07ce72d79d60">irkit::wand</a> (const std::vector&lt; Range &gt; &amp;query_postings, std::size_t k, const std::vector&lt; Score &gt; &amp;weights)</td></tr>
+<tr class="memdesc:aea02f4f5f20e40308d5f07ce72d79d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns top-*k* results, given vectors of posting lists and term weights.  <a href="namespaceirkit.html#aea02f4f5f20e40308d5f07ce72d79d60">More...</a><br /></td></tr>
+<tr class="separator:aea02f4f5f20e40308d5f07ce72d79d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

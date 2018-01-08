@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['length',['length',['../classbloodhound_1_1PostingList.html#a7af6f4e9fc277dd7c1dc73c2922ceacd',1,'bloodhound::PostingList']]],
-  ['load_5findex',['load_index',['../classbloodhound_1_1index_1_1Index.html#ad4cd13bef623fc6b786f8003c8826b9c',1,'bloodhound::index::Index']]],
-  ['load_5flexicon',['load_lexicon',['../classbloodhound_1_1index_1_1Index.html#a80968041cad02a4006fd4b633c279030',1,'bloodhound::index::Index']]],
-  ['load_5fmappings',['load_mappings',['../classbloodhound_1_1index_1_1Index.html#a779359e7ce40294dd3d3666c00762700',1,'bloodhound::index::Index']]],
-  ['load_5fmaxscores',['load_maxscores',['../classbloodhound_1_1index_1_1Index.html#a6333778f622dbf964ba6aea29a56dca0',1,'bloodhound::index::Index']]],
-  ['load_5fmeta',['load_meta',['../classbloodhound_1_1index_1_1Index.html#af0d9b72f7cf6b54d7bddbccd3c1898ce',1,'bloodhound::index::Index']]],
-  ['load_5fpostings',['load_postings',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#a68a2a76f7b4349ade63f83acfd6a1dc5',1,'bloodhound::index::InMemoryPostingPolicy']]],
-  ['load_5ftitles',['load_titles',['../run_8hpp.html#a3ef37056433b3eb491952d765d6ca4ce',1,'run.hpp']]]
+  ['index',['Index',['../classirkit_1_1Index.html#a38ba1f601738f30be7d38232cd172f16',1,'irkit::Index']]],
+  ['indexbuilder',['IndexBuilder',['../classirkit_1_1IndexBuilder.html#ab56476b7728ed2618b8de7511dfe2427',1,'irkit::IndexBuilder']]],
+  ['init',['init',['../classirkit_1_1UnionRange.html#aabdf133213056f20e0526c6736dbff3e',1,'irkit::UnionRange']]],
+  ['is_5fshort',['is_short',['../structbloodhound_1_1index_1_1PostingListHeader.html#acf8fd2592a71083d37bb7bb58fc8c544',1,'bloodhound::index::PostingListHeader']]],
+  ['iterator',['iterator',['../structbloodhound_1_1PostingList_1_1iterator.html#af815248890d1f92dbd2cc3fa5813875a',1,'bloodhound::PostingList::iterator::iterator()'],['../classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a509a7b242a5340bf055655f3f4be3fdf',1,'irkit::DynamiclyScoredPostingRange::iterator::iterator()']]],
+  ['iterator_5frange',['iterator_range',['../classirkit_1_1view_1_1iterator__range.html#a471414436e90dfed5608b05d83a3497c',1,'irkit::view::iterator_range']]]
 ];

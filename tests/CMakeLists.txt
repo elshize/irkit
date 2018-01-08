@@ -17,6 +17,10 @@ add_executable(test_daat test_daat.cpp)
 target_link_libraries(test_daat ${GTEST_BOTH_LIBRARIES})
 add_test(DaatTests test_daat)
 
+add_executable(test_builder test_builder.cpp)
+target_link_libraries(test_builder ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(IndexTests test_builder)
+
 #add_executable(test_views test_views.cpp)
 #target_link_libraries(test_views ${GTEST_BOTH_LIBRARIES})
 #add_test(ViewTests test_views)

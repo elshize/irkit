@@ -1,0 +1,101 @@
+The Guideline Support Library (G\+SL) contains functions and types that are suggested for use by the \href{https://github.com/isocpp/CppCoreGuidelines}{\tt C++ Core Guidelines} maintained by the \href{https://isocpp.org}{\tt Standard C++ Foundation}. This repo contains Microsoft\textquotesingle{}s implementation of G\+SL.
+
+The library includes types like {\ttfamily span$<$T$>$}, {\ttfamily string\+\_\+span}, {\ttfamily owner$<$$>$} and others.
+
+The entire implementation is provided inline in the headers under the \href{./include/gsl}{\tt gsl} directory. The implementation generally assumes a platform that implements C++14 support. There are specific workarounds to support M\+S\+VC 2015.
+
+While some types have been broken out into their own headers (e.\+g. \href{./include/gsl/span}{\tt gsl/span}), it is simplest to just include \href{./include/gsl/gsl}{\tt gsl/gsl} and gain access to the entire library.
+
+\begin{quote}
+N\+O\+TE\+: We encourage contributions that improve or refine any of the types in this library as well as ports to \end{quote}
+other platforms. Please see ./\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+NG.md \char`\"{}\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+N\+G.\+md\char`\"{} for more information about contributing.
+
+\section*{Project Code of Conduct}
+
+This project has adopted the \href{https://opensource.microsoft.com/codeofconduct/}{\tt Microsoft Open Source Code of Conduct}. For more information see the \href{https://opensource.microsoft.com/codeofconduct/faq/}{\tt Code of Conduct F\+AQ} or contact \href{mailto:opencode@microsoft.com}{\tt opencode@microsoft.\+com} with any additional questions or comments.
+
+\section*{Usage of Third Party Libraries}
+
+This project makes use of the \href{https://github.com/philsquared/catch}{\tt Catch} testing library. Please see the \href{./ThirdPartyNotices.txt}{\tt Third\+Party\+Notices.\+txt} file for details regarding the licensing of Catch.
+
+\section*{Quick Start}
+
+\subsection*{Supported Platforms}
+
+The test suite that exercises G\+SL has been built and passes successfully on the following platforms\+:\textsuperscript{1)}
+
+
+\begin{DoxyItemize}
+\item Windows using Visual Studio 2015
+\item Windows using Visual Studio 2017
+\item Windows using Clang/\+L\+L\+VM 3.\+6
+\item Windows using G\+CC 5.\+1
+\item G\+N\+U/\+Linux using Clang/\+L\+L\+VM 3.\+6
+\item G\+N\+U/\+Linux using G\+CC 5.\+1
+\item OS X Yosemite using Xcode with Apple Clang 7.\+0.\+0.\+7000072
+\item OS X Yosemite using G\+C\+C-\/5.\+2.\+0
+\item OS X Sierra 10.\+12.\+4 using Apple L\+L\+VM version 8.\+1.\+0 (Clang-\/802.\+0.\+42)
+\item OS X El Capitan (10.\+11) using Xcode with Apple\+Clang 8.\+0.\+0.\+8000042
+\item Free\+B\+SD 10.\+x with Clang/\+L\+L\+VM 3.\+6
+\end{DoxyItemize}
+
+\begin{quote}
+If you successfully port G\+SL to another platform, we would love to hear from you. Please submit an issue to let us know. Also please consider \end{quote}
+contributing any changes that were necessary back to this project to benefit the wider community.
+
+\textsuperscript{1)} For {\ttfamily gsl\+::byte} to work correctly with Clang and G\+CC you might have to use the {\ttfamily -\/fno-\/strict-\/aliasing} compiler option.
+
+\subsection*{Building the tests}
+
+To build the tests, you will require the following\+:
+
+
+\begin{DoxyItemize}
+\item \href{http://cmake.org}{\tt C\+Make}, version 3.\+7 or later to be installed and in your P\+A\+TH.
+\end{DoxyItemize}
+
+These steps assume the source code of this repository has been cloned into a directory named {\ttfamily c\+:\textbackslash{}G\+SL}.
+
+
+\begin{DoxyEnumerate}
+\item Create a directory to contain the build outputs for a particular architecture (we name it c\+:-\/x86 in this example). \begin{DoxyVerb} cd GSL
+ md build-x86
+ cd build-x86
+\end{DoxyVerb}
+
+\item Configure C\+Make to use the compiler of your choice (you can see a list by running {\ttfamily cmake -\/-\/help}). \begin{DoxyVerb} cmake -G "Visual Studio 14 2015" c:\GSL
+\end{DoxyVerb}
+
+\item Build the test suite (in this case, in the Debug configuration, Release is another good choice). \begin{DoxyVerb} cmake --build . --config Debug
+\end{DoxyVerb}
+
+\item Run the test suite. \begin{DoxyVerb} ctest -C Debug
+\end{DoxyVerb}
+
+\end{DoxyEnumerate}
+
+All tests should pass -\/ indicating your platform is fully supported and you are ready to use the G\+SL types!
+
+\subsection*{Using the libraries}
+
+As the types are entirely implemented inline in headers, there are no linking requirements.
+
+You can copy the \href{./include/gsl}{\tt gsl} directory into your source tree so it is available to your compiler, then include the appropriate headers in your program.
+
+Alternatively set your compiler\textquotesingle{}s {\itshape include path} flag to point to the G\+SL development folder ({\ttfamily c\+:\textbackslash{}G\+SL\textbackslash{}include} in the example above) or installation folder (after running the install). Eg.
+
+M\+S\+V\+C++ \begin{DoxyVerb}/I c:\GSL\include
+\end{DoxyVerb}
+
+
+G\+C\+C/clang \begin{DoxyVerb}-I$HOME/dev/GSL/include
+\end{DoxyVerb}
+
+
+Include the library using\+: \begin{DoxyVerb}#include <gsl/gsl>
+\end{DoxyVerb}
+
+
+\subsection*{Debugging visualization support}
+
+For Visual Studio users, the file \href{./GSL.natvis}{\tt G\+S\+L.\+natvis} in the root directory of the repository can be added to your project if you would like more helpful visualization of G\+SL types in the Visual Studio debugger than would be offered by default. 
