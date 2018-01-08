@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['score',['score',['../structbloodhound_1_1Posting.html#afcdc4c2d2486c04feee39077122e1622',1,'bloodhound::Posting::score()'],['../structbloodhound_1_1query_1_1Result.html#af9f240e486460b5130eff110b0f3c7a3',1,'bloodhound::query::Result::score()']]],
-  ['score_5fiter',['score_iter',['../structbloodhound_1_1PostingList_1_1const__iterator.html#ade7c448dfba393cc9e34a901461b6b77',1,'bloodhound::PostingList::const_iterator']]],
-  ['score_5fmask',['score_mask',['../classbloodhound_1_1query_1_1TaatRetriever.html#ac38b873ceff34b55bb8ac82800946825',1,'bloodhound::query::TaatRetriever']]],
-  ['scores',['scores',['../classbloodhound_1_1PostingList.html#a2c773bffa3d78d2e7a7e04d918b064da',1,'bloodhound::PostingList']]],
-  ['section_5foffset',['section_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#a0c073440a09f22e0e277d3935d6b9158',1,'bloodhound::index::PostingListHeader']]]
+  ['payload_5foffset',['payload_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#ab4ff4ee2a0aa56e03d315f6e60adf345',1,'bloodhound::index::PostingListHeader']]],
+  ['pos',['pos',['../structbloodhound_1_1PostingList_1_1iterator.html#a544fdd6020d2ec35d883250dd79115e8',1,'bloodhound::PostingList::iterator']]],
+  ['position_5fcount',['position_count',['../structbloodhound_1_1index_1_1PostingListHeader.html#a88360105ba2e46000621f5bb74b4269c',1,'bloodhound::index::PostingListHeader']]],
+  ['position_5foffset',['position_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#a656267fe79315c04f431f99c1c826fec',1,'bloodhound::index::PostingListHeader']]],
+  ['posting_5flist',['posting_list',['../structbloodhound_1_1PostingList_1_1iterator.html#a3a9afedb85f883831ee68fee0611ca92',1,'bloodhound::PostingList::iterator']]],
+  ['postings_5f',['postings_',['../classirkit_1_1IndexBuilder.html#a4dcd133d2afe183e6f5bb379592391c4',1,'irkit::IndexBuilder']]],
+  ['postings_5fdata',['postings_data',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#ae760569f621a8b6260cbc50c144be0bf',1,'bloodhound::index::InMemoryPostingPolicy']]]
 ];

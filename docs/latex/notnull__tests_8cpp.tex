@@ -1,0 +1,171 @@
+\hypertarget{notnull__tests_8cpp}{}\section{build/gsl-\/prefix/src/gsl/tests/notnull\+\_\+tests.cpp File Reference}
+\label{notnull__tests_8cpp}\index{build/gsl-\/prefix/src/gsl/tests/notnull\+\_\+tests.\+cpp@{build/gsl-\/prefix/src/gsl/tests/notnull\+\_\+tests.\+cpp}}
+{\ttfamily \#include $<$catch/catch.\+hpp$>$}\newline
+{\ttfamily \#include $<$gsl/pointers$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structMyBase}{My\+Base}
+\item 
+struct \hyperlink{structMyDerived}{My\+Derived}
+\item 
+struct \hyperlink{structUnrelated}{Unrelated}
+\item 
+struct \hyperlink{structRefCounted}{Ref\+Counted$<$ T $>$}
+\item 
+struct \hyperlink{structCustomPtr}{Custom\+Ptr$<$ T $>$}
+\item 
+struct \hyperlink{structNonCopyableNonMovable}{Non\+Copyable\+Non\+Movable}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacegsl}{gsl}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_aa37326db75c33d444162d85302d8d046}{operator==} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_a16d10810ae939fb5a6d2101159f32907}{operator!=} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_a55195d9899904156110d9dc39d5e27dd}{operator$<$} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_a70931789dc12612b5b1bd395abe1b1d6}{operator$>$} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_a1d76a90aa314067b630eec54a0c34388}{operator$<$=} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\std\+::string \hyperlink{notnull__tests_8cpp_a55adec7612b02339a738a95222076982}{operator$>$=} (\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&lhs, \hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&rhs)
+\item 
+bool \hyperlink{notnull__tests_8cpp_af0184166bbed4253435f4c127dbf55d4}{helper} (not\+\_\+null$<$ int $\ast$$>$ p)
+\item 
+\hyperlink{notnull__tests_8cpp_a376dae1e992466530fb88e1becdb4075}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Constructors\char`\"{})
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{notnull__tests_8cpp_a0cd1e5dbbf71bbcaffc2e15abe6fc9ec}{ostream\+\_\+helper} (T v)
+\item 
+\hyperlink{notnull__tests_8cpp_a96b49ca4ca7466e295f5cba876f47e34}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Nullostream\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_abee58f219468e518b5bacbf0ddf40bbd}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Casting\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_aa182f9d7ea0576abb9911b0e8760216c}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Assignment\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_a1eb4f3a8f8fce4e516892d52d9e84fd4}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Raw\+Pointer\+Comparison\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_a6198f1a4cc14b29f84012e016d350a11}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Dereference\+Operator\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_a35272a2da09ecced260aa2816d92a272}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Shared\+Ptr\+Comparison\char`\"{})
+\item 
+\hyperlink{notnull__tests_8cpp_a3aa21b7e74bcffcf8e603688c488942d}{T\+E\+S\+T\+\_\+\+C\+A\+SE} (\char`\"{}Test\+Not\+Null\+Custom\+Ptr\+Comparison\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{notnull__tests_8cpp_af0184166bbed4253435f4c127dbf55d4}\label{notnull__tests_8cpp_af0184166bbed4253435f4c127dbf55d4}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!helper@{helper}}
+\index{helper@{helper}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{helper()}{helper()}}
+{\footnotesize\ttfamily bool helper (\begin{DoxyParamCaption}\item[{not\+\_\+null$<$ int $\ast$$>$}]{p }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a16d10810ae939fb5a6d2101159f32907}\label{notnull__tests_8cpp_a16d10810ae939fb5a6d2101159f32907}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator!= (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a55195d9899904156110d9dc39d5e27dd}\label{notnull__tests_8cpp_a55195d9899904156110d9dc39d5e27dd}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator$<$ (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a1d76a90aa314067b630eec54a0c34388}\label{notnull__tests_8cpp_a1d76a90aa314067b630eec54a0c34388}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator$<$=@{operator$<$=}}
+\index{operator$<$=@{operator$<$=}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator$<$=()}{operator<=()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator$<$= (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_aa37326db75c33d444162d85302d8d046}\label{notnull__tests_8cpp_aa37326db75c33d444162d85302d8d046}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator==@{operator==}}
+\index{operator==@{operator==}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator== (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a70931789dc12612b5b1bd395abe1b1d6}\label{notnull__tests_8cpp_a70931789dc12612b5b1bd395abe1b1d6}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator$>$ (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a55adec7612b02339a738a95222076982}\label{notnull__tests_8cpp_a55adec7612b02339a738a95222076982}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{operator$>$=()}{operator>=()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+std\+::string operator$>$= (\begin{DoxyParamCaption}\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ T $>$ const \&}]{lhs,  }\item[{\hyperlink{structCustomPtr}{Custom\+Ptr}$<$ U $>$ const \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a0cd1e5dbbf71bbcaffc2e15abe6fc9ec}\label{notnull__tests_8cpp_a0cd1e5dbbf71bbcaffc2e15abe6fc9ec}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!ostream\+\_\+helper@{ostream\+\_\+helper}}
+\index{ostream\+\_\+helper@{ostream\+\_\+helper}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{ostream\+\_\+helper()}{ostream\_helper()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void ostream\+\_\+helper (\begin{DoxyParamCaption}\item[{T}]{v }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a376dae1e992466530fb88e1becdb4075}\label{notnull__tests_8cpp_a376dae1e992466530fb88e1becdb4075}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Constructors\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a96b49ca4ca7466e295f5cba876f47e34}\label{notnull__tests_8cpp_a96b49ca4ca7466e295f5cba876f47e34}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Nullostream\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_abee58f219468e518b5bacbf0ddf40bbd}\label{notnull__tests_8cpp_abee58f219468e518b5bacbf0ddf40bbd}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Casting\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_aa182f9d7ea0576abb9911b0e8760216c}\label{notnull__tests_8cpp_aa182f9d7ea0576abb9911b0e8760216c}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Assignment\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a1eb4f3a8f8fce4e516892d52d9e84fd4}\label{notnull__tests_8cpp_a1eb4f3a8f8fce4e516892d52d9e84fd4}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Raw\+Pointer\+Comparison\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a6198f1a4cc14b29f84012e016d350a11}\label{notnull__tests_8cpp_a6198f1a4cc14b29f84012e016d350a11}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Dereference\+Operator\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a35272a2da09ecced260aa2816d92a272}\label{notnull__tests_8cpp_a35272a2da09ecced260aa2816d92a272}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Shared\+Ptr\+Comparison\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{notnull__tests_8cpp_a3aa21b7e74bcffcf8e603688c488942d}\label{notnull__tests_8cpp_a3aa21b7e74bcffcf8e603688c488942d}} 
+\index{notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}}
+\index{T\+E\+S\+T\+\_\+\+C\+A\+SE@{T\+E\+S\+T\+\_\+\+C\+A\+SE}!notnull\+\_\+tests.\+cpp@{notnull\+\_\+tests.\+cpp}}
+\subsubsection{\texorpdfstring{T\+E\+S\+T\+\_\+\+C\+A\+S\+E()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Test\+Not\+Null\+Custom\+Ptr\+Comparison\char`\"{}}]{ }\end{DoxyParamCaption})}
+

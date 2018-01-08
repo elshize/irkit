@@ -1,0 +1,33 @@
+\hypertarget{namespaceirkit_1_1score}{}\section{irkit\+:\+:score Namespace Reference}
+\label{namespaceirkit_1_1score}\index{irkit\+::score@{irkit\+::score}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\double \hyperlink{namespaceirkit_1_1score_a2d7234c47ea67229e19640f34ee97e62}{tfidf} (Freq tf, Freq df, std\+::size\+\_\+t N)
+\begin{DoxyCompactList}\small\item\em Calculates a simple tf-\/idf score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1score_a2d7234c47ea67229e19640f34ee97e62}\label{namespaceirkit_1_1score_a2d7234c47ea67229e19640f34ee97e62}} 
+\index{irkit\+::score@{irkit\+::score}!tfidf@{tfidf}}
+\index{tfidf@{tfidf}!irkit\+::score@{irkit\+::score}}
+\subsubsection{\texorpdfstring{tfidf()}{tfidf()}}
+{\footnotesize\ttfamily template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+double irkit\+::score\+::tfidf (\begin{DoxyParamCaption}\item[{Freq}]{tf,  }\item[{Freq}]{df,  }\item[{std\+::size\+\_\+t}]{N }\end{DoxyParamCaption})}
+
+
+
+Calculates a simple tf-\/idf score. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Freq} & An integral type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em tf} & Term frequency in the document being scored. \\
+\hline
+{\em df} & The term\textquotesingle{}s document frequency in the collection, i.\+e., how many documents include the term. \\
+\hline
+\end{DoxyParams}

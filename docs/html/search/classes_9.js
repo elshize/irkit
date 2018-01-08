@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query']]],
-  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
-  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query']]],
-  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query']]]
+  ['maxscorenonessentials',['MaxScoreNonEssentials',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html',1,'bloodhound::query']]],
+  ['maxscoreretriever',['MaxScoreRetriever',['../classbloodhound_1_1query_1_1MaxScoreRetriever.html',1,'bloodhound::query']]],
+  ['moving_5frange',['moving_range',['../structirkit_1_1moving__range.html',1,'irkit']]]
 ];

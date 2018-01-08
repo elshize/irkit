@@ -1,0 +1,96 @@
+\hypertarget{classirkit_1_1DynamiclyScoredPostingRange}{}\section{irkit\+:\+:Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$ Class Template Reference}
+\label{classirkit_1_1DynamiclyScoredPostingRange}\index{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$}}
+
+
+A posting range with scores calculated on the fly.  
+
+
+
+
+{\ttfamily \#include $<$index.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{iterator}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange_ad92fb9fb1d2923ca2f51ce938db18cfb}{Dynamicly\+Scored\+Posting\+Range} (gsl\+::span$<$ Doc $>$ docs, gsl\+::span$<$ Freq $>$ counts, Freq term\+\_\+df, std\+::size\+\_\+t n)
+\begin{DoxyCompactList}\small\item\em Constructs a posting range for a term. \end{DoxyCompactList}\item 
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{iterator} \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_a291cd11bd9c0216c64b252a79e4ff9a8}{begin} () const
+\item 
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{iterator} \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_a883c0faff34de6a5b1b95496a4729028}{end} () const
+\item 
+std\+::size\+\_\+t \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_aabc7d6435dc95dedef86ee75530d189d}{size} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Posting, class Freq, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$())$>$\newline
+class irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, $>$}
+
+A posting range with scores calculated on the fly. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Posting} & The posting structure type\+: must have {\ttfamily Posting\+::doc} and {\ttfamily Posting\+::score} members. \\
+\hline
+{\em Freq} & An integral type of term frequencies. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1DynamiclyScoredPostingRange_ad92fb9fb1d2923ca2f51ce938db18cfb}\label{classirkit_1_1DynamiclyScoredPostingRange_ad92fb9fb1d2923ca2f51ce938db18cfb}} 
+\index{irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}!Dynamicly\+Scored\+Posting\+Range@{Dynamicly\+Scored\+Posting\+Range}}
+\index{Dynamicly\+Scored\+Posting\+Range@{Dynamicly\+Scored\+Posting\+Range}!irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}}
+\subsubsection{\texorpdfstring{Dynamicly\+Scored\+Posting\+Range()}{DynamiclyScoredPostingRange()}}
+{\footnotesize\ttfamily template$<$class Posting, class Freq, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}$<$ Posting, Freq, $>$\+::\hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{Dynamicly\+Scored\+Posting\+Range} (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ Doc $>$}]{docs,  }\item[{gsl\+::span$<$ Freq $>$}]{counts,  }\item[{Freq}]{term\+\_\+df,  }\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a posting range for a term. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em docs} & Document I\+Ds. \\
+\hline
+{\em counts} & Occurrences of the term in respective documents. \\
+\hline
+{\em term\+\_\+df} & The term\textquotesingle{}s document frequency. \\
+\hline
+{\em term\+\_\+df} & The collection size. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1DynamiclyScoredPostingRange_a291cd11bd9c0216c64b252a79e4ff9a8}\label{classirkit_1_1DynamiclyScoredPostingRange_a291cd11bd9c0216c64b252a79e4ff9a8}} 
+\index{irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}!begin@{begin}}
+\index{begin@{begin}!irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Posting, class Freq, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{iterator} \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}$<$ Posting, Freq, $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1DynamiclyScoredPostingRange_a883c0faff34de6a5b1b95496a4729028}\label{classirkit_1_1DynamiclyScoredPostingRange_a883c0faff34de6a5b1b95496a4729028}} 
+\index{irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}!end@{end}}
+\index{end@{end}!irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Posting, class Freq, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+\hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{iterator} \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}$<$ Posting, Freq, $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1DynamiclyScoredPostingRange_aabc7d6435dc95dedef86ee75530d189d}\label{classirkit_1_1DynamiclyScoredPostingRange_aabc7d6435dc95dedef86ee75530d189d}} 
+\index{irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}!size@{size}}
+\index{size@{size}!irkit\+::\+Dynamicly\+Scored\+Posting\+Range@{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Posting, class Freq, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+std\+::size\+\_\+t \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range}$<$ Posting, Freq, $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\hyperlink{irkit_2index_8hpp}{index.\+hpp}\end{DoxyCompactItemize}

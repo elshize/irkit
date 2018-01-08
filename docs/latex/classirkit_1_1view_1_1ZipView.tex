@@ -1,0 +1,105 @@
+\hypertarget{classirkit_1_1view_1_1ZipView}{}\section{irkit\+:\+:view\+:\+:Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$ Class Template Reference}
+\label{classirkit_1_1view_1_1ZipView}\index{irkit\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$@{irkit\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}}
+
+
+A zip view of two ranges.  
+
+
+
+
+{\ttfamily \#include $<$utils.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classirkit_1_1view_1_1ZipView_a581e90890462717bbdac0f02dc343641}{Zip\+View} (const Left\+Range \&left, const Right\+Range \&right, Zip\+Fn zip\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView_ab92e5ce12bcf45a9a797294d5b2e97e7}{cbegin} () const
+\item 
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView_a5ba1f0456da3ffc049e59418b4a01a3f}{cend} () const
+\item 
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView_af278d23b14dd71c1c5d7e145a5d0771b}{begin} () const
+\item 
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView_ab8a193bad7c33b93367014f32e9cf360}{end} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Zip\+Fn, class Left\+Range, class Right\+Range$>$\newline
+class irkit\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}
+
+A zip view of two ranges. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Zip\+Fn} & A function type for element generation. \\
+\hline
+{\em Left\+Range} & The type of the left range. \\
+\hline
+{\em Right\+Range} & The type of the right range. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1view_1_1ZipView_a581e90890462717bbdac0f02dc343641}\label{classirkit_1_1view_1_1ZipView_a581e90890462717bbdac0f02dc343641}} 
+\index{irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}!Zip\+View@{Zip\+View}}
+\index{Zip\+View@{Zip\+View}!irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{Zip\+View()}{ZipView()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::\hyperlink{classirkit_1_1view_1_1ZipView}{Zip\+View} (\begin{DoxyParamCaption}\item[{const Left\+Range \&}]{left,  }\item[{const Right\+Range \&}]{right,  }\item[{Zip\+Fn}]{zip\+\_\+fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a zip view. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left range. \\
+\hline
+{\em right} & The right range. \\
+\hline
+{\em zip\+\_\+fn} & A function which, given an element of {\ttfamily left} and an element of {\ttfamily right}, returns an element of the zipped view.\\
+\hline
+\end{DoxyParams}
+Instead of using the constructor directly, rather use \hyperlink{namespaceirkit_1_1view_ad4847c0d8f90f3c8854994d3289d51d6}{zip()} function. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1view_1_1ZipView_af278d23b14dd71c1c5d7e145a5d0771b}\label{classirkit_1_1view_1_1ZipView_af278d23b14dd71c1c5d7e145a5d0771b}} 
+\index{irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}!begin@{begin}}
+\index{begin@{begin}!irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1view_1_1ZipView_ab92e5ce12bcf45a9a797294d5b2e97e7}\label{classirkit_1_1view_1_1ZipView_ab92e5ce12bcf45a9a797294d5b2e97e7}} 
+\index{irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1view_1_1ZipView_a5ba1f0456da3ffc049e59418b4a01a3f}\label{classirkit_1_1view_1_1ZipView_a5ba1f0456da3ffc049e59418b4a01a3f}} 
+\index{irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}!cend@{cend}}
+\index{cend@{cend}!irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1view_1_1ZipView_ab8a193bad7c33b93367014f32e9cf360}\label{classirkit_1_1view_1_1ZipView_ab8a193bad7c33b93367014f32e9cf360}} 
+\index{irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}!end@{end}}
+\index{end@{end}!irkit\+::view\+::\+Zip\+View@{irkit\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\hyperlink{classirkit_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator} \hyperlink{classirkit_1_1view_1_1ZipView}{irkit\+::view\+::\+Zip\+View}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\hyperlink{utils_8hpp}{utils.\+hpp}\end{DoxyCompactItemize}

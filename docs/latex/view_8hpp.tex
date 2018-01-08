@@ -1,0 +1,64 @@
+\hypertarget{view_8hpp}{}\section{include/irkit/view.hpp File Reference}
+\label{view_8hpp}\index{include/irkit/view.\+hpp@{include/irkit/view.\+hpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$range/v3/algorithm/for\+\_\+each.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/core.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/numeric/accumulate.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/view/drop.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/view/group\+\_\+by.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/view/iota.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/view/transform.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/view/zip.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/heap.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classirkit_1_1view_1_1union__merge__view}{irkit\+::view\+::union\+\_\+merge\+\_\+view$<$ Rngs $>$}
+\item 
+struct \hyperlink{structirkit_1_1view_1_1greater}{irkit\+::view\+::greater}
+\item 
+class \hyperlink{classirkit_1_1view_1_1any__range}{irkit\+::view\+::any\+\_\+range$<$ Rng $>$}
+\item 
+class \hyperlink{classirkit_1_1view_1_1iterator__range}{irkit\+::view\+::iterator\+\_\+range$<$ Iter $>$}
+\item 
+class \hyperlink{classirkit_1_1view_1_1transform__view}{irkit\+::view\+::transform\+\_\+view$<$ Rng, Fun $>$}
+\item 
+class \hyperlink{classirkit_1_1view_1_1fast__union__merge__view}{irkit\+::view\+::fast\+\_\+union\+\_\+merge\+\_\+view$<$ Rngs $>$}
+\item 
+class \hyperlink{classirkit_1_1view_1_1aggregate__sorted__view}{irkit\+::view\+::aggregate\+\_\+sorted\+\_\+view$<$ Rng, Equals, Aggregate $>$}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceirkit}{irkit}
+\item 
+ \hyperlink{namespaceirkit_1_1view}{irkit\+::view}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Rng $>$ }\\using \hyperlink{namespaceirkit_1_1view_aa01f8ad24d5b6600bc31631b56448817}{irkit\+::view\+::range\+\_\+value\+\_\+type} = ranges\+::range\+\_\+value\+\_\+type\+\_\+t$<$ Rng $>$
+\item 
+{\footnotesize template$<$class Rngs $>$ }\\using \hyperlink{namespaceirkit_1_1view_ae24f427c615bdecfcded89b8f028fb6c}{irkit\+::view\+::range\+\_\+range\+\_\+value\+\_\+type} = range\+\_\+value\+\_\+type$<$ range\+\_\+value\+\_\+type$<$ Rngs $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+auto \hyperlink{namespaceirkit_1_1view_a45d94ed2030b7535ce266735e3dd49a3}{irkit\+::view\+::union\+\_\+merge} ()
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::equal\+\_\+to$>$ }\\auto \hyperlink{namespaceirkit_1_1view_a7aa21c7e2a7953e6b669b2bad7f7102f}{irkit\+::view\+::group\+\_\+sorted} (Fun equal\+\_\+to=ranges\+::equal\+\_\+to\{\})
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::plus$>$ }\\auto \hyperlink{namespaceirkit_1_1view_a2833f7d6ed97305f13072bd8de6faedf}{irkit\+::view\+::accumulate\+\_\+groups} (Fun add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Equals  = ranges\+::equal\+\_\+to, class Add  = ranges\+::plus$>$ }\\auto \hyperlink{namespaceirkit_1_1view_a11c6ca66beb07c9749c099501322bda9}{irkit\+::view\+::accumulate\+\_\+sorted} (Equals equal\+\_\+to=ranges\+::equal\+\_\+to\{\}, Add add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Compare  = greater$>$ }\\auto \hyperlink{namespaceirkit_1_1view_a0c54fd641ca22e5cb97fd55a3f5921a2}{irkit\+::view\+::top\+\_\+k} (std\+::size\+\_\+t k, Compare compare=greater\{\})
+\item 
+{\footnotesize template$<$class W , class Multiply  = ranges\+::multiplies$>$ }\\auto \hyperlink{namespaceirkit_1_1view_ab3c27d862e946a966c4d7f004407499a}{irkit\+::view\+::weighted} (W weight, Multiply multiply=ranges\+::multiplies\{\})
+\item 
+{\footnotesize template$<$class Rng $>$ }\\auto \hyperlink{namespaceirkit_1_1view_a47e3af80728642c02c0204e1db2ecbd4}{irkit\+::view\+::to\+\_\+vector} (Rng rng)
+\item 
+{\footnotesize template$<$class Rng , class Compare  = greater$>$ }\\auto \hyperlink{namespaceirkit_1_1view_a94331e22539c88bf23e8d801c004fee2}{irkit\+::view\+::top\+\_\+k} (Rng rng, std\+::size\+\_\+t k, Compare compare=greater\{\})
+\end{DoxyCompactItemize}

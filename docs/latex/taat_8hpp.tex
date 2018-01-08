@@ -1,51 +1,38 @@
-\hypertarget{taat_8hpp}{}\section{include/taat.hpp File Reference}
-\label{taat_8hpp}\index{include/taat.\+hpp@{include/taat.\+hpp}}
-{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
-{\ttfamily \#include $<$list$>$}\newline
-{\ttfamily \#include $<$set$>$}\newline
+\hypertarget{taat_8hpp}{}\section{include/irkit/taat.hpp File Reference}
+\label{taat_8hpp}\index{include/irkit/taat.\+hpp@{include/irkit/taat.\+hpp}}
 {\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
-{\ttfamily \#include $<$range/v3/all.\+hpp$>$}\newline
-{\ttfamily \#include \char`\"{}index.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}query.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$range/v3/range\+\_\+concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classirkit_1_1SimpleAccumulator}{irkit\+::\+Simple\+Accumulator}
 \item 
-class \hyperlink{classbloodhound_1_1query_1_1TaatRetriever}{bloodhound\+::query\+::\+Taat\+Retriever$<$ Posting\+List, prefetch, init\+\_\+gap, acc\+\_\+block\+\_\+size $>$}
-\item 
-class \hyperlink{classbloodhound_1_1query_1_1MaxScoreNonEssentials}{bloodhound\+::query\+::\+Max\+Score\+Non\+Essentials$<$ Posting\+List $>$}
-\item 
-class \hyperlink{classbloodhound_1_1query_1_1RawTaatRetriever}{bloodhound\+::query\+::\+Raw\+Taat\+Retriever$<$ Posting\+List $>$}
-\item 
-class \hyperlink{classbloodhound_1_1query_1_1TaatMaxScoreRetriever}{bloodhound\+::query\+::\+Taat\+Max\+Score\+Retriever$<$ Posting\+List $>$}
+struct \hyperlink{structirkit_1_1IdWeight}{irkit\+::\+Id\+Weight}
 \end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \hyperlink{namespaceirkit}{irkit}
-\item 
- \hyperlink{namespacebloodhound_1_1query}{bloodhound\+::query}
-\end{DoxyCompactItemize}
-\subsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-using \hyperlink{namespacebloodhound_1_1query_aa67214af106292b2483995adea986b08}{bloodhound\+::query\+::\+Query\+Id} = unsigned char
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Integer $>$ }\\constexpr unsigned short \hyperlink{namespaceirkit_a11ecd56a4192fe476a58f84d54733a85}{irkit\+::nbits} (Integer n)
-\begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_ac5cd7f5c083918572c6b91cd9822768d}{irkit\+::traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Score $>$ }\\Score \hyperlink{namespaceirkit_a99480163d943f35b7e1763c161d0fab6}{irkit\+::operator$\ast$=} (Score \&lhs, const Id\+Weight \&rhs)
 \item 
-{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a80010d3825abc594bcd8fcc8225804d2}{irkit\+::traverse\+\_\+list} (const Range$<$ Doc $>$ \&docs, const Range$<$ Score $>$ \&scores, Score weight, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_ad498b50414a2c4e8d90325839219f8eb}{irkit\+::traverse\+\_\+list\+\_\+postings} (const Posting\+Range \&postings, Accumulator\+Array \&acc, Weight weight=Id\+Weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
 \item 
-{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a887e759137d1d5327475cb75039bb5ec}{irkit\+::traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Doc\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Score\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_a4c79a79ea1508257bcf4eaaf615e2f9a}{irkit\+::traverse\+\_\+list} (const Doc\+Range \&docs, const Score\+Range \&scores, Accumulator\+Array \&acc, Weight weight=Id\+Weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Doc\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Score\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_a72c284d98cc7a897b52dd197bdf8ee47}{irkit\+::traverse} (const std\+::vector$<$ Doc\+Range $>$ \&doc\+\_\+ranges, const std\+::vector$<$ Score\+Range $>$ \&score\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Score\+Range $>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_acf35c27b2c6a58878a6562f8bf6492a0}{irkit\+::traverse\+\_\+postings} (const std\+::vector$<$ Posting\+Range $>$ \&posting\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Posting\+Range $>$$>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
 \item 
-{\footnotesize template$<$class Doc , class Score , class Accumulator\+Array , template$<$ typename T $>$ class Range, class Accumulator\+Policy  = Simple\+Accumulator$>$ }\\void \hyperlink{namespaceirkit_a8c1a48d323636892a6826df1b8ca25bf}{irkit\+::traverse} (const std\+::vector$<$ Range$<$ Doc $>$$>$ \&doc\+\_\+lists, const std\+::vector$<$ Range$<$ Score $>$$>$ \&score\+\_\+lists, const std\+::vector$<$ Score $>$ \&term\+\_\+weights, Accumulator\+Array \&acc, unsigned int prefetch\+\_\+ahead, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Result , class Accumulator\+Array , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Accumulator\+Array $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Same$<$ pure\+\_\+element\+\_\+t$<$ Accumulator\+Array $>$, score\+\_\+t$<$ Result $>$$>$()) $>$ }\\std\+::vector$<$ Result $>$ \hyperlink{namespaceirkit_a396aecdabea315348fb31d095fd2efc8}{irkit\+::aggregate\+\_\+top} (std\+::size\+\_\+t k, const Accumulator\+Array \&acc)
 \item 
-{\footnotesize template$<$typename Doc  = std\+::size\+\_\+t, typename Score , template$<$ typename T $>$ typename Range$>$ }\\std\+::vector$<$ \hyperlink{structbloodhound_1_1query_1_1Result}{bloodhound\+::query\+::\+Result} $>$ \hyperlink{namespaceirkit_aabff8eec068dbbd05abad382861327de}{irkit\+::aggregate\+\_\+top} (std\+::size\+\_\+t k, const Range$<$ Score $>$ \&acc)
+{\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \hyperlink{namespaceirkit_a2920c3041cd301d3dbe9d27178711ff8}{irkit\+::taat} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
 \end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}

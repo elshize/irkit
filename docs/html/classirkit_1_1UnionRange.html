@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bloodhound: irkit::UnionRange&lt; Range &gt; Class Template Reference</title>
+<title>IRKit: irkit::UnionRange&lt; Range &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,8 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Bloodhound
+   <div id="projectname">IRKit
+   &#160;<span id="projectnumber">0.1</span>
    </div>
+   <div id="projectbrief">Information Retrieval tools intended for academic research.</div>
   </td>
  </tr>
  </tbody>
@@ -84,14 +87,27 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae37ac22afd534bf0f7c2df98911723f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#ae37ac22afd534bf0f7c2df98911723f3">UnionRange</a> (const std::vector&lt; Range &gt; &amp;query_postings, const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;weights)</td></tr>
-<tr class="separator:ae37ac22afd534bf0f7c2df98911723f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23072335eaa144321314fbbdd39e9423"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a23072335eaa144321314fbbdd39e9423">UnionRange</a> (const std::vector&lt; Range &gt; &amp;query_postings, const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;weights, const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;max_scores=std::move(std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt;()))</td></tr>
+<tr class="memdesc:a23072335eaa144321314fbbdd39e9423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new union range from posting lists and term weights.  <a href="#a23072335eaa144321314fbbdd39e9423">More...</a><br /></td></tr>
+<tr class="separator:a23072335eaa144321314fbbdd39e9423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa985f4985486d3df259be0c932340f18"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#aa985f4985486d3df259be0c932340f18">peek_term</a> ()</td></tr>
+<tr class="memdesc:aa985f4985486d3df259be0c932340f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next posting's term without advancing to the next one.  <a href="#aa985f4985486d3df259be0c932340f18">More...</a><br /></td></tr>
+<tr class="separator:aa985f4985486d3df259be0c932340f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c2f9a6ec77c812febdf1778e4b9b3f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a5c2f9a6ec77c812febdf1778e4b9b3f6">peek_posting</a> ()</td></tr>
+<tr class="memdesc:a5c2f9a6ec77c812febdf1778e4b9b3f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next posting without advancing to the next one.  <a href="#a5c2f9a6ec77c812febdf1778e4b9b3f6">More...</a><br /></td></tr>
+<tr class="separator:a5c2f9a6ec77c812febdf1778e4b9b3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedb2ab6f4a5f0b9f57cf2c55214ed42e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#aedb2ab6f4a5f0b9f57cf2c55214ed42e">next_posting</a> ()</td></tr>
 <tr class="memdesc:aedb2ab6f4a5f0b9f57cf2c55214ed42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next posting in sorted union order.  <a href="#aedb2ab6f4a5f0b9f57cf2c55214ed42e">More...</a><br /></td></tr>
 <tr class="separator:aedb2ab6f4a5f0b9f57cf2c55214ed42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9161a468e74df4e76cd04104763f7d97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a9161a468e74df4e76cd04104763f7d97">next_doc</a> ()</td></tr>
+<tr class="memdesc:a9161a468e74df4e76cd04104763f7d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next <em>accumulated posting</em> in sorted union order.  <a href="#a9161a468e74df4e76cd04104763f7d97">More...</a><br /></td></tr>
 <tr class="separator:a9161a468e74df4e76cd04104763f7d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb1050fb1d624260c4013f4ba1939a6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structirkit_1_1UnionRange_1_1docterm.html">docterm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#aacb1050fb1d624260c4013f4ba1939a6">select_pivot</a> (<a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> threshold)</td></tr>
+<tr class="separator:aacb1050fb1d624260c4013f4ba1939a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f6bf3aa9d7d273371a9477b88c54737"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a6f6bf3aa9d7d273371a9477b88c54737">next_doc_wand</a> (<a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> threshold)</td></tr>
+<tr class="separator:a6f6bf3aa9d7d273371a9477b88c54737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12b028d791c9d9821c17ae30084fa86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#af12b028d791c9d9821c17ae30084fa86">empty</a> () const</td></tr>
+<tr class="memdesc:af12b028d791c9d9821c17ae30084fa86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if no further postings are available.  <a href="#af12b028d791c9d9821c17ae30084fa86">More...</a><br /></td></tr>
 <tr class="separator:af12b028d791c9d9821c17ae30084fa86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
@@ -108,11 +124,15 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aabdf133213056f20e0526c6736dbff3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#aabdf133213056f20e0526c6736dbff3e">init</a> (const std::vector&lt; Range &gt; &amp;query_postings)</td></tr>
 <tr class="memdesc:aabdf133213056f20e0526c6736dbff3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilizes moving ranges and heap.  <a href="#aabdf133213056f20e0526c6736dbff3e">More...</a><br /></td></tr>
 <tr class="separator:aabdf133213056f20e0526c6736dbff3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0548ed7d94aece8f72d0ca4db65b456"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#ab0548ed7d94aece8f72d0ca4db65b456">nextge</a> (unsigned int term, <a class="el" href="classirkit_1_1UnionRange.html#a387589b1f09868b60485c4ab8c61f97a">Doc</a> doc)</td></tr>
+<tr class="separator:ab0548ed7d94aece8f72d0ca4db65b456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a0c53eb9b1c9e8aa18621f4c129a6ff90"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a0c53eb9b1c9e8aa18621f4c129a6ff90">weights_</a></td></tr>
 <tr class="separator:a0c53eb9b1c9e8aa18621f4c129a6ff90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980f7cfaf14c7c4d93b13b6d7ce6a859"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a980f7cfaf14c7c4d93b13b6d7ce6a859">max_scores_</a></td></tr>
+<tr class="separator:a980f7cfaf14c7c4d93b13b6d7ce6a859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb9b9e969f1c90bb18bf1e4eb99f124b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structirkit_1_1moving__range.html">moving_range</a>&lt; <a class="el" href="namespaceirkit.html#a4b1668583041117eb42c1b5a1091b804">const_iterator_t</a>&lt; Range &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#acb9b9e969f1c90bb18bf1e4eb99f124b">ranges_</a></td></tr>
 <tr class="separator:acb9b9e969f1c90bb18bf1e4eb99f124b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a613eebb9b7b8601bffdad1d842c8c7f0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structirkit_1_1UnionRange_1_1docterm.html">docterm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html#a613eebb9b7b8601bffdad1d842c8c7f0">heap_</a></td></tr>
@@ -197,8 +217,8 @@ template&lt;class Range &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae37ac22afd534bf0f7c2df98911723f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae37ac22afd534bf0f7c2df98911723f3">&#9670;&nbsp;</a></span>UnionRange()</h2>
+<a id="a23072335eaa144321314fbbdd39e9423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23072335eaa144321314fbbdd39e9423">&#9670;&nbsp;</a></span>UnionRange()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +238,13 @@ template&lt;class Range &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>weights</em>&#160;</td>
+          <td class="paramname"><em>weights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>max_scores</em> = <code>std::move(std::vector&lt;<a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a>&gt;())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -232,7 +258,9 @@ template&lt;class Range &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates new union range from posting lists and term weights. </p><dl class="section pre"><dt>Precondition</dt><dd>each posting list must be sorted by increasing document IDs </dd></dl>
+
+<p>Creates new union range from posting lists and term weights. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Each posting list must be sorted by increasing document IDs. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">query_postings</td><td>a vector of posting lists for all query terms </td></tr>
@@ -268,6 +296,8 @@ template&lt;class Range &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Returns true if no further postings are available. </p>
 
 </div>
 </div>
@@ -326,6 +356,38 @@ template&lt;class Range &gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p>Returns the next <em>accumulated posting</em> in sorted union order. </p>
+<p>An accumulated posting is an object of the same type as posting, but its score is a sum of all the partial scores for the next available document.</p>
+<p>Note that if <em>next_posting</em> is invoked independently, this will either return an incorrect score or will skip a document (or documents). </p>
+
+</div>
+</div>
+<a id="a6f6bf3aa9d7d273371a9477b88c54737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f6bf3aa9d7d273371a9477b88c54737">&#9670;&nbsp;</a></span>next_doc_wand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a> <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::next_doc_wand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a>&#160;</td>
+          <td class="paramname"><em>threshold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="aedb2ab6f4a5f0b9f57cf2c55214ed42e"></a>
@@ -357,6 +419,131 @@ template&lt;class Range &gt; </div>
 
 </div>
 </div>
+<a id="ab0548ed7d94aece8f72d0ca4db65b456"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0548ed7d94aece8f72d0ca4db65b456">&#9670;&nbsp;</a></span>nextge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::nextge </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>term</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classirkit_1_1UnionRange.html#a387589b1f09868b60485c4ab8c61f97a">Doc</a>&#160;</td>
+          <td class="paramname"><em>doc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c2f9a6ec77c812febdf1778e4b9b3f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c2f9a6ec77c812febdf1778e4b9b3f6">&#9670;&nbsp;</a></span>peek_posting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirkit_1_1UnionRange.html#a5f694970419f5a60d7fd41d740556229">Posting</a> <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::peek_posting </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the next posting without advancing to the next one. </p>
+
+</div>
+</div>
+<a id="aa985f4985486d3df259be0c932340f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa985f4985486d3df259be0c932340f18">&#9670;&nbsp;</a></span>peek_term()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::peek_term </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the next posting's term without advancing to the next one. </p>
+
+</div>
+</div>
+<a id="aacb1050fb1d624260c4013f4ba1939a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb1050fb1d624260c4013f4ba1939a6">&#9670;&nbsp;</a></span>select_pivot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structirkit_1_1UnionRange_1_1docterm.html">docterm</a>&gt; <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::select_pivot </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a>&#160;</td>
+          <td class="paramname"><em>threshold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the docterm entries for all terms preceding (and including) pivot. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a613eebb9b7b8601bffdad1d842c8c7f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a613eebb9b7b8601bffdad1d842c8c7f0">&#9670;&nbsp;</a></span>heap_</h2>
@@ -371,6 +558,30 @@ template&lt;class Range &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structirkit_1_1UnionRange_1_1docterm.html">docterm</a>&gt; <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::heap_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a980f7cfaf14c7c4d93b13b6d7ce6a859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980f7cfaf14c7c4d93b13b6d7ce6a859">&#9670;&nbsp;</a></span>max_scores_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Range &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;<a class="el" href="classirkit_1_1UnionRange.html#a47fb098a85581f5e33f4203e16245dae">Score</a>&gt;&amp; <a class="el" href="classirkit_1_1UnionRange.html">irkit::UnionRange</a>&lt; Range &gt;::max_scores_</td>
         </tr>
       </table>
   </td>
@@ -431,7 +642,7 @@ template&lt;class Range &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="daat_8hpp_source.html">daat.hpp</a></li>
+<li>include/irkit/<a class="el" href="daat_8hpp_source.html">daat.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

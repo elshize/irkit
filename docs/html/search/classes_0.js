@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['add_5fpostings',['add_postings',['../structbloodhound_1_1add__postings.html',1,'bloodhound']]]
+  ['_5fposting',['_Posting',['../structirkit_1_1__Posting.html',1,'irkit']]]
 ];
