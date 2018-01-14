@@ -115,11 +115,11 @@ namespace view {
                 ZipFn zip_fn)
                 : liter_(liter), riter_(riter), zip_fn_(zip_fn)
             {}
-            bool operator==(const const_iterator& rhs)
+            bool operator==(const const_iterator& rhs) const
             {
                 return liter_ == rhs.liter_ && riter_ == rhs.riter_;
             }
-            bool operator!=(const const_iterator& rhs)
+            bool operator!=(const const_iterator& rhs) const
             {
                 return liter_ != rhs.liter_ || riter_ != rhs.riter_;
             }
@@ -133,7 +133,9 @@ namespace view {
                 liter_++;
                 riter_++;
             }
-            auto operator*() { return zip_fn_(*liter_, *riter_); }
+            auto operator*() {
+                return zip_fn_(*liter_, *riter_);
+            }
         };
 
         //! Constructs a zip view.
@@ -203,7 +205,7 @@ namespace view {
      * @tparam RightRange The type of the right range.
      */
     template<class Posting, class LeftRange, class RightRange>
-    auto posting_zip(LeftRange left, RightRange right)
+    auto posting_zip(const LeftRange& left, const RightRange& right)
     {
         return ZipView(left, right, [](const auto& doc, const auto& score) {
             return Posting{doc, score};

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['score',['Score',['../structbloodhound_1_1Score.html',1,'bloodhound']]],
-  ['score_5fgreater',['score_greater',['../structbloodhound_1_1score__greater.html',1,'bloodhound']]],
-  ['simpleaccumulator',['SimpleAccumulator',['../classirkit_1_1SimpleAccumulator.html',1,'irkit']]]
+  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query']]],
+  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
+  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query']]],
+  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query']]]
 ];

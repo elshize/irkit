@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['nblocks',['nblocks',['../classbloodhound_1_1query_1_1TaatRetriever.html#a87786d9af7993da498d60304eab245cf',1,'bloodhound::query::TaatRetriever']]],
-  ['ness',['ness',['../server_8cpp.html#a7a96d77bca92d82ea0c2075cc446d230',1,'server.cpp']]],
-  ['next_5fblock',['next_block',['../structbloodhound_1_1index_1_1format_1_1PostingBlock.html#ad7e7da1b1f4ed16a0b51ba9c8fbac401',1,'bloodhound::index::format::PostingBlock']]]
+  ['mask',['mask',['../structbloodhound_1_1index_1_1PostingListHeader.html#a18fbb5f0675f6e59844b599950809bb0',1,'bloodhound::index::PostingListHeader']]],
+  ['max_5fscore',['max_score',['../classbloodhound_1_1PostingList.html#ab840a6f9ddf8de353cbdd09b3a184bfa',1,'bloodhound::PostingList']]],
+  ['max_5fscores_5f',['max_scores_',['../classirkit_1_1UnionRange.html#a980f7cfaf14c7c4d93b13b6d7ce6a859',1,'irkit::UnionRange']]],
+  ['mscore',['mscore',['../server_8cpp.html#a1cd1bb0f1ef3b2eee55f99544ed84b0e',1,'server.cpp']]]
 ];

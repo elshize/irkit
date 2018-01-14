@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['fast_5funion_5fmerge_5fview',['fast_union_merge_view',['../classirkit_1_1view_1_1fast__union__merge__view.html',1,'irkit::view']]]
+  ['emptymapping',['EmptyMapping',['../classirkit_1_1EmptyMapping.html',1,'irkit']]],
+  ['entry',['Entry',['../structirkit_1_1Entry.html',1,'irkit']]],
+  ['exactsaatretriever',['ExactSaatRetriever',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html',1,'bloodhound::query']]]
 ];

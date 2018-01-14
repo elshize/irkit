@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['ta',['ta',['../server_8cpp.html#aee23689d4fc48f2c95fd3231a8323457',1,'server.cpp']]],
-  ['taat',['taat',['../server_8cpp.html#a5de8e81fd2190e0855481efc7c7b4dfb',1,'server.cpp']]],
-  ['taat_5fplus',['taat_plus',['../server_8cpp.html#a1ff518e94de6961322354ac64428327d',1,'server.cpp']]],
-  ['term',['term',['../structbloodhound_1_1index_1_1format_1_1TermDetails.html#a05890ba855986755276485d7753201ca',1,'bloodhound::index::format::TermDetails::term()'],['../structbloodhound_1_1TermWeight.html#a8606421116b89015b89272bd5e2602a9',1,'bloodhound::TermWeight::term()'],['../structirkit_1_1UnionRange_1_1docterm.html#aa8219ac3bc95a63da177aaf0689eaff0',1,'irkit::UnionRange::docterm::term()']]],
-  ['term_5fmap_5f',['term_map_',['../classirkit_1_1IndexBuilder.html#aeebb03b89eeab532f62239e4ea4f0bee',1,'irkit::IndexBuilder']]],
-  ['term_5foccurrences_5f',['term_occurrences_',['../classirkit_1_1IndexBuilder.html#aaa27520f3a0fb37dba049d2c26ad9484',1,'irkit::IndexBuilder']]],
-  ['tmscore',['tmscore',['../server_8cpp.html#a3a7a220ba0437d0a072590d45eae0504',1,'server.cpp']]]
+  ['saat',['saat',['../server_8cpp.html#a29b8403422e6fabe1222c6bee08e5a0c',1,'server.cpp']]],
+  ['score',['score',['../structbloodhound_1_1Posting.html#afcdc4c2d2486c04feee39077122e1622',1,'bloodhound::Posting::score()'],['../structirkit_1_1__Posting.html#a3c5cc3b179d8fb975d3356847e34955f',1,'irkit::_Posting::score()'],['../structbloodhound_1_1query_1_1Result.html#af9f240e486460b5130eff110b0f3c7a3',1,'bloodhound::query::Result::score()']]],
+  ['score_5fiter',['score_iter',['../structbloodhound_1_1PostingList_1_1const__iterator.html#ade7c448dfba393cc9e34a901461b6b77',1,'bloodhound::PostingList::const_iterator']]],
+  ['score_5fmask',['score_mask',['../classbloodhound_1_1query_1_1TaatRetriever.html#ac38b873ceff34b55bb8ac82800946825',1,'bloodhound::query::TaatRetriever']]],
+  ['score_5foffset',['score_offset',['../structbloodhound_1_1index_1_1format_1_1TermDetails.html#aec8833fdbf2ae61ade0fe42ce8a7240c',1,'bloodhound::index::format::TermDetails']]],
+  ['scores',['scores',['../classbloodhound_1_1PostingList.html#a2c773bffa3d78d2e7a7e04d918b064da',1,'bloodhound::PostingList']]],
+  ['section_5foffset',['section_offset',['../structbloodhound_1_1index_1_1PostingListHeader.html#a0c073440a09f22e0e277d3935d6b9158',1,'bloodhound::index::PostingListHeader']]],
+  ['sorted_5fterms_5f',['sorted_terms_',['../classirkit_1_1IndexBuilder.html#a7a6b13e964f05c659fe17cf61a9738e9',1,'irkit::IndexBuilder']]]
 ];

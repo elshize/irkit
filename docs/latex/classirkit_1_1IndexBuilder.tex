@@ -17,6 +17,8 @@ void \hyperlink{classirkit_1_1IndexBuilder_a6005b21c9a24cb54fe54957e21c0487a}{ad
 \begin{DoxyCompactList}\small\item\em Adds a term to the current document. \end{DoxyCompactList}\item 
 Freq \hyperlink{classirkit_1_1IndexBuilder_ac4c8613d07637de4b67d61df2910bbd0}{document\+\_\+frequency} (Term\+Id term\+\_\+id)
 \begin{DoxyCompactList}\small\item\em Returns the document frequency of the given term. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \hyperlink{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}{term\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of distinct terms. \end{DoxyCompactList}\item 
 std\+::size\+\_\+t \hyperlink{classirkit_1_1IndexBuilder_a81221fd5879c7d68d4d6bff6005b8cd7}{collection\+\_\+size} ()
 \begin{DoxyCompactList}\small\item\em Returns the number of the accumulated documents. \end{DoxyCompactList}\item 
 void \hyperlink{classirkit_1_1IndexBuilder_a242138da460b9853fc6aebb5b8c59c86}{sort\+\_\+terms} ()
@@ -120,6 +122,17 @@ void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, T
 
 
 Sorts the terms, and all related structures, lexicographically. 
+
+\mbox{\Hypertarget{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}\label{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}} 
+\index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!term\+\_\+count@{term\+\_\+count}}
+\index{term\+\_\+count@{term\+\_\+count}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
+\subsubsection{\texorpdfstring{term\+\_\+count()}{term\_count()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+std\+::size\+\_\+t \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of distinct terms. 
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}\label{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!write\+\_\+document\+\_\+counts@{write\+\_\+document\+\_\+counts}}

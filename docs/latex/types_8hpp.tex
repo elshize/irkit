@@ -1,5 +1,6 @@
 \hypertarget{types_8hpp}{}\section{include/irkit/types.hpp File Reference}
 \label{types_8hpp}\index{include/irkit/types.\+hpp@{include/irkit/types.\+hpp}}
+{\ttfamily \#include $<$ostream$>$}\newline
 {\ttfamily \#include $<$utility$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -25,4 +26,9 @@ struct \hyperlink{structirkit_1_1__Posting}{irkit\+::\+\_\+\+Posting$<$ Doc, Sco
 {\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}{irkit\+::doc\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().doc)
 \item 
 {\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{irkit\+::score\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().score)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Doc , class Score $>$ }\\std\+::ostream \& \hyperlink{namespaceirkit_ad1396887d32809df7506bb0f4b3c24ef}{irkit\+::operator$<$$<$} (std\+::ostream \&o, \+\_\+\+Posting$<$ Doc, Score $>$ posting)
 \end{DoxyCompactItemize}

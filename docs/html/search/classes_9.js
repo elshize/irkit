@@ -1,6 +1,12 @@
 var searchData=
 [
-  ['maxscorenonessentials',['MaxScoreNonEssentials',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html',1,'bloodhound::query']]],
-  ['maxscoreretriever',['MaxScoreRetriever',['../classbloodhound_1_1query_1_1MaxScoreRetriever.html',1,'bloodhound::query']]],
-  ['moving_5frange',['moving_range',['../structirkit_1_1moving__range.html',1,'irkit']]]
+  ['idweight',['IdWeight',['../structirkit_1_1IdWeight.html',1,'irkit']]],
+  ['index',['Index',['../classirkit_1_1Index.html',1,'irkit::Index&lt; Doc, Term, TermId, Freq &gt;'],['../classbloodhound_1_1index_1_1Index.html',1,'bloodhound::index::Index&lt; PostingPolicy &gt;']]],
+  ['indexbuilder',['IndexBuilder',['../classirkit_1_1IndexBuilder.html',1,'irkit']]],
+  ['indexloadexception',['IndexLoadException',['../structirkit_1_1index_1_1IndexLoadException.html',1,'irkit::index']]],
+  ['indexmerger',['IndexMerger',['../classirkit_1_1IndexMerger.html',1,'irkit']]],
+  ['inmemorypostingpolicy',['InMemoryPostingPolicy',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html',1,'bloodhound::index']]],
+  ['iterator',['iterator',['../classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html',1,'irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator'],['../structbloodhound_1_1PostingList_1_1iterator.html',1,'bloodhound::PostingList::iterator']]],
+  ['iterator_5frange',['iterator_range',['../classirkit_1_1view_1_1iterator__range.html',1,'irkit::view']]],
+  ['iteratorpair',['IteratorPair',['../structbloodhound_1_1query_1_1DaatRetriever_1_1IteratorPair.html',1,'bloodhound::query::DaatRetriever']]]
 ];

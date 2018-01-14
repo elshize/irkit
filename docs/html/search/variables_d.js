@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['ranges_5f',['ranges_',['../classirkit_1_1UnionRange.html#acb9b9e969f1c90bb18bf1e4eb99f124b',1,'irkit::UnionRange']]],
-  ['raw_5ftaat',['raw_taat',['../server_8cpp.html#a35e26d7929f5c307688ef4be9cc2146a',1,'server.cpp']]],
-  ['right',['right',['../structirkit_1_1moving__range.html#aa64b16b98bdd7b627ecceb82c8ef3bec',1,'irkit::moving_range']]]
+  ['qidx_5fshifted',['qidx_shifted',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa27d16b326df60affe26e005f9abb4f6',1,'bloodhound::query::TaatRetriever']]],
+  ['query_5fid',['query_id',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa9a1b8ca0cb570bcffe6b6c68e8c2e20',1,'bloodhound::query::TaatRetriever']]]
 ];

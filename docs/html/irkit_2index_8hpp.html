@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;bitset&gt;</code><br />
 <code>#include &lt;experimental/filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;gsl/span&gt;</code><br />
@@ -84,20 +84,27 @@ $(function() {
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="coding_8hpp_source.html">irkit/coding.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daat_8hpp_source.html">irkit/daat.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="score_8hpp_source.html">irkit/score.hpp</a>&quot;</code><br />
 </div>
 <p><a href="irkit_2index_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1DynamiclyScoredPostingRange.html">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirkit_1_1index_1_1IndexLoadException.html">irkit::index::IndexLoadException</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1DynamiclyScoredPostingRange.html">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A posting range with scores calculated on the fly.  <a href="classirkit_1_1DynamiclyScoredPostingRange.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;::iterator</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1Index.html">irkit::Index&lt; Doc, Term, TermId, Freq &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1IndexBuilder.html">irkit::IndexBuilder&lt; Doc, Term, TermId, Freq &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1IndexMerger.html">irkit::IndexMerger&lt; Doc, Term, TermId, Freq &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -106,13 +113,13 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceirkit_1_1index"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit_1_1index.html">irkit::index</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceirkit_1_1score"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit_1_1score.html">irkit::score</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:aefd5a5c2f1136e9c2224a4b4d659d4a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#aefd5a5c2f1136e9c2224a4b4d659d4a9">irkit::DefaultIndexBuilder</a> = IndexBuilder&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
 <tr class="separator:aefd5a5c2f1136e9c2224a4b4d659d4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434fa5b33380811cba36a6b46d487373"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a434fa5b33380811cba36a6b46d487373">irkit::DefaultIndexMerger</a> = IndexMerger&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
+<tr class="separator:a434fa5b33380811cba36a6b46d487373"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f3d282716b38521a43b65100a6d337b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a6f3d282716b38521a43b65100a6d337b">irkit::DefaultIndex</a> = Index&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
 <tr class="separator:a6f3d282716b38521a43b65100a6d337b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -132,10 +139,6 @@ Functions</h2></td></tr>
 <tr class="separator:a28db3dab0a7fd926c5a4e6a4d37755c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a556d5fca1ddd33b4c09cd470ad7f9861"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit_1_1index.html#a556d5fca1ddd33b4c09cd470ad7f9861">irkit::index::titles_path</a> (fs::path dir)</td></tr>
 <tr class="separator:a556d5fca1ddd33b4c09cd470ad7f9861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d7234c47ea67229e19640f34ee97e62"><td class="memTemplParams" colspan="2">template&lt;class Freq , CONCEPT_REQUIRES_(ranges::Integral&lt; Freq &gt;()) &gt; </td></tr>
-<tr class="memitem:a2d7234c47ea67229e19640f34ee97e62"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit_1_1score.html#a2d7234c47ea67229e19640f34ee97e62">irkit::score::tfidf</a> (Freq tf, Freq df, std::size_t N)</td></tr>
-<tr class="memdesc:a2d7234c47ea67229e19640f34ee97e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a simple tf-idf score.  <a href="namespaceirkit_1_1score.html#a2d7234c47ea67229e19640f34ee97e62">More...</a><br /></td></tr>
-<tr class="separator:a2d7234c47ea67229e19640f34ee97e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

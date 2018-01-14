@@ -1,20 +1,13 @@
-#include <vector>
 #include <unordered_map>
+#include <vector>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-//#include "gsl/span"
 #define private public
 #define protected public
 #include "irkit/index.hpp"
+#include "irkit/coding.hpp"
 
 namespace {
-
-//class TraverseList : public ::testing::Test {
-//protected:
-//    std::vector<int> docs = {1, 2, 3};
-//    std::vector<int> scores = {1, 2, 3};
-//    std::vector<int> acc = {0, 0, 0, 0};
-//};
 
 template<class Term, class TermId>
 void assert_term_map(std::unordered_map<Term, TermId>& actual,
@@ -39,7 +32,7 @@ template<class T>
 std::ostream& to_string(std::ostream& o, std::vector<T> v)
 {
     o << "[";
-    for (auto& x: v) {
+    for (auto& x : v) {
         o << x << ", ";
     }
     o << "]";
@@ -52,7 +45,6 @@ void assert_vector(std::vector<T> actual, std::vector<T> expected)
     ASSERT_EQ(actual.size(), expected.size());
     for (std::size_t idx = 0; idx < actual.size(); ++idx) {
         EXPECT_EQ(actual[idx], expected[idx]);
-            //<< "therefore " << actual << " != " << expected;
     }
 }
 
@@ -132,6 +124,7 @@ TEST_F(IndexBuilderWrite, write_terms)
 
 TEST_F(IndexBuilderWrite, write_document_ids)
 {
+    irkit::VarByte<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_ids(out, off);
@@ -139,16 +132,16 @@ TEST_F(IndexBuilderWrite, write_document_ids)
     std::string offs = off.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
-    std::vector<char> expected_out = flatten({{0, 0, 1, 0}, {1, 0}, {0, 0}});
-    std::vector<char> expected_off = flatten({{0, 0, 0, 0, 0, 0, 0, 0},
-        {4, 0, 0, 0, 0, 0, 0, 0},
-        {6, 0, 0, 0, 0, 0, 0, 0}});
-    assert_vector(actual_out, expected_out);
-    assert_vector(actual_off, expected_off);
+    std::vector<char> expected_out =
+        flatten({vb.encode({0, 1}), vb.encode({1}), vb.encode({0})});
+    std::vector<char> expected_off = vb.encode({0, 2, 1});
+    EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
+    EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
 
 TEST_F(IndexBuilderWrite, write_document_counts)
 {
+    irkit::VarByte<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_counts(out, off);
@@ -156,21 +149,21 @@ TEST_F(IndexBuilderWrite, write_document_counts)
     std::string offs = off.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
-    std::vector<char> expected_out = flatten({{1, 0, 2, 0}, {1, 0}, {2, 0}});
-    std::vector<char> expected_off = flatten({{0, 0, 0, 0, 0, 0, 0, 0},
-        {4, 0, 0, 0, 0, 0, 0, 0},
-        {6, 0, 0, 0, 0, 0, 0, 0}});
-    assert_vector(actual_out, expected_out);
-    assert_vector(actual_off, expected_off);
+    std::vector<char> expected_out =
+        flatten({vb.encode({1, 2}), vb.encode({1}), vb.encode({2})});
+    std::vector<char> expected_off = vb.encode({0, 2, 1});
+    EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
+    EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
 
 TEST_F(IndexBuilderWrite, write_document_frequencies)
 {
+    irkit::VarByte<uint16_t> vb;
     std::stringstream out;
     builder.write_document_frequencies(out);
     std::string outs = out.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
-    std::vector<char> expected_out = flatten({{2, 0}, {1, 0}, {1, 0}});
+    std::vector<char> expected_out = vb.encode({2, 1, 1});
     assert_vector(actual_out, expected_out);
 }
 

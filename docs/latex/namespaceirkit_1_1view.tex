@@ -31,7 +31,7 @@ class \hyperlink{classirkit_1_1view_1_1ZipView}{Zip\+View}
 \item 
 {\footnotesize template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ }\\auto \hyperlink{namespaceirkit_1_1view_ad4847c0d8f90f3c8854994d3289d51d6}{zip} (Left\+Range left, Right\+Range right, Zip\+Fn zip\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Posting , class Left\+Range , class Right\+Range $>$ }\\auto \hyperlink{namespaceirkit_1_1view_ab95e8c27c68f8d9864b2704de089abec}{posting\+\_\+zip} (Left\+Range left, Right\+Range right)
+{\footnotesize template$<$class Posting , class Left\+Range , class Right\+Range $>$ }\\auto \hyperlink{namespaceirkit_1_1view_a932af64c89d3240149f7e67d82d7d426}{posting\+\_\+zip} (const Left\+Range \&left, const Right\+Range \&right)
 \begin{DoxyCompactList}\small\item\em Constructs a zip view of Posting elements. \end{DoxyCompactList}\item 
 auto \hyperlink{namespaceirkit_1_1view_a45d94ed2030b7535ce266735e3dd49a3}{union\+\_\+merge} ()
 \item 
@@ -90,12 +90,12 @@ In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$\+T$>$, wher
 {\footnotesize\ttfamily template$<$class Fun  = ranges\+::equal\+\_\+to$>$ \\
 auto irkit\+::view\+::group\+\_\+sorted (\begin{DoxyParamCaption}\item[{Fun}]{equal\+\_\+to = {\ttfamily ranges\+:\+:equal\+\_\+to\{\}} }\end{DoxyParamCaption})}
 
-In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups of equal elements according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceirkit_1_1view_ab95e8c27c68f8d9864b2704de089abec}\label{namespaceirkit_1_1view_ab95e8c27c68f8d9864b2704de089abec}} 
+In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups of equal elements according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceirkit_1_1view_a932af64c89d3240149f7e67d82d7d426}\label{namespaceirkit_1_1view_a932af64c89d3240149f7e67d82d7d426}} 
 \index{irkit\+::view@{irkit\+::view}!posting\+\_\+zip@{posting\+\_\+zip}}
 \index{posting\+\_\+zip@{posting\+\_\+zip}!irkit\+::view@{irkit\+::view}}
 \subsubsection{\texorpdfstring{posting\+\_\+zip()}{posting\_zip()}}
 {\footnotesize\ttfamily template$<$class Posting , class Left\+Range , class Right\+Range $>$ \\
-auto irkit\+::view\+::posting\+\_\+zip (\begin{DoxyParamCaption}\item[{Left\+Range}]{left,  }\item[{Right\+Range}]{right }\end{DoxyParamCaption})}
+auto irkit\+::view\+::posting\+\_\+zip (\begin{DoxyParamCaption}\item[{const Left\+Range \&}]{left,  }\item[{const Right\+Range \&}]{right }\end{DoxyParamCaption})}
 
 
 

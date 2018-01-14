@@ -32,6 +32,8 @@ class \hyperlink{classirkit_1_1Index}{Index}
 \item 
 class \hyperlink{classirkit_1_1IndexBuilder}{Index\+Builder}
 \item 
+class \hyperlink{classirkit_1_1IndexMerger}{Index\+Merger}
+\item 
 struct \hyperlink{structirkit_1_1moving__range}{moving\+\_\+range}
 \item 
 class \hyperlink{classirkit_1_1SimpleAccumulator}{Simple\+Accumulator}
@@ -39,6 +41,8 @@ class \hyperlink{classirkit_1_1SimpleAccumulator}{Simple\+Accumulator}
 class \hyperlink{classirkit_1_1TopKAccumulator}{Top\+K\+Accumulator}
 \begin{DoxyCompactList}\small\item\em An container accumulating top-\/k postings (or results). \end{DoxyCompactList}\item 
 class \hyperlink{classirkit_1_1UnionRange}{Union\+Range}
+\item 
+struct \hyperlink{structirkit_1_1VarByte}{Var\+Byte}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -46,6 +50,8 @@ class \hyperlink{classirkit_1_1UnionRange}{Union\+Range}
 {\footnotesize template$<$typename T $>$ }\\using \hyperlink{namespaceirkit_ad3b30e41bd53e61f81bbd892123abe1a}{void\+\_\+t} = void
 \item 
 using \hyperlink{namespaceirkit_aefd5a5c2f1136e9c2224a4b4d659d4a9}{Default\+Index\+Builder} = \hyperlink{classirkit_1_1IndexBuilder}{Index\+Builder}$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+\item 
+using \hyperlink{namespaceirkit_a434fa5b33380811cba36a6b46d487373}{Default\+Index\+Merger} = \hyperlink{classirkit_1_1IndexMerger}{Index\+Merger}$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
 \item 
 using \hyperlink{namespaceirkit_a6f3d282716b38521a43b65100a6d337b}{Default\+Index} = \hyperlink{classirkit_1_1Index}{Index}$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
 \item 
@@ -84,6 +90,8 @@ using \hyperlink{namespaceirkit_a6f3d282716b38521a43b65100a6d337b}{Default\+Inde
 \item 
 {\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{pure\+\_\+element\+\_\+t}$<$ Range $>$ $>$ \hyperlink{namespaceirkit_a2920c3041cd301d3dbe9d27178711ff8}{taat} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{score\+\_\+t}$<$ \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{pure\+\_\+element\+\_\+t}$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
 \item 
+{\footnotesize template$<$class Doc , class Score $>$ }\\std\+::ostream \& \hyperlink{namespaceirkit_ad1396887d32809df7506bb0f4b3c24ef}{operator$<$$<$} (std\+::ostream \&o, \hyperlink{structirkit_1_1__Posting}{\+\_\+\+Posting}$<$ Doc, Score $>$ posting)
+\item 
 {\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \hyperlink{namespaceirkit_aeba2b79c033dd9d3f1a920eba838d184}{nbits} (T n)
 \begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
@@ -118,6 +126,12 @@ using \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{irkit\+::cons
 \index{Default\+Index\+Builder@{Default\+Index\+Builder}!irkit@{irkit}}
 \subsubsection{\texorpdfstring{Default\+Index\+Builder}{DefaultIndexBuilder}}
 {\footnotesize\ttfamily using \hyperlink{namespaceirkit_aefd5a5c2f1136e9c2224a4b4d659d4a9}{irkit\+::\+Default\+Index\+Builder} = typedef \hyperlink{classirkit_1_1IndexBuilder}{Index\+Builder}$<$std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t$>$}
+
+\mbox{\Hypertarget{namespaceirkit_a434fa5b33380811cba36a6b46d487373}\label{namespaceirkit_a434fa5b33380811cba36a6b46d487373}} 
+\index{irkit@{irkit}!Default\+Index\+Merger@{Default\+Index\+Merger}}
+\index{Default\+Index\+Merger@{Default\+Index\+Merger}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{Default\+Index\+Merger}{DefaultIndexMerger}}
+{\footnotesize\ttfamily using \hyperlink{namespaceirkit_a434fa5b33380811cba36a6b46d487373}{irkit\+::\+Default\+Index\+Merger} = typedef \hyperlink{classirkit_1_1IndexMerger}{Index\+Merger}$<$std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t$>$}
 
 \mbox{\Hypertarget{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}\label{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}} 
 \index{irkit@{irkit}!doc\+\_\+t@{doc\+\_\+t}}
@@ -224,6 +238,13 @@ Computes the number of bits required to store an integer n.
 \subsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
 {\footnotesize\ttfamily template$<$class Score $>$ \\
 Score irkit\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{Score \&}]{lhs,  }\item[{const \hyperlink{structirkit_1_1IdWeight}{Id\+Weight} \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_ad1396887d32809df7506bb0f4b3c24ef}\label{namespaceirkit_ad1396887d32809df7506bb0f4b3c24ef}} 
+\index{irkit@{irkit}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!irkit@{irkit}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class Doc , class Score $>$ \\
+std\+::ostream\& irkit\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{o,  }\item[{\hyperlink{structirkit_1_1__Posting}{\+\_\+\+Posting}$<$ Doc, Score $>$}]{posting }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespaceirkit_a2920c3041cd301d3dbe9d27178711ff8}\label{namespaceirkit_a2920c3041cd301d3dbe9d27178711ff8}} 
 \index{irkit@{irkit}!taat@{taat}}

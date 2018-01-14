@@ -10,6 +10,7 @@ var searchData=
   ['read_5ffile',['read_file',['../namespacebloodhound_1_1index.html#a4b6f89a17c10bf2927aff24df7081bb3',1,'bloodhound::index']]],
   ['read_5fposting_5fdata',['read_posting_data',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#acc5567fd6ba17861290ba045567e7e1a',1,'bloodhound::index::InMemoryPostingPolicy']]],
   ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
+  ['reason',['reason',['../structirkit_1_1index_1_1IndexLoadException.html#a843f66fcd135c9a396d41324c2817ab3',1,'irkit::index::IndexLoadException']]],
   ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
   ['remove_5fvalue',['remove_value',['../classirkit_1_1Heap.html#a0da9e0bc583dadad14b10d285e7a8925',1,'irkit::Heap']]],
   ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query::Result'],['../structbloodhound_1_1query_1_1Result.html#a6a9aaa804dbe3929b653b614e18408e1',1,'bloodhound::query::Result::Result()=default'],['../structbloodhound_1_1query_1_1Result.html#ac4c15cb4d9e60b3e7bf37bd813215f55',1,'bloodhound::query::Result::Result(Doc d, Score s)']]],

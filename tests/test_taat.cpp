@@ -30,8 +30,8 @@ TEST_F(TraverseList, spans)
 {
     gsl::span<int> docspan(docs);
     gsl::span<int> scorespan(scores);
-    //irkit::traverse_list(docspan, scorespan, acc, 1);
-    //EXPECT_THAT(acc, ::testing::ElementsAreArray({0, 1, 2, 3}));
+    irkit::traverse_list(docspan, scorespan, acc, 1);
+    EXPECT_THAT(acc, ::testing::ElementsAreArray({0, 1, 2, 3}));
 }
 
 //TEST_F(TraverseList, hash_table_accumulators)

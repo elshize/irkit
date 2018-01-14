@@ -21,7 +21,7 @@ struct moving_range {
     void advance(unsigned int n) { left += n; };
     Iter begin() const { return left; }
     Iter end() const { return right; }
-    auto head() const { return *left; }
+    auto front() const { return *left; }
 };
 
 //! Represents the union of sorted ranges (posting lists).
@@ -58,8 +58,8 @@ protected:
             ranges_.emplace_back(postinglist.cbegin(), postinglist.cend());
         }
         for (unsigned int term = 0; term < ranges_.size(); ++term) {
-            if (!query_postings[term].empty()) {
-                heap_.push_back({ranges_[term].begin()->doc, term});
+            if (!ranges_[term].empty()) {
+                heap_.push_back({ranges_[term].front().doc, term});
             }
         }
         std::make_heap(heap_.begin(), heap_.end());
@@ -67,7 +67,7 @@ protected:
 
     void nextge(unsigned int term, Doc doc)
     {
-        while (ranges_[term].head().doc < doc) {
+        while (ranges_[term].front().doc < doc) {
             ranges_[term].advance();
         }
     }
@@ -91,17 +91,17 @@ public:
     unsigned int peek_term() { return heap_[0].term; }
 
     //! Returns the next posting without advancing to the next one.
-    Posting peek_posting() { return ranges_[heap_[0].term].head(); }
+    Posting peek_posting() { return ranges_[heap_[0].term].front(); }
 
     //! Returns the next posting in sorted union order.
     Posting next_posting()
     {
         unsigned int term = heap_[0].term;
-        Posting next = ranges_[term].head();
+        Posting next = ranges_[term].front();
         next.score *= weights_[term];
         ranges_[term].advance();
         if (!ranges_[term].empty()) {
-            heap_.push_back({ranges_[term].begin()->doc, term});
+            heap_.push_back({ranges_[term].front().doc, term});
         }
         std::pop_heap(heap_.begin(), heap_.end());
         heap_.pop_back();
@@ -159,7 +159,7 @@ public:
             if (preceding.front().doc == pivot_doc) {
                 Score score(0);
                 for (auto & [doc, term] : preceding) {
-                    score += ranges_[term].head().score;
+                    score += ranges_[term].front().score;
                     ranges_[term].advance();
                     if (!ranges_[term].empty()) {
                         heap_.push_back({doc, term});

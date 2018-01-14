@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['daatretriever',['DaatRetriever',['../classbloodhound_1_1query_1_1DaatRetriever.html',1,'bloodhound::query']]],
-  ['debug',['debug',['../structbloodhound_1_1query_1_1debug.html',1,'bloodhound::query']]],
-  ['doc',['Doc',['../structbloodhound_1_1Doc.html',1,'bloodhound']]],
-  ['doc_5fequal_5fto',['doc_equal_to',['../structbloodhound_1_1doc__equal__to.html',1,'bloodhound']]],
-  ['docterm',['docterm',['../structirkit_1_1UnionRange_1_1docterm.html',1,'irkit::UnionRange']]],
-  ['dynamiclyscoredpostingrange',['DynamiclyScoredPostingRange',['../classirkit_1_1DynamiclyScoredPostingRange.html',1,'irkit']]]
+  ['const_5fiterator',['const_iterator',['../structbloodhound_1_1PostingList_1_1const__iterator.html',1,'bloodhound::PostingList::const_iterator'],['../classirkit_1_1view_1_1ZipView_1_1const__iterator.html',1,'irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator']]],
+  ['count',['Count',['../structirkit_1_1score_1_1Count.html',1,'irkit::score']]]
 ];

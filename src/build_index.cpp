@@ -45,14 +45,24 @@ int main(int argc, char** argv)
         while (linestream >> term) {
             builder.add_term(term);
         }
+        if (doc % 10000 == 0) {
+            std::cerr << "documents: " << doc
+                      << "; terms: " << builder.term_count() << std::endl;
+        }
     }
     of_titles.close();
 
+    std::cerr << "sorting terms... ";
     builder.sort_terms();
+    std::cerr << "done\nwriting terms... ";
     builder.write_terms(of_terms);
+    std::cerr << "done\nwriting document frequencies... ";
     builder.write_document_frequencies(of_term_doc_freq);
+    std::cerr << "done\nwriting document IDs... ";
     builder.write_document_ids(of_doc_ids, of_doc_ids_off);
+    std::cerr << "done\nwriting document counts... ";
     builder.write_document_counts(of_doc_counts, of_doc_counts_off);
+    std::cerr << "done\n";
 
     of_doc_ids.close();
     of_doc_ids_off.close();

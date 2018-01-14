@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['idx',['idx',['../classbloodhound_1_1PostingList.html#a9aa9a9d1db46c6858fa952a36e1bf8fa',1,'bloodhound::PostingList']]],
-  ['index_5fptr',['index_ptr',['../server_8cpp.html#ad81943c6f5b9391bd23b123e55445d48',1,'server.cpp']]],
-  ['index_5fref',['index_ref',['../server_8cpp.html#ae8cd2568135b6d62b19d7eedae9c3618',1,'server.cpp']]]
+  ['head',['head',['../structbloodhound_1_1index_1_1format_1_1PostingBlock.html#a0820d9474f2563bf913457e3b8681370',1,'bloodhound::index::format::PostingBlock']]],
+  ['heap_5f',['heap_',['../classirkit_1_1UnionRange.html#a613eebb9b7b8601bffdad1d842c8c7f0',1,'irkit::UnionRange']]]
 ];

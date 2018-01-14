@@ -9,7 +9,7 @@ var searchData=
   ['hash_3c_20bloodhound_3a_3adoc_20_3e',['hash&lt; bloodhound::Doc &gt;',['../structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html',1,'std']]],
   ['hash_3c_20bloodhound_3a_3ascore_20_3e',['hash&lt; bloodhound::Score &gt;',['../structstd_1_1hash_3_01bloodhound_1_1Score_01_4.html',1,'std']]],
   ['hash_3c_20bloodhound_3a_3atermid_20_3e',['hash&lt; bloodhound::TermId &gt;',['../structstd_1_1hash_3_01bloodhound_1_1TermId_01_4.html',1,'std']]],
-  ['head',['head',['../structbloodhound_1_1index_1_1format_1_1PostingBlock.html#a0820d9474f2563bf913457e3b8681370',1,'bloodhound::index::format::PostingBlock::head()'],['../structirkit_1_1moving__range.html#a4e4c1a83cb13e1ca572275b2c7885aeb',1,'irkit::moving_range::head()']]],
+  ['head',['head',['../structbloodhound_1_1index_1_1format_1_1PostingBlock.html#a0820d9474f2563bf913457e3b8681370',1,'bloodhound::index::format::PostingBlock']]],
   ['heap',['Heap',['../classirkit_1_1Heap.html',1,'irkit::Heap&lt; Key, Value, Compare, Mapping &gt;'],['../classirkit_1_1Heap.html#ac262b1efe6564321f3f8476dc8665eaf',1,'irkit::Heap::Heap()']]],
   ['heap_2ehpp',['heap.hpp',['../heap_8hpp.html',1,'']]],
   ['heap_3c_20element_5ftype_2c_20std_3a_3asize_5ft_20_3e',['Heap&lt; element_type, std::size_t &gt;',['../classirkit_1_1Heap.html',1,'irkit']]],

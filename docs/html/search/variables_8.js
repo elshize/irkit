@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['left',['left',['../structirkit_1_1moving__range.html#a175a0bc6996715ea27e6b87abff03139',1,'irkit::moving_range']]],
-  ['lexicon',['lexicon',['../classbloodhound_1_1index_1_1Index.html#a746d80c2fb411f512726c8d37cad78fc',1,'bloodhound::index::Index']]]
+  ['k1',['k1',['../structirkit_1_1score_1_1BM25.html#a466bb269c6c56714e0148d428bd7e1d5',1,'irkit::score::BM25']]],
+  ['key',['key',['../structirkit_1_1Entry.html#aeae4387483b4905afd7dfd71df9104fc',1,'irkit::Entry']]]
 ];

@@ -105,6 +105,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1IndexBuilder.html">IndexBuilder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1IndexMerger.html">IndexMerger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirkit_1_1moving__range.html">moving_range</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1SimpleAccumulator.html">SimpleAccumulator</a></td></tr>
@@ -114,6 +116,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirkit_1_1UnionRange.html">UnionRange</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirkit_1_1VarByte.html">VarByte</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -122,6 +126,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:ad3b30e41bd53e61f81bbd892123abe1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefd5a5c2f1136e9c2224a4b4d659d4a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#aefd5a5c2f1136e9c2224a4b4d659d4a9">DefaultIndexBuilder</a> = <a class="el" href="classirkit_1_1IndexBuilder.html">IndexBuilder</a>&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
 <tr class="separator:aefd5a5c2f1136e9c2224a4b4d659d4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434fa5b33380811cba36a6b46d487373"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a434fa5b33380811cba36a6b46d487373">DefaultIndexMerger</a> = <a class="el" href="classirkit_1_1IndexMerger.html">IndexMerger</a>&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
+<tr class="separator:a434fa5b33380811cba36a6b46d487373"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f3d282716b38521a43b65100a6d337b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a6f3d282716b38521a43b65100a6d337b">DefaultIndex</a> = <a class="el" href="classirkit_1_1Index.html">Index</a>&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
 <tr class="separator:a6f3d282716b38521a43b65100a6d337b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40deb8b0d47ecaada4b47270b97d5469"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
@@ -181,6 +187,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2920c3041cd301d3dbe9d27178711ff8"><td class="memTemplParams" colspan="2">template&lt;class Range &gt; </td></tr>
 <tr class="memitem:a2920c3041cd301d3dbe9d27178711ff8"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceirkit.html#afcffab67300c5c703cb38a363c9a6f1d">pure_element_t</a>&lt; Range &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#a2920c3041cd301d3dbe9d27178711ff8">taat</a> (const std::vector&lt; Range &gt; &amp;query_postings, std::size_t k, const std::vector&lt; <a class="el" href="namespaceirkit.html#a754dabe3346f950c948e7596d9d46c71">score_t</a>&lt; <a class="el" href="namespaceirkit.html#afcffab67300c5c703cb38a363c9a6f1d">pure_element_t</a>&lt; Range &gt;&gt;&gt; &amp;weights, std::size_t collection_size)</td></tr>
 <tr class="separator:a2920c3041cd301d3dbe9d27178711ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1396887d32809df7506bb0f4b3c24ef"><td class="memTemplParams" colspan="2">template&lt;class Doc , class Score &gt; </td></tr>
+<tr class="memitem:ad1396887d32809df7506bb0f4b3c24ef"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#ad1396887d32809df7506bb0f4b3c24ef">operator&lt;&lt;</a> (std::ostream &amp;o, <a class="el" href="structirkit_1_1__Posting.html">_Posting</a>&lt; Doc, Score &gt; posting)</td></tr>
+<tr class="separator:ad1396887d32809df7506bb0f4b3c24ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeba2b79c033dd9d3f1a920eba838d184"><td class="memTemplParams" colspan="2">template&lt;typename T , CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </td></tr>
 <tr class="memitem:aeba2b79c033dd9d3f1a920eba838d184"><td class="memTemplItemLeft" align="right" valign="top">constexpr unsigned short&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirkit.html#aeba2b79c033dd9d3f1a920eba838d184">nbits</a> (T n)</td></tr>
 <tr class="memdesc:aeba2b79c033dd9d3f1a920eba838d184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the number of bits required to store an integer n.  <a href="#aeba2b79c033dd9d3f1a920eba838d184">More...</a><br /></td></tr>
@@ -232,6 +241,20 @@ template&lt;class Range &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespaceirkit.html#aefd5a5c2f1136e9c2224a4b4d659d4a9">irkit::DefaultIndexBuilder</a> = typedef <a class="el" href="classirkit_1_1IndexBuilder.html">IndexBuilder</a>&lt;std::uint32_t, std::string, std::uint32_t, std::uint32_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a434fa5b33380811cba36a6b46d487373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434fa5b33380811cba36a6b46d487373">&#9670;&nbsp;</a></span>DefaultIndexMerger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceirkit.html#a434fa5b33380811cba36a6b46d487373">irkit::DefaultIndexMerger</a> = typedef <a class="el" href="classirkit_1_1IndexMerger.html">IndexMerger</a>&lt;std::uint32_t, std::string, std::uint32_t, std::uint32_t&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -490,6 +513,36 @@ template&lt;class Score &gt; </div>
           <td></td>
           <td class="paramtype">const <a class="el" href="structirkit_1_1IdWeight.html">IdWeight</a> &amp;&#160;</td>
           <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad1396887d32809df7506bb0f4b3c24ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1396887d32809df7506bb0f4b3c24ef">&#9670;&nbsp;</a></span>operator<<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Doc , class Score &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; irkit::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>o</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structirkit_1_1__Posting.html">_Posting</a>&lt; Doc, Score &gt;&#160;</td>
+          <td class="paramname"><em>posting</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

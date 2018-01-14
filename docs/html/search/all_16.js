@@ -5,6 +5,7 @@ var searchData=
   ['weight',['weight',['../structbloodhound_1_1TermWeight.html#a1abc2c53928fbaa8dcf617e72e1afced',1,'bloodhound::TermWeight']]],
   ['weighted',['weighted',['../namespaceirkit_1_1view.html#ab3c27d862e946a966c4d7f004407499a',1,'irkit::view']]],
   ['weights_5f',['weights_',['../classirkit_1_1UnionRange.html#a0c53eb9b1c9e8aa18621f4c129a6ff90',1,'irkit::UnionRange']]],
+  ['what',['what',['../structirkit_1_1index_1_1IndexLoadException.html#a4fd8f3ce857b2e5040011564e34805f9',1,'irkit::index::IndexLoadException']]],
   ['write_5fdocument_5fcounts',['write_document_counts',['../classirkit_1_1IndexBuilder.html#aba0b947f29e491205adf3df3f862e58e',1,'irkit::IndexBuilder']]],
   ['write_5fdocument_5ffrequencies',['write_document_frequencies',['../classirkit_1_1IndexBuilder.html#a57c15d23588f70b78b49a6392ef61be8',1,'irkit::IndexBuilder']]],
   ['write_5fdocument_5fids',['write_document_ids',['../classirkit_1_1IndexBuilder.html#af8d8c6c446a064ec7c9b2a05b522555e',1,'irkit::IndexBuilder']]],

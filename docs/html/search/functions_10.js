@@ -9,7 +9,7 @@ var searchData=
   ['select_5fpivot',['select_pivot',['../classirkit_1_1UnionRange.html#aacb1050fb1d624260c4013f4ba1939a6',1,'irkit::UnionRange']]],
   ['set_5fet_5fthreshold',['set_et_threshold',['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#a78016cfffe921ed440dec62c6f82f4cc',1,'bloodhound::query::ExactSaatRetriever']]],
   ['setmask',['setmask',['../structbloodhound_1_1index_1_1PostingListHeader.html#ab9bb3cd3201527041e86a7fec0bd385d',1,'bloodhound::index::PostingListHeader']]],
-  ['size',['size',['../classirkit_1_1Heap.html#acc53589d12325834624aa08573139227',1,'irkit::Heap::size()'],['../classirkit_1_1DynamiclyScoredPostingRange.html#aabc7d6435dc95dedef86ee75530d189d',1,'irkit::DynamiclyScoredPostingRange::size()']]],
+  ['size',['size',['../classirkit_1_1Heap.html#acc53589d12325834624aa08573139227',1,'irkit::Heap::size()'],['../classirkit_1_1DynamiclyScoredPostingRange.html#a3a080b946216c0caf02eb9749c8e2e2e',1,'irkit::DynamiclyScoredPostingRange::size()']]],
   ['sort_5fterms',['sort_terms',['../classirkit_1_1IndexBuilder.html#a242138da460b9853fc6aebb5b8c59c86',1,'irkit::IndexBuilder']]],
   ['sorted',['sorted',['../classirkit_1_1TopKAccumulator.html#adde0cfe7ba7dc26ca2cc55422b2351fa',1,'irkit::TopKAccumulator']]],
   ['sorted_5fby_5flength',['sorted_by_length',['../classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#a4c5253dee6541cf173f4f2e16803c702',1,'bloodhound::query::TaatMaxScoreRetriever']]],

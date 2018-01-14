@@ -1,7 +1,7 @@
 var searchData=
 [
   ['length',['length',['../classbloodhound_1_1PostingList.html#a7af6f4e9fc277dd7c1dc73c2922ceacd',1,'bloodhound::PostingList']]],
-  ['load_5fdata',['load_data',['../classirkit_1_1Index.html#ad3f9d2490c25541bb7906cb17f76a0c2',1,'irkit::Index']]],
+  ['load_5fdata',['load_data',['../classirkit_1_1Index.html#acdc1ba811044619795c2ab7eeed13abc',1,'irkit::Index::load_data(fs::path data_file, std::vector&lt; char &gt; &amp;data_container) const'],['../classirkit_1_1Index.html#a2dfd40f97f0022b075c8aaa38d96edc7',1,'irkit::Index::load_data(fs::path data_file, std::size_t start, std::size_t size) const']]],
   ['load_5findex',['load_index',['../classbloodhound_1_1index_1_1Index.html#ad4cd13bef623fc6b786f8003c8826b9c',1,'bloodhound::index::Index']]],
   ['load_5flexicon',['load_lexicon',['../classbloodhound_1_1index_1_1Index.html#a80968041cad02a4006fd4b633c279030',1,'bloodhound::index::Index']]],
   ['load_5fmappings',['load_mappings',['../classbloodhound_1_1index_1_1Index.html#a779359e7ce40294dd3d3666c00762700',1,'bloodhound::index::Index']]],

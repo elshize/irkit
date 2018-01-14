@@ -70,13 +70,16 @@ $(function() {
 <li>operator!=()
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a65b36dcc2e29d9d2f67859a795b9d318">bloodhound::PostingList::const_iterator</a>
 , <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#aa293b4e0607edaca2fde163c8ee0f00e">bloodhound::PostingList::iterator</a>
-, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#afe8fa01fe3f45c67c02824462ba4d657">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;::iterator</a>
-, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#ad4c15fc5387d6453fc25e7b0232e10ac">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
+, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a37c62809d2e9dd22e2be51833bf9de38">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator</a>
+, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#a64c38c56be6d9bbe7486b97f651c38d4">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
 </li>
 <li>operator()()
 : <a class="el" href="structbloodhound_1_1add__postings.html#ab57eba72e4d13d7f3c74d749d51c0f34">bloodhound::add_postings&lt; Posting &gt;</a>
 , <a class="el" href="structbloodhound_1_1doc__equal__to.html#a5a8e28107bb693527fa4c513b3678b1b">bloodhound::doc_equal_to&lt; Posting &gt;</a>
 , <a class="el" href="structbloodhound_1_1score__greater.html#a56a430279ebf5d6b2526335fe3b2d668">bloodhound::score_greater&lt; Posting &gt;</a>
+, <a class="el" href="structirkit_1_1score_1_1BM25.html#a11129a12cf8c95384d6ceb23b68f39ed">irkit::score::BM25</a>
+, <a class="el" href="structirkit_1_1score_1_1Count.html#a0fa3a6e1c9061f90f44737b3d9debe1e">irkit::score::Count</a>
+, <a class="el" href="structirkit_1_1score_1_1TfIdf.html#aec3bfcf0c8c5d174cd8a0af50429f47a">irkit::score::TfIdf</a>
 , <a class="el" href="structirkit_1_1view_1_1greater.html#af6f67e2c5f9976b8e6a4ff3ddc9fbd1d">irkit::view::greater</a>
 , <a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html#a3f89deb7b2548010c7f3b63afc9d7fa4">std::hash&lt; bloodhound::Doc &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Score_01_4.html#a8e9e8081ca942b25eafe41f8f76a584b">std::hash&lt; bloodhound::Score &gt;</a>
@@ -85,7 +88,7 @@ $(function() {
 <li>operator*()
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a0e64366185c712b9f399c4bf31ff804d">bloodhound::PostingList::const_iterator</a>
 , <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a386a2af6b962ddd85392f1313eb16eff">bloodhound::PostingList::iterator</a>
-, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a84e9883c3c3f2bef9aab7d319175376f">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;::iterator</a>
+, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a1608a0963401d8842b1f0e3726e44449">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator</a>
 , <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#ae8a7914b8e3d6a1a0bbff1046708acd5">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
 </li>
 <li>operator+
@@ -96,8 +99,8 @@ $(function() {
 <li>operator++()
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#ab50270b2e0e133f6e026b330c83f2fe3">bloodhound::PostingList::const_iterator</a>
 , <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a8b0c2e4221f0ce3ea893c2fc37edbd53">bloodhound::PostingList::iterator</a>
-, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a258d9907607cddfb69c41087efb67fab">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;::iterator</a>
-, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#afa50a93c355dff998a3872ead97c29d7">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
+, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#aeb75d55de7b324e3ff31aa7496a0f7c5">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator</a>
+, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#a47598d8f9f86eabb28576be721c15d4a">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
 </li>
 <li>operator-()
 : <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#a61a5de181ff84ddc0976957a7a9fcfd7">bloodhound::PostingList::iterator</a>
@@ -121,10 +124,11 @@ $(function() {
 : <a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html#a7826592d30cee67d4af4fbda6f089fc8">bloodhound::PostingList::const_iterator</a>
 , <a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html#af82060f61f9231ee449e43ea347cab29">bloodhound::PostingList::iterator</a>
 , <a class="el" href="structbloodhound_1_1query_1_1Result.html#af7fa537e271f9f8b213e207331d5e647">bloodhound::query::Result</a>
-, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#a9dd3bf6576356e15bbd846e4f3590c8b">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, &gt;::iterator</a>
+, <a class="el" href="structirkit_1_1__Posting.html#a03d7cdeee582fa17a95ffb3615276d30">irkit::_Posting&lt; Doc, Score &gt;</a>
+, <a class="el" href="classirkit_1_1DynamiclyScoredPostingRange_1_1iterator.html#ac097b4d56a87359fe0f726042d639cc9">irkit::DynamiclyScoredPostingRange&lt; Posting, Freq, ScoreFn, &gt;::iterator</a>
 , <a class="el" href="structirkit_1_1Entry.html#aaa12df0ae7e66638a6f0e5ddb552167b">irkit::Entry&lt; Key, Value &gt;</a>
 , <a class="el" href="structirkit_1_1UnionRange_1_1docterm.html#a089cce245934c7558deb5e9405f36e65">irkit::UnionRange&lt; Range &gt;::docterm</a>
-, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#ae22d91fa97683693b45408ca06c3a5a8">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
+, <a class="el" href="classirkit_1_1view_1_1ZipView_1_1const__iterator.html#a7cd1982ce6b7a658c69eca8ec3b211c1">irkit::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;::const_iterator</a>
 </li>
 <li>operator&gt;()
 : <a class="el" href="structbloodhound_1_1query_1_1Result.html#af04b71da89ecfa88ee4836dd82fdc058">bloodhound::query::Result</a>

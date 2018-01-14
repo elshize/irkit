@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <utility>
 
 namespace irkit {
@@ -29,6 +30,17 @@ template<class Doc, class Score>
 struct _Posting {
     Doc doc;
     Score score;
+    bool operator==(const _Posting<Doc, Score>& rhs) const
+    {
+        return doc == rhs.doc && score == rhs.score;
+    }
 };
+
+template<class Doc, class Score>
+std::ostream& operator<<(std::ostream& o, _Posting<Doc, Score> posting)
+{
+    return o << posting.doc << ":" << posting.score;
+}
+
 
 };  // namespace irkit

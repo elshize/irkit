@@ -1,4 +1,5 @@
 #include <experimental/filesystem>
+#include <chrono>
 #include <iostream>
 #include "irkit/index.hpp"
 #include "irkit/taat.hpp"
@@ -29,18 +30,27 @@ int main(int argc, char** argv)
     fs::path index_dir(argv[1]);
 
     std::cerr << "Loading index... ";
-    irkit::DefaultIndex idx(index_dir);
+    irkit::DefaultIndex idx(index_dir, false);
     std::cerr << "Done.\n";
 
     std::string line;
+    std::cout << "> ";
     while (std::getline(std::cin, line)) {
-        std::cerr << "Running query: " << line << std::endl;
+        std::cout << "Running query: " << line << std::endl;
+        auto start_time = std::chrono::steady_clock::now();
         auto[terms, weights] = parse<double>(line);
         auto postings = idx.posting_ranges(terms);
-        for (auto p : postings) {
-            std::cerr << p.size() << std::endl;
+        auto results =
+            irkit::taat(postings, 10, weights, idx.collection_size());
+        auto end_time = std::chrono::steady_clock::now();
+        for (auto& result : results) {
+            std::cout << result << " (" << idx.title(result.doc) << ")"
+                      << std::endl;
         }
-        //irkit::taat(postings, 10, weights, idx.collection_size());
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+            end_time - start_time);
+        std::cout << "Elasped time: " << elapsed.count() << " ms" << std::endl;
+        std::cout << "> ";
     }
 }
 

@@ -19,8 +19,24 @@ add_test(DaatTests test_daat)
 
 add_executable(test_builder test_builder.cpp)
 target_link_libraries(test_builder ${GTEST_BOTH_LIBRARIES} stdc++fs)
-add_test(IndexTests test_builder)
+add_test(IndexBuilderTests test_builder)
 
-#add_executable(test_views test_views.cpp)
-#target_link_libraries(test_views ${GTEST_BOTH_LIBRARIES})
-#add_test(ViewTests test_views)
+add_executable(test_merger test_merger.cpp)
+target_link_libraries(test_merger ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(IndexMergerTests test_merger)
+
+add_executable(test_index_reading test_index_reading.cpp)
+target_link_libraries(test_index_reading ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(IndexReadingTests test_index_reading)
+
+add_executable(test_posting_ranges test_posting_ranges.cpp)
+target_link_libraries(test_posting_ranges ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(PostingRangesTests test_posting_ranges)
+
+add_executable(test_coding test_coding.cpp)
+target_link_libraries(test_coding ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(CodingTests test_coding)
+
+add_executable(test_index_integration test_index_integration.cpp)
+target_link_libraries(test_index_integration ${GTEST_BOTH_LIBRARIES} stdc++fs)
+add_test(IndexIntegrationTests test_index_integration)

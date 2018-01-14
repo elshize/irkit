@@ -9,5 +9,7 @@ var searchData=
   ['advance',['advance',['../structirkit_1_1moving__range.html#a5ee65e31d2983395c02b724ede47c034',1,'irkit::moving_range::advance()'],['../structirkit_1_1moving__range.html#a792efd70f3efcb651bff438a0e0814ce',1,'irkit::moving_range::advance(unsigned int n)']]],
   ['aggregate_5fsorted_5fview',['aggregate_sorted_view',['../classirkit_1_1view_1_1aggregate__sorted__view.html#ac4bb5feea5faf3bc58d662bd5c8d4de5',1,'irkit::view::aggregate_sorted_view']]],
   ['aggregate_5ftop',['aggregate_top',['../classbloodhound_1_1query_1_1TaatRetriever.html#a7f631f87075249c768873d15a59956c5',1,'bloodhound::query::TaatRetriever::aggregate_top()'],['../namespaceirkit.html#a396aecdabea315348fb31d095fd2efc8',1,'irkit::aggregate_top()']]],
-  ['any_5frange',['any_range',['../classirkit_1_1view_1_1any__range.html#ac131324e05db1e661c610ee577c7ac7f',1,'irkit::view::any_range']]]
+  ['any_5frange',['any_range',['../classirkit_1_1view_1_1any__range.html#ac131324e05db1e661c610ee577c7ac7f',1,'irkit::view::any_range']]],
+  ['append_5fdecoded',['append_decoded',['../structirkit_1_1VarByte.html#a6f71f45fca0f585b4d7c0a704c214f81',1,'irkit::VarByte']]],
+  ['append_5fencoded',['append_encoded',['../structirkit_1_1VarByte.html#aa5418ece5dab50514de2825be2fda530',1,'irkit::VarByte']]]
 ];

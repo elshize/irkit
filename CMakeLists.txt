@@ -32,6 +32,9 @@ target_link_libraries(rundaat stdc++fs)
 add_executable(build_index src/build_index.cpp)
 target_link_libraries(build_index stdc++fs)
 
+add_executable(irk-merge src/irk-merge.cpp)
+target_link_libraries(irk-merge stdc++fs)
+
 add_executable(run_queries src/run_queries.cpp)
 target_link_libraries(run_queries stdc++fs)
 
