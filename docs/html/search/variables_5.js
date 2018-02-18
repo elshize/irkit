@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['head',['head',['../structbloodhound_1_1index_1_1format_1_1PostingBlock.html#a0820d9474f2563bf913457e3b8681370',1,'bloodhound::index::format::PostingBlock']]],
-  ['heap_5f',['heap_',['../classirkit_1_1UnionRange.html#a613eebb9b7b8601bffdad1d842c8c7f0',1,'irkit::UnionRange']]]
+  ['file',['file',['../structirk_1_1index__load__exception.html#a38c51abcb6c272187ba08e0c9ad7f674',1,'irk::index_load_exception']]],
+  ['flags',['flags',['../structirk_1_1compact__table__header.html#ae76b0ba32ba8873575f480e3148f1738',1,'irk::compact_table_header']]],
+  ['freq',['freq',['../structirk_1_1index__builder_1_1doc__freq__pair.html#ae71d3afc16b2a295ef6338886639dff7',1,'irk::index_builder::doc_freq_pair']]],
+  ['frequency',['frequency',['../structirk_1_1coding_1_1huffman_1_1node.html#ae303f67bca534f5fcbf2a64a586cd7a9',1,'irk::coding::huffman::node']]],
+  ['function',['function',['../structamong.html#a22ec20bb10a12a3ab638901c61ba4b40',1,'among']]]
 ];

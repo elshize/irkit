@@ -1,0 +1,172 @@
+\hypertarget{classirk_1_1dynamically__scored__posting__range}{}\section{irk\+:\+:dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$ Class Template Reference}
+\label{classirk_1_1dynamically__scored__posting__range}\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$}}
+
+
+A posting range with scores calculated on the fly.  
+
+
+
+
+{\ttfamily \#include $<$postingrange.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}} = Posting
+\item 
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}{document\+\_\+type}} = \mbox{\hyperlink{namespaceirk_af5d95ec091f3bd711790e71ccb533903}{doc\+\_\+t}}$<$ \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa0c12118410f44552410fbcfd80c6f1b}{score\+\_\+type}} = \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a88d91cba6886a010222dba0a47e11941}{freqency\+\_\+type}} = Freq
+\item 
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}{scorer\+\_\+type}} = Scorer
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a0bf84be64d0211e820667a067445c50b}{dynamically\+\_\+scored\+\_\+posting\+\_\+range}} (std\+::vector$<$ \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}{document\+\_\+type}} $>$ \&\&docs, std\+::vector$<$ Freq $>$ \&\&counts, Freq term\+\_\+df, std\+::size\+\_\+t n, \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}{scorer\+\_\+type}} score\+\_\+fn=\mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{score\+::tf\+\_\+idf\+\_\+scorer}}\{\})
+\begin{DoxyCompactList}\small\item\em Constructs a posting range for a term. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_ab21e42d5ffecd277777253dcb0a2d6f9}{cbegin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_ab6bc4bbfdf9ce645df81835b957de595}{cend}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a984ac75ae00f56ec53c2676e57259aa6}{begin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a9d5aba54aba865a979c414603ad4ebe4}{end}} () const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_ac6024a8e41e31068811e2942f9f751ad}{size}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Posting, class Freq, class Scorer = score\+::tf\+\_\+idf\+\_\+scorer$>$\newline
+class irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$}
+
+A posting range with scores calculated on the fly. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Posting} & The posting structure type\+: must have {\ttfamily Posting\+::doc} and {\ttfamily Posting\+::score} members. \\
+\hline
+{\em Freq} & An integral type of term frequencies. \\
+\hline
+{\em Score\+Fn} & A scoring function or structure\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}\label{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}{document\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_af5d95ec091f3bd711790e71ccb533903}{doc\+\_\+t}}$<$\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_a88d91cba6886a010222dba0a47e11941}\label{classirk_1_1dynamically__scored__posting__range_a88d91cba6886a010222dba0a47e11941}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!freqency\+\_\+type@{freqency\+\_\+type}}
+\index{freqency\+\_\+type@{freqency\+\_\+type}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{freqency\+\_\+type}{freqency\_type}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a88d91cba6886a010222dba0a47e11941}{freqency\+\_\+type}} =  Freq}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}\label{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!posting\+\_\+type@{posting\+\_\+type}}
+\index{posting\+\_\+type@{posting\+\_\+type}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{posting\+\_\+type}{posting\_type}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}} =  Posting}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_aa0c12118410f44552410fbcfd80c6f1b}\label{classirk_1_1dynamically__scored__posting__range_aa0c12118410f44552410fbcfd80c6f1b}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!score\+\_\+type@{score\+\_\+type}}
+\index{score\+\_\+type@{score\+\_\+type}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{score\+\_\+type}{score\_type}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa0c12118410f44552410fbcfd80c6f1b}{score\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aac074648c23da33107bd6d03dae98ca5}{posting\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}\label{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!scorer\+\_\+type@{scorer\+\_\+type}}
+\index{scorer\+\_\+type@{scorer\+\_\+type}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{scorer\+\_\+type}{scorer\_type}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+using \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}{scorer\+\_\+type}} =  Scorer}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_a0bf84be64d0211e820667a067445c50b}\label{classirk_1_1dynamically__scored__posting__range_a0bf84be64d0211e820667a067445c50b}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!dynamically\+\_\+scored\+\_\+posting\+\_\+range@{dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\index{dynamically\+\_\+scored\+\_\+posting\+\_\+range@{dynamically\+\_\+scored\+\_\+posting\+\_\+range}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{dynamically\+\_\+scored\+\_\+posting\+\_\+range()}{dynamically\_scored\_posting\_range()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{dynamically\+\_\+scored\+\_\+posting\+\_\+range}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_a30b30964cca4601be1eab249b12bd825}{document\+\_\+type}} $>$ \&\&}]{docs,  }\item[{std\+::vector$<$ Freq $>$ \&\&}]{counts,  }\item[{Freq}]{term\+\_\+df,  }\item[{std\+::size\+\_\+t}]{n,  }\item[{\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_aa82b83ad2a96aeda0fff2cb233d877f9}{scorer\+\_\+type}}}]{score\+\_\+fn = {\ttfamily \mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{score\+::tf\+\_\+idf\+\_\+scorer}}\{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a posting range for a term. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em docs} & Document I\+Ds. \\
+\hline
+{\em counts} & Occurrences of the term in respective documents. \\
+\hline
+{\em term\+\_\+df} & The term\textquotesingle{}s document frequency. \\
+\hline
+{\em n} & The collection size. \\
+\hline
+{\em score\+\_\+fn} & The scoring function or structure of the structure\+: (freqency\+\_\+type tf, freqency\+\_\+type df, std\+::size\+\_\+t n) -\/$>$ score\+\_\+t$<$posting\+\_\+type$>$ \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_a984ac75ae00f56ec53c2676e57259aa6}\label{classirk_1_1dynamically__scored__posting__range_a984ac75ae00f56ec53c2676e57259aa6}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!begin@{begin}}
+\index{begin@{begin}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_ab21e42d5ffecd277777253dcb0a2d6f9}\label{classirk_1_1dynamically__scored__posting__range_ab21e42d5ffecd277777253dcb0a2d6f9}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_ab6bc4bbfdf9ce645df81835b957de595}\label{classirk_1_1dynamically__scored__posting__range_ab6bc4bbfdf9ce645df81835b957de595}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!cend@{cend}}
+\index{cend@{cend}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_a9d5aba54aba865a979c414603ad4ebe4}\label{classirk_1_1dynamically__scored__posting__range_a9d5aba54aba865a979c414603ad4ebe4}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!end@{end}}
+\index{end@{end}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+\mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1dynamically__scored__posting__range_ac6024a8e41e31068811e2942f9f751ad}\label{classirk_1_1dynamically__scored__posting__range_ac6024a8e41e31068811e2942f9f751ad}} 
+\index{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}!size@{size}}
+\index{size@{size}!irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range@{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{irk\+::dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{postingrange_8hpp}{postingrange.\+hpp}}\end{DoxyCompactItemize}

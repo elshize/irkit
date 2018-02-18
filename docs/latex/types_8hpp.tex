@@ -1,28 +1,48 @@
 \hypertarget{types_8hpp}{}\section{include/irkit/types.hpp File Reference}
 \label{types_8hpp}\index{include/irkit/types.\+hpp@{include/irkit/types.\+hpp}}
+{\ttfamily \#include $<$ostream$>$}\newline
 {\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$boost/dynamic\+\_\+bitset.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structirkit_1_1__Posting}{irkit\+::\+\_\+\+Posting$<$ Doc, Score $>$}
+struct \mbox{\hyperlink{structirk_1_1__posting}{irk\+::\+\_\+posting$<$ Doc, Score $>$}}
 \end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespaceirkit}{irkit}
+ \mbox{\hyperlink{namespaceirk}{irk}}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a40deb8b0d47ecaada4b47270b97d5469}{irkit\+::element\+\_\+t} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
+using \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{irk\+::bitword}} = boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$
+\item 
+{\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a57b757ac14c20845b38f720c2ad8e822}{irk\+::enable\+\_\+if\+\_\+equal}} = typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
+\item 
+{\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a44ec708d671914dae1d40355ac05c280}{irk\+::element\+\_\+t}} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
 \begin{DoxyCompactList}\small\item\em The type of the element of Range. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_afcffab67300c5c703cb38a363c9a6f1d}{irkit\+::pure\+\_\+element\+\_\+t} = std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ decltype($\ast$std\+::declval$<$ Range $>$().begin())$>$ $>$
+{\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{irk\+::pure\+\_\+element\+\_\+t}} = std\+::remove\+\_\+const\+\_\+t$<$ std\+::remove\+\_\+reference\+\_\+t$<$ decltype($\ast$std\+::declval$<$ Range $>$().begin())$>$ $>$
 \begin{DoxyCompactList}\small\item\em The type of the element of Range stripped of {\ttfamily const} and {\ttfamily \&}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_af390a50be8f636e7239c650e5043c56f}{irkit\+::iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().begin())
+{\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a333e3104afd57c79fb0c18b90081520a}{irk\+::iterator\+\_\+t}} = decltype(std\+::declval$<$ Range $>$().begin())
 \item 
-{\footnotesize template$<$class Range $>$ }\\using \hyperlink{namespaceirkit_a4b1668583041117eb42c1b5a1091b804}{irkit\+::const\+\_\+iterator\+\_\+t} = decltype(std\+::declval$<$ Range $>$().cbegin())
+{\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a90f7893fdbf95c6dcc2302148eb0bddb}{irk\+::const\+\_\+iterator\+\_\+t}} = decltype(std\+::declval$<$ Range $>$().cbegin())
 \item 
-{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a595d83053e112c98ab2a1b65e5dd74be}{irkit\+::doc\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().doc)
+{\footnotesize template$<$class Posting $>$ }\\using \mbox{\hyperlink{namespaceirk_af5d95ec091f3bd711790e71ccb533903}{irk\+::doc\+\_\+t}} = decltype(std\+::declval$<$ Posting $>$().doc)
 \item 
-{\footnotesize template$<$class Posting $>$ }\\using \hyperlink{namespaceirkit_a754dabe3346f950c948e7596d9d46c71}{irkit\+::score\+\_\+t} = decltype(std\+::declval$<$ Posting $>$().score)
+{\footnotesize template$<$class Posting $>$ }\\using \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{irk\+::score\+\_\+t}} = decltype(std\+::declval$<$ Posting $>$().score)
 \end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Doc , class Score $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a94643c4295628e30b30002810c4a2327}{irk\+::operator$<$$<$}} (std\+::ostream \&o, \+\_\+posting$<$ Doc, Score $>$ posting)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

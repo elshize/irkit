@@ -1,0 +1,176 @@
+\hypertarget{structirk_1_1moving__range}{}\section{irk\+:\+:moving\+\_\+range$<$ Iter $>$ Struct Template Reference}
+\label{structirk_1_1moving__range}\index{irk\+::moving\+\_\+range$<$ Iter $>$@{irk\+::moving\+\_\+range$<$ Iter $>$}}
+
+
+A container for two ends of iterators.  
+
+
+
+
+{\ttfamily \#include $<$movingrange.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} = Iter
+\item 
+using \mbox{\hyperlink{structirk_1_1moving__range_a53b63b6f5e9e758aab935274c09355de}{element\+\_\+type}} = decltype($\ast$std\+::declval$<$ Iter $>$())
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structirk_1_1moving__range_a20e176576675bfd01b511fb250df1e5f}{moving\+\_\+range}} ()=default
+\item 
+\mbox{\hyperlink{structirk_1_1moving__range_a4db0c17a812a7562a87e749b7313a0c9}{moving\+\_\+range}} (\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} first, \mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} last)
+\item 
+bool \mbox{\hyperlink{structirk_1_1moving__range_ae3f8227591a53d22d087d8633ce3172f}{empty}} () const
+\item 
+void \mbox{\hyperlink{structirk_1_1moving__range_ae842c24ac2957ac1f68bd3d22e251e47}{advance}} ()
+\begin{DoxyCompactList}\small\item\em Advances the left end of the range by one. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structirk_1_1moving__range_ab184b9ac91013a6de5b31abef0498371}{advance}} (unsigned int n)
+\begin{DoxyCompactList}\small\item\em Advances the left end of the range by {\ttfamily n}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range_ac24e6010803fdad694992f2a677dfdbb}{begin}} () const
+\item 
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range_ad904d898c5132ebb7d6f479db591d093}{end}} () const
+\item 
+auto \mbox{\hyperlink{structirk_1_1moving__range_a10d1586db8a0f1cca48e27ca0cc4b2a9}{front}} () const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range_a320ea432eef08a78898777273010d605}{left}}
+\begin{DoxyCompactList}\small\item\em The left end of the range. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range_a60373930b24fd6f602d42cc06f129229}{right}}
+\begin{DoxyCompactList}\small\item\em The right end of the range (after the last element). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Iter$>$\newline
+struct irk\+::moving\+\_\+range$<$ Iter $>$}
+
+A container for two ends of iterators. 
+
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek \href{http://github.com/elshize}{\tt http\+://github.\+com/elshize}
+\end{DoxyAuthor}
+T\+O\+DO\+:
+\begin{DoxyItemize}
+\item Needs to be generalized, for containers as well?
+\item Implement iterator methods. 
+\end{DoxyItemize}
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1moving__range_a53b63b6f5e9e758aab935274c09355de}\label{structirk_1_1moving__range_a53b63b6f5e9e758aab935274c09355de}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!element\+\_\+type@{element\+\_\+type}}
+\index{element\+\_\+type@{element\+\_\+type}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{element\+\_\+type}{element\_type}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+using \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::\mbox{\hyperlink{structirk_1_1moving__range_a53b63b6f5e9e758aab935274c09355de}{element\+\_\+type}} =  decltype($\ast$std\+::declval$<$Iter$>$())}
+
+\mbox{\Hypertarget{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}\label{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!iterator\+\_\+type@{iterator\+\_\+type}}
+\index{iterator\+\_\+type@{iterator\+\_\+type}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{iterator\+\_\+type}{iterator\_type}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+using \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} =  Iter}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structirk_1_1moving__range_a20e176576675bfd01b511fb250df1e5f}\label{structirk_1_1moving__range_a20e176576675bfd01b511fb250df1e5f}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!moving\+\_\+range@{moving\+\_\+range}}
+\index{moving\+\_\+range@{moving\+\_\+range}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{moving\+\_\+range()}{moving\_range()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::\mbox{\hyperlink{structirk_1_1moving__range}{moving\+\_\+range}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{structirk_1_1moving__range_a4db0c17a812a7562a87e749b7313a0c9}\label{structirk_1_1moving__range_a4db0c17a812a7562a87e749b7313a0c9}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!moving\+\_\+range@{moving\+\_\+range}}
+\index{moving\+\_\+range@{moving\+\_\+range}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{moving\+\_\+range()}{moving\_range()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::\mbox{\hyperlink{structirk_1_1moving__range}{moving\+\_\+range}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}}}]{first,  }\item[{\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}}}]{last }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1moving__range_ae842c24ac2957ac1f68bd3d22e251e47}\label{structirk_1_1moving__range_ae842c24ac2957ac1f68bd3d22e251e47}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!advance@{advance}}
+\index{advance@{advance}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{advance()}{advance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+void \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::advance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Advances the left end of the range by one. 
+
+\mbox{\Hypertarget{structirk_1_1moving__range_ab184b9ac91013a6de5b31abef0498371}\label{structirk_1_1moving__range_ab184b9ac91013a6de5b31abef0498371}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!advance@{advance}}
+\index{advance@{advance}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{advance()}{advance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+void \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::advance (\begin{DoxyParamCaption}\item[{unsigned int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Advances the left end of the range by {\ttfamily n}. 
+
+\mbox{\Hypertarget{structirk_1_1moving__range_ac24e6010803fdad694992f2a677dfdbb}\label{structirk_1_1moving__range_ac24e6010803fdad694992f2a677dfdbb}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!begin@{begin}}
+\index{begin@{begin}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1moving__range_ae3f8227591a53d22d087d8633ce3172f}\label{structirk_1_1moving__range_ae3f8227591a53d22d087d8633ce3172f}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!empty@{empty}}
+\index{empty@{empty}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+bool \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1moving__range_ad904d898c5132ebb7d6f479db591d093}\label{structirk_1_1moving__range_ad904d898c5132ebb7d6f479db591d093}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!end@{end}}
+\index{end@{end}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1moving__range_a10d1586db8a0f1cca48e27ca0cc4b2a9}\label{structirk_1_1moving__range_a10d1586db8a0f1cca48e27ca0cc4b2a9}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!front@{front}}
+\index{front@{front}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{front()}{front()}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+auto \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structirk_1_1moving__range_a320ea432eef08a78898777273010d605}\label{structirk_1_1moving__range_a320ea432eef08a78898777273010d605}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!left@{left}}
+\index{left@{left}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{left}{left}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::left}
+
+
+
+The left end of the range. 
+
+\mbox{\Hypertarget{structirk_1_1moving__range_a60373930b24fd6f602d42cc06f129229}\label{structirk_1_1moving__range_a60373930b24fd6f602d42cc06f129229}} 
+\index{irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}!right@{right}}
+\index{right@{right}!irk\+::moving\+\_\+range@{irk\+::moving\+\_\+range}}
+\subsubsection{\texorpdfstring{right}{right}}
+{\footnotesize\ttfamily template$<$class Iter $>$ \\
+\mbox{\hyperlink{structirk_1_1moving__range_ad77e99c581516edfaae4cdb3cc6793ba}{iterator\+\_\+type}} \mbox{\hyperlink{structirk_1_1moving__range}{irk\+::moving\+\_\+range}}$<$ Iter $>$\+::right}
+
+
+
+The right end of the range (after the last element). 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{movingrange_8hpp}{movingrange.\+hpp}}\end{DoxyCompactItemize}

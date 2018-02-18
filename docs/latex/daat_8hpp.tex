@@ -1,27 +1,28 @@
 \hypertarget{daat_8hpp}{}\section{include/irkit/daat.hpp File Reference}
 \label{daat_8hpp}\index{include/irkit/daat.\+hpp@{include/irkit/daat.\+hpp}}
 {\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/movingrange.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/unionrange.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}query.\+hpp\char`\"{}}\newline
-\subsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \hyperlink{structirkit_1_1moving__range}{irkit\+::moving\+\_\+range$<$ Iter $>$}
-\item 
-class \hyperlink{classirkit_1_1UnionRange}{irkit\+::\+Union\+Range$<$ Range $>$}
-\item 
-struct \hyperlink{structirkit_1_1UnionRange_1_1docterm}{irkit\+::\+Union\+Range$<$ Range $>$\+::docterm}
-\begin{DoxyCompactList}\small\item\em Pair of document ID and term ID to use in D\+A\+AT term heap. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespaceirkit}{irkit}
+ \mbox{\hyperlink{namespaceirk}{irk}}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \hyperlink{namespaceirkit_ad6a1763616725ecb88e751ea7eb93453}{irkit\+::daat\+\_\+or} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
+{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_ab92f82aeeb765f3464ca61f190d8f919}{irk\+::daat\+\_\+or}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
 \begin{DoxyCompactList}\small\item\em Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \hyperlink{namespaceirkit_aea02f4f5f20e40308d5f07ce72d79d60}{irkit\+::wand} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
+{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_a8f6987f583ef7a5eff4291ccea6d7170}{irk\+::wand}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
 \begin{DoxyCompactList}\small\item\em Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

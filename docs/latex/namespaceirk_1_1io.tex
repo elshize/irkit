@@ -1,0 +1,63 @@
+\hypertarget{namespaceirk_1_1io}{}\section{irk\+:\+:io Namespace Reference}
+\label{namespaceirk_1_1io}\index{irk\+::io@{irk\+::io}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}{dump}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&\mbox{\hyperlink{classirk_1_1offset__table}{offset\+\_\+table}}, fs\+::path file)
+\begin{DoxyCompactList}\small\item\em Write a {\ttfamily \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}} to a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_aae2b76d3f044ad43f8b25e08a142285f}{enforce\+\_\+exist}} (fs\+::path file)
+\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_aa680509002f530048131492dea584724}{load\+\_\+data}} (fs\+::path data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}{append\+\_\+object}} (const T \&object, std\+::vector$<$ char $>$ \&buffer)
+\begin{DoxyCompactList}\small\item\em Appends the underlying bytes of an object to a byte buffer. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Collection $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_ae89e77960d5da14cd0068835eaa3a442}{append\+\_\+collection}} (const Collection \&collection, std\+::vector$<$ char $>$ \&buffer)
+\begin{DoxyCompactList}\small\item\em Appends the underlying bytes of a collection to a byte buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1io_ae89e77960d5da14cd0068835eaa3a442}\label{namespaceirk_1_1io_ae89e77960d5da14cd0068835eaa3a442}} 
+\index{irk\+::io@{irk\+::io}!append\+\_\+collection@{append\+\_\+collection}}
+\index{append\+\_\+collection@{append\+\_\+collection}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{append\+\_\+collection()}{append\_collection()}}
+{\footnotesize\ttfamily template$<$class Collection $>$ \\
+void irk\+::io\+::append\+\_\+collection (\begin{DoxyParamCaption}\item[{const Collection \&}]{collection,  }\item[{std\+::vector$<$ char $>$ \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Appends the underlying bytes of a collection to a byte buffer. 
+
+\mbox{\Hypertarget{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}\label{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}} 
+\index{irk\+::io@{irk\+::io}!append\+\_\+object@{append\+\_\+object}}
+\index{append\+\_\+object@{append\+\_\+object}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{append\+\_\+object()}{append\_object()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void irk\+::io\+::append\+\_\+object (\begin{DoxyParamCaption}\item[{const T \&}]{object,  }\item[{std\+::vector$<$ char $>$ \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Appends the underlying bytes of an object to a byte buffer. 
+
+\mbox{\Hypertarget{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}\label{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}} 
+\index{irk\+::io@{irk\+::io}!dump@{dump}}
+\index{dump@{dump}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily template$<$class T , class Codec $>$ \\
+void irk\+::io\+::dump (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{offset\+\_\+table,  }\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+
+
+
+Write a {\ttfamily \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}} to a file. 
+
+\mbox{\Hypertarget{namespaceirk_1_1io_aae2b76d3f044ad43f8b25e08a142285f}\label{namespaceirk_1_1io_aae2b76d3f044ad43f8b25e08a142285f}} 
+\index{irk\+::io@{irk\+::io}!enforce\+\_\+exist@{enforce\+\_\+exist}}
+\index{enforce\+\_\+exist@{enforce\+\_\+exist}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{enforce\+\_\+exist()}{enforce\_exist()}}
+{\footnotesize\ttfamily void irk\+::io\+::enforce\+\_\+exist (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1io_aa680509002f530048131492dea584724}\label{namespaceirk_1_1io_aa680509002f530048131492dea584724}} 
+\index{irk\+::io@{irk\+::io}!load\+\_\+data@{load\+\_\+data}}
+\index{load\+\_\+data@{load\+\_\+data}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{load\+\_\+data()}{load\_data()}}
+{\footnotesize\ttfamily void irk\+::io\+::load\+\_\+data (\begin{DoxyParamCaption}\item[{fs\+::path}]{data\+\_\+file,  }\item[{std\+::vector$<$ char $>$ \&}]{data\+\_\+container }\end{DoxyParamCaption})}
+

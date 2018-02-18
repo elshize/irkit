@@ -1,0 +1,60 @@
+\hypertarget{classirkit_1_1cmd_1_1ArgumentParser}{}\section{irkit\+:\+:cmd\+:\+:Argument\+Parser Class Reference}
+\label{classirkit_1_1cmd_1_1ArgumentParser}\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+
+
+{\ttfamily \#include $<$cmd.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentParser_ae861be98ca4511aeb8fcfcb41a53537f}{Argument\+Parser}} (std\+::string name, std\+::string description)
+\item 
+void \mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentParser_a0915e82ef67a76359aa175448e4991bb}{add\+\_\+flag}} (\mbox{\hyperlink{classirkit_1_1cmd_1_1Flag}{Flag}} \&\&flag)
+\item 
+void \mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentParser_a13322fbd3458490faf4537442b308605}{add\+\_\+option}} (\mbox{\hyperlink{classirkit_1_1cmd_1_1Option}{Option}} \&\&option)
+\item 
+void \mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentParser_aa3ba2497953018934b66b7fc2989bd66}{add\+\_\+argument}} (\mbox{\hyperlink{classirkit_1_1cmd_1_1Argument}{Argument}} \&\&argument)
+\item 
+\mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentMap}{Argument\+Map}} \mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentParser_a932ef050329d4f1f1da4812eb3a8b721}{parse}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1cmd_1_1ArgumentParser_ae861be98ca4511aeb8fcfcb41a53537f}\label{classirkit_1_1cmd_1_1ArgumentParser_ae861be98ca4511aeb8fcfcb41a53537f}} 
+\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}!Argument\+Parser@{Argument\+Parser}}
+\index{Argument\+Parser@{Argument\+Parser}!irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+\subsubsection{\texorpdfstring{Argument\+Parser()}{ArgumentParser()}}
+{\footnotesize\ttfamily irkit\+::cmd\+::\+Argument\+Parser\+::\+Argument\+Parser (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1cmd_1_1ArgumentParser_aa3ba2497953018934b66b7fc2989bd66}\label{classirkit_1_1cmd_1_1ArgumentParser_aa3ba2497953018934b66b7fc2989bd66}} 
+\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}!add\+\_\+argument@{add\+\_\+argument}}
+\index{add\+\_\+argument@{add\+\_\+argument}!irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+\subsubsection{\texorpdfstring{add\+\_\+argument()}{add\_argument()}}
+{\footnotesize\ttfamily void irkit\+::cmd\+::\+Argument\+Parser\+::add\+\_\+argument (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirkit_1_1cmd_1_1Argument}{Argument}} \&\&}]{argument }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1cmd_1_1ArgumentParser_a0915e82ef67a76359aa175448e4991bb}\label{classirkit_1_1cmd_1_1ArgumentParser_a0915e82ef67a76359aa175448e4991bb}} 
+\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}!add\+\_\+flag@{add\+\_\+flag}}
+\index{add\+\_\+flag@{add\+\_\+flag}!irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+\subsubsection{\texorpdfstring{add\+\_\+flag()}{add\_flag()}}
+{\footnotesize\ttfamily void irkit\+::cmd\+::\+Argument\+Parser\+::add\+\_\+flag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirkit_1_1cmd_1_1Flag}{Flag}} \&\&}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1cmd_1_1ArgumentParser_a13322fbd3458490faf4537442b308605}\label{classirkit_1_1cmd_1_1ArgumentParser_a13322fbd3458490faf4537442b308605}} 
+\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}!add\+\_\+option@{add\+\_\+option}}
+\index{add\+\_\+option@{add\+\_\+option}!irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+\subsubsection{\texorpdfstring{add\+\_\+option()}{add\_option()}}
+{\footnotesize\ttfamily void irkit\+::cmd\+::\+Argument\+Parser\+::add\+\_\+option (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirkit_1_1cmd_1_1Option}{Option}} \&\&}]{option }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1cmd_1_1ArgumentParser_a932ef050329d4f1f1da4812eb3a8b721}\label{classirkit_1_1cmd_1_1ArgumentParser_a932ef050329d4f1f1da4812eb3a8b721}} 
+\index{irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}!parse@{parse}}
+\index{parse@{parse}!irkit\+::cmd\+::\+Argument\+Parser@{irkit\+::cmd\+::\+Argument\+Parser}}
+\subsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirkit_1_1cmd_1_1ArgumentMap}{Argument\+Map}} irkit\+::cmd\+::\+Argument\+Parser\+::parse (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{cmd_8hpp}{cmd.\+hpp}}\end{DoxyCompactItemize}

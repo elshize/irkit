@@ -7,40 +7,42 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classirkit_1_1IndexBuilder_ab56476b7728ed2618b8de7511dfe2427}{Index\+Builder} ()
+\mbox{\hyperlink{classirkit_1_1IndexBuilder_ab56476b7728ed2618b8de7511dfe2427}{Index\+Builder}} ()
 \item 
-void \hyperlink{classirkit_1_1IndexBuilder_a8a18c112d48e21a89aefa9a931a536ab}{add\+\_\+document} ()
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a8a18c112d48e21a89aefa9a931a536ab}{add\+\_\+document}} ()
 \begin{DoxyCompactList}\small\item\em Initiates a new document with an incremented ID. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_a31b062283c9b7203ce4a65a5bd744fae}{add\+\_\+document} (Doc doc)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a31b062283c9b7203ce4a65a5bd744fae}{add\+\_\+document}} (Doc doc)
 \begin{DoxyCompactList}\small\item\em Initiates a new document with the given ID. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_a6005b21c9a24cb54fe54957e21c0487a}{add\+\_\+term} (const Term \&term)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a6005b21c9a24cb54fe54957e21c0487a}{add\+\_\+term}} (const Term \&term)
 \begin{DoxyCompactList}\small\item\em Adds a term to the current document. \end{DoxyCompactList}\item 
-Freq \hyperlink{classirkit_1_1IndexBuilder_ac4c8613d07637de4b67d61df2910bbd0}{document\+\_\+frequency} (Term\+Id term\+\_\+id)
+Freq \mbox{\hyperlink{classirkit_1_1IndexBuilder_ac4c8613d07637de4b67d61df2910bbd0}{document\+\_\+frequency}} (Term\+Id term\+\_\+id)
 \begin{DoxyCompactList}\small\item\em Returns the document frequency of the given term. \end{DoxyCompactList}\item 
-std\+::size\+\_\+t \hyperlink{classirkit_1_1IndexBuilder_a81221fd5879c7d68d4d6bff6005b8cd7}{collection\+\_\+size} ()
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}{term\+\_\+count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of distinct terms. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1IndexBuilder_a81221fd5879c7d68d4d6bff6005b8cd7}{collection\+\_\+size}} ()
 \begin{DoxyCompactList}\small\item\em Returns the number of the accumulated documents. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_a242138da460b9853fc6aebb5b8c59c86}{sort\+\_\+terms} ()
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a242138da460b9853fc6aebb5b8c59c86}{sort\+\_\+terms}} ()
 \begin{DoxyCompactList}\small\item\em Sorts the terms, and all related structures, lexicographically. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_a7c81e735e585ec41a7e5e334e4416874}{write\+\_\+terms} (std\+::ostream \&out)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a7c81e735e585ec41a7e5e334e4416874}{write\+\_\+terms}} (std\+::ostream \&out)
 \begin{DoxyCompactList}\small\item\em Writes new-\/line-\/delimited sorted list of terms. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_af8d8c6c446a064ec7c9b2a05b522555e}{write\+\_\+document\+\_\+ids} (std\+::ostream \&out, std\+::ostream \&off)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_af8d8c6c446a064ec7c9b2a05b522555e}{write\+\_\+document\+\_\+ids}} (std\+::ostream \&out, std\+::ostream \&off)
 \begin{DoxyCompactList}\small\item\em Writes document I\+Ds. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}{write\+\_\+document\+\_\+counts} (std\+::ostream \&out, std\+::ostream \&off)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}{write\+\_\+document\+\_\+counts}} (std\+::ostream \&out, std\+::ostream \&off)
 \begin{DoxyCompactList}\small\item\em Writes term-\/document frequencies (tf). \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1IndexBuilder_a57c15d23588f70b78b49a6392ef61be8}{write\+\_\+document\+\_\+frequencies} (std\+::ostream \&out)
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder_a57c15d23588f70b78b49a6392ef61be8}{write\+\_\+document\+\_\+frequencies}} (std\+::ostream \&out)
 \begin{DoxyCompactList}\small\item\em Writes document frequencies (df). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-Doc \hyperlink{classirkit_1_1IndexBuilder_a52d46fb2bd04b9e5ee0e9fdcf98e2f7b}{current\+\_\+doc\+\_\+}
+Doc \mbox{\hyperlink{classirkit_1_1IndexBuilder_a52d46fb2bd04b9e5ee0e9fdcf98e2f7b}{current\+\_\+doc\+\_\+}}
 \item 
-std\+::optional$<$ std\+::vector$<$ Term $>$ $>$ \hyperlink{classirkit_1_1IndexBuilder_a7a6b13e964f05c659fe17cf61a9738e9}{sorted\+\_\+terms\+\_\+}
+std\+::optional$<$ std\+::vector$<$ Term $>$ $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder_a7a6b13e964f05c659fe17cf61a9738e9}{sorted\+\_\+terms\+\_\+}}
 \item 
-std\+::vector$<$ std\+::vector$<$ Doc\+Freq $>$ $>$ \hyperlink{classirkit_1_1IndexBuilder_a4dcd133d2afe183e6f5bb379592391c4}{postings\+\_\+}
+std\+::vector$<$ std\+::vector$<$ Doc\+Freq $>$ $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder_a4dcd133d2afe183e6f5bb379592391c4}{postings\+\_\+}}
 \item 
-std\+::vector$<$ std\+::size\+\_\+t $>$ \hyperlink{classirkit_1_1IndexBuilder_aaa27520f3a0fb37dba049d2c26ad9484}{term\+\_\+occurrences\+\_\+}
+std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder_aaa27520f3a0fb37dba049d2c26ad9484}{term\+\_\+occurrences\+\_\+}}
 \item 
-std\+::unordered\+\_\+map$<$ Term, Term\+Id $>$ \hyperlink{classirkit_1_1IndexBuilder_aeebb03b89eeab532f62239e4ea4f0bee}{term\+\_\+map\+\_\+}
+std\+::unordered\+\_\+map$<$ Term, Term\+Id $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder_aeebb03b89eeab532f62239e4ea4f0bee}{term\+\_\+map\+\_\+}}
 \end{DoxyCompactItemize}
 
 
@@ -50,7 +52,7 @@ std\+::unordered\+\_\+map$<$ Term, Term\+Id $>$ \hyperlink{classirkit_1_1IndexBu
 \index{Index\+Builder@{Index\+Builder}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{Index\+Builder()}{IndexBuilder()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::\hyperlink{classirkit_1_1IndexBuilder}{Index\+Builder} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirkit_1_1IndexBuilder}{Index\+Builder}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -60,7 +62,7 @@ std\+::unordered\+\_\+map$<$ Term, Term\+Id $>$ \hyperlink{classirkit_1_1IndexBu
 \index{add\+\_\+document@{add\+\_\+document}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{add\+\_\+document()}{add\_document()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+document (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+document (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -71,7 +73,7 @@ Initiates a new document with an incremented ID.
 \index{add\+\_\+document@{add\+\_\+document}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{add\+\_\+document()}{add\_document()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+document (\begin{DoxyParamCaption}\item[{Doc}]{doc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+document (\begin{DoxyParamCaption}\item[{Doc}]{doc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -82,7 +84,7 @@ Initiates a new document with the given ID.
 \index{add\+\_\+term@{add\+\_\+term}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{add\+\_\+term()}{add\_term()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+term (\begin{DoxyParamCaption}\item[{const Term \&}]{term }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::add\+\_\+term (\begin{DoxyParamCaption}\item[{const Term \&}]{term }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -93,7 +95,7 @@ Adds a term to the current document.
 \index{collection\+\_\+size@{collection\+\_\+size}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::size\+\_\+t \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -104,7 +106,7 @@ Returns the number of the accumulated documents.
 \index{document\+\_\+frequency@{document\+\_\+frequency}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{document\+\_\+frequency()}{document\_frequency()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-Freq \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::document\+\_\+frequency (\begin{DoxyParamCaption}\item[{Term\+Id}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+Freq \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::document\+\_\+frequency (\begin{DoxyParamCaption}\item[{Term\+Id}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -115,18 +117,29 @@ Returns the document frequency of the given term.
 \index{sort\+\_\+terms@{sort\+\_\+terms}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{sort\+\_\+terms()}{sort\_terms()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::sort\+\_\+terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::sort\+\_\+terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Sorts the terms, and all related structures, lexicographically. 
+
+\mbox{\Hypertarget{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}\label{classirkit_1_1IndexBuilder_abfd5cee3ad708bd89a0a1572479ba573}} 
+\index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!term\+\_\+count@{term\+\_\+count}}
+\index{term\+\_\+count@{term\+\_\+count}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
+\subsubsection{\texorpdfstring{term\+\_\+count()}{term\_count()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of distinct terms. 
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}\label{classirkit_1_1IndexBuilder_aba0b947f29e491205adf3df3f862e58e}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!write\+\_\+document\+\_\+counts@{write\+\_\+document\+\_\+counts}}
 \index{write\+\_\+document\+\_\+counts@{write\+\_\+document\+\_\+counts}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{write\+\_\+document\+\_\+counts()}{write\_document\_counts()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+counts (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+counts (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -137,7 +150,7 @@ Writes term-\/document frequencies (tf).
 \index{write\+\_\+document\+\_\+frequencies@{write\+\_\+document\+\_\+frequencies}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{write\+\_\+document\+\_\+frequencies()}{write\_document\_frequencies()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+frequencies (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+frequencies (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -148,7 +161,7 @@ Writes document frequencies (df).
 \index{write\+\_\+document\+\_\+ids@{write\+\_\+document\+\_\+ids}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{write\+\_\+document\+\_\+ids()}{write\_document\_ids()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+ids (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+ids (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -159,7 +172,7 @@ Writes document I\+Ds.
 \index{write\+\_\+terms@{write\+\_\+terms}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{write\+\_\+terms()}{write\_terms()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+terms (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+terms (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -173,38 +186,38 @@ Writes new-\/line-\/delimited sorted list of terms.
 \index{current\+\_\+doc\+\_\+@{current\+\_\+doc\+\_\+}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{current\+\_\+doc\+\_\+}{current\_doc\_}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-Doc \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::current\+\_\+doc\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+Doc \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::current\+\_\+doc\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_a4dcd133d2afe183e6f5bb379592391c4}\label{classirkit_1_1IndexBuilder_a4dcd133d2afe183e6f5bb379592391c4}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!postings\+\_\+@{postings\+\_\+}}
 \index{postings\+\_\+@{postings\+\_\+}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{postings\+\_\+}{postings\_}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::vector$<$std\+::vector$<$Doc\+Freq$>$ $>$ \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::postings\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+std\+::vector$<$std\+::vector$<$Doc\+Freq$>$ $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::postings\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_a7a6b13e964f05c659fe17cf61a9738e9}\label{classirkit_1_1IndexBuilder_a7a6b13e964f05c659fe17cf61a9738e9}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!sorted\+\_\+terms\+\_\+@{sorted\+\_\+terms\+\_\+}}
 \index{sorted\+\_\+terms\+\_\+@{sorted\+\_\+terms\+\_\+}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{sorted\+\_\+terms\+\_\+}{sorted\_terms\_}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::optional$<$std\+::vector$<$Term$>$ $>$ \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::sorted\+\_\+terms\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+std\+::optional$<$std\+::vector$<$Term$>$ $>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::sorted\+\_\+terms\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_aeebb03b89eeab532f62239e4ea4f0bee}\label{classirkit_1_1IndexBuilder_aeebb03b89eeab532f62239e4ea4f0bee}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!term\+\_\+map\+\_\+@{term\+\_\+map\+\_\+}}
 \index{term\+\_\+map\+\_\+@{term\+\_\+map\+\_\+}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{term\+\_\+map\+\_\+}{term\_map\_}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::unordered\+\_\+map$<$Term, Term\+Id$>$ \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+std\+::unordered\+\_\+map$<$Term, Term\+Id$>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirkit_1_1IndexBuilder_aaa27520f3a0fb37dba049d2c26ad9484}\label{classirkit_1_1IndexBuilder_aaa27520f3a0fb37dba049d2c26ad9484}} 
 \index{irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}!term\+\_\+occurrences\+\_\+@{term\+\_\+occurrences\+\_\+}}
 \index{term\+\_\+occurrences\+\_\+@{term\+\_\+occurrences\+\_\+}!irkit\+::\+Index\+Builder@{irkit\+::\+Index\+Builder}}
 \subsubsection{\texorpdfstring{term\+\_\+occurrences\+\_\+}{term\_occurrences\_}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::vector$<$std\+::size\+\_\+t$>$ \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+occurrences\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+std\+::vector$<$std\+::size\+\_\+t$>$ \mbox{\hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+occurrences\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/irkit/\hyperlink{irkit_2index_8hpp}{index.\+hpp}\end{DoxyCompactItemize}
+include/irkit/\mbox{\hyperlink{irkit_2index_8hpp}{index.\+hpp}}\end{DoxyCompactItemize}

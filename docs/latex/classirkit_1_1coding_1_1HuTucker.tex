@@ -1,0 +1,95 @@
+\hypertarget{classirkit_1_1coding_1_1HuTucker}{}\section{irkit\+:\+:coding\+:\+:Hu\+Tucker$<$ Symbol, Memory\+Container $>$ Class Template Reference}
+\label{classirkit_1_1coding_1_1HuTucker}\index{irkit\+::coding\+::\+Hu\+Tucker$<$ Symbol, Memory\+Container $>$@{irkit\+::coding\+::\+Hu\+Tucker$<$ Symbol, Memory\+Container $>$}}
+
+
+{\ttfamily \#include $<$hutucker.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_aa491f386d09d0e9c56f3f3558f2774a3}{Hu\+Tucker}} (\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, uint16\+\_\+t, Memory\+Container $>$ abst)
+\item 
+\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_ab4c34694c7ffc702a59468d18d355fec}{Hu\+Tucker}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&\mbox{\hyperlink{irk-uncompress_8cpp_a2cd80733ced3d7eda8a6de0389cccc73}{frequencies}})
+\item 
+{\footnotesize template$<$class Symbol\+Iterator $>$ }\\boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_adde9798abd87416b4f2484126833dae5}{encode}} (Symbol\+Iterator first, Symbol\+Iterator last) const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+same$<$\+Symbol, char$>$\+::value$>$$>$ }\\boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_aebcf6aaac07270505616093d3a0d745c}{encode}} (const std\+::string \&word) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_a11a91f141460bec521b307b50ab89ebe}{encode}} (std\+::istream \&source, \mbox{\hyperlink{classirkit_1_1io_1_1OutputBitStream}{io\+::\+Output\+Bit\+Stream}} \&sink) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_a05dd8e7288464b8e5176d2d07e5a9430}{decode}} (const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&source, std\+::ostream \&sink, std\+::size\+\_\+t n) const
+\item 
+{\footnotesize template$<$class Bit\+Source $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_a2c4e9a57c3eec1627d95e776330f67f7}{decode}} (Bit\+Source \&source, std\+::ostream \&sink, std\+::size\+\_\+t n) const
+\item 
+const \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, uint16\+\_\+t, Memory\+Container $>$ \& \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker_a36caf73ad9a33cfe361ae8920c08a751}{tree}} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_aa491f386d09d0e9c56f3f3558f2774a3}\label{classirkit_1_1coding_1_1HuTucker_aa491f386d09d0e9c56f3f3558f2774a3}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!Hu\+Tucker@{Hu\+Tucker}}
+\index{Hu\+Tucker@{Hu\+Tucker}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{Hu\+Tucker()}{HuTucker()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{Hu\+Tucker}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, uint16\+\_\+t, Memory\+Container $>$}]{abst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_ab4c34694c7ffc702a59468d18d355fec}\label{classirkit_1_1coding_1_1HuTucker_ab4c34694c7ffc702a59468d18d355fec}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!Hu\+Tucker@{Hu\+Tucker}}
+\index{Hu\+Tucker@{Hu\+Tucker}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{Hu\+Tucker()}{HuTucker()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{Hu\+Tucker}} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{frequencies }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_a05dd8e7288464b8e5176d2d07e5a9430}\label{classirkit_1_1coding_1_1HuTucker_a05dd8e7288464b8e5176d2d07e5a9430}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!decode@{decode}}
+\index{decode@{decode}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{source,  }\item[{std\+::ostream \&}]{sink,  }\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_a2c4e9a57c3eec1627d95e776330f67f7}\label{classirkit_1_1coding_1_1HuTucker_a2c4e9a57c3eec1627d95e776330f67f7}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!decode@{decode}}
+\index{decode@{decode}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+template$<$class Bit\+Source $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{Bit\+Source \&}]{source,  }\item[{std\+::ostream \&}]{sink,  }\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_adde9798abd87416b4f2484126833dae5}\label{classirkit_1_1coding_1_1HuTucker_adde9798abd87416b4f2484126833dae5}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!encode@{encode}}
+\index{encode@{encode}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+template$<$class Symbol\+Iterator $>$ \\
+boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol\+Iterator}]{first,  }\item[{Symbol\+Iterator}]{last }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_aebcf6aaac07270505616093d3a0d745c}\label{classirkit_1_1coding_1_1HuTucker_aebcf6aaac07270505616093d3a0d745c}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!encode@{encode}}
+\index{encode@{encode}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+same$<$\+Symbol, char$>$\+::value$>$$>$ \\
+boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{word }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_a11a91f141460bec521b307b50ab89ebe}\label{classirkit_1_1coding_1_1HuTucker_a11a91f141460bec521b307b50ab89ebe}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!encode@{encode}}
+\index{encode@{encode}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{source,  }\item[{\mbox{\hyperlink{classirkit_1_1io_1_1OutputBitStream}{io\+::\+Output\+Bit\+Stream}} \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1coding_1_1HuTucker_a36caf73ad9a33cfe361ae8920c08a751}\label{classirkit_1_1coding_1_1HuTucker_a36caf73ad9a33cfe361ae8920c08a751}} 
+\index{irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}!tree@{tree}}
+\index{tree@{tree}!irkit\+::coding\+::\+Hu\+Tucker@{irkit\+::coding\+::\+Hu\+Tucker}}
+\subsubsection{\texorpdfstring{tree()}{tree()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+const \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{io\+::\+Compact\+A\+B\+ST}}$<$Symbol, uint16\+\_\+t, Memory\+Container$>$\& \mbox{\hyperlink{classirkit_1_1coding_1_1HuTucker}{irkit\+::coding\+::\+Hu\+Tucker}}$<$ Symbol, Memory\+Container $>$\+::tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/coding/\mbox{\hyperlink{hutucker_8hpp}{hutucker.\+hpp}}\end{DoxyCompactItemize}

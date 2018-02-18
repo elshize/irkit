@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['idx',['idx',['../classbloodhound_1_1PostingList.html#a9aa9a9d1db46c6858fa952a36e1bf8fa',1,'bloodhound::PostingList']]],
-  ['index_5fptr',['index_ptr',['../server_8cpp.html#ad81943c6f5b9391bd23b123e55445d48',1,'server.cpp']]],
-  ['index_5fref',['index_ref',['../server_8cpp.html#ae8cd2568135b6d62b19d7eedae9c3618',1,'server.cpp']]]
+  ['g_5fv',['g_v',['../porter2_8hpp.html#aec923b2b45d0f8f61ac4a6098d08ec92',1,'porter2.hpp']]],
+  ['g_5fv_5fwxy',['g_v_WXY',['../porter2_8hpp.html#a8ba4ef0bc196f06312762b2368b1a96c',1,'porter2.hpp']]],
+  ['g_5fvalid_5fli',['g_valid_LI',['../porter2_8hpp.html#a870a3525139e7c76422c43fc4fb9cf57',1,'porter2.hpp']]]
 ];

@@ -38,7 +38,7 @@ flags = [
     'c++',
     '-I/home/elshize/dev/irkit/include',
     '-I/home/elshize/dev/irkit/lib/include',
-    #'-I/usr/local/include',
+    '-I/usr/local/include',
     '-Wall',
     '-std=c++17',
 ]

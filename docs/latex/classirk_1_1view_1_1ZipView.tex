@@ -1,0 +1,105 @@
+\hypertarget{classirk_1_1view_1_1ZipView}{}\section{irk\+:\+:view\+:\+:Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$ Class Template Reference}
+\label{classirk_1_1view_1_1ZipView}\index{irk\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$@{irk\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}}
+
+
+A zip view of two ranges.  
+
+
+
+
+{\ttfamily \#include $<$utils.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_a538eabe5e10f14e89bbe394bf601af41}{Zip\+View}} (const Left\+Range \&left, const Right\+Range \&right, Zip\+Fn zip\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView_a96a6642c69e0c636bdbf744835dd4c32}{cbegin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView_a6fbf8792537a7ceddb15fa78e3c86221}{cend}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView_abd2ea0fef08e1af68575f10f23e0fbed}{begin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView_a4739d0dbb2dd5e6a5c31f456cd8e62fc}{end}} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Zip\+Fn, class Left\+Range, class Right\+Range$>$\newline
+class irk\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}
+
+A zip view of two ranges. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Zip\+Fn} & A function type for element generation. \\
+\hline
+{\em Left\+Range} & The type of the left range. \\
+\hline
+{\em Right\+Range} & The type of the right range. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1view_1_1ZipView_a538eabe5e10f14e89bbe394bf601af41}\label{classirk_1_1view_1_1ZipView_a538eabe5e10f14e89bbe394bf601af41}} 
+\index{irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}!Zip\+View@{Zip\+View}}
+\index{Zip\+View@{Zip\+View}!irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{Zip\+View()}{ZipView()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View}}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::\mbox{\hyperlink{classirk_1_1view_1_1ZipView}{Zip\+View}} (\begin{DoxyParamCaption}\item[{const Left\+Range \&}]{left,  }\item[{const Right\+Range \&}]{right,  }\item[{Zip\+Fn}]{zip\+\_\+fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a zip view. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left range. \\
+\hline
+{\em right} & The right range. \\
+\hline
+{\em zip\+\_\+fn} & A function which, given an element of {\ttfamily left} and an element of {\ttfamily right}, returns an element of the zipped view.\\
+\hline
+\end{DoxyParams}
+Instead of using the constructor directly, rather use \mbox{\hyperlink{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}{zip()}} function. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1view_1_1ZipView_abd2ea0fef08e1af68575f10f23e0fbed}\label{classirk_1_1view_1_1ZipView_abd2ea0fef08e1af68575f10f23e0fbed}} 
+\index{irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}!begin@{begin}}
+\index{begin@{begin}!irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View}}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1view_1_1ZipView_a96a6642c69e0c636bdbf744835dd4c32}\label{classirk_1_1view_1_1ZipView_a96a6642c69e0c636bdbf744835dd4c32}} 
+\index{irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View}}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1view_1_1ZipView_a6fbf8792537a7ceddb15fa78e3c86221}\label{classirk_1_1view_1_1ZipView_a6fbf8792537a7ceddb15fa78e3c86221}} 
+\index{irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}!cend@{cend}}
+\index{cend@{cend}!irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View}}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1view_1_1ZipView_a4739d0dbb2dd5e6a5c31f456cd8e62fc}\label{classirk_1_1view_1_1ZipView_a4739d0dbb2dd5e6a5c31f456cd8e62fc}} 
+\index{irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}!end@{end}}
+\index{end@{end}!irk\+::view\+::\+Zip\+View@{irk\+::view\+::\+Zip\+View}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View}}$<$ Zip\+Fn, Left\+Range, Right\+Range $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{utils_8hpp}{utils.\+hpp}}\end{DoxyCompactItemize}

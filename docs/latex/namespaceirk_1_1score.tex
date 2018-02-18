@@ -1,0 +1,34 @@
+\hypertarget{namespaceirk_1_1score}{}\section{irk\+:\+:score Namespace Reference}
+\label{namespaceirk_1_1score}\index{irk\+::score@{irk\+::score}}
+
+
+Scoring functions and utilities.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer}{bm25\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A B\+M25 scorer. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1count__scorer}{count\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer counting term frequencies within scored documents. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{tf\+\_\+idf\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer using a simple version of tf-\/idf function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Score\+Fn , class Doc , class Freq $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{score\+\_\+result\+\_\+t}} = decltype(std\+::declval$<$ Score\+Fn $>$()(std\+::declval$<$ Freq $>$(), std\+::declval$<$ Freq $>$(), std\+::declval$<$ std\+::size\+\_\+t $>$()))
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Scoring functions and utilities. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}\label{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}} 
+\index{irk\+::score@{irk\+::score}!score\+\_\+result\+\_\+t@{score\+\_\+result\+\_\+t}}
+\index{score\+\_\+result\+\_\+t@{score\+\_\+result\+\_\+t}!irk\+::score@{irk\+::score}}
+\subsubsection{\texorpdfstring{score\+\_\+result\+\_\+t}{score\_result\_t}}
+{\footnotesize\ttfamily template$<$class Score\+Fn , class Doc , class Freq $>$ \\
+using \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{irk\+::score\+::score\+\_\+result\+\_\+t}} = typedef decltype(std\+::declval$<$Score\+Fn$>$()( std\+::declval$<$Freq$>$(), std\+::declval$<$Freq$>$(), std\+::declval$<$std\+::size\+\_\+t$>$()))}
+

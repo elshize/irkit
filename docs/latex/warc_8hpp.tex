@@ -1,0 +1,43 @@
+\hypertarget{warc_8hpp}{}\section{include/irkit/io/warc.hpp File Reference}
+\label{warc_8hpp}\index{include/irkit/io/warc.\+hpp@{include/irkit/io/warc.\+hpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$regex$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirkit_1_1io_1_1warc__format__exception}{irkit\+::io\+::warc\+\_\+format\+\_\+exception}}
+\begin{DoxyCompactList}\small\item\em Represents an error during parsing W\+A\+RC format. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{irkit\+::io\+::warc\+\_\+record}}
+\begin{DoxyCompactList}\small\item\em A W\+A\+RC record. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirkit_1_1io}{irkit\+::io}}
+\item 
+ \mbox{\hyperlink{namespaceirkit_1_1io_1_1warc}{irkit\+::io\+::warc}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceirkit_1_1io_a3293145f3599deb5abb1ec2ed6d2c2ae}{irkit\+::io\+::field\+\_\+map\+\_\+type}} = std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::istream \& \mbox{\hyperlink{namespaceirkit_1_1io_a161dcbb8924839e4923f2df26ebe5ea9}{irkit\+::io\+::read\+\_\+warc\+\_\+record}} (std\+::istream \&in, warc\+\_\+record \&record)
+\begin{DoxyCompactList}\small\item\em Read a W\+A\+RC record from an input stream. \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{namespaceirkit_1_1io_1_1warc_a09893fe6fcb5dc9474474aa904c510d2}{irkit\+::io\+::warc\+::read\+\_\+version}} (std\+::istream \&in, std\+::string \&version)
+\begin{DoxyCompactList}\small\item\em Read W\+A\+RC record\textquotesingle{}s version. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespaceirkit_1_1io_1_1warc_aef4327721bee95960da11fd934327169}{irkit\+::io\+::warc\+::read\+\_\+fields}} (std\+::istream \&in, field\+\_\+map\+\_\+type \&fields)
+\begin{DoxyCompactList}\small\item\em Read W\+A\+RC record\textquotesingle{}s fields. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['counted_5fiterator',['counted_iterator',['../structranges_1_1v3_1_1__counted__iterator___1_1counted__iterator.html#aececc37ce38d34754afe0a9bd8926289',1,'ranges::v3::_counted_iterator_::counted_iterator']]]
+  ['read_5fwarc_5frecord',['read_warc_record',['../classirkit_1_1io_1_1warc__record.html#a3ffe8b4b7fc8c809d6ce483d2272f7a3',1,'irkit::io::warc_record']]]
 ];

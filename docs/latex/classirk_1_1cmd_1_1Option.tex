@@ -1,0 +1,128 @@
+\hypertarget{classirk_1_1cmd_1_1Option}{}\section{irk\+:\+:cmd\+:\+:Option Class Reference}
+\label{classirk_1_1cmd_1_1Option}\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+
+
+{\ttfamily \#include $<$cmd.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1cmd_1_1Option_ad958f3683346fd37a72ac83431943657}{Option}} (std\+::string name, std\+::string description)
+\item 
+\mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}} \&\& \mbox{\hyperlink{classirk_1_1cmd_1_1Option_aacea430a107430663a0aa6c51f8c986d}{add\+\_\+short}} (char short\+\_\+name)
+\item 
+\mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}} \&\& \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a8e77bc163d119d47ced234959e2d59db}{default\+\_\+value}} (std\+::string val)
+\item 
+\mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}} \&\& \mbox{\hyperlink{classirk_1_1cmd_1_1Option_ad88478718ae315efd0777c0ba10637c3}{make\+\_\+required}} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a2518068ce8131eee38eb89cc1b355bed}{name\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a6ce1b837b2e4152c1d82280d5396ebc2}{description\+\_\+}}
+\item 
+std\+::optional$<$ char $>$ \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a734f207dc2ed628ebf4a996c56b5d1c6}{short\+\_\+name\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a520123e8999e2e3ba33e3faf769d5617}{required\+\_\+}}
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a45ea47894fb36f2041b931bf01475961}{count\+\_\+}}
+\item 
+std\+::optional$<$ std\+::string $>$ \mbox{\hyperlink{classirk_1_1cmd_1_1Option_ace692166a9661b94a3cc422d576ba741}{default\+\_\+}}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a55c9e1ac006a645af402e3aee6b64e00}{Argument\+Parser}}
+\item 
+struct \mbox{\hyperlink{classirk_1_1cmd_1_1Option_a0066c7e9ad41107a46c66ace788ced49}{By\+Name\+Hash$<$ Option $>$}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_ad958f3683346fd37a72ac83431943657}\label{classirk_1_1cmd_1_1Option_ad958f3683346fd37a72ac83431943657}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!Option@{Option}}
+\index{Option@{Option}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{Option()}{Option()}}
+{\footnotesize\ttfamily irk\+::cmd\+::\+Option\+::\+Option (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_aacea430a107430663a0aa6c51f8c986d}\label{classirk_1_1cmd_1_1Option_aacea430a107430663a0aa6c51f8c986d}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!add\+\_\+short@{add\+\_\+short}}
+\index{add\+\_\+short@{add\+\_\+short}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{add\+\_\+short()}{add\_short()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}}\&\& irk\+::cmd\+::\+Option\+::add\+\_\+short (\begin{DoxyParamCaption}\item[{char}]{short\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a8e77bc163d119d47ced234959e2d59db}\label{classirk_1_1cmd_1_1Option_a8e77bc163d119d47ced234959e2d59db}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!default\+\_\+value@{default\+\_\+value}}
+\index{default\+\_\+value@{default\+\_\+value}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{default\+\_\+value()}{default\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}}\&\& irk\+::cmd\+::\+Option\+::default\+\_\+value (\begin{DoxyParamCaption}\item[{std\+::string}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_ad88478718ae315efd0777c0ba10637c3}\label{classirk_1_1cmd_1_1Option_ad88478718ae315efd0777c0ba10637c3}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!make\+\_\+required@{make\+\_\+required}}
+\index{make\+\_\+required@{make\+\_\+required}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{make\+\_\+required()}{make\_required()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}}\&\& irk\+::cmd\+::\+Option\+::make\+\_\+required (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a55c9e1ac006a645af402e3aee6b64e00}\label{classirk_1_1cmd_1_1Option_a55c9e1ac006a645af402e3aee6b64e00}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!Argument\+Parser@{Argument\+Parser}}
+\index{Argument\+Parser@{Argument\+Parser}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{Argument\+Parser}{ArgumentParser}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classirk_1_1cmd_1_1ArgumentParser}{Argument\+Parser}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a0066c7e9ad41107a46c66ace788ced49}\label{classirk_1_1cmd_1_1Option_a0066c7e9ad41107a46c66ace788ced49}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!By\+Name\+Hash$<$ Option $>$@{By\+Name\+Hash$<$ Option $>$}}
+\index{By\+Name\+Hash$<$ Option $>$@{By\+Name\+Hash$<$ Option $>$}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{By\+Name\+Hash$<$ Option $>$}{ByNameHash< Option >}}
+{\footnotesize\ttfamily friend struct \mbox{\hyperlink{structirk_1_1cmd_1_1ByNameHash}{By\+Name\+Hash}}$<$ \mbox{\hyperlink{classirk_1_1cmd_1_1Option}{Option}} $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a45ea47894fb36f2041b931bf01475961}\label{classirk_1_1cmd_1_1Option_a45ea47894fb36f2041b931bf01475961}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!count\+\_\+@{count\+\_\+}}
+\index{count\+\_\+@{count\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{count\+\_\+}{count\_}}
+{\footnotesize\ttfamily std\+::size\+\_\+t irk\+::cmd\+::\+Option\+::count\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_ace692166a9661b94a3cc422d576ba741}\label{classirk_1_1cmd_1_1Option_ace692166a9661b94a3cc422d576ba741}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!default\+\_\+@{default\+\_\+}}
+\index{default\+\_\+@{default\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{default\+\_\+}{default\_}}
+{\footnotesize\ttfamily std\+::optional$<$std\+::string$>$ irk\+::cmd\+::\+Option\+::default\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a6ce1b837b2e4152c1d82280d5396ebc2}\label{classirk_1_1cmd_1_1Option_a6ce1b837b2e4152c1d82280d5396ebc2}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!description\+\_\+@{description\+\_\+}}
+\index{description\+\_\+@{description\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{description\+\_\+}{description\_}}
+{\footnotesize\ttfamily std\+::string irk\+::cmd\+::\+Option\+::description\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a2518068ce8131eee38eb89cc1b355bed}\label{classirk_1_1cmd_1_1Option_a2518068ce8131eee38eb89cc1b355bed}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!name\+\_\+@{name\+\_\+}}
+\index{name\+\_\+@{name\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{name\+\_\+}{name\_}}
+{\footnotesize\ttfamily std\+::string irk\+::cmd\+::\+Option\+::name\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a520123e8999e2e3ba33e3faf769d5617}\label{classirk_1_1cmd_1_1Option_a520123e8999e2e3ba33e3faf769d5617}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!required\+\_\+@{required\+\_\+}}
+\index{required\+\_\+@{required\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{required\+\_\+}{required\_}}
+{\footnotesize\ttfamily bool irk\+::cmd\+::\+Option\+::required\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1cmd_1_1Option_a734f207dc2ed628ebf4a996c56b5d1c6}\label{classirk_1_1cmd_1_1Option_a734f207dc2ed628ebf4a996c56b5d1c6}} 
+\index{irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}!short\+\_\+name\+\_\+@{short\+\_\+name\+\_\+}}
+\index{short\+\_\+name\+\_\+@{short\+\_\+name\+\_\+}!irk\+::cmd\+::\+Option@{irk\+::cmd\+::\+Option}}
+\subsubsection{\texorpdfstring{short\+\_\+name\+\_\+}{short\_name\_}}
+{\footnotesize\ttfamily std\+::optional$<$char$>$ irk\+::cmd\+::\+Option\+::short\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{cmd_8hpp}{cmd.\+hpp}}\end{DoxyCompactItemize}

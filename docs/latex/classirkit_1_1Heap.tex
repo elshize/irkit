@@ -7,31 +7,31 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classirkit_1_1Heap_ac262b1efe6564321f3f8476dc8665eaf}{Heap} (std\+::size\+\_\+t capacity=0)
+\mbox{\hyperlink{classirkit_1_1Heap_ac262b1efe6564321f3f8476dc8665eaf}{Heap}} (std\+::size\+\_\+t capacity=0)
 \item 
-std\+::size\+\_\+t \hyperlink{classirkit_1_1Heap_acc53589d12325834624aa08573139227}{size} () const
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1Heap_acc53589d12325834624aa08573139227}{size}} () const
 \item 
-bool \hyperlink{classirkit_1_1Heap_abb96822afb46391c107efef35e79256b}{empty} () const
+bool \mbox{\hyperlink{classirkit_1_1Heap_abb96822afb46391c107efef35e79256b}{empty}} () const
 \item 
-\hyperlink{structirkit_1_1Entry}{Entry}$<$ Key, Value $>$ \hyperlink{classirkit_1_1Heap_aa14c398611006aa94e2fe24be3cf34ec}{top} () const
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$ Key, Value $>$ \mbox{\hyperlink{classirkit_1_1Heap_aa14c398611006aa94e2fe24be3cf34ec}{top}} () const
 \begin{DoxyCompactList}\small\item\em Returns a copy of the top element; does not modify the heap. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1Heap_a8e2dfbd02e7411fe97281b5e7d19f12c}{push} (Key key, Value value)
+void \mbox{\hyperlink{classirkit_1_1Heap_a8e2dfbd02e7411fe97281b5e7d19f12c}{push}} (Key key, Value value)
 \begin{DoxyCompactList}\small\item\em Adds a new element to the heap. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1Heap_ae4652d2601229e4de97f0321adf5f3c6}{push\+\_\+with\+\_\+limit} (Key key, Value value, std\+::size\+\_\+t limit)
+void \mbox{\hyperlink{classirkit_1_1Heap_ae4652d2601229e4de97f0321adf5f3c6}{push\+\_\+with\+\_\+limit}} (Key key, Value value, std\+::size\+\_\+t limit)
 \item 
-\hyperlink{structirkit_1_1Entry}{Entry}$<$ Key, Value $>$ \hyperlink{classirkit_1_1Heap_aa94f791b5b26659cc41a39fd58d138e4}{pop\+\_\+push} (Key key, Value value)
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$ Key, Value $>$ \mbox{\hyperlink{classirkit_1_1Heap_aa94f791b5b26659cc41a39fd58d138e4}{pop\+\_\+push}} (Key key, Value value)
 \begin{DoxyCompactList}\small\item\em Replaces the top element with a given value and returns the former. \end{DoxyCompactList}\item 
-\hyperlink{structirkit_1_1Entry}{Entry}$<$ Key, Value $>$ \hyperlink{classirkit_1_1Heap_afd4759dce1fe72d513e4b8e7766ec94e}{pop} ()
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$ Key, Value $>$ \mbox{\hyperlink{classirkit_1_1Heap_afd4759dce1fe72d513e4b8e7766ec94e}{pop}} ()
 \begin{DoxyCompactList}\small\item\em Returns the top element and removes it from the heap. \end{DoxyCompactList}\item 
-void \hyperlink{classirkit_1_1Heap_a0da9e0bc583dadad14b10d285e7a8925}{remove\+\_\+value} (Value value)
+void \mbox{\hyperlink{classirkit_1_1Heap_a0da9e0bc583dadad14b10d285e7a8925}{remove\+\_\+value}} (Value value)
 \item 
-std\+::vector$<$ \hyperlink{structirkit_1_1Entry}{Entry}$<$ Key, Value $>$ $>$\+::iterator \hyperlink{classirkit_1_1Heap_af996708917bb42b8cc660988c5c5ed62}{begin} ()
+std\+::vector$<$ \mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$ Key, Value $>$ $>$\+::iterator \mbox{\hyperlink{classirkit_1_1Heap_af996708917bb42b8cc660988c5c5ed62}{begin}} ()
 \item 
-std\+::vector$<$ \hyperlink{structirkit_1_1Entry}{Entry}$<$ Key, Value $>$ $>$\+::iterator \hyperlink{classirkit_1_1Heap_a8451f5ab1ccb727e7964ce94e5ae3b6c}{end} ()
+std\+::vector$<$ \mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$ Key, Value $>$ $>$\+::iterator \mbox{\hyperlink{classirkit_1_1Heap_a8451f5ab1ccb727e7964ce94e5ae3b6c}{end}} ()
 \item 
-void \hyperlink{classirkit_1_1Heap_a06373b7aa5262ffc4efe381042e8cb50}{clear} ()
+void \mbox{\hyperlink{classirkit_1_1Heap_a06373b7aa5262ffc4efe381042e8cb50}{clear}} ()
 \item 
-Key \hyperlink{classirkit_1_1Heap_a2fffaaf281662d57d13dcc1b0618dc0d}{key\+\_\+or} (Value value, Key def)
+Key \mbox{\hyperlink{classirkit_1_1Heap_a2fffaaf281662d57d13dcc1b0618dc0d}{key\+\_\+or}} (Value value, Key def)
 \end{DoxyCompactItemize}
 
 
@@ -41,7 +41,7 @@ class irkit\+::\+Heap$<$ Key, Value, Compare, Mapping $>$}
 
 A vector-\/based heap priority queue; a min-\/heap by default.
 
-This implementation provides an implementation of an atomic pull-\/push operation, which is faster than a pull followed by push. Additionally, it forces you to always indicate the key and the value; it makes it easier to declare heaps without a need to create separate structures sorted by the key alone\+: all the heavy lifting is implemented within the \hyperlink{structirkit_1_1Entry}{Entry} type.
+This implementation provides an implementation of an atomic pull-\/push operation, which is faster than a pull followed by push. Additionally, it forces you to always indicate the key and the value; it makes it easier to declare heaps without a need to create separate structures sorted by the key alone\+: all the heavy lifting is implemented within the \mbox{\hyperlink{structirkit_1_1Entry}{Entry}} type.
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -62,9 +62,9 @@ This implementation provides an implementation of an atomic pull-\/push operatio
 \index{Heap@{Heap}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{Heap()}{Heap()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::\hyperlink{classirkit_1_1Heap}{Heap} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{capacity = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::\mbox{\hyperlink{classirkit_1_1Heap}{Heap}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{capacity = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\hyperlink{classirkit_1_1Heap}{Heap} constructor.
+\mbox{\hyperlink{classirkit_1_1Heap}{Heap}} constructor.
 
 
 \begin{DoxyParams}{Parameters}
@@ -79,42 +79,42 @@ This implementation provides an implementation of an atomic pull-\/push operatio
 \index{begin@{begin}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{begin()}{begin()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-std\+::vector$<$\hyperlink{structirkit_1_1Entry}{Entry}$<$Key, Value$>$ $>$\+::iterator \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::vector$<$\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$Key, Value$>$ $>$\+::iterator \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_a06373b7aa5262ffc4efe381042e8cb50}\label{classirkit_1_1Heap_a06373b7aa5262ffc4efe381042e8cb50}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!clear@{clear}}
 \index{clear@{clear}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{clear()}{clear()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-void \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_abb96822afb46391c107efef35e79256b}\label{classirkit_1_1Heap_abb96822afb46391c107efef35e79256b}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!empty@{empty}}
 \index{empty@{empty}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-bool \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+bool \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_a8451f5ab1ccb727e7964ce94e5ae3b6c}\label{classirkit_1_1Heap_a8451f5ab1ccb727e7964ce94e5ae3b6c}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!end@{end}}
 \index{end@{end}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{end()}{end()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-std\+::vector$<$\hyperlink{structirkit_1_1Entry}{Entry}$<$Key, Value$>$ $>$\+::iterator \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::vector$<$\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$Key, Value$>$ $>$\+::iterator \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_a2fffaaf281662d57d13dcc1b0618dc0d}\label{classirkit_1_1Heap_a2fffaaf281662d57d13dcc1b0618dc0d}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!key\+\_\+or@{key\+\_\+or}}
 \index{key\+\_\+or@{key\+\_\+or}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{key\+\_\+or()}{key\_or()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-Key \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::key\+\_\+or (\begin{DoxyParamCaption}\item[{Value}]{value,  }\item[{Key}]{def }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+Key \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::key\+\_\+or (\begin{DoxyParamCaption}\item[{Value}]{value,  }\item[{Key}]{def }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_afd4759dce1fe72d513e4b8e7766ec94e}\label{classirkit_1_1Heap_afd4759dce1fe72d513e4b8e7766ec94e}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!pop@{pop}}
 \index{pop@{pop}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{pop()}{pop()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-\hyperlink{structirkit_1_1Entry}{Entry}$<$Key, Value$>$ \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$Key, Value$>$ \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -125,7 +125,7 @@ Returns the top element and removes it from the heap.
 \index{pop\+\_\+push@{pop\+\_\+push}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{pop\+\_\+push()}{pop\_push()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-\hyperlink{structirkit_1_1Entry}{Entry}$<$Key, Value$>$ \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::pop\+\_\+push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$Key, Value$>$ \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::pop\+\_\+push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -136,7 +136,7 @@ Replaces the top element with a given value and returns the former.
 \index{push@{push}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{push()}{push()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-void \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::push (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -147,28 +147,28 @@ Adds a new element to the heap.
 \index{push\+\_\+with\+\_\+limit@{push\+\_\+with\+\_\+limit}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{push\+\_\+with\+\_\+limit()}{push\_with\_limit()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-void \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::push\+\_\+with\+\_\+limit (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value,  }\item[{std\+::size\+\_\+t}]{limit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::push\+\_\+with\+\_\+limit (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{Value}]{value,  }\item[{std\+::size\+\_\+t}]{limit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 Adds a new element to the heap unless the capacity limit is reached; in case of an overflow, the new element replaces the top element only if it is not smaller (for min-\/heap) than the current top key. \mbox{\Hypertarget{classirkit_1_1Heap_a0da9e0bc583dadad14b10d285e7a8925}\label{classirkit_1_1Heap_a0da9e0bc583dadad14b10d285e7a8925}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!remove\+\_\+value@{remove\+\_\+value}}
 \index{remove\+\_\+value@{remove\+\_\+value}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{remove\+\_\+value()}{remove\_value()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-void \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::remove\+\_\+value (\begin{DoxyParamCaption}\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+void \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::remove\+\_\+value (\begin{DoxyParamCaption}\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_acc53589d12325834624aa08573139227}\label{classirkit_1_1Heap_acc53589d12325834624aa08573139227}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!size@{size}}
 \index{size@{size}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{size()}{size()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-std\+::size\+\_\+t \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirkit_1_1Heap_aa14c398611006aa94e2fe24be3cf34ec}\label{classirkit_1_1Heap_aa14c398611006aa94e2fe24be3cf34ec}} 
 \index{irkit\+::\+Heap@{irkit\+::\+Heap}!top@{top}}
 \index{top@{top}!irkit\+::\+Heap@{irkit\+::\+Heap}}
 \subsubsection{\texorpdfstring{top()}{top()}}
 {\footnotesize\ttfamily template$<$class Key, class Value, class Compare = std\+::less$<$\+Key$>$, class Mapping = Empty\+Mapping$>$ \\
-\hyperlink{structirkit_1_1Entry}{Entry}$<$Key, Value$>$ \hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}$<$ Key, Value, Compare, Mapping $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{structirkit_1_1Entry}{Entry}}$<$Key, Value$>$ \mbox{\hyperlink{classirkit_1_1Heap}{irkit\+::\+Heap}}$<$ Key, Value, Compare, Mapping $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -178,4 +178,4 @@ Returns a copy of the top element; does not modify the heap.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/irkit/\hyperlink{heap_8hpp}{heap.\+hpp}\end{DoxyCompactItemize}
+include/irkit/\mbox{\hyperlink{heap_8hpp}{heap.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,33 @@
+\hypertarget{score_8hpp}{}\section{include/irkit/score.hpp File Reference}
+\label{score_8hpp}\index{include/irkit/score.\+hpp@{include/irkit/score.\+hpp}}
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{irk\+::score\+::tf\+\_\+idf\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer using a simple version of tf-\/idf function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1count__scorer}{irk\+::score\+::count\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer counting term frequencies within scored documents. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer}{irk\+::score\+::bm25\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A B\+M25 scorer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1score}{irk\+::score}}
+\begin{DoxyCompactList}\small\item\em Scoring functions and utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Score\+Fn , class Doc , class Freq $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{irk\+::score\+::score\+\_\+result\+\_\+t}} = decltype(std\+::declval$<$ Score\+Fn $>$()(std\+::declval$<$ Freq $>$(), std\+::declval$<$ Freq $>$(), std\+::declval$<$ std\+::size\+\_\+t $>$()))
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

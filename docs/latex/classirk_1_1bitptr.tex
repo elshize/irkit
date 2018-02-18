@@ -1,0 +1,245 @@
+\hypertarget{classirk_1_1bitptr}{}\section{irk\+:\+:bitptr$<$ Block $>$ Class Template Reference}
+\label{classirk_1_1bitptr}\index{irk\+::bitptr$<$ Block $>$@{irk\+::bitptr$<$ Block $>$}}
+
+
+A bit pointer class.  
+
+
+
+
+{\ttfamily \#include $<$bitptr.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1bitptr_1_1reader}{reader}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1bitptr_acd28cbb88a0840befdd9bc7a7260f036}{bitptr}} (Block $\ast$block\+\_\+ptr, std\+::uint8\+\_\+t shift=0)
+\begin{DoxyCompactList}\small\item\em Creates a pointer to the bit in position {\ttfamily shift} in {\ttfamily block\+\_\+ptr}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}{bitptr}} (const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}{operator=}} (const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1bitptr_ab690150f670134eb879fceb83d892073}{set}} (bool bit)
+\begin{DoxyCompactList}\small\item\em Sets the bit to the chosen value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}{set}} ()
+\begin{DoxyCompactList}\small\item\em Sets the bit to 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1bitptr_acb0f89f9751fc114558234b79d49aac6}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Sets the bit to 0. \end{DoxyCompactList}\item 
+bit\+\_\+reference \mbox{\hyperlink{classirk_1_1bitptr_a6676fe4fc076f0cb53587ea48d8634c3}{operator$\ast$}} ()
+\begin{DoxyCompactList}\small\item\em Returns a non-\/const reference to the bit. \end{DoxyCompactList}\item 
+bit\+\_\+reference \mbox{\hyperlink{classirk_1_1bitptr_a1df6b87e20b41de54fd6d582263a905d}{operator\mbox{[}$\,$\mbox{]}}} (int n)
+\begin{DoxyCompactList}\small\item\em Returns a non-\/const reference to the {\ttfamily n}-\/th bit. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classirk_1_1bitptr_a4cb8f7ff26e561a9348f79082ad6af35}{operator$\ast$}} () const
+\begin{DoxyCompactList}\small\item\em Returns the bit value. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classirk_1_1bitptr_ae7ed619d650d1982a2510ca8cdd997c1}{operator\mbox{[}$\,$\mbox{]}}} (int n) const
+\begin{DoxyCompactList}\small\item\em Returns the value of the {\ttfamily n}-\/th bit. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \& \mbox{\hyperlink{classirk_1_1bitptr_abb1d7cadd88cb17c9d672a9653d6cbf8}{operator++}} ()
+\begin{DoxyCompactList}\small\item\em Increments the pointer to the next bit. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \mbox{\hyperlink{classirk_1_1bitptr_ad382cd01b956b2b37d62990ca57de170}{operator+}} (int n) const
+\begin{DoxyCompactList}\small\item\em Returns a new pointer to the {\ttfamily n}-\/th bit. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \& \mbox{\hyperlink{classirk_1_1bitptr_a9fcc393a8789c4500391ff3ff2a9fff7}{operator+=}} (int n)
+\begin{DoxyCompactList}\small\item\em Increments the pointer by {\ttfamily n} bits. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structirk_1_1bitptr_1_1reader}{reader}} \mbox{\hyperlink{classirk_1_1bitptr_a4505dc024807e2b041ffdc910fae1189}{reader}} ()
+\begin{DoxyCompactList}\small\item\em Returns a bit reader starting from the pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Block$>$\newline
+class irk\+::bitptr$<$ Block $>$}
+
+A bit pointer class. 
+
+This class represents a pointer to a particular bit in the underlying data of type {\ttfamily Block}.
+
+Although the behavior is quite similar to regular pointers, there are some fundamental differences.
+
+Note$\ast$$\ast$\+: no decrement or minus operator are defined as of now; therefore, we can only move forward. This will be implemented in the future.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Block} & The underlying type. Any bit operations will be performed on a variable of this type. If {\ttfamily sizeof(\+Block) $>$ 1}, then it is on the user to make sure that it does not exceed the bounds. E.\+g., if we create a {\ttfamily bitptr$<$std\+::uint16\+\_\+t$>$(arr)} where {\ttfamily char$\ast$ arr = new char\mbox{[}3\mbox{]}}, there is no way to read bits of the last byte of that array without going out of bounds, because the underlying pointer would be to long. On the other hand, it can be more efficient to use longer types than {\ttfamily char}. Therefore, it is recommended to use whatever type the underlying structure is defined with\+: {\ttfamily char} for {\ttfamily char\mbox{[}\mbox{]}}, {\ttfamily int} for {\ttfamily int\mbox{[}\mbox{]}} and so on. Otherwise, more careful bound checks are required. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1bitptr_acd28cbb88a0840befdd9bc7a7260f036}\label{classirk_1_1bitptr_acd28cbb88a0840befdd9bc7a7260f036}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!bitptr@{bitptr}}
+\index{bitptr@{bitptr}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{Block $\ast$}]{block\+\_\+ptr,  }\item[{std\+::uint8\+\_\+t}]{shift = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates a pointer to the bit in position {\ttfamily shift} in {\ttfamily block\+\_\+ptr}. 
+
+It is prefectly legal to set {\ttfamily shift $>$ sizeof(\+Block)}; then, it will point to the bit in position {\ttfamily shift \% block\+\_\+bit\+\_\+size} in {\ttfamily block\+\_\+ptr + (shift / block\+\_\+bit\+\_\+size)}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em block\+\_\+ptr} & the created object will point to the least significant bit of this block if {\ttfamily shift = 0} (default) \\
+\hline
+{\em shift} & the bit offset from the least significant bit of {\ttfamily block\+\_\+ptr}. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}\label{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!bitptr@{bitptr}}
+\index{bitptr@{bitptr}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy constructor. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1bitptr_acb0f89f9751fc114558234b79d49aac6}\label{classirk_1_1bitptr_acb0f89f9751fc114558234b79d49aac6}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!clear@{clear}}
+\index{clear@{clear}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+void \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the bit to 0. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_a6676fe4fc076f0cb53587ea48d8634c3}\label{classirk_1_1bitptr_a6676fe4fc076f0cb53587ea48d8634c3}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+bit\+\_\+reference \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a non-\/const reference to the bit. 
+
+It can be later used to assign a value\+: {\ttfamily $\ast$ptr = true}. There is an overhead of creating a proxy reference; therefore, using {\ttfamily \mbox{\hyperlink{classirk_1_1bitptr_ab690150f670134eb879fceb83d892073}{set(bool)}}}, {\ttfamily \mbox{\hyperlink{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}{set()}}} and {\ttfamily \mbox{\hyperlink{classirk_1_1bitptr_acb0f89f9751fc114558234b79d49aac6}{clear()}}} may be more efficient. This operator have been implemented in order to conform to a conventional pointer interface, which might be more generic and interchangable with other interfaces, such as {\ttfamily std\+::vector$<$bool$>$}. \mbox{\Hypertarget{classirk_1_1bitptr_a4cb8f7ff26e561a9348f79082ad6af35}\label{classirk_1_1bitptr_a4cb8f7ff26e561a9348f79082ad6af35}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+bool \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the bit value. 
+
+As opposed to the non-\/const version of this operator, this one does not create a proxy reference. \mbox{\Hypertarget{classirk_1_1bitptr_ad382cd01b956b2b37d62990ca57de170}\label{classirk_1_1bitptr_ad382cd01b956b2b37d62990ca57de170}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator+@{operator+}}
+\index{operator+@{operator+}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator+ (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a new pointer to the {\ttfamily n}-\/th bit. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_abb1d7cadd88cb17c9d672a9653d6cbf8}\label{classirk_1_1bitptr_abb1d7cadd88cb17c9d672a9653d6cbf8}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator++@{operator++}}
+\index{operator++@{operator++}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator++()}{operator++()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}\& \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Increments the pointer to the next bit. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_a9fcc393a8789c4500391ff3ff2a9fff7}\label{classirk_1_1bitptr_a9fcc393a8789c4500391ff3ff2a9fff7}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}\& \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator+= (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Increments the pointer by {\ttfamily n} bits. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}\label{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+void \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assignment operator. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_a1df6b87e20b41de54fd6d582263a905d}\label{classirk_1_1bitptr_a1df6b87e20b41de54fd6d582263a905d}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+bit\+\_\+reference \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a non-\/const reference to the {\ttfamily n}-\/th bit. 
+
+Calling p\mbox{[}n\mbox{]} is equivalent to calling $\ast$(p + n) (see {\ttfamily bit\+\_\+reference \mbox{\hyperlink{classirk_1_1bitptr_a6676fe4fc076f0cb53587ea48d8634c3}{operator$\ast$()}}} documentation). \mbox{\Hypertarget{classirk_1_1bitptr_ae7ed619d650d1982a2510ca8cdd997c1}\label{classirk_1_1bitptr_ae7ed619d650d1982a2510ca8cdd997c1}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+bool \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the value of the {\ttfamily n}-\/th bit. 
+
+Calling p\mbox{[}n\mbox{]} is equivalent to calling $\ast$(p + n) (see {\ttfamily bool \mbox{\hyperlink{classirk_1_1bitptr_a6676fe4fc076f0cb53587ea48d8634c3}{operator$\ast$()}}} documentation). \mbox{\Hypertarget{classirk_1_1bitptr_a4505dc024807e2b041ffdc910fae1189}\label{classirk_1_1bitptr_a4505dc024807e2b041ffdc910fae1189}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!reader@{reader}}
+\index{reader@{reader}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{reader()}{reader()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{structirk_1_1bitptr_1_1reader}{reader}} \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{structirk_1_1bitptr_1_1reader}{reader}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a bit reader starting from the pointer. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_ab690150f670134eb879fceb83d892073}\label{classirk_1_1bitptr_ab690150f670134eb879fceb83d892073}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!set@{set}}
+\index{set@{set}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{set()}{set()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+void \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::set (\begin{DoxyParamCaption}\item[{bool}]{bit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the bit to the chosen value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bit} & the value to set the bit to\\
+\hline
+\end{DoxyParams}
+If you can determine {\ttfamily bit} at compile time, you might consider using {\ttfamily \mbox{\hyperlink{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}{set()}}} or {\ttfamily \mbox{\hyperlink{classirk_1_1bitptr_acb0f89f9751fc114558234b79d49aac6}{clear()}}} functions, as they can be slightly more efficient. \mbox{\Hypertarget{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}\label{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!set@{set}}
+\index{set@{set}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{set()}{set()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+void \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the bit to 1. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{bitptr_8hpp}{bitptr.\+hpp}}\end{DoxyCompactItemize}

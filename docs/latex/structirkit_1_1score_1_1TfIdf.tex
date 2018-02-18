@@ -1,0 +1,42 @@
+\hypertarget{structirkit_1_1score_1_1TfIdf}{}\section{irkit\+:\+:score\+:\+:Tf\+Idf Struct Reference}
+\label{structirkit_1_1score_1_1TfIdf}\index{irkit\+::score\+::\+Tf\+Idf@{irkit\+::score\+::\+Tf\+Idf}}
+
+
+{\ttfamily \#include $<$score.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\double \mbox{\hyperlink{structirkit_1_1score_1_1TfIdf_aec3bfcf0c8c5d174cd8a0af50429f47a}{operator()}} (Freq tf, Freq df, std\+::size\+\_\+t N) const
+\begin{DoxyCompactList}\small\item\em Calculates a simple tf-\/idf score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirkit_1_1score_1_1TfIdf_aec3bfcf0c8c5d174cd8a0af50429f47a}\label{structirkit_1_1score_1_1TfIdf_aec3bfcf0c8c5d174cd8a0af50429f47a}} 
+\index{irkit\+::score\+::\+Tf\+Idf@{irkit\+::score\+::\+Tf\+Idf}!operator()@{operator()}}
+\index{operator()@{operator()}!irkit\+::score\+::\+Tf\+Idf@{irkit\+::score\+::\+Tf\+Idf}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+double irkit\+::score\+::\+Tf\+Idf\+::operator() (\begin{DoxyParamCaption}\item[{Freq}]{tf,  }\item[{Freq}]{df,  }\item[{std\+::size\+\_\+t}]{N }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates a simple tf-\/idf score. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Freq} & An integral type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em tf} & Term frequency in the document being scored. \\
+\hline
+{\em df} & The term\textquotesingle{}s document frequency in the collection, i.\+e., how many documents include the term. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{score_8hpp}{score.\+hpp}}\end{DoxyCompactItemize}

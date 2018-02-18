@@ -1,0 +1,112 @@
+\hypertarget{namespaceirk_1_1coding_1_1huffman}{}\section{irk\+:\+:coding\+:\+:huffman Namespace Reference}
+\label{namespaceirk_1_1coding_1_1huffman}\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}
+\begin{DoxyCompactList}\small\item\em A structure representing a node in a Huffman coding tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\bool \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a63e61bc94c39b2400e4cf422db2ececf}{operator==}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&lhs, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&rhs)
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a84ac96d5053bc449a2a6b1b8a66aa9da}{operator$<$$<$}} (std\+::ostream \&out, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&n)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a02736685ec8f32576af06336b2ec9ed8}{make\+\_\+terminal}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, std\+::size\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Creates a terminal node. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_ac5ed25bf8ec1c076d2905f59e3930502}{join\+\_\+nodes}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ right)
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees). \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a504575bbf01c932df8cf77ef6f5e9330}{join\+\_\+nodes\+\_\+with\+\_\+symbol}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ right, Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}})
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees), preserving the given symbol. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a0047a6b58624bf6178ebbf15bc71f9d6}{join\+\_\+nodes\+\_\+bst}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ right)
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees), preserving the symbol according to B\+ST. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a12058e132e33e4021454d6a29ef17ef4}{symbol\+\_\+frequencies}} (std\+::istream \&stream)
+\begin{DoxyCompactList}\small\item\em Returns a vector of frequencies of all symbols. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::list$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$ $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_abbb62b84b6667cc6ed6000f36a52414c}{init\+\_\+nodes}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&\mbox{\hyperlink{irk-uncompress_8cpp_a2cd80733ced3d7eda8a6de0389cccc73}{frequencies}})
+\begin{DoxyCompactList}\small\item\em Initialize all external nodes according to the given frequencies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This namespace contains the internal implementation of structures and algorithms related to Huffman coding and trees. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_abbb62b84b6667cc6ed6000f36a52414c}\label{namespaceirk_1_1coding_1_1huffman_abbb62b84b6667cc6ed6000f36a52414c}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!init\+\_\+nodes@{init\+\_\+nodes}}
+\index{init\+\_\+nodes@{init\+\_\+nodes}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{init\+\_\+nodes()}{init\_nodes()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::list$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$Symbol$>$ $>$ $>$ irk\+::coding\+::huffman\+::init\+\_\+nodes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{frequencies }\end{DoxyParamCaption})}
+
+
+
+Initialize all external nodes according to the given frequencies. 
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_ac5ed25bf8ec1c076d2905f59e3930502}\label{namespaceirk_1_1coding_1_1huffman_ac5ed25bf8ec1c076d2905f59e3930502}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!join\+\_\+nodes@{join\+\_\+nodes}}
+\index{join\+\_\+nodes@{join\+\_\+nodes}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes()}{join\_nodes()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$Symbol$>$ $>$ irk\+::coding\+::huffman\+::join\+\_\+nodes (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{right }\end{DoxyParamCaption})}
+
+
+
+Joins two nodes (or subtrees). 
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a0047a6b58624bf6178ebbf15bc71f9d6}\label{namespaceirk_1_1coding_1_1huffman_a0047a6b58624bf6178ebbf15bc71f9d6}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!join\+\_\+nodes\+\_\+bst@{join\+\_\+nodes\+\_\+bst}}
+\index{join\+\_\+nodes\+\_\+bst@{join\+\_\+nodes\+\_\+bst}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes\+\_\+bst()}{join\_nodes\_bst()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$Symbol$>$ $>$ irk\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+bst (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{right }\end{DoxyParamCaption})}
+
+
+
+Joins two nodes (or subtrees), preserving the symbol according to B\+ST. 
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a504575bbf01c932df8cf77ef6f5e9330}\label{namespaceirk_1_1coding_1_1huffman_a504575bbf01c932df8cf77ef6f5e9330}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!join\+\_\+nodes\+\_\+with\+\_\+symbol@{join\+\_\+nodes\+\_\+with\+\_\+symbol}}
+\index{join\+\_\+nodes\+\_\+with\+\_\+symbol@{join\+\_\+nodes\+\_\+with\+\_\+symbol}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes\+\_\+with\+\_\+symbol()}{join\_nodes\_with\_symbol()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$Symbol$>$ $>$ irk\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+with\+\_\+symbol (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$}]{right,  }\item[{Symbol}]{symbol }\end{DoxyParamCaption})}
+
+
+
+Joins two nodes (or subtrees), preserving the given symbol. 
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a02736685ec8f32576af06336b2ec9ed8}\label{namespaceirk_1_1coding_1_1huffman_a02736685ec8f32576af06336b2ec9ed8}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!make\+\_\+terminal@{make\+\_\+terminal}}
+\index{make\+\_\+terminal@{make\+\_\+terminal}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{make\+\_\+terminal()}{make\_terminal()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$Symbol$>$ $>$ irk\+::coding\+::huffman\+::make\+\_\+terminal (\begin{DoxyParamCaption}\item[{Symbol}]{symbol,  }\item[{std\+::size\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Creates a terminal node. 
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a84ac96d5053bc449a2a6b1b8a66aa9da}\label{namespaceirk_1_1coding_1_1huffman_a84ac96d5053bc449a2a6b1b8a66aa9da}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class Symbol $>$ \\
+std\+::ostream\& irk\+::coding\+::huffman\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&}]{n }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a63e61bc94c39b2400e4cf422db2ececf}\label{namespaceirk_1_1coding_1_1huffman_a63e61bc94c39b2400e4cf422db2ececf}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!operator==@{operator==}}
+\index{operator==@{operator==}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class Symbol $>$ \\
+bool irk\+::coding\+::huffman\+::operator== (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&}]{lhs,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{node}}$<$ Symbol $>$$>$ \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1huffman_a12058e132e33e4021454d6a29ef17ef4}\label{namespaceirk_1_1coding_1_1huffman_a12058e132e33e4021454d6a29ef17ef4}} 
+\index{irk\+::coding\+::huffman@{irk\+::coding\+::huffman}!symbol\+\_\+frequencies@{symbol\+\_\+frequencies}}
+\index{symbol\+\_\+frequencies@{symbol\+\_\+frequencies}!irk\+::coding\+::huffman@{irk\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{symbol\+\_\+frequencies()}{symbol\_frequencies()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::vector$<$std\+::size\+\_\+t$>$ irk\+::coding\+::huffman\+::symbol\+\_\+frequencies (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{stream }\end{DoxyParamCaption})}
+
+
+
+Returns a vector of frequencies of all symbols. 
+

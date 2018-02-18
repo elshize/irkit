@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['mask',['mask',['../structbloodhound_1_1index_1_1PostingListHeader.html#a18fbb5f0675f6e59844b599950809bb0',1,'bloodhound::index::PostingListHeader']]],
-  ['max_5fscore',['max_score',['../classbloodhound_1_1PostingList.html#ab840a6f9ddf8de353cbdd09b3a184bfa',1,'bloodhound::PostingList']]],
-  ['max_5fscores_5f',['max_scores_',['../classirkit_1_1UnionRange.html#a980f7cfaf14c7c4d93b13b6d7ce6a859',1,'irkit::UnionRange']]],
-  ['mscore',['mscore',['../server_8cpp.html#a1cd1bb0f1ef3b2eee55f99544ed84b0e',1,'server.cpp']]]
+  ['k1',['k1',['../structirk_1_1score_1_1bm25__scorer.html#ad39731decbddbe8d09c3094e75938f4e',1,'irk::score::bm25_scorer']]],
+  ['ket',['ket',['../structSN__env.html#a838739ee60904661873995471c80bac5',1,'SN_env']]],
+  ['key',['key',['../structirk_1_1Entry.html#a49866a2c0c5ee90f6a8a548c9b9e3d14',1,'irk::Entry::key()'],['../structirk_1_1compact__table__leader.html#a250e11134b95bb0f559c531a56a548c5',1,'irk::compact_table_leader::key()']]]
 ];

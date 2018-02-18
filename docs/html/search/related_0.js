@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['build_5findex_5ffrom_5fids',['build_index_from_ids',['../classbloodhound_1_1index_1_1Index.html#a0343a97c005a2df437a955c308d376e6',1,'bloodhound::index::Index']]]
+  ['argumentparser',['ArgumentParser',['../classirk_1_1cmd_1_1Flag.html#a55c9e1ac006a645af402e3aee6b64e00',1,'irk::cmd::Flag::ArgumentParser()'],['../classirk_1_1cmd_1_1Option.html#a55c9e1ac006a645af402e3aee6b64e00',1,'irk::cmd::Option::ArgumentParser()'],['../classirk_1_1cmd_1_1Argument.html#a55c9e1ac006a645af402e3aee6b64e00',1,'irk::cmd::Argument::ArgumentParser()'],['../classirk_1_1cmd_1_1ArgumentMap.html#a55c9e1ac006a645af402e3aee6b64e00',1,'irk::cmd::ArgumentMap::ArgumentParser()']]]
 ];

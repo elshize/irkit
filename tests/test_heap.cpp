@@ -6,11 +6,11 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #define private public
-#include "irkit/heap.hpp"
+#include "heap.hpp"
 
 namespace {
 
-using namespace irkit;
+using namespace irk;
 
 class HeapTest : public ::testing::Test {
 protected:

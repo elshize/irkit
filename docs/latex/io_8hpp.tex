@@ -1,0 +1,31 @@
+\hypertarget{io_8hpp}{}\section{include/irkit/io.hpp File Reference}
+\label{io_8hpp}\index{include/irkit/io.\+hpp@{include/irkit/io.\+hpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$bitset$>$}\newline
+{\ttfamily \#include $<$boost/concept/assert.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/dynamic\+\_\+bitset.\+hpp$>$}\newline
+{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/bitptr.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/bitstream.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/coding.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/coding/varbyte.\+hpp\char`\"{}}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1io}{irk\+::io}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_aae2b76d3f044ad43f8b25e08a142285f}{irk\+::io\+::enforce\+\_\+exist}} (fs\+::path file)
+\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_aa680509002f530048131492dea584724}{irk\+::io\+::load\+\_\+data}} (fs\+::path data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}{irk\+::io\+::append\+\_\+object}} (const T \&object, std\+::vector$<$ char $>$ \&buffer)
+\begin{DoxyCompactList}\small\item\em Appends the underlying bytes of an object to a byte buffer. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Collection $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_ae89e77960d5da14cd0068835eaa3a442}{irk\+::io\+::append\+\_\+collection}} (const Collection \&collection, std\+::vector$<$ char $>$ \&buffer)
+\begin{DoxyCompactList}\small\item\em Appends the underlying bytes of a collection to a byte buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}

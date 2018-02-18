@@ -1,0 +1,71 @@
+\hypertarget{structirk_1_1score_1_1bm25__scorer}{}\section{irk\+:\+:score\+:\+:bm25\+\_\+scorer Struct Reference}
+\label{structirk_1_1score_1_1bm25__scorer}\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+
+
+A B\+M25 scorer.  
+
+
+
+
+{\ttfamily \#include $<$score.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}{bm25\+\_\+scorer}} (double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}{k1}}=1.\+2, double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}{b}}=0.\+5)
+\item 
+{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\Freq \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}{operator()}} (Freq tf, Freq df, std\+::size\+\_\+t N) const
+\begin{DoxyCompactList}\small\item\em Returns the B\+M25 score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}{k1}}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}{b}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A B\+M25 scorer. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}\label{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!bm25\+\_\+scorer@{bm25\+\_\+scorer}}
+\index{bm25\+\_\+scorer@{bm25\+\_\+scorer}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{bm25\+\_\+scorer()}{bm25\_scorer()}}
+{\footnotesize\ttfamily irk\+::score\+::bm25\+\_\+scorer\+::bm25\+\_\+scorer (\begin{DoxyParamCaption}\item[{double}]{k1 = {\ttfamily 1.2},  }\item[{double}]{b = {\ttfamily 0.5} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}\label{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!operator()@{operator()}}
+\index{operator()@{operator()}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+Freq irk\+::score\+::bm25\+\_\+scorer\+::operator() (\begin{DoxyParamCaption}\item[{Freq}]{tf,  }\item[{Freq}]{df,  }\item[{std\+::size\+\_\+t}]{N }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the B\+M25 score. 
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}\label{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!b@{b}}
+\index{b@{b}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{b}{b}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::b}
+
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}\label{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!k1@{k1}}
+\index{k1@{k1}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{k1}{k1}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::k1}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{score_8hpp}{score.\+hpp}}\end{DoxyCompactItemize}

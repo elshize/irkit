@@ -1,0 +1,48 @@
+\hypertarget{compacttable_8hpp}{}\section{include/irkit/compacttable.hpp File Reference}
+\label{compacttable_8hpp}\index{include/irkit/compacttable.\+hpp@{include/irkit/compacttable.\+hpp}}
+{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/coding.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/coding/varbyte.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/io.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1CompactTableHeaderFlags}{irk\+::\+Compact\+Table\+Header\+Flags}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1compact__table__header}{irk\+::compact\+\_\+table\+\_\+header}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1compact__table__leader}{irk\+::compact\+\_\+table\+\_\+leader}}
+\item 
+class \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table$<$ T, Codec $>$}}
+\begin{DoxyCompactList}\small\item\em Fast-\/access compressed array. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table$<$ T, Codec $>$}}
+\begin{DoxyCompactList}\small\item\em Fast-\/access compressed array. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1offset__table}{irk\+::offset\+\_\+table$<$ Codec $>$}}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk}{irk}}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1io}{irk\+::io}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Mem , class Codec $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{namespaceirk_a5a2bb996aa2fce0aa00ae9aafd500bba}{irk\+::read\+\_\+compact\+\_\+value}} (Mem mem, std\+::uint32\+\_\+t key, Codec codec)
+\item 
+{\footnotesize template$<$class T , class Codec $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a9cf133b170be4f5de9135aa3936012e9}{irk\+::operator$<$$<$}} (std\+::ostream \&out, const compact\+\_\+table$<$ T, Codec $>$ \&offset\+\_\+table)
+\item 
+{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}{irk\+::io\+::dump}} (const compact\+\_\+table$<$ T, Codec $>$ \&offset\+\_\+table, fs\+::path file)
+\begin{DoxyCompactList}\small\item\em Write a {\ttfamily \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}} to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

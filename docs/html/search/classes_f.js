@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['union_5fmerge_5fview',['union_merge_view',['../classirkit_1_1view_1_1union__merge__view.html',1,'irkit::view']]],
-  ['unionrange',['UnionRange',['../classirkit_1_1UnionRange.html',1,'irkit']]]
+  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query']]],
+  ['reader',['reader',['../structirk_1_1bitptr_1_1reader.html',1,'irk::bitptr']]],
+  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
+  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query']]],
+  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query']]]
 ];

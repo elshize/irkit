@@ -62,7 +62,7 @@ protected:
 
 class PivotTest : public WandTest {
 protected:
-    irkit::Heap<Doc, unsigned int> list_heap;
+    irk::Heap<Doc, unsigned int> list_heap;
 
     virtual void SetUp()
     {
@@ -230,7 +230,7 @@ TEST_F(IndexTest, daat)
 //	Score threshold = Score(0);
 //	auto buf = wand.select_pivot(
 //			default_postings, list_heap, default_weights, threshold);
-//	std::vector<irkit::Entry<Doc, unsigned int>> expected_buf = {
+//	std::vector<irk::Entry<Doc, unsigned int>> expected_buf = {
 //		{Doc(0), 0u}
 //	};
 //	EXPECT_EQ(expected_buf, buf);
@@ -242,7 +242,7 @@ TEST_F(IndexTest, daat)
 //	Score threshold = Score(3);
 //	auto buf = wand.select_pivot(
 //			default_postings, list_heap, default_weights, threshold);
-//	std::vector<irkit::Entry<Doc, unsigned int>> expected_buf = {
+//	std::vector<irk::Entry<Doc, unsigned int>> expected_buf = {
 //		{Doc(0), 0u}
 //	};
 //	EXPECT_EQ(expected_buf, buf);
@@ -259,7 +259,7 @@ TEST_F(IndexTest, daat)
 //
 //	auto buf = wand.select_pivot(
 //			default_postings, list_heap, default_weights, threshold);
-//	std::vector<irkit::Entry<Doc, unsigned int>> expected_buf = {
+//	std::vector<irk::Entry<Doc, unsigned int>> expected_buf = {
 //		{Doc(1), 1u},
 //		{Doc(1), 0u}  // expanded to pivot DocID
 //	};
@@ -304,11 +304,11 @@ TEST_F(SaatTest, two_postings)
 
 TEST(Taat, nbits)
 {
-	EXPECT_EQ(irkit::nbits(0), 0);
-	EXPECT_EQ(irkit::nbits(1), 0);
-	EXPECT_EQ(irkit::nbits(2), 1);
-	EXPECT_EQ(irkit::nbits(4), 2);
-	EXPECT_EQ(irkit::nbits(8), 3);
+	EXPECT_EQ(irk::nbits(0), 0);
+	EXPECT_EQ(irk::nbits(1), 0);
+	EXPECT_EQ(irk::nbits(2), 1);
+	EXPECT_EQ(irk::nbits(4), 2);
+	EXPECT_EQ(irk::nbits(8), 3);
 }
 
 std::vector<TermWeight> parse_query(
