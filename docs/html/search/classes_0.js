@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5fposting',['_Posting',['../structirkit_1_1__Posting.html',1,'irkit']]]
+  ['_5fposting',['_posting',['../structirk_1_1__posting.html',1,'irk']]]
 ];

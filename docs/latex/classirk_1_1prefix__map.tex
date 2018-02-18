@@ -1,0 +1,77 @@
+\hypertarget{classirk_1_1prefix__map}{}\section{irk\+:\+:prefix\+\_\+map$<$ Index, Memory\+Buffer, Counter $>$ Class Template Reference}
+\label{classirk_1_1prefix__map}\index{irk\+::prefix\+\_\+map$<$ Index, Memory\+Buffer, Counter $>$@{irk\+::prefix\+\_\+map$<$ Index, Memory\+Buffer, Counter $>$}}
+
+
+A string-\/based prefix map implementation.  
+
+
+
+
+{\ttfamily \#include $<$prefixmap.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder}{block\+\_\+builder}}
+\item 
+class \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__ptr}{block\+\_\+ptr}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class String\+Range $>$ }\\\mbox{\hyperlink{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}{prefix\+\_\+map}} (String\+Range items, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec, std\+::size\+\_\+t block\+\_\+size=1024)
+\item 
+std\+::optional$<$ Index $>$ \mbox{\hyperlink{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}{operator\mbox{[}$\,$\mbox{]}}} (const std\+::string \&key) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$\newline
+class irk\+::prefix\+\_\+map$<$ Index, Memory\+Buffer, Counter $>$}
+
+A string-\/based prefix map implementation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Index} & the integral type of element indices \\
+\hline
+{\em Memory\+Buffer} & the memory buffer type, e.\+g., {\ttfamily std\+::vector$<$char$>$} (for building/reading) or {\ttfamily boost\+::iostreams\+::mapped\+\_\+file} (for reading)\\
+\hline
+\end{DoxyTemplParams}
+This represents a string-\/based prefix map, which allows for the following\+:
+\begin{DoxyItemize}
+\item determinig whether a string is indexed in the map;
+\item returning a string\textquotesingle{}s ID (lexicographical position) if it exists;
+\item returning the n-\/th string in lexicographical order;
+\item \mbox{[}T\+O\+DO\+: intervals\mbox{]}
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}\label{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!prefix\+\_\+map@{prefix\+\_\+map}}
+\index{prefix\+\_\+map@{prefix\+\_\+map}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{prefix\+\_\+map()}{prefix\_map()}}
+{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+template$<$class String\+Range $>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}} (\begin{DoxyParamCaption}\item[{String\+Range}]{items,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size = {\ttfamily 1024} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}\label{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+std\+::optional$<$Index$>$ \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{prefixmap_8hpp}{prefixmap.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,94 @@
+\hypertarget{classirk_1_1TopKAccumulator}{}\section{irk\+:\+:Top\+K\+Accumulator$<$ Posting $>$ Class Template Reference}
+\label{classirk_1_1TopKAccumulator}\index{irk\+::\+Top\+K\+Accumulator$<$ Posting $>$@{irk\+::\+Top\+K\+Accumulator$<$ Posting $>$}}
+
+
+An container accumulating top-\/k postings (or results).  
+
+
+
+
+{\ttfamily \#include $<$utils.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1TopKAccumulator_a4f610f220ca415333709456f1acf65e2}{Top\+K\+Accumulator}} (std\+::size\+\_\+t k)
+\begin{DoxyCompactList}\small\item\em Initilizes an empty accumulator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1TopKAccumulator_a2292c74efb19b719f65287cf4d0e1dec}{accumulate}} (Posting posting)
+\begin{DoxyCompactList}\small\item\em Accumulates the given posting. \end{DoxyCompactList}\item 
+std\+::vector$<$ Posting $>$ \mbox{\hyperlink{classirk_1_1TopKAccumulator_a1bfdc5fdd3d6957ac7dd7eddb7e160fe}{sorted}} ()
+\begin{DoxyCompactList}\small\item\em Produces the sorted list of the accumulated postings. \end{DoxyCompactList}\item 
+Score \mbox{\hyperlink{classirk_1_1TopKAccumulator_a0b557d7814259c5fcb2cf6528c13f45a}{threshold}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current top-\/k threshold. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Posting$>$\newline
+class irk\+::\+Top\+K\+Accumulator$<$ Posting $>$}
+
+An container accumulating top-\/k postings (or results). 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1TopKAccumulator_a4f610f220ca415333709456f1acf65e2}\label{classirk_1_1TopKAccumulator_a4f610f220ca415333709456f1acf65e2}} 
+\index{irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}!Top\+K\+Accumulator@{Top\+K\+Accumulator}}
+\index{Top\+K\+Accumulator@{Top\+K\+Accumulator}!irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}}
+\subsubsection{\texorpdfstring{Top\+K\+Accumulator()}{TopKAccumulator()}}
+{\footnotesize\ttfamily template$<$class Posting$>$ \\
+\mbox{\hyperlink{classirk_1_1TopKAccumulator}{irk\+::\+Top\+K\+Accumulator}}$<$ Posting $>$\+::\mbox{\hyperlink{classirk_1_1TopKAccumulator}{Top\+K\+Accumulator}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initilizes an empty accumulator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & The size of the accumulator, i.\+e., the number of postings to accumulate. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1TopKAccumulator_a2292c74efb19b719f65287cf4d0e1dec}\label{classirk_1_1TopKAccumulator_a2292c74efb19b719f65287cf4d0e1dec}} 
+\index{irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}!accumulate@{accumulate}}
+\index{accumulate@{accumulate}!irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}}
+\subsubsection{\texorpdfstring{accumulate()}{accumulate()}}
+{\footnotesize\ttfamily template$<$class Posting$>$ \\
+void \mbox{\hyperlink{classirk_1_1TopKAccumulator}{irk\+::\+Top\+K\+Accumulator}}$<$ Posting $>$\+::accumulate (\begin{DoxyParamCaption}\item[{Posting}]{posting }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Accumulates the given posting. 
+
+If {\ttfamily posting.\+score} is higher than \mbox{\hyperlink{classirk_1_1TopKAccumulator_a0b557d7814259c5fcb2cf6528c13f45a}{threshold()}}, {\ttfamily posting} is accumulated. Furthermore, if the container grows beyond {\ttfamily k}, the lowest scoring posting is discarded. \mbox{\Hypertarget{classirk_1_1TopKAccumulator_a1bfdc5fdd3d6957ac7dd7eddb7e160fe}\label{classirk_1_1TopKAccumulator_a1bfdc5fdd3d6957ac7dd7eddb7e160fe}} 
+\index{irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}!sorted@{sorted}}
+\index{sorted@{sorted}!irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}}
+\subsubsection{\texorpdfstring{sorted()}{sorted()}}
+{\footnotesize\ttfamily template$<$class Posting$>$ \\
+std\+::vector$<$Posting$>$ \mbox{\hyperlink{classirk_1_1TopKAccumulator}{irk\+::\+Top\+K\+Accumulator}}$<$ Posting $>$\+::sorted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Produces the sorted list of the accumulated postings. 
+
+\begin{DoxyReturn}{Returns}
+The list of postings that have been accumulated so far, in order of decreasing scores. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classirk_1_1TopKAccumulator_a0b557d7814259c5fcb2cf6528c13f45a}\label{classirk_1_1TopKAccumulator_a0b557d7814259c5fcb2cf6528c13f45a}} 
+\index{irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}!threshold@{threshold}}
+\index{threshold@{threshold}!irk\+::\+Top\+K\+Accumulator@{irk\+::\+Top\+K\+Accumulator}}
+\subsubsection{\texorpdfstring{threshold()}{threshold()}}
+{\footnotesize\ttfamily template$<$class Posting$>$ \\
+Score \mbox{\hyperlink{classirk_1_1TopKAccumulator}{irk\+::\+Top\+K\+Accumulator}}$<$ Posting $>$\+::threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the current top-\/k threshold. 
+
+\begin{DoxyReturn}{Returns}
+The minimum score to make it to the top-\/k results; it is either the score of the k-\/th result, or 0 if fewer than k results have been accumulated. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{utils_8hpp}{utils.\+hpp}}\end{DoxyCompactItemize}

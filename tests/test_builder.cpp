@@ -4,8 +4,11 @@
 #include "gtest/gtest.h"
 #define private public
 #define protected public
-#include "irkit/index.hpp"
 #include "irkit/coding.hpp"
+#include "irkit/coding/varbyte.hpp"
+#include "irkit/index.hpp"
+#include "irkit/index/builder.hpp"
+#include "irkit/io.hpp"
 
 namespace {
 
@@ -57,9 +60,11 @@ std::vector<char> flatten(std::vector<std::vector<char>> vectors)
     return result;
 }
 
+using namespace irk::coding;
+
 TEST(IndexBuilder, add)
 {
-    irkit::IndexBuilder<int, std::string, int> builder;
+    irk::index_builder<int, std::string, int> builder;
 
     builder.add_term("a");
     builder.add_term("b");
@@ -77,7 +82,7 @@ TEST(IndexBuilder, add)
 
 TEST(IndexBuilder, document_frequency)
 {
-    irkit::IndexBuilder<int, std::string, int> builder;
+    irk::index_builder<int, std::string, int> builder;
     builder.postings_ = {{{0, 2}}, {{0, 1}, {1, 2}}, {{1, 1}}};
     ASSERT_EQ(builder.document_frequency(0), 1);
     ASSERT_EQ(builder.document_frequency(1), 2);
@@ -86,7 +91,7 @@ TEST(IndexBuilder, document_frequency)
 
 TEST(IndexBuilder, sort_terms)
 {
-    irkit::IndexBuilder<int, std::string, int> builder;
+    irk::index_builder<int, std::string, int> builder;
     builder.term_map_ = {{"z", 0}, {"b", 1}, {"c", 2}};
     builder.postings_ = {{{0, 2}}, {{0, 1}, {1, 2}}, {{1, 1}}};
     builder.term_occurrences_ = {2, 3, 1};
@@ -101,9 +106,8 @@ TEST(IndexBuilder, sort_terms)
 
 class IndexBuilderWrite : public ::testing::Test {
 protected:
-    irkit::
-        IndexBuilder<std::uint16_t, std::string, std::uint16_t, std::uint16_t>
-            builder;
+    irk::index_builder<std::uint16_t, std::string, std::uint16_t, std::uint16_t>
+        builder;
     virtual void SetUp()
     {
         builder.term_map_ = {{"z", 2}, {"b", 0}, {"c", 1}};
@@ -124,7 +128,7 @@ TEST_F(IndexBuilderWrite, write_terms)
 
 TEST_F(IndexBuilderWrite, write_document_ids)
 {
-    irkit::VarByte<uint16_t> vb;
+    irk::coding::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_ids(out, off);
@@ -133,15 +137,15 @@ TEST_F(IndexBuilderWrite, write_document_ids)
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
     std::vector<char> expected_out =
-        flatten({vb.encode({0, 1}), vb.encode({1}), vb.encode({0})});
-    std::vector<char> expected_off = vb.encode({0, 2, 1});
+        flatten({encode({0, 1}, vb), encode({1}, vb), encode({0}, vb)});
+    std::vector<char> expected_off = irk::offset_table<>({0, 2, 3}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
 
 TEST_F(IndexBuilderWrite, write_document_counts)
 {
-    irkit::VarByte<uint16_t> vb;
+    irk::coding::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_counts(out, off);
@@ -150,20 +154,20 @@ TEST_F(IndexBuilderWrite, write_document_counts)
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
     std::vector<char> expected_out =
-        flatten({vb.encode({1, 2}), vb.encode({1}), vb.encode({2})});
-    std::vector<char> expected_off = vb.encode({0, 2, 1});
+        flatten({encode({1, 2}, vb), encode({1}, vb), encode({2}, vb)});
+    std::vector<char> expected_off = irk::offset_table<>({0, 2, 3}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
 
 TEST_F(IndexBuilderWrite, write_document_frequencies)
 {
-    irkit::VarByte<uint16_t> vb;
+    irk::coding::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     builder.write_document_frequencies(out);
     std::string outs = out.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
-    std::vector<char> expected_out = vb.encode({2, 1, 1});
+    std::vector<char> expected_out = encode({2, 1, 1}, vb);
     assert_vector(actual_out, expected_out);
 }
 

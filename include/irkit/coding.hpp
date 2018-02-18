@@ -1,113 +1,394 @@
+// MIT License
+//
+// Copyright (c) 2018 Michal Siedlaczek
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+//! \file coding.hpp
+//! \author Michal Siedlaczek
+//! \copyright MIT License
+
 #pragma once
 
-#include <gsl/span>
+#include <boost/concept/assert.hpp>
+#include <boost/concept_check.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <iostream>
-#include <range/v3/range_concepts.hpp>
-#include <range/v3/utility/concepts.hpp>
 #include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+#include "irkit/concepts.hpp"
 
-namespace irkit {
+//! Codecs and coding utilities.
+namespace irk::coding {
 
-template<class T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
-struct VarByte {
-    void append_encoded(T n, std::vector<char>& bytes)
-    {
-        while (true) {
-            bytes.push_back(n < 128 ? 128 + n : n % 128);
-            if (n < 128) {
-                break;
-            }
-            n /= 128;
-        }
+//! Encodes a range of integer values to an output stream.
+/*!
+    \param int_range a range of integers to encode
+    \param sink      an output stream to write to
+    \param codec     a codec used to encode integers
+    \returns         `sink` stream
+ */
+template<class Codec, class InputRange>
+std::ostream& encode(const InputRange& int_range,
+    std::ostream& sink,
+    const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((boost::InputIterator<iterator_t<InputRange>>));
+    for (const auto& n : int_range) {
+        codec.encode(n, sink);
     }
+    return sink;
+}
 
-    std::vector<char> encode(const std::vector<T>& ints)
-    {
-        std::vector<char> bytes;
-        for (auto n : ints) {
-            append_encoded(n, bytes);
-        }
-        return bytes;
+//! Encodes a range of integer values to a byte vector.
+/*!
+    \param int_range a range of integers to encode
+    \param codec     a codec used to encode integers
+    \returns         a vector of encoded bytes
+ */
+template<class Codec, class InputRange>
+std::vector<char>
+encode(const InputRange& int_range, const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+    std::vector<char> bytes;
+    boost::iostreams::stream<
+        boost::iostreams::back_insert_device<std::vector<char>>>
+        buffer(boost::iostreams::back_inserter(bytes));
+    encode(int_range, buffer, codec);
+    return bytes;
+}
+
+//! Encodes an initializer list of integer values to a byte vector.
+/*!
+    \param integers  an initializer list of integers to encode
+    \param codec     a codec used to encode integers
+    \returns         a vector of encoded bytes
+ */
+template<class Codec>
+std::vector<char>
+encode(std::initializer_list<typename Codec::value_type> integers,
+    const Codec& codec = Codec{})
+{
+    std::vector<typename Codec::value_type> v(integers);
+    return encode(v, codec);
+}
+
+//! Encodes a range of values, mapped to integers, to an output stream.
+/*!
+    \param range     a range of values to map to integers and encode
+    \param fn        a function mapping elements of `range` to integers
+    \param sink      an output stream to write to
+    \param codec     a codec used to encode integers
+    \returns         `sink` stream
+ */
+template<class Codec, class InputRange, class TransformFn>
+std::ostream& encode_fn(const InputRange& range,
+    TransformFn fn,
+    std::ostream& sink,
+    const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+    BOOST_CONCEPT_ASSERT((boost::UnaryFunction<TransformFn,
+        typename Codec::value_type,
+        element_t<InputRange>>));
+    for (const auto& n : range) {
+        codec.encode(fn(n), sink);
     }
+    return sink;
+}
 
-    std::vector<char> delta_encode(const std::vector<T>& ints)
-    {
-        T last(0);
-        std::vector<char> bytes;
-        for (auto n : ints) {
-            append_encoded(n - last, bytes);
-            last = n;
-        }
-        return bytes;
+//! Encodes a range of values, mapped to integers, to a byte vector.
+/*!
+    \param range     a range of values to map to integers and encode
+    \param fn        a function mapping elements of `range` to integers
+    \param codec     a codec used to encode integers
+    \returns         a vector of encoded bytes
+ */
+template<class Codec, class InputRange, class TransformFn>
+std::vector<char>
+encode_fn(const InputRange& range, TransformFn fn, const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+    BOOST_CONCEPT_ASSERT((boost::UnaryFunction<TransformFn,
+        typename Codec::value_type,
+        element_t<InputRange>>));
+    std::vector<char> bytes;
+    boost::iostreams::stream<
+        boost::iostreams::back_insert_device<std::vector<char>>>
+        buffer(boost::iostreams::back_inserter(bytes));
+    encode_fn(range, fn, buffer, codec);
+    return bytes;
+}
+
+//! Encodes a range of integers to an output stream, applying delta encoding.
+/*!
+    \param int_range     a range of integers to encode
+    \param sink          an output stream to write to
+    \param codec         a codec used to encode integers
+    \param initial_value the initial value to subtract from the first encoded
+                         integer (0 by default)
+    \returns         `sink` stream
+ */
+template<class Codec, class InputRange>
+std::ostream& encode_delta(const InputRange& int_range,
+    std::ostream& sink,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+    typename Codec::value_type prev = initial_value;
+    for (const auto& n : int_range) {
+        codec.encode(n - prev, sink);
+        prev = n;
     }
+    return sink;
+}
 
-    template<class Range,
-        class TransformFn,
-        CONCEPT_REQUIRES_(ranges::InputRange<Range>())>
-    std::vector<char> encode(const Range& range, TransformFn fn)
-    {
-        std::vector<char> bytes;
-        for (const auto& item : range) {
-            append_encoded(fn(item), bytes);
-        }
-        return bytes;
+//! Encodes a range of integer values to a byte vector.
+/*!
+    \param int_range     a range of values to map to integers and encode
+    \param codec         a codec used to encode integers
+    \param initial_value the initial value to subtract from the first encoded
+                         integer (0 by default)
+    \returns             a vector of encoded bytes
+ */
+template<class Codec, class InputRange>
+std::vector<char> encode_delta(const InputRange& int_range,
+    const Codec& codec = Codec{},
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+    std::vector<char> bytes;
+    boost::iostreams::stream<
+        boost::iostreams::back_insert_device<std::vector<char>>>
+        buffer(boost::iostreams::back_inserter(bytes));
+    encode_delta(int_range, buffer, codec, initial_value);
+    return bytes;
+}
+
+//! Decodes an entire input stream to an output iterator.
+/*!
+    \param output   an output iterator, such as `std::back_inserter`
+    \param source   an input stream with the encoded elements
+    \param codec    a codec to use for decoding
+    \returns        `source` stream
+ */
+template<class Codec, class OutputIterator>
+std::istream& decode(
+    OutputIterator output, std::istream& source, const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT(
+        (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
+    typename Codec::value_type integer;
+    while (codec.decode(source, integer)) {
+        *output++ = integer;
     }
+    return source;
+}
 
-    template<class Iter, CONCEPT_REQUIRES_(ranges::ForwardIterator<Iter>())>
-    Iter append_decoded(Iter it, Iter end, std::vector<T>& ints)
-    {
-        char b;
-        int n = 0;
-        unsigned short shift = 0;
-        while (it != end) {
-            b = *it++;
-            int val = b & 0b01111111;
-            n |= val << shift;
-            shift += 7;
-            if (val != b) {
-                ints.push_back(n);
-                return it;
-            }
-        }
-        throw std::runtime_error(
-            "reached end of byte range before end of value");
+//! Decodes a range of encoded bytes to a vector.
+/*!
+    \param source   a range of encoded bytes
+    \param codec    a codec to use for decoding
+    \returns        a vector of decoded values
+ */
+template<class Codec, class SourceRange>
+std::vector<typename Codec::value_type>
+decode(const SourceRange& source, const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((boost::InputIterator<iterator_t<SourceRange>>));
+    std::vector<typename Codec::value_type> result;
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        source.data(), source.size());
+    decode<Codec>(std::back_inserter(result), buffer, codec);
+    return result;
+}
+
+//! Decodes an initializer list of bytes to a vector.
+/*!
+    \param bytes    an initializer list of bytes
+    \param codec    a codec to use for decoding
+    \returns        a vector of decoded values
+ */
+template<class Codec>
+std::vector<typename Codec::value_type>
+decode(std::initializer_list<char> bytes, const Codec& codec = Codec{})
+{
+    std::vector<char> v(bytes);
+    return decode(v, codec);
+}
+
+//! Decodes `n` encoded symbols from an input stream to an output iterator.
+/*!
+    \param output   an output iterator, such as `std::back_inserter`
+    \param source   an input stream with the encoded elements
+    \param n        how many symbols to decode
+    \param codec    a codec to use for decoding
+    \returns        `source` stream
+ */
+template<class Codec, class OutputIterator>
+std::istream& decode_n(OutputIterator output,
+    std::istream& source,
+    std::size_t n,
+    const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT(
+        (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
+    typename Codec::value_type integer;
+    for (std::size_t idx = 0; idx < n; ++idx) {
+        codec.decode(source, integer);
+        *output++ = integer;
     }
+    return source;
+}
 
-    std::vector<T> decode(gsl::span<const char> bytes)
-    {
-        std::vector<T> ints;
-        auto it = bytes.begin();
-        auto end = bytes.end();
-        while (it != end) {
-            it = append_decoded(it, end, ints);
-        }
-        return ints;
+//! Decodes `n` encoded symbols from an input stream to a vector.
+/*!
+    \param source   an input stream with the encoded elements
+    \param n        how many symbols to decode
+    \param codec    a codec to use for decoding
+    \returns        a vector of decoded values
+ */
+template<class Codec>
+std::vector<typename Codec::value_type>
+decode_n(std::istream& source, std::size_t n, const Codec& codec = Codec())
+{
+    std::vector<typename Codec::value_type> result;
+    decode_n(std::back_inserter(result), n, codec);
+    return result;
+}
+
+//! Decodes an entire input stream, applying delta coding.
+/*!
+    \param output   an output iterator, such as `std::back_inserter`
+    \param source   an input stream with the encoded elements
+    \param codec    a codec to use for decoding
+    \returns        `source` stream
+ */
+template<class Codec, class OutputIterator>
+std::istream& decode_delta(OutputIterator output,
+    std::istream& source,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT(
+        (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
+    typename Codec::value_type integer;
+    typename Codec::value_type prev = initial_value;
+    while (codec.decode(source, integer)) {
+        prev = integer + prev;
+        *output = prev;
     }
+    return source;
+}
 
-    std::vector<T> decode(const std::vector<char>& bytes)
-    {
-        return decode(gsl::span<const char>(bytes));
+//! Decodes a range of bytes, applying delta coding.
+/*!
+    \param source           a range of bytes with the encoded elements
+    \param codec            a codec to use for decoding
+    \param initial_value    a value to add to the first element
+    \returns                a vector of decoded values
+ */
+template<class Codec, class SourceRange>
+std::vector<typename Codec::value_type> decode_delta(const SourceRange& source,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<SourceRange>));
+    std::vector<typename Codec::value_type> result;
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        source.data(), source.size());
+    decode_delta(std::back_inserter(result), buffer, codec, initial_value);
+    return result;
+}
+
+//! Decodes `n` symbols from an input stream, applying delta coding.
+/*!
+    \param output           an output iterator, such as `std::back_inserter`
+    \param source           an input stream with the encoded elements
+    \param n                how many symbols to decode
+    \param codec            a codec to use for decoding
+    \param initial_value    a value to add to the first element
+    \returns                `source` stream
+ */
+template<class Codec, class OutputIterator>
+std::istream& decode_delta_n(OutputIterator output,
+    std::istream& source,
+    std::size_t num = 0,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT(
+        (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
+    typename Codec::value_type integer;
+    typename Codec::value_type prev = initial_value;
+    for (std::size_t n = 0; n < num; ++n) {
+        codec.decode(source, integer);
+        prev = integer + prev;
+        *output = prev;
     }
+    return source;
+}
 
-    std::vector<T> delta_decode(gsl::span<const char> bytes)
-    {
-        std::vector<T> ints;
-        auto it = bytes.begin();
-        auto end = bytes.end();
-        T last = T(0);
-        while (it != end) {
-            it = append_decoded(it, end, ints);
-            ints.back() += last;
-            last = ints.back();
-        }
-        return ints;
-    }
+//! Decodes `n` symbols from an input stream, applying delta coding.
+/*!
+    \param source           an input stream with the encoded elements
+    \param n                how many symbols to decode
+    \param codec            a codec to use for decoding
+    \param initial_value    a value to add to the first element
+    \returns                `source` stream
+ */
+template<class Codec>
+std::vector<typename Codec::value_type> decode_delta_n(std::istream& source,
+    std::size_t num,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    std::vector<typename Codec::value_type> result;
+    decode_delta_n(
+        std::back_inserter(result), source, num, codec, initial_value);
+    return result;
+}
 
-    std::vector<T> delta_decode(const std::vector<char>& bytes)
-    {
-        return delta_decode(gsl::span<const char>(bytes));
-    }
-};
+//! Decodes `n` symbols from an input stream, applying delta coding.
+/*!
+    \param source   an input stream with the encoded elements
+    \param n        how many symbols to decode
+    \param codec    a codec to use for decoding
+    \returns        a vector of decoded values
+ */
+template<class Codec, class SourceRange>
+std::vector<typename Codec::value_type>
+decode_delta_n(const SourceRange& source,
+    std::size_t n,
+    const Codec& codec = Codec(),
+    typename Codec::value_type initial_value = typename Codec::value_type(0))
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<SourceRange>));
+    std::vector<typename Codec::value_type> result;
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        source.data(), source.size());
+    decode_delta_n(std::back_inserter(result), buffer, n, codec, initial_value);
+    return result;
+}
 
-};  // namespace irkit
+};  // namespace irk::coding

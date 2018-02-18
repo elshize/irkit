@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queryid',['QueryId',['../namespacebloodhound_1_1query.html#aa67214af106292b2483995adea986b08',1,'bloodhound::query']]]
+  ['maxscores',['MaxScores',['../namespacebloodhound.html#a687d80c6f992eba8b820bf30a482f4b4',1,'bloodhound']]]
 ];

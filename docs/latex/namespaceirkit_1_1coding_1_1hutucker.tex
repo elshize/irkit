@@ -1,0 +1,96 @@
+\hypertarget{namespaceirkit_1_1coding_1_1hutucker}{}\section{irkit\+:\+:coding\+:\+:hutucker Namespace Reference}
+\label{namespaceirkit_1_1coding_1_1hutucker}\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirkit_1_1coding_1_1hutucker_1_1LevelNode}{Level\+Node}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\using \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{huffman\+::\+Node}}$<$ Symbol $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_abbc70e1f6cfcebe43ca85c70080c103f}{join\+\_\+selected}} (std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&nodes, std\+::pair$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$, \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&selected)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a634a32e3cd6736a17e7e65c59af92f55}{join\+\_\+next\+\_\+valid}} (std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&nodes)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a77fa0b99ad3161c99f17821181e0025d}{build\+\_\+tree}} (std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&nodes)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::list$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1hutucker_1_1LevelNode}{Level\+Node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a6ae88a7692d28d80019e464a2f812b92}{tag\+\_\+leaves}} (\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$ root)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_ad86ce5637698c2219a68ceabfa7f37b5}{reconstruct}} (std\+::list$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1hutucker_1_1LevelNode}{Level\+Node}}$<$ Symbol $>$$>$ \&nodes)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a7c24cbbeaea86c42d88569db9c34321c}{compact}} (\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$ root)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This namespace contains implementation of the internal mechanics behind the Hu-\/\+Tucker codec. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}\label{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!Node\+Ptr@{Node\+Ptr}}
+\index{Node\+Ptr@{Node\+Ptr}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{Node\+Ptr}{NodePtr}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+using \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{irkit\+::coding\+::hutucker\+::\+Node\+Ptr}} = typedef std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{huffman\+::\+Node}}$<$Symbol$>$ $>$}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_a77fa0b99ad3161c99f17821181e0025d}\label{namespaceirkit_1_1coding_1_1hutucker_a77fa0b99ad3161c99f17821181e0025d}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!build\+\_\+tree@{build\+\_\+tree}}
+\index{build\+\_\+tree@{build\+\_\+tree}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{build\+\_\+tree()}{build\_tree()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$Symbol$>$ irkit\+::coding\+::hutucker\+::build\+\_\+tree (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&}]{nodes }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_a7c24cbbeaea86c42d88569db9c34321c}\label{namespaceirkit_1_1coding_1_1hutucker_a7c24cbbeaea86c42d88569db9c34321c}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!compact@{compact}}
+\index{compact@{compact}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{compact()}{compact()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$Symbol, uint16\+\_\+t, std\+::vector$<$char$>$ $>$ irkit\+::coding\+::hutucker\+::compact (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$}]{root }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_a634a32e3cd6736a17e7e65c59af92f55}\label{namespaceirkit_1_1coding_1_1hutucker_a634a32e3cd6736a17e7e65c59af92f55}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!join\+\_\+next\+\_\+valid@{join\+\_\+next\+\_\+valid}}
+\index{join\+\_\+next\+\_\+valid@{join\+\_\+next\+\_\+valid}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{join\+\_\+next\+\_\+valid()}{join\_next\_valid()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+void irkit\+::coding\+::hutucker\+::join\+\_\+next\+\_\+valid (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&}]{nodes }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_abbc70e1f6cfcebe43ca85c70080c103f}\label{namespaceirkit_1_1coding_1_1hutucker_abbc70e1f6cfcebe43ca85c70080c103f}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!join\+\_\+selected@{join\+\_\+selected}}
+\index{join\+\_\+selected@{join\+\_\+selected}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{join\+\_\+selected()}{join\_selected()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+void irkit\+::coding\+::hutucker\+::join\+\_\+selected (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&}]{nodes,  }\item[{std\+::pair$<$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$, \mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$$>$ \&}]{selected }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_ad86ce5637698c2219a68ceabfa7f37b5}\label{namespaceirkit_1_1coding_1_1hutucker_ad86ce5637698c2219a68ceabfa7f37b5}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!reconstruct@{reconstruct}}
+\index{reconstruct@{reconstruct}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{reconstruct()}{reconstruct()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$Symbol$>$ irkit\+::coding\+::hutucker\+::reconstruct (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1hutucker_1_1LevelNode}{Level\+Node}}$<$ Symbol $>$$>$ \&}]{nodes }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1hutucker_a6ae88a7692d28d80019e464a2f812b92}\label{namespaceirkit_1_1coding_1_1hutucker_a6ae88a7692d28d80019e464a2f812b92}} 
+\index{irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}!tag\+\_\+leaves@{tag\+\_\+leaves}}
+\index{tag\+\_\+leaves@{tag\+\_\+leaves}!irkit\+::coding\+::hutucker@{irkit\+::coding\+::hutucker}}
+\subsubsection{\texorpdfstring{tag\+\_\+leaves()}{tag\_leaves()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::list$<$\mbox{\hyperlink{structirkit_1_1coding_1_1hutucker_1_1LevelNode}{Level\+Node}}$<$Symbol$>$ $>$ irkit\+::coding\+::hutucker\+::tag\+\_\+leaves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceirkit_1_1coding_1_1hutucker_a3fd5bcbd5c6d608f75e0afbb7f171899}{Node\+Ptr}}$<$ Symbol $>$}]{root }\end{DoxyParamCaption})}
+
+Returns an alphabetically ordered list of leaves tagged by their height in the tree. ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & the root of the tree \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an alphabetically sorted list of terminal nodes 
+\end{DoxyReturn}

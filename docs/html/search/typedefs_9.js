@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['range_5frange_5fvalue_5ftype',['range_range_value_type',['../namespaceirkit_1_1view.html#ae24f427c615bdecfcded89b8f028fb6c',1,'irkit::view']]],
-  ['range_5fvalue_5ftype',['range_value_type',['../namespaceirkit_1_1view.html#aa01f8ad24d5b6600bc31631b56448817',1,'irkit::view']]]
+  ['node_5fptr',['node_ptr',['../classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287',1,'irk::mutable_bit_trie::node_ptr()'],['../namespaceirk_1_1coding_1_1hutucker.html#aa5d22cfdf05ffec38f2531e0307248fe',1,'irk::coding::hutucker::node_ptr()']]]
 ];

@@ -42,11 +42,11 @@ public:
         return posting_count;
     }
 
-    virtual irkit::Heap<Score, unsigned int> post_lists_by_score(
-        const std::vector<PostingList>& term_postings,
+    virtual irk::Heap<Score, unsigned int>
+    post_lists_by_score(const std::vector<PostingList>& term_postings,
         const std::vector<Score>& term_weights)
     {
-        irkit::Heap<Score, unsigned int> post_list_heap(term_postings.size());
+        irk::Heap<Score, unsigned int> post_list_heap(term_postings.size());
         for (unsigned int idx = 0; idx < term_postings.size(); ++idx) {
             if (!term_postings[idx].empty()) {
                 Score score = term_postings[idx].begin()->score;
@@ -140,7 +140,7 @@ public:
             doc_lists.push_back(postlist.docs);
             score_lists.push_back(postlist.scores);
         }
-        irkit::traverse(doc_lists, score_lists, acc, term_weights);
+        irk::traverse(doc_lists, score_lists, acc, term_weights);
 
         auto iterators = DaatRetriever<PostingList>::to_iterators(term_postings);
         std::list<unsigned int> postlists;
@@ -157,7 +157,7 @@ public:
         std::size_t lookups = 0;
         std::size_t traversed = 0;
 
-        irkit::Heap<Score, Doc> top_results(k);
+        irk::Heap<Score, Doc> top_results(k);
         std::set<Doc> visited_docs;
         while (!postlists.empty()) {
             traversed += postlists.size();

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['left',['left',['../structirkit_1_1moving__range.html#a175a0bc6996715ea27e6b87abff03139',1,'irkit::moving_range']]],
-  ['lexicon',['lexicon',['../classbloodhound_1_1index_1_1Index.html#a746d80c2fb411f512726c8d37cad78fc',1,'bloodhound::index::Index']]]
+  ['k1',['k1',['../structirk_1_1score_1_1bm25__scorer.html#ad39731decbddbe8d09c3094e75938f4e',1,'irk::score::bm25_scorer']]],
+  ['ket',['ket',['../structSN__env.html#a838739ee60904661873995471c80bac5',1,'SN_env']]],
+  ['key',['key',['../structirk_1_1Entry.html#a49866a2c0c5ee90f6a8a548c9b9e3d14',1,'irk::Entry::key()'],['../structirk_1_1compact__table__leader.html#a250e11134b95bb0f559c531a56a548c5',1,'irk::compact_table_leader::key()']]]
 ];

@@ -1,0 +1,191 @@
+\hypertarget{classirkit_1_1io_1_1CompactABST}{}\section{irkit\+:\+:io\+:\+:Compact\+A\+B\+ST$<$ Symbol, Ptr, Memory\+Container $>$ Class Template Reference}
+\label{classirkit_1_1io_1_1CompactABST}\index{irkit\+::io\+::\+Compact\+A\+B\+S\+T$<$ Symbol, Ptr, Memory\+Container $>$@{irkit\+::io\+::\+Compact\+A\+B\+S\+T$<$ Symbol, Ptr, Memory\+Container $>$}}
+
+
+Read-\/only array-\/based representation of an Alphabetic Binary Search Tree.  
+
+
+
+
+{\ttfamily \#include $<$io.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1Node}{Node}}
+\item 
+struct \mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1NodePtr}{Node\+Ptr}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a1798488f66866fcf6f4d7fd06f86f3e1}{Compact\+A\+B\+ST}} ()=default
+\item 
+\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_ae247cd36f3a912208312a6fd20a9deda}{Compact\+A\+B\+ST}} (Memory\+Container mem)
+\item 
+\mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1NodePtr}{Node\+Ptr}} \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a08d1b23d44415a0505e8abf5c723a16a}{root}} () const
+\item 
+\mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1NodePtr}{Node\+Ptr}} \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a6ef6afae469190875c8f49a37fa484e9}{node\+\_\+at}} (Ptr ptr) const
+\item 
+const Memory\+Container \& \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a6c0944a0683df43e03f6faec67d3d719}{memory\+\_\+container}} () const
+\item 
+void \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_aa4d1008e712a1fb8e95baa924cc70e50}{encode}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, \mbox{\hyperlink{classirkit_1_1io_1_1OutputBitStream}{Output\+Bit\+Stream}} \&sink) const
+\item 
+void \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a204d3d71ef1f0816570b2a2b705b268a}{encode}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&sink) const
+\item 
+boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_ab959f87690a55266eb838102ba93665b}{encode}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}) const
+\item 
+Symbol \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a5f4fa49fc2cde124bb4f9a4017bd370c}{decode}} (const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&bits) const
+\item 
+{\footnotesize template$<$class Input\+Bit\+Stream $>$ }\\Symbol \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a30472a27b6d73f6c567533bdb0a747a5}{decode}} (\mbox{\hyperlink{classirkit_1_1io_1_1InputBitStream}{Input\+Bit\+Stream}} \&source) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_ac57833960df6fee1cf2643e82cfb0216}{symbol\+\_\+bound}} = 1 $<$$<$ (sizeof(Symbol) $\ast$ 8)
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_ada82da5e8d33fc09b71a0610d14ddaef}{node\+\_\+size}} = sizeof(Symbol) + sizeof(Ptr) $\ast$ 2
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a79cef12b8e2acd8b65c106deb9d87ebe}{symbol\+\_\+offset}} = 0
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a98a0e7d750d139b65ad0df0a04ed3cb0}{left\+\_\+offset}} = sizeof(Symbol)
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST_a924136dbb9bc8ff411804c2124ebd508}{right\+\_\+offset}} = sizeof(Ptr) + sizeof(Symbol)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$\newline
+class irkit\+::io\+::\+Compact\+A\+B\+S\+T$<$ Symbol, Ptr, Memory\+Container $>$}
+
+Read-\/only array-\/based representation of an Alphabetic Binary Search Tree. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Symbol} & symbol type, {\ttfamily char} by default \\
+\hline
+{\em Ptr} & the type of the children pointers; determines the maximum size of the tree; \\
+\hline
+{\em Memory\+Container} & memory container type, std\+::vector$<$char$>$ by default; must implement data() and size(); data() should implement operator\mbox{[}\mbox{]} \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a1798488f66866fcf6f4d7fd06f86f3e1}\label{classirkit_1_1io_1_1CompactABST_a1798488f66866fcf6f4d7fd06f86f3e1}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!Compact\+A\+B\+ST@{Compact\+A\+B\+ST}}
+\index{Compact\+A\+B\+ST@{Compact\+A\+B\+ST}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{Compact\+A\+B\+S\+T()}{CompactABST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{Compact\+A\+B\+ST}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_ae247cd36f3a912208312a6fd20a9deda}\label{classirkit_1_1io_1_1CompactABST_ae247cd36f3a912208312a6fd20a9deda}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!Compact\+A\+B\+ST@{Compact\+A\+B\+ST}}
+\index{Compact\+A\+B\+ST@{Compact\+A\+B\+ST}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{Compact\+A\+B\+S\+T()}{CompactABST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{Compact\+A\+B\+ST}} (\begin{DoxyParamCaption}\item[{Memory\+Container}]{mem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a5f4fa49fc2cde124bb4f9a4017bd370c}\label{classirkit_1_1io_1_1CompactABST_a5f4fa49fc2cde124bb4f9a4017bd370c}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!decode@{decode}}
+\index{decode@{decode}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+Symbol \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{bits }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a30472a27b6d73f6c567533bdb0a747a5}\label{classirkit_1_1io_1_1CompactABST_a30472a27b6d73f6c567533bdb0a747a5}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!decode@{decode}}
+\index{decode@{decode}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+template$<$class Input\+Bit\+Stream $>$ \\
+Symbol \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirkit_1_1io_1_1InputBitStream}{Input\+Bit\+Stream}} \&}]{source }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_aa4d1008e712a1fb8e95baa924cc70e50}\label{classirkit_1_1io_1_1CompactABST_aa4d1008e712a1fb8e95baa924cc70e50}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!encode@{encode}}
+\index{encode@{encode}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+void \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol}]{symbol,  }\item[{\mbox{\hyperlink{classirkit_1_1io_1_1OutputBitStream}{Output\+Bit\+Stream}} \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a204d3d71ef1f0816570b2a2b705b268a}\label{classirkit_1_1io_1_1CompactABST_a204d3d71ef1f0816570b2a2b705b268a}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!encode@{encode}}
+\index{encode@{encode}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+void \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol}]{symbol,  }\item[{boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_ab959f87690a55266eb838102ba93665b}\label{classirkit_1_1io_1_1CompactABST_ab959f87690a55266eb838102ba93665b}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!encode@{encode}}
+\index{encode@{encode}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol}]{symbol }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a6c0944a0683df43e03f6faec67d3d719}\label{classirkit_1_1io_1_1CompactABST_a6c0944a0683df43e03f6faec67d3d719}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!memory\+\_\+container@{memory\+\_\+container}}
+\index{memory\+\_\+container@{memory\+\_\+container}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{memory\+\_\+container()}{memory\_container()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+const Memory\+Container\& \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::memory\+\_\+container (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a6ef6afae469190875c8f49a37fa484e9}\label{classirkit_1_1io_1_1CompactABST_a6ef6afae469190875c8f49a37fa484e9}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!node\+\_\+at@{node\+\_\+at}}
+\index{node\+\_\+at@{node\+\_\+at}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{node\+\_\+at()}{node\_at()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1NodePtr}{Node\+Ptr}} \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::node\+\_\+at (\begin{DoxyParamCaption}\item[{Ptr}]{ptr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a08d1b23d44415a0505e8abf5c723a16a}\label{classirkit_1_1io_1_1CompactABST_a08d1b23d44415a0505e8abf5c723a16a}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!root@{root}}
+\index{root@{root}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{structirkit_1_1io_1_1CompactABST_1_1NodePtr}{Node\+Ptr}} \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a98a0e7d750d139b65ad0df0a04ed3cb0}\label{classirkit_1_1io_1_1CompactABST_a98a0e7d750d139b65ad0df0a04ed3cb0}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!left\+\_\+offset@{left\+\_\+offset}}
+\index{left\+\_\+offset@{left\+\_\+offset}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{left\+\_\+offset}{left\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::left\+\_\+offset = sizeof(Symbol)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_ada82da5e8d33fc09b71a0610d14ddaef}\label{classirkit_1_1io_1_1CompactABST_ada82da5e8d33fc09b71a0610d14ddaef}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!node\+\_\+size@{node\+\_\+size}}
+\index{node\+\_\+size@{node\+\_\+size}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{node\+\_\+size}{node\_size}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::node\+\_\+size = sizeof(Symbol) + sizeof(Ptr) $\ast$ 2\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a924136dbb9bc8ff411804c2124ebd508}\label{classirkit_1_1io_1_1CompactABST_a924136dbb9bc8ff411804c2124ebd508}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!right\+\_\+offset@{right\+\_\+offset}}
+\index{right\+\_\+offset@{right\+\_\+offset}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{right\+\_\+offset}{right\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::right\+\_\+offset = sizeof(Ptr) + sizeof(Symbol)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_ac57833960df6fee1cf2643e82cfb0216}\label{classirkit_1_1io_1_1CompactABST_ac57833960df6fee1cf2643e82cfb0216}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!symbol\+\_\+bound@{symbol\+\_\+bound}}
+\index{symbol\+\_\+bound@{symbol\+\_\+bound}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{symbol\+\_\+bound}{symbol\_bound}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::symbol\+\_\+bound = 1 $<$$<$ (sizeof(Symbol) $\ast$ 8)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1CompactABST_a79cef12b8e2acd8b65c106deb9d87ebe}\label{classirkit_1_1io_1_1CompactABST_a79cef12b8e2acd8b65c106deb9d87ebe}} 
+\index{irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}!symbol\+\_\+offset@{symbol\+\_\+offset}}
+\index{symbol\+\_\+offset@{symbol\+\_\+offset}!irkit\+::io\+::\+Compact\+A\+B\+ST@{irkit\+::io\+::\+Compact\+A\+B\+ST}}
+\subsubsection{\texorpdfstring{symbol\+\_\+offset}{symbol\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirkit_1_1io_1_1CompactABST}{irkit\+::io\+::\+Compact\+A\+B\+ST}}$<$ Symbol, Ptr, Memory\+Container $>$\+::symbol\+\_\+offset = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{io_8hpp}{io.\+hpp}}\end{DoxyCompactItemize}

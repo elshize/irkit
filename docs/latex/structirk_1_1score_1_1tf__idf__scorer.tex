@@ -1,0 +1,50 @@
+\hypertarget{structirk_1_1score_1_1tf__idf__scorer}{}\section{irk\+:\+:score\+:\+:tf\+\_\+idf\+\_\+scorer Struct Reference}
+\label{structirk_1_1score_1_1tf__idf__scorer}\index{irk\+::score\+::tf\+\_\+idf\+\_\+scorer@{irk\+::score\+::tf\+\_\+idf\+\_\+scorer}}
+
+
+A scorer using a simple version of tf-\/idf function.  
+
+
+
+
+{\ttfamily \#include $<$score.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\double \mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer_ad5627516d1f6fdd092174b46cadcb672}{operator()}} (Freq tf, Freq df, std\+::size\+\_\+t N) const
+\begin{DoxyCompactList}\small\item\em Calculates a simple tf-\/idf score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A scorer using a simple version of tf-\/idf function. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1tf__idf__scorer_ad5627516d1f6fdd092174b46cadcb672}\label{structirk_1_1score_1_1tf__idf__scorer_ad5627516d1f6fdd092174b46cadcb672}} 
+\index{irk\+::score\+::tf\+\_\+idf\+\_\+scorer@{irk\+::score\+::tf\+\_\+idf\+\_\+scorer}!operator()@{operator()}}
+\index{operator()@{operator()}!irk\+::score\+::tf\+\_\+idf\+\_\+scorer@{irk\+::score\+::tf\+\_\+idf\+\_\+scorer}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
+double irk\+::score\+::tf\+\_\+idf\+\_\+scorer\+::operator() (\begin{DoxyParamCaption}\item[{Freq}]{tf,  }\item[{Freq}]{df,  }\item[{std\+::size\+\_\+t}]{N }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates a simple tf-\/idf score. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Freq} & An integral type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em tf} & Term frequency in the document being scored. \\
+\hline
+{\em df} & The term\textquotesingle{}s document frequency in the collection, i.\+e., how many documents include the term. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{score_8hpp}{score.\+hpp}}\end{DoxyCompactItemize}

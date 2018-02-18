@@ -9,7 +9,7 @@ std::vector<query::Result> range_taat(const std::vector<PostingList>& postings,
     index::Index<>& ind)
 {
     std::vector<Posting> top =
-        irkit::taat(postings, k, weights, ind.get_collection_size());
+        irk::taat(postings, k, weights, ind.get_collection_size());
     return to_results(top);
 }
 

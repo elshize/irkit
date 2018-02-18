@@ -1,0 +1,48 @@
+\hypertarget{huffman_8hpp}{}\section{include/irkit/coding/huffman.hpp File Reference}
+\label{huffman_8hpp}\index{include/irkit/coding/huffman.\+hpp@{include/irkit/coding/huffman.\+hpp}}
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/io.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1coding_1_1huffman_1_1node}{irk\+::coding\+::huffman\+::node$<$ Symbol $>$}}
+\begin{DoxyCompactList}\small\item\em A structure representing a node in a Huffman coding tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1coding}{irk\+::coding}}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman}{irk\+::coding\+::huffman}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\bool \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a63e61bc94c39b2400e4cf422db2ececf}{irk\+::coding\+::huffman\+::operator==}} (const std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ \&lhs, const std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ \&rhs)
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a84ac96d5053bc449a2a6b1b8a66aa9da}{irk\+::coding\+::huffman\+::operator$<$$<$}} (std\+::ostream \&out, const std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ \&n)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a02736685ec8f32576af06336b2ec9ed8}{irk\+::coding\+::huffman\+::make\+\_\+terminal}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, std\+::size\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Creates a terminal node. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_ac5ed25bf8ec1c076d2905f59e3930502}{irk\+::coding\+::huffman\+::join\+\_\+nodes}} (std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ right)
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees). \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a504575bbf01c932df8cf77ef6f5e9330}{irk\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+with\+\_\+symbol}} (std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ right, Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}})
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees), preserving the given symbol. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a0047a6b58624bf6178ebbf15bc71f9d6}{irk\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+bst}} (std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$$>$ right)
+\begin{DoxyCompactList}\small\item\em Joins two nodes (or subtrees), preserving the symbol according to B\+ST. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_a12058e132e33e4021454d6a29ef17ef4}{irk\+::coding\+::huffman\+::symbol\+\_\+frequencies}} (std\+::istream \&stream)
+\begin{DoxyCompactList}\small\item\em Returns a vector of frequencies of all symbols. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::list$<$ std\+::shared\+\_\+ptr$<$ node$<$ Symbol $>$ $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1huffman_abbb62b84b6667cc6ed6000f36a52414c}{irk\+::coding\+::huffman\+::init\+\_\+nodes}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&\mbox{\hyperlink{irk-uncompress_8cpp_a2cd80733ced3d7eda8a6de0389cccc73}{frequencies}})
+\begin{DoxyCompactList}\small\item\em Initialize all external nodes according to the given frequencies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

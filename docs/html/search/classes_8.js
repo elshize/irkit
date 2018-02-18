@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['has_5fdefault_5fconstructor',['has_default_constructor',['../structirkit_1_1has__default__constructor.html',1,'irkit']]],
-  ['has_5fdefault_5fconstructor_3c_20t_2c_20void_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_26_20_3e_28_29_29_3e_20_3e',['has_default_constructor&lt; T, void_t&lt; decltype(std::declval&lt; T &amp; &gt;())&gt; &gt;',['../structirkit_1_1has__default__constructor_3_01T_00_01void__t_3_01decltype_07std_1_1declval_3_01T_01_6_01_4_07_08_08_4_01_4.html',1,'irkit']]],
+  ['has_5fdefault_5fconstructor',['has_default_constructor',['../structirk_1_1has__default__constructor.html',1,'irk']]],
+  ['has_5fdefault_5fconstructor_3c_20t_2c_20void_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_26_20_3e_28_29_29_3e_20_3e',['has_default_constructor&lt; T, void_t&lt; decltype(std::declval&lt; T &amp; &gt;())&gt; &gt;',['../structirk_1_1has__default__constructor_3_01T_00_01void__t_3_01decltype_07std_1_1declval_3_01T_01_6_01_4_07_08_08_4_01_4.html',1,'irk']]],
   ['has_5fiterator',['has_iterator',['../structbloodhound_1_1query_1_1has__iterator.html',1,'bloodhound::query']]],
   ['has_5fiterator_3c_20t_2c_20void_5ft_3c_20typename_20t_3a_3aiterator_20_3e_20_3e',['has_iterator&lt; T, void_t&lt; typename T::iterator &gt; &gt;',['../structbloodhound_1_1query_1_1has__iterator_3_01T_00_01void__t_3_01typename_01T_1_1iterator_01_4_01_4.html',1,'bloodhound::query']]],
   ['has_5fposting_5fiterator',['has_posting_iterator',['../structbloodhound_1_1query_1_1has__posting__iterator.html',1,'bloodhound::query']]],
@@ -9,7 +9,8 @@ var searchData=
   ['hash_3c_20bloodhound_3a_3adoc_20_3e',['hash&lt; bloodhound::Doc &gt;',['../structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html',1,'std']]],
   ['hash_3c_20bloodhound_3a_3ascore_20_3e',['hash&lt; bloodhound::Score &gt;',['../structstd_1_1hash_3_01bloodhound_1_1Score_01_4.html',1,'std']]],
   ['hash_3c_20bloodhound_3a_3atermid_20_3e',['hash&lt; bloodhound::TermId &gt;',['../structstd_1_1hash_3_01bloodhound_1_1TermId_01_4.html',1,'std']]],
-  ['heap',['Heap',['../classirkit_1_1Heap.html',1,'irkit']]],
-  ['heap_3c_20element_5ftype_2c_20std_3a_3asize_5ft_20_3e',['Heap&lt; element_type, std::size_t &gt;',['../classirkit_1_1Heap.html',1,'irkit']]],
-  ['heap_3c_20t_2c_20std_3a_3asize_5ft_20_3e',['Heap&lt; T, std::size_t &gt;',['../classirkit_1_1Heap.html',1,'irkit']]]
+  ['heap',['Heap',['../classirk_1_1Heap.html',1,'irk']]],
+  ['heap_3c_20element_5ftype_2c_20std_3a_3asize_5ft_20_3e',['Heap&lt; element_type, std::size_t &gt;',['../classirk_1_1Heap.html',1,'irk']]],
+  ['heap_3c_20t_2c_20std_3a_3asize_5ft_20_3e',['Heap&lt; T, std::size_t &gt;',['../classirk_1_1Heap.html',1,'irk']]],
+  ['hutucker_5fcodec',['hutucker_codec',['../classirk_1_1coding_1_1hutucker__codec.html',1,'irk::coding']]]
 ];

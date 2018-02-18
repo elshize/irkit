@@ -1,41 +1,52 @@
 \hypertarget{taat_8hpp}{}\section{include/irkit/taat.hpp File Reference}
 \label{taat_8hpp}\index{include/irkit/taat.\+hpp@{include/irkit/taat.\+hpp}}
+{\ttfamily \#include $<$boost/concept/assert.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
 {\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
-{\ttfamily \#include $<$range/v3/range\+\_\+concepts.\+hpp$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}irkit/concepts.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{classirkit_1_1SimpleAccumulator}{irkit\+::\+Simple\+Accumulator}
-\item 
-struct \hyperlink{structirkit_1_1IdWeight}{irkit\+::\+Id\+Weight}
-\end{DoxyCompactItemize}
+class \mbox{\hyperlink{classirk_1_1simple__accumulator}{irk\+::simple\+\_\+accumulator}}
+\begin{DoxyCompactList}\small\item\em A simple score accumulator that adds all scores. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1no__weight}{irk\+::no\+\_\+weight}}
+\begin{DoxyCompactList}\small\item\em A dummy weight type that does not change the score when multiplied. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespaceirkit}{irkit}
+ \mbox{\hyperlink{namespaceirk}{irk}}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Score $>$ }\\Score \hyperlink{namespaceirkit_a99480163d943f35b7e1763c161d0fab6}{irkit\+::operator$\ast$=} (Score \&lhs, const Id\+Weight \&rhs)
+{\footnotesize template$<$class Score $>$ }\\Score \mbox{\hyperlink{namespaceirk_ab8e6b6b40ddf91037ece69b4c14d091f}{irk\+::operator$\ast$=}} (Score \&lhs, const no\+\_\+weight \&rhs)
 \item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_ad498b50414a2c4e8d90325839219f8eb}{irkit\+::traverse\+\_\+list\+\_\+postings} (const Posting\+Range \&postings, Accumulator\+Array \&acc, Weight weight=Id\+Weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
-\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Doc\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Score\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_a4c79a79ea1508257bcf4eaaf615e2f9a}{irkit\+::traverse\+\_\+list} (const Doc\+Range \&docs, const Score\+Range \&scores, Accumulator\+Array \&acc, Weight weight=Id\+Weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_aa97b41a8c849bf1c0710f5297997a6c4}{irk\+::traverse\+\_\+list\+\_\+postings}} (const Posting\+Range \&postings, Accumulator\+Array \&acc, Weight weight=no\+\_\+weight\{\}, Accumulator\+Policy accumulator\+\_\+policy=default\+\_\+accumulator)
 \begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Doc\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Score\+Range $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_a72c284d98cc7a897b52dd197bdf8ee47}{irkit\+::traverse} (const std\+::vector$<$ Doc\+Range $>$ \&doc\+\_\+ranges, const std\+::vector$<$ Score\+Range $>$ \&score\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Score\+Range $>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a02334cad2fa8f38feab94fe6c1c57d8e}{irk\+::traverse\+\_\+list}} (const Doc\+Range \&docs, const Score\+Range \&scores, Accumulator\+Array \&acc, Weight weight=no\+\_\+weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a338c8931f92a0d5db3023a2ee7a76db8}{irk\+::traverse}} (const std\+::vector$<$ Doc\+Range $>$ \&doc\+\_\+ranges, const std\+::vector$<$ Score\+Range $>$ \&score\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Score\+Range $>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
 \begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = Id\+Weight, class Accumulator\+Policy  = Simple\+Accumulator, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Random\+Access\+Range$<$ Accumulator\+Array $>$()) $>$ }\\void \hyperlink{namespaceirkit_acf35c27b2c6a58878a6562f8bf6492a0}{irkit\+::traverse\+\_\+postings} (const std\+::vector$<$ Posting\+Range $>$ \&posting\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Posting\+Range $>$$>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
+{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a8dbdf5c2b9eef7379aae57b72861978a}{irk\+::traverse\+\_\+postings}} (const std\+::vector$<$ Posting\+Range $>$ \&posting\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Posting\+Range $>$$>$$>$ \&term\+\_\+weights, Accumulator\+Policy accumulator\+\_\+policy=default\+\_\+accumulator)
+\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Result , class Accumulator\+Array $>$ }\\std\+::vector$<$ Result $>$ \mbox{\hyperlink{namespaceirk_a068256b1f4dd5e0025e793d6d93b6896}{irk\+::aggregate\+\_\+top}} (std\+::size\+\_\+t k, const Accumulator\+Array \&acc)
 \item 
-{\footnotesize template$<$class Result , class Accumulator\+Array , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Accumulator\+Array $>$()) , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Same$<$ pure\+\_\+element\+\_\+t$<$ Accumulator\+Array $>$, score\+\_\+t$<$ Result $>$$>$()) $>$ }\\std\+::vector$<$ Result $>$ \hyperlink{namespaceirkit_a396aecdabea315348fb31d095fd2efc8}{irkit\+::aggregate\+\_\+top} (std\+::size\+\_\+t k, const Accumulator\+Array \&acc)
-\item 
-{\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \hyperlink{namespaceirkit_a2920c3041cd301d3dbe9d27178711ff8}{irkit\+::taat} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
+{\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_a9bbfe619867ce962c69054e3417b4b11}{irk\+::taat}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
 \end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-Simple\+Accumulator \hyperlink{namespaceirkit_a823671564bf545991e9708011e4a8df1}{irkit\+::default\+\_\+accumulator}
+simple\+\_\+accumulator \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{irk\+::default\+\_\+accumulator}}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

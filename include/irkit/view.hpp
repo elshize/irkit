@@ -13,12 +13,7 @@
 #include <range/v3/view/zip.hpp>
 #include "irkit/heap.hpp"
 
-namespace irkit {
-
-
-};  // namespace irkit
-
-namespace irkit::view {
+namespace irk::view {
 
 template<class Rng>
 using range_value_type = ranges::range_value_type_t<Rng>;
@@ -481,5 +476,5 @@ auto top_k(Rng rng, std::size_t k, Compare compare = greater{})
     return heap;
 }
 
-};  // namespace irkit::view
+};  // namespace irk::view
 

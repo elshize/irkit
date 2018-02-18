@@ -1,0 +1,85 @@
+\hypertarget{namespaceirkit_1_1coding_1_1huffman}{}\section{irkit\+:\+:coding\+:\+:huffman Namespace Reference}
+\label{namespaceirkit_1_1coding_1_1huffman}\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\bool \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a38c31c94fea7c10dc0ba13625b44a2b2}{operator==}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&lhs, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&rhs)
+\item 
+{\footnotesize template$<$class Symbol $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_aaee845163a3d96e6dab75655f5a7dce4}{operator$<$$<$}} (std\+::ostream \&out, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&node)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a33c76a9acb32650215d101ee1d39918f}{make\+\_\+terminal}} (Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, std\+::size\+\_\+t frequency)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a80bc59947120a14857cf6b6344ad098d}{join\+\_\+nodes}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ right)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_abf6495ba74b7d8d41655b97400a3018a}{join\+\_\+nodes\+\_\+with\+\_\+symbol}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ right, Symbol \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}})
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a30c3c75cbb0b183ff00975ec478ac348}{join\+\_\+nodes\+\_\+bst}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ left, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ right)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a33965c3f1355d6c9744141f482ba0d89}{symbol\+\_\+frequencies}} (std\+::istream \&stream)
+\item 
+{\footnotesize template$<$class Symbol  = char$>$ }\\std\+::list$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$ $>$ $>$ \mbox{\hyperlink{namespaceirkit_1_1coding_1_1huffman_a7e5712574c43a1453ba8bdeb07e67457}{init\+\_\+nodes}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&\mbox{\hyperlink{irk-uncompress_8cpp_a2cd80733ced3d7eda8a6de0389cccc73}{frequencies}})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a7e5712574c43a1453ba8bdeb07e67457}\label{namespaceirkit_1_1coding_1_1huffman_a7e5712574c43a1453ba8bdeb07e67457}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!init\+\_\+nodes@{init\+\_\+nodes}}
+\index{init\+\_\+nodes@{init\+\_\+nodes}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{init\+\_\+nodes()}{init\_nodes()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::list$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$Symbol$>$ $>$ $>$ irkit\+::coding\+::huffman\+::init\+\_\+nodes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{frequencies }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a80bc59947120a14857cf6b6344ad098d}\label{namespaceirkit_1_1coding_1_1huffman_a80bc59947120a14857cf6b6344ad098d}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!join\+\_\+nodes@{join\+\_\+nodes}}
+\index{join\+\_\+nodes@{join\+\_\+nodes}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes()}{join\_nodes()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$Symbol$>$ $>$ irkit\+::coding\+::huffman\+::join\+\_\+nodes (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{right }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a30c3c75cbb0b183ff00975ec478ac348}\label{namespaceirkit_1_1coding_1_1huffman_a30c3c75cbb0b183ff00975ec478ac348}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!join\+\_\+nodes\+\_\+bst@{join\+\_\+nodes\+\_\+bst}}
+\index{join\+\_\+nodes\+\_\+bst@{join\+\_\+nodes\+\_\+bst}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes\+\_\+bst()}{join\_nodes\_bst()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$Symbol$>$ $>$ irkit\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+bst (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{right }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_abf6495ba74b7d8d41655b97400a3018a}\label{namespaceirkit_1_1coding_1_1huffman_abf6495ba74b7d8d41655b97400a3018a}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!join\+\_\+nodes\+\_\+with\+\_\+symbol@{join\+\_\+nodes\+\_\+with\+\_\+symbol}}
+\index{join\+\_\+nodes\+\_\+with\+\_\+symbol@{join\+\_\+nodes\+\_\+with\+\_\+symbol}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{join\+\_\+nodes\+\_\+with\+\_\+symbol()}{join\_nodes\_with\_symbol()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$Symbol$>$ $>$ irkit\+::coding\+::huffman\+::join\+\_\+nodes\+\_\+with\+\_\+symbol (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{left,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$}]{right,  }\item[{Symbol}]{symbol }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a33c76a9acb32650215d101ee1d39918f}\label{namespaceirkit_1_1coding_1_1huffman_a33c76a9acb32650215d101ee1d39918f}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!make\+\_\+terminal@{make\+\_\+terminal}}
+\index{make\+\_\+terminal@{make\+\_\+terminal}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{make\+\_\+terminal()}{make\_terminal()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$Symbol$>$ $>$ irkit\+::coding\+::huffman\+::make\+\_\+terminal (\begin{DoxyParamCaption}\item[{Symbol}]{symbol,  }\item[{std\+::size\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_aaee845163a3d96e6dab75655f5a7dce4}\label{namespaceirkit_1_1coding_1_1huffman_aaee845163a3d96e6dab75655f5a7dce4}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class Symbol $>$ \\
+std\+::ostream\& irkit\+::coding\+::huffman\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&}]{node }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a38c31c94fea7c10dc0ba13625b44a2b2}\label{namespaceirkit_1_1coding_1_1huffman_a38c31c94fea7c10dc0ba13625b44a2b2}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!operator==@{operator==}}
+\index{operator==@{operator==}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class Symbol $>$ \\
+bool irkit\+::coding\+::huffman\+::operator== (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&}]{lhs,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirkit_1_1coding_1_1huffman_1_1Node}{Node}}$<$ Symbol $>$$>$ \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirkit_1_1coding_1_1huffman_a33965c3f1355d6c9744141f482ba0d89}\label{namespaceirkit_1_1coding_1_1huffman_a33965c3f1355d6c9744141f482ba0d89}} 
+\index{irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}!symbol\+\_\+frequencies@{symbol\+\_\+frequencies}}
+\index{symbol\+\_\+frequencies@{symbol\+\_\+frequencies}!irkit\+::coding\+::huffman@{irkit\+::coding\+::huffman}}
+\subsubsection{\texorpdfstring{symbol\+\_\+frequencies()}{symbol\_frequencies()}}
+{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
+std\+::vector$<$std\+::size\+\_\+t$>$ irkit\+::coding\+::huffman\+::symbol\+\_\+frequencies (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{stream }\end{DoxyParamCaption})}
+

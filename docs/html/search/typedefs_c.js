@@ -1,14 +1,6 @@
 var searchData=
 [
-  ['lambda',['lambda',['../group__trait.html#ga9a4618876b4f7670413c5dc127a7cff2',1,'meta']]],
-  ['less',['less',['../group__math.html#gabdb640343287440ca84ce0217faf7741',1,'meta::less()'],['../group__lazy__math.html#gaf85374b7537a86261fd478a48dccd2cd',1,'meta::lazy::less()']]],
-  ['less_5fequal',['less_equal',['../group__math.html#gab2b03f0bfd42cbb237831b6aaf2f0ef5',1,'meta::less_equal()'],['../group__lazy__math.html#ga8e4ed5d5da1b769ae0ecfc2aa9729bc5',1,'meta::lazy::less_equal()']]],
-  ['let',['let',['../group__trait.html#ga8135043cacd3026f062390fc4842d21f',1,'meta::let()'],['../group__lazy__trait.html#ga5355a955cf71163986bfdc7ad7c7e3e3',1,'meta::lazy::let()']]],
-  ['lexicon',['Lexicon',['../namespacebloodhound.html#a94032a3533df0a1b6d3435bad57e6499',1,'bloodhound']]],
-  ['logical_5fnegate',['logical_negate',['../group__group-utility.html#ga30b2bed9066be100b2bd98ed3b4b9c05',1,'ranges::v3']]],
-  ['lower_5fbound',['lower_bound',['../classtype__safe_1_1constraints_1_1bounded.html#a75d122bacc30b8c4ef6d7d173001c1cf',1,'type_safe::constraints::bounded']]],
-  ['lower_5fbound_5ft',['lower_bound_t',['../namespacetype__safe_1_1constraints_1_1detail.html#a4c9f2ed93c5ab546234fcfce7df22b15',1,'type_safe::constraints::detail']]],
-  ['lower_5fconstant',['lower_constant',['../structtype__safe_1_1detail_1_1bounded__type__impl.html#a5299b147ff1f0ed33094242ce6ed83c8',1,'type_safe::detail::bounded_type_impl::lower_constant()'],['../structtype__safe_1_1detail_1_1bounded__type__impl_3_01Verifier_00_01LowerInclusive_00_01UpperInc7ba462c82485c1ae22328fed40491518.html#a0bcc5a7a4c4e8f5725c91e857a92e417',1,'type_safe::detail::bounded_type_impl&lt; Verifier, LowerInclusive, UpperInclusive, T, T, T &gt;::lower_constant()'],['../structtype__safe_1_1detail_1_1bounded__type__impl_3_01Verifier_00_01LowerInclusive_00_01UpperIncc2f46fcaa2280242adda96b74580f724.html#a4f1dcad167f894731b7de3d58fef2c28',1,'type_safe::detail::bounded_type_impl&lt; Verifier, LowerInclusive, UpperInclusive, T, T, UpperBound &gt;::lower_constant()'],['../structtype__safe_1_1detail_1_1bounded__type__impl_3_01Verifier_00_01LowerInclusive_00_01UpperInc272f8e5050fe7fcca4cc3c89d51862ab.html#abe97cf54ef32bdb748773bab41ba6fa5',1,'type_safe::detail::bounded_type_impl&lt; Verifier, LowerInclusive, UpperInclusive, T, LowerBound, T &gt;::lower_constant()']]],
-  ['lvalue_5freference',['lvalue_reference',['../classtype__safe_1_1compact__optional__storage.html#a99e877e984f02af44df57e4679820743',1,'type_safe::compact_optional_storage::lvalue_reference()'],['../classtype__safe_1_1reference__optional__storage.html#a4102e735f6d47765427f93bdb4f05031',1,'type_safe::reference_optional_storage::lvalue_reference()']]],
-  ['lvaluecontainerlike',['LvalueContainerLike',['../group__group-concepts.html#ga17e9c6eb30d75301b1a4e5dc03af6a88',1,'ranges::v3']]]
+  ['range_5frange_5fvalue_5ftype',['range_range_value_type',['../namespaceirk_1_1view.html#a1b371e0a4f94ed45f210d4fa3643214a',1,'irk::view']]],
+  ['range_5ftype',['range_type',['../classirk_1_1union__range.html#aae1621f1e73b1b78990ad11eaa52452b',1,'irk::union_range']]],
+  ['range_5fvalue_5ftype',['range_value_type',['../namespaceirk_1_1view.html#af4751010e3df5f2a3c2706fe12317fbd',1,'irk::view']]]
 ];

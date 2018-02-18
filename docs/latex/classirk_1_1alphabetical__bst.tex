@@ -1,0 +1,234 @@
+\hypertarget{classirk_1_1alphabetical__bst}{}\section{irk\+:\+:alphabetical\+\_\+bst$<$ Symbol, Ptr, Memory\+Container $>$ Class Template Reference}
+\label{classirk_1_1alphabetical__bst}\index{irk\+::alphabetical\+\_\+bst$<$ Symbol, Ptr, Memory\+Container $>$@{irk\+::alphabetical\+\_\+bst$<$ Symbol, Ptr, Memory\+Container $>$}}
+
+
+Read-\/only array-\/based representation of an Alphabetic Binary Search Tree.  
+
+
+
+
+{\ttfamily \#include $<$alphabetical\+\_\+bst.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node}{node}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node__ptr}{node\+\_\+ptr}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} = Symbol
+\item 
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\+\_\+type}} = Ptr
+\item 
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}} = Memory\+Container
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1alphabetical__bst_aa4c4b01aac537a6cf70dba71002e1f7d}{alphabetical\+\_\+bst}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1alphabetical__bst_a21a5c2844dc3bf7bb86e6fa86df2c4c4}{alphabetical\+\_\+bst}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}} mem)
+\item 
+\mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node__ptr}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1alphabetical__bst_a28fa90a8d7eec6045a035c44e93a1a13}{root}} () const
+\item 
+\mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node__ptr}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1alphabetical__bst_a6330f671acd304c9ca37c3ac6aff3655}{node\+\_\+at}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\+\_\+type}} ptr) const
+\item 
+const \mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1alphabetical__bst_a273b1d4ffff62f2f8a034d979062e43c}{memory\+\_\+container}} () const
+\item 
+void \mbox{\hyperlink{classirk_1_1alphabetical__bst_a788eae986e42bf08ba2566927416a367}{encode}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, \mbox{\hyperlink{classirk_1_1output__bit__stream}{output\+\_\+bit\+\_\+stream}} \&sink) const
+\item 
+void \mbox{\hyperlink{classirk_1_1alphabetical__bst_a921485c053b07711352642fdb638b45e}{encode}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}, boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&sink) const
+\item 
+boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \mbox{\hyperlink{classirk_1_1alphabetical__bst_a4d63267c3e8de620411494f5b49fa2a2}{encode}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{porter2_8hpp_a04438e24473719aaf288c57833717164}{symbol}}) const
+\item 
+\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{classirk_1_1alphabetical__bst_ab692b132ff3a1e9f27f95af247437e1d}{decode}} (const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&bits) const
+\item 
+{\footnotesize template$<$class Input\+Bit\+Stream $>$ }\\\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{classirk_1_1alphabetical__bst_ad16d9e58c78eafe81f08c20171973cd7}{decode}} (Input\+Bit\+Stream \&source) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst_aab79d45f120c441ecfe435a15f060553}{symbol\+\_\+bound}} = 1 $<$$<$ (sizeof(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}}) $\ast$ 8)
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst_a6f7d3f7002730eb7840e449d4d371235}{node\+\_\+size}}
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9426027198ce7abe963119de8191d}{symbol\+\_\+offset}} = 0
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst_a0cc871d4fcdf8a37436594bc32eec076}{left\+\_\+offset}} = sizeof(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}})
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst_ac354051aeafc78d341cc467d65c8c45a}{right\+\_\+offset}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$\newline
+class irk\+::alphabetical\+\_\+bst$<$ Symbol, Ptr, Memory\+Container $>$}
+
+Read-\/only array-\/based representation of an Alphabetic Binary Search Tree. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Symbol} & symbol type, {\ttfamily char} by default \\
+\hline
+{\em Ptr} & the type of the children pointers; determines the maximum size of the tree; \\
+\hline
+{\em Memory\+Container} & memory container type, std\+::vector$<$char$>$ by default; must implement data() and size(); data() should implement operator\mbox{[}\mbox{]} \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}\label{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!container\+\_\+type@{container\+\_\+type}}
+\index{container\+\_\+type@{container\+\_\+type}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{container\+\_\+type}{container\_type}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}} =  Memory\+Container}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}\label{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!pointer\+\_\+type@{pointer\+\_\+type}}
+\index{pointer\+\_\+type@{pointer\+\_\+type}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{pointer\+\_\+type}{pointer\_type}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\+\_\+type}} =  Ptr}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}\label{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!symbol\+\_\+type@{symbol\+\_\+type}}
+\index{symbol\+\_\+type@{symbol\+\_\+type}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{symbol\+\_\+type}{symbol\_type}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} =  Symbol}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_aa4c4b01aac537a6cf70dba71002e1f7d}\label{classirk_1_1alphabetical__bst_aa4c4b01aac537a6cf70dba71002e1f7d}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!alphabetical\+\_\+bst@{alphabetical\+\_\+bst}}
+\index{alphabetical\+\_\+bst@{alphabetical\+\_\+bst}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{alphabetical\+\_\+bst()}{alphabetical\_bst()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a21a5c2844dc3bf7bb86e6fa86df2c4c4}\label{classirk_1_1alphabetical__bst_a21a5c2844dc3bf7bb86e6fa86df2c4c4}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!alphabetical\+\_\+bst@{alphabetical\+\_\+bst}}
+\index{alphabetical\+\_\+bst@{alphabetical\+\_\+bst}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{alphabetical\+\_\+bst()}{alphabetical\_bst()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}}}]{mem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_ab692b132ff3a1e9f27f95af247437e1d}\label{classirk_1_1alphabetical__bst_ab692b132ff3a1e9f27f95af247437e1d}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!decode@{decode}}
+\index{decode@{decode}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{bits }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_ad16d9e58c78eafe81f08c20171973cd7}\label{classirk_1_1alphabetical__bst_ad16d9e58c78eafe81f08c20171973cd7}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!decode@{decode}}
+\index{decode@{decode}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+template$<$class Input\+Bit\+Stream $>$ \\
+\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}} \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{Input\+Bit\+Stream \&}]{source }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a788eae986e42bf08ba2566927416a367}\label{classirk_1_1alphabetical__bst_a788eae986e42bf08ba2566927416a367}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!encode@{encode}}
+\index{encode@{encode}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}}}]{symbol,  }\item[{\mbox{\hyperlink{classirk_1_1output__bit__stream}{output\+\_\+bit\+\_\+stream}} \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a921485c053b07711352642fdb638b45e}\label{classirk_1_1alphabetical__bst_a921485c053b07711352642fdb638b45e}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!encode@{encode}}
+\index{encode@{encode}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}}}]{symbol,  }\item[{boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a4d63267c3e8de620411494f5b49fa2a2}\label{classirk_1_1alphabetical__bst_a4d63267c3e8de620411494f5b49fa2a2}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!encode@{encode}}
+\index{encode@{encode}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}}}]{symbol }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a273b1d4ffff62f2f8a034d979062e43c}\label{classirk_1_1alphabetical__bst_a273b1d4ffff62f2f8a034d979062e43c}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!memory\+\_\+container@{memory\+\_\+container}}
+\index{memory\+\_\+container@{memory\+\_\+container}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{memory\+\_\+container()}{memory\_container()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+const \mbox{\hyperlink{classirk_1_1alphabetical__bst_aeed9efc6a48ff6d504a608e06223f386}{container\+\_\+type}}\& \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::memory\+\_\+container (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a6330f671acd304c9ca37c3ac6aff3655}\label{classirk_1_1alphabetical__bst_a6330f671acd304c9ca37c3ac6aff3655}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!node\+\_\+at@{node\+\_\+at}}
+\index{node\+\_\+at@{node\+\_\+at}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{node\+\_\+at()}{node\_at()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node__ptr}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::node\+\_\+at (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\+\_\+type}}}]{ptr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a28fa90a8d7eec6045a035c44e93a1a13}\label{classirk_1_1alphabetical__bst_a28fa90a8d7eec6045a035c44e93a1a13}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!root@{root}}
+\index{root@{root}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{structirk_1_1alphabetical__bst_1_1node__ptr}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a0cc871d4fcdf8a37436594bc32eec076}\label{classirk_1_1alphabetical__bst_a0cc871d4fcdf8a37436594bc32eec076}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!left\+\_\+offset@{left\+\_\+offset}}
+\index{left\+\_\+offset@{left\+\_\+offset}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{left\+\_\+offset}{left\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::left\+\_\+offset = sizeof(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_a6f7d3f7002730eb7840e449d4d371235}\label{classirk_1_1alphabetical__bst_a6f7d3f7002730eb7840e449d4d371235}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!node\+\_\+size@{node\+\_\+size}}
+\index{node\+\_\+size@{node\+\_\+size}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{node\+\_\+size}{node\_size}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::node\+\_\+size\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+        \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\_type}}) + \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\_type}}) * 2
+\end{DoxyCode}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_ac354051aeafc78d341cc467d65c8c45a}\label{classirk_1_1alphabetical__bst_ac354051aeafc78d341cc467d65c8c45a}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!right\+\_\+offset@{right\+\_\+offset}}
+\index{right\+\_\+offset@{right\+\_\+offset}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{right\+\_\+offset}{right\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::right\+\_\+offset\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+        \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classirk_1_1alphabetical__bst_ae689c05ab96a71769e24908d5c73765c}{pointer\_type}}) + \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\_type}})
+\end{DoxyCode}
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_aab79d45f120c441ecfe435a15f060553}\label{classirk_1_1alphabetical__bst_aab79d45f120c441ecfe435a15f060553}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!symbol\+\_\+bound@{symbol\+\_\+bound}}
+\index{symbol\+\_\+bound@{symbol\+\_\+bound}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{symbol\+\_\+bound}{symbol\_bound}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::symbol\+\_\+bound = 1 $<$$<$ (sizeof(\mbox{\hyperlink{classirk_1_1alphabetical__bst_a296ccb8fa9fa9dce3b3c3beab0a5ca28}{symbol\+\_\+type}}) $\ast$ 8)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classirk_1_1alphabetical__bst_aeed9426027198ce7abe963119de8191d}\label{classirk_1_1alphabetical__bst_aeed9426027198ce7abe963119de8191d}} 
+\index{irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}!symbol\+\_\+offset@{symbol\+\_\+offset}}
+\index{symbol\+\_\+offset@{symbol\+\_\+offset}!irk\+::alphabetical\+\_\+bst@{irk\+::alphabetical\+\_\+bst}}
+\subsubsection{\texorpdfstring{symbol\+\_\+offset}{symbol\_offset}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Ptr = std\+::uint16\+\_\+t, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1alphabetical__bst}{irk\+::alphabetical\+\_\+bst}}$<$ Symbol, Ptr, Memory\+Container $>$\+::symbol\+\_\+offset = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{alphabetical__bst_8hpp}{alphabetical\+\_\+bst.\+hpp}}\end{DoxyCompactItemize}

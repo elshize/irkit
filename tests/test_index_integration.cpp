@@ -4,8 +4,9 @@
 #include "gtest/gtest.h"
 #define private public
 #define protected public
+#include "irkit/coding/varbyte.hpp"
 #include "irkit/index.hpp"
-#include "irkit/coding.hpp"
+#include "irkit/index/builder.hpp"
 
 namespace {
 
@@ -17,12 +18,12 @@ struct FakeScore {
     }
 };
 
-using Posting = irkit::_Posting<uint32_t, double>;
+using Posting = irk::_posting<uint32_t, double>;
 
-void test_load_read(irkit::fs::path index_dir, bool in_memory)
+void test_load_read(irk::fs::path index_dir, bool in_memory)
 {
     // Load
-    irkit::DefaultIndex index(index_dir, in_memory);
+    irk::default_index index(index_dir, in_memory);
 
     // Test Postings: "a"
     auto a = index.posting_range("a", FakeScore{});
@@ -63,14 +64,14 @@ void test_load_read(irkit::fs::path index_dir, bool in_memory)
 
 TEST(IndexIntegration, build_write_read)
 {
-    auto index_dir = irkit::fs::temp_directory_path() / "IndexIntegrationTest";
-    if (irkit::fs::exists(index_dir)) {
-        irkit::fs::remove_all(index_dir);
+    auto index_dir = irk::fs::temp_directory_path() / "IndexIntegrationTest";
+    if (irk::fs::exists(index_dir)) {
+        irk::fs::remove_all(index_dir);
     }
-    irkit::fs::create_directory(index_dir);
+    irk::fs::create_directory(index_dir);
 
     // Build
-    irkit::DefaultIndexBuilder builder;
+    irk::default_index_builder builder;
     builder.add_term("a");
     builder.add_term("b");
     builder.add_term("a");
@@ -84,14 +85,13 @@ TEST(IndexIntegration, build_write_read)
     builder.add_term("a");
 
     // Write
-    std::ofstream of_doc_ids(irkit::index::doc_ids_path(index_dir));
-    std::ofstream of_doc_ids_off(irkit::index::doc_ids_off_path(index_dir));
-    std::ofstream of_doc_counts(irkit::index::doc_counts_path(index_dir));
-    std::ofstream of_doc_counts_off(
-        irkit::index::doc_counts_off_path(index_dir));
-    std::ofstream of_terms(irkit::index::terms_path(index_dir));
-    std::ofstream of_term_doc_freq(irkit::index::term_doc_freq_path(index_dir));
-    std::ofstream of_titles(irkit::index::titles_path(index_dir));
+    std::ofstream of_doc_ids(irk::index::doc_ids_path(index_dir));
+    std::ofstream of_doc_ids_off(irk::index::doc_ids_off_path(index_dir));
+    std::ofstream of_doc_counts(irk::index::doc_counts_path(index_dir));
+    std::ofstream of_doc_counts_off(irk::index::doc_counts_off_path(index_dir));
+    std::ofstream of_terms(irk::index::terms_path(index_dir));
+    std::ofstream of_term_doc_freq(irk::index::term_doc_freq_path(index_dir));
+    std::ofstream of_titles(irk::index::titles_path(index_dir));
     builder.sort_terms();
     builder.write_terms(of_terms);
     builder.write_document_frequencies(of_term_doc_freq);

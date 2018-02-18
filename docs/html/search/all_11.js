@@ -1,28 +1,7 @@
 var searchData=
 [
-  ['range_5fdaat',['range_daat',['../rundaat_8cpp.html#a4abc9e797e7b6fbc7e278f764fd41986',1,'rundaat.cpp']]],
-  ['range_5frange_5fvalue_5ftype',['range_range_value_type',['../namespaceirkit_1_1view.html#ae24f427c615bdecfcded89b8f028fb6c',1,'irkit::view']]],
-  ['range_5ftaat',['range_taat',['../runtaat_8cpp.html#a89da8ab293f1a08ef7e7306296cf02fb',1,'runtaat.cpp']]],
-  ['range_5fvalue_5ftype',['range_value_type',['../namespaceirkit_1_1view.html#aa01f8ad24d5b6600bc31631b56448817',1,'irkit::view']]],
-  ['ranges_5f',['ranges_',['../classirkit_1_1UnionRange.html#acb9b9e969f1c90bb18bf1e4eb99f124b',1,'irkit::UnionRange']]],
-  ['raw_5ftaat',['raw_taat',['../server_8cpp.html#a35e26d7929f5c307688ef4be9cc2146a',1,'server.cpp']]],
-  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query::RawTaatRetriever&lt; PostingList &gt;'],['../classbloodhound_1_1query_1_1RawTaatRetriever.html#a859b1cd2092da229964e2795c4445d72',1,'bloodhound::query::RawTaatRetriever::RawTaatRetriever()']]],
-  ['read_5ffile',['read_file',['../namespacebloodhound_1_1index.html#a4b6f89a17c10bf2927aff24df7081bb3',1,'bloodhound::index']]],
-  ['read_5fposting_5fdata',['read_posting_data',['../classbloodhound_1_1index_1_1InMemoryPostingPolicy.html#acc5567fd6ba17861290ba045567e7e1a',1,'bloodhound::index::InMemoryPostingPolicy']]],
-  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
-  ['reason',['reason',['../structirkit_1_1index_1_1IndexLoadException.html#a843f66fcd135c9a396d41324c2817ab3',1,'irkit::index::IndexLoadException']]],
-  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
-  ['remove_5fvalue',['remove_value',['../classirkit_1_1Heap.html#a0da9e0bc583dadad14b10d285e7a8925',1,'irkit::Heap']]],
-  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query::Result'],['../structbloodhound_1_1query_1_1Result.html#a6a9aaa804dbe3929b653b614e18408e1',1,'bloodhound::query::Result::Result()=default'],['../structbloodhound_1_1query_1_1Result.html#ac4c15cb4d9e60b3e7bf37bd813215f55',1,'bloodhound::query::Result::Result(Doc d, Score s)']]],
-  ['retrieve',['retrieve',['../classbloodhound_1_1query_1_1Retriever.html#ae3c6a4628c5580e620c213b3dcd47c2b',1,'bloodhound::query::Retriever::retrieve()'],['../classbloodhound_1_1query_1_1DaatRetriever.html#ab80b4867fc263827dc2fdbe0965a2e8c',1,'bloodhound::query::DaatRetriever::retrieve()'],['../classbloodhound_1_1query_1_1WandRetriever.html#a5f3068bc363c16c5b7255a925ea5af8c',1,'bloodhound::query::WandRetriever::retrieve()'],['../classbloodhound_1_1query_1_1TaatRetriever.html#a58284f19458689021a083c07ea627485',1,'bloodhound::query::TaatRetriever::retrieve()'],['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a71c9050ca5961f061a659250932b42c2',1,'bloodhound::query::MaxScoreNonEssentials::retrieve()'],['../classbloodhound_1_1query_1_1RawTaatRetriever.html#aafaaf842fdaef297a255e28766af2c0d',1,'bloodhound::query::RawTaatRetriever::retrieve()'],['../classbloodhound_1_1query_1_1TaatMaxScoreRetriever.html#af4d96478395b58527969526c3068e7b9',1,'bloodhound::query::TaatMaxScoreRetriever::retrieve()'],['../classbloodhound_1_1query_1_1ExactSaatRetriever.html#aced2763cc2a4c12838fef4a20759049e',1,'bloodhound::query::ExactSaatRetriever::retrieve()'],['../classbloodhound_1_1query_1_1ThresholdRetriever.html#a06750450e1246e755ebad2d5dac6e8a8',1,'bloodhound::query::ThresholdRetriever::retrieve()']]],
-  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query::Retriever&lt; PostingList &gt;'],['../rundaat_8cpp.html#a506cc9a50aa641bcee863fb8d8679c1c',1,'retriever():&#160;rundaat.cpp']]],
-  ['retrievers_2ehpp',['retrievers.hpp',['../retrievers_8hpp.html',1,'']]],
-  ['right',['right',['../structirkit_1_1moving__range.html#aa64b16b98bdd7b627ecceb82c8ef3bec',1,'irkit::moving_range']]],
-  ['run_2ecpp',['run.cpp',['../run_8cpp.html',1,'']]],
-  ['run_2ehpp',['run.hpp',['../run_8hpp.html',1,'']]],
-  ['run_5ffor',['run_for',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html#a8ae12fdfe4bedefa5811bd89ffcf5597',1,'bloodhound::query::MaxScoreNonEssentials']]],
-  ['run_5fqueries_2ecpp',['run_queries.cpp',['../run__queries_8cpp.html',1,'']]],
-  ['run_5fwith',['run_with',['../run_8hpp.html#a8a96b78740ebdc82301565813ae03600',1,'run_with(std::vector&lt; query::Result &gt;(*run)(const std::vector&lt; PostingList &gt; &amp;, const std::vector&lt; Score &gt; &amp;, std::size_t, index::Index&lt;&gt; &amp;), index::Index&lt;&gt; &amp;ind, fs::path query_file):&#160;run.hpp'],['../run_8cpp.html#a8a96b78740ebdc82301565813ae03600',1,'run_with(std::vector&lt; query::Result &gt;(*run)(const std::vector&lt; PostingList &gt; &amp;, const std::vector&lt; Score &gt; &amp;, std::size_t, index::Index&lt;&gt; &amp;), index::Index&lt;&gt; &amp;ind, fs::path query_file):&#160;run.cpp'],['../rundaat_8cpp.html#a5d90a1bb2d4b0dff82bfe596bd344826',1,'run_with(std::vector&lt; query::Result &gt;(*run)(const std::vector&lt; PostingList &gt; &amp;, const std::vector&lt; Score &gt; &amp;, std::size_t), index::Index&lt;&gt; &amp;ind, fs::path query_file):&#160;rundaat.cpp']]],
-  ['rundaat_2ecpp',['rundaat.cpp',['../rundaat_8cpp.html',1,'']]],
-  ['runtaat_2ecpp',['runtaat.cpp',['../runtaat_8cpp.html',1,'']]]
+  ['qidx_5fshifted',['qidx_shifted',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa27d16b326df60affe26e005f9abb4f6',1,'bloodhound::query::TaatRetriever']]],
+  ['query_2ehpp',['query.hpp',['../query_8hpp.html',1,'']]],
+  ['query_5fid',['query_id',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa9a1b8ca0cb570bcffe6b6c68e8c2e20',1,'bloodhound::query::TaatRetriever']]],
+  ['queryid',['QueryId',['../namespacebloodhound_1_1query.html#aa67214af106292b2483995adea986b08',1,'bloodhound::query']]]
 ];

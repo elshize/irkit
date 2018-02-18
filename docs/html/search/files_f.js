@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['wand_2epy',['wand.py',['../wand_8py.html',1,'']]]
+  ['varbyte_2ehpp',['varbyte.hpp',['../varbyte_8hpp.html',1,'']]],
+  ['view_2ehpp',['view.hpp',['../view_8hpp.html',1,'']]]
 ];

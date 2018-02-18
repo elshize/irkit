@@ -10,7 +10,7 @@
 #include <type_traits>
 #include "debug_assert.hpp"
 #include "index.hpp"
-#include "irkit/heap.hpp"
+#include "heap.hpp"
 
 namespace bloodhound::query {
 
@@ -83,8 +83,10 @@ public:
 };
 
 /// Converts a min-heap of top-scored documents to a sorted vector of results.
-template<typename Compare = std::less<Score>, typename Mapping = irkit::EmptyMapping>
-std::vector<Result> heap_to_results(irkit::Heap<Score, Doc, Compare, Mapping>& heap)
+template<typename Compare = std::less<Score>,
+    typename Mapping = irk::EmptyMapping>
+std::vector<Result>
+heap_to_results(irk::Heap<Score, Doc, Compare, Mapping>& heap)
 {
     std::vector<Result> top_results;
     while (!heap.empty()) {

@@ -1,6 +1,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include "irkit/index.hpp"
+#include "irkit/index/builder.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -13,13 +14,13 @@ int main(int argc, char** argv)
 
     fs::path output_dir(argv[1]);
 
-    fs::path doc_ids = irkit::index::doc_ids_path(output_dir);
-    fs::path doc_ids_off = irkit::index::doc_ids_off_path(output_dir);
-    fs::path doc_counts = irkit::index::doc_counts_path(output_dir);
-    fs::path doc_counts_off = irkit::index::doc_counts_off_path(output_dir);
-    fs::path terms = irkit::index::terms_path(output_dir);
-    fs::path term_doc_freq = irkit::index::term_doc_freq_path(output_dir);
-    fs::path doc_titles = irkit::index::titles_path(output_dir);
+    fs::path doc_ids = irk::index::doc_ids_path(output_dir);
+    fs::path doc_ids_off = irk::index::doc_ids_off_path(output_dir);
+    fs::path doc_counts = irk::index::doc_counts_path(output_dir);
+    fs::path doc_counts_off = irk::index::doc_counts_off_path(output_dir);
+    fs::path terms = irk::index::terms_path(output_dir);
+    fs::path term_doc_freq = irk::index::term_doc_freq_path(output_dir);
+    fs::path doc_titles = irk::index::titles_path(output_dir);
 
     if (!fs::exists(output_dir)) {
         fs::create_directory(output_dir);
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
     std::ofstream of_term_doc_freq(term_doc_freq);
     std::ofstream of_titles(doc_titles);
 
-    irkit::DefaultIndexBuilder builder;
+    irk::default_index_builder builder;
     std::string line;
     std::size_t doc = 0;
     while (std::getline(std::cin, line)) {

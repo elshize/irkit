@@ -5,11 +5,9 @@
 #include <gsl/gsl_assert>
 #include <gsl/span>
 #include <iostream>
-//#include <range/v3/all.hpp>
-//#include <range/v3/span.hpp>
+#include <nlohmann/json.hpp>
 #include <type_safe/strong_typedef.hpp>
 #include <unordered_map>
-#include "json.hpp"
 
 namespace bloodhound {
 
@@ -255,6 +253,7 @@ public:
     {}
 
     std::size_t length() const { return doc_end() - doc_begin(); }
+    std::size_t size() const { return doc_end() - doc_begin(); }
     bool empty() const { return docs.size() == 0; }
     iterator next_ge(iterator current, Doc doc) const
     {

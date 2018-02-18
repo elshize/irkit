@@ -54,7 +54,7 @@ std::vector<query::Result> range_daat(const std::vector<PostingList>& postings,
     const std::vector<Score>& weights,
     std::size_t k)
 {
-    std::vector<Posting> top = irkit::daat_or(postings, k, weights);
+    std::vector<Posting> top = irk::daat_or(postings, k, weights);
     std::vector<query::Result> results;
     for (auto& p : top) {
         results.emplace_back(p.doc, p.score);

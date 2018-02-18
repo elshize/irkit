@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['ta',['ta',['../server_8cpp.html#aee23689d4fc48f2c95fd3231a8323457',1,'server.cpp']]],
-  ['taat',['taat',['../server_8cpp.html#a5de8e81fd2190e0855481efc7c7b4dfb',1,'server.cpp']]],
-  ['taat_5fplus',['taat_plus',['../server_8cpp.html#a1ff518e94de6961322354ac64428327d',1,'server.cpp']]],
-  ['term',['term',['../structbloodhound_1_1index_1_1format_1_1TermDetails.html#a05890ba855986755276485d7753201ca',1,'bloodhound::index::format::TermDetails::term()'],['../structbloodhound_1_1TermWeight.html#a8606421116b89015b89272bd5e2602a9',1,'bloodhound::TermWeight::term()'],['../structirkit_1_1UnionRange_1_1docterm.html#aa8219ac3bc95a63da177aaf0689eaff0',1,'irkit::UnionRange::docterm::term()']]],
-  ['term_5fmap_5f',['term_map_',['../classirkit_1_1IndexBuilder.html#aeebb03b89eeab532f62239e4ea4f0bee',1,'irkit::IndexBuilder']]],
-  ['term_5foccurrences_5f',['term_occurrences_',['../classirkit_1_1IndexBuilder.html#aaa27520f3a0fb37dba049d2c26ad9484',1,'irkit::IndexBuilder']]],
-  ['tmscore',['tmscore',['../server_8cpp.html#a3a7a220ba0437d0a072590d45eae0504',1,'server.cpp']]]
+  ['ranges_5f',['ranges_',['../classirk_1_1union__range.html#a88706eebcc62dd8386d9ad7042d4af2a',1,'irk::union_range']]],
+  ['raw_5ftaat',['raw_taat',['../server_8cpp.html#a35e26d7929f5c307688ef4be9cc2146a',1,'server.cpp']]],
+  ['reason',['reason',['../structirk_1_1index__load__exception.html#aa175d8f2c63df9d2451e57830e2e2467',1,'irk::index_load_exception']]],
+  ['required_5f',['required_',['../classirk_1_1cmd_1_1Option.html#a520123e8999e2e3ba33e3faf769d5617',1,'irk::cmd::Option']]],
+  ['result',['result',['../structamong.html#a228d4adee95a9a5a9055a547aeb13978',1,'among']]],
+  ['right',['right',['../structirk_1_1coding_1_1huffman_1_1node.html#addc238c8601bb721a25a5750f6c33ebd',1,'irk::coding::huffman::node::right()'],['../structirk_1_1moving__range.html#a60373930b24fd6f602d42cc06f129229',1,'irk::moving_range::right()'],['../structirk_1_1mutable__bit__trie_1_1node.html#ad75512c087c6adaf342b9c62fd115f55',1,'irk::mutable_bit_trie::node::right()']]],
+  ['right_5foffset',['right_offset',['../classirk_1_1alphabetical__bst.html#ac354051aeafc78d341cc467d65c8c45a',1,'irk::alphabetical_bst']]]
 ];

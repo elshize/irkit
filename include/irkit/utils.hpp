@@ -1,6 +1,29 @@
-/**!
- * @author Michal Siedlaczek <michal.siedlaczek@nyu.edu>
- */
+// MIT License
+//
+// Copyright (c) 2018 Michal Siedlaczek
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+//! \file utils.hpp
+//! \author Michal Siedlaczek
+//! \copyright MIT License
+
 #pragma once
 
 #include <algorithm>
@@ -9,7 +32,7 @@
 #include <vector>
 #include "irkit/types.hpp"
 
-namespace irkit {
+namespace irk {
 
 //! Computes the number of bits required to store an integer n.
 /*!
@@ -23,6 +46,18 @@ constexpr unsigned short nbits(T n)
     while (n >>= 1)
         ++bits;
     return bits;
+}
+
+//! Computes the number of full bytes required to store an integer n.
+/*!
+ * @tparam T An integral type
+ * @param n The integer of which to return the size in bytes.
+ */
+template<typename T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
+constexpr unsigned short nbytes(T n)
+{
+    auto bits = nbits(n);
+    return (bits + 7) / 8;
 }
 
 //! An container accumulating top-k postings (or results).
@@ -214,4 +249,4 @@ namespace view {
 
 };  // namespace view
 
-}  // namespace irkit
+}  // namespace irk

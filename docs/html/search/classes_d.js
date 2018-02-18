@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query']]],
-  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
-  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query']]],
-  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query']]]
+  ['offset',['Offset',['../structbloodhound_1_1Offset.html',1,'bloodhound']]],
+  ['offset_5ftable',['offset_table',['../classirk_1_1offset__table.html',1,'irk']]],
+  ['option',['Option',['../classirk_1_1cmd_1_1Option.html',1,'irk::cmd']]],
+  ['output_5fbit_5fstream',['output_bit_stream',['../classirk_1_1output__bit__stream.html',1,'irk']]]
 ];

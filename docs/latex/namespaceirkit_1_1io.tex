@@ -1,0 +1,56 @@
+\hypertarget{namespaceirkit_1_1io}{}\section{irkit\+:\+:io Namespace Reference}
+\label{namespaceirkit_1_1io}\index{irkit\+::io@{irkit\+::io}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirkit_1_1io_1_1warc}{warc}}
+\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirkit_1_1io_1_1warc__format__exception}{warc\+\_\+format\+\_\+exception}}
+\begin{DoxyCompactList}\small\item\em Represents an error during parsing W\+A\+RC format. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{warc\+\_\+record}}
+\begin{DoxyCompactList}\small\item\em A W\+A\+RC record. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceirkit_1_1io_a3293145f3599deb5abb1ec2ed6d2c2ae}{field\+\_\+map\+\_\+type}} = std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::istream \& \mbox{\hyperlink{namespaceirkit_1_1io_a161dcbb8924839e4923f2df26ebe5ea9}{read\+\_\+warc\+\_\+record}} (std\+::istream \&in, \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{warc\+\_\+record}} \&record)
+\begin{DoxyCompactList}\small\item\em Read a W\+A\+RC record from an input stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1io_a3293145f3599deb5abb1ec2ed6d2c2ae}\label{namespaceirkit_1_1io_a3293145f3599deb5abb1ec2ed6d2c2ae}} 
+\index{irkit\+::io@{irkit\+::io}!field\+\_\+map\+\_\+type@{field\+\_\+map\+\_\+type}}
+\index{field\+\_\+map\+\_\+type@{field\+\_\+map\+\_\+type}!irkit\+::io@{irkit\+::io}}
+\subsubsection{\texorpdfstring{field\+\_\+map\+\_\+type}{field\_map\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirkit_1_1io_a3293145f3599deb5abb1ec2ed6d2c2ae}{irkit\+::io\+::field\+\_\+map\+\_\+type}} = typedef std\+::unordered\+\_\+map$<$std\+::string, std\+::string$>$}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirkit_1_1io_a161dcbb8924839e4923f2df26ebe5ea9}\label{namespaceirkit_1_1io_a161dcbb8924839e4923f2df26ebe5ea9}} 
+\index{irkit\+::io@{irkit\+::io}!read\+\_\+warc\+\_\+record@{read\+\_\+warc\+\_\+record}}
+\index{read\+\_\+warc\+\_\+record@{read\+\_\+warc\+\_\+record}!irkit\+::io@{irkit\+::io}}
+\subsubsection{\texorpdfstring{read\+\_\+warc\+\_\+record()}{read\_warc\_record()}}
+{\footnotesize\ttfamily std\+::istream \& irkit\+::io\+::read\+\_\+warc\+\_\+record (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in,  }\item[{\mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{warc\+\_\+record}} \&}]{record }\end{DoxyParamCaption})}
+
+
+
+Read a W\+A\+RC record from an input stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & an input stream \\
+\hline
+{\em record} & a W\+A\+RC record reference to write to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily in} stream 
+\end{DoxyReturn}

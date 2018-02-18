@@ -2,63 +2,67 @@
 \label{irkit_2index_8hpp}\index{include/irkit/index.\+hpp@{include/irkit/index.\+hpp}}
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$bitset$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$diskhash.\+hpp$>$}\newline
 {\ttfamily \#include $<$experimental/filesystem$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$nlohmann/json.\+hpp$>$}\newline
 {\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
 {\ttfamily \#include $<$utility$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include \char`\"{}irkit/coding.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/coding/varbyte.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/compacttable.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/daat.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/index/postingrange.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/io.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}irkit/score.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structirkit_1_1index_1_1IndexLoadException}{irkit\+::index\+::\+Index\+Load\+Exception}
+struct \mbox{\hyperlink{structirk_1_1index__load__exception}{irk\+::index\+\_\+load\+\_\+exception}}
 \item 
-class \hyperlink{classirkit_1_1DynamiclyScoredPostingRange}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, Score\+Fn, $>$}
-\begin{DoxyCompactList}\small\item\em A posting range with scores calculated on the fly. \end{DoxyCompactList}\item 
-class \hyperlink{classirkit_1_1DynamiclyScoredPostingRange_1_1iterator}{irkit\+::\+Dynamicly\+Scored\+Posting\+Range$<$ Posting, Freq, Score\+Fn, $>$\+::iterator}
-\item 
-class \hyperlink{classirkit_1_1Index}{irkit\+::\+Index$<$ Doc, Term, Term\+Id, Freq $>$}
-\item 
-class \hyperlink{classirkit_1_1IndexBuilder}{irkit\+::\+Index\+Builder$<$ Doc, Term, Term\+Id, Freq $>$}
-\item 
-class \hyperlink{classirkit_1_1IndexMerger}{irkit\+::\+Index\+Merger$<$ Doc, Term, Term\+Id, Freq $>$}
+class \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index$<$ Doc, Term, Term\+Id, Freq $>$}}
 \end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespaceirkit}{irkit}
+ \mbox{\hyperlink{namespaceirk}{irk}}
 \item 
- \hyperlink{namespaceirkit_1_1index}{irkit\+::index}
+ \mbox{\hyperlink{namespaceirk_1_1index}{irk\+::index}}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-using \hyperlink{namespaceirkit_aefd5a5c2f1136e9c2224a4b4d659d4a9}{irkit\+::\+Default\+Index\+Builder} = Index\+Builder$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+{\footnotesize template$<$class T $>$ }\\using \mbox{\hyperlink{namespaceirk_a9ce0dc691e62f8bbf0578ea3d778d18d}{irk\+::varbyte\+\_\+codec}} = coding\+::varbyte\+\_\+codec$<$ T $>$
 \item 
-using \hyperlink{namespaceirkit_a434fa5b33380811cba36a6b46d487373}{irkit\+::\+Default\+Index\+Merger} = Index\+Merger$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+{\footnotesize template$<$class Posting , class Freq , class Scorer $>$ }\\using \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{irk\+::dspr}} = dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$
 \item 
-using \hyperlink{namespaceirkit_a6f3d282716b38521a43b65100a6d337b}{irkit\+::\+Default\+Index} = Index$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+using \mbox{\hyperlink{namespaceirk_af6ee69596c3b148bdec81164443f37f8}{irk\+::default\+\_\+index}} = inverted\+\_\+index$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_aab3491ded0cd4660b55f6c8f8c289428}{irkit\+::index\+::doc\+\_\+ids\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a5880f03dd72d6ebbae004d2ab83c219e}{irk\+::index\+::properties\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_a86d50e7aaf2bbdebf3e7a71623f4706e}{irkit\+::index\+::doc\+\_\+ids\+\_\+off\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a1680416c227181a5ab2f0b0169adb11e}{irk\+::index\+::doc\+\_\+ids\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_a5146ae382a6daf964681a09c55cdce93}{irkit\+::index\+::doc\+\_\+counts\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aae22e4280b8fc44a46c81159429bf889}{irk\+::index\+::doc\+\_\+ids\+\_\+off\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_a161f08dc57d21f41a9c03c7f97646e76}{irkit\+::index\+::doc\+\_\+counts\+\_\+off\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aee9cb8e5de7bc61fdc17458d5b597e04}{irk\+::index\+::doc\+\_\+counts\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_ad05e7b96e9fec4cb7f93df6ea934c063}{irkit\+::index\+::terms\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a5f8f21506f18df93a60b7ff061a800df}{irk\+::index\+::doc\+\_\+counts\+\_\+off\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_a28db3dab0a7fd926c5a4e6a4d37755c3}{irkit\+::index\+::term\+\_\+doc\+\_\+freq\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a003bce4c8d885ec3e8ffffd7dc53222f}{irk\+::index\+::terms\+\_\+path}} (fs\+::path dir)
 \item 
-fs\+::path \hyperlink{namespaceirkit_1_1index_a556d5fca1ddd33b4c09cd470ad7f9861}{irkit\+::index\+::titles\+\_\+path} (fs\+::path dir)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aa8e9c3cb825736431f0f63ca2b380da3}{irk\+::index\+::term\+\_\+map\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a616162aee34d0fe0460174bab4e8e518}{irk\+::index\+::term\+\_\+doc\+\_\+freq\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdbe94}{irk\+::index\+::titles\+\_\+path}} (fs\+::path dir)
 \end{DoxyCompactItemize}

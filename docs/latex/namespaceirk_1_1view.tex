@@ -1,0 +1,190 @@
+\hypertarget{namespaceirk_1_1view}{}\section{irk\+:\+:view Namespace Reference}
+\label{namespaceirk_1_1view}\index{irk\+::view@{irk\+::view}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1aggregate__sorted__view}{aggregate\+\_\+sorted\+\_\+view}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1any__range}{any\+\_\+range}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1fast__union__merge__view}{fast\+\_\+union\+\_\+merge\+\_\+view}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1view_1_1greater}{greater}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1iterator__range}{iterator\+\_\+range}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1transform__view}{transform\+\_\+view}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1union__merge__view}{union\+\_\+merge\+\_\+view}}
+\item 
+class \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{Zip\+View}}
+\begin{DoxyCompactList}\small\item\em A zip view of two ranges. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Rng $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{range\+\_\+value\+\_\+type}} = ranges\+::range\+\_\+value\+\_\+type\+\_\+t$<$ Rng $>$
+\item 
+{\footnotesize template$<$class Rngs $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1view_a1b371e0a4f94ed45f210d4fa3643214a}{range\+\_\+range\+\_\+value\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{range\+\_\+value\+\_\+type}}$<$ \mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{range\+\_\+value\+\_\+type}}$<$ Rngs $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}{zip}} (Left\+Range left, Right\+Range right, Zip\+Fn zip\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Posting , class Left\+Range , class Right\+Range $>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a875b26dd67c40b839be9dacdbbd91bc6}{posting\+\_\+zip}} (const Left\+Range \&left, const Right\+Range \&right)
+\begin{DoxyCompactList}\small\item\em Constructs a zip view of Posting elements. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{namespaceirk_1_1view_acc3a1f866f74d50daa7ed8e6bac9ddbb}{union\+\_\+merge}} ()
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::equal\+\_\+to$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_acd121e5b29fe783739dcdff3cf1e370f}{group\+\_\+sorted}} (Fun equal\+\_\+to=ranges\+::equal\+\_\+to\{\})
+\item 
+{\footnotesize template$<$class Fun  = ranges\+::plus$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a7e375ae6590d669795e16cfec4654eb0}{accumulate\+\_\+groups}} (Fun add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Equals  = ranges\+::equal\+\_\+to, class Add  = ranges\+::plus$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a259c6b7d4d6f38a3de0aac91f63db2f9}{accumulate\+\_\+sorted}} (Equals equal\+\_\+to=ranges\+::equal\+\_\+to\{\}, Add add=ranges\+::plus\{\})
+\item 
+{\footnotesize template$<$class Compare  = greater$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a63bf7fddcce8cadbb9bf78e34930993d}{top\+\_\+k}} (std\+::size\+\_\+t k, Compare compare=\mbox{\hyperlink{structirk_1_1view_1_1greater}{greater}}\{\})
+\item 
+{\footnotesize template$<$class W , class Multiply  = ranges\+::multiplies$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_ac30f787832859d974a3db71afa5c953f}{weighted}} (W weight, Multiply multiply=ranges\+::multiplies\{\})
+\item 
+{\footnotesize template$<$class Rng $>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a4c57f6b275583eb4259ab6adac064984}{to\+\_\+vector}} (Rng rng)
+\item 
+{\footnotesize template$<$class Rng , class Compare  = greater$>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a39f5f931fdce5219b2bd043175f1890c}{top\+\_\+k}} (Rng rng, std\+::size\+\_\+t k, Compare compare=\mbox{\hyperlink{structirk_1_1view_1_1greater}{greater}}\{\})
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1view_a1b371e0a4f94ed45f210d4fa3643214a}\label{namespaceirk_1_1view_a1b371e0a4f94ed45f210d4fa3643214a}} 
+\index{irk\+::view@{irk\+::view}!range\+\_\+range\+\_\+value\+\_\+type@{range\+\_\+range\+\_\+value\+\_\+type}}
+\index{range\+\_\+range\+\_\+value\+\_\+type@{range\+\_\+range\+\_\+value\+\_\+type}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{range\+\_\+range\+\_\+value\+\_\+type}{range\_range\_value\_type}}
+{\footnotesize\ttfamily template$<$class Rngs $>$ \\
+using \mbox{\hyperlink{namespaceirk_1_1view_a1b371e0a4f94ed45f210d4fa3643214a}{irk\+::view\+::range\+\_\+range\+\_\+value\+\_\+type}} = typedef \mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{range\+\_\+value\+\_\+type}}$<$\mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{range\+\_\+value\+\_\+type}}$<$Rngs$>$ $>$}
+
+\mbox{\Hypertarget{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}\label{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}} 
+\index{irk\+::view@{irk\+::view}!range\+\_\+value\+\_\+type@{range\+\_\+value\+\_\+type}}
+\index{range\+\_\+value\+\_\+type@{range\+\_\+value\+\_\+type}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{range\+\_\+value\+\_\+type}{range\_value\_type}}
+{\footnotesize\ttfamily template$<$class Rng $>$ \\
+using \mbox{\hyperlink{namespaceirk_1_1view_af4751010e3df5f2a3c2706fe12317fbd}{irk\+::view\+::range\+\_\+value\+\_\+type}} = typedef ranges\+::range\+\_\+value\+\_\+type\+\_\+t$<$Rng$>$}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1view_a7e375ae6590d669795e16cfec4654eb0}\label{namespaceirk_1_1view_a7e375ae6590d669795e16cfec4654eb0}} 
+\index{irk\+::view@{irk\+::view}!accumulate\+\_\+groups@{accumulate\+\_\+groups}}
+\index{accumulate\+\_\+groups@{accumulate\+\_\+groups}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{accumulate\+\_\+groups()}{accumulate\_groups()}}
+{\footnotesize\ttfamily template$<$class Fun  = ranges\+::plus$>$ \\
+auto irk\+::view\+::accumulate\+\_\+groups (\begin{DoxyParamCaption}\item[{Fun}]{add = {\ttfamily ranges\+:\+:plus\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups. Out\+: Range$<$\+T$>$, where each element is a sum of the corresponding group. \mbox{\Hypertarget{namespaceirk_1_1view_a259c6b7d4d6f38a3de0aac91f63db2f9}\label{namespaceirk_1_1view_a259c6b7d4d6f38a3de0aac91f63db2f9}} 
+\index{irk\+::view@{irk\+::view}!accumulate\+\_\+sorted@{accumulate\+\_\+sorted}}
+\index{accumulate\+\_\+sorted@{accumulate\+\_\+sorted}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{accumulate\+\_\+sorted()}{accumulate\_sorted()}}
+{\footnotesize\ttfamily template$<$class Equals  = ranges\+::equal\+\_\+to, class Add  = ranges\+::plus$>$ \\
+auto irk\+::view\+::accumulate\+\_\+sorted (\begin{DoxyParamCaption}\item[{Equals}]{equal\+\_\+to = {\ttfamily ranges\+:\+:equal\+\_\+to\{\}},  }\item[{Add}]{add = {\ttfamily ranges\+:\+:plus\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$\+T$>$, where each element is a sum of the consecutive elements that are equal according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceirk_1_1view_acd121e5b29fe783739dcdff3cf1e370f}\label{namespaceirk_1_1view_acd121e5b29fe783739dcdff3cf1e370f}} 
+\index{irk\+::view@{irk\+::view}!group\+\_\+sorted@{group\+\_\+sorted}}
+\index{group\+\_\+sorted@{group\+\_\+sorted}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{group\+\_\+sorted()}{group\_sorted()}}
+{\footnotesize\ttfamily template$<$class Fun  = ranges\+::equal\+\_\+to$>$ \\
+auto irk\+::view\+::group\+\_\+sorted (\begin{DoxyParamCaption}\item[{Fun}]{equal\+\_\+to = {\ttfamily ranges\+:\+:equal\+\_\+to\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$, where the elements are sorted. Out\+: Range$<$Range$<$\+T$>$$>$, a sorted range of groups of equal elements according to {\ttfamily equal\+\_\+to}. \mbox{\Hypertarget{namespaceirk_1_1view_a875b26dd67c40b839be9dacdbbd91bc6}\label{namespaceirk_1_1view_a875b26dd67c40b839be9dacdbbd91bc6}} 
+\index{irk\+::view@{irk\+::view}!posting\+\_\+zip@{posting\+\_\+zip}}
+\index{posting\+\_\+zip@{posting\+\_\+zip}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{posting\+\_\+zip()}{posting\_zip()}}
+{\footnotesize\ttfamily template$<$class Posting , class Left\+Range , class Right\+Range $>$ \\
+auto irk\+::view\+::posting\+\_\+zip (\begin{DoxyParamCaption}\item[{const Left\+Range \&}]{left,  }\item[{const Right\+Range \&}]{right }\end{DoxyParamCaption})}
+
+
+
+Constructs a zip view of Posting elements. 
+
+It is a specialization of \mbox{\hyperlink{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}{zip()}} function, which always returns elements of type {\ttfamily Posting}.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Posting} & Any structure or class that can be constructed with {\ttfamily Posting\{doc, score\}}. \\
+\hline
+{\em Left\+Range} & The type of the left range. \\
+\hline
+{\em Right\+Range} & The type of the right range. \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{namespaceirk_1_1view_a4c57f6b275583eb4259ab6adac064984}\label{namespaceirk_1_1view_a4c57f6b275583eb4259ab6adac064984}} 
+\index{irk\+::view@{irk\+::view}!to\+\_\+vector@{to\+\_\+vector}}
+\index{to\+\_\+vector@{to\+\_\+vector}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{to\+\_\+vector()}{to\_vector()}}
+{\footnotesize\ttfamily template$<$class Rng $>$ \\
+auto irk\+::view\+::to\+\_\+vector (\begin{DoxyParamCaption}\item[{Rng}]{rng }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1view_a63bf7fddcce8cadbb9bf78e34930993d}\label{namespaceirk_1_1view_a63bf7fddcce8cadbb9bf78e34930993d}} 
+\index{irk\+::view@{irk\+::view}!top\+\_\+k@{top\+\_\+k}}
+\index{top\+\_\+k@{top\+\_\+k}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{top\+\_\+k()}{top\_k()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Compare  = greater$>$ \\
+auto irk\+::view\+::top\+\_\+k (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k,  }\item[{Compare}]{compare = {\ttfamily \mbox{\hyperlink{structirk_1_1view_1_1greater}{greater}}\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$ Out\+: Range$<$\+T$>$\+: top k elements according to compare (sorted) \mbox{\Hypertarget{namespaceirk_1_1view_a39f5f931fdce5219b2bd043175f1890c}\label{namespaceirk_1_1view_a39f5f931fdce5219b2bd043175f1890c}} 
+\index{irk\+::view@{irk\+::view}!top\+\_\+k@{top\+\_\+k}}
+\index{top\+\_\+k@{top\+\_\+k}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{top\+\_\+k()}{top\_k()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Rng , class Compare  = greater$>$ \\
+auto irk\+::view\+::top\+\_\+k (\begin{DoxyParamCaption}\item[{Rng}]{rng,  }\item[{std\+::size\+\_\+t}]{k,  }\item[{Compare}]{compare = {\ttfamily \mbox{\hyperlink{structirk_1_1view_1_1greater}{greater}}\{\}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1view_acc3a1f866f74d50daa7ed8e6bac9ddbb}\label{namespaceirk_1_1view_acc3a1f866f74d50daa7ed8e6bac9ddbb}} 
+\index{irk\+::view@{irk\+::view}!union\+\_\+merge@{union\+\_\+merge}}
+\index{union\+\_\+merge@{union\+\_\+merge}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{union\+\_\+merge()}{union\_merge()}}
+{\footnotesize\ttfamily auto irk\+::view\+::union\+\_\+merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+In\+: Range$<$Range$<$\+T$>$$>$, where the inner ranges are sorted. Out\+: Range$<$\+T$>$, which is a sorted union of the input ranges. \mbox{\Hypertarget{namespaceirk_1_1view_ac30f787832859d974a3db71afa5c953f}\label{namespaceirk_1_1view_ac30f787832859d974a3db71afa5c953f}} 
+\index{irk\+::view@{irk\+::view}!weighted@{weighted}}
+\index{weighted@{weighted}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{weighted()}{weighted()}}
+{\footnotesize\ttfamily template$<$class W , class Multiply  = ranges\+::multiplies$>$ \\
+auto irk\+::view\+::weighted (\begin{DoxyParamCaption}\item[{W}]{weight,  }\item[{Multiply}]{multiply = {\ttfamily ranges\+:\+:multiplies\{\}} }\end{DoxyParamCaption})}
+
+In\+: Range$<$\+T$>$ Out\+: Range$<$\+T$>$, where each element is multiplied by {\ttfamily weight}. \mbox{\Hypertarget{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}\label{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}} 
+\index{irk\+::view@{irk\+::view}!zip@{zip}}
+\index{zip@{zip}!irk\+::view@{irk\+::view}}
+\subsubsection{\texorpdfstring{zip()}{zip()}}
+{\footnotesize\ttfamily template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ \\
+auto irk\+::view\+::zip (\begin{DoxyParamCaption}\item[{Left\+Range}]{left,  }\item[{Right\+Range}]{right,  }\item[{Zip\+Fn}]{zip\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Constructs a zip view. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Zip\+Fn} & A function type for element generation. \\
+\hline
+{\em Left\+Range} & The type of the left range. \\
+\hline
+{\em Right\+Range} & The type of the right range.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left range. \\
+\hline
+{\em right} & The right range. \\
+\hline
+{\em zip\+\_\+fn} & A function which, given an element of {\ttfamily left} and an element of {\ttfamily right}, returns an element of the zipped view.\\
+\hline
+\end{DoxyParams}
+Example\+: 
+\begin{DoxyCode}
+std::vector<int> documents = \{0, 1, 3\};
+std::vector<double> scores = \{1.2, 3.1, 0.4\};
+\textcolor{keyword}{auto} zip\_view = \mbox{\hyperlink{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}{zip}}(documents, scores,
+  [](\textcolor{keyword}{const} \textcolor{keywordtype}{int}& doc, \textcolor{keyword}{const} \textcolor{keywordtype}{double}& score) \{
+    \textcolor{keywordflow}{return} std::make\_pair(doc, score);
+  \});
+\textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}& [doc, score] : zip\_view) \{
+  std::cout << doc << \textcolor{stringliteral}{", "} << score << std::endl;
+\}
+\end{DoxyCode}
+ 

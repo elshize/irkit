@@ -6,19 +6,28 @@
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structirkit_1_1score_1_1TfIdf}{irkit\+::score\+::\+Tf\+Idf}
-\item 
-struct \hyperlink{structirkit_1_1score_1_1Count}{irkit\+::score\+::\+Count}
-\item 
-struct \hyperlink{structirkit_1_1score_1_1BM25}{irkit\+::score\+::\+B\+M25}
-\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{irk\+::score\+::tf\+\_\+idf\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer using a simple version of tf-\/idf function. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1count__scorer}{irk\+::score\+::count\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A scorer counting term frequencies within scored documents. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer}{irk\+::score\+::bm25\+\_\+scorer}}
+\begin{DoxyCompactList}\small\item\em A B\+M25 scorer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespaceirkit_1_1score}{irkit\+::score}
-\end{DoxyCompactItemize}
+ \mbox{\hyperlink{namespaceirk_1_1score}{irk\+::score}}
+\begin{DoxyCompactList}\small\item\em Scoring functions and utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Score\+Fn , class Doc , class Freq $>$ }\\using \hyperlink{namespaceirkit_1_1score_ab6226695d6d5c54c84fcf2cb8e90c8b3}{irkit\+::score\+::score\+\_\+result\+\_\+t} = decltype(std\+::declval$<$ Score\+Fn $>$()(std\+::declval$<$ Freq $>$(), std\+::declval$<$ Freq $>$(), std\+::declval$<$ std\+::size\+\_\+t $>$()))
+{\footnotesize template$<$class Score\+Fn , class Doc , class Freq $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{irk\+::score\+::score\+\_\+result\+\_\+t}} = decltype(std\+::declval$<$ Score\+Fn $>$()(std\+::declval$<$ Freq $>$(), std\+::declval$<$ Freq $>$(), std\+::declval$<$ std\+::size\+\_\+t $>$()))
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

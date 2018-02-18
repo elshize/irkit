@@ -1,0 +1,171 @@
+\hypertarget{classirk_1_1compact__table}{}\section{irk\+:\+:compact\+\_\+table$<$ T, Codec $>$ Class Template Reference}
+\label{classirk_1_1compact__table}\index{irk\+::compact\+\_\+table$<$ T, Codec $>$@{irk\+::compact\+\_\+table$<$ T, Codec $>$}}
+
+
+Fast-\/access compressed array.  
+
+
+
+
+{\ttfamily \#include $<$compacttable.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1compact__table_a1c0c667110b82f790a0c0088e53ff461}{value\+\_\+type}} = typename Codec\+::value\+\_\+type
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1compact__table_a7a5ea0a767cf151a37639532e36712f3}{compact\+\_\+table}} (fs\+::path file)
+\item 
+\mbox{\hyperlink{classirk_1_1compact__table_a3400a8843f4c286fd49417eeca2c9e74}{compact\+\_\+table}} (const std\+::vector$<$ T $>$ \&values, bool delta\+\_\+encoded=false, std\+::uint32\+\_\+t block\+\_\+size=256)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table_a7b0ae00675c32fcc1e7804f1ad3ab3ad}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table_ac80ecca694d256e4f3c5c29e98900ccc}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id) const
+\item 
+const char $\ast$ \mbox{\hyperlink{classirk_1_1compact__table_a33d2d55685fe583f89521c2ca9797973}{data}} ()
+\item 
+const \mbox{\hyperlink{structirk_1_1compact__table__header}{compact\+\_\+table\+\_\+header}} $\ast$ \mbox{\hyperlink{classirk_1_1compact__table_ac5b6d8b0f58abd180ebd0d57396aa7ac}{header}} () const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table_adb0104bee02709980c7a7f9cd3a7719e}{size}} () const
+\item 
+bool \mbox{\hyperlink{classirk_1_1compact__table_ae2947a995621e70e7e7c533e30a0e043}{operator==}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&rhs)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Codec \mbox{\hyperlink{classirk_1_1compact__table_a780f480df7180c7b750907dc1954e741}{codec\+\_\+}}
+\item 
+std\+::vector$<$ char $>$ \mbox{\hyperlink{classirk_1_1compact__table_adf7928280ada85abfdf858586aeadb78}{data\+\_\+}}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classirk_1_1compact__table_aabbde77b5cb5faeef5fe72eff9624aa5}{operator$<$$<$}} (std\+::ostream \&, const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$\newline
+class irk\+::compact\+\_\+table$<$ T, Codec $>$}
+
+Fast-\/access compressed array. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & the type of the stored values \\
+\hline
+{\em Codec} & a codec that encodes values of type {\ttfamily T}\\
+\hline
+\end{DoxyTemplParams}
+This is a compressed table indexed with consecutive integers between {\ttfamily 0} and {\ttfamily size -\/ 1}. T\+O\+DO\+: describe implmentation.
+
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1compact__table_a1c0c667110b82f790a0c0088e53ff461}\label{classirk_1_1compact__table_a1c0c667110b82f790a0c0088e53ff461}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::\mbox{\hyperlink{classirk_1_1compact__table_a1c0c667110b82f790a0c0088e53ff461}{value\+\_\+type}} =  typename Codec\+::value\+\_\+type}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1compact__table_a7a5ea0a767cf151a37639532e36712f3}\label{classirk_1_1compact__table_a7a5ea0a767cf151a37639532e36712f3}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!compact\+\_\+table@{compact\+\_\+table}}
+\index{compact\+\_\+table@{compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{compact\+\_\+table()}{compact\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_a3400a8843f4c286fd49417eeca2c9e74}\label{classirk_1_1compact__table_a3400a8843f4c286fd49417eeca2c9e74}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!compact\+\_\+table@{compact\+\_\+table}}
+\index{compact\+\_\+table@{compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{compact\+\_\+table()}{compact\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{values,  }\item[{bool}]{delta\+\_\+encoded = {\ttfamily false},  }\item[{std\+::uint32\+\_\+t}]{block\+\_\+size = {\ttfamily 256} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1compact__table_a33d2d55685fe583f89521c2ca9797973}\label{classirk_1_1compact__table_a33d2d55685fe583f89521c2ca9797973}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!data@{data}}
+\index{data@{data}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+const char$\ast$ \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_ac5b6d8b0f58abd180ebd0d57396aa7ac}\label{classirk_1_1compact__table_ac5b6d8b0f58abd180ebd0d57396aa7ac}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!header@{header}}
+\index{header@{header}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{header()}{header()}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+const \mbox{\hyperlink{structirk_1_1compact__table__header}{compact\+\_\+table\+\_\+header}}$\ast$ \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_ae2947a995621e70e7e7c533e30a0e043}\label{classirk_1_1compact__table_ae2947a995621e70e7e7c533e30a0e043}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator==@{operator==}}
+\index{operator==@{operator==}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+bool \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_a7b0ae00675c32fcc1e7804f1ad3ab3ad}\label{classirk_1_1compact__table_a7b0ae00675c32fcc1e7804f1ad3ab3ad}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_ac80ecca694d256e4f3c5c29e98900ccc}\label{classirk_1_1compact__table_ac80ecca694d256e4f3c5c29e98900ccc}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_adb0104bee02709980c7a7f9cd3a7719e}\label{classirk_1_1compact__table_adb0104bee02709980c7a7f9cd3a7719e}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!size@{size}}
+\index{size@{size}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classirk_1_1compact__table_aabbde77b5cb5faeef5fe72eff9624aa5}\label{classirk_1_1compact__table_aabbde77b5cb5faeef5fe72eff9624aa5}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{offset\+\_\+table }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classirk_1_1compact__table_a780f480df7180c7b750907dc1954e741}\label{classirk_1_1compact__table_a780f480df7180c7b750907dc1954e741}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!codec\+\_\+@{codec\+\_\+}}
+\index{codec\+\_\+@{codec\+\_\+}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{codec\+\_\+}{codec\_}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+Codec \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::codec\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_adf7928280ada85abfdf858586aeadb78}\label{classirk_1_1compact__table_adf7928280ada85abfdf858586aeadb78}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!data\+\_\+@{data\+\_\+}}
+\index{data\+\_\+@{data\+\_\+}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{data\+\_\+}{data\_}}
+{\footnotesize\ttfamily template$<$class T, class Codec = coding\+::varbyte\+\_\+codec$<$\+T$>$$>$ \\
+std\+::vector$<$char$>$ \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec $>$\+::data\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{compacttable_8hpp}{compacttable.\+hpp}}\end{DoxyCompactItemize}

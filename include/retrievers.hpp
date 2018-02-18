@@ -27,13 +27,13 @@ protected:
 
 public:
     /// Returns initial min-heap of posting lists sorted by their current Doc.
-    virtual irkit::Heap<Doc, unsigned int> post_lists_by_doc(
-        const std::vector<PostingList>& term_postings)
+    virtual irk::Heap<Doc, unsigned int>
+    post_lists_by_doc(const std::vector<PostingList>& term_postings)
     {
 #ifdef STATS
         std::size_t postings = 0;
 #endif
-        irkit::Heap<Doc, unsigned int> post_list_heap(term_postings.size());
+        irk::Heap<Doc, unsigned int> post_list_heap(term_postings.size());
         for (unsigned int idx = 0; idx < term_postings.size(); ++idx) {
             if (!term_postings[idx].empty()) {
                 Doc doc = term_postings[idx].begin()->doc;
@@ -66,7 +66,7 @@ public:
     {
         auto iterators = to_iterators(term_postings);
         auto post_list_heap = post_lists_by_doc(term_postings);
-        irkit::Heap<Score, Doc> top_results_heap(k);
+        irk::Heap<Score, Doc> top_results_heap(k);
         while (!post_list_heap.empty()) {
             Doc min_doc = post_list_heap.top().key;
             Score score = Score(0);
@@ -100,16 +100,16 @@ public:
     //    // Selects the pivot and returns all posting lists that are at or
     //    before
     //    // the pivot doc ID.
-    //    std::vector<irkit::Entry<Doc, unsigned int>> select_pivot(
+    //    std::vector<irk::Entry<Doc, unsigned int>> select_pivot(
     //        const std::vector<PostingList>& term_postings,
-    //        irkit::Heap<Doc, unsigned int>& post_list_heap,
+    //        irk::Heap<Doc, unsigned int>& post_list_heap,
     //        const std::vector<Score>& term_weights,
     //        const Score threshold)
     //    {
     //        DEBUG_ASSERT(!post_list_heap.empty(), debug{});
     //        DEBUG_ASSERT(!term_postings.empty(), debug{});
     //        Score max_sum = Score(0);
-    //        std::vector<irkit::Entry<Doc, unsigned int>> buffer;
+    //        std::vector<irk::Entry<Doc, unsigned int>> buffer;
     //        while (!post_list_heap.empty()) {
     //            auto top = post_list_heap.pop();
     //            auto post_idx = top.value;
@@ -151,7 +151,7 @@ public:
     //            DaatRetriever<PostingList>::post_lists_by_doc(term_postings);
     //        Score threshold = Score(0);
     //
-    //        irkit::Heap<Score, Doc> top_results_heap(k);
+    //        irk::Heap<Score, Doc> top_results_heap(k);
     //        while (!post_list_heap.empty()) {
     //            /* Select pivot */
     //            auto pivot_prefix = select_pivot(
@@ -215,7 +215,7 @@ public:
         const std::vector<Score>& term_weights,
         std::size_t k)
     {
-        auto r = irkit::wand(term_postings, k, term_weights);
+        auto r = irk::wand(term_postings, k, term_weights);
         std::vector<query::Result> results;
         for (auto & [doc, score] : r) {
             results.push_back({doc, score});
@@ -304,7 +304,7 @@ class MaxScoreRetriever : public DaatRetriever<PostingList> {
         Score threshold = Score(0);
         Score non_essential_max_sum = Score(0);
 
-        irkit::Heap<Score, Doc> top_results_heap(k);
+        irk::Heap<Score, Doc> top_results_heap(k);
 
         while (!partition.essential.empty()) {
             bool rebuild_heap = update_non_essential(
@@ -408,7 +408,7 @@ public:
         : query_id(0),
           qidx_shifted(0),
           score_mask(0),
-          bits_to_shift(sizeof(Score) * 8 - irkit::nbits(init_gap)),
+          bits_to_shift(sizeof(Score) * 8 - irk::nbits(init_gap)),
           accumulator_array(collection_size, Score(0))
     {
         static_assert(
@@ -436,7 +436,7 @@ public:
             acc[doc] += score_delta;
         }
         if constexpr (acc_block_size > 1) {
-            constexpr std::size_t block_nbits = irkit::nbits(acc_block_size);
+            constexpr std::size_t block_nbits = irk::nbits(acc_block_size);
             std::size_t block = doc >> block_nbits;
             block_max_scores[block] =
                 std::max(acc[doc], block_max_scores[block]);
@@ -481,7 +481,7 @@ public:
             doc_lists.push_back(postlist.docs);
             score_lists.push_back(postlist.scores);
         }
-        irkit::traverse(doc_lists,
+        irk::traverse(doc_lists,
             score_lists,
             accumulator_array,
             term_weights,
@@ -514,7 +514,7 @@ public:
     /// It may return fewer documents if fewer of them contain any term.
     std::vector<Result> aggregate_top(std::size_t k)
     {
-        irkit::Heap<Score, Doc> heap(k);
+        irk::Heap<Score, Doc> heap(k);
         if constexpr (acc_block_size > 1) {
             for (std::size_t block = 0; block < nblocks; ++block) {
                 auto size = static_cast<std::size_t>(std::min(
@@ -600,8 +600,8 @@ public:
             doc_lists.push_back(postlist.docs);
             score_lists.push_back(postlist.scores);
         }
-        irkit::traverse(doc_lists, score_lists, acc, term_weights);
-        auto top_k = irkit::aggregate_top<bloodhound::query::Result>(k, acc);
+        irk::traverse(doc_lists, score_lists, acc, term_weights);
+        auto top_k = irk::aggregate_top<bloodhound::query::Result>(k, acc);
         Score threshold = top_k.size() == k ? top_k[k - 1].score : Score(0);
         return {threshold, top_k};
     }
@@ -748,7 +748,7 @@ public:
         std::fill(accumulator_array.begin(), accumulator_array.end(), Score(0));
         traverse(lists_for_terms, term_weights);
         std::vector<Result> results;
-        irkit::Heap<Score, Doc> heap(k);
+        irk::Heap<Score, Doc> heap(k);
         auto size = static_cast<std::size_t>(accumulator_array.size());
         for (Doc doc = Doc(0); doc < size; ++doc) {
             Score score = accumulator_array[doc];
@@ -790,7 +790,7 @@ public:
         std::size_t k)
     {
         std::vector<Score> acc(collection_size, Score(0));
-        irkit::Heap<Score, Doc, std::less<Score>, std::unordered_map<Doc, int>>
+        irk::Heap<Score, Doc, std::less<Score>, std::unordered_map<Doc, int>>
             top_results(k);
 
         auto postlists = sorted_by_length(lists_for_terms);

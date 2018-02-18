@@ -1,6 +1,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include "irkit/index.hpp"
+#include "irkit/index/merger.hpp"
 
 namespace fs = std::experimental::filesystem;
 
@@ -20,7 +21,7 @@ int main(int argc, char** argv)
         parts.emplace_back(argv[arg]);
     }
 
-    irkit::DefaultIndexMerger merger(target_dir, parts, true);
+    irk::default_index_merger merger(target_dir, parts, true);
     std::cout << "Merging titles... ";
     std::cout.flush();
     merger.merge_titles();
