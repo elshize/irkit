@@ -1,7 +1,7 @@
+#include <boost/filesystem.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <chrono>
-#include <experimental/filesystem>
 #include <fstream>
 #include <gumbo.h>
 #include <iostream>
@@ -12,7 +12,7 @@
 #include "irkit/parsing/html.hpp"
 #include "irkit/parsing/snowball/porter2.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 void write_term(std::string&& term, SN_env* z, bool lowercase)
 {

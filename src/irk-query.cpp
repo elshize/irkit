@@ -1,11 +1,11 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <chrono>
 #include <iostream>
 #include "cmd.hpp"
 #include "irkit/index.hpp"
 #include "irkit/taat.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 template<class Score>
 std::pair<std::vector<std::string>, std::vector<Score>> parse(std::string query)

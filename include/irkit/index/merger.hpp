@@ -105,9 +105,9 @@ public:
             std::cout << "Loading index " << index_dir << std::endl;
             indices_.emplace_back(index_dir, false, true);
         }
-        terms_out_.open(index::terms_path(target_dir));
-        doc_ids_.open(index::doc_ids_path(target_dir));
-        doc_counts_.open(index::doc_counts_path(target_dir));
+        terms_out_.open(index::terms_path(target_dir).c_str());
+        doc_ids_.open(index::doc_ids_path(target_dir).c_str());
+        doc_counts_.open(index::doc_counts_path(target_dir).c_str());
         doc_offset_ = 0;
         count_offset_ = 0;
     }
@@ -191,17 +191,15 @@ public:
         }
 
         // Write offsets
-        io::dump(
-            offset_table<>(doc_ids_off_), index::doc_ids_off_path(target_dir_));
-        io::dump(offset_table<>(doc_counts_off_),
+        io::dump(build_offset_table<>(doc_ids_off_),
+            index::doc_ids_off_path(target_dir_));
+        io::dump(build_offset_table<>(doc_counts_off_),
             index::doc_counts_off_path(target_dir_));
 
         // Write term dfs.
-        std::vector<char> encoded_dfs =
-            irk::coding::encode_delta<varbyte_codec<frequency_type>>(term_dfs_);
-        std::ofstream dfs(index::term_doc_freq_path(target_dir_));
-        dfs.write(encoded_dfs.data(), encoded_dfs.size());
-        dfs.close();
+        auto compact_term_dfs =
+            irk::build_compact_table<frequency_type>(term_dfs_);
+        irk::io::dump(compact_term_dfs, index::term_doc_freq_path(target_dir_));
 
         // Close other streams.
         terms_out_.close();
@@ -211,7 +209,7 @@ public:
 
     void merge_titles()
     {
-        std::ofstream tout(index::titles_path(target_dir_));
+        std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
             for (const auto& title : index.titles()) {
                 tout << title << std::endl;

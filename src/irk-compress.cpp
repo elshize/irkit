@@ -1,15 +1,16 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
+#include <chrono>
 #include <iostream>
 #include "cmd.hpp"
 #include "irkit/bitstream.hpp"
 #include "irkit/coding/hutucker.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 std::vector<std::size_t>
 frequencies(fs::path file)
 {
-    std::ifstream f(file);
+    std::ifstream f(file.c_str());
     auto freqs = irk::coding::huffman::symbol_frequencies(f);
     f.close();
     return freqs;
@@ -36,8 +37,8 @@ int main(int argc, char** argv)
 
     auto size = fs::file_size(input_file);
     irk::coding::hutucker_codec<char> codec(frequencies(input_file));
-    std::ifstream fin(input_file);
-    std::ofstream fout(output_file);
+    std::ifstream fin(input_file.c_str());
+    std::ofstream fout(output_file.c_str());
 
     // Encode tree (preceeding by its size)
     auto tree_bytes = codec.tree().memory_container();

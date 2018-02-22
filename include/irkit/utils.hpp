@@ -62,12 +62,14 @@ constexpr unsigned short nbytes(T n)
 
 //! An container accumulating top-k postings (or results).
 template<class Posting>
-class TopKAccumulator {
-    using Score = score_t<Posting>;
+class top_k_accumulator {
+public:
+    using posting_type = Posting;
+    using score_type = score_t<posting_type>;
 
 private:
     std::size_t k_;
-    Score threshold_;
+    score_type threshold_;
     std::vector<Posting> top_;
 
     static bool result_order(const Posting& lhs, const Posting& rhs)
@@ -81,7 +83,7 @@ public:
      * @param k The size of the accumulator, i.e., the number of postings to
      *          accumulate.
      */
-    TopKAccumulator(std::size_t k) : k_(k), threshold_(0){};
+    top_k_accumulator(std::size_t k) : k_(k), threshold_(0){};
 
     //! Accumulates the given posting.
     /*!
@@ -121,7 +123,7 @@ public:
      *          the score of the k-th result, or 0 if fewer than k results have
      *          been accumulated.
      */
-    Score threshold() { return threshold_; }
+    score_type threshold() { return threshold_; }
 };
 
 namespace view {

@@ -43,7 +43,7 @@ std::vector<pure_element_t<Range>> daat_or(
 {
     using Posting = pure_element_t<Range>;
     union_range postings_union(query_postings, weights);
-    TopKAccumulator<Posting> topk(k);
+    top_k_accumulator<Posting> topk(k);
     while (!postings_union.empty()) {
         topk.accumulate(postings_union.next_doc());
     }
@@ -59,7 +59,7 @@ std::vector<pure_element_t<Range>> wand(
 {
     using Posting = pure_element_t<Range>;
     union_range postings_union(query_postings, weights);
-    TopKAccumulator<Posting> topk(k);
+    top_k_accumulator<Posting> topk(k);
     while (!postings_union.empty()) {
         topk.accumulate(postings_union.next_doc_wand(topk.threshold()));
     }

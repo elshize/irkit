@@ -161,7 +161,7 @@ public:
             out.write(encoded.data(), encoded.size());
             offset += encoded.size();
         }
-        offset_table<> offset_table(offsets);
+        offset_table<> offset_table = build_offset_table<>(offsets);
         off << offset_table;
     }
 
@@ -183,7 +183,7 @@ public:
             out.write(encoded.data(), encoded.size());
             offset += encoded.size();
         }
-        offset_table<> offset_table(offsets);
+        offset_table<> offset_table = build_offset_table<>(offsets);
         off << offset_table;
     }
 
@@ -198,9 +198,8 @@ public:
             term_id_type term_id = term_map_[term];
             dfs.push_back(document_frequency(term_id));
         }
-        auto encoded =
-            coding::encode<coding::varbyte_codec<frequency_type>>(dfs);
-        out.write(encoded.data(), encoded.size());
+        auto compact_term_dfs = irk::build_compact_table<frequency_type>(dfs);
+        out << compact_term_dfs;
     }
 };
 

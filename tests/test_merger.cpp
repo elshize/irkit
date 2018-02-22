@@ -61,13 +61,13 @@ protected:
         irk::fs::create_directory(index_dir_1);
         write_bytes(irk::index::terms_path(index_dir_1),
             {'b', '\n', 'c', '\n', 'z', '\n'});
-        write_bytes(irk::index::term_doc_freq_path(index_dir_1),
-            vb_encode({2, 1, 1}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        auto tdfs = irk::build_compact_table<std::uint16_t>({0, 2, 3});
+        irk::io::dump(tdfs, irk::index::term_doc_freq_path(index_dir_1));
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_ids_off_path(index_dir_1));
         write_bytes(irk::index::doc_ids_path(index_dir_1),
             flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_counts_off_path(index_dir_1));
         write_bytes(irk::index::doc_counts_path(index_dir_1),
             flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
@@ -82,13 +82,13 @@ protected:
         irk::fs::create_directory(index_dir_2);
         write_bytes(irk::index::terms_path(index_dir_2),
             {'b', '\n', 'c', '\n', 'd', '\n'});
-        write_bytes(irk::index::term_doc_freq_path(index_dir_2),
-            vb_encode({2, 1, 1}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        auto tdfs2 = irk::build_compact_table<std::uint16_t>({2, 1, 1});
+        irk::io::dump(tdfs2, irk::index::term_doc_freq_path(index_dir_2));
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_ids_off_path(index_dir_2));
         write_bytes(irk::index::doc_ids_path(index_dir_2),
             flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_counts_off_path(index_dir_2));
         write_bytes(irk::index::doc_counts_path(index_dir_2),
             flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
@@ -103,7 +103,7 @@ protected:
     }
     void write_bytes(irk::fs::path file, const std::vector<char>& bytes)
     {
-        std::ofstream ofs(file);
+        std::ofstream ofs(file.c_str());
         ofs.write(bytes.data(), bytes.size());
         ofs.close();
     }
@@ -114,7 +114,7 @@ TEST_F(IndexMerging, titles)
     index_merger merger(index_dir_m, {index_dir_1, index_dir_2});
     merger.merge_titles();
     std::ostringstream otitles;
-    std::ifstream title_file(irk::index::titles_path(index_dir_m));
+    std::ifstream title_file(irk::index::titles_path(index_dir_m).c_str());
     std::string title;
     while (std::getline(title_file, title)) {
         otitles << title << std::endl;
@@ -134,7 +134,7 @@ TEST_F(IndexMerging, merge_terms)
 
     // Verify terms
     std::ostringstream oterms;
-    std::ifstream term_file(irk::index::terms_path(index_dir_m));
+    std::ifstream term_file(irk::index::terms_path(index_dir_m).c_str());
     std::string term;
     while (std::getline(term_file, term)) {
         oterms << term << std::endl;

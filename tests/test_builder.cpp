@@ -138,7 +138,7 @@ TEST_F(IndexBuilderWrite, write_document_ids)
     std::vector<char> actual_off(offs.begin(), offs.end());
     std::vector<char> expected_out =
         flatten({encode({0, 1}, vb), encode({1}, vb), encode({0}, vb)});
-    std::vector<char> expected_off = irk::offset_table<>({0, 2, 3}).data_;
+    std::vector<char> expected_off = irk::build_offset_table<>({0, 2, 3}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
@@ -155,20 +155,22 @@ TEST_F(IndexBuilderWrite, write_document_counts)
     std::vector<char> actual_off(offs.begin(), offs.end());
     std::vector<char> expected_out =
         flatten({encode({1, 2}, vb), encode({1}, vb), encode({2}, vb)});
-    std::vector<char> expected_off = irk::offset_table<>({0, 2, 3}).data_;
+    std::vector<char> expected_off = irk::build_offset_table<>({0, 2, 3}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
 
 TEST_F(IndexBuilderWrite, write_document_frequencies)
 {
-    irk::coding::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     builder.write_document_frequencies(out);
     std::string outs = out.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
-    std::vector<char> expected_out = encode({2, 1, 1}, vb);
-    assert_vector(actual_out, expected_out);
+    irk::compact_table<std::uint16_t> dfs(actual_out);
+    EXPECT_EQ(dfs.size(), 3);
+    EXPECT_EQ(dfs[0], 2);
+    EXPECT_EQ(dfs[1], 1);
+    EXPECT_EQ(dfs[2], 1);
 }
 
 };  // namespace

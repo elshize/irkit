@@ -151,7 +151,7 @@ std::vector<Result> aggregate_top(std::size_t k, const AccumulatorArray& acc)
     BOOST_CONCEPT_ASSERT((concept::InputRange<AccumulatorArray>));
     using Doc = doc_t<Result>;
     using Score = score_t<Result>;
-    TopKAccumulator<Result> topk(k);
+    top_k_accumulator<Result> topk(k);
     Doc doc(0);
     for (const Score& score : acc) {
         topk.accumulate({doc, score});

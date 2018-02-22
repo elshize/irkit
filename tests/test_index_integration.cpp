@@ -85,13 +85,16 @@ TEST(IndexIntegration, build_write_read)
     builder.add_term("a");
 
     // Write
-    std::ofstream of_doc_ids(irk::index::doc_ids_path(index_dir));
-    std::ofstream of_doc_ids_off(irk::index::doc_ids_off_path(index_dir));
-    std::ofstream of_doc_counts(irk::index::doc_counts_path(index_dir));
-    std::ofstream of_doc_counts_off(irk::index::doc_counts_off_path(index_dir));
-    std::ofstream of_terms(irk::index::terms_path(index_dir));
-    std::ofstream of_term_doc_freq(irk::index::term_doc_freq_path(index_dir));
-    std::ofstream of_titles(irk::index::titles_path(index_dir));
+    std::ofstream of_doc_ids(irk::index::doc_ids_path(index_dir).c_str());
+    std::ofstream of_doc_ids_off(
+        irk::index::doc_ids_off_path(index_dir).c_str());
+    std::ofstream of_doc_counts(irk::index::doc_counts_path(index_dir).c_str());
+    std::ofstream of_doc_counts_off(
+        irk::index::doc_counts_off_path(index_dir).c_str());
+    std::ofstream of_terms(irk::index::terms_path(index_dir).c_str());
+    std::ofstream of_term_doc_freq(
+        irk::index::term_doc_freq_path(index_dir).c_str());
+    std::ofstream of_titles(irk::index::titles_path(index_dir).c_str());
     builder.sort_terms();
     builder.write_terms(of_terms);
     builder.write_document_frequencies(of_term_doc_freq);

@@ -1,4 +1,4 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <string>
 #include <vector>
 #include "gmock/gmock.h"
@@ -11,7 +11,7 @@
 
 namespace {
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 class abst_test : public ::testing::Test {
 protected:
@@ -119,7 +119,8 @@ TEST_F(prefix_map_test, multiple_blocks)
 TEST(build_prefix_map, from_strings)
 {
     std::vector<std::string> strings = {"aaa", "aab", "aabbbb", "b"};
-    auto map = irk::build_prefix_map<int, std::vector<char>>(strings);
+    auto map = irk::build_prefix_map<int>(strings);
+    EXPECT_EQ(map.block_count_, 1);
     EXPECT_EQ(map["aaa"].value(), 0);
     EXPECT_EQ(map["aab"].value(), 1);
     EXPECT_EQ(map["aabbbb"].value(), 2);
@@ -128,10 +129,25 @@ TEST(build_prefix_map, from_strings)
     EXPECT_EQ(map["baaa"], std::nullopt);
 }
 
+TEST(build_prefix_map, expand_block)
+{
+    std::vector<std::string> strings = {"aaa", "aab", "aabbbbbbbbbbbb", "b"};
+    auto map = irk::build_prefix_map<int>(strings, 10);
+    EXPECT_EQ(map.block_count_, 4);
+    EXPECT_EQ(map["aaa"].value(), 0);
+    EXPECT_EQ(map["aab"].value(), 1);
+    EXPECT_EQ(map["aabbbbbbbbbbbb"].value(), 2);
+    EXPECT_EQ(map["b"].value(), 3);
+    EXPECT_EQ(map["aaba"], std::nullopt);
+    EXPECT_EQ(map["baaa"], std::nullopt);
+}
+
+// TODO: both "a" and "aa" in leaders -- maybe test in mbt instead?
+
 TEST(build_prefix_map, lorem)
 {
     fs::path in_file("randstr.txt");
-    std::ifstream in(in_file);
+    std::ifstream in(in_file.c_str());
     std::vector<std::string> strings;
     std::string line;
     while (std::getline(in, line)) {
@@ -139,7 +155,7 @@ TEST(build_prefix_map, lorem)
     }
     in.close();
     std::sort(strings.begin(), strings.end());
-    auto map = irk::build_prefix_map<int, std::vector<char>>(strings);
+    auto map = irk::build_prefix_map<int>(strings);
     for (std::size_t idx = 0; idx < strings.size(); ++idx) {
         auto key = strings[idx];
         auto retrieved_idx = map[key];
@@ -151,7 +167,7 @@ TEST(build_prefix_map, lorem)
 TEST(build_prefix_map, lorem_multiple_blocks)
 {
     fs::path in_file("randstr.txt");
-    std::ifstream in(in_file);
+    std::ifstream in(in_file.c_str());
     std::vector<std::string> strings;
     std::string line;
     while (std::getline(in, line)) {
@@ -159,13 +175,31 @@ TEST(build_prefix_map, lorem_multiple_blocks)
     }
     in.close();
     std::sort(strings.begin(), strings.end());
-    auto map = irk::build_prefix_map<int, std::vector<char>>(strings, 128);
+    auto map = irk::build_prefix_map<int>(strings, 128);
     for (std::size_t idx = 0; idx < strings.size(); ++idx) {
         auto key = strings[idx];
         auto retrieved_idx = map[key];
         ASSERT_NE(retrieved_idx, std::nullopt) << key << " (" << idx << ")";
         ASSERT_EQ(retrieved_idx.value(), idx) << key << " (" << idx << ")";
     }
+}
+
+TEST(dump_and_load_prefix_map, from_strings)
+{
+    std::vector<std::string> strings = {"aaa", "aab", "aabbbb", "b"};
+    auto map = irk::build_prefix_map<int>(strings);
+    std::ostringstream out;
+    map.dump(out);
+
+    std::istringstream in(out.str());
+    auto lmap = irk::load_prefix_map<int>(in);
+
+    EXPECT_EQ(lmap["aaa"].value(), 0);
+    EXPECT_EQ(lmap["aab"].value(), 1);
+    EXPECT_EQ(lmap["aabbbb"].value(), 2);
+    EXPECT_EQ(lmap["b"].value(), 3);
+    EXPECT_EQ(lmap["aaba"], std::nullopt);
+    EXPECT_EQ(lmap["baaa"], std::nullopt);
 }
 
 };  // namespace

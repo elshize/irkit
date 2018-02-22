@@ -1,16 +1,17 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
+#include <chrono>
 #include <iostream>
 #include "cmd.hpp"
 #include "irkit/alphabetical_bst.hpp"
 #include "irkit/bitstream.hpp"
 #include "irkit/coding/hutucker.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 
 std::vector<std::size_t> frequencies(fs::path file)
 {
-    std::ifstream f(file);
+    std::ifstream f(file.c_str());
     auto freqs = irk::coding::huffman::symbol_frequencies(f);
     f.close();
     return freqs;
@@ -33,7 +34,7 @@ int main(int argc, char** argv)
     fs::path input_file(program.get<std::string>("input").value());
     fs::path output_file(program.get<std::string>("output").value());
 
-    std::ifstream fin(input_file);
+    std::ifstream fin(input_file.c_str());
 
     auto start_time = std::chrono::steady_clock::now();
 
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
 
     // Decode content
     irk::input_bit_stream source(fin);
-    std::ofstream fout(output_file);
+    std::ofstream fout(output_file.c_str());
     codec.decode(source, fout, symbols);
     auto end_time = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(

@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 
     std::size_t qid = 0;
     std::string line;
-    std::ifstream query_stream(query_file);
+    std::ifstream query_stream(query_file.c_str());
     while (std::getline(query_stream, line)) {
         auto[postings, term_weights] = parse_query(line, index);
         DocCountingAccumulator acc(index.get_collection_size());

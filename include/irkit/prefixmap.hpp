@@ -27,8 +27,10 @@
 #pragma once
 
 #include <boost/dynamic_bitset.hpp>
+#include <boost/filesystem.hpp>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 #include <list>
 #include <vector>
 #include "irkit/bitptr.hpp"
@@ -37,6 +39,8 @@
 #include "irkit/utils.hpp"
 
 namespace irk {
+
+namespace fs = boost::filesystem;
 
 //! A string-based prefix map implementation.
 /*!
@@ -72,7 +76,7 @@ public:
         std::size_t size_;
         char* block_begin_;
         irk::bitptr<char> bitp_;
-        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec_;
+        const std::shared_ptr<coding::hutucker_codec<char>> codec_;
 
         void encode_unary(std::uint32_t n)
         {
@@ -139,10 +143,14 @@ public:
             return true;
         }
 
+        void expand_by(std::size_t nbytes) { size_ += nbytes; }
+
         void write_count()
         {
             std::memcpy(block_begin_ + sizeof(Index), &count_, sizeof(Counter));
         }
+
+        void close() { pos_ = size_ * 8; }
     };
 
     class block_ptr {
@@ -200,7 +208,7 @@ private:
     MemoryBuffer blocks_;
     std::size_t block_size_;
     std::size_t block_count_;
-    const std::shared_ptr<irk::coding::hutucker_codec<char>> codec_;
+    const std::shared_ptr<coding::hutucker_codec<char>> codec_;
     mutable_bit_trie<Index> block_leaders_;
 
     //! Append another block
@@ -217,9 +225,79 @@ private:
             index, new_block_begin, block_size_, codec_);
     }
 
+    void expand_block(block_builder* block)
+    {
+        blocks_.resize(blocks_.size() + block_size_);
+        ++block_count_;
+        block->expand_by(block_size_);
+    }
+
+    std::ostream& dump_coding_tree(std::ostream& out) const
+    {
+        auto coding_tree = codec_->tree();
+        auto mem = coding_tree.memory_container();
+        std::size_t tree_size = mem.size();
+        out.write(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
+        out.write(mem.data(), tree_size);
+        return out;
+    }
+
+    std::ostream& dump_blocks(std::ostream& out) const
+    {
+        std::size_t blocks_size = blocks_.size();
+        out.write(reinterpret_cast<char*>(&blocks_size), sizeof(blocks_size));
+        out.write(blocks_.data(), blocks_size);
+        return out;
+    }
+
 public:
+    prefix_map(MemoryBuffer blocks,
+        std::size_t block_size,
+        std::size_t block_count,
+        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
+        mutable_bit_trie<Index> block_leaders)
+        : blocks_(blocks),
+          block_size_(block_size),
+          block_count_(block_count),
+          codec_(codec),
+          block_leaders_(block_leaders)
+    {}
+
+    // TODO: get rid of duplication -- leaving for testing now
+    prefix_map(fs::path file,
+        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
+        std::size_t block_size = 1024)
+        : block_size_(block_size), block_count_(0), codec_(codec)
+    {
+        std::ifstream in(file.c_str());
+        Index index(0);
+        std::string item;
+        if (!std::getline(in, item)) {
+            throw std::invalid_argument("prefix map cannot be empty");
+        }
+        block_leaders_.insert(codec_->encode(item.begin(), item.end()), 0);
+        auto current_block = append_block(index, nullptr);
+
+        while (std::getline(in, item)) {
+            if (!current_block->add(item)) {
+                block_leaders_.insert(
+                    codec_->encode(item.begin(), item.end()), block_count_);
+                current_block = append_block(index, current_block.get());
+                if (!current_block->add(item)) {
+                    while (!current_block->add(item)) {
+                        expand_block(current_block.get());
+                    }
+                    current_block->close();
+                }
+            }
+            ++index;
+        }
+        current_block->write_count();
+        in.close();
+    }
+
     template<class StringRange>
-    prefix_map(StringRange items,
+    prefix_map(const StringRange& items,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
         : block_size_(block_size), block_count_(0), codec_(codec)
@@ -231,19 +309,21 @@ public:
         }
 
         Index index(0);
-        std::string item = *it;
+        std::string item(it->begin(), it->end());
         block_leaders_.insert(codec_->encode(item.begin(), item.end()), 0);
         auto current_block = append_block(index, nullptr);
 
         for (; it != last; ++it) {
-            std::string item = *it;
+            std::string item(it->begin(), it->end());
             if (!current_block->add(item)) {
                 block_leaders_.insert(
                     codec_->encode(item.begin(), item.end()), block_count_);
                 current_block = append_block(index, current_block.get());
                 if (!current_block->add(item)) {
-                    throw std::runtime_error(
-                        "strings longer than blocks are not supported");
+                    while (!current_block->add(item)) {
+                        expand_block(current_block.get());
+                    }
+                    current_block->close();
                 }
             }
             ++index;
@@ -273,11 +353,41 @@ public:
         }
         return v == key ? std::make_optional(idx) : std::nullopt;
     }
+
+    std::ostream& dump(std::ostream& out) const
+    {
+        out.write(
+            reinterpret_cast<const char*>(&block_size_), sizeof(block_size_));
+        out.write(
+            reinterpret_cast<const char*>(&block_count_), sizeof(block_count_));
+        dump_coding_tree(out);
+        block_leaders_.dump(out);
+        dump_blocks(out);
+        return out;
+    }
 };
 
-template<class Index, class MemoryBuffer, class StringRange>
-prefix_map<Index, MemoryBuffer>
-build_prefix_map(StringRange items, std::size_t buffer_size = 1024)
+template<class Index>
+prefix_map<Index, std::vector<char>>
+build_prefix_map_from_file(fs::path file, std::size_t buffer_size = 1024)
+{
+    std::ifstream in(file.c_str());
+    std::vector<std::size_t> frequencies(256, 0);
+    std::string item;
+    while (std::getline(in, item)) {
+        for (const char& ch : item) {
+            ++frequencies[static_cast<unsigned char>(ch)];
+        }
+    }
+    in.close();
+    auto codec = std::shared_ptr<irk::coding::hutucker_codec<char>>(
+        new irk::coding::hutucker_codec<char>(frequencies));
+    return prefix_map<Index, std::vector<char>>(file, codec, buffer_size);
+}
+
+template<class Index, class StringRange>
+prefix_map<Index, std::vector<char>>
+build_prefix_map(const StringRange& items, std::size_t buffer_size = 1024)
 {
     std::vector<std::size_t> frequencies(256, 0);
     for (const std::string& item : items) {
@@ -286,9 +396,54 @@ build_prefix_map(StringRange items, std::size_t buffer_size = 1024)
             ++frequencies[ch];
         }
     }
-    auto codec =
-        std::make_shared<irk::coding::hutucker_codec<char>>(frequencies);
-    return prefix_map<Index, MemoryBuffer>(items, codec, buffer_size);
+    auto codec = std::shared_ptr<irk::coding::hutucker_codec<char>>(
+        new irk::coding::hutucker_codec<char>(frequencies));
+    return prefix_map<Index, std::vector<char>>(items, codec, buffer_size);
 }
+
+template<class Index>
+prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
+{
+    std::size_t block_size, block_count, tree_size, block_data_size;
+
+    in.read(reinterpret_cast<char*>(&block_size), sizeof(block_size));
+    in.read(reinterpret_cast<char*>(&block_count), sizeof(block_count));
+    in.read(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
+
+    std::vector<char> tree_data(tree_size);
+    in.read(tree_data.data(), tree_size);
+    alphabetical_bst<> encoding_tree(std::move(tree_data));
+    auto codec =
+        std::make_shared<irk::coding::hutucker_codec<char>>(encoding_tree);
+
+    auto block_leaders = load_mutable_bit_trie<Index>(in);
+
+    in.read(reinterpret_cast<char*>(&block_data_size), sizeof(block_data_size));
+    std::vector<char> blocks(block_data_size);
+    in.read(blocks.data(), block_data_size);
+    return prefix_map<Index, std::vector<char>>(
+        std::move(blocks), block_size, block_count, codec, block_leaders);
+}
+
+template<class Index>
+prefix_map<Index, std::vector<char>> load_prefix_map(const std::string& file)
+{
+    std::ifstream in(file, std::ios::binary);
+    auto map = load_prefix_map<Index>(in);
+    in.close();
+    return map;
+}
+
+namespace io {
+
+    template<class Index, class MemoryBuffer, class Counter>
+    void
+    dump(const prefix_map<Index, MemoryBuffer, Counter>& map, fs::path file)
+    {
+        std::ofstream out(file.c_str(), std::ios::binary);
+        map.dump(out);
+        out.close();
+    }
+};
 
 };  // namespace irk
