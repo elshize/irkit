@@ -5,7 +5,7 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/dynamic_bitset.hpp>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <gsl/span>
 #include <vector>
@@ -16,7 +16,7 @@
 
 namespace irk::io {
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 void enforce_exist(fs::path file)
 {
@@ -28,13 +28,13 @@ void enforce_exist(fs::path file)
 void load_data(fs::path data_file, std::vector<char>& data_container)
 {
     enforce_exist(data_file);
-    std::ifstream in(data_file, std::ios::binary);
+    std::ifstream in(data_file.c_str(), std::ios::binary);
     in.seekg(0, std::ios::end);
     std::streamsize size = in.tellg();
     in.seekg(0, std::ios::beg);
     data_container.resize(size);
     if (!in.read(data_container.data(), size)) {
-        throw std::runtime_error("Failed reading " + data_file.u8string());
+        throw std::runtime_error("Failed reading " + data_file.string());
     }
     in.close();
 }

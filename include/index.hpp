@@ -1,6 +1,6 @@
 #pragma once
 
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <gsl/gsl_assert>
 #include <gsl/span>
@@ -11,7 +11,7 @@
 
 namespace bloodhound {
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace json = nlohmann;
 
@@ -359,7 +359,7 @@ namespace bloodhound::index {
 
 std::vector<char> read_file(fs::path filepath)
 {
-    std::ifstream file(filepath, std::ios::binary | std::ios::ate);
+    std::ifstream file(filepath.c_str(), std::ios::binary | std::ios::ate);
     std::streamsize size = file.tellg();
     file.seekg(0, std::ios::beg);
 
@@ -572,7 +572,7 @@ public:
 
     static json::json load_meta(fs::path meta_file)
     {
-        std::ifstream meta_stream(meta_file);
+        std::ifstream meta_stream(meta_file.c_str());
         json::json meta;
         meta_stream >> meta;
         return meta;
@@ -605,7 +605,7 @@ public:
         }
         std::cout << "Terms: " << terms << std::endl;
         std::sort(maxscores.begin(), maxscores.end());
-        std::ofstream file(out, std::ios::binary);
+        std::ofstream file(out.c_str(), std::ios::binary);
         for (auto& [termid, maxscore] : maxscores) {
            file.write((char*)&termid, sizeof(TermId));
            file.write((char*)&maxscore, sizeof(Score));

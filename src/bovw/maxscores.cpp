@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     std::cout << "termid,length,maxscore\n";
     if (argc > 2) {
         std::string line;
-        std::ifstream query_stream(query_path);
+        std::ifstream query_stream(query_path.c_str());
         std::vector<TermId> terms;
         while (std::getline(query_stream, line)) {
             std::string term_pair;

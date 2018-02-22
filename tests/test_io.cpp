@@ -11,8 +11,6 @@
 
 namespace {
 
-namespace fs = std::experimental::filesystem;
-
 TEST(InputBitStream, read)
 {
     std::istringstream in(std::string({0b01010101, (char)0b10000000}));
@@ -63,7 +61,7 @@ TEST(OutputBitStream, read)
 TEST(OffsetTable, from_ints_write_load)
 {
     std::vector<std::size_t> offsets = {0, 10, 21, 35, 47, 60};
-    irk::offset_table<> offset_table(offsets, 4);
+    irk::offset_table<> offset_table = irk::build_offset_table(offsets, 4);
     auto header = offset_table.header();
     EXPECT_EQ(header->count, 6);
     EXPECT_EQ(header->block_size, 4);
@@ -83,7 +81,7 @@ TEST(OffsetTable, from_ints_write_load)
     auto offtab_path = irk::io::fs::temp_directory_path() / "offtab";
     irk::io::dump(offset_table, offtab_path);
 
-    offset_table = irk::offset_table<>(offtab_path);
+    offset_table = irk::load_offset_table<>(offtab_path);
     header = offset_table.header();
     EXPECT_EQ(header->count, 6);
     EXPECT_EQ(header->block_size, 4);

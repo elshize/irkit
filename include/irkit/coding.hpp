@@ -33,6 +33,7 @@
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <iostream>
+#include "irkit/bitptr.hpp"
 #include "irkit/types.hpp"
 #include "irkit/concepts.hpp"
 
@@ -277,6 +278,25 @@ decode_n(std::istream& source, std::size_t n, const Codec& codec = Codec())
     return result;
 }
 
+//! Decodes `n` encoded symbols from a range to a vector.
+/*!
+    \param source   an input stream with the encoded elements
+    \param n        how many symbols to decode
+    \param codec    a codec to use for decoding
+    \returns        a vector of decoded values
+ */
+template<class Codec, class SourceRange>
+std::vector<typename Codec::value_type>
+decode_n(const SourceRange& source, std::size_t n, const Codec& codec = Codec())
+{
+    BOOST_CONCEPT_ASSERT((concept::InputRange<SourceRange>));
+    std::vector<typename Codec::value_type> result;
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        source.data(), source.size());
+    decode_n(std::back_inserter(result), buffer, n, codec);
+    return result;
+}
+
 //! Decodes an entire input stream, applying delta coding.
 /*!
     \param output   an output iterator, such as `std::back_inserter`
@@ -389,6 +409,35 @@ decode_delta_n(const SourceRange& source,
         source.data(), source.size());
     decode_delta_n(std::back_inserter(result), buffer, n, codec, initial_value);
     return result;
+}
+
+template<class SizeCodec>
+std::ostream& encode_bits(const bitword& bits,
+    std::ostream& out,
+    const SizeCodec& size_codec = SizeCodec())
+{
+    std::vector<bitword::block_type> bytes;
+    boost::to_block_range(bits, std::back_inserter(bytes));
+    std::size_t bits_num = bits.size();
+    size_codec.encode(bits_num, out);
+    out.write(reinterpret_cast<char*>(bytes.data()), (bits_num + 7) / 8);
+    return out;
+}
+
+template<class SizeCodec>
+bitword decode_bits(std::istream& in, const SizeCodec& size_codec = SizeCodec())
+{
+    bitword bits;
+    std::size_t bits_num;
+    size_codec.decode(in, bits_num);
+    std::size_t bytes_num = (bits_num + 7) / 8;
+    std::vector<char> bytes(bytes_num);
+    in.read(bytes.data(), bytes_num);
+    bitptr<char> p(bytes.data());
+    for (std::size_t bitn = 0; bitn < bits_num; ++bitn) {
+        bits.push_back(p[bitn]);
+    }
+    return bits;
 }
 
 };  // namespace irk::coding

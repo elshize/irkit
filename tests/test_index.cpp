@@ -345,7 +345,7 @@ TEST(Comparison, compare_retrievers)
 {
     fs::path ukb("ukb_queries");
     std::string line;
-    std::ifstream ukb_stream(ukb);
+    std::ifstream ukb_stream(ukb.c_str());
     std::vector<std::string> input_lines;
     while (std::getline(ukb_stream, line)) {
         input_lines.push_back(line);

@@ -32,7 +32,7 @@ std::vector<std::string> load_titles(fs::path titles_path)
 {
     std::vector<std::string> titles;
     std::string title;
-    std::ifstream title_stream(titles_path);
+    std::ifstream title_stream(titles_path.c_str());
     while (std::getline(title_stream, title)) {
         titles.push_back(title);
     }
@@ -57,7 +57,7 @@ void run_with(std::vector<query::Result> (*run)(const std::vector<PostingList>&,
     std::size_t query_count = 0;
     std::chrono::nanoseconds elapsed(0);
     std::string line;
-    std::ifstream query_stream(query_file);
+    std::ifstream query_stream(query_file.c_str());
     while (std::getline(query_stream, line)) {
         try {
             auto query_terms_weights = parse_query(line);

@@ -1,9 +1,9 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <iostream>
 #include "irkit/index.hpp"
 #include "irkit/index/merger.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 int main(int argc, char** argv)
 {

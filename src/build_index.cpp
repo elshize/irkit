@@ -1,9 +1,9 @@
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <iostream>
 #include "irkit/index.hpp"
 #include "irkit/index/builder.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 int main(int argc, char** argv)
 {
@@ -25,13 +25,13 @@ int main(int argc, char** argv)
     if (!fs::exists(output_dir)) {
         fs::create_directory(output_dir);
     }
-    std::ofstream of_doc_ids(doc_ids);
-    std::ofstream of_doc_ids_off(doc_ids_off);
-    std::ofstream of_doc_counts(doc_counts);
-    std::ofstream of_doc_counts_off(doc_counts_off);
-    std::ofstream of_terms(terms);
-    std::ofstream of_term_doc_freq(term_doc_freq);
-    std::ofstream of_titles(doc_titles);
+    std::ofstream of_doc_ids(doc_ids.c_str());
+    std::ofstream of_doc_ids_off(doc_ids_off.c_str());
+    std::ofstream of_doc_counts(doc_counts.c_str());
+    std::ofstream of_doc_counts_off(doc_counts_off.c_str());
+    std::ofstream of_terms(terms.c_str());
+    std::ofstream of_term_doc_freq(term_doc_freq.c_str());
+    std::ofstream of_titles(doc_titles.c_str());
 
     irk::default_index_builder builder;
     std::string line;

@@ -49,6 +49,12 @@ namespace huffman {
         std::shared_ptr<node<Symbol>> left;
         std::shared_ptr<node<Symbol>> right;
         std::size_t level = 0;
+        node(std::size_t frequency,
+            std::optional<Symbol> symbol,
+            std::shared_ptr<node<Symbol>> left,
+            std::shared_ptr<node<Symbol>> right)
+            : frequency(frequency), symbol(symbol), left(left), right(right)
+        {}
         bool operator==(const node<Symbol>& rhs) const
         {
             return frequency == rhs.frequency && symbol == rhs.symbol
@@ -74,7 +80,12 @@ namespace huffman {
     {
         out << "[" << n->frequency << ":";
         if (n->symbol != std::nullopt) {
-            out << n->symbol.value();
+            auto v = n->symbol.value();
+            if (v >= 0) {
+                out << v;
+            } else {
+                out << (int)v;
+            }
         } else {
             out << "null";
         }
@@ -89,8 +100,8 @@ namespace huffman {
     std::shared_ptr<node<Symbol>>
     make_terminal(Symbol symbol, std::size_t frequency)
     {
-        return std::make_shared<node<Symbol>>(node<Symbol>{
-            frequency, std::make_optional(symbol), nullptr, nullptr});
+        return std::make_shared<node<Symbol>>(
+            frequency, std::make_optional(symbol), nullptr, nullptr);
     }
 
     //! Joins two nodes (or subtrees).
@@ -100,7 +111,7 @@ namespace huffman {
     {
         std::size_t frequency = left->frequency + right->frequency;
         return std::make_shared<node<Symbol>>(
-            node<Symbol>{frequency, std::nullopt, left, right});
+            frequency, std::nullopt, left, right);
     }
 
     //! Joins two nodes (or subtrees), preserving the given symbol.
@@ -112,7 +123,7 @@ namespace huffman {
     {
         std::size_t frequency = left->frequency + right->frequency;
         return std::make_shared<node<Symbol>>(
-            node<Symbol>{frequency, std::make_optional(symbol), left, right});
+            frequency, std::make_optional(symbol), left, right);
     }
 
     //! Joins two nodes (or subtrees), preserving the symbol according to BST.
@@ -122,7 +133,7 @@ namespace huffman {
     {
         std::size_t frequency = left->frequency + right->frequency;
         return std::make_shared<node<Symbol>>(
-            node<Symbol>{frequency, left->symbol, left, right});
+            frequency, left->symbol, left, right);
     }
 
     //! Returns a vector of frequencies of all symbols.
@@ -144,7 +155,7 @@ namespace huffman {
     std::list<std::shared_ptr<node<Symbol>>>
     init_nodes(const std::vector<std::size_t>& frequencies)
     {
-        std::list<std::shared_ptr<node<Symbol>>> terminals;
+        std::vector<std::shared_ptr<node<Symbol>>> terminals;
         for (std::size_t symbol_number = 0; symbol_number < frequencies.size();
              ++symbol_number) {
             std::size_t frequency = frequencies[symbol_number];
@@ -153,7 +164,14 @@ namespace huffman {
                 terminals.push_back(make_terminal(symbol, frequency));
             }
         }
-        return terminals;
+        std::sort(terminals.begin(),
+            terminals.end(),
+            [](const auto& lhs, const auto& rhs) {
+                return lhs->symbol < rhs->symbol;
+            });
+        std::list<std::shared_ptr<node<Symbol>>> terminal_list(
+            terminals.begin(), terminals.end());
+        return terminal_list;
     }
 
 };  // namespace huffman

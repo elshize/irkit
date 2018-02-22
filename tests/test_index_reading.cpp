@@ -37,48 +37,72 @@ auto vb_encode(std::initializer_list<std::uint16_t> integers)
     return irk::coding::encode(integers, vb);
 }
 
+irk::mapped_compact_table<std::uint16_t>
+mct(std::initializer_list<std::uint16_t> numbers, fs::path file)
+{
+    auto ct = irk::build_compact_table<std::uint16_t>(numbers);
+    irk::io::dump(ct, file);
+    return irk::map_compact_table<std::uint16_t>(file);
+}
+
+irk::mapped_offset_table<>
+mot(std::initializer_list<std::size_t> numbers, fs::path file)
+{
+    auto ct = irk::build_offset_table<>(numbers);
+    irk::io::dump(ct, file);
+    return irk::map_offset_table<>(file);
+}
+
 class IndexReading : public ::testing::Test {
 protected:
-    irk::
-        inverted_index<std::uint16_t, std::string, std::uint16_t, std::uint16_t>
-            index;
+    using index_type = irk::inverted_index<std::uint16_t,
+        std::string,
+        std::uint16_t,
+        std::uint16_t>;
+    std::unique_ptr<index_type> index;
     IndexReading()
-        : index({"b", "c", "z"},  // term_map_
-              {2, 1, 1},  // term_dfs_
-              flatten({vb_encode({0, 1}),
-                  vb_encode({1}),
-                  vb_encode({0})}),  // doc_ids_
-              irk::offset_table<>({0, 2, 3}),  // doc_ids_off_
-              flatten({vb_encode({1, 2}),
-                  vb_encode({1}),
-                  vb_encode({2})}),  // doc_counts_
-              irk::offset_table<>({0, 2, 3}),  // doc_counts_off_
-              {"Doc1", "Doc2", "Doc3"})
     {
+        fs::path tmpdir =
+            irk::fs::temp_directory_path() / "IndexReadingTest";
+        if (irk::fs::exists(tmpdir)) {
+            irk::fs::remove_all(tmpdir);
+        }
+        irk::fs::create_directory(tmpdir);
+        index.reset(new index_type({"b", "c", "z"},  // terms_
+            mct({2, 1, 1}, tmpdir / "termdfs"),  // term_dfs_
+            flatten({vb_encode({0, 1}),
+                vb_encode({1}),
+                vb_encode({0})}),  // doc_ids_
+            mot({0, 2, 3}, tmpdir / "doc_ids_off_"),  // doc_ids_off_
+            flatten({vb_encode({1, 2}),
+                vb_encode({1}),
+                vb_encode({2})}),  // doc_counts_
+            mot({0, 2, 3}, tmpdir / "doc_counts_off_"),  // doc_counts_off_
+            {"Doc1", "Doc2", "Doc3"}));
     }
 };
 
 
 TEST_F(IndexReading, offsets)
 {
-    EXPECT_EQ(index.offset("b", index.doc_ids_off_), 0);
-    EXPECT_EQ(index.offset(0, index.doc_ids_off_), 0);
-    EXPECT_EQ(index.offset("c", index.doc_ids_off_), 2);
-    EXPECT_EQ(index.offset(1, index.doc_ids_off_), 2);
-    EXPECT_EQ(index.offset("z", index.doc_ids_off_), 3);
-    EXPECT_EQ(index.offset(2, index.doc_ids_off_), 3);
-    EXPECT_EQ(index.offset("b", index.doc_counts_off_), 0);
-    EXPECT_EQ(index.offset(0, index.doc_counts_off_), 0);
-    EXPECT_EQ(index.offset("c", index.doc_counts_off_), 2);
-    EXPECT_EQ(index.offset(1, index.doc_counts_off_), 2);
-    EXPECT_EQ(index.offset("z", index.doc_counts_off_), 3);
-    EXPECT_EQ(index.offset(2, index.doc_counts_off_), 3);
+    EXPECT_EQ(index->offset("b", index->doc_ids_off_), 0);
+    EXPECT_EQ(index->offset(0, index->doc_ids_off_), 0);
+    EXPECT_EQ(index->offset("c", index->doc_ids_off_), 2);
+    EXPECT_EQ(index->offset(1, index->doc_ids_off_), 2);
+    EXPECT_EQ(index->offset("z", index->doc_ids_off_), 3);
+    EXPECT_EQ(index->offset(2, index->doc_ids_off_), 3);
+    EXPECT_EQ(index->offset("b", index->doc_counts_off_), 0);
+    EXPECT_EQ(index->offset(0, index->doc_counts_off_), 0);
+    EXPECT_EQ(index->offset("c", index->doc_counts_off_), 2);
+    EXPECT_EQ(index->offset(1, index->doc_counts_off_), 2);
+    EXPECT_EQ(index->offset("z", index->doc_counts_off_), 3);
+    EXPECT_EQ(index->offset(2, index->doc_counts_off_), 3);
 }
 
 TEST_F(IndexReading, posting_range)
 {
-    auto bystring = index.posting_range("b", FakeScore{});
-    auto byid = index.posting_range(0, FakeScore{});
+    auto bystring = index->posting_range("b", FakeScore{});
+    auto byid = index->posting_range(0, FakeScore{});
     std::vector<Posting> bystring_actual;
     std::vector<Posting> byid_actual;
     std::vector<Posting> expected = {{0, 1.0}, {1, 2.0}};
@@ -106,17 +130,13 @@ protected:
         irk::fs::create_directory(index_dir);
         write_bytes(irk::index::terms_path(index_dir),
             {'b', '\n', 'c', '\n', 'z', '\n'});
-        write_bytes(
-            irk::index::term_doc_freq_path(index_dir), vb_encode({2, 1, 1}));
-        //write_bytes(
-        //    irk::index::doc_ids_off_path(index_dir), vb_encode({0, 2, 1}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        auto tdfs = irk::build_compact_table<std::uint16_t>({2, 1, 1});
+        irk::io::dump(tdfs, irk::index::term_doc_freq_path(index_dir));
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_ids_off_path(index_dir));
         write_bytes(irk::index::doc_ids_path(index_dir),
             flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
-        //write_bytes(
-        //    irk::index::doc_counts_off_path(index_dir), vb_encode({0, 2, 1}));
-        irk::io::dump(irk::offset_table<>({0, 2, 3}),
+        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
             irk::index::doc_counts_off_path(index_dir));
         write_bytes(irk::index::doc_counts_path(index_dir),
             flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
@@ -128,7 +148,7 @@ protected:
     ~IndexLoading() { irk::fs::remove_all(index_dir); }
     void write_bytes(irk::fs::path file, const std::vector<char>& bytes)
     {
-        std::ofstream ofs(file);
+        std::ofstream ofs(file.c_str());
         ofs.write(bytes.data(), bytes.size());
         ofs.close();
     }
@@ -145,10 +165,6 @@ TEST_F(IndexLoading, load)
     }
     EXPECT_EQ(actual_terms, e_terms);
 
-    for (const auto& entry : index->term_map_) {
-        std::cout << *entry.first << std::endl;
-    }
-
     std::vector<std::pair<std::string, std::uint16_t>> e_term_map = {
         {"b", 0}, {"c", 1}, {"z", 2}};
     std::vector<std::pair<std::string, std::uint16_t>> a_term_map;
@@ -158,9 +174,10 @@ TEST_F(IndexLoading, load)
     std::sort(a_term_map.begin(), a_term_map.end());
     EXPECT_THAT(a_term_map, ::testing::ElementsAreArray(e_term_map));
 
-    // TODO
-    //std::vector<std::uint16_t> e_term_dfs_ = {2, 1, 1};
-    //EXPECT_THAT(index->term_dfs_, ::testing::ElementsAreArray(e_term_dfs_));
+    std::vector<std::uint16_t> e_term_dfs = {2, 1, 1};
+    for (std::size_t idx = 0; idx < index->term_dfs_.size(); ++idx) {
+        EXPECT_THAT(index->term_dfs_[idx], e_term_dfs[idx]);
+    }
 
     std::vector<char> e_doc_ids =
         flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})});
@@ -170,15 +187,15 @@ TEST_F(IndexLoading, load)
         flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})});
     EXPECT_THAT(index->doc_counts_, ::testing::ElementsAreArray(e_doc_counts));
 
-    // TODO
-    //std::vector<std::uint16_t> e_doc_ids_off = {0, 2, 3};
-    //EXPECT_EQ(
-    //    index->doc_ids_off_, ::testing::ElementsAreArray(e_doc_ids_off));
+    std::vector<std::uint16_t> e_doc_ids_off = {0, 2, 3};
+    for (std::size_t idx = 0; idx < index->doc_ids_off_.size(); ++idx) {
+        EXPECT_THAT(index->doc_ids_off_[idx], e_doc_ids_off[idx]);
+    }
 
-    // TODO
-    //std::vector<std::uint16_t> e_doc_counts_off = {0, 2, 3};
-    //EXPECT_THAT(
-    //    index->doc_counts_off_, ::testing::ElementsAreArray(e_doc_counts_off));
+    std::vector<std::uint16_t> e_doc_counts_off = {0, 2, 3};
+    for (std::size_t idx = 0; idx < index->doc_counts_off_.size(); ++idx) {
+        EXPECT_THAT(index->doc_counts_off_[idx], e_doc_counts_off[idx]);
+    }
 }
 
 TEST_F(IndexLoading, offset)

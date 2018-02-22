@@ -31,6 +31,8 @@
 #include <optional>
 #include <vector>
 #include <irkit/types.hpp>
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding.hpp>
 
 namespace irk {
 
@@ -48,7 +50,8 @@ class mutable_bit_trie {
 public:
     struct node;
     using node_ptr = std::shared_ptr<node>;
-    using value_opt = std::optional<Value>;
+    using value_type = Value;
+    using value_opt = std::optional<value_type>;
 
     struct node {
         bitword bits;
@@ -222,9 +225,36 @@ private:
         out << "]";
     }
 
+    void items(node_ptr n,
+        bitword current,
+        std::vector<std::pair<bitword, value_type>>& mapping) const
+    {
+        if (n->bits.size() > 0) {
+            for (std::size_t idx = 0; idx < n->bits.size(); ++idx) {
+                current.push_back(n->bits[idx]);
+            }
+        }
+        if (n->value != std::nullopt) {
+            mapping.emplace_back(current, n->value.value());
+        }
+        if (n->left != nullptr) {
+            bitword left_bitword = current;
+            left_bitword.push_back(0);
+            items(n->left, left_bitword, mapping);
+        }
+        if (n->right != nullptr) {
+            bitword right_bitword = current;
+            right_bitword.push_back(1);
+            items(n->right, right_bitword, mapping);
+        }
+    }
+
 public:
     mutable_bit_trie() : root_(std::make_shared<node>()) {}
     mutable_bit_trie(node_ptr root) : root_(root) {}
+    mutable_bit_trie(const mutable_bit_trie<value_type>& other)
+        : root_(other.root_)
+    {}
 
     node_ptr root() const { return root_; }
 
@@ -273,6 +303,7 @@ public:
     std::pair<bool, node_ptr> find_or_first_lower(const bitword& encoded) const
     {
         search_result result = search(encoded);
+        std::cout << result.match_prefix << std::endl;
         if (result.match_prefix == encoded.size()) {
             if (result.exact && result.match->sentinel) {
                 return std::make_pair(true, result.match);
@@ -333,6 +364,26 @@ public:
     {
         return root_->left == nullptr && root_->right == nullptr;
     }
+
+    std::ostream& dump(std::ostream& out) const
+    {
+        std::vector<std::pair<bitword, value_type>> mapping;
+        items(root_, bitword(), mapping);
+        std::sort(mapping.begin(),
+            mapping.end(),
+            [](const auto& lhs, const auto& rhs) {
+                return lhs.second < rhs.second;
+            });
+        std::size_t size = mapping.size();
+        out.write(reinterpret_cast<char*>(&size), sizeof(size));
+        coding::varbyte_codec<value_type> value_codec;
+        coding::varbyte_codec<std::size_t> size_codec;
+        for (const auto & [bits, val] : mapping) {
+            value_codec.encode(val, out);
+            coding::encode_bits(bits, out, size_codec);
+        }
+        return out;
+    }
     template<class V>
     friend std::ostream&
     operator<<(std::ostream& out, const mutable_bit_trie<V>& mbt);
@@ -343,6 +394,24 @@ std::ostream& operator<<(std::ostream& out, const mutable_bit_trie<Value>& mbt)
 {
     mbt.print(out, mbt.root());
     return out;
+}
+
+template<class Value>
+mutable_bit_trie<Value> load_mutable_bit_trie(std::istream& in)
+{
+    mutable_bit_trie<Value> mbt;
+    std::vector<std::pair<bitword, Value>> mapping;
+    coding::varbyte_codec<Value> value_codec;
+    coding::varbyte_codec<std::size_t> size_codec;
+    std::size_t size;
+    in.read(reinterpret_cast<char*>(&size), sizeof(size));
+    for (std::size_t idx = 0; idx < size; ++idx) {
+        Value v;
+        value_codec.decode(in, v);
+        auto bits = coding::decode_bits(in, size_codec);
+        mbt.insert(bits, v);
+    }
+    return mbt;
 }
 
 };  // namespace irk

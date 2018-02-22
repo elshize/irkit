@@ -29,8 +29,7 @@
 #include <algorithm>
 #include <bitset>
 #include <chrono>
-#include <diskhash.hpp>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <gsl/span>
 #include <iostream>
@@ -46,12 +45,13 @@
 #include "irkit/daat.hpp"
 #include "irkit/index/postingrange.hpp"
 #include "irkit/io.hpp"
+#include "irkit/io/memorybuffer.hpp"
 #include "irkit/score.hpp"
 #include "irkit/types.hpp"
 
 namespace irk {
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 template<class T>
 using varbyte_codec = coding::varbyte_codec<T>;
@@ -83,7 +83,7 @@ struct index_load_exception : public std::exception {
     const char* what() const throw()
     {
         std::string msg = "index_load_exception: Failed to read: "
-            + file.u8string() + "; reason: " + reason.what();
+            + file.string() + "; reason: " + reason.what();
         return msg.c_str();
     }
 };
@@ -120,21 +120,20 @@ private:
     bool in_memory_;
     bool skip_term_map_;
     std::vector<std::shared_ptr<term_type>> terms_;
-    compact_table<Freq> term_dfs_;
+    mapped_compact_table<Freq> term_dfs_;
     std::vector<char> doc_ids_;
-    offset_table<> doc_ids_off_;
+    mapped_offset_table<> doc_ids_off_;
     std::vector<char> doc_counts_;
-    offset_table<> doc_counts_off_;
+    mapped_offset_table<> doc_counts_off_;
     std::vector<std::string> titles_;
     std::size_t doc_ids_size_;
     std::size_t doc_counts_size_;
     std::unordered_map<const term_type*, term_id_type, TermHash, TermEqual>
         term_map_;
-    std::shared_ptr<dht::DiskHash<term_id_type>> term_disk_map_;
     nlohmann::json properties_;
 
-    std::optional<std::size_t>
-    offset(const std::string& term, const offset_table<>& offset_table) const
+    std::optional<std::size_t> offset(const std::string& term,
+        const mapped_offset_table<>& offset_table) const
     {
         auto pos = term_map_.find(&term);
         if (pos == term_map_.end()) {
@@ -145,7 +144,7 @@ private:
     }
 
     std::pair<std::size_t, std::size_t> locate(term_id_type term_id,
-        const offset_table<>& offset_table,
+        const mapped_offset_table<>& offset_table,
         std::size_t file_size) const
     {
         std::size_t offset = offset_table[term_id];
@@ -158,7 +157,7 @@ private:
     template<class T>
     std::vector<T> decode_range(term_id_type term_id,
         const std::vector<char>& data_container,
-        const offset_table<>& offset_table,
+        const mapped_offset_table<>& offset_table,
         bool delta) const
     {
         if (term_id >= offset_table.size()) {
@@ -176,8 +175,8 @@ private:
                   data_container.data() + offset, range_size));
     }
 
-    std::size_t
-    offset(term_id_type term_id, const offset_table<>& offset_table) const
+    std::size_t offset(
+        term_id_type term_id, const mapped_offset_table<>& offset_table) const
     {
         if (term_id >= term_map_.size()) {
             throw std::out_of_range(
@@ -186,22 +185,6 @@ private:
                 + std::to_string(term_map_.size()) + ")");
         }
         return offset_table[term_id];
-    }
-
-    template<class ScoreFn = score::tf_idf_scorer>
-    auto empty_posting_range() const
-        -> dspr<_posting<document_type,
-                    score::score_result_t<ScoreFn, document_type, Freq>>,
-            Freq,
-            ScoreFn>
-    {
-        using Posting = _posting<document_type,
-            score::score_result_t<ScoreFn, document_type, Freq>>;
-        return dspr<Posting, Freq, ScoreFn>(std::vector<document_type>(),
-            std::vector<Freq>(),
-            Freq(0),
-            0,
-            ScoreFn{});
     }
 
     void enforce_exist(fs::path file) const
@@ -214,11 +197,11 @@ private:
 
 public:
     inverted_index(std::vector<term_type> terms,
-        std::vector<Freq> term_dfs,
+        mapped_compact_table<Freq> term_dfs,
         std::vector<char> doc_ids,
-        offset_table<> doc_ids_off,
+        mapped_offset_table<> doc_ids_off,
         std::vector<char> doc_counts,
-        offset_table<> doc_counts_off,
+        mapped_offset_table<> doc_counts_off,
         std::vector<std::string> titles)
         : dir_(""),
           in_memory_(true),
@@ -245,9 +228,9 @@ public:
         : dir_(dir),
           in_memory_(in_memory),
           skip_term_map_(skip_term_map),
-          term_dfs_(index::term_doc_freq_path(dir)),
-          doc_ids_off_(index::doc_ids_off_path(dir)),
-          doc_counts_off_(index::doc_counts_off_path(dir))
+          term_dfs_(map_compact_table<Freq>(index::term_doc_freq_path(dir))),
+          doc_ids_off_(map_offset_table<>(index::doc_ids_off_path(dir))),
+          doc_counts_off_(map_offset_table<>(index::doc_counts_off_path(dir)))
     {
         using namespace std::chrono;
 
@@ -255,19 +238,9 @@ public:
 
         std::cout << "Loading term map... " << std::flush;
         auto start_time = steady_clock::now();
-        if (fs::exists(index::term_map_path(dir))) {
-            load_disk_term_map(index::term_map_path(dir));
-        } else {
-            load_term_map(index::terms_path(dir));
-        }
+        load_term_map(index::terms_path(dir));
         auto elapsed =
             duration_cast<milliseconds>(steady_clock::now() - start_time);
-        std::cout << elapsed.count() << " ms" << std::endl;
-
-        std::cout << "Loading term frequencies... " << std::flush;
-        start_time = steady_clock::now();
-        load_term_dfs(index::term_doc_freq_path(dir));
-        elapsed = duration_cast<milliseconds>(steady_clock::now() - start_time);
         std::cout << elapsed.count() << " ms" << std::endl;
 
         if (in_memory) {
@@ -293,23 +266,23 @@ public:
     void load_properties(fs::path properties_file)
     {
         if (fs::exists(properties_file)) {
-            std::ifstream is(properties_file);
+            std::ifstream is(properties_file.c_str());
             is >> properties_;
             is.close();
         }
     }
 
-    void load_term_dfs(fs::path term_df_file)
-    {
-        enforce_exist(term_df_file);
-        std::vector<char> data;
-        load_data(term_df_file, data);
-        term_dfs_ = irk::coding::decode<varbyte_codec<Freq>>(data);
-    }
+    //void load_term_dfs(fs::path term_df_file)
+    //{
+    //    enforce_exist(term_df_file);
+    //    std::vector<char> data;
+    //    load_data(term_df_file, data);
+    //    term_dfs_ = irk::coding::decode<varbyte_codec<Freq>>(data);
+    //}
     void load_titles(fs::path titles_file)
     {
         enforce_exist(titles_file);
-        std::ifstream ifs(titles_file);
+        std::ifstream ifs(titles_file.c_str());
         std::string title;
         try {
             while (std::getline(ifs, title)) {
@@ -320,18 +293,10 @@ public:
         }
         ifs.close();
     }
-    void load_disk_term_map(fs::path term_map_file)
-    {
-        enforce_exist(term_map_file);
-        std::size_t key_maxlen =
-            properties_.at("key_maxlen").get<std::uint32_t>();
-        term_disk_map_.reset(new dht::DiskHash<term_id_type>(
-            term_map_file.c_str(), key_maxlen, dht::DHOpenRO));
-    }
     void load_term_map(fs::path term_file)
     {
         enforce_exist(term_file);
-        std::ifstream ifs(term_file);
+        std::ifstream ifs(term_file.c_str());
         std::string term;
         term_id_type term_id(0);
         while (std::getline(ifs, term)) {
@@ -346,13 +311,13 @@ public:
     void load_data(fs::path data_file, std::vector<char>& data_container) const
     {
         enforce_exist(data_file);
-        std::ifstream ifs(data_file, std::ios::binary);
+        std::ifstream ifs(data_file.c_str(), std::ios::binary);
         ifs.seekg(0, std::ios::end);
         std::streamsize size = ifs.tellg();
         ifs.seekg(0, std::ios::beg);
         data_container.resize(size);
         if (!ifs.read(data_container.data(), size)) {
-            throw std::runtime_error("Failed reading " + data_file.u8string());
+            throw std::runtime_error("Failed reading " + data_file.string());
         }
         ifs.close();
     }
@@ -360,7 +325,7 @@ public:
     std::size_t file_size(fs::path file)
     {
         enforce_exist(file);
-        std::ifstream ifs(file, std::ios::binary);
+        std::ifstream ifs(file.c_str(), std::ios::binary);
         ifs.seekg(0, std::ios::end);
         std::streamsize size = ifs.tellg();
         ifs.close();
@@ -371,18 +336,34 @@ public:
     load_data(fs::path data_file, std::size_t start, std::size_t size) const
     {
         enforce_exist(data_file);
-        std::ifstream ifs(data_file, std::ios::binary);
+        std::ifstream ifs(data_file.c_str(), std::ios::binary);
         ifs.seekg(start, std::ios::beg);
         std::vector<char> data_container;
         data_container.resize(size);
         if (!ifs.read(data_container.data(), size)) {
-            throw std::runtime_error("Failed reading " + data_file.u8string());
+            throw std::runtime_error("Failed reading " + data_file.string());
         }
         ifs.close();
         return data_container;
     }
 
     std::size_t collection_size() const { return titles_.size(); }
+
+    template<class ScoreFn = score::tf_idf_scorer>
+    auto empty_posting_range() const
+        -> dspr<_posting<document_type,
+                    score::score_result_t<ScoreFn, document_type, Freq>>,
+            Freq,
+            ScoreFn>
+    {
+        using Posting = _posting<document_type,
+            score::score_result_t<ScoreFn, document_type, Freq>>;
+        return dspr<Posting, Freq, ScoreFn>(std::vector<document_type>(),
+            std::vector<Freq>(),
+            Freq(0),
+            0,
+            ScoreFn{});
+    }
 
     template<class ScoreFn = score::tf_idf_scorer>
     auto posting_ranges(const std::vector<std::string>& terms,
@@ -452,16 +433,11 @@ public:
     term_type term(term_id_type term_id) const { return *terms_[term_id]; }
     std::optional<term_id_type> term_id(term_type term) const
     {
-        if (term_disk_map_ != nullptr) {
-            auto ptr = term_disk_map_->lookup(term.c_str());
-            return ptr == nullptr ? std::nullopt : std::make_optional(*ptr);
-        } else {
-            auto it = term_map_.find(&term);
-            if (it == term_map_.end()) {
-                return std::nullopt;
-            }
-            return std::make_optional(it->second);
+        auto it = term_map_.find(&term);
+        if (it == term_map_.end()) {
+            return std::nullopt;
         }
+        return std::make_optional(it->second);
     }
     std::size_t term_count() const { return terms_.size(); }
 };

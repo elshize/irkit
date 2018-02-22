@@ -379,6 +379,49 @@ TEST_F(mutable_bit_trie_mapped, first_lower)
     //EXPECT_EQ(mbt.value(bitword(3, 0b110)), std::nullopt);
 }
 
+TEST_F(mutable_bit_trie_mapped, items)
+{
+    auto mbt = make_mbt();
+    std::vector<std::pair<bitword, int>> mapping;
+    mbt.items(mbt.root_, bitword(), mapping);
+    std::sort(
+        mapping.begin(), mapping.end(), [](const auto& lhs, const auto& rhs) {
+            return lhs.second < rhs.second;
+        });
+    EXPECT_EQ(mapping.size(), 3);
+    EXPECT_EQ(mapping[0], std::make_pair(bitword(2, 0b10), 0));
+    EXPECT_EQ(mapping[1], std::make_pair(bitword(6, 0b011001), 1));
+    EXPECT_EQ(mapping[2], std::make_pair(bitword(6, 0b111001), 2));
+}
+
+TEST_F(mutable_bit_trie_mapped, dump)
+{
+    auto mbt = make_mbt();
+    std::ostringstream out;
+    mbt.dump(out);
+    std::string outstr = out.str();
+    std::vector<char> bytes(outstr.begin(), outstr.end());
+    std::vector<char> expected = {3, 0, 0, 0, 0, 0, 0, 0,
+        (char)0b10000000, (char)0b10000010, 0b10, // 0
+        (char)0b10000001, (char)0b10000110, 0b011001, // 1
+        (char)0b10000010, (char)0b10000110, 0b111001  // 2
+    };
+    EXPECT_THAT(bytes, ::testing::ElementsAreArray(expected));
+
+    std::istringstream in(outstr);
+    auto loaded_mbt = load_mutable_bit_trie<int>(in);
+    std::vector<std::pair<bitword, int>> mapping;
+    mbt.items(loaded_mbt.root_, bitword(), mapping);
+    std::sort(
+        mapping.begin(), mapping.end(), [](const auto& lhs, const auto& rhs) {
+            return lhs.second < rhs.second;
+        });
+    EXPECT_EQ(mapping.size(), 3);
+    EXPECT_EQ(mapping[0], std::make_pair(bitword(2, 0b10), 0));
+    EXPECT_EQ(mapping[1], std::make_pair(bitword(6, 0b011001), 1));
+    EXPECT_EQ(mapping[2], std::make_pair(bitword(6, 0b111001), 2));
+}
+
 };  // namespace
 
 int main(int argc, char** argv)
