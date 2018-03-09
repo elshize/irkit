@@ -25,3 +25,6 @@
 [submodule "submodules/googletest"]
 	path = submodules/googletest
 	url = https://github.com/google/googletest.git
+[submodule "submodules/CLI11"]
+	path = submodules/CLI11
+	url = https://github.com/CLIUtils/CLI11.git
