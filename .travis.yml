@@ -15,5 +15,8 @@ before_install:
 install:
     - git clone https://github.com/google/gumbo-parser.git
     - cd gumbo-parser
-    - ./autogen.sh && ./cofigure && make && sudo make install
+    - ./autogen.sh
+    - ./cofigure
+    - make
+    - sudo make install
 script: cmake CMakeLists.txt && make && make test
