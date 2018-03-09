@@ -19,7 +19,7 @@ add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 
 # Find dependencies
 find_package(PkgConfig REQUIRED)
-find_package(GTest REQUIRED)
+#find_package(GTest REQUIRED)
 find_package(Boost 1.40
     COMPONENTS iostreams program_options serialization filesystem system
     REQUIRED)

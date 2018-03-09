@@ -25,6 +25,11 @@ set(debug_assert_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/debug_assert
 # debug_assert
 set(type_safe_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/type_safe/include)
 
+# Google Test
+add_subdirectory(submodules/googletest EXCLUDE_FROM_ALL)
+set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/include)
+set(GTEST_BOTH_LIBRARIES gtest)
+
 # Gumbo HTML5 parser
 #set(GUMBO_DIR "gumbo-parser")
 #execute_process(COMMAND "./autogen.sh" ${GUMBO_DIR} ${CMAKE_SOURCE_DIR})

@@ -22,3 +22,6 @@
 [submodule "submodules/type_safe"]
 	path = submodules/type_safe
 	url = https://github.com/foonathan/type_safe.git
+[submodule "submodules/googletest"]
+	path = submodules/googletest
+	url = https://github.com/google/googletest.git
