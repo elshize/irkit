@@ -166,7 +166,7 @@ std::ostream& encode_delta(const InputRange& int_range,
 
 //! Encodes a range of integer values to a byte vector.
 /*!
-    \param int_range     a range of values to map to integers and encode
+    \param int_range     a range of integers to encode
     \param codec         a codec used to encode integers
     \param initial_value the initial value to subtract from the first encoded
                          integer (0 by default)
@@ -185,6 +185,23 @@ std::vector<char> encode_delta(const InputRange& int_range,
     encode_delta(int_range, buffer, codec, initial_value);
     return bytes;
 }
+
+
+////! Prefix-encodes a range of strings values to a byte vector.
+///*!
+//    \param string_range  a range of values to encode
+//    \param codec         a codec used to encode strings
+//    \returns             a vector of encoded bytes
+// */
+//template<class Codec, class InputRange>
+//std::vector<char>
+//encode_delta(const InputRange& string_range, const Codec& codec)
+//{
+//    BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
+//    std::vector<char> bytes;
+//
+//    return bytes;
+//}
 
 //! Decodes an entire input stream to an output iterator.
 /*!

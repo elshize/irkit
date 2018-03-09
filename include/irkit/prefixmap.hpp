@@ -29,13 +29,15 @@
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
 #include <cstring>
+#include <gsl/gsl>
 #include <iostream>
-#include <sstream>
 #include <list>
+#include <sstream>
 #include <vector>
 #include "irkit/bitptr.hpp"
 #include "irkit/coding/hutucker.hpp"
-#include "irkit/mutablebittrie.hpp"
+//#include "irkit/mutablebittrie.hpp"
+#include "irkit/radix_tree.hpp"
 #include "irkit/utils.hpp"
 
 namespace irk {
@@ -111,18 +113,28 @@ public:
             std::memcpy(block_begin, &first_index, sizeof(Index));
         }
 
-        block_builder(block_builder&& other)
-            : first_index_(other.first_index_),
-              count_(other.count_),
-              pos_(other.pos_),
-              last_(other.last_),
-              size_(other.size_),
-              bitp_(other.bitp_),
-              codec_(other.codec_)
-        {}
+        //block_builder(block_builder&& other)
+        //    : first_index_(other.first_index_),
+        //      count_(other.count_),
+        //      pos_(other.pos_),
+        //      last_(other.last_),
+        //      size_(other.size_),
+        //      block_begin_(other.block_begin_),
+        //      bitp_(other.bitp_),
+        //      codec_(other.codec_)
+        //{}
 
         bool add(const std::string& value)
         {
+            if (value == "zzzx2e00000000000000ff00000000zp7zh3zp3zts1113zzac000zzyn4zzzrzzz") {
+                std::cout << "encoding " << value << std::endl;
+                std::cout << "last.size(): " << last_.size() << std::endl;
+            }
+
+            if (value == "0000000000ef00000000000000f000000000000000f100000000000000f2") {
+                std::cout << "encoding... block size: " << size_ << std::endl;
+                std::cout << "last: " << last_ << std::endl;
+            }
             std::uint32_t pos = 0;
             for (; pos < last_.size(); ++pos) {
                 if (last_[pos] != value[pos]) {
@@ -135,6 +147,11 @@ public:
             }
             encode_unary(pos);
             encode_unary(value.size() - pos);
+            if (value == "0000000000ef00000000000000f000000000000000f100000000000000f2") {
+                std::cout << "pref: " << pos << std::endl;
+                std::cout << "suf: " << value.size() - pos << std::endl;
+                std::cout << "encoded size: " << encoded.size() << std::endl;
+            }
             irk::bitcpy(bitp_, encoded);
             bitp_ += encoded.size();
             pos_ += encoded.size();
@@ -144,6 +161,14 @@ public:
         }
 
         void expand_by(std::size_t nbytes) { size_ += nbytes; }
+
+        void reset(char* new_begin)
+        {
+            block_begin_ = new_begin;
+            bitp_ = bitptr(block_begin_ + block_data_offset);
+        }
+
+        auto size() const { return size_; }
 
         void write_count()
         {
@@ -195,6 +220,8 @@ public:
         {
             std::size_t common_prefix_len = read_unary();
             std::size_t suffix_len = read_unary();
+            std::cout << "pref: " << common_prefix_len << std::endl;
+            std::cout << "suf: " << suffix_len << std::endl;
             last_value.resize(common_prefix_len);
             std::ostringstream o(std::move(last_value), std::ios_base::ate);
             auto reader = current.reader();
@@ -209,7 +236,7 @@ private:
     std::size_t block_size_;
     std::size_t block_count_;
     const std::shared_ptr<coding::hutucker_codec<char>> codec_;
-    mutable_bit_trie<Index> block_leaders_;
+    std::shared_ptr<radix_tree<Index>> block_leaders_;
 
     //! Append another block
     std::shared_ptr<block_builder>
@@ -230,6 +257,8 @@ private:
         blocks_.resize(blocks_.size() + block_size_);
         ++block_count_;
         block->expand_by(block_size_);
+        char* new_begin_ptr = blocks_.data() + blocks_.size() - block->size();
+        block->reset(new_begin_ptr);
     }
 
     std::ostream& dump_coding_tree(std::ostream& out) const
@@ -250,12 +279,61 @@ private:
         return out;
     }
 
+    std::ostream& dump_leaders(std::ostream& out) const
+    {
+        raxIterator iter;
+        raxStart(&iter, block_leaders_->c_rax());
+        int result = raxSeek(&iter, "^", NULL, 0);
+        if (result == 0) {
+            throw std::bad_alloc();
+        }
+        std::string last;
+        //std::vector<char> data(block_size_);
+        std::vector<Index> values;
+        std::vector<std::string> keys;
+        //block_builder leader_block(Index(0), data.data(), block_size_, codec_);
+        //std::size_t blocks = 1;
+        while(raxNext(&iter)) {
+            std::string key(iter.key, iter.key + iter.key_len);
+            //std::cout << key << std::endl;
+            values.push_back(*reinterpret_cast<Index*>(iter.data));
+            if (values.back() == 12) std::cout << key << std::endl;
+            keys.push_back(std::move(key));
+            if (values.back() == 12) std::cout << keys.back() << std::endl;
+            //while (!leader_block.add(key)) {
+            //    data.resize(data.size() + block_size_);
+            //    leader_block.expand_by(block_size_);
+            //    char* new_begin_ptr = data.data();
+            //    leader_block.reset(new_begin_ptr);
+            //    blocks++;
+            //}
+        }
+        //for (gsl::index idx = 0; idx < block_size_; ++idx) {
+        //    std::cout << (int)data[idx] << " ";
+        //}
+        //std::cout << std::endl;
+        //leader_block.write_count();
+        auto num_values = values.size();
+        std::cout << "[w] num_values: " << num_values << std::endl;
+        out.write(reinterpret_cast<char*>(&num_values), sizeof(num_values));
+        out.write(reinterpret_cast<char*>(values.data()),
+            values.size() * sizeof(Index));
+        for (const std::string& key : keys) {
+            out << key << '\n';
+        }
+        //out.write(reinterpret_cast<char*>(&blocks), sizeof(blocks));
+        //std::cout << "[w] num_blocks: " << blocks << std::endl;
+        //out.write(data.data(), data.size());
+        raxStop(&iter);
+        return out;
+    }
+
 public:
     prefix_map(MemoryBuffer blocks,
         std::size_t block_size,
         std::size_t block_count,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
-        mutable_bit_trie<Index> block_leaders)
+        std::shared_ptr<radix_tree<Index>> block_leaders)
         : blocks_(blocks),
           block_size_(block_size),
           block_count_(block_count),
@@ -267,7 +345,10 @@ public:
     prefix_map(fs::path file,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
-        : block_size_(block_size), block_count_(0), codec_(codec)
+        : block_size_(block_size),
+          block_count_(0),
+          codec_(codec),
+          block_leaders_(new radix_tree<Index>())
     {
         std::ifstream in(file.c_str());
         Index index(0);
@@ -275,13 +356,15 @@ public:
         if (!std::getline(in, item)) {
             throw std::invalid_argument("prefix map cannot be empty");
         }
-        block_leaders_.insert(codec_->encode(item.begin(), item.end()), 0);
+        block_leaders_->insert(item, index);
         auto current_block = append_block(index, nullptr);
+        if (!current_block->add(item)) {
+            throw std::runtime_error("TODO: first item too long; feature pending");
+        }
 
         while (std::getline(in, item)) {
             if (!current_block->add(item)) {
-                block_leaders_.insert(
-                    codec_->encode(item.begin(), item.end()), block_count_);
+                block_leaders_->insert(item, block_count_);
                 current_block = append_block(index, current_block.get());
                 if (!current_block->add(item)) {
                     while (!current_block->add(item)) {
@@ -300,7 +383,10 @@ public:
     prefix_map(const StringRange& items,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
-        : block_size_(block_size), block_count_(0), codec_(codec)
+        : block_size_(block_size),
+          block_count_(0),
+          codec_(codec),
+          block_leaders_(new radix_tree<Index>())
     {
         auto it = items.cbegin();
         auto last = items.cend();
@@ -310,14 +396,13 @@ public:
 
         Index index(0);
         std::string item(it->begin(), it->end());
-        block_leaders_.insert(codec_->encode(item.begin(), item.end()), 0);
+        block_leaders_->insert(item, 0);
         auto current_block = append_block(index, nullptr);
 
         for (; it != last; ++it) {
             std::string item(it->begin(), it->end());
             if (!current_block->add(item)) {
-                block_leaders_.insert(
-                    codec_->encode(item.begin(), item.end()), block_count_);
+                block_leaders_->insert(item, block_count_);
                 current_block = append_block(index, current_block.get());
                 if (!current_block->add(item)) {
                     while (!current_block->add(item)) {
@@ -333,18 +418,18 @@ public:
 
     std::optional<Index> operator[](const std::string& key) const
     {
-        auto encoded = codec_->encode(key.cbegin(), key.cend());
-        auto[exact, block_node] = block_leaders_.find_or_first_lower(encoded);
-        if (block_node == nullptr) {
+        auto block_opt = block_leaders_->seek_le(key);
+        if (!block_opt.has_value()) {
+            std::cout << "node not found" << std::endl;
             return std::nullopt;
         }
-        std::size_t block_number = block_node->value.value();
+        std::size_t block_number = block_opt.value();
+        std::cout << "block: " << block_number << std::endl;
         block_ptr block{blocks_.data() + block_number * block_size_, codec_};
         Index idx = block.first_index();
-        if (exact) {
-            return std::make_optional(block.first_index());
-        }
         std::string v = block.next();
+        std::cout << "key: " << key << std::endl;
+        std::cout << "v: " << v << std::endl;
         std::uint32_t c = 1;
         while (c < block.count() && v < key) {
             v = block.next();
@@ -361,7 +446,8 @@ public:
         out.write(
             reinterpret_cast<const char*>(&block_count_), sizeof(block_count_));
         dump_coding_tree(out);
-        block_leaders_.dump(out);
+        //block_leaders_.dump(out);
+        dump_leaders(out);
         dump_blocks(out);
         return out;
     }
@@ -402,6 +488,45 @@ build_prefix_map(const StringRange& items, std::size_t buffer_size = 1024)
 }
 
 template<class Index>
+std::shared_ptr<radix_tree<Index>> load_radix_tree(std::istream& in,
+    std::size_t block_size,
+    std::shared_ptr<irk::coding::hutucker_codec<char>> codec)
+{
+    std::shared_ptr<radix_tree<Index>> rt(new radix_tree<Index>());
+    std::size_t num_blocks, num_values;
+
+    in.read(reinterpret_cast<char*>(&num_values), sizeof(num_values));
+    std::cout << "[r] num_values: " << num_values << std::endl;
+    std::vector<Index> values(num_values);
+    in.read(reinterpret_cast<char*>(values.data()),
+        num_values * sizeof(Index));
+
+    std::string key;
+    for (std::size_t idx = 0; idx < num_values; idx++) {
+        std::getline(in, key);
+        if (idx == 12) std::cout << key << " -> " << values[idx] << std::endl;
+        rt->insert(key, values[idx]);
+    }
+
+    //in.read(reinterpret_cast<char*>(&num_blocks), sizeof(num_blocks));
+    //std::cout << "[r] num_blocks: " << num_blocks << std::endl;
+    //auto block_data_size = block_size * num_blocks;
+    //std::vector<char> leader_block(block_data_size);
+    //in.read(leader_block.data(), block_data_size);
+    //std::cout << "leader_block.size(): " << leader_block.size() << std::endl;
+    //typename prefix_map<Index, std::vector<char>>::block_ptr lbp{
+    //    leader_block.data(), codec};
+    //std::string key;
+    //std::uint32_t c = 0;
+    //while (c < lbp.count()) {
+    //    key = lbp.next();
+    //    std::cout << "inserting: " << key << " -> " << values[c] << std::endl;
+    //    rt->insert(key, values[c++]);
+    //}
+    return rt;
+}
+
+template<class Index>
 prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
 {
     std::size_t block_size, block_count, tree_size, block_data_size;
@@ -416,13 +541,16 @@ prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
     auto codec =
         std::make_shared<irk::coding::hutucker_codec<char>>(encoding_tree);
 
-    auto block_leaders = load_mutable_bit_trie<Index>(in);
+    auto block_leaders = load_radix_tree<Index>(in, block_size, codec);
 
     in.read(reinterpret_cast<char*>(&block_data_size), sizeof(block_data_size));
     std::vector<char> blocks(block_data_size);
     in.read(blocks.data(), block_data_size);
-    return prefix_map<Index, std::vector<char>>(
-        std::move(blocks), block_size, block_count, codec, block_leaders);
+    return prefix_map<Index, std::vector<char>>(std::move(blocks),
+        block_size,
+        block_count,
+        codec,
+        block_leaders);
 }
 
 template<class Index>

@@ -32,5 +32,5 @@ add_executable(irk-part irk-part.cpp)
 target_link_libraries(irk-part ${Boost_LIBRARIES})
 
 add_executable(irk-prefmap irk-prefmap.cpp)
-target_link_libraries(irk-prefmap ${Boost_LIBRARIES})
+target_link_libraries(irk-prefmap ${Boost_LIBRARIES} rax)
 

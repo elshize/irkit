@@ -1,0 +1,21 @@
+[submodule "submodules/rax"]
+	path = submodules/rax
+	url = git@github.com:antirez/rax.git
+[submodule "submodules/GSL"]
+	path = submodules/GSL
+	url = git@github.com:Microsoft/GSL.git
+[submodule "submodules/gumbo-parser"]
+	path = submodules/gumbo-parser
+	url = git@github.com:google/gumbo-parser.git
+[submodule "submodules/mongoose"]
+	path = submodules/mongoose
+	url = git@github.com:cesanta/mongoose.git
+[submodule "submodules/range-v3"]
+	path = submodules/range-v3
+	url = git@github.com:ericniebler/range-v3.git
+[submodule "submodules/json"]
+	path = submodules/json
+	url = git@github.com:nlohmann/json.git
+[submodule "submodules/debug_assert"]
+	path = submodules/debug_assert
+	url = git@github.com:foonathan/debug_assert.git

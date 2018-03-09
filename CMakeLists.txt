@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(IRKit CXX C)
+set(IRKit_VERSION_MAJOR 0)
+set(IRKit_VERSION_MINOR 1)
+
+option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
@@ -21,12 +25,19 @@ find_package(Boost 1.40
 find_package(ZLIB REQUIRED)
 pkg_check_modules(gumbo REQUIRED gumbo)
 
-# For mongoose
-# TODO: deal with this dependency
-include_directories(include lib/include)
-add_subdirectory(lib)
+include(submodules/submodules.cmake)
+
+include_directories(include
+                    ${rax_INCLUDE_DIR}
+                    ${GSL_INCLUDE_DIR}
+                    ${range_INCLUDE_DIR}
+                    ${json_INCLUDE_DIR}
+                    ${mongoose_INCLUDE_DIR}
+                    ${debug_assert_INCLUDE_DIR})
 
 add_subdirectory(src)
 
-enable_testing()
-add_subdirectory(tests)
+if (IRKit_BUILD_TEST)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
