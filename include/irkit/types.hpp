@@ -37,6 +37,9 @@ using bitword = boost::dynamic_bitset<unsigned char>;
 template<class T, class U>
 using enable_if_equal = typename std::enable_if<std::is_same<T, U>::value>;
 
+template<class T, class U>
+using enable_if_not_equal = typename std::enable_if<!std::is_same<T, U>::value>;
+
 //! The type of the element of Range.
 template<class Range>
 using element_t = decltype(*std::declval<Range>().begin());

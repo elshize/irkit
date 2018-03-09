@@ -8,6 +8,7 @@
 #include "irkit/alphabetical_bst.hpp"
 #include "irkit/coding/hutucker.hpp"
 #include "irkit/prefixmap.hpp"
+#include "irkit/radix_tree.hpp"
 
 namespace {
 
@@ -200,6 +201,32 @@ TEST(dump_and_load_prefix_map, from_strings)
     EXPECT_EQ(lmap["b"].value(), 3);
     EXPECT_EQ(lmap["aaba"], std::nullopt);
     EXPECT_EQ(lmap["baaa"], std::nullopt);
+}
+
+TEST(dump_and_load_prefix_map, lorem)
+{
+    fs::path in_file("randstr.txt");
+    std::ifstream in(in_file.c_str());
+    std::vector<std::string> strings;
+    std::string line;
+    while (std::getline(in, line)) {
+        strings.push_back(line);
+    }
+    in.close();
+    std::sort(strings.begin(), strings.end());
+    auto map = irk::build_prefix_map<int>(strings, 128);
+    std::ostringstream out;
+    map.dump(out);
+
+    std::istringstream inl(out.str());
+    auto lmap = irk::load_prefix_map<int>(inl);
+
+    for (std::size_t idx = 0; idx < strings.size(); ++idx) {
+        auto key = strings[idx];
+        auto retrieved_idx = lmap[key];
+        ASSERT_NE(retrieved_idx, std::nullopt) << key;
+        ASSERT_EQ(retrieved_idx.value(), idx);
+    }
 }
 
 };  // namespace

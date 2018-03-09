@@ -59,7 +59,7 @@ add_test(ImmutableBitTrieTests test_immutablebittrie)
 
 configure_file(randstr.txt randstr.txt COPYONLY)
 add_executable(test_prefixmap test_prefixmap.cpp)
-target_link_libraries(test_prefixmap ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(test_prefixmap ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} rax)
 add_test(PrefixMapTests test_prefixmap)
 
 add_executable(test_bitptr test_bitptr.cpp)
