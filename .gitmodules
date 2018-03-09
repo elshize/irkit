@@ -19,3 +19,6 @@
 [submodule "submodules/debug_assert"]
 	path = submodules/debug_assert
 	url = git@github.com:foonathan/debug_assert.git
+[submodule "submodules/type_safe"]
+	path = submodules/type_safe
+	url = git@github.com:foonathan/type_safe.git

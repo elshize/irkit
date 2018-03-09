@@ -22,6 +22,9 @@ set(json_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/json/include)
 # debug_assert
 set(debug_assert_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/debug_assert)
 
+# debug_assert
+set(type_safe_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/type_safe)
+
 # Gumbo HTML5 parser
 #set(GUMBO_DIR "gumbo-parser")
 #execute_process(COMMAND "./autogen.sh" ${GUMBO_DIR} ${CMAKE_SOURCE_DIR})

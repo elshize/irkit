@@ -12,6 +12,7 @@ MESSAGE( STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE} )
 
 # Set variables
 set(CMAKE_CXX_FLAGS "-Wall -std=c++17")
+set(CMAKE_C_FLAGS "-Wall -std=c99")
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
@@ -20,7 +21,7 @@ add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 find_package(PkgConfig REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Boost 1.40
-    COMPONENTS iostreams program_options serialization filesystem
+    COMPONENTS iostreams program_options serialization filesystem system
     REQUIRED)
 find_package(ZLIB REQUIRED)
 pkg_check_modules(gumbo REQUIRED gumbo)
@@ -33,7 +34,8 @@ include_directories(include
                     ${range_INCLUDE_DIR}
                     ${json_INCLUDE_DIR}
                     ${mongoose_INCLUDE_DIR}
-                    ${debug_assert_INCLUDE_DIR})
+                    ${debug_assert_INCLUDE_DIR}
+                    ${type_safe_INCLUDE_DIR})
 
 add_subdirectory(src)
 
