@@ -1,4 +1,4 @@
-#include <CLI11.hpp>
+#include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <iostream>
 #define private public
