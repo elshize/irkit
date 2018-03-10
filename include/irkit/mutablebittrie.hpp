@@ -258,11 +258,8 @@ public:
 
     node_ptr root() const { return root_; }
 
-    template<class = std::enable_if_t<std::is_same<Value, bool>::value>>
-    bool insert(const bitword& encoded)
-    {
-        return insert(encoded, true);
-    }
+    // TODO: disable for other than `void` -- class specialization?
+    bool insert(const bitword& encoded) { return insert(encoded, true); }
 
     bool
     insert(const bitword& encoded, Value value)
