@@ -30,7 +30,8 @@ set(CLI11_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/CLI11/include)
 
 # Google Test
 add_subdirectory(submodules/googletest EXCLUDE_FROM_ALL)
-set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/include)
+set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/googletest/include
+                       ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/googlemock/include)
 set(GTEST_BOTH_LIBRARIES gtest)
 
 # Gumbo HTML5 parser
