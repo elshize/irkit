@@ -19,7 +19,6 @@ add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 
 # Find dependencies
 find_package(PkgConfig REQUIRED)
-#find_package(GTest REQUIRED)
 find_package(Boost 1.40
     COMPONENTS iostreams program_options serialization filesystem system
     REQUIRED)
@@ -35,7 +34,8 @@ include_directories(include
                     ${json_INCLUDE_DIR}
                     ${mongoose_INCLUDE_DIR}
                     ${debug_assert_INCLUDE_DIR}
-                    ${type_safe_INCLUDE_DIR})
+                    ${type_safe_INCLUDE_DIR}
+                    ${CLI11_INCLUDE_DIR})
 
 add_subdirectory(src)
 
