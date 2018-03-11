@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.9)
 project(IRKit CXX C)
 set(IRKit_VERSION_MAJOR 0)
 set(IRKit_VERSION_MINOR 1)
