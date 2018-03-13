@@ -9,6 +9,13 @@ target_link_libraries(rundaat ${Boost_LIBRARIES})
 add_executable(build_index build_index.cpp)
 target_link_libraries(build_index ${Boost_LIBRARIES})
 
+
+
+# irk commands
+
+add_executable(irk irk.cpp)
+target_link_libraries(irk)
+
 add_executable(irk-merge irk-merge.cpp)
 target_link_libraries(irk-merge ${Boost_LIBRARIES})
 
@@ -34,4 +41,4 @@ target_link_libraries(irk-part ${Boost_LIBRARIES})
 add_executable(irk-prefmap irk-prefmap.cpp)
 target_link_libraries(irk-prefmap ${Boost_LIBRARIES} rax)
 
-install(TARGETS irk-warc irk-part DESTINATION bin)
+install(TARGETS irk irk-warc irk-part DESTINATION bin)
