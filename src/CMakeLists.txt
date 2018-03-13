@@ -34,4 +34,4 @@ target_link_libraries(irk-part ${Boost_LIBRARIES})
 add_executable(irk-prefmap irk-prefmap.cpp)
 target_link_libraries(irk-prefmap ${Boost_LIBRARIES} rax)
 
-install(TARGETS irk-warc DESTINATION bin)
+install(TARGETS irk-warc irk-part DESTINATION bin)
