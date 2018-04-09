@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(IRKit CXX C)
-set(IRKit_VERSION_MAJOR 0)
-set(IRKit_VERSION_MINOR 1)
+project(IRKit VERSION 0.1 LANGUAGES CXX C)
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 
@@ -10,8 +8,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 MESSAGE( STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE} )
 
-# Set variables
-set(CMAKE_CXX_FLAGS "-Wall -std=c++17")
+set(IRKit_CXX_PRIVATE_FEATURES cxx_std_17)
 set(CMAKE_C_FLAGS "-Wall -std=c99")
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(Boost_USE_STATIC_LIBS ON)
@@ -27,15 +24,8 @@ pkg_check_modules(gumbo REQUIRED gumbo)
 
 include(submodules/submodules.cmake)
 
-include_directories(include
-                    ${rax_INCLUDE_DIR}
-                    ${GSL_INCLUDE_DIR}
-                    ${range_INCLUDE_DIR}
-                    ${json_INCLUDE_DIR}
-                    ${mongoose_INCLUDE_DIR}
-                    ${debug_assert_INCLUDE_DIR}
-                    ${type_safe_INCLUDE_DIR}
-                    ${CLI11_INCLUDE_DIR})
+add_library(irkit INTERFACE)
+target_include_directories(irkit INTERFACE include/)
 
 add_subdirectory(src)
 

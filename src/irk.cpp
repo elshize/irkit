@@ -26,15 +26,9 @@
 
 #include <CLI/CLI.hpp>
 #include <cstdlib>
-//#include <boost/filesystem.hpp>
-//#include <fstream>
-//#include <gumbo.h>
-//#include <iomanip>
-//#include <iostream>
-//#include <regex>
-//#include <stdio.h>
 
-//namespace fs = boost::filesystem;
+const std::string CommandPart = "part";
+const std::string CommandWarc = "warc";
 
 int main(int argc, char** argv)
 {
@@ -46,10 +40,12 @@ int main(int argc, char** argv)
     } args;
 
     CLI::App app{"irk: Command Linie IRKit tools"};
-    app.prefix_command();
+    app.set_help_flag();
     auto part = app.add_subcommand(
-        "part", "Partition a text file by line number.");
-    auto warc = app.add_subcommand("warc", "Read and parse WARC collections.");
+                       "part", "Partition a text file by line number.")
+                    ->prefix_command();
+    auto warc = app.add_subcommand("warc", "Read and parse WARC collections.")
+                    ->prefix_command();
 
     CLI11_PARSE(app, argc, argv);
 
@@ -57,10 +53,14 @@ int main(int argc, char** argv)
 
     std::ostringstream command;
     command << "irk-";
-    if (*part) command << "part";
-    else if (*warc) command << "warc";
+    if (*part) command << CommandPart;
+    else if (*warc) command << CommandWarc;
+    else {
+        std::cout << app.help() << std::endl;
+        return 1;
+    }
 
-    for (const std::string& arg : app.remaining()) {
+    for (const std::string& arg : app.remaining(true)) {
         command << " " << arg;
     }
 

@@ -11,6 +11,16 @@ matrix:
             - libboost-all-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-6.0
+            - libboost-all-dev
+      env:
+        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
 before_install:
     - eval "${MATRIX_EVAL}"
 install:
@@ -21,4 +31,7 @@ install:
     - make
     - sudo make install
     - cd ../
-script: cmake CMakeLists.txt && make && make test
+script:
+    - cmake .
+    - cmake --build .
+    - ctest

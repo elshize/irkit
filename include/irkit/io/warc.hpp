@@ -137,7 +137,7 @@ std::istream& read_warc_record(std::istream& in, warc_record& record)
         try {
             std::size_t length = std::stoi(record.content_length());
             record.content_.resize(length);
-            in.read(record.content_.data(), length);
+            in.read(&record.content_[0], length);
             std::getline(in, line);
             std::getline(in, line);
         } catch (std::invalid_argument& error) {

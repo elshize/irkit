@@ -58,7 +58,7 @@ int main(int argc, char** argv)
         std::size_t limit;
     } args;
 
-    CLI::App app{"irk-part: partition a text file by lines"};
+    CLI::App app{"Partition a text file by line number."};
     app.add_flag("--no-header", "the input file has no header");
     app.add_option("-p,--padding-width",
         args.padding_width,

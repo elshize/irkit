@@ -8,7 +8,6 @@
 #include <iostream>
 #include <regex>
 #include <stdio.h>
-#include "cmd.hpp"
 #include "irkit/io/warc.hpp"
 #include "irkit/parsing/html.hpp"
 #include "irkit/parsing/snowball/porter2.hpp"
@@ -19,7 +18,7 @@ void write_term(std::string&& term, SN_env* z, bool lowercase)
 {
     if (z != nullptr) {
         SN_set_current(
-            z, term.size(), reinterpret_cast<unsigned char*>(term.data()));
+            z, term.size(), reinterpret_cast<unsigned char*>(&term[0]));
         stem(z);
         if (lowercase) {
             for (int idx = 0; idx < z->l; ++idx) {
@@ -38,7 +37,7 @@ int main(int argc, char** argv)
     std::string field_separator = "\t";
     std::vector<std::string> input_files;
 
-    CLI::App app{"irk-warc"};
+    CLI::App app{"Read and parse WARC collections."};
     app.add_flag("-z,--zip", "use zipped input files");
     app.add_flag("-s,--stem", "stem terms");
     app.add_flag("-l,--lowercase", "transform all characters to lower case");

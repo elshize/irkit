@@ -4,35 +4,31 @@ execute_process(COMMAND git submodule update --init
 
 # rax: radix tree
 add_library(rax STATIC submodules/rax/rax.c)
-set(rax_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/rax)
+target_include_directories(rax INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/submodules/rax)
 
-# Guideline Support Library
-set(GSL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/GSL/include)
-
-# Mongoose
 add_library(mongoose STATIC submodules/mongoose/mongoose.c)
-set(mongoose_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/mongoose)
+target_include_directories(mongoose INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/submodules/mongoose)
 
-# Experimental Range library; mainly used for Concepts
-set(range_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/range-v3/include)
+add_library(ranges INTERFACE)
+target_include_directories(ranges INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/submodules/range-v3/include)
 
-# JSON
-set(json_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/json/include)
+set(JSON_BuildTests OFF CACHE INTERNAL "" FORCE)
+add_subdirectory(submodules/json EXCLUDE_FROM_ALL)
+add_subdirectory(submodules/debug_assert EXCLUDE_FROM_ALL)
+add_subdirectory(submodules/CLI11 EXCLUDE_FROM_ALL)
 
-# debug_assert
-set(debug_assert_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/debug_assert)
+# TODO: How to disable the test when adding it as a subdirectory?
+#add_subdirectory(submodules/type_safe EXCLUDE_FROM_ALL)
+add_library(type_safe INTERFACE)
+target_include_directories(type_safe INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/submodules/type_safe/include)
 
-# debug_assert
-set(type_safe_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/type_safe/include)
-
-# CLI11
-set(CLI11_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/CLI11/include)
+# TODO: Work around it: why is it failing when I simply add the subdirectory?
+#add_subdirectory(submodules/GSL EXCLUDE_FROM_ALL)
+set(GSL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/GSL/include)
+include_directories(${GSL_INCLUDE_DIR})
 
 # Google Test
 add_subdirectory(submodules/googletest EXCLUDE_FROM_ALL)
-set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/googletest/include
-                       ${CMAKE_CURRENT_SOURCE_DIR}/submodules/googletest/googlemock/include)
-set(GTEST_BOTH_LIBRARIES gtest)
 
 # Gumbo HTML5 parser
 #set(GUMBO_DIR "gumbo-parser")
