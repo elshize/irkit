@@ -6,6 +6,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
 
 configure_file(randstr.txt randstr.txt COPYONLY)
+configure_file(ukb_queries ukb_queries COPYONLY)
 set(TEST_SOURCES
     test_bitptr.cpp
     test_builder.cpp
