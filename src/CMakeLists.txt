@@ -14,7 +14,7 @@
 # irk commands
 
 add_executable(irk irk.cpp)
-target_link_libraries(irk)
+target_link_libraries(irk CLI11::CLI11)
 
 #add_executable(irk-merge irk-merge.cpp)
 #target_link_libraries(irk-merge ${Boost_LIBRARIES})
