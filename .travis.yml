@@ -17,10 +17,10 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - clang-6.0
+            - clang-5.0
             - libboost-all-dev
       env:
-        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 before_install:
     - eval "${MATRIX_EVAL}"
 install:
