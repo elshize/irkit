@@ -158,7 +158,7 @@ public:
             }
             auto encoded =
                 coding::encode<coding::varbyte_codec<frequency_type>>(deltas);
-            out.write(encoded.data(), encoded.size());
+            out.write(reinterpret_cast<char*>(&encoded[0]), encoded.size());
             offset += encoded.size();
         }
         offset_table<> offset_table = build_offset_table<>(offsets);
@@ -180,7 +180,7 @@ public:
             auto encoded =
                 coding::encode_fn<coding::varbyte_codec<frequency_type>>(
                     postings_[term_id], freq_fn);
-            out.write(encoded.data(), encoded.size());
+            out.write(reinterpret_cast<char*>(&encoded[0]), encoded.size());
             offset += encoded.size();
         }
         offset_table<> offset_table = build_offset_table<>(offsets);

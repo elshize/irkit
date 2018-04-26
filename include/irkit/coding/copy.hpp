@@ -20,28 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file varbyte.hpp
+//! \file copy.hpp
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
 #pragma once
 
-#include <boost/iostreams/device/array.hpp>
-#include <boost/iostreams/device/back_inserter.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <cstdarg>
-#include <gsl/span>
-#include <iostream>
-#include <range/v3/range_concepts.hpp>
+#include <irkit/types.hpp>
+#include <irkit/utils.hpp>
 #include <range/v3/utility/concepts.hpp>
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
 
 namespace irk::coding {
 
-//! Variable-Byte codec.
+//! A codec that simply copies memory as is, no compression.
+/*!
+ * Mainly for testing purposes.
+ */
 template<class T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
-struct varbyte_codec {
+struct copy_codec {
     using value_type = T;
 
     //! Encode `n` and write it to `sink`.
@@ -52,13 +48,7 @@ struct varbyte_codec {
      */
     std::ostream& encode(value_type n, std::ostream& sink) const
     {
-        while (true) {
-            sink.put(n < 128 ? 128 + n : n % 128);
-            if (n < 128) {
-                break;
-            }
-            n /= 128;
-        }
+        sink.write(reinterpret_cast<char*>(&n), sizeof(n));
         return sink;
     }
 
@@ -72,33 +62,10 @@ struct varbyte_codec {
                                      first byte, i.e., there is no more
                                      symbols to decode
      */
-    std::streamsize decode(std::istream& source, value_type& n) const
+    std::istream& decode(std::istream& source, value_type& n) const
     {
-        char b;
-        n = 0;
-        unsigned short shift = 0;
-        auto process_next_byte = [&b, &n, &shift]() {
-            int val = b & 0b01111111;
-            n |= val << shift;
-            shift += 7;
-            return val;
-        };
-        std::streamsize bytes_read = 0;
-        if (source.get(b)) {
-            bytes_read++;
-            if (process_next_byte() != b) {
-                return bytes_read;
-            }
-            while (source.get(b)) {
-                bytes_read++;
-                if (process_next_byte() != b) {
-                    return bytes_read;
-                }
-            }
-            throw std::runtime_error(
-                "reached end of byte range before end of value");
-        }
-        return bytes_read;
+        source.read(reinterpret_cast<char*>(&n), sizeof(n));
+        return source;
     }
 };
 

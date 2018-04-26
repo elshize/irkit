@@ -24,7 +24,11 @@ set(TEST_SOURCES
     test_prefixmap.cpp
     test_radix_tree.cpp
     test_taat.cpp
-    test_warc.cpp)
+    test_warc.cpp
+    test_skiplist.cpp
+    test_block.cpp
+    test_memoryview.cpp
+    test_index_list.cpp)
 foreach(TEST_SRC ${TEST_SOURCES})
     get_filename_component (TEST_SRC_NAME ${TEST_SRC} NAME_WE)
     add_executable(${TEST_SRC_NAME} ${TEST_SRC})

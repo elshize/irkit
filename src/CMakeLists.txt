@@ -45,4 +45,8 @@ add_executable(irk-prefmap irk-prefmap.cpp)
 target_link_libraries(irk-prefmap irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax)
 target_compile_features(irk-prefmap PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
-install(TARGETS irk irk-warc irk-part DESTINATION bin)
+add_executable(irk-buildindex irk-buildindex.cpp)
+target_link_libraries(irk-buildindex irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax)
+target_compile_features(irk-buildindex PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
+install(TARGETS irk irk-warc irk-part irk-buildindex DESTINATION bin)

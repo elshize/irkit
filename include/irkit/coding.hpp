@@ -291,7 +291,7 @@ std::vector<typename Codec::value_type>
 decode_n(std::istream& source, std::size_t n, const Codec& codec = Codec())
 {
     std::vector<typename Codec::value_type> result;
-    decode_n(std::back_inserter(result), n, codec);
+    decode_n(std::back_inserter(result), source, n, codec);
     return result;
 }
 
