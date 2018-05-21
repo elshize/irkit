@@ -31,9 +31,11 @@
 #include <optional>
 #include <unordered_map>
 #include <vector>
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/compacttable.hpp"
+
+#include <irkit/coding.hpp>
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/compacttable.hpp>
+#include <irkit/index/list.hpp>
 
 namespace irk {
 
@@ -57,6 +59,7 @@ public:
         }
     };
 
+    int block_size_;
     document_type current_doc_;
     std::optional<std::vector<term_type>> sorted_terms_;
     std::vector<std::vector<doc_freq_pair>> postings_;
@@ -64,7 +67,9 @@ public:
     std::unordered_map<term_type, term_id_type> term_map_;
 
 public:
-    index_builder() : current_doc_(0) {}
+    index_builder(int block_size = 1024)
+        : block_size_(block_size), current_doc_(0)
+    {}
 
     //! Initiates a new document with an incremented ID.
     void add_document() { current_doc_++; }
@@ -141,25 +146,18 @@ public:
     //! Writes document IDs
     void write_document_ids(std::ostream& out, std::ostream& off)
     {
-        if (sorted_terms_ == std::nullopt) {
-            sort_terms();
-        }
+        if (sorted_terms_ == std::nullopt) { sort_terms(); }
         std::size_t offset = 0;
-        //std::size_t offset_delta = 0;
         std::vector<std::size_t> offsets;
-        for (auto& term : sorted_terms_.value()) {
+        for (auto& term : sorted_terms_.value())
+        {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            document_type last = 0;
-            std::vector<document_type> deltas;
-            for (const auto& posting : postings_[term_id]) {
-                deltas.push_back(posting.doc - last);
-                last = posting.doc;
-            }
-            auto encoded =
-                coding::encode<coding::varbyte_codec<frequency_type>>(deltas);
-            out.write(reinterpret_cast<char*>(&encoded[0]), encoded.size());
-            offset += encoded.size();
+            index::block_list_builder<document_type, true> list_builder(
+                block_size_, coding::varbyte_codec<document_type>{});
+            for (const auto& posting : postings_[term_id])
+            { list_builder.add(posting.doc); }
+            offset += list_builder.write(out);
         }
         offset_table<> offset_table = build_offset_table<>(offsets);
         off << offset_table;
@@ -168,20 +166,17 @@ public:
     //! Writes term-document frequencies (tf).
     void write_document_counts(std::ostream& out, std::ostream& off)
     {
-        if (sorted_terms_ == std::nullopt) {
-            sort_terms();
-        }
+        if (sorted_terms_ == std::nullopt) { sort_terms(); }
         std::size_t offset = 0;
         std::vector<std::size_t> offsets;
         for (auto& term : sorted_terms_.value()) {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            auto freq_fn = [](const auto& posting) { return posting.freq; };
-            auto encoded =
-                coding::encode_fn<coding::varbyte_codec<frequency_type>>(
-                    postings_[term_id], freq_fn);
-            out.write(reinterpret_cast<char*>(&encoded[0]), encoded.size());
-            offset += encoded.size();
+            index::block_list_builder<document_type, false> list_builder(
+                block_size_, coding::varbyte_codec<frequency_type>{});
+            for (const auto& posting : postings_[term_id])
+            { list_builder.add(posting.freq); }
+            offset += list_builder.write(out);
         }
         offset_table<> offset_table = build_offset_table<>(offsets);
         off << offset_table;
@@ -190,11 +185,10 @@ public:
     //! Writes document frequencies (df).
     void write_document_frequencies(std::ostream& out)
     {
-        if (sorted_terms_ == std::nullopt) {
-            sort_terms();
-        }
+        if (sorted_terms_ == std::nullopt) { sort_terms(); }
         std::vector<frequency_type> dfs;
-        for (auto& term : sorted_terms_.value()) {
+        for (auto& term : sorted_terms_.value())
+        {
             term_id_type term_id = term_map_[term];
             dfs.push_back(document_frequency(term_id));
         }

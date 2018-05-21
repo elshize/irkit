@@ -24,10 +24,12 @@
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
+#include <string>
+#include <vector>
+
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <vector>
-#include <string>
+
 #include <irkit/index/assembler.hpp>
 
 namespace fs = boost::filesystem;

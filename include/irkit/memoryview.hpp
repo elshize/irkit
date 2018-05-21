@@ -68,9 +68,12 @@ public:
      *                      polymorphic usage with value semantic.
      */
     template<class source_type>
-    memory_view(source_type source)
+    explicit memory_view(source_type source)
         : self_(std::make_shared<model<source_type>>(source))
     {}
+
+    memory_view(const memory_view& other) = default;
+    memory_view(memory_view&& other) = default;
 
     //! Returns a pointer to the underlying data.
     /*!
@@ -219,26 +222,26 @@ memory_view make_memory_view(const char* data, int size)
     return memory_view(pointer_memory_source(data, size));
 }
 
-////! A memory source for mapped files.
-//template<class CharT = char>
-//class mapped_file_memory_source {
-//public:
-//    using char_type = CharT;
-//    using pointer = char_type*;
-//    using reference = char_type&;
-//    mapped_file_memory_source() = default;
-//    mapped_file_memory_source(boost::iostreams::mapped_file_source file)
-//        : file_(file) {}
-//    const char_type* data() const { return file_.data(); }
-//    gsl::index size() const { return file_.size(); }
-//    char operator[](int n) const { return data()[n]; }
-//    pointer_memory_source<char_type> range(int first, gsl::index size) const
-//    {
-//        return pointer_memory_source(file_.data() + first, size);
-//    }
-//
-//private:
-//    boost::iostreams::mapped_file_source file_;
-//};
+//! A memory source for mapped files.
+template<class CharT = char>
+class mapped_file_memory_source {
+public:
+    using char_type = CharT;
+    using pointer = char_type*;
+    using reference = char_type&;
+    mapped_file_memory_source() = default;
+    mapped_file_memory_source(boost::iostreams::mapped_file_source file)
+        : file_(file) {}
+    const char_type* data() const { return file_.data(); }
+    gsl::index size() const { return file_.size(); }
+    char operator[](int n) const { return data()[n]; }
+    pointer_memory_source<char_type> range(int first, gsl::index size) const
+    {
+        return pointer_memory_source(file_.data() + first, size);
+    }
+
+private:
+    boost::iostreams::mapped_file_source file_;
+};
 
 };  // namespace irk

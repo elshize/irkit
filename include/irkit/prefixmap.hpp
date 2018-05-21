@@ -26,19 +26,21 @@
 
 #pragma once
 
-#include <boost/dynamic_bitset.hpp>
-#include <boost/filesystem.hpp>
 #include <cstring>
-#include <gsl/gsl>
 #include <iostream>
 #include <list>
 #include <sstream>
 #include <vector>
-#include "irkit/bitptr.hpp"
-#include "irkit/coding/hutucker.hpp"
-//#include "irkit/mutablebittrie.hpp"
-#include "irkit/radix_tree.hpp"
-#include "irkit/utils.hpp"
+
+#include <boost/dynamic_bitset.hpp>
+#include <boost/filesystem.hpp>
+#include <gsl/gsl>
+
+#include <irkit/bitptr.hpp>
+#include <irkit/coding/hutucker.hpp>
+#include <irkit/memoryview.hpp>
+#include <irkit/radix_tree.hpp>
+#include <irkit/utils.hpp>
 
 namespace irk {
 
@@ -126,15 +128,6 @@ public:
 
         bool add(const std::string& value)
         {
-            if (value == "zzzx2e00000000000000ff00000000zp7zh3zp3zts1113zzac000zzyn4zzzrzzz") {
-                std::cout << "encoding " << value << std::endl;
-                std::cout << "last.size(): " << last_.size() << std::endl;
-            }
-
-            if (value == "0000000000ef00000000000000f000000000000000f100000000000000f2") {
-                std::cout << "encoding... block size: " << size_ << std::endl;
-                std::cout << "last: " << last_ << std::endl;
-            }
             std::uint32_t pos = 0;
             for (; pos < last_.size(); ++pos) {
                 if (last_[pos] != value[pos]) {
@@ -147,11 +140,6 @@ public:
             }
             encode_unary(pos);
             encode_unary(value.size() - pos);
-            if (value == "0000000000ef00000000000000f000000000000000f100000000000000f2") {
-                std::cout << "pref: " << pos << std::endl;
-                std::cout << "suf: " << value.size() - pos << std::endl;
-                std::cout << "encoded size: " << encoded.size() << std::endl;
-            }
             irk::bitcpy(bitp_, encoded);
             bitp_ += encoded.size();
             pos_ += encoded.size();
@@ -551,6 +539,14 @@ prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
         block_count,
         codec,
         block_leaders);
+}
+
+template<class Index>
+prefix_map<Index, std::vector<char>> load_prefix_map(memory_view mem)
+{
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> in(
+        mem.data(), mem.size());
+    return load_prefix_map<Index>(in);
 }
 
 template<class Index>

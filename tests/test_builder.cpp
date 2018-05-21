@@ -6,6 +6,7 @@
 #define protected public
 #include "irkit/coding.hpp"
 #include "irkit/coding/varbyte.hpp"
+#include "irkit/coding/copy.hpp"
 #include "irkit/index.hpp"
 #include "irkit/index/builder.hpp"
 #include "irkit/io.hpp"
@@ -136,9 +137,12 @@ TEST_F(IndexBuilderWrite, write_document_ids)
     std::string offs = off.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
-    std::vector<char> expected_out =
-        flatten({encode({0, 1}, vb), encode({1}, vb), encode({0}, vb)});
-    std::vector<char> expected_off = irk::build_offset_table<>({0, 2, 3}).data_;
+    std::vector<char> expected_out = flatten({
+        encode({8, 1024, 1, 0, 1}, vb), encode({0, 1}, vb),
+        encode({7, 1024, 1, 0, 1}, vb), encode({1}, vb),
+        encode({7, 1024, 1, 0, 0}, vb), encode({0}, vb)
+    });
+    std::vector<char> expected_off = irk::build_offset_table<>({0, 8, 15}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }
@@ -153,9 +157,12 @@ TEST_F(IndexBuilderWrite, write_document_counts)
     std::string offs = off.str();
     std::vector<char> actual_out(outs.begin(), outs.end());
     std::vector<char> actual_off(offs.begin(), offs.end());
-    std::vector<char> expected_out =
-        flatten({encode({1, 2}, vb), encode({1}, vb), encode({2}, vb)});
-    std::vector<char> expected_off = irk::build_offset_table<>({0, 2, 3}).data_;
+    std::vector<char> expected_out = flatten({
+        encode({7, 1024, 1, 0}, vb), encode({1, 2}, vb),
+        encode({6, 1024, 1, 0}, vb), encode({1}, vb),
+        encode({6, 1024, 1, 0}, vb), encode({2}, vb)
+    });
+    std::vector<char> expected_off = irk::build_offset_table<>({0, 7, 13}).data_;
     EXPECT_THAT(actual_out, ::testing::ElementsAreArray(expected_out));
     EXPECT_THAT(actual_off, ::testing::ElementsAreArray(expected_off));
 }

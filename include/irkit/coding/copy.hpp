@@ -28,7 +28,6 @@
 
 #include <irkit/types.hpp>
 #include <irkit/utils.hpp>
-#include <range/v3/utility/concepts.hpp>
 
 namespace irk::coding {
 
@@ -36,7 +35,7 @@ namespace irk::coding {
 /*!
  * Mainly for testing purposes.
  */
-template<class T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
+template<class T>
 struct copy_codec {
     using value_type = T;
 
@@ -62,10 +61,10 @@ struct copy_codec {
                                      first byte, i.e., there is no more
                                      symbols to decode
      */
-    std::istream& decode(std::istream& source, value_type& n) const
+    std::streamsize decode(std::istream& source, value_type& n) const
     {
-        source.read(reinterpret_cast<char*>(&n), sizeof(n));
-        return source;
+        if (!source.read(reinterpret_cast<char*>(&n), sizeof(n))) { return 0; }
+        return sizeof(n);
     }
 };
 

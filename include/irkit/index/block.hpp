@@ -35,7 +35,7 @@
 namespace irk::index
 {
 
-//! \deprecated A view to an encoded block.
+//! A view to an encoded block.
 /*!
  * \tparam  T   the type of values encoded in the block
  */

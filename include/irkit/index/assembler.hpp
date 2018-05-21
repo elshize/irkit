@@ -71,7 +71,7 @@ public:
 
         int batch_number = 0;
         std::vector<fs::path> batch_dirs;
-        while (input)
+        while (input && input.peek() != EOF)
         {
             std::clog << "Building batch " << batch_number << std::endl;
             fs::path batch_dir = work_dir / std::to_string(batch_number);
