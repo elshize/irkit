@@ -10,6 +10,7 @@ MESSAGE( STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE} )
 
 set(IRKit_CXX_PRIVATE_FEATURES cxx_std_17)
 set(CMAKE_C_FLAGS "-Wall -std=c99")
+set(CMAKE_CXX_FLAGS "-fno-strict-aliasing")
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
