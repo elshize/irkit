@@ -16,15 +16,15 @@ namespace fs = boost::filesystem;
 
 void write_term(std::string&& term, SN_env* z, bool lowercase)
 {
+    if (lowercase) {
+        for (int idx = 0; idx < z->l; ++idx) {
+            z->p[idx] = tolower(z->p[idx]);
+        }
+    }
     if (z != nullptr) {
         SN_set_current(
             z, term.size(), reinterpret_cast<unsigned char*>(&term[0]));
         stem(z);
-        if (lowercase) {
-            for (int idx = 0; idx < z->l; ++idx) {
-                z->p[idx] = tolower(z->p[idx]);
-            }
-        }
         z->p[z->l] = 0;
         std::cout << z->p;
     } else {
