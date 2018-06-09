@@ -5,16 +5,16 @@ include(GoogleTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
 
-configure_file(randstr.txt randstr.txt COPYONLY)
-configure_file(ukb_queries ukb_queries COPYONLY)
+#configure_file(randstr.txt randstr.txt COPYONLY)
+#configure_file(ukb_queries ukb_queries COPYONLY)
 set(TEST_SOURCES
     test_bitptr.cpp
     test_builder.cpp
     test_coding.cpp
     test_daat.cpp
-    test_heap.cpp
+    #test_heap.cpp
     test_immutablebittrie.cpp
-    test_index.cpp
+    #test_index.cpp
     test_index_integration.cpp
     test_index_reading.cpp
     test_io.cpp
