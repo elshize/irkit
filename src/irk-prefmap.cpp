@@ -1,9 +1,7 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <iostream>
-#define private public
-#define protected public
-#include "irkit/prefixmap.hpp"
+#include <irkit/prefixmap.hpp>
 
 namespace fs = boost::filesystem;
 
