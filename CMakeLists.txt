@@ -18,7 +18,7 @@ add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 
 # Find dependencies
 find_package(PkgConfig REQUIRED)
-find_package(Boost 1.55
+find_package(Boost 1.40
     COMPONENTS iostreams filesystem system
     REQUIRED)
 find_package(ZLIB REQUIRED)
