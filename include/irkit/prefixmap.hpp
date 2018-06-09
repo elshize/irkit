@@ -208,8 +208,8 @@ public:
         {
             std::size_t common_prefix_len = read_unary();
             std::size_t suffix_len = read_unary();
-            std::cout << "pref: " << common_prefix_len << std::endl;
-            std::cout << "suf: " << suffix_len << std::endl;
+            //std::cout << "pref: " << common_prefix_len << std::endl;
+            //std::cout << "suf: " << suffix_len << std::endl;
             last_value.resize(common_prefix_len);
             std::ostringstream o(std::move(last_value), std::ios_base::ate);
             auto reader = current.reader();
@@ -285,9 +285,9 @@ private:
             std::string key(iter.key, iter.key + iter.key_len);
             //std::cout << key << std::endl;
             values.push_back(*reinterpret_cast<Index*>(iter.data));
-            if (values.back() == 12) std::cout << key << std::endl;
+            //if (values.back() == 12) std::cout << key << std::endl;
             keys.push_back(std::move(key));
-            if (values.back() == 12) std::cout << keys.back() << std::endl;
+            //if (values.back() == 12) std::cout << keys.back() << std::endl;
             //while (!leader_block.add(key)) {
             //    data.resize(data.size() + block_size_);
             //    leader_block.expand_by(block_size_);
@@ -302,7 +302,7 @@ private:
         //std::cout << std::endl;
         //leader_block.write_count();
         auto num_values = values.size();
-        std::cout << "[w] num_values: " << num_values << std::endl;
+        //std::cout << "[w] num_values: " << num_values << std::endl;
         out.write(reinterpret_cast<char*>(&num_values), sizeof(num_values));
         out.write(reinterpret_cast<char*>(values.data()),
             values.size() * sizeof(Index));
@@ -408,16 +408,16 @@ public:
     {
         auto block_opt = block_leaders_->seek_le(key);
         if (!block_opt.has_value()) {
-            std::cout << "node not found" << std::endl;
+            //std::cout << "node not found" << std::endl;
             return std::nullopt;
         }
         std::size_t block_number = block_opt.value();
-        std::cout << "block: " << block_number << std::endl;
+        //std::cout << "block: " << block_number << std::endl;
         block_ptr block{blocks_.data() + block_number * block_size_, codec_};
         Index idx = block.first_index();
         std::string v = block.next();
-        std::cout << "key: " << key << std::endl;
-        std::cout << "v: " << v << std::endl;
+        //std::cout << "key: " << key << std::endl;
+        //std::cout << "v: " << v << std::endl;
         std::uint32_t c = 1;
         while (c < block.count() && v < key) {
             v = block.next();
@@ -484,7 +484,7 @@ std::shared_ptr<radix_tree<Index>> load_radix_tree(std::istream& in,
     std::size_t num_blocks, num_values;
 
     in.read(reinterpret_cast<char*>(&num_values), sizeof(num_values));
-    std::cout << "[r] num_values: " << num_values << std::endl;
+    //std::cout << "[r] num_values: " << num_values << std::endl;
     std::vector<Index> values(num_values);
     in.read(reinterpret_cast<char*>(values.data()),
         num_values * sizeof(Index));
@@ -492,7 +492,7 @@ std::shared_ptr<radix_tree<Index>> load_radix_tree(std::istream& in,
     std::string key;
     for (std::size_t idx = 0; idx < num_values; idx++) {
         std::getline(in, key);
-        if (idx == 12) std::cout << key << " -> " << values[idx] << std::endl;
+        //if (idx == 12) std::cout << key << " -> " << values[idx] << std::endl;
         rt->insert(key, values[idx]);
     }
 
