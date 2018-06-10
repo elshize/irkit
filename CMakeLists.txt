@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.9)
 project(IRKit VERSION 0.1 LANGUAGES CXX C)
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
+option(IRKit_BUILD_INTEGRATION_TEST "whether or not to build the integration test" OFF)
 option(IRKit_INSTALL_SUBMODULES "whether or not to install submodules" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)

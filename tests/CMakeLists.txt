@@ -5,8 +5,9 @@ include(GoogleTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
 
-#configure_file(randstr.txt randstr.txt COPYONLY)
-#configure_file(ukb_queries ukb_queries COPYONLY)
+# TODO: Move to `unit` folder.
+configure_file(randstr.txt randstr.txt COPYONLY)
+configure_file(ukb_queries ukb_queries COPYONLY)
 set(TEST_SOURCES
     test_bitptr.cpp
     test_builder.cpp
@@ -38,3 +39,9 @@ foreach(TEST_SRC ${TEST_SOURCES})
     gtest_add_tests(TARGET ${TEST_SRC_NAME} TEST_PREFIX "${TEST_SRC_NAME}.")
 endforeach(TEST_SRC)
 target_link_libraries(test_prefixmap ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} rax)
+
+add_subdirectory(unit)
+
+if (IRKit_BUILD_INTEGRATION_TEST)
+    add_subdirectory(integration)
+endif()
