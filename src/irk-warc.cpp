@@ -1,16 +1,18 @@
+#include <chrono>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <stdio.h>
+
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <chrono>
-#include <fstream>
 #include <gumbo.h>
-#include <iostream>
-#include <regex>
-#include <stdio.h>
-#include "irkit/io/warc.hpp"
-#include "irkit/parsing/html.hpp"
-#include "irkit/parsing/snowball/porter2.hpp"
+
+#include <irkit/io/warc.hpp>
+#include <irkit/parsing/html.hpp>
+#include <irkit/parsing/snowball/porter2.hpp>
 
 namespace fs = boost::filesystem;
 

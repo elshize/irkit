@@ -27,6 +27,9 @@ pkg_check_modules(gumbo REQUIRED gumbo)
 include(submodules/submodules.cmake)
 
 add_library(irkit INTERFACE)
+
+include_directories(irkit INTERFACE include)
+
 target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${MY_LIBRARY_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
