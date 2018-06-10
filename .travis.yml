@@ -33,6 +33,6 @@ install:
     - sudo make install
     - cd ../
 script:
-    - cmake .
+    - cmake -D IRKit_BUILD_INTEGRATION_TEST:BOOL=ON .
     - cmake --build .
     - ctest
