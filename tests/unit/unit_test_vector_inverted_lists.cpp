@@ -33,8 +33,6 @@
 #include <gsl/span>
 #include <gtest/gtest.h>
 
-#define private public
-#define protected public
 #include <irkit/index/vector_inverted_list.hpp>
 
 namespace {

@@ -81,8 +81,8 @@ public:
     template<class BlockIterator>
     self_type& align(const BlockIterator& other)
     {
-        block_ = other.block_;
-        pos_ = other.pos_;
+        block_ = other.block();
+        pos_ = other.pos();
         return *this;
     }
 
@@ -93,6 +93,9 @@ public:
         al.align(other);
         return al;
     }
+
+    int block() const { return block_; }
+    int pos() const { return pos_; }
 
 private:
     friend class boost::iterator_core_access;
@@ -179,6 +182,7 @@ public:
     iterator lookup(value_type id) const { return begin().nextgeq(id); }
 
 private:
+    friend iterator;
     std::vector<value_type> ids_;
     size_type block_size_ = 0;
 };
@@ -218,6 +222,7 @@ public:
     { return begin().aligned(pos); }
 
 private:
+    friend iterator;
     std::vector<value_type> ids_;
     size_type block_size_ = 0;
 };
