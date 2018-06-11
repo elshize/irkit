@@ -28,11 +28,10 @@ pkg_check_modules(gumbo REQUIRED gumbo)
 include(submodules/submodules.cmake)
 
 add_library(irkit INTERFACE)
-
-include_directories(irkit INTERFACE include)
+add_library(irkit::irkit ALIAS irkit)
 
 target_include_directories(irkit INTERFACE
-    $<BUILD_INTERFACE:${MY_LIBRARY_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 target_link_libraries(irkit INTERFACE
     Boost::filesystem Boost::iostreams Boost::system)
@@ -40,6 +39,7 @@ install(DIRECTORY include/irkit DESTINATION include)
 install(FILES irkit-config.cmake DESTINATION lib/irkit)
 install(TARGETS irkit EXPORT irkit DESTINATION lib)
 install(EXPORT irkit DESTINATION lib/irkit)
+export(PACKAGE irkit)
 
 add_subdirectory(src)
 
