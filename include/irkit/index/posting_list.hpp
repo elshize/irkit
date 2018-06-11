@@ -37,7 +37,7 @@ public:
     using document_list_type = DocumentListT;
     using payload_list_type = PayloadListT;
     using document_type = typename document_list_type::value_type;
-    using payload_type = typename document_list_type::value_type;
+    using payload_type = typename payload_list_type::value_type;
     using difference_type = long;
     using document_iterator_t = typename document_list_type::iterator;
     using payload_iterator_t = typename payload_list_type::iterator;

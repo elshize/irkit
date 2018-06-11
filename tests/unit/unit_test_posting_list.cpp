@@ -66,7 +66,7 @@ std::pair<long, double> pair_of(const T& posting)
 TEST(posting_list_view, lookup)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
-    std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
+    std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30.1};
     irk::vector_document_list vdl(documents);
     irk::vector_payload_list vpl(payloads);
     vdl.block_size(3);
@@ -82,8 +82,8 @@ TEST(posting_list_view, lookup)
     ASSERT_THAT(pair_of(*postings.lookup(7)), ::testing::Pair(9, 9));
     ASSERT_THAT(pair_of(*postings.lookup(8)), ::testing::Pair(9, 9));
     ASSERT_THAT(pair_of(*postings.lookup(9)), ::testing::Pair(9, 9));
-    ASSERT_THAT(pair_of(*postings.lookup(15)), ::testing::Pair(30, 30));
-    ASSERT_THAT(pair_of(*postings.lookup(30)), ::testing::Pair(30, 30));
+    ASSERT_THAT(pair_of(*postings.lookup(15)), ::testing::Pair(30, 30.1));
+    ASSERT_THAT(pair_of(*postings.lookup(30)), ::testing::Pair(30, 30.1));
     ASSERT_EQ(postings.lookup(31), postings.end());
 }
 
