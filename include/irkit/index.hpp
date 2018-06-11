@@ -197,7 +197,24 @@ inline namespace v2 {
             assert(count_offsets_.size() == term_count_);
         }
 
-        //index::block_posting_list_view<document_type, frequency_type>
+        auto documents(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            auto document_offset = document_offsets_[term_id];
+            return index::block_document_list_view(
+                document_codec_, documents_view_, length, document_offset);
+        }
+
+        auto frequencies(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            auto count_offset = count_offsets_[term_id];
+            return index::block_payload_list_view(
+                frequency_codec_, counts_view_, length, count_offset);
+        }
+
         auto postings(long term_id) const
         {
             assert(term_id < term_count_);
@@ -208,7 +225,6 @@ inline namespace v2 {
             auto count_offset = count_offsets_[term_id];
             auto counts = index::block_payload_list_view(
                 frequency_codec_, counts_view_, length, count_offset);
-            //return index::block_posting_list_view(documents, counts);
             return posting_list_view(documents, counts);
         }
 
