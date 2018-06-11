@@ -195,9 +195,6 @@ public:
     vector_payload_list(std::vector<value_type> vec)
         : ids_(std::move(vec)), block_size_(ids_.size())
     {}
-    vector_payload_list(std::vector<value_type>&& vec)
-        : ids_(vec), block_size_(ids_.size())
-    {}
 
     size_type size() const { return ids_.size(); }
     size_type block_size() const { return block_size_; }
