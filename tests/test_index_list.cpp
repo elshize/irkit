@@ -189,26 +189,26 @@ TEST_F(block_document_list_view, read_iterator)
 
 TEST_F(block_document_list_view, next_ge_block)
 {
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 0), 0);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 9), 0);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 11), 0);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 12), 1);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 13), 1);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 22), 1);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 23), 2);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 27), 2);
-    ASSERT_EQ(data.view.begin().next_ge_block(0, 101), 3);  // after last block
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 0), 0);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 9), 0);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 11), 0);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 12), 1);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 13), 1);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 22), 1);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 23), 2);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 27), 2);
+    ASSERT_EQ(data.view.begin().nextgeq_block(0, 101), 3);  // after last block
 }
 
 TEST_F(block_document_list_view, next_ge)
 {
-    ASSERT_EQ(*data.view.begin().next_ge(0), 9);
-    ASSERT_EQ(*data.view.begin().next_ge(10), 11);
-    ASSERT_EQ(*data.view.begin().next_ge(11), 11);
-    ASSERT_EQ(*data.view.begin().next_ge(12), 12);
-    ASSERT_EQ(*data.view.begin().next_ge(14), 22);
-    ASSERT_EQ(data.view.begin().next_ge(101), data.view.end());
-    ASSERT_EQ(*data.view.begin().next_ge(0).next_ge(0).next_ge(10).next_ge(15), 22);
+    ASSERT_EQ(*data.view.begin().nextgeq(0), 9);
+    ASSERT_EQ(*data.view.begin().nextgeq(10), 11);
+    ASSERT_EQ(*data.view.begin().nextgeq(11), 11);
+    ASSERT_EQ(*data.view.begin().nextgeq(12), 12);
+    ASSERT_EQ(*data.view.begin().nextgeq(14), 22);
+    ASSERT_EQ(data.view.begin().nextgeq(101), data.view.end());
+    ASSERT_EQ(*data.view.begin().nextgeq(0).nextgeq(0).nextgeq(10).nextgeq(15), 22);
 }
 
 TEST_F(block_document_list_view, copy)

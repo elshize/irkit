@@ -47,6 +47,7 @@
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
 #include <irkit/index/list.hpp>
+#include <irkit/index/posting_list.hpp>
 #include <irkit/index/postingrange.hpp>
 #include <irkit/io.hpp>
 #include <irkit/io/memorybuffer.hpp>
@@ -196,8 +197,8 @@ inline namespace v2 {
             assert(count_offsets_.size() == term_count_);
         }
 
-        index::block_posting_list_view<document_type, frequency_type>
-        postings(long term_id) const
+        //index::block_posting_list_view<document_type, frequency_type>
+        auto postings(long term_id) const
         {
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
@@ -207,7 +208,8 @@ inline namespace v2 {
             auto count_offset = count_offsets_[term_id];
             auto counts = index::block_payload_list_view(
                 frequency_codec_, counts_view_, length, count_offset);
-            return index::block_posting_list_view(documents, counts);
+            //return index::block_posting_list_view(documents, counts);
+            return posting_list_view(documents, counts);
         }
 
     private:
@@ -223,7 +225,7 @@ inline namespace v2 {
         long term_count_;
     };
 
-};
+};  // namespace v2
 
 namespace fs = boost::filesystem;
 

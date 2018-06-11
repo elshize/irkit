@@ -51,6 +51,8 @@ public:
         {}
         document_type document() const { return *document_iterator_; }
         payload_type payload() const { return *payload_iterator_; }
+        operator std::pair<document_type, payload_type>() const
+        { return std::make_pair(document(), payload()); }
 
     private:
         document_iterator_t& document_iterator_;

@@ -53,14 +53,14 @@ namespace irk::index
  * \tparam ListView         type of list (see \ref block_document_list_view and
  *                          \ref block_payload_list_view)
  * \tparam delta_encoded    whether or not values are delta encoded; if so, an
- *                          additional operation `next_ge(value_type)` is
+ *                          additional operation `nextgeq(value_type)` is
  *                          available to skip to the next greater or equal
  *                          value
  *
  * This iterator will decode and cache blocks that are accessed. The following
  * operation will cause decoding of the entire block:
  *  - dereferencing a value in a not yet decoded block;
- *  - `next_ge` operation that reaches a not yet decoded block.
+ *  - `nextgeq` operation that reaches a not yet decoded block.
  *
  * Any other operations will not decode or access any data.
  */
@@ -105,9 +105,9 @@ public:
      * calling `end()` on the list view).
      */
     template<class = std::enable_if_t<delta_encoded>>
-    self_type& next_ge(value_type val)
+    self_type& moveto(value_type val)
     {
-        int block = next_ge_block(block_, val);
+        int block = nextgeq_block(block_, val);
         if (block >= decoded_blocks_.size())
         {
             finish();
@@ -118,6 +118,14 @@ public:
         ensure_decoded();
         while ((*decoded_blocks_[block_])[pos_] < val) { pos_++; }
         return *this;
+    };
+
+    template<class = std::enable_if_t<delta_encoded>>
+    self_type nextgeq(value_type val)
+    {
+        self_type next(*this);
+        next.moveto(val);
+        return next;
     };
 
     //! Align this iterator to another.
@@ -185,7 +193,7 @@ private:
     }
 
     //! Returns the block of the next greater of equal element.
-    int next_ge_block(int block, value_type id) const
+    int nextgeq_block(int block, value_type id) const
     {
         while (block < view_.blocks_.size()
             && view_.blocks_[block].back() < id)
@@ -360,7 +368,7 @@ public:
     };
 
     //! Finds the position of `id` or the next greater.
-    iterator lookup(value_type id) const { return begin().next_ge(id); };
+    iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
 private:
     friend class block_iterator<self_type, true>;
@@ -565,11 +573,19 @@ public:
               payload_iterator_(payload_iterator)
         {}
 
-        iterator& next_ge(document_type doc)
+        iterator& moveto(document_type doc)
         {
-            document_iterator_.next_ge(doc);
+            document_iterator_.nextgeq(doc);
             payload_iterator_.align(document_iterator_);
+            return *this;
         }
+        iterator nextgeq(document_type doc)
+        {
+            iterator it(*this);
+            it.moveto(doc);
+            return it;
+        }
+
         const document_type& document() const { return *document_iterator_; }
 
         payload_type payload() const
@@ -633,7 +649,7 @@ public:
 
     template<class = std::enable_if_t<sizeof...(Payload) == 1>>
     iterator<std::tuple_element_t<0, std::tuple<Payload...>>>
-    lookup(document_type doc) const { return begin().next_ge(doc); };
+    lookup(document_type doc) const { return begin().nextgeq(doc); };
 
     template<class = std::enable_if_t<sizeof...(Payload) != 1>>
     iterator<std::tuple<Payload...>> begin() const
@@ -652,7 +668,7 @@ public:
     template<class = std::enable_if_t<sizeof...(Payload) != 1>>
     iterator<std::tuple<Payload...>> lookup(document_type doc) const
     {
-        return begin().next_ge(doc);
+        return begin().nextgeq(doc);
     };
 
 private:
