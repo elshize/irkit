@@ -218,8 +218,6 @@ inline namespace v2 {
 
         auto postings(long term_id) const
         {
-            std::cout << "Requested term_id: " << term_id << std::flush;
-            std::cout << ": " << term(term_id) << std::endl;
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
             auto document_offset = document_offsets_[term_id];

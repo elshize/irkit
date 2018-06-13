@@ -143,12 +143,10 @@ public:
         std::vector<document_type> doc_ids;
         std::vector<frequency_type> doc_counts;
         for (const entry& e : indices) {
-            std::cout << "Reading postings" << std::endl;
             auto pr = e.index->postings(e.current_term_id);
             for (const auto& p : pr) {
                 doc_ids.push_back(p.document() + e.shift);
                 doc_counts.push_back(p.payload());
-                std::cout << doc_ids.back() << " " << doc_counts.back() << std::endl;
             }
         }
 

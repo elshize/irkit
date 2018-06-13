@@ -136,7 +136,6 @@ public:
             std::string title;
             linestream >> title;
             of_titles << title << '\n';
-            std::cout << title << std::endl;
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
         }

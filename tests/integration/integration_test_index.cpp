@@ -24,7 +24,6 @@ auto postings_on_fly(fs::path collection_file)
         std::string title, term;
         line_input >> title;
         while (line_input >> term) {
-            std::cout << "t\n";
             postings_map[term][doc]++;
         }
         doc++;
@@ -33,7 +32,6 @@ auto postings_on_fly(fs::path collection_file)
         for (const auto& [id, count] : map)
         { postings[term].push_back({id, count}); }
         std::sort(postings[term].begin(), postings[term].end());
-        std::cout << term << " " << postings[term].size() << std::endl;
     }
     return postings;
 }
@@ -72,7 +70,6 @@ TEST(inverted_index, build_load_verify)
     for (long term_id = 0; term_id < index_view.terms().size(); term_id++) {
         auto postings = index_view.postings(term_id);
         const auto& expected = expected_index[index_view.term(term_id)];
-        std::cout << index_view.term_id(index_view.term(term_id)).value_or(-1) << std::endl;
         std::vector<std::pair<long, long>> actual(
             postings.begin(), postings.end());
         ASSERT_THAT(actual, ::testing::ElementsAreArray(expected));
