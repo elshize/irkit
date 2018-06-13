@@ -119,6 +119,7 @@ public:
 
         bool add(const std::string& value)
         {
+            assert(value.size() > 0);
             std::uint32_t pos = 0;
             for (; pos < last_.size(); ++pos) {
                 if (last_[pos] != value[pos]) {

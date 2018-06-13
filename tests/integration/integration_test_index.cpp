@@ -16,7 +16,7 @@ auto postings_on_fly(fs::path collection_file)
 {
     std::map<std::string, std::vector<std::pair<long, long>>> postings;
     std::map<std::string, std::map<long, long>> postings_map;
-    std::ifstream input(collection_file);
+    std::ifstream input(collection_file.c_str());
     std::string line;
     long doc = 0;
     while (std::getline(input, line)) {
@@ -48,7 +48,7 @@ TEST(inverted_index, build_load_verify)
     // given
     std::string collection_file("collection.txt");
     auto expected_index = postings_on_fly(collection_file);
-    std::ifstream input(collection_file);
+    std::ifstream input(collection_file.c_str());
 
     // when
     irk::index::index_assembler<long, std::string, long, long> assembler(

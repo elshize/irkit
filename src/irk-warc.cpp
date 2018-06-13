@@ -9,6 +9,7 @@
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <gumbo.h>
+#include <gsl/gsl>
 
 #include <irkit/io/warc.hpp>
 #include <irkit/parsing/html.hpp>
@@ -19,7 +20,7 @@ namespace fs = boost::filesystem;
 void write_term(std::string&& term, SN_env* z, bool lowercase)
 {
     if (lowercase) {
-        for (int idx = 0; idx < z->l; ++idx) {
+        for (std::size_t idx = 0; idx < term.size(); ++idx) {
             term[idx] = tolower(term[idx]);
         }
     }
