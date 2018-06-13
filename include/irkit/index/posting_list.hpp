@@ -117,13 +117,14 @@ public:
 
     posting_list_view(document_list_type documents, payload_list_type payloads)
         : documents_(documents), payloads_(payloads)
-    {}
+    { assert(documents_.size() == payloads_.size()); }
 
     iterator begin() const
     { return iterator(documents_.begin(), payloads_.begin()); };
     iterator end() const
     { return iterator(documents_.end(), payloads_.end()); };
     iterator lookup(document_type id) const { return begin().nextgeq(id); };
+    difference_type size() const { return documents_.size(); }
 
 private:
     document_list_type documents_;

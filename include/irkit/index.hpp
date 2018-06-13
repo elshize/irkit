@@ -155,19 +155,20 @@ inline namespace v2 {
         inverted_index_view() = default;
         inverted_index_view(const inverted_index_view&) = default;
         inverted_index_view(inverted_index_view&&) = default;
-        inverted_index_view(inverted_index_mapped_data_source data,
+        inverted_index_view(
+            inverted_index_mapped_data_source* data,
             any_codec<document_type> document_codec,
             any_codec<frequency_type> frequency_codec)
-            : documents_view_(data.documents_view()),
-              counts_view_(data.counts_view()),
+            : documents_view_(data->documents_view()),
+              counts_view_(data->counts_view()),
               document_codec_(document_codec),
               frequency_codec_(frequency_codec),
-              document_offsets_(data.document_offsets_view()),
-              count_offsets_(data.count_offsets_view()),
+              document_offsets_(data->document_offsets_view()),
+              count_offsets_(data->count_offsets_view()),
               term_collection_frequencies_(
-                  data.term_collection_frequencies_view()),
-              term_map_(load_prefix_map<long>(data.term_map_source())),
-              title_map_(load_prefix_map<long>(data.title_map_source())),
+                  data->term_collection_frequencies_view()),
+              term_map_(load_prefix_map<long>(data->term_map_source())),
+              title_map_(load_prefix_map<long>(data->title_map_source())),
               term_count_(term_collection_frequencies_.size())
         {
             assert(document_offsets_.size() == term_count_);
@@ -217,6 +218,8 @@ inline namespace v2 {
 
         auto postings(long term_id) const
         {
+            std::cout << "Requested term_id: " << term_id << std::flush;
+            std::cout << ": " << term(term_id) << std::endl;
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
             auto document_offset = document_offsets_[term_id];
@@ -227,6 +230,29 @@ inline namespace v2 {
                 frequency_codec_, counts_view_, length, count_offset);
             return posting_list_view(documents, counts);
         }
+
+        auto postings(const std::string& term) const
+        {
+            auto idopt = term_id(term);
+            if (!idopt.has_value())
+            { throw std::runtime_error("TODO: implement empty posting list"); }
+            return postings(*idopt);
+        }
+
+        std::optional<long> term_id(const std::string& term) const
+        { return term_map_[term]; }
+
+        std::string term(const long& id) const { return term_map_[id]; }
+
+        long collection_size() const { return title_map_.size(); }
+        long term_count() const { return term_map_.size(); }
+
+        const prefix_map<long, std::vector<char>>& terms() const
+        { return term_map_; }
+        const prefix_map<long, std::vector<char>>& titles() const
+        { return title_map_; }
+        any_codec<document_type> document_codec() { return document_codec_; }
+        any_codec<frequency_type> frequency_codec() { return frequency_codec_; }
 
     private:
         memory_view documents_view_;

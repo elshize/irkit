@@ -26,7 +26,9 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
+
 #include "irkit/index.hpp"
 
 namespace irk {
@@ -41,8 +43,7 @@ public:
     using term_type = Term;
     using term_id_type = TermId;
     using frequency_type = Freq;
-    using index_type =
-        inverted_index<document_type, term_type, term_id_type, frequency_type>;
+    using index_type = v2::inverted_index_view;
 
 private:
     struct entry {
@@ -73,6 +74,7 @@ private:
     fs::path target_dir_;
     bool skip_unique_;
     std::vector<index_type> indices_;
+    std::vector<irk::v2::inverted_index_mapped_data_source> sources_;
     std::vector<entry> heap_;
     std::ofstream terms_out_;
     std::ofstream doc_ids_;
@@ -82,8 +84,11 @@ private:
     std::vector<frequency_type> term_dfs_;
     std::size_t doc_offset_;
     std::size_t count_offset_;
+    long block_size_;
+    any_codec<document_type> document_codec_;
+    any_codec<frequency_type> frequency_codec_;
 
-    std::vector<entry> indices_with_next_term()
+        std::vector<entry> indices_with_next_term()
     {
         std::vector<entry> result;
         std::string next_term = heap_.front().current_term();
@@ -98,12 +103,21 @@ private:
 public:
     index_merger(fs::path target_dir,
         std::vector<fs::path> indices,
+        any_codec<document_type> document_codec,
+        any_codec<frequency_type> frequency_codec,
+        long block_size,
         bool skip_unique = false)
-        : target_dir_(target_dir), skip_unique_(skip_unique)
+        : target_dir_(target_dir),
+          document_codec_(document_codec),
+          frequency_codec_(frequency_codec),
+          block_size_(block_size),
+          skip_unique_(skip_unique)
     {
         for (fs::path index_dir : indices) {
             std::cout << "Loading index " << index_dir << std::endl;
-            indices_.emplace_back(index_dir, false, true);
+            sources_.emplace_back(index_dir);
+            indices_.emplace_back(
+                &sources_.back(), document_codec_, frequency_codec_);
         }
         terms_out_.open(index::terms_path(target_dir).c_str());
         doc_ids_.open(index::doc_ids_path(target_dir).c_str());
@@ -114,20 +128,9 @@ public:
 
     void merge_term(std::vector<entry>& indices)
     {
-        if (skip_unique_ && indices.size() == 1) {
-            auto pr = indices.front().index->posting_range(
-                indices.front().current_term_id, score::count_scorer{});
-            if (pr.size() == 1) {
-                std::cerr << "Skipping unique term "
-                          << indices.front().current_term() << std::endl;
-                return;
-            }
-        }
-        std::cerr << "Merging term " << term_dfs_.size() << " ("
-                  << indices.front().current_term() << ")" << std::endl;
-
         // Write the term.
         terms_out_ << indices.front().current_term() << std::endl;
+        std::cout << "Merging term: " << indices.front().current_term() << std::endl;
 
         // Sort by shift, i.e., effectively document IDs.
         std::sort(indices.begin(),
@@ -140,11 +143,12 @@ public:
         std::vector<document_type> doc_ids;
         std::vector<frequency_type> doc_counts;
         for (const entry& e : indices) {
-            auto pr = e.index->posting_range(
-                e.current_term_id, score::count_scorer{});
-            for (auto p : pr) {
-                doc_ids.push_back(p.doc + e.shift);
-                doc_counts.push_back(p.score);
+            std::cout << "Reading postings" << std::endl;
+            auto pr = e.index->postings(e.current_term_id);
+            for (const auto& p : pr) {
+                doc_ids.push_back(p.document() + e.shift);
+                doc_counts.push_back(p.payload());
+                std::cout << doc_ids.back() << " " << doc_counts.back() << std::endl;
             }
         }
 
@@ -156,16 +160,15 @@ public:
         doc_counts_off_.push_back(count_offset_);
 
         // Write documents and counts.
-        auto encoded_ids =
-            irk::coding::encode_delta<varbyte_codec<document_type>>(doc_ids);
-        doc_ids_.write(encoded_ids.data(), encoded_ids.size());
-        auto encoded_counts =
-            irk::coding::encode<varbyte_codec<frequency_type>>(doc_counts);
-        doc_counts_.write(encoded_counts.data(), encoded_counts.size());
+        index::block_list_builder<document_type, true> doc_list_builder(
+            block_size_, document_codec_);
+        for (const auto& doc : doc_ids) { doc_list_builder.add(doc); }
+        doc_offset_ += doc_list_builder.write(doc_ids_);
 
-        // Calc new offsets.
-        doc_offset_ += encoded_ids.size();
-        count_offset_ += encoded_counts.size();
+        index::block_list_builder<frequency_type, false> count_list_builder(
+            block_size_, frequency_codec_);
+        for (const auto& count : doc_counts) { count_list_builder.add(count); }
+        count_offset_ += count_list_builder.write(doc_counts_);
     }
 
     void merge_terms()
@@ -211,15 +214,13 @@ public:
     {
         std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
-            for (const auto& title : index.titles()) {
-                tout << title << std::endl;
-            }
+            for (const auto& title : index.titles())
+            { tout << title << std::endl; }
         }
         tout.close();
     }
 };
 
-using default_index_merger =
-    index_merger<std::uint32_t, std::string, std::uint32_t, std::uint32_t>;
+using default_index_merger = index_merger<long, std::string, long, long>;
 
 };  // namespace irk

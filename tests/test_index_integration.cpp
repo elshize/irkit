@@ -63,12 +63,13 @@ void test_load_read(irk::fs::path index_dir, bool in_memory)
     EXPECT_THAT(zp, ::testing::ElementsAreArray(exp_zp));
 }
 
-void test_postings(const irk::v2::inverted_index_view& index_view)
+void test_postings(const irk::v2::inverted_index_view& index_view,
+        int term_id, std::vector<std::pair<long, long>> expected)
 {
-    auto a = index_view.postings(0);
-    //std::vector<std::pair<long, long>> av(a.begin(), a.end());
-    //std::vector<std::pair<long, long>> aexp = {{0, 2}, {2, 1}};
-    //EXPECT_THAT(aexp, ::testing::ElementsAreArray(aexp));
+    auto postings = index_view.postings(term_id);
+    EXPECT_EQ(postings.size(), expected.size());
+    std::vector<std::pair<long, long>> v(postings.begin(), postings.end());
+    ASSERT_THAT(v, ::testing::ElementsAreArray(expected));
 }
 
 TEST(IndexIntegration, build_write_read)
@@ -79,10 +80,16 @@ TEST(IndexIntegration, build_write_read)
         irk::fs::remove_all(index_dir);
     }
     irk::fs::create_directory(index_dir);
-    std::istringstream input("a b a\nc b b\nz c a\n");
+    std::istringstream input("Doc1\ta b a\nDoc2\tc b b\nDoc3\tz c a\n");
 
     // when
-    irk::index::default_index_assembler assembler(fs::path(index_dir), 1);
+    irk::index::index_assembler<long, std::string, long, long> assembler(
+        fs::path(index_dir),
+        2,
+        1024,
+        irk::coding::varbyte_codec<long>{},
+        irk::coding::varbyte_codec<long>{});
+
     assembler.assemble(input);
     auto term_map = irk::build_prefix_map_from_file<long>(
         irk::index::terms_path(index_dir));
@@ -92,11 +99,21 @@ TEST(IndexIntegration, build_write_read)
     irk::io::dump(title_map, irk::index::title_map_path(index_dir));
 
     // then
-    irk::v2::inverted_index_mapped_data_source data(index_dir);
-    irk::v2::inverted_index_view index_view(data,
+    auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
+        index_dir);
+    irk::v2::inverted_index_view index_view(data.get(),
         irk::coding::varbyte_codec<long>{},
         irk::coding::varbyte_codec<long>{});
-    test_postings(index_view);
+
+    ASSERT_EQ(index_view.term_id("a"), 0);
+    ASSERT_EQ(index_view.term_id("b"), 1);
+    ASSERT_EQ(index_view.term_id("c"), 2);
+    ASSERT_EQ(index_view.term_id("z"), 3);
+
+    test_postings(index_view, 0, {{0, 2}, {2, 1}});
+    test_postings(index_view, 1, {{0, 1}, {1, 2}});
+    test_postings(index_view, 2, {{1, 1}, {2, 1}});
+    test_postings(index_view, 3, {{2, 1}});
 }
 
 };  // namespace

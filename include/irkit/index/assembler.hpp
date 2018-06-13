@@ -38,10 +38,10 @@
 namespace irk::index {
 
 //! Builds an index in batches and merges them together on disk.
-template<class Doc = std::size_t,
+template<class Doc = long,
     class Term = std::string,
-    class TermId = std::size_t,
-    class Freq = std::size_t>
+    class TermId = long,
+    class Freq = long>
 class index_assembler {
 public:
     using document_type = Doc;
@@ -56,11 +56,21 @@ public:
 private:
     fs::path output_dir_;
     int batch_size_;
+    long block_size_;
+    any_codec<document_type> document_codec_;
+    any_codec<frequency_type> frequency_codec_;
 
 public:
-    index_assembler(fs::path output_dir, int batch_size) noexcept
+    index_assembler(fs::path output_dir,
+        int batch_size,
+        long block_size,
+        any_codec<document_type> document_codec,
+        any_codec<frequency_type> frequency_codec) noexcept
         : output_dir_(output_dir),
-          batch_size_(batch_size)
+          batch_size_(batch_size),
+          block_size_(block_size),
+          document_codec_(document_codec),
+          frequency_codec_(frequency_codec)
     {}
 
     void assemble(std::istream& input)
@@ -81,9 +91,19 @@ public:
             ++batch_number;
         }
         std::clog << "Merging " << batch_number << " batches" << std::endl;
-        irk::index_merger merger(output_dir_, batch_dirs);
+        irk::index_merger<long, std::string, long, long> merger(output_dir_,
+            batch_dirs,
+            document_codec_,
+            frequency_codec_,
+            block_size_);
         merger.merge_titles();
         merger.merge_terms();
+        auto term_map = irk::build_prefix_map_from_file<long>(
+            irk::index::terms_path(output_dir_));
+        irk::io::dump(term_map, irk::index::term_map_path(output_dir_));
+        auto title_map = irk::build_prefix_map_from_file<long>(
+            irk::index::titles_path(output_dir_));
+        irk::io::dump(title_map, irk::index::title_map_path(output_dir_));
         std::clog << "Success!" << std::endl;
     }
 
@@ -116,6 +136,7 @@ public:
             std::string title;
             linestream >> title;
             of_titles << title << '\n';
+            std::cout << title << std::endl;
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
         }
@@ -125,12 +146,20 @@ public:
         builder.write_document_frequencies(of_term_doc_freq);
         builder.write_document_ids(of_doc_ids, of_doc_ids_off);
         builder.write_document_counts(of_doc_counts, of_doc_counts_off);
+        of_titles.close();
+        of_terms.close();
+        auto term_map = irk::build_prefix_map_from_file<long>(
+            irk::index::terms_path(batch_metadata.dir));
+        irk::io::dump(term_map, irk::index::term_map_path(batch_metadata.dir));
+        auto title_map = irk::build_prefix_map_from_file<long>(
+            irk::index::titles_path(batch_metadata.dir));
+        irk::io::dump(
+            title_map, irk::index::title_map_path(batch_metadata.dir));
 
         return input;
     }
 };
 
-using default_index_assembler =
-    index_assembler<std::uint32_t, std::string, std::uint32_t, std::uint32_t>;
+using default_index_assembler = index_assembler<>;
 
 };  // namespace irk::index

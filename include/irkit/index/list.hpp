@@ -370,6 +370,8 @@ public:
     //! Finds the position of `id` or the next greater.
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
+    long size() const { return length_; }
+
 private:
     friend class block_iterator<self_type, true>;
     long length_;
@@ -441,6 +443,7 @@ public:
     {
         return iterator{*this, length_ / block_size_, length_ % block_size_};
     };
+    long size() const { return length_; }
 
 private:
     friend class block_iterator<self_type, false>;

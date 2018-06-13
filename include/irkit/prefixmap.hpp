@@ -26,6 +26,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <cstring>
 #include <iostream>
 #include <list>
@@ -34,6 +35,7 @@
 
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <gsl/gsl>
 
 #include <irkit/bitptr.hpp>
@@ -159,7 +161,7 @@ public:
     private:
         const char* block_begin;
         bitptr<const char> current;
-        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec_;
+        std::shared_ptr<irk::coding::hutucker_codec<char>> codec_;
         std::string last_value;
 
     public:
@@ -170,6 +172,9 @@ public:
               codec_(codec),
               last_value()
         {}
+
+        block_ptr(const block_ptr& other) = default;
+        block_ptr& operator=(const block_ptr& other) = default;
 
         Index first_index() const
         {
@@ -206,12 +211,64 @@ public:
         }
     };
 
+    class iterator : public boost::iterator_facade<
+        iterator, const std::string, boost::single_pass_traversal_tag> {
+    public:
+        iterator(const MemoryBuffer& blocks,
+            int block_size,
+            block_ptr block,
+            int block_num,
+            int pos_in_block,
+            const std::shared_ptr<coding::hutucker_codec<char>> codec)
+            : blocks_(blocks),
+              block_size_(block_size),
+              block_(block),
+              block_num_(block_num),
+              pos_in_block_(pos_in_block),
+              codec_(codec)
+        {}
+
+    private:
+        friend class boost::iterator_core_access;
+        void increment()
+        {
+            if (++pos_in_block_ == block_.count()) {
+                block_ = block_ptr(
+                    blocks_.data() + (++block_num_) * block_size_, codec_);
+                pos_in_block_ = 0;
+            }
+        }
+        void advance(long n)
+        { for (int idx = 0; idx < n; idx++) { increment(); } }
+        bool equal(const iterator& other) const
+        {
+            return block_num_ == other.block_num_
+                && pos_in_block_ == other.pos_in_block_;
+        }
+        const std::string& dereference() const
+        {
+            val_ = block_.next();
+            return val_;
+        }
+
+        const MemoryBuffer& blocks_;
+        mutable block_ptr block_;
+        int block_size_;
+        int block_num_;
+        int pos_in_block_;
+        mutable std::string val_;
+        const std::shared_ptr<coding::hutucker_codec<char>> codec_;
+    };
+    using const_iterator = iterator;
+
 private:
     MemoryBuffer blocks_;
+    std::size_t size_;
     std::size_t block_size_;
     std::size_t block_count_;
     const std::shared_ptr<coding::hutucker_codec<char>> codec_;
     std::shared_ptr<radix_tree<Index>> block_leaders_;
+    mutable std::vector<Index> reverse_lookup_;
 
     //! Append another block
     std::shared_ptr<block_builder>
@@ -281,13 +338,26 @@ private:
         return out;
     }
 
+    void init_reverse_lookup() const
+    {
+        for(long block_num = 0; block_num < block_count_; block_num++)
+        {
+            auto block = block_ptr(
+                blocks_.data() + block_num * block_size_, codec_);
+            reverse_lookup_.push_back(block.first_index());
+            std::cout << block.first_index() << " ";
+        }
+    }
+
 public:
     prefix_map(MemoryBuffer blocks,
+        std::size_t size,
         std::size_t block_size,
         std::size_t block_count,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::shared_ptr<radix_tree<Index>> block_leaders)
         : blocks_(blocks),
+          size_(size),
           block_size_(block_size),
           block_count_(block_count),
           codec_(codec),
@@ -298,7 +368,8 @@ public:
     prefix_map(fs::path file,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
-        : block_size_(block_size),
+        : size_(0),
+          block_size_(block_size),
           block_count_(0),
           codec_(codec),
           block_leaders_(new radix_tree<Index>())
@@ -329,6 +400,7 @@ public:
             }
             ++index;
         }
+        size_ = index;
         current_block->write_count();
         in.close();
     }
@@ -337,7 +409,8 @@ public:
     prefix_map(const StringRange& items,
         const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
-        : block_size_(block_size),
+        : size_(0),
+          block_size_(block_size),
           block_count_(0),
           codec_(codec),
           block_leaders_(new radix_tree<Index>())
@@ -367,6 +440,7 @@ public:
             }
             ++index;
         }
+        size_ = index;
         current_block->write_count();
     }
 
@@ -389,14 +463,59 @@ public:
         return v == key ? std::make_optional(idx) : std::nullopt;
     }
 
+    std::string operator[](const Index& val) const
+    {
+        assert(val < size_);
+        if (reverse_lookup_.empty()) { init_reverse_lookup(); }
+        auto block_pos = std::prev(std::upper_bound(
+            reverse_lookup_.begin(), reverse_lookup_.end(), val));
+        auto block_number = std::distance(reverse_lookup_.begin(), block_pos);
+        block_ptr block{blocks_.data() + block_number * block_size_, codec_};
+        Index idx = block.first_index();
+        std::string v = block.next();
+        std::uint32_t c = 1;
+        while (c < block.count() && idx < val) {
+            v = block.next();
+            ++idx;
+            ++c;
+        }
+        return v;
+    }
+
+    std::size_t size() const { return size_; }
+
+    iterator begin() const
+    {
+        return iterator(blocks_,
+            block_size_,
+            block_ptr(blocks_.data(), codec_),
+            0,
+            0,
+            codec_);
+    }
+
+    iterator end() const
+    {
+        block_ptr last_block(
+            blocks_.data() + block_size_ * (block_count_ - 1), codec_);
+        auto pos = (size_ - last_block.first_index()) % last_block.count();
+        auto block_num = pos == 0 ? block_count_ : block_count_ - 1;
+        return iterator(blocks_,
+            block_size_,
+            last_block,
+            block_num,
+            pos,
+            codec_);
+    }
+
     std::ostream& dump(std::ostream& out) const
     {
+        out.write(reinterpret_cast<const char*>(&size_), sizeof(size_));
         out.write(
             reinterpret_cast<const char*>(&block_size_), sizeof(block_size_));
         out.write(
             reinterpret_cast<const char*>(&block_count_), sizeof(block_count_));
         dump_coding_tree(out);
-        //block_leaders_.dump(out);
         dump_leaders(out);
         dump_blocks(out);
         return out;
@@ -461,8 +580,9 @@ std::shared_ptr<radix_tree<Index>> load_radix_tree(std::istream& in,
 template<class Index>
 prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
 {
-    std::size_t block_size, block_count, tree_size, block_data_size;
+    std::size_t size, block_size, block_count, tree_size, block_data_size;
 
+    in.read(reinterpret_cast<char*>(&size), sizeof(size));
     in.read(reinterpret_cast<char*>(&block_size), sizeof(block_size));
     in.read(reinterpret_cast<char*>(&block_count), sizeof(block_count));
     in.read(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
@@ -478,11 +598,8 @@ prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
     in.read(reinterpret_cast<char*>(&block_data_size), sizeof(block_data_size));
     std::vector<char> blocks(block_data_size);
     in.read(blocks.data(), block_data_size);
-    return prefix_map<Index, std::vector<char>>(std::move(blocks),
-        block_size,
-        block_count,
-        codec,
-        block_leaders);
+    return prefix_map<Index, std::vector<char>>(
+        std::move(blocks), size, block_size, block_count, codec, block_leaders);
 }
 
 template<class Index>

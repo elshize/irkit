@@ -31,6 +31,7 @@
 #include <boost/filesystem.hpp>
 
 #include <irkit/index/assembler.hpp>
+#include <irkit/coding/varbyte.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -38,19 +39,27 @@ int main(int argc, char** argv)
 {
     std::string output_dir;
     int batch_size = 100'000;
+    int skip_block_size = 512;
 
     CLI::App app{"Build an inverted index."};
     app.add_option("--batch-size,-b",
         batch_size,
         "Max number of documents to build in memory.",
         true);
+    app.add_option("--skip-block-size,-s",
+        skip_block_size,
+        "Size of skip blocks for inverted lists.",
+        true);
     app.add_option("output_dir", output_dir, "Index output directory", false)
         ->required();
 
     CLI11_PARSE(app, argc, argv);
 
-    irk::index::default_index_assembler assembler(
-        fs::path(output_dir), batch_size);
+    irk::index::default_index_assembler assembler(fs::path(output_dir),
+        batch_size,
+        skip_block_size,
+        irk::coding::varbyte_codec<long>{},
+        irk::coding::varbyte_codec<long>{});
     assembler.assemble(std::cin);
     return 0;
 }

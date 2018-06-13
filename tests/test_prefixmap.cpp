@@ -229,6 +229,51 @@ TEST(dump_and_load_prefix_map, lorem)
     }
 }
 
+TEST(prefix_map, iterator)
+{
+    fs::path in_file("randstr.txt");
+    std::ifstream in(in_file.c_str());
+    std::vector<std::string> strings;
+    std::string line;
+    while (std::getline(in, line)) {
+        strings.push_back(line);
+    }
+    in.close();
+    std::sort(strings.begin(), strings.end());
+    auto map = irk::build_prefix_map<int>(strings, 128);
+    std::ostringstream out;
+    map.dump(out);
+
+    std::istringstream inl(out.str());
+    auto lmap = irk::load_prefix_map<int>(inl);
+
+    std::vector<std::string> from_map(lmap.begin(), lmap.end());
+    for (int idx = 0; idx < 172; idx++)
+    { ASSERT_THAT(from_map[idx], ::testing::ElementsAreArray(strings[idx])); }
+}
+
+TEST(prefix_map, reverse_lookup)
+{
+    fs::path in_file("randstr.txt");
+    std::ifstream in(in_file.c_str());
+    std::vector<std::string> strings;
+    std::string line;
+    while (std::getline(in, line)) {
+        strings.push_back(line);
+    }
+    in.close();
+    std::sort(strings.begin(), strings.end());
+    auto map = irk::build_prefix_map<int>(strings, 128);
+    std::ostringstream out;
+    map.dump(out);
+
+    std::istringstream inl(out.str());
+    auto lmap = irk::load_prefix_map<int>(inl);
+
+    for (int idx = 0; idx < 172; idx++)
+    { ASSERT_EQ(lmap[lmap[idx]].value_or(-1), idx) << lmap[idx]; }
+}
+
 };  // namespace
 
 int main(int argc, char** argv)

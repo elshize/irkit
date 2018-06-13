@@ -172,7 +172,7 @@ public:
         for (auto& term : sorted_terms_.value()) {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            index::block_list_builder<document_type, false> list_builder(
+            index::block_list_builder<frequency_type, false> list_builder(
                 block_size_, coding::varbyte_codec<frequency_type>{});
             for (const auto& posting : postings_[term_id])
             { list_builder.add(posting.freq); }
