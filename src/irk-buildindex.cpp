@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 {
     std::string output_dir;
     int batch_size = 100'000;
-    int skip_block_size = 512;
+    int skip_block_size = 64;
 
     CLI::App app{"Build an inverted index."};
     app.add_option("--batch-size,-b",
