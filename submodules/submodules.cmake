@@ -44,8 +44,9 @@ endif()
 
 # TODO: Work around it: why is it failing when I simply add the subdirectory?
 #add_subdirectory(submodules/GSL EXCLUDE_FROM_ALL)
+add_library(GSL INTERFACE)
 set(GSL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/submodules/GSL/include)
-include_directories(${GSL_INCLUDE_DIR})
+target_include_directories(${GSL_INCLUDE_DIR})
 if (IRKit_INSTALL_SUBMODULES)
     install(DIRECTORY ${GSL_INCLUDE_DIR}/gsl DESTINATION include)
 endif()
