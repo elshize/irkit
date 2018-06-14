@@ -346,7 +346,6 @@ private:
             auto block = block_ptr(
                 blocks_.data() + block_num * block_size_, codec_);
             reverse_lookup_.push_back(block.first_index());
-            std::cout << block.first_index() << " ";
         }
     }
 

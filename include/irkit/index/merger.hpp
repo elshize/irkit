@@ -46,30 +46,47 @@ public:
     using index_type = v2::inverted_index_view;
 
 private:
-    struct entry {
-        term_id_type current_term_id;
-        const index_type* index;
-        document_type shift;
-        std::string current_term() const
-        {
-            return index->term(current_term_id);
-        }
+    class entry {
+    private:
+        int index_id_;
+        term_id_type current_term_id_;
+        const index_type* index_;
+        document_type shift_;
+        std::string current_term_;
+
+    public:
+        entry() = default;
+        entry(int index_id,
+            term_id_type current_term_id,
+            const index_type* index,
+            document_type shift,
+            std::string current_term)
+            : index_id_(index_id),
+              current_term_id_(current_term_id),
+              index_(index),
+              shift_(shift),
+              current_term_(current_term)
+        {}
+        entry(const entry& other) = default;
+        entry& operator=(const entry& other) = default;
+
+        int index_id() const { return index_id_; }
+        const std::string& current_term() const { return current_term_; }
+        term_id_type current_term_id() const { return current_term_id_; }
+        document_type shift() const { return shift_; }
+        const index_type* index() { return index_; }
+
         bool operator<(const entry& rhs) const
-        {
-            return current_term() > rhs.current_term();
-        }
+        { return current_term() > rhs.current_term(); }
         bool operator>(const entry& rhs) const
-        {
-            return current_term() < rhs.current_term();
-        }
+        { return current_term() < rhs.current_term(); }
         bool operator==(const entry& rhs) const
-        {
-            return current_term() == rhs.current_term();
-        }
+        { return current_term() == rhs.current_term(); }
         bool operator!=(const entry& rhs) const
-        {
-            return current_term() != rhs.current_term();
-        }
+        { return current_term() != rhs.current_term(); }
+
+        auto term_count() const { return index_->term_count(); }
+        auto postings() const { return index_->postings(current_term_id_); }
     };
     fs::path target_dir_;
     bool skip_unique_;
@@ -88,7 +105,7 @@ private:
     any_codec<document_type> document_codec_;
     any_codec<frequency_type> frequency_codec_;
 
-        std::vector<entry> indices_with_next_term()
+    std::vector<entry> indices_with_next_term()
     {
         std::vector<entry> result;
         std::string next_term = heap_.front().current_term();
@@ -114,7 +131,6 @@ public:
           skip_unique_(skip_unique)
     {
         for (fs::path index_dir : indices) {
-            std::cout << "Loading index " << index_dir << std::endl;
             sources_.emplace_back(index_dir);
             indices_.emplace_back(
                 &sources_.back(), document_codec_, frequency_codec_);
@@ -130,22 +146,21 @@ public:
     {
         // Write the term.
         terms_out_ << indices.front().current_term() << std::endl;
-        std::cout << "Merging term: " << indices.front().current_term() << std::endl;
 
         // Sort by shift, i.e., effectively document IDs.
         std::sort(indices.begin(),
             indices.end(),
             [](const entry& lhs, const entry& rhs) {
-                return lhs.shift < rhs.shift;
+                return lhs.shift() < rhs.shift();
             });
 
         // Merge the posting lists.
         std::vector<document_type> doc_ids;
         std::vector<frequency_type> doc_counts;
         for (const entry& e : indices) {
-            auto pr = e.index->postings(e.current_term_id);
+            auto pr = e.postings();
             for (const auto& p : pr) {
-                doc_ids.push_back(p.document() + e.shift);
+                doc_ids.push_back(p.document() + e.shift());
                 doc_counts.push_back(p.payload());
             }
         }
@@ -172,20 +187,32 @@ public:
     void merge_terms()
     {
         // Initialize heap: everyone starts with the first term.
+        std::vector<std::ifstream*> term_streams;
         document_type shift(0);
+        int index_num = 0;
         for (const index_type& index : indices_) {
-            heap_.push_back({0, &index, shift});
+            term_streams.push_back(new std::ifstream(
+                (sources_[index_num].dir() / "terms.txt").c_str()));
+            std::string current_term;
+            *term_streams.back() >> current_term;
+            heap_.emplace_back(index_num, 0, &index, shift, current_term);
             shift += index.collection_size();
+            index_num++;
         }
 
         while (!heap_.empty()) {
             std::vector<entry> indices_to_merge = indices_with_next_term();
             merge_term(indices_to_merge);
-            for (const entry& e : indices_to_merge) {
-                if (std::size_t(e.current_term_id + 1)
-                    < e.index->term_count()) {
-                    heap_.push_back(
-                        entry{e.current_term_id + 1, e.index, e.shift});
+            for (entry& e : indices_to_merge) {
+                if (std::size_t(e.current_term_id() + 1) < e.term_count())
+                {
+                    std::string current_term;
+                    *term_streams[e.index_id()] >> current_term;
+                    heap_.emplace_back(e.index_id(),
+                        e.current_term_id() + 1,
+                        e.index(),
+                        e.shift(),
+                        current_term);
                     std::push_heap(heap_.begin(), heap_.end());
                 }
             }
@@ -203,6 +230,9 @@ public:
         irk::io::dump(compact_term_dfs, index::term_doc_freq_path(target_dir_));
 
         // Close other streams.
+        for (int idx = 0; idx < term_streams.size(); idx++) {
+            delete term_streams[idx];
+        }
         terms_out_.close();
         doc_ids_.close();
         doc_counts_.close();

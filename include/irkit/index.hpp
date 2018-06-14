@@ -81,7 +81,7 @@ inline namespace v2 {
         using mapped_file_source = boost::iostreams::mapped_file_source;
 
     public:
-        explicit inverted_index_mapped_data_source(fs::path dir)
+        explicit inverted_index_mapped_data_source(fs::path dir) : dir_(dir)
         {
             io::enforce_exist(index::doc_ids_path(dir));
             io::enforce_exist(index::doc_counts_path(dir));
@@ -99,6 +99,8 @@ inline namespace v2 {
             term_map_.open(index::term_map_path(dir));
             title_map_.open(index::title_map_path(dir));
         }
+
+        fs::path dir() { return dir_; }
 
         memory_view documents_view() const
         { return make_memory_view(documents_.data(), documents_.size()); }
@@ -131,6 +133,7 @@ inline namespace v2 {
         { return make_memory_view(title_map_.data(), title_map_.size()); }
 
     private:
+        fs::path dir_;
         mapped_file_source documents_;
         mapped_file_source counts_;
         mapped_file_source document_offsets_;
