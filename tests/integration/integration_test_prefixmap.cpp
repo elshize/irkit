@@ -17,7 +17,7 @@ using block_ptr = irk::prefix_map<int, std::vector<char>>::block_ptr;
 
 TEST(prefix_map, build_load_verify)
 {
-    std::string terms_file("terms.txt");
+    std::string terms_file("collection.txt");
 
     // Build
     auto map = irk::build_prefix_map_from_file<int>(terms_file);
@@ -35,7 +35,7 @@ TEST(prefix_map, build_load_verify)
     int idx = 0;
     while (std::getline(in_terms, term)) {
         auto result = loaded_map[term];
-        ASSERT_EQ(result.has_value(), true);
+        ASSERT_EQ(result.has_value(), true) << term;
         ASSERT_EQ(result.value(), idx);
         idx++;
     }
