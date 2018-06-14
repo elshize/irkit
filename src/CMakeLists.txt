@@ -33,21 +33,21 @@ target_link_libraries(irk CLI11::CLI11)
 
 add_executable(irk-warc irk-warc.cpp)
 target_link_libraries(irk-warc PUBLIC
-    irkit CLI11::CLI11 ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} ${gumbo_LIBRARIES})
+    irkit CLI11::CLI11 ${Boost_LIBRARIES} ${ZLIB_LIBRARIES} ${gumbo_LIBRARIES} GSL)
 target_compile_features(irk-warc PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 target_compile_options(irk-warc PRIVATE -Wall)
 
 add_executable(irk-part irk-part.cpp)
-target_link_libraries(irk-part irkit CLI11::CLI11 ${Boost_LIBRARIES})
+target_link_libraries(irk-part irkit CLI11::CLI11 ${Boost_LIBRARIES} GSL)
 target_compile_features(irk-part PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-prefmap irk-prefmap.cpp)
-target_link_libraries(irk-prefmap irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax)
+target_link_libraries(irk-prefmap irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax GSL)
 target_compile_features(irk-prefmap PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-buildindex irk-buildindex.cpp)
 target_link_libraries(irk-buildindex
-    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json)
+    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL)
 target_compile_features(irk-buildindex PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 install(TARGETS irk irk-warc irk-part irk-buildindex DESTINATION bin)
