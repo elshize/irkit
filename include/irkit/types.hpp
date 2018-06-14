@@ -32,7 +32,8 @@
 
 namespace irk {
 
-using bitword = boost::dynamic_bitset<unsigned char>;
+using byte = unsigned char;
+using bitword = boost::dynamic_bitset<byte>;
 
 template<class T, class U>
 using enable_if_equal = typename std::enable_if<std::is_same<T, U>::value>;

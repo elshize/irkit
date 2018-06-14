@@ -4,9 +4,10 @@
 #include "gtest/gtest.h"
 #define private public
 #define protected public
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/index.hpp"
-#include "irkit/index/builder.hpp"
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/index.hpp>
+#include <irkit/index/builder.hpp>
+#include <irkit/index/assembler.hpp>
 
 namespace {
 
@@ -62,55 +63,57 @@ void test_load_read(irk::fs::path index_dir, bool in_memory)
     EXPECT_THAT(zp, ::testing::ElementsAreArray(exp_zp));
 }
 
+void test_postings(const irk::v2::inverted_index_view& index_view,
+        int term_id, std::vector<std::pair<long, long>> expected)
+{
+    auto postings = index_view.postings(term_id);
+    EXPECT_EQ(postings.size(), expected.size());
+    std::vector<std::pair<long, long>> v(postings.begin(), postings.end());
+    ASSERT_THAT(v, ::testing::ElementsAreArray(expected));
+}
+
 TEST(IndexIntegration, build_write_read)
 {
+    // given
     auto index_dir = irk::fs::temp_directory_path() / "IndexIntegrationTest";
     if (irk::fs::exists(index_dir)) {
         irk::fs::remove_all(index_dir);
     }
     irk::fs::create_directory(index_dir);
+    std::istringstream input("Doc1\ta b a\nDoc2\tc b b\nDoc3\tz c a\n");
 
-    // Build
-    irk::default_index_builder builder;
-    builder.add_term("a");
-    builder.add_term("b");
-    builder.add_term("a");
-    builder.add_document();
-    builder.add_term("c");
-    builder.add_term("b");
-    builder.add_term("b");
-    builder.add_document();
-    builder.add_term("z");
-    builder.add_term("c");
-    builder.add_term("a");
+    // when
+    irk::index::index_assembler<long, std::string, long, long> assembler(
+        fs::path(index_dir),
+        2,
+        1024,
+        irk::coding::varbyte_codec<long>{},
+        irk::coding::varbyte_codec<long>{});
 
-    // Write
-    std::ofstream of_doc_ids(irk::index::doc_ids_path(index_dir).c_str());
-    std::ofstream of_doc_ids_off(
-        irk::index::doc_ids_off_path(index_dir).c_str());
-    std::ofstream of_doc_counts(irk::index::doc_counts_path(index_dir).c_str());
-    std::ofstream of_doc_counts_off(
-        irk::index::doc_counts_off_path(index_dir).c_str());
-    std::ofstream of_terms(irk::index::terms_path(index_dir).c_str());
-    std::ofstream of_term_doc_freq(
-        irk::index::term_doc_freq_path(index_dir).c_str());
-    std::ofstream of_titles(irk::index::titles_path(index_dir).c_str());
-    builder.sort_terms();
-    builder.write_terms(of_terms);
-    builder.write_document_frequencies(of_term_doc_freq);
-    builder.write_document_ids(of_doc_ids, of_doc_ids_off);
-    builder.write_document_counts(of_doc_counts, of_doc_counts_off);
-    of_titles << "Doc1\nDoc2\nDoc3\n";
-    of_doc_ids.close();
-    of_doc_ids_off.close();
-    of_doc_counts.close();
-    of_doc_counts_off.close();
-    of_terms.close();
-    of_term_doc_freq.close();
-    of_titles.close();
+    assembler.assemble(input);
+    auto term_map = irk::build_prefix_map_from_file<long>(
+        irk::index::terms_path(index_dir));
+    irk::io::dump(term_map, irk::index::term_map_path(index_dir));
+    auto title_map = irk::build_prefix_map_from_file<long>(
+        irk::index::titles_path(index_dir));
+    irk::io::dump(title_map, irk::index::title_map_path(index_dir));
 
-    test_load_read(index_dir, true);
-    test_load_read(index_dir, false);
+    // then
+    auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
+        index_dir);
+    irk::v2::inverted_index_view index_view(data.get(),
+        irk::coding::varbyte_codec<long>{},
+        irk::coding::varbyte_codec<long>{});
+
+    ASSERT_EQ(index_view.term_id("a"), 0);
+    ASSERT_EQ(index_view.term_id("b"), 1);
+    ASSERT_EQ(index_view.term_id("c"), 2);
+    ASSERT_EQ(index_view.term_id("z"), 3);
+
+    test_postings(index_view, 0, {{0, 2}, {2, 1}});
+    test_postings(index_view, 1, {{0, 1}, {1, 2}});
+    test_postings(index_view, 2, {{1, 1}, {2, 1}});
+    test_postings(index_view, 3, {{2, 1}});
 }
 
 };  // namespace

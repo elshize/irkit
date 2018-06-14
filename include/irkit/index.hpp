@@ -29,37 +29,34 @@
 #include <algorithm>
 #include <bitset>
 #include <chrono>
-#include <boost/filesystem.hpp>
 #include <fstream>
-#include <gsl/span>
 #include <iostream>
-#include <nlohmann/json.hpp>
-#include <range/v3/utility/concepts.hpp>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/compacttable.hpp"
-#include "irkit/daat.hpp"
-#include "irkit/index/postingrange.hpp"
-#include "irkit/io.hpp"
-#include "irkit/io/memorybuffer.hpp"
-#include "irkit/score.hpp"
-#include "irkit/types.hpp"
 
-namespace irk {
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include <gsl/span>
+#include <nlohmann/json.hpp>
+#include <range/v3/utility/concepts.hpp>
 
-namespace fs = boost::filesystem;
+#include <irkit/coding.hpp>
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/compacttable.hpp>
+#include <irkit/daat.hpp>
+#include <irkit/index/list.hpp>
+#include <irkit/index/posting_list.hpp>
+#include <irkit/index/postingrange.hpp>
+#include <irkit/io.hpp>
+#include <irkit/io/memorybuffer.hpp>
+#include <irkit/memoryview.hpp>
+#include <irkit/prefixmap.hpp>
+#include <irkit/score.hpp>
+#include <irkit/types.hpp>
 
-template<class T>
-using varbyte_codec = coding::varbyte_codec<T>;
-
-template<class Posting, class Freq, class Scorer>
-using dspr = dynamically_scored_posting_range<Posting, Freq, Scorer>;
-
-namespace index {
+namespace irk::index {
 
     fs::path properties_path(fs::path dir) { return dir / "properties.json"; };
     fs::path doc_ids_path(fs::path dir) { return dir / "doc.id"; };
@@ -70,8 +67,216 @@ namespace index {
     fs::path term_map_path(fs::path dir) { return dir / "terms.map"; };
     fs::path term_doc_freq_path(fs::path dir) { return dir / "terms.docfreq"; };
     fs::path titles_path(fs::path dir) { return dir / "titles.txt"; };
+    fs::path title_map_path(fs::path dir) { return dir / "titles.map"; };
 
 };  // namespace index
+
+namespace irk {
+
+inline namespace v2 {
+
+    class inverted_index_view;
+
+    class inverted_index_mapped_data_source {
+        using mapped_file_source = boost::iostreams::mapped_file_source;
+
+    public:
+        explicit inverted_index_mapped_data_source(fs::path dir) : dir_(dir)
+        {
+            io::enforce_exist(index::doc_ids_path(dir));
+            io::enforce_exist(index::doc_counts_path(dir));
+            io::enforce_exist(index::doc_ids_off_path(dir));
+            io::enforce_exist(index::doc_counts_off_path(dir));
+            io::enforce_exist(index::term_doc_freq_path(dir));
+            io::enforce_exist(index::term_map_path(dir));
+            io::enforce_exist(index::title_map_path(dir));
+
+            documents_.open(index::doc_ids_path(dir));
+            counts_.open(index::doc_counts_path(dir));
+            document_offsets_.open(index::doc_ids_off_path(dir));
+            count_offsets_.open(index::doc_counts_off_path(dir));
+            term_collection_frequencies_.open(index::term_doc_freq_path(dir));
+            term_map_.open(index::term_map_path(dir));
+            title_map_.open(index::title_map_path(dir));
+        }
+
+        fs::path dir() { return dir_; }
+
+        memory_view documents_view() const
+        { return make_memory_view(documents_.data(), documents_.size()); }
+
+        memory_view counts_view() const
+        { return make_memory_view(counts_.data(), counts_.size()); }
+
+        memory_view document_offsets_view() const
+        {
+            return make_memory_view(
+                document_offsets_.data(), document_offsets_.size());
+        }
+
+        memory_view count_offsets_view() const
+        {
+            return make_memory_view(
+                count_offsets_.data(), count_offsets_.size());
+        }
+
+        memory_view term_collection_frequencies_view() const
+        {
+            return make_memory_view(term_collection_frequencies_.data(),
+                term_collection_frequencies_.size());
+        }
+
+        memory_view term_map_source() const
+        { return make_memory_view(term_map_.data(), term_map_.size()); }
+
+        memory_view title_map_source() const
+        { return make_memory_view(title_map_.data(), title_map_.size()); }
+
+    private:
+        fs::path dir_;
+        mapped_file_source documents_;
+        mapped_file_source counts_;
+        mapped_file_source document_offsets_;
+        mapped_file_source count_offsets_;
+        mapped_file_source term_collection_frequencies_;
+        mapped_file_source term_map_;
+        mapped_file_source title_map_;
+    };
+
+    class inverted_index_view {
+    public:
+        using document_type = long;
+        using frequency_type = long;
+        using offset_table_type =
+            compact_table<long, irk::coding::varbyte_codec<long>, memory_view>;
+        using frequency_table_type = compact_table<frequency_type,
+            irk::coding::varbyte_codec<frequency_type>,
+            memory_view>;
+        using array_stream = boost::iostreams::stream_buffer<
+            boost::iostreams::basic_array_source<char>>;
+
+        inverted_index_view() = default;
+        inverted_index_view(const inverted_index_view&) = default;
+        inverted_index_view(inverted_index_view&&) = default;
+        inverted_index_view(
+            inverted_index_mapped_data_source* data,
+            any_codec<document_type> document_codec,
+            any_codec<frequency_type> frequency_codec)
+            : documents_view_(data->documents_view()),
+              counts_view_(data->counts_view()),
+              document_codec_(document_codec),
+              frequency_codec_(frequency_codec),
+              document_offsets_(data->document_offsets_view()),
+              count_offsets_(data->count_offsets_view()),
+              term_collection_frequencies_(
+                  data->term_collection_frequencies_view()),
+              term_map_(load_prefix_map<long>(data->term_map_source())),
+              title_map_(load_prefix_map<long>(data->title_map_source())),
+              term_count_(term_collection_frequencies_.size())
+        {
+            assert(document_offsets_.size() == term_count_);
+            assert(count_offsets_.size() == term_count_);
+        }
+        inverted_index_view(memory_view documents_view,
+            memory_view counts_view,
+            memory_view document_offsets_view,
+            memory_view count_offsets_view,
+            memory_view term_frequencies_view,
+            std::istream& term_map_stream,
+            std::istream& title_map_stream,
+            any_codec<document_type> document_codec,
+            any_codec<frequency_type> frequency_codec)
+            : documents_view_(std::move(documents_view)),
+              counts_view_(std::move(counts_view)),
+              document_codec_(document_codec),
+              frequency_codec_(frequency_codec),
+              document_offsets_(std::move(document_offsets_view)),
+              count_offsets_(std::move(count_offsets_view)),
+              term_collection_frequencies_(std::move(term_frequencies_view)),
+              term_map_(load_prefix_map<long>(term_map_stream)),
+              title_map_(load_prefix_map<long>(title_map_stream)),
+              term_count_(term_collection_frequencies_.size())
+        {
+            assert(document_offsets_.size() == term_count_);
+            assert(count_offsets_.size() == term_count_);
+        }
+
+        auto documents(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            auto document_offset = document_offsets_[term_id];
+            return index::block_document_list_view(
+                document_codec_, documents_view_, length, document_offset);
+        }
+
+        auto frequencies(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            auto count_offset = count_offsets_[term_id];
+            return index::block_payload_list_view(
+                frequency_codec_, counts_view_, length, count_offset);
+        }
+
+        auto postings(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            auto document_offset = document_offsets_[term_id];
+            auto documents = index::block_document_list_view(
+                document_codec_, documents_view_, length, document_offset);
+            auto count_offset = count_offsets_[term_id];
+            auto counts = index::block_payload_list_view(
+                frequency_codec_, counts_view_, length, count_offset);
+            return posting_list_view(documents, counts);
+        }
+
+        auto postings(const std::string& term) const
+        {
+            auto idopt = term_id(term);
+            if (!idopt.has_value())
+            { throw std::runtime_error("TODO: implement empty posting list"); }
+            return postings(*idopt);
+        }
+
+        std::optional<long> term_id(const std::string& term) const
+        { return term_map_[term]; }
+
+        std::string term(const long& id) const { return term_map_[id]; }
+
+        long collection_size() const { return title_map_.size(); }
+        long term_count() const { return term_map_.size(); }
+
+        const prefix_map<long, std::vector<char>>& terms() const
+        { return term_map_; }
+        const prefix_map<long, std::vector<char>>& titles() const
+        { return title_map_; }
+        any_codec<document_type> document_codec() { return document_codec_; }
+        any_codec<frequency_type> frequency_codec() { return frequency_codec_; }
+
+    private:
+        memory_view documents_view_;
+        memory_view counts_view_;
+        any_codec<document_type> document_codec_;
+        any_codec<frequency_type> frequency_codec_;
+        offset_table_type document_offsets_;
+        offset_table_type count_offsets_;
+        frequency_table_type term_collection_frequencies_;
+        prefix_map<long, std::vector<char>> term_map_;
+        prefix_map<long, std::vector<char>> title_map_;
+        long term_count_;
+    };
+
+};  // namespace v2
+
+namespace fs = boost::filesystem;
+
+template<class T>
+using varbyte_codec = coding::varbyte_codec<T>;
+
+template<class Posting, class Freq, class Scorer>
+using dspr = dynamically_scored_posting_range<Posting, Freq, Scorer>;
 
 struct index_load_exception : public std::exception {
     fs::path file;

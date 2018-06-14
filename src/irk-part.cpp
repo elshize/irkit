@@ -1,3 +1,30 @@
+// MIT License
+//
+// Copyright (c) 2018 Michal Siedlaczek
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+//! \file irk-part.cpp
+//! \author Michal Siedlaczek
+//! \copyright MIT License
+
+#include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <fstream>
 #include <gumbo.h>
@@ -5,11 +32,13 @@
 #include <iostream>
 #include <regex>
 #include <stdio.h>
-#include "cmd.hpp"
 
 namespace fs = boost::filesystem;
 
-std::ofstream& new_file(std::ofstream& out, std::string prefix, std::size_t num, std::size_t padding)
+std::ofstream& new_file(std::ofstream& out,
+    std::string prefix,
+    std::size_t num,
+    std::size_t padding)
 {
     if (out.is_open()) {
         out.close();
@@ -22,53 +51,53 @@ std::ofstream& new_file(std::ofstream& out, std::string prefix, std::size_t num,
 
 int main(int argc, char** argv)
 {
-    irk::CmdLineProgram program("irk-warc");
-    program.flag("help,h", "print help")
-        .flag("no-header", "the input file has no header")
-        .option<std::size_t>(
-            "padding,p", "number of zeroes to use for padding in names", 4)
-        .option<std::string>("output,o", "output files prefix")
-        .arg<std::size_t>("limit", "number of lines per file", 1)
-        .arg<std::vector<std::string>>("input", "input files", -1);
-    try {
-        if (!program.parse(argc, argv)) {
-            return 0;
-        }
-    } catch (irk::po::error& e) {
-        std::cout << e.what() << std::endl;
-    }
+    struct {
+        std::size_t padding_width = 4;
+        std::string output;
+        std::vector<std::string> input_files;
+        std::size_t limit;
+    } args;
 
-    std::vector<std::string> input_files;
-    if (program.get<std::vector<std::string>>("input") == std::nullopt) {
-        input_files.push_back("");
-        if (program.get<std::string>("output") == std::nullopt) {
-            std::cerr << "you must define -o/--output when reading from stdin"
+    CLI::App app{"Partition a text file by line number."};
+    app.add_flag("--no-header", "the input file has no header");
+    app.add_option("-p,--padding-width",
+        args.padding_width,
+        "number of zeroes to use for padding in names",
+        true);
+    app.add_option(
+        "-o,--output", args.output, "the prefix of the output files");
+    app.add_option("limit", args.limit, "the number of lines per file", false)
+        ->required();
+    app.add_option("input", args.input_files, "input files", false)
+        ->check(CLI::ExistingFile);
+
+    CLI11_PARSE(app, argc, argv);
+
+    if (!app.count("input")) {
+        args.input_files.push_back("");
+        if (!app.count("--output")) {
+            std::cerr << "you must define --output when reading from stdin"
                       << std::endl;
             return 1;
         }
     } else {
-        input_files = program.get<std::vector<std::string>>("input").value();
-        if (program.get<std::string>("output") == std::nullopt
-            && input_files.size() > 1) {
-            std::cerr
-                << "you must define -o/--output when reading multiple files"
-                << std::endl;
+        if (!app.count("output") && args.input_files.size() > 1) {
+            std::cerr << "you must define --output when reading multiple files"
+                      << std::endl;
             return 1;
         }
     }
 
-    bool use_header = !program.defined("no-header");
+    bool use_header = app.count("--no-header");
     std::size_t line_num = 0;
     std::size_t file_num = 0;
-    std::size_t limit = program.get<std::size_t>("limit").value();
     std::string output_prefix =
-        program.get<std::string>("output").value_or(input_files[0]);
-    std::size_t padding = program.get<std::size_t>("padding").value();
+        app.count("--output") ? args.output : args.input_files[0];
 
     std::ofstream out;
     std::optional<std::string> header;
 
-    for (std::string& input_file : input_files) {
+    for (std::string& input_file : args.input_files) {
         std::istream* in;
         if (input_file != "") {
             in = new std::ifstream(input_file);
@@ -89,13 +118,13 @@ int main(int argc, char** argv)
 
         while (std::getline(*in, line)) {
             if (line_num == 0) {
-                new_file(out, output_prefix, file_num++, padding);
+                new_file(out, output_prefix, file_num++, args.padding_width);
                 if (header.has_value()) {
                     out << header.value() << std::endl;
                 }
             }
             out << line << std::endl;
-            line_num = (line_num + 1) % limit;
+            line_num = (line_num + 1) % args.limit;
         }
         if (input_file != "") {
             delete in;

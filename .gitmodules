@@ -1,21 +1,30 @@
 [submodule "submodules/rax"]
 	path = submodules/rax
-	url = git@github.com:antirez/rax.git
+	url = https://github.com/antirez/rax.git
 [submodule "submodules/GSL"]
 	path = submodules/GSL
-	url = git@github.com:Microsoft/GSL.git
+	url = https://github.com/Microsoft/GSL.git
 [submodule "submodules/gumbo-parser"]
 	path = submodules/gumbo-parser
-	url = git@github.com:google/gumbo-parser.git
+	url = https://github.com/google/gumbo-parser.git
 [submodule "submodules/mongoose"]
 	path = submodules/mongoose
-	url = git@github.com:cesanta/mongoose.git
+	url = https://github.com/cesanta/mongoose.git
 [submodule "submodules/range-v3"]
 	path = submodules/range-v3
-	url = git@github.com:ericniebler/range-v3.git
+	url = https://github.com/ericniebler/range-v3.git
 [submodule "submodules/json"]
 	path = submodules/json
-	url = git@github.com:nlohmann/json.git
+	url = https://github.com/nlohmann/json.git
 [submodule "submodules/debug_assert"]
 	path = submodules/debug_assert
-	url = git@github.com:foonathan/debug_assert.git
+	url = https://github.com/foonathan/debug_assert.git
+[submodule "submodules/type_safe"]
+	path = submodules/type_safe
+	url = https://github.com/foonathan/type_safe.git
+[submodule "submodules/googletest"]
+	path = submodules/googletest
+	url = https://github.com/google/googletest.git
+[submodule "submodules/CLI11"]
+	path = submodules/CLI11
+	url = https://github.com/CLIUtils/CLI11.git

@@ -32,10 +32,74 @@
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/stream.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/type_erasure/any.hpp>
+#include <boost/type_erasure/builtin.hpp>
+#include <boost/type_erasure/concept_interface.hpp>
+#include <boost/type_erasure/rebind_any.hpp>
 #include <iostream>
 #include "irkit/bitptr.hpp"
-#include "irkit/types.hpp"
 #include "irkit/concepts.hpp"
+#include "irkit/types.hpp"
+
+namespace irk {
+
+//! Encoder concept for type erasure.
+template<class C, class T>
+struct has_encode {
+    static std::ostream& apply(const C& codec, T n, std::ostream& sink)
+    {
+        return codec.encode(n, sink);
+    }
+};
+
+//! Decoder concept for type erasure.
+template<class C, class T>
+struct has_decode {
+    static std::streamsize apply(const C& codec, std::istream& source, T& n)
+    {
+        return codec.decode(source, n);
+    }
+};
+
+};  // namespace irk
+
+namespace boost::type_erasure {
+
+template<class C, class T, class Base>
+struct concept_interface<irk::has_encode<C, T>, Base, C> : Base
+{
+    typename as_param<Base, std::ostream&>::type
+    encode(typename as_param<Base, T>::type n, std::ostream& sink) const
+    {
+        return call(irk::has_encode<C, T>(), *this, n, sink);
+    }
+    using value_type = T;
+};
+
+template<class C, class T, class Base>
+struct concept_interface<irk::has_decode<C, T>, Base, C> : Base
+{
+    std::streamsize
+    decode(std::istream& source, typename as_param<Base, T&>::type n) const
+    {
+        return call(irk::has_decode<C, T>(), *this, source, n);
+    }
+    using value_type = T;
+};
+
+};  // namespace boost::type_erasure
+
+namespace irk {
+
+//! Type for any codec, i.e., an object able to encode and decode type `T`.
+template<class T, class S = boost::type_erasure::_self>
+using any_codec = boost::type_erasure::any<boost::mpl::vector<has_encode<S, T>,
+    has_decode<S, T>,
+    boost::type_erasure::copy_constructible<S>,
+    boost::type_erasure::assignable<S>>>;
+
+};  // namespace irk
 
 //! Codecs and coding utilities.
 namespace irk::coding {
@@ -216,10 +280,8 @@ std::istream& decode(
 {
     BOOST_CONCEPT_ASSERT(
         (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
-    typename Codec::value_type integer;
-    while (codec.decode(source, integer)) {
-        *output++ = integer;
-    }
+    typename Codec::value_type val;
+    while (codec.decode(source, val)) { *output++ = val; }
     return source;
 }
 
@@ -291,7 +353,7 @@ std::vector<typename Codec::value_type>
 decode_n(std::istream& source, std::size_t n, const Codec& codec = Codec())
 {
     std::vector<typename Codec::value_type> result;
-    decode_n(std::back_inserter(result), n, codec);
+    decode_n(std::back_inserter(result), source, n, codec);
     return result;
 }
 
@@ -333,7 +395,7 @@ std::istream& decode_delta(OutputIterator output,
     typename Codec::value_type prev = initial_value;
     while (codec.decode(source, integer)) {
         prev = integer + prev;
-        *output = prev;
+        *output++ = prev;
     }
     return source;
 }

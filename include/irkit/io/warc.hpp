@@ -66,11 +66,13 @@ private:
 public:
     warc_record() = default;
     warc_record(std::string version) : version_(std::move(version)) {}
-    std::string type() { return warc_fields_["WARC-Type"]; }
-    std::string content_length() { return http_fields_["Content-Length"]; }
-    std::string content() { return content_; }
-    std::string url() { return warc_fields_["WARC-Target-URI"]; }
-    std::string trecid() { return warc_fields_["WARC-TREC-ID"]; }
+    std::string type() const { return warc_fields_.at("WARC-Type"); }
+    std::string content_length() const
+    { return http_fields_.at("Content-Length"); }
+    std::string& content() { return content_; }
+    const std::string& content() const { return content_; }
+    std::string url() const { return warc_fields_.at("WARC-Target-URI"); }
+    std::string trecid() const { return warc_fields_.at("WARC-TREC-ID"); }
 
     friend std::istream& read_warc_record(std::istream& in, warc_record& record);
 };
@@ -137,7 +139,7 @@ std::istream& read_warc_record(std::istream& in, warc_record& record)
         try {
             std::size_t length = std::stoi(record.content_length());
             record.content_.resize(length);
-            in.read(record.content_.data(), length);
+            in.read(&record.content_[0], length);
             std::getline(in, line);
             std::getline(in, line);
         } catch (std::invalid_argument& error) {

@@ -1,0 +1,38 @@
+language: cpp
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - libboost-all-dev
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    #- os: linux
+    #  addons:
+    #    apt:
+    #      sources:
+    #        - ubuntu-toolchain-r-test
+    #        - llvm-toolchain-trusty-5.0
+    #      packages:
+    #        - clang-5.0
+    #        - libboost-all-dev
+    #  env:
+    #    - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+before_install:
+    - eval "${MATRIX_EVAL}"
+install:
+    - git clone https://github.com/google/gumbo-parser.git
+    - cd gumbo-parser
+    - ./autogen.sh
+    - ./configure
+    - make
+    - sudo make install
+    - cd ../
+script:
+    - cmake -D IRKit_BUILD_INTEGRATION_TEST:BOOL=ON .
+    - cmake --build .
+    - ctest

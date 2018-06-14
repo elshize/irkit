@@ -674,8 +674,8 @@ Index<InMemoryPostingPolicy> build_index_from_ids(const std::vector<std::vector<
 
     for (auto& doc_terms : input) {
         Doc doc = Doc(collection_size);
-        for (auto & [term, weight] : doc_terms) {
-            term2doc[term].push_back({doc, weight});
+        for (auto & tw : doc_terms) {
+            term2doc[tw.term].push_back({doc, tw.weight});
         }
         ++collection_size;
     }

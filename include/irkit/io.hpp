@@ -18,7 +18,7 @@ namespace irk::io {
 
 namespace fs = boost::filesystem;
 
-void enforce_exist(fs::path file)
+void enforce_exist(const fs::path& file)
 {
     if (!fs::exists(file)) {
         throw std::invalid_argument("File not found: " + file.generic_string());
