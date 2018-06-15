@@ -118,24 +118,24 @@ protected:
     }
 };
 
-TEST_F(IndexMerging, titles)
-{
-    index_merger merger(index_dir_m,
-        {index_dir_1, index_dir_2},
-        irk::coding::varbyte_codec<long>{},
-        irk::coding::varbyte_codec<long>{},
-        1);
-    merger.merge_titles();
-    std::ostringstream otitles;
-    std::ifstream title_file(irk::index::titles_path(index_dir_m).c_str());
-    std::string title;
-    while (std::getline(title_file, title)) {
-        otitles << title << std::endl;
-    }
-    std::string all_titles = otitles.str();
-    std::string expected = "Doc1\nDoc2\nDoc3\nDoc4\nDoc5\nDoc6\n";
-    ASSERT_EQ(all_titles, expected);
-}
+//TEST_F(IndexMerging, titles)
+//{
+//    index_merger merger(index_dir_m,
+//        {index_dir_1, index_dir_2},
+//        irk::coding::varbyte_codec<long>{},
+//        irk::coding::varbyte_codec<long>{},
+//        1);
+//    merger.merge_titles();
+//    std::ostringstream otitles;
+//    std::ifstream title_file(irk::index::titles_path(index_dir_m).c_str());
+//    std::string title;
+//    while (std::getline(title_file, title)) {
+//        otitles << title << std::endl;
+//    }
+//    std::string all_titles = otitles.str();
+//    std::string expected = "Doc1\nDoc2\nDoc3\nDoc4\nDoc5\nDoc6\n";
+//    ASSERT_EQ(all_titles, expected);
+//}
 
 // TODO: Fix test (must fix the local indices)
 //TEST_F(IndexMerging, merge_terms)

@@ -50,4 +50,9 @@ target_link_libraries(irk-buildindex
     irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL)
 target_compile_features(irk-buildindex PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
-install(TARGETS irk irk-warc irk-part irk-buildindex DESTINATION bin)
+add_executable(irk-score irk-score.cpp)
+target_link_libraries(irk-score
+    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL)
+target_compile_features(irk-score PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
+install(TARGETS irk irk-warc irk-part irk-buildindex irk-score DESTINATION bin)

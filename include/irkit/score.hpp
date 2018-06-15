@@ -73,9 +73,25 @@ struct bm25_scorer {
 
     //! Returns the BM25 score.
     template<class Freq, CONCEPT_REQUIRES_(ranges::Integral<Freq>())>
-    Freq operator()(Freq tf, Freq df, std::size_t N) const
+    double operator()(Freq tf, Freq df, std::size_t N) const
     {
         return tf;
+    }
+};
+
+//! A query likelihood scorer.
+struct query_likelihood_scorer {
+    double mu;
+    double global_component;
+
+    query_likelihood_scorer(
+        long term_occurrences, long all_occurrences, double mu = 2500)
+        : mu(mu), global_component(mu * term_occurrences * all_occurrences)
+    {}
+
+    double operator()(long tf, long document_size) const
+    {
+        return (tf + global_component) / (document_size + mu);
     }
 };
 

@@ -96,8 +96,7 @@ public:
             document_codec_,
             frequency_codec_,
             block_size_);
-        merger.merge_titles();
-        merger.merge_terms();
+        merger.merge();
         auto term_map = irk::build_prefix_map_from_file<long>(
             irk::index::terms_path(output_dir_));
         irk::io::dump(term_map, irk::index::term_map_path(output_dir_));
@@ -122,8 +121,12 @@ public:
         std::ofstream of_terms(batch_metadata.terms.c_str());
         std::ofstream of_term_doc_freq(batch_metadata.term_doc_freq.c_str());
         std::ofstream of_titles(batch_metadata.doc_titles.c_str());
+        std::ofstream of_sizes(batch_metadata.doc_sizes.c_str());
+        std::ofstream of_term_occurrences(
+            batch_metadata.term_occurrences.c_str());
+        std::ofstream of_properties(batch_metadata.properties.c_str());
 
-        builder_type builder;
+        builder_type builder(block_size_);
         std::string line;
         for (int processed_documents_ = 0;
              processed_documents_ < batch_size_;
@@ -145,6 +148,9 @@ public:
         builder.write_document_frequencies(of_term_doc_freq);
         builder.write_document_ids(of_doc_ids, of_doc_ids_off);
         builder.write_document_counts(of_doc_counts, of_doc_counts_off);
+        builder.write_document_sizes(of_sizes);
+        builder.write_term_occurrences(of_term_occurrences);
+        builder.write_properties(of_properties);
         of_titles.close();
         of_terms.close();
         auto term_map = irk::build_prefix_map_from_file<long>(

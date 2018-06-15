@@ -32,6 +32,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+
 #include <irkit/coding.hpp>
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
@@ -61,25 +63,33 @@ public:
 
     int block_size_;
     document_type current_doc_;
+    long all_occurrences_;
     std::optional<std::vector<term_type>> sorted_terms_;
     std::vector<std::vector<doc_freq_pair>> postings_;
-    std::vector<std::size_t> term_occurrences_;
+    std::vector<frequency_type> term_occurrences_;
+    std::vector<frequency_type> document_sizes_;
     std::unordered_map<term_type, term_id_type> term_map_;
 
 public:
-    index_builder(int block_size = 1024)
-        : block_size_(block_size), current_doc_(0)
+    index_builder(int block_size = 64)
+        : block_size_(block_size), current_doc_(0), all_occurrences_(0)
     {}
 
     //! Initiates a new document with an incremented ID.
-    void add_document() { current_doc_++; }
+    void add_document() { add_document(current_doc_ + 1); }
 
     //! Initiates a new document with the given ID.
-    void add_document(document_type doc) { current_doc_ = doc; }
+    void add_document(document_type doc)
+    {
+        current_doc_ = doc;
+        document_sizes_.push_back(0);
+    }
 
     //! Adds a term to the current document.
     void add_term(const term_type& term)
     {
+        ++all_occurrences_;
+        ++document_sizes_[current_doc_];
         auto ti = term_map_.find(term);
         if (ti != term_map_.end()) {
             term_id_type term_id = ti->second;
@@ -121,12 +131,12 @@ public:
 
         // Create new related structures and swap.
         std::vector<std::vector<doc_freq_pair>> postings;
-        std::vector<std::size_t> term_occurrences;
+        std::vector<frequency_type> term_occurrences;
         for (const std::string& term : sorted_terms_.value()) {
             term_id_type term_id = term_map_[term];
             term_map_[term] = postings.size();
             postings.push_back(std::move(postings_[term_id]));
-            term_occurrences.push_back(std::move(term_occurrences_[term_id]));
+            term_occurrences.push_back(term_occurrences_[term_id]);
         }
         postings_ = std::move(postings);
         term_occurrences_ = std::move(term_occurrences);
@@ -194,6 +204,32 @@ public:
         }
         auto compact_term_dfs = irk::build_compact_table<frequency_type>(dfs);
         out << compact_term_dfs;
+    }
+
+    //! Writes document sizes.
+    void write_document_sizes(std::ostream& out) const
+    {
+        auto compact_sizes = irk::build_compact_table<frequency_type>(
+            document_sizes_);
+        out << compact_sizes;
+    }
+
+    //! Writes document sizes.
+    void write_term_occurrences(std::ostream& out) const
+    {
+        auto compact_table = irk::build_compact_table<frequency_type>(
+            term_occurrences_);
+        out << compact_table;
+    }
+
+    void write_properties(std::ostream& out) const
+    {
+        nlohmann::json j = {
+            {"documents", current_doc_ + 1},
+            {"occurrences", all_occurrences_},
+            {"skip_block_size", block_size_}
+        };
+        out << std::setw(4) << j << std::endl;
     }
 };
 

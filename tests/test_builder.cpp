@@ -67,6 +67,7 @@ TEST(IndexBuilder, add)
 {
     irk::index_builder<int, std::string, int> builder;
 
+    builder.add_document(0);
     builder.add_term("a");
     builder.add_term("b");
     builder.add_term("a");
@@ -79,6 +80,9 @@ TEST(IndexBuilder, add)
     builder.add_term("b");
     assert_term_map(builder.term_map_, {{"a", 0}, {"b", 1}, {"c", 2}});
     assert_postings(builder.postings_, {{{0, 2}}, {{0, 1}, {1, 2}}, {{1, 1}}});
+    assert_vector(builder.term_occurrences_, {2, 3, 1});
+    assert_vector(builder.document_sizes_, {3, 3});
+    ASSERT_EQ(builder.all_occurrences_, 6);
 }
 
 TEST(IndexBuilder, document_frequency)
@@ -109,12 +113,15 @@ class IndexBuilderWrite : public ::testing::Test {
 protected:
     irk::index_builder<std::uint16_t, std::string, std::uint16_t, std::uint16_t>
         builder;
+
+    IndexBuilderWrite() : builder(1024) {}
     virtual void SetUp()
     {
         builder.term_map_ = {{"z", 2}, {"b", 0}, {"c", 1}};
         builder.sorted_terms_ = {"b", "c", "z"};
         builder.postings_ = {{{0, 1}, {1, 2}}, {{1, 1}}, {{0, 2}}};
         builder.term_occurrences_ = {3, 1, 2};
+        builder.document_sizes_ = {3, 3};
     }
 };
 
@@ -178,6 +185,31 @@ TEST_F(IndexBuilderWrite, write_document_frequencies)
     EXPECT_EQ(dfs[0], 2);
     EXPECT_EQ(dfs[1], 1);
     EXPECT_EQ(dfs[2], 1);
+}
+
+TEST_F(IndexBuilderWrite, write_document_sizes)
+{
+    std::stringstream out;
+    builder.write_document_sizes(out);
+    std::string outs = out.str();
+    std::vector<char> actual_out(outs.begin(), outs.end());
+    irk::compact_table<std::uint16_t> sizes(actual_out);
+    EXPECT_EQ(sizes.size(), 2);
+    EXPECT_EQ(sizes[0], 3);
+    EXPECT_EQ(sizes[1], 3);
+}
+
+TEST_F(IndexBuilderWrite, write_term_occurrences)
+{
+    std::stringstream out;
+    builder.write_term_occurrences(out);
+    std::string outs = out.str();
+    std::vector<char> actual_out(outs.begin(), outs.end());
+    irk::compact_table<std::uint16_t> occurrences(actual_out);
+    EXPECT_EQ(occurrences.size(), 3);
+    EXPECT_EQ(occurrences[0], 3);
+    EXPECT_EQ(occurrences[1], 1);
+    EXPECT_EQ(occurrences[2], 2);
 }
 
 };  // namespace

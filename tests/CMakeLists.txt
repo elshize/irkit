@@ -16,7 +16,7 @@ set(TEST_SOURCES
     #test_heap.cpp
     test_immutablebittrie.cpp
     #test_index.cpp
-    test_index_integration.cpp
+    #test_index_integration.cpp
     test_index_reading.cpp
     test_io.cpp
     test_merger.cpp

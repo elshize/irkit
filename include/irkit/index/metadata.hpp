@@ -43,6 +43,9 @@ struct metadata {
     fs::path terms = irk::index::terms_path(dir);
     fs::path term_doc_freq = irk::index::term_doc_freq_path(dir);
     fs::path doc_titles = irk::index::titles_path(dir);
+    fs::path doc_sizes = dir / "doc.sizes";
+    fs::path term_occurrences = irk::index::term_occurrences_path(dir);
+    fs::path properties = irk::index::properties_path(dir);
 
     metadata(fs::path dir) : dir(dir) {}
 };

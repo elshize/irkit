@@ -73,7 +73,6 @@ public:
     {}
 
     memory_view(const memory_view& other) = default;
-    memory_view(memory_view&& other) = default;
 
     //! Returns a pointer to the underlying data.
     /*!

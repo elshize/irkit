@@ -35,6 +35,7 @@ target_include_directories(irkit INTERFACE
     $<INSTALL_INTERFACE:include>)
 target_link_libraries(irkit INTERFACE
     Boost::filesystem Boost::iostreams Boost::system)
+add_dependencies(irkit ranges rax nlohmann_json GSL)
 install(DIRECTORY include/irkit DESTINATION include)
 install(FILES irkit-config.cmake DESTINATION lib/irkit)
 install(TARGETS irkit EXPORT irkit DESTINATION lib)

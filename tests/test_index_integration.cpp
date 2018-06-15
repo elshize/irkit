@@ -103,6 +103,7 @@ TEST(IndexIntegration, build_write_read)
         index_dir);
     irk::v2::inverted_index_view index_view(data.get(),
         irk::coding::varbyte_codec<long>{},
+        irk::coding::varbyte_codec<long>{},
         irk::coding::varbyte_codec<long>{});
 
     ASSERT_EQ(index_view.term_id("a"), 0);

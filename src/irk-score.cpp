@@ -1,25 +1,26 @@
-#include <boost/filesystem.hpp>
 #include <iostream>
-#include "irkit/index.hpp"
+#include <string>
+
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
+
+#include <irkit/index.hpp>
 
 namespace fs = boost::filesystem;
 
 int main(int argc, char** argv)
 {
-    if (argc < 3) {
-        std::cerr << "usage: irk-score <index_dir> <scoring>\n";
-        exit(1);
-    }
+    int bits = 24;
+    std::string dir;
+    CLI::App app{"Compute impact scores of postings in an inverted index."};
+    app.add_option("-d,--index-dir", dir, "index directory", true)
+        ->check(CLI::ExistingDirectory);
+    app.add_option("-b,--bits", bits, "number of bits for a score", true);
 
-    fs::path target_dir(argv[1]);
-    if (!fs::exists(target_dir)) {
-        fs::create_directory(target_dir);
-    }
-    std::vector<fs::path> parts;
-    for (int arg = 2; arg < argc; ++arg) {
-        parts.emplace_back(argv[arg]);
-    }
+    CLI11_PARSE(app, argc, argv);
 
+    fs::path dir_path(dir);
+    irk::v2::score_index(dir, bits);
 
     return 0;
 }

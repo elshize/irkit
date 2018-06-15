@@ -74,7 +74,7 @@ private:
         const std::string& current_term() const { return current_term_; }
         term_id_type current_term_id() const { return current_term_id_; }
         document_type shift() const { return shift_; }
-        const index_type* index() { return index_; }
+        const index_type* index() const { return index_; }
 
         bool operator<(const entry& rhs) const
         { return current_term() > rhs.current_term(); }
@@ -132,8 +132,10 @@ public:
     {
         for (fs::path index_dir : indices) {
             sources_.emplace_back(index_dir);
-            indices_.emplace_back(
-                &sources_.back(), document_codec_, frequency_codec_);
+            indices_.emplace_back(&sources_.back(),
+                document_codec_,
+                frequency_codec_,
+                frequency_codec_);
         }
         terms_out_.open(index::terms_path(target_dir).c_str());
         doc_ids_.open(index::doc_ids_path(target_dir).c_str());
@@ -142,10 +144,11 @@ public:
         count_offset_ = 0;
     }
 
-    void merge_term(std::vector<entry>& indices)
+    long merge_term(std::vector<entry>& indices)
     {
         // Write the term.
-        terms_out_ << indices.front().current_term() << std::endl;
+        std::string term = indices.front().current_term();
+        terms_out_ << term << std::endl;
 
         // Sort by shift, i.e., effectively document IDs.
         std::sort(indices.begin(),
@@ -155,9 +158,11 @@ public:
             });
 
         // Merge the posting lists.
+        long occurrences = 0;
         std::vector<document_type> doc_ids;
         std::vector<frequency_type> doc_counts;
         for (const entry& e : indices) {
+            occurrences += e.index()->term_occurrences(e.current_term_id());
             auto pr = e.postings();
             for (const auto& p : pr) {
                 doc_ids.push_back(p.document() + e.shift());
@@ -182,9 +187,12 @@ public:
             block_size_, frequency_codec_);
         for (const auto& count : doc_counts) { count_list_builder.add(count); }
         count_offset_ += count_list_builder.write(doc_counts_);
+
+        return occurrences;
     }
 
-    void merge_terms()
+
+    long merge_terms()
     {
         // Initialize heap: everyone starts with the first term.
         std::vector<std::ifstream*> term_streams;
@@ -200,9 +208,12 @@ public:
             index_num++;
         }
 
+        long all_occurrences = 0;
+        std::vector<long> occurrences;
         while (!heap_.empty()) {
             std::vector<entry> indices_to_merge = indices_with_next_term();
-            merge_term(indices_to_merge);
+            occurrences.push_back(merge_term(indices_to_merge));
+            all_occurrences += occurrences.back();
             for (entry& e : indices_to_merge) {
                 if (std::size_t(e.current_term_id() + 1) < e.term_count())
                 {
@@ -217,6 +228,9 @@ public:
                 }
             }
         }
+        // Write occurrences
+        io::dump(build_compact_table<>(occurrences),
+            index::term_occurrences_path(target_dir_));
 
         // Write offsets
         io::dump(build_offset_table<>(doc_ids_off_),
@@ -236,6 +250,8 @@ public:
         terms_out_.close();
         doc_ids_.close();
         doc_counts_.close();
+
+        return all_occurrences;
     }
 
     void merge_titles()
@@ -246,6 +262,38 @@ public:
             { tout << title << std::endl; }
         }
         tout.close();
+    }
+
+    long merge_sizes()
+    {
+        std::vector<long> sizes;
+        std::ofstream sout(index::doc_sizes_path(target_dir_).c_str());
+        for (const auto& index : indices_) {
+            for (long doc = 0; doc < index.collection_size(); ++doc)
+            { sizes.push_back(index.document_size(doc)); }
+        }
+        irk::compact_table<long> size_table = irk::build_compact_table(sizes, false);
+        sout << size_table;
+        return sizes.size();
+    }
+
+    void write_properties(long documents, long occurrences)
+    {
+        std::ofstream out(index::properties_path(target_dir_).c_str());
+        nlohmann::json j = {
+            {"documents", documents},
+            {"occurrences", occurrences},
+            {"skip_block_size", block_size_}
+        };
+        out << std::setw(4) << j << std::endl;
+    }
+
+    void merge()
+    {
+        merge_titles();
+        long occurrences = merge_terms();
+        long documents = merge_sizes();
+        write_properties(documents, occurrences);
     }
 };
 
