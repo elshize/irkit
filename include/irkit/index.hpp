@@ -83,7 +83,9 @@ inline namespace v2 {
         using mapped_file_source = boost::iostreams::mapped_file_source;
 
     public:
-        explicit inverted_index_mapped_data_source(fs::path dir) : dir_(dir)
+        explicit inverted_index_mapped_data_source(
+            fs::path dir, std::optional<std::string> score_name = std::nullopt)
+            : dir_(dir)
         {
             io::enforce_exist(index::doc_ids_path(dir));
             io::enforce_exist(index::doc_counts_path(dir));
@@ -108,13 +110,16 @@ inline namespace v2 {
                 index::term_occurrences_path(dir));
             properties_.open(index::properties_path(dir));
 
-            auto scores_path = dir / "ql.scores";
-            auto score_offsets_path = dir / "ql.offsets";
-            if (fs::exists(scores_path) && fs::exists(score_offsets_path))
-            {
-                scores_ = std::make_optional<mapped_file_source>(scores_path);
-                score_offsets_ = std::make_optional<mapped_file_source>(
-                    score_offsets_path);
+            if (score_name.has_value()) {
+                auto scores_path = dir / (*score_name + ".scores");
+                auto score_offsets_path = dir / (*score_name + ".offsets");
+                if (fs::exists(scores_path) && fs::exists(score_offsets_path))
+                {
+                    scores_ = std::make_optional<mapped_file_source>(
+                        scores_path);
+                    score_offsets_ = std::make_optional<mapped_file_source>(
+                        score_offsets_path);
+                }
             }
         }
 
@@ -254,6 +259,7 @@ inline namespace v2 {
             document_count_ = properties["documents"];
             occurrences_count_ = properties["occurrences"];
             block_size_ = properties["skip_block_size"];
+            avg_document_size_ = properties["avg_document_size"];
         }
         //inverted_index_view(memory_view documents_view,
         //    memory_view counts_view,
@@ -326,6 +332,8 @@ inline namespace v2 {
         auto scored_postings(long term_id) const
         {
             assert(term_id < term_count_);
+            if (!scores_view_.has_value())
+            { throw std::runtime_error("scores not loaded"); }
             auto length = term_collection_frequencies_[term_id];
             auto document_offset = document_offsets_[term_id];
             auto documents = index::block_document_list_view(
@@ -334,6 +342,22 @@ inline namespace v2 {
             auto scores = index::block_payload_list_view(
                 score_codec_, *scores_view_, length, score_offset);
             return posting_list_view(documents, scores);
+        }
+
+        template<class Scorer>
+        Scorer term_scorer(long term_id) const
+        {
+            if constexpr (std::is_same<Scorer, score::bm25_scorer>::value)
+            {
+                return score::bm25_scorer(term_collection_frequencies_[term_id],
+                    document_count_,
+                    avg_document_size_);
+            } else if constexpr (std::is_same<Scorer,
+                                     score::query_likelihood_scorer>::value)
+            {
+                return score::query_likelihood_scorer(
+                    term_occurrences(term_id), occurrences_count());
+            }
         }
 
         std::optional<long> term_id(const std::string& term) const
@@ -350,6 +374,7 @@ inline namespace v2 {
         long term_count() const { return term_map_.size(); }
         long occurrences_count() const { return occurrences_count_; }
         int skip_block_size() const { return block_size_; }
+        int avg_document_size() const { return avg_document_size_; }
 
         const prefix_map<long, std::vector<char>>& terms() const
         { return term_map_; }
@@ -377,12 +402,15 @@ inline namespace v2 {
         long document_count_;
         long occurrences_count_;
         int block_size_;
+        double avg_document_size_;
     };
 
+    template<class Scorer>
     void score_index(fs::path dir_path, int bits)
     {
-        fs::path scores_path = dir_path / "ql.scores";
-        fs::path score_offsets_path = dir_path / "ql.offsets";
+        std::string name(typename Scorer::tag_type{});
+        fs::path scores_path = dir_path / (name + ".scores");
+        fs::path score_offsets_path = dir_path / (name + ".offsets");
         v2::inverted_index_mapped_data_source source(dir_path);
         irk::v2::inverted_index_view index(&source,
             irk::coding::varbyte_codec<long>{},
@@ -398,8 +426,7 @@ inline namespace v2 {
         double max_score = 0;
         for (long term_id = 0; term_id < index.terms().size(); term_id++)
         {
-            irk::score::query_likelihood_scorer scorer(
-                index.term_occurrences(term_id), index.occurrences_count());
+            Scorer scorer = index.term_scorer<Scorer>(term_id);
             for (const auto& posting : index.postings(term_id))
             {
                 double score = scorer(
@@ -414,8 +441,7 @@ inline namespace v2 {
             offsets.push_back(offset);
             irk::index::block_list_builder<long, false> list_builder(
                 index.skip_block_size(), irk::coding::varbyte_codec<long>{});
-            irk::score::query_likelihood_scorer scorer(
-                index.term_occurrences(term_id), index.occurrences_count());
+            Scorer scorer = index.term_scorer<Scorer>(term_id);
             for (const auto& posting : index.postings(term_id))
             {
                 double score = scorer(

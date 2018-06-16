@@ -20,9 +20,10 @@ add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 # Find dependencies
 find_package(PkgConfig REQUIRED)
 find_package(Boost 1.40
-    COMPONENTS iostreams filesystem system
+    COMPONENTS iostreams filesystem system log
     REQUIRED)
 find_package(ZLIB REQUIRED)
+find_package(Threads REQUIRED)
 pkg_check_modules(gumbo REQUIRED gumbo)
 
 include(submodules/submodules.cmake)
