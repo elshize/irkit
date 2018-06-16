@@ -261,29 +261,6 @@ inline namespace v2 {
             block_size_ = properties["skip_block_size"];
             avg_document_size_ = properties["avg_document_size"];
         }
-        //inverted_index_view(memory_view documents_view,
-        //    memory_view counts_view,
-        //    memory_view document_offsets_view,
-        //    memory_view count_offsets_view,
-        //    memory_view term_frequencies_view,
-        //    memory_view term_map_stream,
-        //    memory_view title_map_stream,
-        //    any_codec<document_type> document_codec,
-        //    any_codec<frequency_type> frequency_codec)
-        //    : documents_view_(std::move(documents_view)),
-        //      counts_view_(std::move(counts_view)),
-        //      document_codec_(document_codec),
-        //      frequency_codec_(frequency_codec),
-        //      document_offsets_(std::move(document_offsets_view)),
-        //      count_offsets_(std::move(count_offsets_view)),
-        //      term_collection_frequencies_(std::move(term_frequencies_view)),
-        //      term_map_(load_prefix_map<long>(term_map_stream)),
-        //      title_map_(load_prefix_map<long>(title_map_stream)),
-        //      term_count_(term_collection_frequencies_.size())
-        //{
-        //    assert(document_offsets_.size() == term_count_);
-        //    assert(count_offsets_.size() == term_count_);
-        //}
 
         size_type collection_size() const { return document_sizes_.size(); }
 
