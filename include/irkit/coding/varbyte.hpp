@@ -20,36 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file varbyte.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
+
+#include <cstdarg>
+#include <iostream>
 
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/iostreams/stream.hpp>
-#include <cstdarg>
 #include <gsl/span>
-#include <iostream>
-#include <range/v3/range_concepts.hpp>
-#include <range/v3/utility/concepts.hpp>
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
 
-namespace irk::coding {
+namespace irk {
 
 //! Variable-Byte codec.
-template<class T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
+template<class T>
 struct varbyte_codec {
     using value_type = T;
 
-    //! Encode `n` and write it to `sink`.
-    /*!
-     * @param n     an integer number to encode
-     * @param sink  output stream to write the encoded bytes
-     * @returns     the reference to `sink`
-     */
     std::ostream& encode(value_type n, std::ostream& sink) const
     {
         while (true) {
@@ -62,16 +53,6 @@ struct varbyte_codec {
         return sink;
     }
 
-    //! Decode `source` and write it to `n`.
-    /*!
-        \param source   input stream to read the encoded bytes from
-        \param n        an integer number reference to store the decoded value
-        \returns        the reference to `source`
-        \throws std::runtime_error whenever the stream ends before finishing
-                                     decoding a symbol, unlesss it ends on the
-                                     first byte, i.e., there is no more
-                                     symbols to decode
-     */
     std::streamsize decode(std::istream& source, value_type& n) const
     {
         char b;
@@ -102,4 +83,4 @@ struct varbyte_codec {
     }
 };
 
-};  // namespace irk::coding
+};  // namespace irk

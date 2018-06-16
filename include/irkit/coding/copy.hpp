@@ -20,47 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file copy.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
 #pragma once
 
-#include <irkit/types.hpp>
-#include <irkit/utils.hpp>
+#include <iostream>
 
-namespace irk::coding {
+namespace irk {
 
 //! A codec that simply copies memory as is, no compression.
-/*!
- * Mainly for testing purposes.
- */
+//! Mainly for testing purposes.
 template<class T>
 struct copy_codec {
     using value_type = T;
 
-    //! Encode `n` and write it to `sink`.
-    /*!
-     * @param n     an integer number to encode
-     * @param sink  output stream to write the encoded bytes
-     * @returns     the reference to `sink`
-     */
     std::ostream& encode(value_type n, std::ostream& sink) const
     {
         sink.write(reinterpret_cast<char*>(&n), sizeof(n));
         return sink;
     }
 
-    //! Decode `source` and write it to `n`.
-    /*!
-        \param source   input stream to read the encoded bytes from
-        \param n        an integer number reference to store the decoded value
-        \returns        the reference to `source`
-        \throws std::runtime_error whenever the stream ends before finishing
-                                     decoding a symbol, unlesss it ends on the
-                                     first byte, i.e., there is no more
-                                     symbols to decode
-     */
     std::streamsize decode(std::istream& source, value_type& n) const
     {
         if (!source.read(reinterpret_cast<char*>(&n), sizeof(n))) { return 0; }
@@ -68,4 +49,4 @@ struct copy_codec {
     }
 };
 
-};  // namespace irk::coding
+};  // namespace irk

@@ -20,22 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file test_documentlist.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #include <algorithm>
-#include <gsl/span>
 #include <random>
 #include <sstream>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gsl/span>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
 #include <irkit/coding/copy.hpp>
 #include <irkit/coding/varbyte.hpp>
-#include <irkit/index/list.hpp>
+#include <irkit/index/block_inverted_list.hpp>
 
 namespace {
 
@@ -64,7 +66,7 @@ public:
     };
 
     using view_type = irk::index::block_document_list_view<std::int32_t>;
-    view_type view = view_type(irk::coding::varbyte_codec<std::int32_t>{},
+    view_type view = view_type(irk::varbyte_codec<std::int32_t>{},
         irk::make_memory_view(gsl::span<const char>(&memory[0], memory.size())),
         5, /* frequency */
         3 /* offset */);
@@ -91,7 +93,7 @@ public:
     };
 
     using view_type = irk::index::block_payload_list_view<std::int32_t>;
-    view_type view = view_type(irk::coding::varbyte_codec<std::int32_t>{},
+    view_type view = view_type(irk::varbyte_codec<std::int32_t>{},
         irk::make_memory_view(gsl::span<const char>(&memory[0], memory.size())),
         5, /* frequency */
         3 /* offset */);
@@ -119,7 +121,7 @@ public:
             reinterpret_cast<char*>(&scores[0]),
             reinterpret_cast<char*>(
                 &scores[0] + 5 * sizeof(double)));
-        view = view_type(irk::coding::copy_codec<double>{},
+        view = view_type(irk::copy_codec<double>{},
             irk::make_memory_view(
                 gsl::span<const char>(&memory[0], memory.size())),
             5 /* frequency */);
@@ -287,7 +289,6 @@ TEST_F(zipped_payload_list_view, read_iterator_loop)
     std::vector<double> payloads_2;
     std::vector<int> payloads_3;
     for (auto pos = zipped.begin(); pos != zipped.end(); pos++) {
-        auto [pay_1, pay_2, pay_3] = *pos;
         payloads_1.push_back(pos.payload<0>());
         payloads_2.push_back(pos.payload<1>());
         payloads_3.push_back(pos.payload<2>());
@@ -355,7 +356,7 @@ TEST_F(block_posting_list_view, zipped_payload_dereference)
 TEST_F(block_list_builder, write_docs)
 {
     irk::index::block_list_builder<int, true> builder(
-        2 /* block_size */, irk::coding::varbyte_codec<int>{});
+        2 /* block_size */, irk::varbyte_codec<int>{});
     std::vector<char> bytes;
     boost::iostreams::stream<
         boost::iostreams::back_insert_device<std::vector<char>>>
@@ -372,7 +373,7 @@ TEST_F(block_list_builder, write_docs)
 TEST_F(block_list_builder, write_payloads)
 {
     irk::index::block_list_builder<int, false> builder(
-        2 /* block_size */, irk::coding::varbyte_codec<int>{});
+        2 /* block_size */, irk::varbyte_codec<int>{});
     std::vector<char> bytes;
     boost::iostreams::stream<
         boost::iostreams::back_insert_device<std::vector<char>>>
@@ -389,7 +390,7 @@ TEST_F(block_list_builder, write_payloads)
 TEST_F(block_list_builder, write_double_payloads)
 {
     irk::index::block_list_builder<double, false> builder(
-        2 /* block_size */, irk::coding::copy_codec<double>{});
+        2 /* block_size */, irk::copy_codec<double>{});
     std::vector<char> bytes;
     boost::iostreams::stream<
         boost::iostreams::back_insert_device<std::vector<char>>>

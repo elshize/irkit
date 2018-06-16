@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -67,17 +66,25 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_b"></a>- b -</h3><ul>
-<li>b
-: <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#adbc316be2c46daf96501ec1f79c96e73">irk::score::bm25_scorer</a>
-</li>
 <li>B
 : <a class="el" href="structSN__env.html#a11c62ffd6547f724623fa5bab2114794">SN_env</a>
 </li>
+<li>back()
+: <a class="el" href="classirk_1_1index_1_1block__view.html#a88f00828b2dd384cb925022a3333fdf7">irk::index::block_view&lt; T &gt;</a>
+</li>
 <li>begin()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a274f57f133cd6763e0d8cc3e00fa1be3">bloodhound::PostingList</a>
-, <a class="el" href="classirk_1_1dynamically__scored__posting__range.html#a984ac75ae00f56ec53c2676e57259aa6">irk::dynamically_scored_posting_range&lt; Posting, Freq, Scorer &gt;</a>
-, <a class="el" href="classirk_1_1Heap.html#a10a78919e46bc987f874bb8558e23e25">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
+: <a class="el" href="classirk_1_1dynamically__scored__posting__range.html#a984ac75ae00f56ec53c2676e57259aa6">irk::dynamically_scored_posting_range&lt; Posting, Freq, Scorer &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__document__list__view.html#a6c320fd31232ebba37be70c0c9f682c4">irk::index::block_document_list_view&lt; Doc &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__payload__list__view.html#a32284b7ff4f4c6530a43b9148418348f">irk::index::block_payload_list_view&lt; Payload &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__posting__list__view.html#a47c5ede6a59868de82629e8cab826cf0">irk::index::block_posting_list_view&lt; Doc, Payload &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1skip__list__view.html#a22e0239c33e18137997aad3da5337591">irk::index::skip_list_view&lt; Skip, element_size, CastFn &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1zipped__payload__list__view.html#aec7df8626683a4f71aa2b733d36d0a4c">irk::index::zipped_payload_list_view&lt; Payload &gt;</a>
+, <a class="el" href="classirk_1_1memory__view.html#a41d2227984ac0284ec52588a57bd297c">irk::memory_view</a>
 , <a class="el" href="structirk_1_1moving__range.html#ac24e6010803fdad694992f2a677dfdbb">irk::moving_range&lt; Iter &gt;</a>
+, <a class="el" href="classirk_1_1posting__list__view.html#a62065bb4544ebf8d6425b608a0852c11">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;</a>
+, <a class="el" href="classirk_1_1prefix__map.html#a865e7acbf722c38d76287d4b47cf3e38">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a>
+, <a class="el" href="classirk_1_1vector__document__list.html#a014b3737e63a4472e66ccb90a515f340">irk::vector_document_list&lt; TDoc &gt;</a>
+, <a class="el" href="classirk_1_1vector__payload__list.html#a35357c3fd3a0fb7b0308520b052844bf">irk::vector_payload_list&lt; PayloadT &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1aggregate__sorted__view.html#af3bf35b32e950446e57c20368ee36f8a">irk::view::aggregate_sorted_view&lt; Rng, Equals, Aggregate &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1any__range.html#ab75107cb78021f372510402b71a0c4d5">irk::view::any_range&lt; Rng &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1fast__union__merge__view.html#a82c8219a38fc24706d3744af07a974f7">irk::view::fast_union_merge_view&lt; Rngs &gt;</a>
@@ -91,23 +98,59 @@ $(function() {
 <li>bits
 : <a class="el" href="structirk_1_1mutable__bit__trie_1_1node.html#a8b55d968fa4274a91a6395ea1b9785a8">irk::mutable_bit_trie&lt; Value &gt;::node</a>
 </li>
-<li>bits_to_shift
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#aa2b4875de4f02a856e64560bf002296f">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
+<li>block()
+: <a class="el" href="classirk_1_1index_1_1block__iterator.html#ae172ebede460597574078b85ae820a4c">irk::index::block_iterator&lt; ListView, delta_encoded &gt;</a>
+, <a class="el" href="classirk_1_1vector__block__iterator.html#a820d31edd98d2ecf75daa93efcebd06d">irk::vector_block_iterator&lt; ListT, sorted &gt;</a>
 </li>
 <li>block_builder()
-: <a class="el" href="classirk_1_1prefix__map_1_1block__builder.html#ad2fe3431c27790ef67d21746064cdb6c">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_builder</a>
+: <a class="el" href="classirk_1_1prefix__map_1_1block__builder.html#af6ed7104994775956eb88348b87c46d8">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_builder</a>
 </li>
-<li>block_max_scores
-: <a class="el" href="classbloodhound_1_1query_1_1TaatRetriever.html#ac870574844dc3be6c40cf1236e1ff6cc">bloodhound::query::TaatRetriever&lt; PostingList, prefetch, init_gap, acc_block_size &gt;</a>
+<li>block_count()
+: <a class="el" href="classirk_1_1index_1_1skip__list__view.html#a923176e9b8851cea6f32f530ad88d25c">irk::index::skip_list_view&lt; Skip, element_size, CastFn &gt;</a>
+</li>
+<li>block_document_list_view()
+: <a class="el" href="classirk_1_1index_1_1block__document__list__view.html#a62b936d45acb50d30f95120370e5457b">irk::index::block_document_list_view&lt; Doc &gt;</a>
+</li>
+<li>block_iterator()
+: <a class="el" href="classirk_1_1index_1_1block__iterator.html#a485803aa36bf95c6c5e401e44a432c1b">irk::index::block_iterator&lt; ListView, delta_encoded &gt;</a>
+</li>
+<li>block_iterator&lt; self_type, false &gt;
+: <a class="el" href="classirk_1_1index_1_1block__payload__list__view.html#a88a9a271d334c6a1ee36182f15227581">irk::index::block_payload_list_view&lt; Payload &gt;</a>
+</li>
+<li>block_iterator&lt; self_type, true &gt;
+: <a class="el" href="classirk_1_1index_1_1block__document__list__view.html#a9e9d706e71ebb8b3d20137fb0121c8bd">irk::index::block_document_list_view&lt; Doc &gt;</a>
+</li>
+<li>block_list_builder()
+: <a class="el" href="classirk_1_1index_1_1block__list__builder.html#a93eb7cefd4246189db44c728051ca9a0">irk::index::block_list_builder&lt; Value, delta_encoded &gt;</a>
+</li>
+<li>block_payload_list_view()
+: <a class="el" href="classirk_1_1index_1_1block__payload__list__view.html#a1e4549a450e5fa10e0be7e7f49258d32">irk::index::block_payload_list_view&lt; Payload &gt;</a>
+</li>
+<li>block_posting_list_view()
+: <a class="el" href="classirk_1_1index_1_1block__posting__list__view.html#a09936613ed78d60fc695429ab4315d24">irk::index::block_posting_list_view&lt; Doc, Payload &gt;</a>
 </li>
 <li>block_ptr()
-: <a class="el" href="classirk_1_1prefix__map_1_1block__ptr.html#a6834a182e0398c957a02a7157b93b590">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_ptr</a>
+: <a class="el" href="classirk_1_1prefix__map_1_1block__ptr.html#a4e7e5d0950f932fe13cb44701aa43d40">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_ptr</a>
 </li>
 <li>block_size
 : <a class="el" href="structirk_1_1compact__table__header.html#aa550cf8ef026351eaadad254f7fbed59">irk::compact_table_header</a>
+, <a class="el" href="classirk_1_1vector__document__list.html#ae6a0a3b41d660778ab8dae0e432a47b1">irk::vector_document_list&lt; TDoc &gt;</a>
+, <a class="el" href="classirk_1_1vector__payload__list.html#adb75734d3d14e43ff4eaf6fdac2125ff">irk::vector_payload_list&lt; PayloadT &gt;</a>
+</li>
+<li>block_view()
+: <a class="el" href="classirk_1_1index_1_1block__view.html#aebe22ab369a7a62a205f2b3e4196cc3d">irk::index::block_view&lt; T &gt;</a>
 </li>
 <li>bm25_scorer()
-: <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#a8ba7a12182356ea58d5d1b5f279cf58a">irk::score::bm25_scorer</a>
+: <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab9150dc6a3574f9e5b67c5b0637fee26">irk::score::bm25_scorer</a>
+</li>
+<li>boost::iterator_core_access
+: <a class="el" href="classirk_1_1index_1_1block__iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::block_iterator&lt; ListView, delta_encoded &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__posting__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::block_posting_list_view&lt; Doc, Payload &gt;::iterator&lt; payload_type &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1zipped__payload__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::zipped_payload_list_view&lt; Payload &gt;::iterator</a>
+, <a class="el" href="classirk_1_1memory__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::memory_view::iterator</a>
+, <a class="el" href="classirk_1_1posting__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;::iterator</a>
+, <a class="el" href="classirk_1_1prefix__map_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::iterator</a>
+, <a class="el" href="classirk_1_1vector__block__iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::vector_block_iterator&lt; ListT, sorted &gt;</a>
 </li>
 <li>BOOST_CONCEPT_USAGE()
 : <a class="el" href="structirk_1_1concept_1_1InputRange.html#a6330299c4f829cf1bcc9bc1103a660ac">irk::concept::InputRange&lt; R &gt;</a>
@@ -115,20 +158,17 @@ $(function() {
 <li>bra
 : <a class="el" href="structSN__env.html#a9768d567ce5406809557aeb40cad873e">SN_env</a>
 </li>
+<li>buffer_type
+: <a class="el" href="classirk_1_1hutucker__codec.html#a995378c8c253dae9867a4b1762eeaf95">irk::hutucker_codec&lt; Symbol, MemoryContainer &gt;</a>
+</li>
 <li>buffered_bits_
 : <a class="el" href="classirk_1_1input__bit__stream.html#a591955c1b7182333b87e9e41b8d7cad7">irk::input_bit_stream</a>
 </li>
-<li>build_index_from_ids
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a0343a97c005a2df437a955c308d376e6">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
+<li>build_batch()
+: <a class="el" href="classirk_1_1index_1_1index__assembler.html#a42b294d02349c03a72aaf19a7882f230">irk::index::index_assembler&lt; Doc, Term, TermId, Freq &gt;</a>
 </li>
-<li>ByNameHash&lt; Argument &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Argument.html#a6821014d75c5475d97122c1be09079d8">irk::cmd::Argument</a>
-</li>
-<li>ByNameHash&lt; Flag &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Flag.html#ac108a43e1fe1a47dcdb8a9d1fd59ec0e">irk::cmd::Flag</a>
-</li>
-<li>ByNameHash&lt; Option &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Option.html#a0066c7e9ad41107a46c66ace788ced49">irk::cmd::Option</a>
+<li>builder_type
+: <a class="el" href="classirk_1_1index_1_1index__assembler.html#a76cb9e6d85a87c9f7d96148e1f28f56e">irk::index::index_assembler&lt; Doc, Term, TermId, Freq &gt;</a>
 </li>
 <li>byte_
 : <a class="el" href="classirk_1_1input__bit__stream.html#ac150fc2255ded1f76ddd5a25f5c4f5ba">irk::input_bit_stream</a>

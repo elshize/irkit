@@ -1,0 +1,284 @@
+\hypertarget{classirk_1_1v2_1_1inverted__index__view}{}\section{irk\+:\+:v2\+:\+:inverted\+\_\+index\+\_\+view Class Reference}
+\label{classirk_1_1v2_1_1inverted__index__view}\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+
+
+{\ttfamily \#include $<$index.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{size\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}{score\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a360d892dce2f7f984ae98119e6b6eb3e}{offset\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ long, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ long $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab247a56cfb430693e05ee2ff1d10221e}{frequency\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}}, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}} $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a4f939f733921ca3f5946288273b427d7}{size\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ long, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ long $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a0dd0327febf8c41ecfd339374c47ce5f}{array\+\_\+stream}} = boost\+::iostreams\+::stream\+\_\+buffer$<$ boost\+::iostreams\+::basic\+\_\+array\+\_\+source$<$ char $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a0cd2fbbd65fbab5bef4933aee9cf9059}{inverted\+\_\+index\+\_\+view}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ac1b707ab5ab781fcc6c28e0beadad71f}{inverted\+\_\+index\+\_\+view}} (const \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view}{inverted\+\_\+index\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a477477a458d97aa3f5842894ccba191d}{inverted\+\_\+index\+\_\+view}} (\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view}{inverted\+\_\+index\+\_\+view}} \&\&)=default
+\item 
+{\footnotesize template$<$class Data\+SourceT $>$ }\\\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a1aab95c206287bbec6b7c2ab34ffbf92}{inverted\+\_\+index\+\_\+view}} (Data\+SourceT $\ast$data, \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aaa1f3b7660025d60cdb815268d56334c}{document\+\_\+codec}}, \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aacf229a3a8f3eddb0181cc0df59ada3a}{frequency\+\_\+codec}}, \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}{score\+\_\+type}} $>$ score\+\_\+codec)
+\item 
+\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a2b00000b6c8ccb6acb487494d6d0093b}{collection\+\_\+size}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ad259487c825b0d3a4fa40cb3b29ccc6e}{document\+\_\+size}} (\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}} doc) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab53148e1e271e643013d61f7c815a96d}{documents}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab09742f5b4edb14da6188e0db717ce06}{frequencies}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_af1e3ff71d96f699e0405bdf30598fede}{postings}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ac5232b49a6da53394d0cee20ee7c04e9}{postings}} (const std\+::string \&\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a7c84123ec294a4a533331f316a3ba2e3}{term}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_afb4c98e6d2a700089ebec040544116e5}{scored\+\_\+postings}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+{\footnotesize template$<$class Scorer $>$ }\\Scorer \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_afa7ed76022fafa732e52043a5ffb7428}{term\+\_\+scorer}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+std\+::optional$<$ long $>$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}} (const std\+::string \&\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a7c84123ec294a4a533331f316a3ba2e3}{term}}) const
+\item 
+std\+::string \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a7c84123ec294a4a533331f316a3ba2e3}{term}} (const long \&id) const
+\item 
+long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_af0ca55da7d671601d894169d2a88693b}{tdf}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a155b3ff8825b4f000ff51216ef508dea}{term\+\_\+occurrences}} (long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}{term\+\_\+id}}) const
+\item 
+long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a4fb0266edc385a4b527198d403f0f976}{term\+\_\+count}} () const
+\item 
+long \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aeb876faef5e15b4567e3347b871fb978}{occurrences\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a5dc900fb0b8353d0caede65d28e8c66e}{skip\+\_\+block\+\_\+size}} () const
+\item 
+int \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a6397e7c10fc74ba36d76491286e98a15}{avg\+\_\+document\+\_\+size}} () const
+\item 
+const \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$ long, std\+::vector$<$ char $>$ $>$ \& \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a2daebedf75a2ddc8f88c90cd635afe0f}{terms}} () const
+\item 
+const \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$ long, std\+::vector$<$ char $>$ $>$ \& \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a192e892479d3199aa534ea8e2b4169b0}{titles}} () const
+\item 
+\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aaa1f3b7660025d60cdb815268d56334c}{document\+\_\+codec}} ()
+\item 
+\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aacf229a3a8f3eddb0181cc0df59ada3a}{frequency\+\_\+codec}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a0dd0327febf8c41ecfd339374c47ce5f}\label{classirk_1_1v2_1_1inverted__index__view_a0dd0327febf8c41ecfd339374c47ce5f}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!array\+\_\+stream@{array\+\_\+stream}}
+\index{array\+\_\+stream@{array\+\_\+stream}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{array\+\_\+stream}{array\_stream}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a0dd0327febf8c41ecfd339374c47ce5f}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::array\+\_\+stream}} =  boost\+::iostreams\+::stream\+\_\+buffer$<$ boost\+::iostreams\+::basic\+\_\+array\+\_\+source$<$char$>$ $>$}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}\label{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::document\+\_\+type}} =  long}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ab247a56cfb430693e05ee2ff1d10221e}\label{classirk_1_1v2_1_1inverted__index__view_ab247a56cfb430693e05ee2ff1d10221e}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!frequency\+\_\+table\+\_\+type@{frequency\+\_\+table\+\_\+type}}
+\index{frequency\+\_\+table\+\_\+type@{frequency\+\_\+table\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+table\+\_\+type}{frequency\_table\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab247a56cfb430693e05ee2ff1d10221e}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::frequency\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}}, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}}$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}\label{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::frequency\+\_\+type}} =  long}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a360d892dce2f7f984ae98119e6b6eb3e}\label{classirk_1_1v2_1_1inverted__index__view_a360d892dce2f7f984ae98119e6b6eb3e}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!offset\+\_\+table\+\_\+type@{offset\+\_\+table\+\_\+type}}
+\index{offset\+\_\+table\+\_\+type@{offset\+\_\+table\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{offset\+\_\+table\+\_\+type}{offset\_table\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a360d892dce2f7f984ae98119e6b6eb3e}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::offset\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$long, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$long$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}\label{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!score\+\_\+type@{score\+\_\+type}}
+\index{score\+\_\+type@{score\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{score\+\_\+type}{score\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::score\+\_\+type}} =  long}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a4f939f733921ca3f5946288273b427d7}\label{classirk_1_1v2_1_1inverted__index__view_a4f939f733921ca3f5946288273b427d7}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!size\+\_\+table\+\_\+type@{size\+\_\+table\+\_\+type}}
+\index{size\+\_\+table\+\_\+type@{size\+\_\+table\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{size\+\_\+table\+\_\+type}{size\_table\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a4f939f733921ca3f5946288273b427d7}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::size\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$long, \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$long$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}\label{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!size\+\_\+type@{size\+\_\+type}}
+\index{size\+\_\+type@{size\+\_\+type}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{size\+\_\+type}{size\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::size\+\_\+type}} =  long}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a0cd2fbbd65fbab5bef4933aee9cf9059}\label{classirk_1_1v2_1_1inverted__index__view_a0cd2fbbd65fbab5bef4933aee9cf9059}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}}
+\index{inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+view()}{inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::inverted\+\_\+index\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ac1b707ab5ab781fcc6c28e0beadad71f}\label{classirk_1_1v2_1_1inverted__index__view_ac1b707ab5ab781fcc6c28e0beadad71f}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}}
+\index{inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+view()}{inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::inverted\+\_\+index\+\_\+view (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view}{inverted\+\_\+index\+\_\+view}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a477477a458d97aa3f5842894ccba191d}\label{classirk_1_1v2_1_1inverted__index__view_a477477a458d97aa3f5842894ccba191d}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}}
+\index{inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+view()}{inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::inverted\+\_\+index\+\_\+view (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view}{inverted\+\_\+index\+\_\+view}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a1aab95c206287bbec6b7c2ab34ffbf92}\label{classirk_1_1v2_1_1inverted__index__view_a1aab95c206287bbec6b7c2ab34ffbf92}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}}
+\index{inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+view()}{inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Data\+SourceT $>$ \\
+irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::inverted\+\_\+index\+\_\+view (\begin{DoxyParamCaption}\item[{Data\+SourceT $\ast$}]{data,  }\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}} $>$}]{document\+\_\+codec,  }\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}} $>$}]{frequency\+\_\+codec,  }\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a5a1f88560e9fe17b54c7af6e2aa31639}{score\+\_\+type}} $>$}]{score\+\_\+codec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a6397e7c10fc74ba36d76491286e98a15}\label{classirk_1_1v2_1_1inverted__index__view_a6397e7c10fc74ba36d76491286e98a15}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!avg\+\_\+document\+\_\+size@{avg\+\_\+document\+\_\+size}}
+\index{avg\+\_\+document\+\_\+size@{avg\+\_\+document\+\_\+size}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{avg\+\_\+document\+\_\+size()}{avg\_document\_size()}}
+{\footnotesize\ttfamily int irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::avg\+\_\+document\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a2b00000b6c8ccb6acb487494d6d0093b}\label{classirk_1_1v2_1_1inverted__index__view_a2b00000b6c8ccb6acb487494d6d0093b}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!collection\+\_\+size@{collection\+\_\+size}}
+\index{collection\+\_\+size@{collection\+\_\+size}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{size\+\_\+type}} irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_aaa1f3b7660025d60cdb815268d56334c}\label{classirk_1_1v2_1_1inverted__index__view_aaa1f3b7660025d60cdb815268d56334c}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!document\+\_\+codec@{document\+\_\+codec}}
+\index{document\+\_\+codec@{document\+\_\+codec}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+codec()}{document\_codec()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}}$>$ irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::document\+\_\+codec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ad259487c825b0d3a4fa40cb3b29ccc6e}\label{classirk_1_1v2_1_1inverted__index__view_ad259487c825b0d3a4fa40cb3b29ccc6e}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!document\+\_\+size@{document\+\_\+size}}
+\index{document\+\_\+size@{document\+\_\+size}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+size()}{document\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_aebba8b75ebd7b14d546a29fe925352d6}{size\+\_\+type}} irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::document\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_a8441dcf60be934782fdaa9411723700b}{document\+\_\+type}}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ab53148e1e271e643013d61f7c815a96d}\label{classirk_1_1v2_1_1inverted__index__view_ab53148e1e271e643013d61f7c815a96d}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!documents@{documents}}
+\index{documents@{documents}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{documents()}{documents()}}
+{\footnotesize\ttfamily auto irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::documents (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ab09742f5b4edb14da6188e0db717ce06}\label{classirk_1_1v2_1_1inverted__index__view_ab09742f5b4edb14da6188e0db717ce06}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!frequencies@{frequencies}}
+\index{frequencies@{frequencies}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequencies()}{frequencies()}}
+{\footnotesize\ttfamily auto irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::frequencies (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_aacf229a3a8f3eddb0181cc0df59ada3a}\label{classirk_1_1v2_1_1inverted__index__view_aacf229a3a8f3eddb0181cc0df59ada3a}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!frequency\+\_\+codec@{frequency\+\_\+codec}}
+\index{frequency\+\_\+codec@{frequency\+\_\+codec}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec()}{frequency\_codec()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$\mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view_ab52405d4c17e6e82893d2650a56e0a32}{frequency\+\_\+type}}$>$ irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::frequency\+\_\+codec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_aeb876faef5e15b4567e3347b871fb978}\label{classirk_1_1v2_1_1inverted__index__view_aeb876faef5e15b4567e3347b871fb978}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!occurrences\+\_\+count@{occurrences\+\_\+count}}
+\index{occurrences\+\_\+count@{occurrences\+\_\+count}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{occurrences\+\_\+count()}{occurrences\_count()}}
+{\footnotesize\ttfamily long irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::occurrences\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_af1e3ff71d96f699e0405bdf30598fede}\label{classirk_1_1v2_1_1inverted__index__view_af1e3ff71d96f699e0405bdf30598fede}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!postings@{postings}}
+\index{postings@{postings}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{postings()}{postings()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::postings (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_ac5232b49a6da53394d0cee20ee7c04e9}\label{classirk_1_1v2_1_1inverted__index__view_ac5232b49a6da53394d0cee20ee7c04e9}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!postings@{postings}}
+\index{postings@{postings}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{postings()}{postings()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily auto irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::postings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_afb4c98e6d2a700089ebec040544116e5}\label{classirk_1_1v2_1_1inverted__index__view_afb4c98e6d2a700089ebec040544116e5}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!scored\+\_\+postings@{scored\+\_\+postings}}
+\index{scored\+\_\+postings@{scored\+\_\+postings}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{scored\+\_\+postings()}{scored\_postings()}}
+{\footnotesize\ttfamily auto irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::scored\+\_\+postings (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a5dc900fb0b8353d0caede65d28e8c66e}\label{classirk_1_1v2_1_1inverted__index__view_a5dc900fb0b8353d0caede65d28e8c66e}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!skip\+\_\+block\+\_\+size@{skip\+\_\+block\+\_\+size}}
+\index{skip\+\_\+block\+\_\+size@{skip\+\_\+block\+\_\+size}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+block\+\_\+size()}{skip\_block\_size()}}
+{\footnotesize\ttfamily int irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::skip\+\_\+block\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_af0ca55da7d671601d894169d2a88693b}\label{classirk_1_1v2_1_1inverted__index__view_af0ca55da7d671601d894169d2a88693b}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!tdf@{tdf}}
+\index{tdf@{tdf}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{tdf()}{tdf()}}
+{\footnotesize\ttfamily long irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::tdf (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a7c84123ec294a4a533331f316a3ba2e3}\label{classirk_1_1v2_1_1inverted__index__view_a7c84123ec294a4a533331f316a3ba2e3}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!term@{term}}
+\index{term@{term}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term()}{term()}}
+{\footnotesize\ttfamily std\+::string irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::term (\begin{DoxyParamCaption}\item[{const long \&}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a4fb0266edc385a4b527198d403f0f976}\label{classirk_1_1v2_1_1inverted__index__view_a4fb0266edc385a4b527198d403f0f976}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!term\+\_\+count@{term\+\_\+count}}
+\index{term\+\_\+count@{term\+\_\+count}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+count()}{term\_count()}}
+{\footnotesize\ttfamily long irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::term\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}\label{classirk_1_1v2_1_1inverted__index__view_aa2dd69651e8d1f90218ff5daabbbe0ab}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!term\+\_\+id@{term\+\_\+id}}
+\index{term\+\_\+id@{term\+\_\+id}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+id()}{term\_id()}}
+{\footnotesize\ttfamily std\+::optional$<$long$>$ irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::term\+\_\+id (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a155b3ff8825b4f000ff51216ef508dea}\label{classirk_1_1v2_1_1inverted__index__view_a155b3ff8825b4f000ff51216ef508dea}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!term\+\_\+occurrences@{term\+\_\+occurrences}}
+\index{term\+\_\+occurrences@{term\+\_\+occurrences}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+occurrences()}{term\_occurrences()}}
+{\footnotesize\ttfamily long irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::term\+\_\+occurrences (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_afa7ed76022fafa732e52043a5ffb7428}\label{classirk_1_1v2_1_1inverted__index__view_afa7ed76022fafa732e52043a5ffb7428}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!term\+\_\+scorer@{term\+\_\+scorer}}
+\index{term\+\_\+scorer@{term\+\_\+scorer}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+scorer()}{term\_scorer()}}
+{\footnotesize\ttfamily template$<$class Scorer $>$ \\
+Scorer irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::term\+\_\+scorer (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a2daebedf75a2ddc8f88c90cd635afe0f}\label{classirk_1_1v2_1_1inverted__index__view_a2daebedf75a2ddc8f88c90cd635afe0f}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!terms@{terms}}
+\index{terms@{terms}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{terms()}{terms()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$long, std\+::vector$<$char$>$ $>$\& irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1v2_1_1inverted__index__view_a192e892479d3199aa534ea8e2b4169b0}\label{classirk_1_1v2_1_1inverted__index__view_a192e892479d3199aa534ea8e2b4169b0}} 
+\index{irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}!titles@{titles}}
+\index{titles@{titles}!irk\+::v2\+::inverted\+\_\+index\+\_\+view@{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{titles()}{titles()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$long, std\+::vector$<$char$>$ $>$\& irk\+::v2\+::inverted\+\_\+index\+\_\+view\+::titles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{index_8hpp}{index.\+hpp}}\end{DoxyCompactItemize}

@@ -18,17 +18,13 @@ using \mbox{\hyperlink{classirk_1_1inverted__index_a549e531087ca14fc58742608cc8f
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1inverted__index_aeac9d91ff26a573b8c6aa7f28918a5d7}{inverted\+\_\+index}} (std\+::vector$<$ \mbox{\hyperlink{classirk_1_1inverted__index_a7a60c2cec1774c08f21e8e27ccb5ac33}{term\+\_\+type}} $>$ terms, std\+::vector$<$ Freq $>$ term\+\_\+dfs, std\+::vector$<$ char $>$ doc\+\_\+ids, \mbox{\hyperlink{classirk_1_1offset__table}{offset\+\_\+table}}$<$$>$ doc\+\_\+ids\+\_\+off, std\+::vector$<$ char $>$ doc\+\_\+counts, \mbox{\hyperlink{classirk_1_1offset__table}{offset\+\_\+table}}$<$$>$ doc\+\_\+counts\+\_\+off, std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classirk_1_1inverted__index_ac3c5100fced55578e115553c8cda9080}{titles}})
+\mbox{\hyperlink{classirk_1_1inverted__index_ac94a8b0156be9f9afb99cb0070cc097b}{inverted\+\_\+index}} (std\+::vector$<$ \mbox{\hyperlink{classirk_1_1inverted__index_a7a60c2cec1774c08f21e8e27ccb5ac33}{term\+\_\+type}} $>$ terms, \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{mapped\+\_\+compact\+\_\+table}}$<$ Freq $>$ term\+\_\+dfs, std\+::vector$<$ char $>$ doc\+\_\+ids, \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}}$<$$>$ doc\+\_\+ids\+\_\+off, std\+::vector$<$ char $>$ doc\+\_\+counts, \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}}$<$$>$ doc\+\_\+counts\+\_\+off, std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classirk_1_1inverted__index_ac3c5100fced55578e115553c8cda9080}{titles}})
 \item 
 \mbox{\hyperlink{classirk_1_1inverted__index_a8b9969577ec0556c38ea05d5cc674fb8}{inverted\+\_\+index}} (fs\+::path dir, bool in\+\_\+memory=true, bool skip\+\_\+term\+\_\+map=false, bool verbose=false)
 \item 
 void \mbox{\hyperlink{classirk_1_1inverted__index_a592cccf4d8b77906e33e90b09f9dec7a}{load\+\_\+properties}} (fs\+::path properties\+\_\+file)
 \item 
-void \mbox{\hyperlink{classirk_1_1inverted__index_a3c9012991057b448f113bad80d344d68}{load\+\_\+term\+\_\+dfs}} (fs\+::path term\+\_\+df\+\_\+file)
-\item 
 void \mbox{\hyperlink{classirk_1_1inverted__index_a0b389492f9ab680e28f801590472069c}{load\+\_\+titles}} (fs\+::path titles\+\_\+file)
-\item 
-void \mbox{\hyperlink{classirk_1_1inverted__index_ad52c3a74f65778de12778dffb3306b62}{load\+\_\+disk\+\_\+term\+\_\+map}} (fs\+::path term\+\_\+map\+\_\+file)
 \item 
 void \mbox{\hyperlink{classirk_1_1inverted__index_af26ea157a030b67feff19878afbacbdd}{load\+\_\+term\+\_\+map}} (fs\+::path term\+\_\+file)
 \item 
@@ -39,6 +35,8 @@ std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1inverted__index_a06e5f0eb312766f
 std\+::vector$<$ char $>$ \mbox{\hyperlink{classirk_1_1inverted__index_a66e54902ec83c229af58f1f6b443ed0d}{load\+\_\+data}} (fs\+::path data\+\_\+file, std\+::size\+\_\+t start, std\+::size\+\_\+t size) const
 \item 
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1inverted__index_a6666e1a0c0facdec6c805abc153a9ea7}{collection\+\_\+size}} () const
+\item 
+{\footnotesize template$<$class Score\+Fn  = score\+::tf\+\_\+idf\+\_\+scorer$>$ }\\auto \mbox{\hyperlink{classirk_1_1inverted__index_ae2401a96c224235b8efb4ca40c580f18}{empty\+\_\+posting\+\_\+range}} () const -\/$>$ \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{dspr}}$<$ \mbox{\hyperlink{structirk_1_1__posting}{\+\_\+posting}}$<$ \mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}}, \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{score\+::score\+\_\+result\+\_\+t}}$<$ Score\+Fn, \mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}}, Freq $>$$>$, Freq, Score\+Fn $>$
 \item 
 {\footnotesize template$<$class Score\+Fn  = score\+::tf\+\_\+idf\+\_\+scorer$>$ }\\auto \mbox{\hyperlink{classirk_1_1inverted__index_ada3586a485b42d220669d319f6b5acc4}{posting\+\_\+ranges}} (const std\+::vector$<$ std\+::string $>$ \&terms, Score\+Fn score\+\_\+fn=\mbox{\hyperlink{structirk_1_1score_1_1tf__idf__scorer}{score\+::tf\+\_\+idf\+\_\+scorer}}\{\}) const -\/$>$ std\+::vector$<$ \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{dspr}}$<$ \mbox{\hyperlink{structirk_1_1__posting}{\+\_\+posting}}$<$ \mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}}, \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{score\+::score\+\_\+result\+\_\+t}}$<$ Score\+Fn, \mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}}, Freq $>$$>$, Freq, Score\+Fn $>$$>$
 \item 
@@ -90,12 +88,12 @@ using \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1inverted__index_aeac9d91ff26a573b8c6aa7f28918a5d7}\label{classirk_1_1inverted__index_aeac9d91ff26a573b8c6aa7f28918a5d7}} 
+\mbox{\Hypertarget{classirk_1_1inverted__index_ac94a8b0156be9f9afb99cb0070cc097b}\label{classirk_1_1inverted__index_ac94a8b0156be9f9afb99cb0070cc097b}} 
 \index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!inverted\+\_\+index@{inverted\+\_\+index}}
 \index{inverted\+\_\+index@{inverted\+\_\+index}!irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}}
 \subsubsection{\texorpdfstring{inverted\+\_\+index()}{inverted\_index()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-\mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1inverted__index}{inverted\+\_\+index}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classirk_1_1inverted__index_a7a60c2cec1774c08f21e8e27ccb5ac33}{term\+\_\+type}} $>$}]{terms,  }\item[{std\+::vector$<$ Freq $>$}]{term\+\_\+dfs,  }\item[{std\+::vector$<$ char $>$}]{doc\+\_\+ids,  }\item[{\mbox{\hyperlink{classirk_1_1offset__table}{offset\+\_\+table}}$<$$>$}]{doc\+\_\+ids\+\_\+off,  }\item[{std\+::vector$<$ char $>$}]{doc\+\_\+counts,  }\item[{\mbox{\hyperlink{classirk_1_1offset__table}{offset\+\_\+table}}$<$$>$}]{doc\+\_\+counts\+\_\+off,  }\item[{std\+::vector$<$ std\+::string $>$}]{titles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1inverted__index}{inverted\+\_\+index}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classirk_1_1inverted__index_a7a60c2cec1774c08f21e8e27ccb5ac33}{term\+\_\+type}} $>$}]{terms,  }\item[{\mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{mapped\+\_\+compact\+\_\+table}}$<$ Freq $>$}]{term\+\_\+dfs,  }\item[{std\+::vector$<$ char $>$}]{doc\+\_\+ids,  }\item[{\mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}}$<$$>$}]{doc\+\_\+ids\+\_\+off,  }\item[{std\+::vector$<$ char $>$}]{doc\+\_\+counts,  }\item[{\mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}}$<$$>$}]{doc\+\_\+counts\+\_\+off,  }\item[{std\+::vector$<$ std\+::string $>$}]{titles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1inverted__index_a8b9969577ec0556c38ea05d5cc674fb8}\label{classirk_1_1inverted__index_a8b9969577ec0556c38ea05d5cc674fb8}} 
 \index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!inverted\+\_\+index@{inverted\+\_\+index}}
@@ -113,6 +111,18 @@ using \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}
 \subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index_ae2401a96c224235b8efb4ca40c580f18}\label{classirk_1_1inverted__index_ae2401a96c224235b8efb4ca40c580f18}} 
+\index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!empty\+\_\+posting\+\_\+range@{empty\+\_\+posting\+\_\+range}}
+\index{empty\+\_\+posting\+\_\+range@{empty\+\_\+posting\+\_\+range}!irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}}
+\subsubsection{\texorpdfstring{empty\+\_\+posting\+\_\+range()}{empty\_posting\_range()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+template$<$class Score\+Fn  = score\+::tf\+\_\+idf\+\_\+scorer$>$ \\
+auto \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::empty\+\_\+posting\+\_\+range (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const -\/$>$ \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{dspr}}$<$\mbox{\hyperlink{structirk_1_1__posting}{\+\_\+posting}}$<$\mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}},
+                    \mbox{\hyperlink{namespaceirk_1_1score_af4a2c84b3548a4ac12aac3862bc94875}{score\+::score\+\_\+result\+\_\+t}}$<$Score\+Fn, \mbox{\hyperlink{classirk_1_1inverted__index_ab708a9d1605de705341f3ed81bd7d5e7}{document\+\_\+type}}, Freq$>$$>$,
+            Freq,
+            Score\+Fn$>$
+    \hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1inverted__index_a06e5f0eb312766fe8ad96c054a9ec310}\label{classirk_1_1inverted__index_a06e5f0eb312766fe8ad96c054a9ec310}} 
 \index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!file\+\_\+size@{file\+\_\+size}}
@@ -135,26 +145,12 @@ void \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
 std\+::vector$<$char$>$ \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+data (\begin{DoxyParamCaption}\item[{fs\+::path}]{data\+\_\+file,  }\item[{std\+::size\+\_\+t}]{start,  }\item[{std\+::size\+\_\+t}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1inverted__index_ad52c3a74f65778de12778dffb3306b62}\label{classirk_1_1inverted__index_ad52c3a74f65778de12778dffb3306b62}} 
-\index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!load\+\_\+disk\+\_\+term\+\_\+map@{load\+\_\+disk\+\_\+term\+\_\+map}}
-\index{load\+\_\+disk\+\_\+term\+\_\+map@{load\+\_\+disk\+\_\+term\+\_\+map}!irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}}
-\subsubsection{\texorpdfstring{load\+\_\+disk\+\_\+term\+\_\+map()}{load\_disk\_term\_map()}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+disk\+\_\+term\+\_\+map (\begin{DoxyParamCaption}\item[{fs\+::path}]{term\+\_\+map\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{classirk_1_1inverted__index_a592cccf4d8b77906e33e90b09f9dec7a}\label{classirk_1_1inverted__index_a592cccf4d8b77906e33e90b09f9dec7a}} 
 \index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!load\+\_\+properties@{load\+\_\+properties}}
 \index{load\+\_\+properties@{load\+\_\+properties}!irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}}
 \subsubsection{\texorpdfstring{load\+\_\+properties()}{load\_properties()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
 void \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+properties (\begin{DoxyParamCaption}\item[{fs\+::path}]{properties\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classirk_1_1inverted__index_a3c9012991057b448f113bad80d344d68}\label{classirk_1_1inverted__index_a3c9012991057b448f113bad80d344d68}} 
-\index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!load\+\_\+term\+\_\+dfs@{load\+\_\+term\+\_\+dfs}}
-\index{load\+\_\+term\+\_\+dfs@{load\+\_\+term\+\_\+dfs}!irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}}
-\subsubsection{\texorpdfstring{load\+\_\+term\+\_\+dfs()}{load\_term\_dfs()}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-void \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index}}$<$ Doc, Term, Term\+Id, Freq $>$\+::load\+\_\+term\+\_\+dfs (\begin{DoxyParamCaption}\item[{fs\+::path}]{term\+\_\+df\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1inverted__index_af26ea157a030b67feff19878afbacbdd}\label{classirk_1_1inverted__index_af26ea157a030b67feff19878afbacbdd}} 
 \index{irk\+::inverted\+\_\+index@{irk\+::inverted\+\_\+index}!load\+\_\+term\+\_\+map@{load\+\_\+term\+\_\+map}}
@@ -244,4 +240,4 @@ const std\+::vector$<$std\+::string$>$\& \mbox{\hyperlink{classirk_1_1inverted__
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-include/irkit/\mbox{\hyperlink{irkit_2index_8hpp}{index.\+hpp}}\end{DoxyCompactItemize}
+include/irkit/\mbox{\hyperlink{index_8hpp}{index.\+hpp}}\end{DoxyCompactItemize}

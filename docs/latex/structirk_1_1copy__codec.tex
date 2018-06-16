@@ -1,0 +1,56 @@
+\hypertarget{structirk_1_1copy__codec}{}\section{irk\+:\+:copy\+\_\+codec$<$ T $>$ Struct Template Reference}
+\label{structirk_1_1copy__codec}\index{irk\+::copy\+\_\+codec$<$ T $>$@{irk\+::copy\+\_\+codec$<$ T $>$}}
+
+
+{\ttfamily \#include $<$copy.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}} = T
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{structirk_1_1copy__codec_a72a66688818ee37592ee6fe5e25ec3cb}{encode}} (\mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}} n, std\+::ostream \&sink) const
+\item 
+std\+::streamsize \mbox{\hyperlink{structirk_1_1copy__codec_ac72b2a5dbfdf57e39f7ed1d12d7bb8f3}{decode}} (std\+::istream \&source, \mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}} \&n) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+struct irk\+::copy\+\_\+codec$<$ T $>$}
+
+A codec that simply copies memory as is, no compression. Mainly for testing purposes. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}\label{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}} 
+\index{irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+using \mbox{\hyperlink{structirk_1_1copy__codec}{irk\+::copy\+\_\+codec}}$<$ T $>$\+::\mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}} =  T}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1copy__codec_ac72b2a5dbfdf57e39f7ed1d12d7bb8f3}\label{structirk_1_1copy__codec_ac72b2a5dbfdf57e39f7ed1d12d7bb8f3}} 
+\index{irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}!decode@{decode}}
+\index{decode@{decode}!irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}}
+\subsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::streamsize \mbox{\hyperlink{structirk_1_1copy__codec}{irk\+::copy\+\_\+codec}}$<$ T $>$\+::decode (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{source,  }\item[{\mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}} \&}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1copy__codec_a72a66688818ee37592ee6fe5e25ec3cb}\label{structirk_1_1copy__codec_a72a66688818ee37592ee6fe5e25ec3cb}} 
+\index{irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}!encode@{encode}}
+\index{encode@{encode}!irk\+::copy\+\_\+codec@{irk\+::copy\+\_\+codec}}
+\subsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::ostream\& \mbox{\hyperlink{structirk_1_1copy__codec}{irk\+::copy\+\_\+codec}}$<$ T $>$\+::encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structirk_1_1copy__codec_a6a94e8da5a0a582eaa667741175a3c05}{value\+\_\+type}}}]{n,  }\item[{std\+::ostream \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/coding/\mbox{\hyperlink{copy_8hpp}{copy.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,152 @@
+\hypertarget{classirk_1_1vector__document__list}{}\section{irk\+:\+:vector\+\_\+document\+\_\+list$<$ T\+Doc $>$ Class Template Reference}
+\label{classirk_1_1vector__document__list}\index{irk\+::vector\+\_\+document\+\_\+list$<$ T\+Doc $>$@{irk\+::vector\+\_\+document\+\_\+list$<$ T\+Doc $>$}}
+
+
+{\ttfamily \#include $<$vector\+\_\+inverted\+\_\+list.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} = T\+Doc
+\item 
+using \mbox{\hyperlink{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}{self\+\_\+type}} = \mbox{\hyperlink{classirk_1_1vector__document__list}{vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} = \mbox{\hyperlink{classirk_1_1vector__block__iterator}{vector\+\_\+block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}{self\+\_\+type}}, true $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1vector__document__list_a91539ec8ebd87cd47957107df90744aa}{const\+\_\+iterator}} = \mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_aee7fc8d2b55075dca80eb883fe5cd0dc}{vector\+\_\+document\+\_\+list}} (std\+::vector$<$ \mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} $>$ vec)
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1vector__document__list_ad7eac494d9c0aa784efaa1a4faa47616}{size}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1vector__document__list_ae6a0a3b41d660778ab8dae0e432a47b1}{block\+\_\+size}} () const
+\item 
+void \mbox{\hyperlink{classirk_1_1vector__document__list_a1e835fe551a310ba89749812b2e9ea1f}{block\+\_\+size}} (\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} block\+\_\+size)
+\item 
+int \mbox{\hyperlink{classirk_1_1vector__document__list_ab2ab2cef0d517240605010570f7765e8}{num\+\_\+blocks}} () const
+\item 
+const \mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1vector__document__list_a005d5854e07f49ade87827544cc88d7f}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t pos) const
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list_a014b3737e63a4472e66ccb90a515f340}{begin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list_adafc0267ab0f84e5240011c96efd9681}{end}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list_af25b19f3edd8c826dea2c2a8523c2772}{lookup}} (\mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} id) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a91539ec8ebd87cd47957107df90744aa}\label{classirk_1_1vector__document__list_a91539ec8ebd87cd47957107df90744aa}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!const\+\_\+iterator@{const\+\_\+iterator}}
+\index{const\+\_\+iterator@{const\+\_\+iterator}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{const\+\_\+iterator}{const\_iterator}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list_a91539ec8ebd87cd47957107df90744aa}{const\+\_\+iterator}} =  \mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}\label{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!iterator@{iterator}}
+\index{iterator@{iterator}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{iterator}{iterator}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} =  \mbox{\hyperlink{classirk_1_1vector__block__iterator}{vector\+\_\+block\+\_\+iterator}}$<$\mbox{\hyperlink{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}{self\+\_\+type}}, true$>$}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}\label{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!self\+\_\+type@{self\+\_\+type}}
+\index{self\+\_\+type@{self\+\_\+type}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{self\+\_\+type}{self\_type}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list_a8c83c7819e9ffcbb4162d3ee9f41d76a}{self\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1vector__document__list}{vector\+\_\+document\+\_\+list}}$<$T\+Doc$>$}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}\label{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!size\+\_\+type@{size\+\_\+type}}
+\index{size\+\_\+type@{size\+\_\+type}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{size\+\_\+type}{size\_type}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} =  long}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}\label{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} =  T\+Doc}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1vector__document__list_aee7fc8d2b55075dca80eb883fe5cd0dc}\label{classirk_1_1vector__document__list_aee7fc8d2b55075dca80eb883fe5cd0dc}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!vector\+\_\+document\+\_\+list@{vector\+\_\+document\+\_\+list}}
+\index{vector\+\_\+document\+\_\+list@{vector\+\_\+document\+\_\+list}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{vector\+\_\+document\+\_\+list()}{vector\_document\_list()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::\mbox{\hyperlink{classirk_1_1vector__document__list}{vector\+\_\+document\+\_\+list}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}} $>$}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a014b3737e63a4472e66ccb90a515f340}\label{classirk_1_1vector__document__list_a014b3737e63a4472e66ccb90a515f340}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!begin@{begin}}
+\index{begin@{begin}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_ae6a0a3b41d660778ab8dae0e432a47b1}\label{classirk_1_1vector__document__list_ae6a0a3b41d660778ab8dae0e432a47b1}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!block\+\_\+size@{block\+\_\+size}}
+\index{block\+\_\+size@{block\+\_\+size}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{block\+\_\+size()}{block\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::block\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a1e835fe551a310ba89749812b2e9ea1f}\label{classirk_1_1vector__document__list_a1e835fe551a310ba89749812b2e9ea1f}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!block\+\_\+size@{block\+\_\+size}}
+\index{block\+\_\+size@{block\+\_\+size}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{block\+\_\+size()}{block\_size()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+void \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::block\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}}}]{block\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_adafc0267ab0f84e5240011c96efd9681}\label{classirk_1_1vector__document__list_adafc0267ab0f84e5240011c96efd9681}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!end@{end}}
+\index{end@{end}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_af25b19f3edd8c826dea2c2a8523c2772}\label{classirk_1_1vector__document__list_af25b19f3edd8c826dea2c2a8523c2772}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!lookup@{lookup}}
+\index{lookup@{lookup}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{lookup()}{lookup()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list_a42499af78a7d66a1b626858cd424600f}{iterator}} \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}}}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_ab2ab2cef0d517240605010570f7765e8}\label{classirk_1_1vector__document__list_ab2ab2cef0d517240605010570f7765e8}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!num\+\_\+blocks@{num\+\_\+blocks}}
+\index{num\+\_\+blocks@{num\+\_\+blocks}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{num\+\_\+blocks()}{num\_blocks()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+int \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::num\+\_\+blocks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_a005d5854e07f49ade87827544cc88d7f}\label{classirk_1_1vector__document__list_a005d5854e07f49ade87827544cc88d7f}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+const \mbox{\hyperlink{classirk_1_1vector__document__list_a0ec9c56f5e12a3a9101b5a18b2fbe69f}{value\+\_\+type}}\& \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1vector__document__list_ad7eac494d9c0aa784efaa1a4faa47616}\label{classirk_1_1vector__document__list_ad7eac494d9c0aa784efaa1a4faa47616}} 
+\index{irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}!size@{size}}
+\index{size@{size}!irk\+::vector\+\_\+document\+\_\+list@{irk\+::vector\+\_\+document\+\_\+list}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class T\+Doc  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1vector__document__list_ac9387bd9f5dc89b638b6295858a9268c}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1vector__document__list}{irk\+::vector\+\_\+document\+\_\+list}}$<$ T\+Doc $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{vector__inverted__list_8hpp}{vector\+\_\+inverted\+\_\+list.\+hpp}}\end{DoxyCompactItemize}

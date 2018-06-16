@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -93,8 +92,10 @@ Classes</h2></td></tr>
 Public Types</h2></td></tr>
 <tr class="memitem:abd23179ac4f02a981d4f47b4c0652287"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> = std::shared_ptr&lt; <a class="el" href="structirk_1_1mutable__bit__trie_1_1node.html">node</a> &gt;</td></tr>
 <tr class="separator:abd23179ac4f02a981d4f47b4c0652287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a5ed79af3e7e28054b00c2284b35612"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a9a5ed79af3e7e28054b00c2284b35612">value_opt</a> = std::optional&lt; Value &gt;</td></tr>
-<tr class="separator:a9a5ed79af3e7e28054b00c2284b35612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398f85c4065b746e6ab10842981a9bf4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a> = Value</td></tr>
+<tr class="separator:a398f85c4065b746e6ab10842981a9bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1b77766d10fe2d02bb2ce01983f153"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a7a1b77766d10fe2d02bb2ce01983f153">value_opt</a> = std::optional&lt; <a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a> &gt;</td></tr>
+<tr class="separator:a7a1b77766d10fe2d02bb2ce01983f153"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,23 +103,26 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6927e834f866c053925d9ddf902774c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25fac71898d72afb04fc581ee5a913e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a25fac71898d72afb04fc581ee5a913e7">mutable_bit_trie</a> (<a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> <a class="el" href="classirk_1_1mutable__bit__trie.html#a82b109eb8816a4ff9093ca5649d13db9">root</a>)</td></tr>
 <tr class="separator:a25fac71898d72afb04fc581ee5a913e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64b9dd3b47cc74e653843cdf0f87db3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a64b9dd3b47cc74e653843cdf0f87db3b">mutable_bit_trie</a> (const <a class="el" href="classirk_1_1mutable__bit__trie.html">mutable_bit_trie</a>&lt; <a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a> &gt; &amp;other)</td></tr>
+<tr class="separator:a64b9dd3b47cc74e653843cdf0f87db3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82b109eb8816a4ff9093ca5649d13db9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a82b109eb8816a4ff9093ca5649d13db9">root</a> () const</td></tr>
 <tr class="separator:a82b109eb8816a4ff9093ca5649d13db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab502e5df64f1e9fd767e2963f210334b"><td class="memTemplParams" colspan="2">template&lt;class  = std::enable_if_t&lt;std::is_same&lt;Value, void&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:ab502e5df64f1e9fd767e2963f210334b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ab502e5df64f1e9fd767e2963f210334b">insert</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded)</td></tr>
-<tr class="separator:ab502e5df64f1e9fd767e2963f210334b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a694f1825422ce94a786bc922baef651d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a694f1825422ce94a786bc922baef651d">insert</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded, Value <a class="el" href="classirk_1_1mutable__bit__trie.html#ad0bb2e18842b722d7deb1a5d4b72b890">value</a>)</td></tr>
+<tr class="memitem:adc61a687ca59be58a5538e4e9f5df0cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#adc61a687ca59be58a5538e4e9f5df0cc">insert</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded)</td></tr>
+<tr class="separator:adc61a687ca59be58a5538e4e9f5df0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694f1825422ce94a786bc922baef651d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a694f1825422ce94a786bc922baef651d">insert</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded, Value <a class="el" href="classirk_1_1mutable__bit__trie.html#ad0bb2e18842b722d7deb1a5d4b72b890">value</a>)</td></tr>
 <tr class="separator:a694f1825422ce94a786bc922baef651d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30d25f61a4f6e7cb8d9ac6f0ff205f97"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a30d25f61a4f6e7cb8d9ac6f0ff205f97">find_or_first_lower</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded) const</td></tr>
+<tr class="memitem:a30d25f61a4f6e7cb8d9ac6f0ff205f97"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#a30d25f61a4f6e7cb8d9ac6f0ff205f97">find_or_first_lower</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded) const</td></tr>
 <tr class="separator:a30d25f61a4f6e7cb8d9ac6f0ff205f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0bd766c6c437fcdcb9612ba9de84510"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::size_t, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#af0bd766c6c437fcdcb9612ba9de84510">find</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded) const</td></tr>
+<tr class="memitem:af0bd766c6c437fcdcb9612ba9de84510"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::size_t, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#af0bd766c6c437fcdcb9612ba9de84510">find</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded) const</td></tr>
 <tr class="separator:af0bd766c6c437fcdcb9612ba9de84510"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab45e17c9d8b88f14654d52e27c092c30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ab45e17c9d8b88f14654d52e27c092c30">contains</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded) const</td></tr>
+<tr class="memitem:ab45e17c9d8b88f14654d52e27c092c30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ab45e17c9d8b88f14654d52e27c092c30">contains</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded) const</td></tr>
 <tr class="separator:ab45e17c9d8b88f14654d52e27c092c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0bb2e18842b722d7deb1a5d4b72b890"><td class="memItemLeft" align="right" valign="top">std::optional&lt; Value &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ad0bb2e18842b722d7deb1a5d4b72b890">value</a> (const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;encoded) const</td></tr>
+<tr class="memitem:ad0bb2e18842b722d7deb1a5d4b72b890"><td class="memItemLeft" align="right" valign="top">std::optional&lt; Value &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ad0bb2e18842b722d7deb1a5d4b72b890">value</a> (const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;encoded) const</td></tr>
 <tr class="separator:ad0bb2e18842b722d7deb1a5d4b72b890"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbfbe73cb98af4bb0375f00229cec50a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#abbfbe73cb98af4bb0375f00229cec50a">empty</a> () const</td></tr>
 <tr class="separator:abbfbe73cb98af4bb0375f00229cec50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97dbb665a28127d1e2a3e0d6fbcae66"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1mutable__bit__trie.html#ac97dbb665a28127d1e2a3e0d6fbcae66">dump</a> (std::ostream &amp;out) const</td></tr>
+<tr class="separator:ac97dbb665a28127d1e2a3e0d6fbcae66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -150,8 +154,8 @@ template&lt;class Value = bool&gt; </div>
 
 </div>
 </div>
-<a id="a9a5ed79af3e7e28054b00c2284b35612"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a5ed79af3e7e28054b00c2284b35612">&#9670;&nbsp;</a></span>value_opt</h2>
+<a id="a7a1b77766d10fe2d02bb2ce01983f153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1b77766d10fe2d02bb2ce01983f153">&#9670;&nbsp;</a></span>value_opt</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +163,23 @@ template&lt;class Value = bool&gt; </div>
 template&lt;class Value = bool&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::<a class="el" href="classirk_1_1mutable__bit__trie.html#a9a5ed79af3e7e28054b00c2284b35612">value_opt</a> =  std::optional&lt;Value&gt;</td>
+          <td class="memname">using <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::<a class="el" href="classirk_1_1mutable__bit__trie.html#a7a1b77766d10fe2d02bb2ce01983f153">value_opt</a> =  std::optional&lt;<a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a398f85c4065b746e6ab10842981a9bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398f85c4065b746e6ab10842981a9bf4">&#9670;&nbsp;</a></span>value_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value = bool&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::<a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a> =  Value</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -168,7 +188,7 @@ template&lt;class Value = bool&gt; </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6927e834f866c053925d9ddf902774c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6927e834f866c053925d9ddf902774c1">&#9670;&nbsp;</a></span>mutable_bit_trie() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6927e834f866c053925d9ddf902774c1">&#9670;&nbsp;</a></span>mutable_bit_trie() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +215,7 @@ template&lt;class Value = bool&gt; </div>
 </div>
 </div>
 <a id="a25fac71898d72afb04fc581ee5a913e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25fac71898d72afb04fc581ee5a913e7">&#9670;&nbsp;</a></span>mutable_bit_trie() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a25fac71898d72afb04fc581ee5a913e7">&#9670;&nbsp;</a></span>mutable_bit_trie() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,6 +230,34 @@ template&lt;class Value = bool&gt; </div>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a>&#160;</td>
           <td class="paramname"><em>root</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64b9dd3b47cc74e653843cdf0f87db3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b9dd3b47cc74e653843cdf0f87db3b">&#9670;&nbsp;</a></span>mutable_bit_trie() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value = bool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::<a class="el" href="classirk_1_1mutable__bit__trie.html">mutable_bit_trie</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classirk_1_1mutable__bit__trie.html">mutable_bit_trie</a>&lt; <a class="el" href="classirk_1_1mutable__bit__trie.html#a398f85c4065b746e6ab10842981a9bf4">value_type</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -237,8 +285,36 @@ template&lt;class Value = bool&gt; </div>
         <tr>
           <td class="memname">bool <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::contains </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac97dbb665a28127d1e2a3e0d6fbcae66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97dbb665a28127d1e2a3e0d6fbcae66">&#9670;&nbsp;</a></span>dump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value = bool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::dump </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -292,7 +368,7 @@ template&lt;class Value = bool&gt; </div>
         <tr>
           <td class="memname">std::pair&lt;std::size_t, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a>&gt; <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::find </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -320,7 +396,7 @@ template&lt;class Value = bool&gt; </div>
         <tr>
           <td class="memname">std::pair&lt;bool, <a class="el" href="classirk_1_1mutable__bit__trie.html#abd23179ac4f02a981d4f47b4c0652287">node_ptr</a>&gt; <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::find_or_first_lower </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -334,15 +410,13 @@ template&lt;class Value = bool&gt; </div>
 
 </div>
 </div>
-<a id="ab502e5df64f1e9fd767e2963f210334b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab502e5df64f1e9fd767e2963f210334b">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
+<a id="adc61a687ca59be58a5538e4e9f5df0cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc61a687ca59be58a5538e4e9f5df0cc">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class Value = bool&gt; </div>
-<div class="memtemplate">
-template&lt;class  = std::enable_if_t&lt;std::is_same&lt;Value, void&gt;::value&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -350,7 +424,7 @@ template&lt;class  = std::enable_if_t&lt;std::is_same&lt;Value, void&gt;::value&
         <tr>
           <td class="memname">bool <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::insert </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em></td><td>)</td>
           <td></td>
         </tr>
@@ -378,7 +452,7 @@ template&lt;class Value = bool&gt; </div>
         <tr>
           <td class="memname">bool <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::insert </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em>, </td>
         </tr>
         <tr>
@@ -443,7 +517,7 @@ template&lt;class Value = bool&gt; </div>
         <tr>
           <td class="memname">std::optional&lt;Value&gt; <a class="el" href="classirk_1_1mutable__bit__trie.html">irk::mutable_bit_trie</a>&lt; Value &gt;::value </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceirk.html#a979e09720c2ef05573819388a3c0e79a">bitword</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceirk.html#a5d1a67079cf6423ecaededebe848f083">bitword</a> &amp;&#160;</td>
           <td class="paramname"><em>encoded</em></td><td>)</td>
           <td> const</td>
         </tr>

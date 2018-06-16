@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRKit: include/index.hpp File Reference</title>
+<title>IRKit: include/irkit/index.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -64,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_e2b1385af50a95c3b479df693b85d63e.html">irkit</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -77,98 +76,99 @@ $(function() {
 <div class="title">index.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;experimental/filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;bitset&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;gsl/gsl_assert&gt;</code><br />
-<code>#include &lt;gsl/span&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
-<code>#include &lt;type_safe/strong_typedef.hpp&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/device/mapped_file.hpp&gt;</code><br />
+<code>#include &lt;gsl/span&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &lt;range/v3/utility/concepts.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="coding_8hpp_source.html">irkit/coding.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="varbyte_8hpp_source.html">irkit/coding/varbyte.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="compacttable_8hpp_source.html">irkit/compacttable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="daat_8hpp_source.html">irkit/daat.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="block__inverted__list_8hpp_source.html">irkit/index/block_inverted_list.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="posting__list_8hpp_source.html">irkit/index/posting_list.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="postingrange_8hpp_source.html">irkit/index/postingrange.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="io_8hpp_source.html">irkit/io.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="memorybuffer_8hpp_source.html">irkit/io/memorybuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="memoryview_8hpp_source.html">irkit/memoryview.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="prefixmap_8hpp_source.html">irkit/prefixmap.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="score_8hpp_source.html">irkit/score.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&gt;</code><br />
 </div>
 <p><a href="index_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1TermId.html">bloodhound::TermId</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1v2_1_1inverted__index__mapped__data__source.html">irk::v2::inverted_index_mapped_data_source</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Offset.html">bloodhound::Offset</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1v2_1_1inverted__index__view.html">irk::v2::inverted_index_view</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1RelativeOffset.html">bloodhound::RelativeOffset</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1index__load__exception.html">irk::index_load_exception</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Score.html">bloodhound::Score</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Doc.html">bloodhound::Doc</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1Posting.html">bloodhound::Posting</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1doc__equal__to.html">bloodhound::doc_equal_to&lt; Posting &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1add__postings.html">bloodhound::add_postings&lt; Posting &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1score__greater.html">bloodhound::score_greater&lt; Posting &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1TermWeight.html">bloodhound::TermWeight</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1PostingList.html">bloodhound::PostingList</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1PostingList_1_1const__iterator.html">bloodhound::PostingList::const_iterator</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1PostingList_1_1iterator.html">bloodhound::PostingList::iterator</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01bloodhound_1_1TermId_01_4.html">std::hash&lt; bloodhound::TermId &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Score_01_4.html">std::hash&lt; bloodhound::Score &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01bloodhound_1_1Doc_01_4.html">std::hash&lt; bloodhound::Doc &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html">bloodhound::index::PostingListHeader</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1index_1_1InMemoryPostingPolicy.html">bloodhound::index::InMemoryPostingPolicy</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbloodhound_1_1index_1_1Index.html">bloodhound::index::Index&lt; PostingPolicy &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1inverted__index.html">irk::inverted_index&lt; Doc, Term, TermId, Freq &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacebloodhound"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html">bloodhound</a></td></tr>
+<tr class="memitem:namespaceirk_1_1index"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html">irk::index</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacestd"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestd.html">std</a></td></tr>
+<tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebloodhound_1_1index"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1index.html">bloodhound::index</a></td></tr>
+<tr class="memitem:namespaceirk_1_1v2"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1v2.html">irk::v2</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae863daa54e3092bd2bc335e70f7a9dd7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#ae863daa54e3092bd2bc335e70f7a9dd7">bloodhound::AccumulatorArray</a> = std::vector&lt; Score &gt;</td></tr>
-<tr class="separator:ae863daa54e3092bd2bc335e70f7a9dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94032a3533df0a1b6d3435bad57e6499"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a94032a3533df0a1b6d3435bad57e6499">bloodhound::Lexicon</a> = std::unordered_map&lt; TermId, Offset &gt;</td></tr>
-<tr class="separator:a94032a3533df0a1b6d3435bad57e6499"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a687d80c6f992eba8b820bf30a482f4b4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a687d80c6f992eba8b820bf30a482f4b4">bloodhound::MaxScores</a> = std::unordered_map&lt; TermId, Score &gt;</td></tr>
-<tr class="separator:a687d80c6f992eba8b820bf30a482f4b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af92c7aae439f59ccae252f027f851c24"><td class="memTemplParams" colspan="2">template&lt;class Posting , class Freq , class Scorer &gt; </td></tr>
+<tr class="memitem:af92c7aae439f59ccae252f027f851c24"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#af92c7aae439f59ccae252f027f851c24">irk::dspr</a> = dynamically_scored_posting_range&lt; Posting, Freq, Scorer &gt;</td></tr>
+<tr class="separator:af92c7aae439f59ccae252f027f851c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ee69596c3b148bdec81164443f37f8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html#af6ee69596c3b148bdec81164443f37f8">irk::default_index</a> = inverted_index&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
+<tr class="separator:af6ee69596c3b148bdec81164443f37f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa37ad87847e4da8983f626e6c5779c73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#aa37ad87847e4da8983f626e6c5779c73">bloodhound::operator==</a> (const Posting &amp;a, const Posting &amp;b)</td></tr>
-<tr class="separator:aa37ad87847e4da8983f626e6c5779c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a683ebe3ff767a829b87a89bade978c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a4a683ebe3ff767a829b87a89bade978c">bloodhound::operator&gt;</a> (const Posting &amp;a, const Posting &amp;b)</td></tr>
-<tr class="separator:a4a683ebe3ff767a829b87a89bade978c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae20cf3f97304dde56dd526eaa08c41dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#ae20cf3f97304dde56dd526eaa08c41dc">bloodhound::operator&lt;</a> (const Posting &amp;a, const Posting &amp;b)</td></tr>
-<tr class="separator:ae20cf3f97304dde56dd526eaa08c41dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ee8a7512bc2dea6326445fa8b7509b2"><td class="memItemLeft" align="right" valign="top">Posting&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a0ee8a7512bc2dea6326445fa8b7509b2">bloodhound::operator*</a> (const Posting &amp;p, Score weight)</td></tr>
-<tr class="separator:a0ee8a7512bc2dea6326445fa8b7509b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1422cc04658f6eb8616381224186059f"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a1422cc04658f6eb8616381224186059f">bloodhound::operator&lt;&lt;</a> (std::ostream &amp;os, const Posting &amp;p)</td></tr>
-<tr class="separator:a1422cc04658f6eb8616381224186059f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b07d73bf298a56b219b270d5fa70b83"><td class="memItemLeft" align="right" valign="top">Posting&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound.html#a0b07d73bf298a56b219b270d5fa70b83">bloodhound::operator+</a> (const Posting &amp;lhs, const Posting &amp;rhs)</td></tr>
-<tr class="separator:a0b07d73bf298a56b219b270d5fa70b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b6f89a17c10bf2927aff24df7081bb3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1index.html#a4b6f89a17c10bf2927aff24df7081bb3">bloodhound::index::read_file</a> (fs::path filepath)</td></tr>
-<tr class="separator:a4b6f89a17c10bf2927aff24df7081bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac508959a4f3ab5ce65d62f1c294359e2"><td class="memItemLeft" align="right" valign="top">Index&lt; InMemoryPostingPolicy &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1index.html#ac508959a4f3ab5ce65d62f1c294359e2">bloodhound::index::build_index_from_ids</a> (const std::vector&lt; std::vector&lt; TermWeight &gt;&gt; &amp;input)</td></tr>
-<tr class="separator:ac508959a4f3ab5ce65d62f1c294359e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a306f62c55e8d06a9703f552f7cf312c5"><td class="memItemLeft" align="right" valign="top">Index&lt; InMemoryPostingPolicy &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebloodhound_1_1index.html#a306f62c55e8d06a9703f552f7cf312c5">bloodhound::index::sorted_index</a> (const Index&lt; InMemoryPostingPolicy &gt; &amp;index)</td></tr>
-<tr class="separator:a306f62c55e8d06a9703f552f7cf312c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5880f03dd72d6ebbae004d2ab83c219e"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a5880f03dd72d6ebbae004d2ab83c219e">irk::index::properties_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a5880f03dd72d6ebbae004d2ab83c219e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1680416c227181a5ab2f0b0169adb11e"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a1680416c227181a5ab2f0b0169adb11e">irk::index::doc_ids_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a1680416c227181a5ab2f0b0169adb11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae22e4280b8fc44a46c81159429bf889"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#aae22e4280b8fc44a46c81159429bf889">irk::index::doc_ids_off_path</a> (fs::path dir)</td></tr>
+<tr class="separator:aae22e4280b8fc44a46c81159429bf889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee9cb8e5de7bc61fdc17458d5b597e04"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#aee9cb8e5de7bc61fdc17458d5b597e04">irk::index::doc_counts_path</a> (fs::path dir)</td></tr>
+<tr class="separator:aee9cb8e5de7bc61fdc17458d5b597e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8f21506f18df93a60b7ff061a800df"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a5f8f21506f18df93a60b7ff061a800df">irk::index::doc_counts_off_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a5f8f21506f18df93a60b7ff061a800df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003bce4c8d885ec3e8ffffd7dc53222f"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a003bce4c8d885ec3e8ffffd7dc53222f">irk::index::terms_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a003bce4c8d885ec3e8ffffd7dc53222f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8e9c3cb825736431f0f63ca2b380da3"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#aa8e9c3cb825736431f0f63ca2b380da3">irk::index::term_map_path</a> (fs::path dir)</td></tr>
+<tr class="separator:aa8e9c3cb825736431f0f63ca2b380da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616162aee34d0fe0460174bab4e8e518"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a616162aee34d0fe0460174bab4e8e518">irk::index::term_doc_freq_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a616162aee34d0fe0460174bab4e8e518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c4aa814da3f9412179fe44a70fdbe94"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a2c4aa814da3f9412179fe44a70fdbe94">irk::index::titles_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a2c4aa814da3f9412179fe44a70fdbe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a276ffa432d29c350840382f2aff86479"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a276ffa432d29c350840382f2aff86479">irk::index::title_map_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a276ffa432d29c350840382f2aff86479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823e8c1206224466802b3cee4c138c8a"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a823e8c1206224466802b3cee4c138c8a">irk::index::doc_sizes_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a823e8c1206224466802b3cee4c138c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cd8d96d17fa744fdcc7cb3321b4dd25"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1index.html#a1cd8d96d17fa744fdcc7cb3321b4dd25">irk::index::term_occurrences_path</a> (fs::path dir)</td></tr>
+<tr class="separator:a1cd8d96d17fa744fdcc7cb3321b4dd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd9312938eb7a79b39c30fe6d56bee4"><td class="memTemplParams" colspan="2">template&lt;class Scorer &gt; </td></tr>
+<tr class="memitem:a7bd9312938eb7a79b39c30fe6d56bee4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1v2.html#a7bd9312938eb7a79b39c30fe6d56bee4">irk::v2::score_index</a> (fs::path dir_path, int bits)</td></tr>
+<tr class="separator:a7bd9312938eb7a79b39c30fe6d56bee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>MIT License </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -46,7 +46,7 @@
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
-#include <irkit/index/list.hpp>
+#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/index/postingrange.hpp>
 #include <irkit/io.hpp>
@@ -209,12 +209,12 @@ inline namespace v2 {
         using size_type = long;
         using score_type = long;
         using offset_table_type =
-            compact_table<long, irk::coding::varbyte_codec<long>, memory_view>;
+            compact_table<long, irk::varbyte_codec<long>, memory_view>;
         using frequency_table_type = compact_table<frequency_type,
-            irk::coding::varbyte_codec<frequency_type>,
+            irk::varbyte_codec<frequency_type>,
             memory_view>;
         using size_table_type =
-            compact_table<long, irk::coding::varbyte_codec<long>, memory_view>;
+            compact_table<long, irk::varbyte_codec<long>, memory_view>;
         using array_stream = boost::iostreams::stream_buffer<
             boost::iostreams::basic_array_source<char>>;
 
@@ -390,9 +390,9 @@ inline namespace v2 {
         fs::path score_offsets_path = dir_path / (name + ".offsets");
         v2::inverted_index_mapped_data_source source(dir_path);
         irk::v2::inverted_index_view index(&source,
-            irk::coding::varbyte_codec<long>{},
-            irk::coding::varbyte_codec<long>{},
-            irk::coding::varbyte_codec<long>{});
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{});
 
         long collection_size = index.collection_size();
         long offset = 0;
@@ -417,7 +417,7 @@ inline namespace v2 {
         {
             offsets.push_back(offset);
             irk::index::block_list_builder<long, false> list_builder(
-                index.skip_block_size(), irk::coding::varbyte_codec<long>{});
+                index.skip_block_size(), irk::varbyte_codec<long>{});
             Scorer scorer = index.term_scorer<Scorer>(term_id);
             for (const auto& posting : index.postings(term_id))
             {
@@ -435,9 +435,6 @@ inline namespace v2 {
 };  // namespace v2
 
 namespace fs = boost::filesystem;
-
-template<class T>
-using varbyte_codec = coding::varbyte_codec<T>;
 
 template<class Posting, class Freq, class Scorer>
 using dspr = dynamically_scored_posting_range<Posting, Freq, Scorer>;
@@ -538,9 +535,9 @@ private:
         auto[offset, range_size] =
             locate(term_id, offset_table, data_container.size());
         return delta
-            ? irk::coding::decode_delta<varbyte_codec<T>>(gsl::span<const char>(
+            ? irk::decode_delta<varbyte_codec<T>>(gsl::span<const char>(
                   data_container.data() + offset, range_size))
-            : irk::coding::decode<varbyte_codec<T>>(gsl::span<const char>(
+            : irk::decode<varbyte_codec<T>>(gsl::span<const char>(
                   data_container.data() + offset, range_size));
     }
 
@@ -646,7 +643,7 @@ public:
     //    enforce_exist(term_df_file);
     //    std::vector<char> data;
     //    load_data(term_df_file, data);
-    //    term_dfs_ = irk::coding::decode<varbyte_codec<Freq>>(data);
+    //    term_dfs_ = irk::decode<varbyte_codec<Freq>>(data);
     //}
     void load_titles(fs::path titles_file)
     {
@@ -787,10 +784,10 @@ public:
                 locate(term_id, doc_ids_off_, doc_ids_size_);
             auto[count_offset, count_range_size] =
                 locate(term_id, doc_counts_off_, doc_counts_size_);
-            docs = irk::coding::decode_delta<varbyte_codec<document_type>>(
+            docs = irk::decode_delta<varbyte_codec<document_type>>(
                 load_data(
                     index::doc_ids_path(dir_), doc_offset, doc_range_size));
-            tfs = irk::coding::decode<varbyte_codec<Freq>>(load_data(
+            tfs = irk::decode<varbyte_codec<Freq>>(load_data(
                 index::doc_counts_path(dir_), count_offset, count_range_size));
         }
         return dspr<Posting, Freq, ScoreFn>(

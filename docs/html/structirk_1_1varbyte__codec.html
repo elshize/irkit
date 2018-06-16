@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRKit: irk::varbyte_codec&lt; T, &gt; Struct Template Reference</title>
+<title>IRKit: irk::varbyte_codec&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -69,83 +68,81 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="structirk_1_1varbyte__codec-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">irk::varbyte_codec&lt; T, &gt; Struct Template Reference</div>  </div>
+<div class="title">irk::varbyte_codec&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Variable-Byte codec.  
+ <a href="structirk_1_1varbyte__codec.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="varbyte_8hpp_source.html">varbyte.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a362fbaf8b27a38eb23a52a85b1af68ac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a> = T</td></tr>
+<tr class="separator:a362fbaf8b27a38eb23a52a85b1af68ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a040800a5446dcd87f19f8cd77dd132df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a040800a5446dcd87f19f8cd77dd132df">append_encoded</a> (T n, std::vector&lt; char &gt; &amp;bytes)</td></tr>
-<tr class="separator:a040800a5446dcd87f19f8cd77dd132df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73f7d831c8114aab1bc8ba1b78cb0bb3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a73f7d831c8114aab1bc8ba1b78cb0bb3">encode</a> (std::initializer_list&lt; T &gt; ints)</td></tr>
-<tr class="separator:a73f7d831c8114aab1bc8ba1b78cb0bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e65117c796984e516769d2d28fd73bf"><td class="memTemplParams" colspan="2">template&lt;class Range , CONCEPT_REQUIRES_(ranges::InputRange&lt; Range &gt;()) &gt; </td></tr>
-<tr class="memitem:a3e65117c796984e516769d2d28fd73bf"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a3e65117c796984e516769d2d28fd73bf">encode</a> (const Range &amp;ints)</td></tr>
-<tr class="separator:a3e65117c796984e516769d2d28fd73bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9bba73adbbd513708a1babc8324239"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a5f9bba73adbbd513708a1babc8324239">delta_encode</a> (const std::vector&lt; T &gt; &amp;ints)</td></tr>
-<tr class="separator:a5f9bba73adbbd513708a1babc8324239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a191f382522d0e711ee40fa3ab6101335"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a191f382522d0e711ee40fa3ab6101335">delta_encode</a> (gsl::span&lt; const T &gt; ints)</td></tr>
-<tr class="separator:a191f382522d0e711ee40fa3ab6101335"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf78b8a557eccd238fd4c3d7f381dd12"><td class="memTemplParams" colspan="2">template&lt;class Range , class TransformFn , CONCEPT_REQUIRES_(ranges::InputRange&lt; Range &gt;()) &gt; </td></tr>
-<tr class="memitem:abf78b8a557eccd238fd4c3d7f381dd12"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#abf78b8a557eccd238fd4c3d7f381dd12">encode</a> (const Range &amp;range, TransformFn fn)</td></tr>
-<tr class="separator:abf78b8a557eccd238fd4c3d7f381dd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3f5abee39693d13a69c2aaa24f8095f"><td class="memTemplParams" colspan="2">template&lt;class Iter , CONCEPT_REQUIRES_(ranges::ForwardIterator&lt; Iter &gt;()) &gt; </td></tr>
-<tr class="memitem:ac3f5abee39693d13a69c2aaa24f8095f"><td class="memTemplItemLeft" align="right" valign="top">Iter&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#ac3f5abee39693d13a69c2aaa24f8095f">append_decoded</a> (Iter it, Iter end, std::vector&lt; T &gt; &amp;ints)</td></tr>
-<tr class="separator:ac3f5abee39693d13a69c2aaa24f8095f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc4fde2f865f909405516b2294cb35c7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#afc4fde2f865f909405516b2294cb35c7">decode</a> (const char *bytes, std::size_t num_values)</td></tr>
-<tr class="separator:afc4fde2f865f909405516b2294cb35c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a404c53206361afe9e8e921a8b5241643"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a404c53206361afe9e8e921a8b5241643">delta_decode</a> (const char *bytes, std::size_t num_values)</td></tr>
-<tr class="separator:a404c53206361afe9e8e921a8b5241643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea37eb3ac306427295ae4ad795efe6d9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#aea37eb3ac306427295ae4ad795efe6d9">decode</a> (gsl::span&lt; const char &gt; bytes)</td></tr>
-<tr class="separator:aea37eb3ac306427295ae4ad795efe6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a416c6640c688c798dc5de3b99c58121d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a416c6640c688c798dc5de3b99c58121d">decode</a> (const std::vector&lt; char &gt; &amp;bytes)</td></tr>
-<tr class="separator:a416c6640c688c798dc5de3b99c58121d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82a9ef022440adbc15f615d25bea3d5f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a82a9ef022440adbc15f615d25bea3d5f">delta_decode</a> (gsl::span&lt; const char &gt; bytes)</td></tr>
-<tr class="separator:a82a9ef022440adbc15f615d25bea3d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7cc0171f9745b29e76fa8de32356067"><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#ad7cc0171f9745b29e76fa8de32356067">delta_decode</a> (const std::vector&lt; char &gt; &amp;bytes)</td></tr>
-<tr class="separator:ad7cc0171f9745b29e76fa8de32356067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d69fd436aa9ea1626ad756cfdb6e88"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#a82d69fd436aa9ea1626ad756cfdb6e88">encode</a> (<a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a> n, std::ostream &amp;sink) const</td></tr>
+<tr class="separator:a82d69fd436aa9ea1626ad756cfdb6e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba60747b7941c1f10d104f1cf0778534"><td class="memItemLeft" align="right" valign="top">std::streamsize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1varbyte__codec.html#aba60747b7941c1f10d104f1cf0778534">decode</a> (std::istream &amp;source, <a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a> &amp;n) const</td></tr>
+<tr class="separator:aba60747b7941c1f10d104f1cf0778534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac3f5abee39693d13a69c2aaa24f8095f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3f5abee39693d13a69c2aaa24f8095f">&#9670;&nbsp;</a></span>append_decoded()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class T&gt;<br />
+struct irk::varbyte_codec&lt; T &gt;</h3>
+
+<p>Variable-Byte codec. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a362fbaf8b27a38eb23a52a85b1af68ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362fbaf8b27a38eb23a52a85b1af68ac">&#9670;&nbsp;</a></span>value_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T &gt;::<a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a> =  T</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aba60747b7941c1f10d104f1cf0778534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba60747b7941c1f10d104f1cf0778534">&#9670;&nbsp;</a></span>decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
 <div class="memtemplate">
-template&lt;class Iter , CONCEPT_REQUIRES_(ranges::ForwardIterator&lt; Iter &gt;()) &gt; </div>
+template&lt;class T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Iter <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::append_decoded </td>
+          <td class="memname">std::streamsize <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T &gt;::decode </td>
           <td>(</td>
-          <td class="paramtype">Iter&#160;</td>
-          <td class="paramname"><em>it</em>, </td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Iter&#160;</td>
-          <td class="paramname"><em>end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ints</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -157,375 +154,33 @@ template&lt;class Iter , CONCEPT_REQUIRES_(ranges::ForwardIterator&lt; Iter &gt;
 
 </div>
 </div>
-<a id="a040800a5446dcd87f19f8cd77dd132df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a040800a5446dcd87f19f8cd77dd132df">&#9670;&nbsp;</a></span>append_encoded()</h2>
+<a id="a82d69fd436aa9ea1626ad756cfdb6e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d69fd436aa9ea1626ad756cfdb6e88">&#9670;&nbsp;</a></span>encode()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
+template&lt;class T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::append_encoded </td>
+          <td class="memname">std::ostream&amp; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T &gt;::encode </td>
           <td>(</td>
-          <td class="paramtype">T&#160;</td>
+          <td class="paramtype"><a class="el" href="structirk_1_1varbyte__codec.html#a362fbaf8b27a38eb23a52a85b1af68ac">value_type</a>&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; char &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bytes</em>&#160;</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>sink</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afc4fde2f865f909405516b2294cb35c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc4fde2f865f909405516b2294cb35c7">&#9670;&nbsp;</a></span>decode() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::decode </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>bytes</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>num_values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aea37eb3ac306427295ae4ad795efe6d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea37eb3ac306427295ae4ad795efe6d9">&#9670;&nbsp;</a></span>decode() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::decode </td>
-          <td>(</td>
-          <td class="paramtype">gsl::span&lt; const char &gt;&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a416c6640c688c798dc5de3b99c58121d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a416c6640c688c798dc5de3b99c58121d">&#9670;&nbsp;</a></span>decode() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::decode </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; char &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a404c53206361afe9e8e921a8b5241643"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a404c53206361afe9e8e921a8b5241643">&#9670;&nbsp;</a></span>delta_decode() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::delta_decode </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>bytes</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>num_values</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a82a9ef022440adbc15f615d25bea3d5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a9ef022440adbc15f615d25bea3d5f">&#9670;&nbsp;</a></span>delta_decode() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::delta_decode </td>
-          <td>(</td>
-          <td class="paramtype">gsl::span&lt; const char &gt;&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7cc0171f9745b29e76fa8de32356067"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7cc0171f9745b29e76fa8de32356067">&#9670;&nbsp;</a></span>delta_decode() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::delta_decode </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; char &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5f9bba73adbbd513708a1babc8324239"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f9bba73adbbd513708a1babc8324239">&#9670;&nbsp;</a></span>delta_encode() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::delta_encode </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ints</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a191f382522d0e711ee40fa3ab6101335"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a191f382522d0e711ee40fa3ab6101335">&#9670;&nbsp;</a></span>delta_encode() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::delta_encode </td>
-          <td>(</td>
-          <td class="paramtype">gsl::span&lt; const T &gt;&#160;</td>
-          <td class="paramname"><em>ints</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a73f7d831c8114aab1bc8ba1b78cb0bb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73f7d831c8114aab1bc8ba1b78cb0bb3">&#9670;&nbsp;</a></span>encode() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::encode </td>
-          <td>(</td>
-          <td class="paramtype">std::initializer_list&lt; T &gt;&#160;</td>
-          <td class="paramname"><em>ints</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3e65117c796984e516769d2d28fd73bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e65117c796984e516769d2d28fd73bf">&#9670;&nbsp;</a></span>encode() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<div class="memtemplate">
-template&lt;class Range , CONCEPT_REQUIRES_(ranges::InputRange&lt; Range &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::encode </td>
-          <td>(</td>
-          <td class="paramtype">const Range &amp;&#160;</td>
-          <td class="paramname"><em>ints</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abf78b8a557eccd238fd4c3d7f381dd12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf78b8a557eccd238fd4c3d7f381dd12">&#9670;&nbsp;</a></span>encode() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T, CONCEPT_REQUIRES_(ranges::Integral&lt; T &gt;()) &gt; </div>
-<div class="memtemplate">
-template&lt;class Range , class TransformFn , CONCEPT_REQUIRES_(ranges::InputRange&lt; Range &gt;()) &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="structirk_1_1varbyte__codec.html">irk::varbyte_codec</a>&lt; T, &gt;::encode </td>
-          <td>(</td>
-          <td class="paramtype">const Range &amp;&#160;</td>
-          <td class="paramname"><em>range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TransformFn&#160;</td>
-          <td class="paramname"><em>fn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>

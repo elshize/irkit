@@ -19,7 +19,9 @@ struct \mbox{\hyperlink{structirk_1_1mutable__bit__trie_1_1node}{node}}
 \item 
 using \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structirk_1_1mutable__bit__trie_1_1node}{node}} $>$
 \item 
-using \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a9a5ed79af3e7e28054b00c2284b35612}{value\+\_\+opt}} = std\+::optional$<$ Value $>$
+using \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}} = Value
+\item 
+using \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a7a1b77766d10fe2d02bb2ce01983f153}{value\+\_\+opt}} = std\+::optional$<$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}} $>$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -28,21 +30,25 @@ using \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a9a5ed79af3e7e28054b00c228
 \item 
 \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a25fac71898d72afb04fc581ee5a913e7}{mutable\+\_\+bit\+\_\+trie}} (\mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a82b109eb8816a4ff9093ca5649d13db9}{root}})
 \item 
+\mbox{\hyperlink{classirk_1_1mutable__bit__trie_a64b9dd3b47cc74e653843cdf0f87db3b}{mutable\+\_\+bit\+\_\+trie}} (const \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}} $>$ \&other)
+\item 
 \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a82b109eb8816a4ff9093ca5649d13db9}{root}} () const
 \item 
-{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+same$<$\+Value, void$>$\+::value$>$$>$ }\\bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ab502e5df64f1e9fd767e2963f210334b}{insert}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded)
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_adc61a687ca59be58a5538e4e9f5df0cc}{insert}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded)
 \item 
-bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a694f1825422ce94a786bc922baef651d}{insert}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded, Value \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ad0bb2e18842b722d7deb1a5d4b72b890}{value}})
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a694f1825422ce94a786bc922baef651d}{insert}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded, Value \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ad0bb2e18842b722d7deb1a5d4b72b890}{value}})
 \item 
-std\+::pair$<$ bool, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a30d25f61a4f6e7cb8d9ac6f0ff205f97}{find\+\_\+or\+\_\+first\+\_\+lower}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded) const
+std\+::pair$<$ bool, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a30d25f61a4f6e7cb8d9ac6f0ff205f97}{find\+\_\+or\+\_\+first\+\_\+lower}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded) const
 \item 
-std\+::pair$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_af0bd766c6c437fcdcb9612ba9de84510}{find}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded) const
+std\+::pair$<$ std\+::size\+\_\+t, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_af0bd766c6c437fcdcb9612ba9de84510}{find}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded) const
 \item 
-bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ab45e17c9d8b88f14654d52e27c092c30}{contains}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded) const
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ab45e17c9d8b88f14654d52e27c092c30}{contains}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded) const
 \item 
-std\+::optional$<$ Value $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ad0bb2e18842b722d7deb1a5d4b72b890}{value}} (const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&encoded) const
+std\+::optional$<$ Value $>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ad0bb2e18842b722d7deb1a5d4b72b890}{value}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&encoded) const
 \item 
 bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abbfbe73cb98af4bb0375f00229cec50a}{empty}} () const
+\item 
+std\+::ostream \& \mbox{\hyperlink{classirk_1_1mutable__bit__trie_ac97dbb665a28127d1e2a3e0d6fbcae66}{dump}} (std\+::ostream \&out) const
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -69,12 +75,19 @@ In particular, this implementation is not conservative when it comes to memory u
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
 using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}} =  std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structirk_1_1mutable__bit__trie_1_1node}{node}}$>$}
 
-\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a9a5ed79af3e7e28054b00c2284b35612}\label{classirk_1_1mutable__bit__trie_a9a5ed79af3e7e28054b00c2284b35612}} 
+\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a7a1b77766d10fe2d02bb2ce01983f153}\label{classirk_1_1mutable__bit__trie_a7a1b77766d10fe2d02bb2ce01983f153}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!value\+\_\+opt@{value\+\_\+opt}}
 \index{value\+\_\+opt@{value\+\_\+opt}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{value\+\_\+opt}{value\_opt}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie_a9a5ed79af3e7e28054b00c2284b35612}{value\+\_\+opt}} =  std\+::optional$<$Value$>$}
+using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie_a7a1b77766d10fe2d02bb2ce01983f153}{value\+\_\+opt}} =  std\+::optional$<$\mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}\label{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}} 
+\index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class Value = bool$>$ \\
+using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}} =  Value}
 
 
 
@@ -82,16 +95,23 @@ using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a6927e834f866c053925d9ddf902774c1}\label{classirk_1_1mutable__bit__trie_a6927e834f866c053925d9ddf902774c1}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}}
 \index{mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
-\subsubsection{\texorpdfstring{mutable\+\_\+bit\+\_\+trie()}{mutable\_bit\_trie()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{\texorpdfstring{mutable\+\_\+bit\+\_\+trie()}{mutable\_bit\_trie()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
 \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a25fac71898d72afb04fc581ee5a913e7}\label{classirk_1_1mutable__bit__trie_a25fac71898d72afb04fc581ee5a913e7}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}}
 \index{mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
-\subsubsection{\texorpdfstring{mutable\+\_\+bit\+\_\+trie()}{mutable\_bit\_trie()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{\texorpdfstring{mutable\+\_\+bit\+\_\+trie()}{mutable\_bit\_trie()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
 \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}}}]{root }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a64b9dd3b47cc74e653843cdf0f87db3b}\label{classirk_1_1mutable__bit__trie_a64b9dd3b47cc74e653843cdf0f87db3b}} 
+\index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}}
+\index{mutable\+\_\+bit\+\_\+trie@{mutable\+\_\+bit\+\_\+trie}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
+\subsubsection{\texorpdfstring{mutable\+\_\+bit\+\_\+trie()}{mutable\_bit\_trie()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Value = bool$>$ \\
+\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie_a398f85c4065b746e6ab10842981a9bf4}{value\+\_\+type}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -101,7 +121,14 @@ using \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+
 \index{contains@{contains}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{contains()}{contains()}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::contains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::contains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_ac97dbb665a28127d1e2a3e0d6fbcae66}\label{classirk_1_1mutable__bit__trie_ac97dbb665a28127d1e2a3e0d6fbcae66}} 
+\index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!dump@{dump}}
+\index{dump@{dump}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily template$<$class Value = bool$>$ \\
+std\+::ostream\& \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::dump (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_abbfbe73cb98af4bb0375f00229cec50a}\label{classirk_1_1mutable__bit__trie_abbfbe73cb98af4bb0375f00229cec50a}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!empty@{empty}}
@@ -115,29 +142,28 @@ bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\
 \index{find@{find}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{find()}{find()}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-std\+::pair$<$std\+::size\+\_\+t, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}}$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::find (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::pair$<$std\+::size\+\_\+t, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}}$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::find (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a30d25f61a4f6e7cb8d9ac6f0ff205f97}\label{classirk_1_1mutable__bit__trie_a30d25f61a4f6e7cb8d9ac6f0ff205f97}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!find\+\_\+or\+\_\+first\+\_\+lower@{find\+\_\+or\+\_\+first\+\_\+lower}}
 \index{find\+\_\+or\+\_\+first\+\_\+lower@{find\+\_\+or\+\_\+first\+\_\+lower}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{find\+\_\+or\+\_\+first\+\_\+lower()}{find\_or\_first\_lower()}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-std\+::pair$<$bool, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}}$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::find\+\_\+or\+\_\+first\+\_\+lower (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::pair$<$bool, \mbox{\hyperlink{classirk_1_1mutable__bit__trie_abd23179ac4f02a981d4f47b4c0652287}{node\+\_\+ptr}}$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::find\+\_\+or\+\_\+first\+\_\+lower (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_ab502e5df64f1e9fd767e2963f210334b}\label{classirk_1_1mutable__bit__trie_ab502e5df64f1e9fd767e2963f210334b}} 
+\mbox{\Hypertarget{classirk_1_1mutable__bit__trie_adc61a687ca59be58a5538e4e9f5df0cc}\label{classirk_1_1mutable__bit__trie_adc61a687ca59be58a5538e4e9f5df0cc}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!insert@{insert}}
 \index{insert@{insert}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+same$<$\+Value, void$>$\+::value$>$$>$ \\
-bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::insert (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::insert (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a694f1825422ce94a786bc922baef651d}\label{classirk_1_1mutable__bit__trie_a694f1825422ce94a786bc922baef651d}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!insert@{insert}}
 \index{insert@{insert}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::insert (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::insert (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded,  }\item[{Value}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1mutable__bit__trie_a82b109eb8816a4ff9093ca5649d13db9}\label{classirk_1_1mutable__bit__trie_a82b109eb8816a4ff9093ca5649d13db9}} 
 \index{irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}!root@{root}}
@@ -151,7 +177,7 @@ bool \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\
 \index{value@{value}!irk\+::mutable\+\_\+bit\+\_\+trie@{irk\+::mutable\+\_\+bit\+\_\+trie}}
 \subsubsection{\texorpdfstring{value()}{value()}}
 {\footnotesize\ttfamily template$<$class Value = bool$>$ \\
-std\+::optional$<$Value$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::optional$<$Value$>$ \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{irk\+::mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$\+::value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{encoded }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

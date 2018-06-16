@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -67,9 +66,10 @@ $(function() {
 &#160;
 
 <h3><a id="index_p"></a>- p -</h3><ul>
-<li>parse()
-: <a class="el" href="classirk_1_1cmd_1_1ArgumentParser.html#aed26f679bf50e0e86789153d6871713f">irk::cmd::ArgumentParser</a>
-, <a class="el" href="classirk_1_1CmdLineProgram.html#aa19c7e41705d5201da87a03037c9303d">irk::CmdLineProgram</a>
+<li>payload()
+: <a class="el" href="classirk_1_1index_1_1block__posting__list__view_1_1iterator.html#a8bf0051cfe9dfef27c3a7a627ad51987">irk::index::block_posting_list_view&lt; Doc, Payload &gt;::iterator&lt; payload_type &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1zipped__payload__list__view_1_1iterator.html#afb5b7b389b5952ff0bdb5eb6e90ea3cd">irk::index::zipped_payload_list_view&lt; Payload &gt;::iterator</a>
+, <a class="el" href="classirk_1_1posting__list__view_1_1posting__view.html#a1cfdff00da3bfc7d42d0a487065ee9e5">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;::posting_view</a>
 </li>
 <li>peek_posting()
 : <a class="el" href="classirk_1_1union__range.html#a634d96d13219c2856a6bedf37cd8f1de">irk::union_range&lt; Range &gt;</a>
@@ -77,20 +77,15 @@ $(function() {
 <li>peek_term()
 : <a class="el" href="classirk_1_1union__range.html#a0b771d0ee6fb2ac3c04be8a2d2d47b33">irk::union_range&lt; Range &gt;</a>
 </li>
-<li>pop()
-: <a class="el" href="classirk_1_1Heap.html#ad4ca0d2503acd1748bb22e19a1be663e">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
+<li>pointer_memory_source()
+: <a class="el" href="classirk_1_1pointer__memory__source.html#a30f9b1ac20116068b5e9daf8597f4f4b">irk::pointer_memory_source&lt; CharT &gt;</a>
 </li>
-<li>pop_push()
-: <a class="el" href="classirk_1_1Heap.html#abea088d8e2a513c571534eaf69ca7b84">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
+<li>pos()
+: <a class="el" href="classirk_1_1index_1_1block__iterator.html#a36dd1b7e5b2b3d3b8865030c239d4ac9">irk::index::block_iterator&lt; ListView, delta_encoded &gt;</a>
+, <a class="el" href="classirk_1_1vector__block__iterator.html#a886fe6a7ba56c67ca63e0a62e756e1fb">irk::vector_block_iterator&lt; ListT, sorted &gt;</a>
 </li>
-<li>post_lists_by_doc()
-: <a class="el" href="classbloodhound_1_1query_1_1DaatRetriever.html#a6c292b0ca9feb30dbdb3a2799a34b3e5">bloodhound::query::DaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>post_lists_by_score()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#aef54f0021473f9b2355b0544a5e20359">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
-</li>
-<li>posting_list()
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a24cadb41178b2cc81cf8f3e32a5dd516">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
+<li>posting_list_view()
+: <a class="el" href="classirk_1_1posting__list__view.html#a2a67139a8790a38cffe1f20323c96bd2">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;</a>
 </li>
 <li>posting_range()
 : <a class="el" href="classirk_1_1inverted__index.html#a95a85fe09dae6dfb47cd7bdfa8ce2a4d">irk::inverted_index&lt; Doc, Term, TermId, Freq &gt;</a>
@@ -98,23 +93,20 @@ $(function() {
 <li>posting_ranges()
 : <a class="el" href="classirk_1_1inverted__index.html#ada3586a485b42d220669d319f6b5acc4">irk::inverted_index&lt; Doc, Term, TermId, Freq &gt;</a>
 </li>
-<li>PostingList()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a725f1df76c8278f1d927fff3ed4c496e">bloodhound::PostingList</a>
+<li>posting_view()
+: <a class="el" href="classirk_1_1posting__list__view_1_1posting__view.html#a7e6dc87b91ce5049bd42142088891e4f">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;::posting_view</a>
 </li>
-<li>PostingListHeader()
-: <a class="el" href="structbloodhound_1_1index_1_1PostingListHeader.html#a9aec6f6c7099b8ea249dc8af709c2125">bloodhound::index::PostingListHeader</a>
+<li>postings()
+: <a class="el" href="classirk_1_1v2_1_1inverted__index__view.html#af1e3ff71d96f699e0405bdf30598fede">irk::v2::inverted_index_view</a>
 </li>
 <li>prefix_map()
-: <a class="el" href="classirk_1_1prefix__map.html#a0fbeb344ad4a076d200023a9fc72d359">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a>
+: <a class="el" href="classirk_1_1prefix__map.html#a0460c33c17f3182b9db49b45bc366069">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a>
+</li>
+<li>properties_view()
+: <a class="el" href="classirk_1_1v2_1_1inverted__index__mapped__data__source.html#abde799ba197589e717e549d9b0d528ff">irk::v2::inverted_index_mapped_data_source</a>
 </li>
 <li>ptr()
 : <a class="el" href="structirk_1_1alphabetical__bst_1_1node.html#a9ec39a805a09afaf00b9bdb21ec5cb82">irk::alphabetical_bst&lt; Symbol, Ptr, MemoryContainer &gt;::node</a>
-</li>
-<li>push()
-: <a class="el" href="classirk_1_1Heap.html#aea9e1721c784b5d6c337e8792bd25676">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
-</li>
-<li>push_with_limit()
-: <a class="el" href="classirk_1_1Heap.html#a0ccdd3050451a474e371c4e713b6b0d3">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

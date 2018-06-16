@@ -11,6 +11,6 @@ var searchData=
   ['a_5f7',['a_7',['../porter2_8hpp.html#a2d4d75352fc3051c11e259ce5863d690',1,'porter2.hpp']]],
   ['a_5f8',['a_8',['../porter2_8hpp.html#afe627dd6260123e44415d1e7e50cbbdf',1,'porter2.hpp']]],
   ['a_5f9',['a_9',['../porter2_8hpp.html#aaafd7dad94e512976234ab05c14a289a',1,'porter2.hpp']]],
-  ['accumulator_5farray',['accumulator_array',['../classbloodhound_1_1query_1_1TaatRetriever.html#a604c7ab279ced03ccc1866d55c844b11',1,'bloodhound::query::TaatRetriever']]],
-  ['available_5fbits_5f',['available_bits_',['../classirk_1_1output__bit__stream.html#ab89e5dcaca9a946970ae9e743c0d132e',1,'irk::output_bit_stream']]]
+  ['available_5fbits_5f',['available_bits_',['../classirk_1_1output__bit__stream.html#ab89e5dcaca9a946970ae9e743c0d132e',1,'irk::output_bit_stream']]],
+  ['available_5fscorers',['available_scorers',['../structvalid__scoring__function.html#a0beb8d648a26285eeb98019828b90ed1',1,'valid_scoring_function']]]
 ];

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['g_5fv',['g_v',['../porter2_8hpp.html#aec923b2b45d0f8f61ac4a6098d08ec92',1,'porter2.hpp']]],
-  ['g_5fv_5fwxy',['g_v_WXY',['../porter2_8hpp.html#a8ba4ef0bc196f06312762b2368b1a96c',1,'porter2.hpp']]],
-  ['g_5fvalid_5fli',['g_valid_LI',['../porter2_8hpp.html#a870a3525139e7c76422c43fc4fb9cf57',1,'porter2.hpp']]]
+  ['heap_5f',['heap_',['../classirk_1_1union__range.html#a7f29027760890cf7491bb10753f36b61',1,'irk::union_range']]]
 ];

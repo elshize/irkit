@@ -373,11 +373,11 @@ public:
             });
         std::size_t size = mapping.size();
         out.write(reinterpret_cast<char*>(&size), sizeof(size));
-        coding::varbyte_codec<value_type> value_codec;
-        coding::varbyte_codec<std::size_t> size_codec;
+        varbyte_codec<value_type> value_codec;
+        varbyte_codec<std::size_t> size_codec;
         for (const auto & [bits, val] : mapping) {
             value_codec.encode(val, out);
-            coding::encode_bits(bits, out, size_codec);
+            encode_bits(bits, out, size_codec);
         }
         return out;
     }
@@ -398,14 +398,14 @@ mutable_bit_trie<Value> load_mutable_bit_trie(std::istream& in)
 {
     mutable_bit_trie<Value> mbt;
     std::vector<std::pair<bitword, Value>> mapping;
-    coding::varbyte_codec<Value> value_codec;
-    coding::varbyte_codec<std::size_t> size_codec;
+    varbyte_codec<Value> value_codec;
+    varbyte_codec<std::size_t> size_codec;
     std::size_t size;
     in.read(reinterpret_cast<char*>(&size), sizeof(size));
     for (std::size_t idx = 0; idx < size; ++idx) {
         Value v;
         value_codec.decode(in, v);
-        auto bits = coding::decode_bits(in, size_codec);
+        auto bits = decode_bits(in, size_codec);
         mbt.insert(bits, v);
     }
     return mbt;

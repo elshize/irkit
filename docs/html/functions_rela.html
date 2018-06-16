@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -65,38 +64,33 @@ $(function() {
 
 <div class="contents">
 &#160;<ul>
-<li>ArgumentParser
-: <a class="el" href="classirk_1_1cmd_1_1Argument.html#a55c9e1ac006a645af402e3aee6b64e00">irk::cmd::Argument</a>
-, <a class="el" href="classirk_1_1cmd_1_1ArgumentMap.html#a55c9e1ac006a645af402e3aee6b64e00">irk::cmd::ArgumentMap</a>
-, <a class="el" href="classirk_1_1cmd_1_1Flag.html#a55c9e1ac006a645af402e3aee6b64e00">irk::cmd::Flag</a>
-, <a class="el" href="classirk_1_1cmd_1_1Option.html#a55c9e1ac006a645af402e3aee6b64e00">irk::cmd::Option</a>
+<li>block_iterator&lt; self_type, false &gt;
+: <a class="el" href="classirk_1_1index_1_1block__payload__list__view.html#a88a9a271d334c6a1ee36182f15227581">irk::index::block_payload_list_view&lt; Payload &gt;</a>
 </li>
-<li>build_index_from_ids
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#a0343a97c005a2df437a955c308d376e6">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
+<li>block_iterator&lt; self_type, true &gt;
+: <a class="el" href="classirk_1_1index_1_1block__document__list__view.html#a9e9d706e71ebb8b3d20137fb0121c8bd">irk::index::block_document_list_view&lt; Doc &gt;</a>
 </li>
-<li>ByNameHash&lt; Argument &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Argument.html#a6821014d75c5475d97122c1be09079d8">irk::cmd::Argument</a>
+<li>boost::iterator_core_access
+: <a class="el" href="classirk_1_1index_1_1block__iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::block_iterator&lt; ListView, delta_encoded &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__posting__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::block_posting_list_view&lt; Doc, Payload &gt;::iterator&lt; payload_type &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1zipped__payload__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::index::zipped_payload_list_view&lt; Payload &gt;::iterator</a>
+, <a class="el" href="classirk_1_1memory__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::memory_view::iterator</a>
+, <a class="el" href="classirk_1_1posting__list__view_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;::iterator</a>
+, <a class="el" href="classirk_1_1prefix__map_1_1iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::iterator</a>
+, <a class="el" href="classirk_1_1vector__block__iterator.html#ac09f73e325921cc50ebcd96bed0f8096">irk::vector_block_iterator&lt; ListT, sorted &gt;</a>
 </li>
-<li>ByNameHash&lt; Flag &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Flag.html#ac108a43e1fe1a47dcdb8a9d1fd59ec0e">irk::cmd::Flag</a>
-</li>
-<li>ByNameHash&lt; Option &gt;
-: <a class="el" href="classirk_1_1cmd_1_1Option.html#a0066c7e9ad41107a46c66ace788ced49">irk::cmd::Option</a>
-</li>
-<li>operator+
-: <a class="el" href="structbloodhound_1_1Offset.html#aaed86d39530be98502fa1560b323d07b">bloodhound::Offset</a>
-, <a class="el" href="structbloodhound_1_1RelativeOffset.html#aef76589aeb04376cde5936475652ceda">bloodhound::RelativeOffset</a>
+<li>operator!=
+: <a class="el" href="structirk_1_1index_1_1skip__list__view_1_1const__iterator.html#a6d10ed131252173e51fcf80bcdabeb72">irk::index::skip_list_view&lt; Skip, element_size, CastFn &gt;::const_iterator</a>
 </li>
 <li>operator&lt;&lt;
-: <a class="el" href="classirk_1_1compact__table.html#aabbde77b5cb5faeef5fe72eff9624aa5">irk::compact_table&lt; T, Codec &gt;</a>
-, <a class="el" href="structirk_1_1Entry.html#a885f1645de32df3dbfbf9f2f47f7ea1f">irk::Entry&lt; Key, Value &gt;</a>
+: <a class="el" href="classirk_1_1compact__table.html#aabbde77b5cb5faeef5fe72eff9624aa5">irk::compact_table&lt; T, Codec, MemoryBuffer &gt;</a>
 , <a class="el" href="classirk_1_1mutable__bit__trie.html#a91e672d5695fe80b17bbfd474d593ec2">irk::mutable_bit_trie&lt; Value &gt;</a>
+</li>
+<li>operator==
+: <a class="el" href="structirk_1_1index_1_1skip__list__view_1_1const__iterator.html#a665f31dd0863021bd6b740d244346aeb">irk::index::skip_list_view&lt; Skip, element_size, CastFn &gt;::const_iterator</a>
 </li>
 <li>read_warc_record
 : <a class="el" href="classirkit_1_1io_1_1warc__record.html#a3ffe8b4b7fc8c809d6ce483d2272f7a3">irkit::io::warc_record</a>
-</li>
-<li>sorted_index
-: <a class="el" href="classbloodhound_1_1index_1_1Index.html#aad81f0929f0b03479f3361a23d96573b">bloodhound::index::Index&lt; PostingPolicy &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

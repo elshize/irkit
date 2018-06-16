@@ -1,0 +1,114 @@
+\hypertarget{classirk_1_1index_1_1block__view}{}\section{irk\+:\+:index\+:\+:block\+\_\+view$<$ T $>$ Class Template Reference}
+\label{classirk_1_1index_1_1block__view}\index{irk\+::index\+::block\+\_\+view$<$ T $>$@{irk\+::index\+::block\+\_\+view$<$ T $>$}}
+
+
+{\ttfamily \#include $<$block.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__view_ad79674ad64c94861b74dd15e603c0f8b}{value\+\_\+type}} = T
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__view_af24362772032fb0ab7364162e0611483}{char\+\_\+type}} = char
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__view_ac42c1a26fd05c0f53f91cc51cc090e75}{block\+\_\+view}} (T last\+\_\+value, \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} memory)
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__view_aebe22ab369a7a62a205f2b3e4196cc3d}{block\+\_\+view}} (\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} memory)
+\item 
+const \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__view_a90c3c66aad54b62b4378b4a653fb4260}{data}} () const
+\begin{DoxyCompactList}\small\item\em Returns the underlying memory view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$supports\+\_\+skips$>$$>$ }\\const T \& \mbox{\hyperlink{classirk_1_1index_1_1block__view_a88f00828b2dd384cb925022a3333fdf7}{back}} () const
+\begin{DoxyCompactList}\small\item\em Returns the last value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T = std\+::nullopt\+\_\+t$>$\newline
+class irk\+::index\+::block\+\_\+view$<$ T $>$}
+
+A view to an encoded block in an inverted index.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & the type of values encoded in the block \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_af24362772032fb0ab7364162e0611483}\label{classirk_1_1index_1_1block__view_af24362772032fb0ab7364162e0611483}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!char\+\_\+type@{char\+\_\+type}}
+\index{char\+\_\+type@{char\+\_\+type}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{char\+\_\+type}{char\_type}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__view_af24362772032fb0ab7364162e0611483}{char\+\_\+type}} =  char}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_ad79674ad64c94861b74dd15e603c0f8b}\label{classirk_1_1index_1_1block__view_ad79674ad64c94861b74dd15e603c0f8b}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__view_ad79674ad64c94861b74dd15e603c0f8b}{value\+\_\+type}} =  T}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_ac42c1a26fd05c0f53f91cc51cc090e75}\label{classirk_1_1index_1_1block__view_ac42c1a26fd05c0f53f91cc51cc090e75}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!block\+\_\+view@{block\+\_\+view}}
+\index{block\+\_\+view@{block\+\_\+view}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{block\+\_\+view()}{block\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__view}{block\+\_\+view}} (\begin{DoxyParamCaption}\item[{T}]{last\+\_\+value,  }\item[{\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}}]{memory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs a block view {\bfseries with} its last value to support skips. 
+\begin{DoxyParams}{Parameters}
+{\em last\+\_\+value} & last value of the block \\
+\hline
+{\em memory} & underlying memory \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_aebe22ab369a7a62a205f2b3e4196cc3d}\label{classirk_1_1index_1_1block__view_aebe22ab369a7a62a205f2b3e4196cc3d}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!block\+\_\+view@{block\+\_\+view}}
+\index{block\+\_\+view@{block\+\_\+view}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{block\+\_\+view()}{block\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__view}{block\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}}]{memory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs a block view {\bfseries without} its last value (no skips supported). 
+\begin{DoxyParams}{Parameters}
+{\em memory} & underlying memory \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_a88f00828b2dd384cb925022a3333fdf7}\label{classirk_1_1index_1_1block__view_a88f00828b2dd384cb925022a3333fdf7}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!back@{back}}
+\index{back@{back}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{back()}{back()}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$supports\+\_\+skips$>$$>$ \\
+const T\& \mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the last value. 
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__view_a90c3c66aad54b62b4378b4a653fb4260}\label{classirk_1_1index_1_1block__view_a90c3c66aad54b62b4378b4a653fb4260}} 
+\index{irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}!data@{data}}
+\index{data@{data}!irk\+::index\+::block\+\_\+view@{irk\+::index\+::block\+\_\+view}}
+\subsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily template$<$class T  = std\+::nullopt\+\_\+t$>$ \\
+const \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}\& \mbox{\hyperlink{classirk_1_1index_1_1block__view}{irk\+::index\+::block\+\_\+view}}$<$ T $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the underlying memory view. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{block_8hpp}{block.\+hpp}}\end{DoxyCompactItemize}

@@ -120,8 +120,8 @@ TEST(inverted_index, build_load_verify)
         fs::path(index_dir),
         32,
         1024,
-        irk::coding::varbyte_codec<long>{},
-        irk::coding::varbyte_codec<long>{});
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{});
 
     std::ifstream input(collection_file);
     assembler.assemble(input);
@@ -131,9 +131,9 @@ TEST(inverted_index, build_load_verify)
     auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
         index_dir, irk::score::query_likelihood_tag{});
     irk::v2::inverted_index_view index_view(data.get(),
-        irk::coding::varbyte_codec<long>{},
-        irk::coding::varbyte_codec<long>{},
-        irk::coding::varbyte_codec<long>{});
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{});
 
     ASSERT_EQ(index_view.collection_size(), 100);
     ASSERT_EQ(index_view.occurrences_count(), expected_index.collection_occurrences);

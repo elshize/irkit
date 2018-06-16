@@ -20,11 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file coding.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//!
+//! \file
+//! \author      Michal Siedlaczek
+//! \copyright   MIT License
 
 #pragma once
+
+#include <iostream>
 
 #include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
@@ -37,10 +40,10 @@
 #include <boost/type_erasure/builtin.hpp>
 #include <boost/type_erasure/concept_interface.hpp>
 #include <boost/type_erasure/rebind_any.hpp>
-#include <iostream>
-#include "irkit/bitptr.hpp"
-#include "irkit/concepts.hpp"
-#include "irkit/types.hpp"
+
+#include <irkit/bitptr.hpp>
+#include <irkit/concepts.hpp>
+#include <irkit/types.hpp>
 
 namespace irk {
 
@@ -102,7 +105,7 @@ using any_codec = boost::type_erasure::any<boost::mpl::vector<has_encode<S, T>,
 };  // namespace irk
 
 //! Codecs and coding utilities.
-namespace irk::coding {
+namespace irk {
 
 //! Encodes a range of integer values to an output stream.
 /*!
@@ -519,4 +522,4 @@ bitword decode_bits(std::istream& in, const SizeCodec& size_codec = SizeCodec())
     return bits;
 }
 
-};  // namespace irk::coding
+};  // namespace irk

@@ -58,8 +58,8 @@ int main(int argc, char** argv)
     irk::index::default_index_assembler assembler(fs::path(output_dir),
         batch_size,
         skip_block_size,
-        irk::coding::varbyte_codec<long>{},
-        irk::coding::varbyte_codec<long>{});
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{});
     assembler.assemble(std::cin);
     return 0;
 }

@@ -9,41 +9,58 @@ A B\+M25 scorer.
 
 {\ttfamily \#include $<$score.\+hpp$>$}
 
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}{tag\+\_\+type}} = \mbox{\hyperlink{structirk_1_1score_1_1bm25__tag}{bm25\+\_\+tag}}
+\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}{bm25\+\_\+scorer}} (double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}{k1}}=1.\+2, double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}{b}}=0.\+5)
+\mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab9150dc6a3574f9e5b67c5b0637fee26}{bm25\+\_\+scorer}} (long term\+\_\+document\+\_\+count, long collection\+\_\+document\+\_\+count, double avg\+\_\+document\+\_\+size, double k1=1.\+2, double b=0.\+5)
 \item 
-{\footnotesize template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ }\\Freq \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}{operator()}} (Freq tf, Freq df, std\+::size\+\_\+t N) const
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab0a6fe27959c307bbc3288b0b92f9361}{operator()}} (long tf, long document\+\_\+size) const
 \begin{DoxyCompactList}\small\item\em Returns the B\+M25 score. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}{k1}}
+\mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}{tag\+\_\+type}} \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_a2dd5b1c82f311ec4a02446de5f4dc2bd}{scoring\+\_\+tag}}
 \item 
-double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}{b}}
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ae9c6a79715c86d4fbd91651b36f0b2a3}{x}}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_a2a76be6700391b2b1309d03abd845975}{y}}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_abb7948471b6e6e960b49d184f717f683}{z}}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 A B\+M25 scorer. 
 
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}\label{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!tag\+\_\+type@{tag\+\_\+type}}
+\index{tag\+\_\+type@{tag\+\_\+type}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{tag\+\_\+type}{tag\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}{irk\+::score\+::bm25\+\_\+scorer\+::tag\+\_\+type}} =  \mbox{\hyperlink{structirk_1_1score_1_1bm25__tag}{bm25\+\_\+tag}}}
+
+
+
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}\label{structirk_1_1score_1_1bm25__scorer_a8ba7a12182356ea58d5d1b5f279cf58a}} 
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ab9150dc6a3574f9e5b67c5b0637fee26}\label{structirk_1_1score_1_1bm25__scorer_ab9150dc6a3574f9e5b67c5b0637fee26}} 
 \index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!bm25\+\_\+scorer@{bm25\+\_\+scorer}}
 \index{bm25\+\_\+scorer@{bm25\+\_\+scorer}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
 \subsubsection{\texorpdfstring{bm25\+\_\+scorer()}{bm25\_scorer()}}
-{\footnotesize\ttfamily irk\+::score\+::bm25\+\_\+scorer\+::bm25\+\_\+scorer (\begin{DoxyParamCaption}\item[{double}]{k1 = {\ttfamily 1.2},  }\item[{double}]{b = {\ttfamily 0.5} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily irk\+::score\+::bm25\+\_\+scorer\+::bm25\+\_\+scorer (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+document\+\_\+count,  }\item[{long}]{collection\+\_\+document\+\_\+count,  }\item[{double}]{avg\+\_\+document\+\_\+size,  }\item[{double}]{k1 = {\ttfamily 1.2},  }\item[{double}]{b = {\ttfamily 0.5} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}\label{structirk_1_1score_1_1bm25__scorer_aa82755eac7a52ec53f578cff81170422}} 
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ab0a6fe27959c307bbc3288b0b92f9361}\label{structirk_1_1score_1_1bm25__scorer_ab0a6fe27959c307bbc3288b0b92f9361}} 
 \index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!operator()@{operator()}}
 \index{operator()@{operator()}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
 \subsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily template$<$class Freq , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ Freq $>$()) $>$ \\
-Freq irk\+::score\+::bm25\+\_\+scorer\+::operator() (\begin{DoxyParamCaption}\item[{Freq}]{tf,  }\item[{Freq}]{df,  }\item[{std\+::size\+\_\+t}]{N }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::operator() (\begin{DoxyParamCaption}\item[{long}]{tf,  }\item[{long}]{document\+\_\+size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -52,17 +69,29 @@ Returns the B\+M25 score.
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}\label{structirk_1_1score_1_1bm25__scorer_adbc316be2c46daf96501ec1f79c96e73}} 
-\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!b@{b}}
-\index{b@{b}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
-\subsubsection{\texorpdfstring{b}{b}}
-{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::b}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_a2dd5b1c82f311ec4a02446de5f4dc2bd}\label{structirk_1_1score_1_1bm25__scorer_a2dd5b1c82f311ec4a02446de5f4dc2bd}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!scoring\+\_\+tag@{scoring\+\_\+tag}}
+\index{scoring\+\_\+tag@{scoring\+\_\+tag}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{scoring\+\_\+tag}{scoring\_tag}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structirk_1_1score_1_1bm25__scorer_ab99e02fc9ede9441ad9ee7a99077a720}{tag\+\_\+type}} irk\+::score\+::bm25\+\_\+scorer\+::scoring\+\_\+tag}
 
-\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}\label{structirk_1_1score_1_1bm25__scorer_ad39731decbddbe8d09c3094e75938f4e}} 
-\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!k1@{k1}}
-\index{k1@{k1}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
-\subsubsection{\texorpdfstring{k1}{k1}}
-{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::k1}
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_ae9c6a79715c86d4fbd91651b36f0b2a3}\label{structirk_1_1score_1_1bm25__scorer_ae9c6a79715c86d4fbd91651b36f0b2a3}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!x@{x}}
+\index{x@{x}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::x}
+
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_a2a76be6700391b2b1309d03abd845975}\label{structirk_1_1score_1_1bm25__scorer_a2a76be6700391b2b1309d03abd845975}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!y@{y}}
+\index{y@{y}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::y}
+
+\mbox{\Hypertarget{structirk_1_1score_1_1bm25__scorer_abb7948471b6e6e960b49d184f717f683}\label{structirk_1_1score_1_1bm25__scorer_abb7948471b6e6e960b49d184f717f683}} 
+\index{irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}!z@{z}}
+\index{z@{z}!irk\+::score\+::bm25\+\_\+scorer@{irk\+::score\+::bm25\+\_\+scorer}}
+\subsubsection{\texorpdfstring{z}{z}}
+{\footnotesize\ttfamily double irk\+::score\+::bm25\+\_\+scorer\+::z}
 
 
 

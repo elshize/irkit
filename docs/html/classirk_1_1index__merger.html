@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -90,19 +89,25 @@ Public Types</h2></td></tr>
 <tr class="separator:a3731db86b5c514a2dd44555c07abe58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cb409ab2e737118969206ee9b27d147"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a> = Freq</td></tr>
 <tr class="separator:a6cb409ab2e737118969206ee9b27d147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad218976b86b988db7a72b81f67d352b4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#ad218976b86b988db7a72b81f67d352b4">index_type</a> = <a class="el" href="classirk_1_1inverted__index.html">inverted_index</a>&lt; <a class="el" href="classirk_1_1index__merger.html#ace9b689f5d38f6aeed3ce16f0f1bd260">document_type</a>, <a class="el" href="classirk_1_1index__merger.html#a2b76203064ec60dc3b0fa662fd8aa3f0">term_type</a>, <a class="el" href="classirk_1_1index__merger.html#a3731db86b5c514a2dd44555c07abe58e">term_id_type</a>, <a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a> &gt;</td></tr>
-<tr class="separator:ad218976b86b988db7a72b81f67d352b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf6f9a6e9b338abc526274e3ba7407c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a1bf6f9a6e9b338abc526274e3ba7407c">index_type</a> = <a class="el" href="classirk_1_1v2_1_1inverted__index__view.html">v2::inverted_index_view</a></td></tr>
+<tr class="separator:a1bf6f9a6e9b338abc526274e3ba7407c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af76fffe4b1bc16a692b87f07ff046aaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#af76fffe4b1bc16a692b87f07ff046aaa">index_merger</a> (fs::path target_dir, std::vector&lt; fs::path &gt; indices, bool skip_unique=false)</td></tr>
-<tr class="separator:af76fffe4b1bc16a692b87f07ff046aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a285409fbb9e208ac3ad05076308e2826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a285409fbb9e208ac3ad05076308e2826">merge_term</a> (std::vector&lt; entry &gt; &amp;indices)</td></tr>
-<tr class="separator:a285409fbb9e208ac3ad05076308e2826"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7109f40e5fc0213d5c72cd3eda9ccaa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a7109f40e5fc0213d5c72cd3eda9ccaa5">merge_terms</a> ()</td></tr>
-<tr class="separator:a7109f40e5fc0213d5c72cd3eda9ccaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd636b1ba913662b7b917c505715696e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#abd636b1ba913662b7b917c505715696e">index_merger</a> (fs::path target_dir, std::vector&lt; fs::path &gt; indices, <a class="el" href="namespaceirk.html#a831a3a869cf19601dbfb5c41765a2e87">any_codec</a>&lt; <a class="el" href="classirk_1_1index__merger.html#ace9b689f5d38f6aeed3ce16f0f1bd260">document_type</a> &gt; document_codec, <a class="el" href="namespaceirk.html#a831a3a869cf19601dbfb5c41765a2e87">any_codec</a>&lt; <a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a> &gt; frequency_codec, long block_size, bool skip_unique=false)</td></tr>
+<tr class="separator:abd636b1ba913662b7b917c505715696e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83813154e14e7f558e93b657695de11a"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a83813154e14e7f558e93b657695de11a">merge_term</a> (std::vector&lt; entry &gt; &amp;indices)</td></tr>
+<tr class="separator:a83813154e14e7f558e93b657695de11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ad47aefaad1a6f1d04ba904a672c0e5"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a7ad47aefaad1a6f1d04ba904a672c0e5">merge_terms</a> ()</td></tr>
+<tr class="separator:a7ad47aefaad1a6f1d04ba904a672c0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82a8c5def4100f2cd1be63a037a3a570"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a82a8c5def4100f2cd1be63a037a3a570">merge_titles</a> ()</td></tr>
 <tr class="separator:a82a8c5def4100f2cd1be63a037a3a570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a215f38c50ba34e627ae54ec4f5caf52a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; long, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a215f38c50ba34e627ae54ec4f5caf52a">merge_sizes</a> ()</td></tr>
+<tr class="separator:a215f38c50ba34e627ae54ec4f5caf52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22098d0868dcb779ce43540a60b724ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a22098d0868dcb779ce43540a60b724ab">write_properties</a> (long documents, long occurrences, double avg_doc_size)</td></tr>
+<tr class="separator:a22098d0868dcb779ce43540a60b724ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a500ccb6d5fb8106183dc94abf6d64a5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1index__merger.html#a500ccb6d5fb8106183dc94abf6d64a5f">merge</a> ()</td></tr>
+<tr class="separator:a500ccb6d5fb8106183dc94abf6d64a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ace9b689f5d38f6aeed3ce16f0f1bd260"></a>
@@ -111,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#ace9b689f5d38f6aeed3ce16f0f1bd260">document_type</a> =  Doc</td>
@@ -127,7 +132,7 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a> =  Freq</td>
@@ -137,16 +142,16 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 
 </div>
 </div>
-<a id="ad218976b86b988db7a72b81f67d352b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad218976b86b988db7a72b81f67d352b4">&#9670;&nbsp;</a></span>index_type</h2>
+<a id="a1bf6f9a6e9b338abc526274e3ba7407c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf6f9a6e9b338abc526274e3ba7407c">&#9670;&nbsp;</a></span>index_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#ad218976b86b988db7a72b81f67d352b4">index_type</a> =  <a class="el" href="classirk_1_1inverted__index.html">inverted_index</a>&lt;<a class="el" href="classirk_1_1index__merger.html#ace9b689f5d38f6aeed3ce16f0f1bd260">document_type</a>, <a class="el" href="classirk_1_1index__merger.html#a2b76203064ec60dc3b0fa662fd8aa3f0">term_type</a>, <a class="el" href="classirk_1_1index__merger.html#a3731db86b5c514a2dd44555c07abe58e">term_id_type</a>, <a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#a1bf6f9a6e9b338abc526274e3ba7407c">index_type</a> =  <a class="el" href="classirk_1_1v2_1_1inverted__index__view.html">v2::inverted_index_view</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -159,7 +164,7 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#a3731db86b5c514a2dd44555c07abe58e">term_id_type</a> =  TermId</td>
@@ -175,7 +180,7 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::<a class="el" href="classirk_1_1index__merger.html#a2b76203064ec60dc3b0fa662fd8aa3f0">term_type</a> =  Term</td>
@@ -186,13 +191,13 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af76fffe4b1bc16a692b87f07ff046aaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af76fffe4b1bc16a692b87f07ff046aaa">&#9670;&nbsp;</a></span>index_merger()</h2>
+<a id="abd636b1ba913662b7b917c505715696e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd636b1ba913662b7b917c505715696e">&#9670;&nbsp;</a></span>index_merger()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -208,6 +213,24 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
           <td></td>
           <td class="paramtype">std::vector&lt; fs::path &gt;&#160;</td>
           <td class="paramname"><em>indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceirk.html#a831a3a869cf19601dbfb5c41765a2e87">any_codec</a>&lt; <a class="el" href="classirk_1_1index__merger.html#ace9b689f5d38f6aeed3ce16f0f1bd260">document_type</a> &gt;&#160;</td>
+          <td class="paramname"><em>document_codec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceirk.html#a831a3a869cf19601dbfb5c41765a2e87">any_codec</a>&lt; <a class="el" href="classirk_1_1index__merger.html#a6cb409ab2e737118969206ee9b27d147">frequency_type</a> &gt;&#160;</td>
+          <td class="paramname"><em>frequency_codec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -231,19 +254,73 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a285409fbb9e208ac3ad05076308e2826"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a285409fbb9e208ac3ad05076308e2826">&#9670;&nbsp;</a></span>merge_term()</h2>
+<a id="a500ccb6d5fb8106183dc94abf6d64a5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a500ccb6d5fb8106183dc94abf6d64a5f">&#9670;&nbsp;</a></span>merge()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge_term </td>
+          <td class="memname">void <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a215f38c50ba34e627ae54ec4f5caf52a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a215f38c50ba34e627ae54ec4f5caf52a">&#9670;&nbsp;</a></span>merge_sizes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;long, double&gt; <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge_sizes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83813154e14e7f558e93b657695de11a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83813154e14e7f558e93b657695de11a">&#9670;&nbsp;</a></span>merge_term()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge_term </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; entry &gt; &amp;&#160;</td>
           <td class="paramname"><em>indices</em></td><td>)</td>
@@ -259,19 +336,19 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 
 </div>
 </div>
-<a id="a7109f40e5fc0213d5c72cd3eda9ccaa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7109f40e5fc0213d5c72cd3eda9ccaa5">&#9670;&nbsp;</a></span>merge_terms()</h2>
+<a id="a7ad47aefaad1a6f1d04ba904a672c0e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ad47aefaad1a6f1d04ba904a672c0e5">&#9670;&nbsp;</a></span>merge_terms()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge_terms </td>
+          <td class="memname">long <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::merge_terms </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -292,7 +369,7 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  = std::size_t, class Freq  = std::size_t&gt; </div>
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -302,6 +379,50 @@ template&lt;class Doc  = std::size_t, class Term  = std::string, class TermId  =
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22098d0868dcb779ce43540a60b724ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22098d0868dcb779ce43540a60b724ab">&#9670;&nbsp;</a></span>write_properties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Doc = std::size_t, class Term = std::string, class TermId = std::size_t, class Freq = std::size_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classirk_1_1index__merger.html">irk::index_merger</a>&lt; Doc, Term, TermId, Freq &gt;::write_properties </td>
+          <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>documents</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>occurrences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>avg_doc_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

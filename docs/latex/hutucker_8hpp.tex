@@ -1,19 +1,20 @@
 \hypertarget{hutucker_8hpp}{}\section{include/irkit/coding/hutucker.hpp File Reference}
 \label{hutucker_8hpp}\index{include/irkit/coding/hutucker.\+hpp@{include/irkit/coding/hutucker.\+hpp}}
-{\ttfamily \#include \char`\"{}irkit/alphabetical\+\_\+bst.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/coding/huffman.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
+{\ttfamily \#include $<$irkit/alphabetical\+\_\+bst.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/huffman.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structirk_1_1coding_1_1hutucker_1_1level__node}{irk\+::coding\+::hutucker\+::level\+\_\+node$<$ Symbol $>$}}
 \begin{DoxyCompactList}\small\item\em Stores a Huffman tree node pointer along with its level (height). \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec$<$ Symbol, Memory\+Container $>$}}
+class \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec$<$ Symbol, Memory\+Container $>$}}
 \begin{DoxyCompactList}\small\item\em Hu-\/\+Tucker codec. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \mbox{\hyperlink{namespaceirk_1_1coding}{irk\+::coding}}
+ \mbox{\hyperlink{namespaceirk}{irk}}
 \begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker}{irk\+::coding\+::hutucker}}
 \end{DoxyCompactItemize}
@@ -25,7 +26,7 @@ class \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::h
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a3cce9468fb0b4bd0b2f30422b8c00284}{irk\+::coding\+::hutucker\+::join\+\_\+selected}} (std\+::list$<$ node\+\_\+ptr$<$ Symbol $>$$>$ \&forest, std\+::pair$<$ node\+\_\+ptr$<$ Symbol $>$, node\+\_\+ptr$<$ Symbol $>$$>$ \&selected)
+{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_afc598a2671de17423c5d2c0427aab320}{irk\+::coding\+::hutucker\+::join\+\_\+selected}} (std\+::list$<$ node\+\_\+ptr$<$ Symbol $>$$>$ \&forest, std\+::pair$<$ typename std\+::list$<$ node\+\_\+ptr$<$ Symbol $>$$>$\+::iterator, typename std\+::list$<$ node\+\_\+ptr$<$ Symbol $>$$>$\+::iterator $>$ selected)
 \begin{DoxyCompactList}\small\item\em Joins together a pair of selected nodes in a forest. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_ad43136697500a2cc05315ab694767d84}{irk\+::coding\+::hutucker\+::join\+\_\+next\+\_\+valid}} (std\+::list$<$ node\+\_\+ptr$<$ Symbol $>$$>$ \&forest)
 \begin{DoxyCompactList}\small\item\em Selects and joins the next valid pair in the forest. \end{DoxyCompactList}\item 
@@ -35,7 +36,7 @@ class \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::h
 \item 
 {\footnotesize template$<$class Symbol  = char$>$ }\\node\+\_\+ptr$<$ Symbol $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_adf2fb7ba2277edb34df80da2766493f8}{irk\+::coding\+::hutucker\+::reconstruct}} (std\+::list$<$ level\+\_\+node$<$ Symbol $>$$>$ \&nodes)
 \begin{DoxyCompactList}\small\item\em Reconstructs the final Hu-\/\+Tucker tree based on the level-\/tagged nodes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Symbol  = char$>$ }\\alphabetical\+\_\+bst$<$ Symbol, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a8439e61ebf9f3af2e42bce48905832b5}{irk\+::coding\+::hutucker\+::compact}} (node\+\_\+ptr$<$ Symbol $>$ root)
+alphabetical\+\_\+bst$<$ char, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a92ab334d2417de57e7ac803d32e751d5}{irk\+::coding\+::hutucker\+::compact}} (node\+\_\+ptr$<$ char $>$ root)
 \begin{DoxyCompactList}\small\item\em Returns an immutable compact version of the same tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

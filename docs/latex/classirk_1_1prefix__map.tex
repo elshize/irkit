@@ -15,13 +15,34 @@ A string-\/based prefix map implementation.
 class \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder}{block\+\_\+builder}}
 \item 
 class \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__ptr}{block\+\_\+ptr}}
+\item 
+class \mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1prefix__map_abe4f68e5fc9c0d72e34b87f108e653ed}{const\+\_\+iterator}} = \mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}}
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class String\+Range $>$ }\\\mbox{\hyperlink{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}{prefix\+\_\+map}} (String\+Range items, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec, std\+::size\+\_\+t block\+\_\+size=1024)
+\mbox{\hyperlink{classirk_1_1prefix__map_a0460c33c17f3182b9db49b45bc366069}{prefix\+\_\+map}} (Memory\+Buffer blocks, std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1prefix__map_ad9055b6d6717495d9b61aa1865bd9a49}{size}}, std\+::size\+\_\+t block\+\_\+size, std\+::size\+\_\+t block\+\_\+count, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}$<$ Index $>$$>$ block\+\_\+leaders)
+\item 
+\mbox{\hyperlink{classirk_1_1prefix__map_a7a92eedd3b88338fe84a5980201faf87}{prefix\+\_\+map}} (fs\+::path file, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec, std\+::size\+\_\+t block\+\_\+size=1024)
+\item 
+{\footnotesize template$<$class String\+Range $>$ }\\\mbox{\hyperlink{classirk_1_1prefix__map_a703e139a8c4453383c8f6ec596ef18f0}{prefix\+\_\+map}} (const String\+Range \&items, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec, std\+::size\+\_\+t block\+\_\+size=1024)
 \item 
 std\+::optional$<$ Index $>$ \mbox{\hyperlink{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}{operator\mbox{[}$\,$\mbox{]}}} (const std\+::string \&key) const
+\item 
+std\+::string \mbox{\hyperlink{classirk_1_1prefix__map_a403d1389dab40173b52d5faa82b6aff6}{operator\mbox{[}$\,$\mbox{]}}} (const Index \&val) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1prefix__map_ad9055b6d6717495d9b61aa1865bd9a49}{size}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1prefix__map_a865e7acbf722c38d76287d4b47cf3e38}{begin}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1prefix__map_a2e4677738f2a2a9eb6593e767d2d6a9e}{end}} () const
+\item 
+std\+::ostream \& \mbox{\hyperlink{classirk_1_1prefix__map_a169d893870da9dbb102a9f000ef32d3c}{dump}} (std\+::ostream \&out) const
 \end{DoxyCompactItemize}
 
 
@@ -51,24 +72,83 @@ Michal Siedlaczek
 \end{DoxyAuthor}
 
 
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1prefix__map_abe4f68e5fc9c0d72e34b87f108e653ed}\label{classirk_1_1prefix__map_abe4f68e5fc9c0d72e34b87f108e653ed}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!const\+\_\+iterator@{const\+\_\+iterator}}
+\index{const\+\_\+iterator@{const\+\_\+iterator}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{const\+\_\+iterator}{const\_iterator}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+using \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map_abe4f68e5fc9c0d72e34b87f108e653ed}{const\+\_\+iterator}} =  \mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}}}
+
+
+
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}\label{classirk_1_1prefix__map_a0fbeb344ad4a076d200023a9fc72d359}} 
+\mbox{\Hypertarget{classirk_1_1prefix__map_a0460c33c17f3182b9db49b45bc366069}\label{classirk_1_1prefix__map_a0460c33c17f3182b9db49b45bc366069}} 
 \index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!prefix\+\_\+map@{prefix\+\_\+map}}
 \index{prefix\+\_\+map@{prefix\+\_\+map}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
-\subsubsection{\texorpdfstring{prefix\+\_\+map()}{prefix\_map()}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+\subsubsection{\texorpdfstring{prefix\+\_\+map()}{prefix\_map()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}} (\begin{DoxyParamCaption}\item[{Memory\+Buffer}]{blocks,  }\item[{std\+::size\+\_\+t}]{size,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size,  }\item[{std\+::size\+\_\+t}]{block\+\_\+count,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}$<$ Index $>$$>$}]{block\+\_\+leaders }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_a7a92eedd3b88338fe84a5980201faf87}\label{classirk_1_1prefix__map_a7a92eedd3b88338fe84a5980201faf87}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!prefix\+\_\+map@{prefix\+\_\+map}}
+\index{prefix\+\_\+map@{prefix\+\_\+map}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{prefix\+\_\+map()}{prefix\_map()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}} (\begin{DoxyParamCaption}\item[{fs\+::path}]{file,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size = {\ttfamily 1024} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_a703e139a8c4453383c8f6ec596ef18f0}\label{classirk_1_1prefix__map_a703e139a8c4453383c8f6ec596ef18f0}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!prefix\+\_\+map@{prefix\+\_\+map}}
+\index{prefix\+\_\+map@{prefix\+\_\+map}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{prefix\+\_\+map()}{prefix\_map()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
 template$<$class String\+Range $>$ \\
-\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}} (\begin{DoxyParamCaption}\item[{String\+Range}]{items,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size = {\ttfamily 1024} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}} (\begin{DoxyParamCaption}\item[{const String\+Range \&}]{items,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size = {\ttfamily 1024} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1prefix__map_a865e7acbf722c38d76287d4b47cf3e38}\label{classirk_1_1prefix__map_a865e7acbf722c38d76287d4b47cf3e38}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!begin@{begin}}
+\index{begin@{begin}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_a169d893870da9dbb102a9f000ef32d3c}\label{classirk_1_1prefix__map_a169d893870da9dbb102a9f000ef32d3c}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!dump@{dump}}
+\index{dump@{dump}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+std\+::ostream\& \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::dump (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_a2e4677738f2a2a9eb6593e767d2d6a9e}\label{classirk_1_1prefix__map_a2e4677738f2a2a9eb6593e767d2d6a9e}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!end@{end}}
+\index{end@{end}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}\label{classirk_1_1prefix__map_af8c0c9c8a7bc1b31d03111e714aaec2b}} 
 \index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
-\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
 std\+::optional$<$Index$>$ \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_a403d1389dab40173b52d5faa82b6aff6}\label{classirk_1_1prefix__map_a403d1389dab40173b52d5faa82b6aff6}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+std\+::string \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const Index \&}]{val }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_ad9055b6d6717495d9b61aa1865bd9a49}\label{classirk_1_1prefix__map_ad9055b6d6717495d9b61aa1865bd9a49}} 
+\index{irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}!size@{size}}
+\index{size@{size}!irk\+::prefix\+\_\+map@{irk\+::prefix\+\_\+map}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

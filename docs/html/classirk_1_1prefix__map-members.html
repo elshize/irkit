@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -75,8 +74,16 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a>, including all inherited members.</p>
 <table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a865e7acbf722c38d76287d4b47cf3e38">begin</a>() const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#abe4f68e5fc9c0d72e34b87f108e653ed">const_iterator</a> typedef</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a169d893870da9dbb102a9f000ef32d3c">dump</a>(std::ostream &amp;out) const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a2e4677738f2a2a9eb6593e767d2d6a9e">end</a>() const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#af8c0c9c8a7bc1b31d03111e714aaec2b">operator[]</a>(const std::string &amp;key) const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a0fbeb344ad4a076d200023a9fc72d359">prefix_map</a>(StringRange items, const std::shared_ptr&lt; irk::coding::hutucker_codec&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a403d1389dab40173b52d5faa82b6aff6">operator[]</a>(const Index &amp;val) const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a0460c33c17f3182b9db49b45bc366069">prefix_map</a>(MemoryBuffer blocks, std::size_t size, std::size_t block_size, std::size_t block_count, const std::shared_ptr&lt; irk::hutucker_codec&lt; char &gt;&gt; codec, std::shared_ptr&lt; radix_tree&lt; Index &gt;&gt; block_leaders)</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a7a92eedd3b88338fe84a5980201faf87">prefix_map</a>(fs::path file, const std::shared_ptr&lt; irk::hutucker_codec&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#a703e139a8c4453383c8f6ec596ef18f0">prefix_map</a>(const StringRange &amp;items, const std::shared_ptr&lt; irk::hutucker_codec&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classirk_1_1prefix__map.html#ad9055b6d6717495d9b61aa1865bd9a49">size</a>() const</td><td class="entry"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

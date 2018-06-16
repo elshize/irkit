@@ -1,0 +1,118 @@
+\hypertarget{classirk_1_1mapped__file__memory__source}{}\section{irk\+:\+:mapped\+\_\+file\+\_\+memory\+\_\+source$<$ CharT $>$ Class Template Reference}
+\label{classirk_1_1mapped__file__memory__source}\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source$<$ Char\+T $>$@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source$<$ Char\+T $>$}}
+
+
+A memory source for mapped files.  
+
+
+
+
+{\ttfamily \#include $<$memoryview.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} = CharT
+\item 
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_ada63505be1b6881458e74592a2a4f236}{pointer}} = \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} $\ast$
+\item 
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a4a2510b01a3bf4c3570617707b069bd6}{reference}} = \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} \&
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_afda461084b8db2c179e990d8c8ab246c}{mapped\+\_\+file\+\_\+memory\+\_\+source}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_ab4171f0a22a8da5a55dde732c9c535c7}{mapped\+\_\+file\+\_\+memory\+\_\+source}} (boost\+::iostreams\+::mapped\+\_\+file\+\_\+source file)
+\item 
+const \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} $\ast$ \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_aed12180cbed20420b7d783b5a9705eb3}{data}} () const
+\item 
+gsl\+::index \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a8b873edb44d37ff8fc89c80ff9c88482}{size}} () const
+\item 
+char \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a121d8c1899ac93d3dc215512ba3a5f1f}{operator\mbox{[}$\,$\mbox{]}}} (int n) const
+\item 
+\mbox{\hyperlink{classirk_1_1pointer__memory__source}{pointer\+\_\+memory\+\_\+source}}$<$ \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a4f437093075267ae96a512877b8c4b11}{range}} (int first, gsl\+::index \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a8b873edb44d37ff8fc89c80ff9c88482}{size}}) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class CharT = char$>$\newline
+class irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source$<$ Char\+T $>$}
+
+A memory source for mapped files. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}\label{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!char\+\_\+type@{char\+\_\+type}}
+\index{char\+\_\+type@{char\+\_\+type}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{char\+\_\+type}{char\_type}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}} =  CharT}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_ada63505be1b6881458e74592a2a4f236}\label{classirk_1_1mapped__file__memory__source_ada63505be1b6881458e74592a2a4f236}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!pointer@{pointer}}
+\index{pointer@{pointer}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{pointer}{pointer}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_ada63505be1b6881458e74592a2a4f236}{pointer}} =  \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}}$\ast$}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_a4a2510b01a3bf4c3570617707b069bd6}\label{classirk_1_1mapped__file__memory__source_a4a2510b01a3bf4c3570617707b069bd6}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!reference@{reference}}
+\index{reference@{reference}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{reference}{reference}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+using \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a4a2510b01a3bf4c3570617707b069bd6}{reference}} =  \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}}\&}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_afda461084b8db2c179e990d8c8ab246c}\label{classirk_1_1mapped__file__memory__source_afda461084b8db2c179e990d8c8ab246c}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!mapped\+\_\+file\+\_\+memory\+\_\+source@{mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\index{mapped\+\_\+file\+\_\+memory\+\_\+source@{mapped\+\_\+file\+\_\+memory\+\_\+source}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{mapped\+\_\+file\+\_\+memory\+\_\+source()}{mapped\_file\_memory\_source()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+\mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::\mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{mapped\+\_\+file\+\_\+memory\+\_\+source}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_ab4171f0a22a8da5a55dde732c9c535c7}\label{classirk_1_1mapped__file__memory__source_ab4171f0a22a8da5a55dde732c9c535c7}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!mapped\+\_\+file\+\_\+memory\+\_\+source@{mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\index{mapped\+\_\+file\+\_\+memory\+\_\+source@{mapped\+\_\+file\+\_\+memory\+\_\+source}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{mapped\+\_\+file\+\_\+memory\+\_\+source()}{mapped\_file\_memory\_source()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+\mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::\mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{mapped\+\_\+file\+\_\+memory\+\_\+source}} (\begin{DoxyParamCaption}\item[{boost\+::iostreams\+::mapped\+\_\+file\+\_\+source}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_aed12180cbed20420b7d783b5a9705eb3}\label{classirk_1_1mapped__file__memory__source_aed12180cbed20420b7d783b5a9705eb3}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!data@{data}}
+\index{data@{data}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+const \mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}}$\ast$ \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_a121d8c1899ac93d3dc215512ba3a5f1f}\label{classirk_1_1mapped__file__memory__source_a121d8c1899ac93d3dc215512ba3a5f1f}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+char \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_a4f437093075267ae96a512877b8c4b11}\label{classirk_1_1mapped__file__memory__source_a4f437093075267ae96a512877b8c4b11}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!range@{range}}
+\index{range@{range}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{range()}{range()}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+\mbox{\hyperlink{classirk_1_1pointer__memory__source}{pointer\+\_\+memory\+\_\+source}}$<$\mbox{\hyperlink{classirk_1_1mapped__file__memory__source_a9b4319787fae825c6a27be1e58447386}{char\+\_\+type}}$>$ \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::range (\begin{DoxyParamCaption}\item[{int}]{first,  }\item[{gsl\+::index}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1mapped__file__memory__source_a8b873edb44d37ff8fc89c80ff9c88482}\label{classirk_1_1mapped__file__memory__source_a8b873edb44d37ff8fc89c80ff9c88482}} 
+\index{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}!size@{size}}
+\index{size@{size}!irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source@{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class CharT  = char$>$ \\
+gsl\+::index \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source}}$<$ CharT $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{memoryview_8hpp}{memoryview.\+hpp}}\end{DoxyCompactItemize}

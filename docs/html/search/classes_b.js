@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['maxscorenonessentials',['MaxScoreNonEssentials',['../classbloodhound_1_1query_1_1MaxScoreNonEssentials.html',1,'bloodhound::query']]],
-  ['maxscoreretriever',['MaxScoreRetriever',['../classbloodhound_1_1query_1_1MaxScoreRetriever.html',1,'bloodhound::query']]],
-  ['missingvalue',['MissingValue',['../classirk_1_1cmd_1_1MissingValue.html',1,'irk::cmd']]],
-  ['moving_5frange',['moving_range',['../structirk_1_1moving__range.html',1,'irk']]],
-  ['mutable_5fbit_5ftrie',['mutable_bit_trie',['../classirk_1_1mutable__bit__trie.html',1,'irk']]],
-  ['mutable_5fbit_5ftrie_3c_20index_20_3e',['mutable_bit_trie&lt; Index &gt;',['../classirk_1_1mutable__bit__trie.html',1,'irk']]]
+  ['no_5fweight',['no_weight',['../structirk_1_1no__weight.html',1,'irk']]],
+  ['node',['node',['../structirk_1_1mutable__bit__trie_1_1node.html',1,'irk::mutable_bit_trie&lt; Value &gt;::node'],['../structirk_1_1coding_1_1huffman_1_1node.html',1,'irk::coding::huffman::node&lt; Symbol &gt;'],['../structirk_1_1alphabetical__bst_1_1node.html',1,'irk::alphabetical_bst&lt; Symbol, Ptr, MemoryContainer &gt;::node']]],
+  ['node_5fptr',['node_ptr',['../structirk_1_1alphabetical__bst_1_1node__ptr.html',1,'irk::alphabetical_bst']]]
 ];

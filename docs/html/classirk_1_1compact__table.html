@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRKit: irk::compact_table&lt; T, Codec &gt; Class Template Reference</title>
+<title>IRKit: irk::compact_table&lt; T, Codec, MemoryBuffer &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -75,7 +74,7 @@ $(function() {
 <a href="#friends">Friends</a> &#124;
 <a href="classirk_1_1compact__table-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">irk::compact_table&lt; T, Codec &gt; Class Template Reference</div>  </div>
+<div class="title">irk::compact_table&lt; T, Codec, MemoryBuffer &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -86,34 +85,38 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1c0c667110b82f790a0c0088e53ff461"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a1c0c667110b82f790a0c0088e53ff461">value_type</a> = typename Codec::value_type</td></tr>
-<tr class="separator:a1c0c667110b82f790a0c0088e53ff461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accd2a370a48a5873af0625d56d732d71"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#accd2a370a48a5873af0625d56d732d71">value_type</a> = typename Codec::value_type</td></tr>
+<tr class="separator:accd2a370a48a5873af0625d56d732d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7a5ea0a767cf151a37639532e36712f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a7a5ea0a767cf151a37639532e36712f3">compact_table</a> (fs::path file)</td></tr>
-<tr class="separator:a7a5ea0a767cf151a37639532e36712f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3400a8843f4c286fd49417eeca2c9e74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a3400a8843f4c286fd49417eeca2c9e74">compact_table</a> (const std::vector&lt; T &gt; &amp;values, bool delta_encoded=false, std::uint32_t block_size=256)</td></tr>
-<tr class="separator:a3400a8843f4c286fd49417eeca2c9e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b0ae00675c32fcc1e7804f1ad3ab3ad"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a7b0ae00675c32fcc1e7804f1ad3ab3ad">operator[]</a> (std::size_t term_id)</td></tr>
-<tr class="separator:a7b0ae00675c32fcc1e7804f1ad3ab3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac80ecca694d256e4f3c5c29e98900ccc"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#ac80ecca694d256e4f3c5c29e98900ccc">operator[]</a> (std::size_t term_id) const</td></tr>
-<tr class="separator:ac80ecca694d256e4f3c5c29e98900ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33d2d55685fe583f89521c2ca9797973"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a33d2d55685fe583f89521c2ca9797973">data</a> ()</td></tr>
-<tr class="separator:a33d2d55685fe583f89521c2ca9797973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5b6d8b0f58abd180ebd0d57396aa7ac"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structirk_1_1compact__table__header.html">compact_table_header</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#ac5b6d8b0f58abd180ebd0d57396aa7ac">header</a> () const</td></tr>
-<tr class="separator:ac5b6d8b0f58abd180ebd0d57396aa7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb0104bee02709980c7a7f9cd3a7719e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#adb0104bee02709980c7a7f9cd3a7719e">size</a> () const</td></tr>
-<tr class="separator:adb0104bee02709980c7a7f9cd3a7719e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2947a995621e70e7e7c533e30a0e043"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#ae2947a995621e70e7e7c533e30a0e043">operator==</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;rhs)</td></tr>
-<tr class="separator:ae2947a995621e70e7e7c533e30a0e043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7837dc73daa2b72450bca208a4a315bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a7837dc73daa2b72450bca208a4a315bb">compact_table</a> (MemoryBuffer <a class="el" href="classirk_1_1compact__table.html#a6e52197052d12372b72d568ce9df384f">data</a>)</td></tr>
+<tr class="separator:a7837dc73daa2b72450bca208a4a315bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd943c6ec8da8017909598b2e6a4032"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#acdd943c6ec8da8017909598b2e6a4032">compact_table</a> (<a class="el" href="classirk_1_1compact__table.html">compact_table</a> &amp;&amp;other)</td></tr>
+<tr class="separator:acdd943c6ec8da8017909598b2e6a4032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac598641b6433f4912de02fd830dcdaa6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#ac598641b6433f4912de02fd830dcdaa6">compact_table</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a> &amp;other)</td></tr>
+<tr class="separator:ac598641b6433f4912de02fd830dcdaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a83916106db809f8b93acb1e90104a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec, MemoryBuffer &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a8a83916106db809f8b93acb1e90104a2">operator=</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec, MemoryBuffer &gt; &amp;other)</td></tr>
+<tr class="separator:a8a83916106db809f8b93acb1e90104a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3233b841db79f2d8fdba81c880b05d88"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a3233b841db79f2d8fdba81c880b05d88">operator[]</a> (std::size_t term_id)</td></tr>
+<tr class="separator:a3233b841db79f2d8fdba81c880b05d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0078a7510ab8cb5ace71e69c1bc24afa"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a0078a7510ab8cb5ace71e69c1bc24afa">operator[]</a> (std::size_t term_id) const</td></tr>
+<tr class="separator:a0078a7510ab8cb5ace71e69c1bc24afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e52197052d12372b72d568ce9df384f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a6e52197052d12372b72d568ce9df384f">data</a> ()</td></tr>
+<tr class="separator:a6e52197052d12372b72d568ce9df384f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a7a452bf75a037e9bf22e231124a5e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structirk_1_1compact__table__header.html">compact_table_header</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a71a7a452bf75a037e9bf22e231124a5e">header</a> () const</td></tr>
+<tr class="separator:a71a7a452bf75a037e9bf22e231124a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a868e5c254b459b6ab831681d5e9f34c1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a868e5c254b459b6ab831681d5e9f34c1">size</a> () const</td></tr>
+<tr class="separator:a868e5c254b459b6ab831681d5e9f34c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0fbc092d98001d97e8ec78e24f4040d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#ab0fbc092d98001d97e8ec78e24f4040d">operator==</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;rhs)</td></tr>
+<tr class="separator:ab0fbc092d98001d97e8ec78e24f4040d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a780f480df7180c7b750907dc1954e741"><td class="memItemLeft" align="right" valign="top">Codec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a780f480df7180c7b750907dc1954e741">codec_</a></td></tr>
-<tr class="separator:a780f480df7180c7b750907dc1954e741"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf7928280ada85abfdf858586aeadb78"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#adf7928280ada85abfdf858586aeadb78">data_</a></td></tr>
-<tr class="separator:adf7928280ada85abfdf858586aeadb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac5fcd509fae2f16e455fc6a37eb1d3"><td class="memItemLeft" align="right" valign="top">Codec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#aeac5fcd509fae2f16e455fc6a37eb1d3">codec_</a></td></tr>
+<tr class="separator:aeac5fcd509fae2f16e455fc6a37eb1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8f2eccb0ccc0258c158c51dfbfdbaa"><td class="memItemLeft" align="right" valign="top">MemoryBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html#a8a8f2eccb0ccc0258c158c51dfbfdbaa">data_</a></td></tr>
+<tr class="separator:a8a8f2eccb0ccc0258c158c51dfbfdbaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -121,13 +124,14 @@ Friends</h2></td></tr>
 <tr class="separator:aabbde77b5cb5faeef5fe72eff9624aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt;<br />
-class irk::compact_table&lt; T, Codec &gt;</h3>
+<div class="textblock"><h3>template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt;<br />
+class irk::compact_table&lt; T, Codec, MemoryBuffer &gt;</h3>
 
 <p>Fast-access compressed array. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>the type of the stored values </td></tr>
+    <tr><td class="paramname">MemoryBuffer</td><td>the memory buffer type, e.g., <code>std::vector&lt;char&gt;</code> (for building/reading) or <code>boost::iostreams::mapped_file</code> (for reading) </td></tr>
     <tr><td class="paramname">Codec</td><td>a codec that encodes values of type <code>T</code></td></tr>
   </table>
   </dd>
@@ -135,16 +139,16 @@ class irk::compact_table&lt; T, Codec &gt;</h3>
 <p>This is a compressed table indexed with consecutive integers between <code>0</code> and <code>size - 1</code>. TODO: describe implmentation.</p>
 <dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a1c0c667110b82f790a0c0088e53ff461"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c0c667110b82f790a0c0088e53ff461">&#9670;&nbsp;</a></span>value_type</h2>
+<a id="accd2a370a48a5873af0625d56d732d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accd2a370a48a5873af0625d56d732d71">&#9670;&nbsp;</a></span>value_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::<a class="el" href="classirk_1_1compact__table.html#a1c0c667110b82f790a0c0088e53ff461">value_type</a> =  typename Codec::value_type</td>
+          <td class="memname">using <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::<a class="el" href="classirk_1_1compact__table.html#accd2a370a48a5873af0625d56d732d71">value_type</a> =  typename Codec::value_type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -152,22 +156,50 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7a5ea0a767cf151a37639532e36712f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a5ea0a767cf151a37639532e36712f3">&#9670;&nbsp;</a></span>compact_table() <span class="overload">[1/2]</span></h2>
+<a id="a7837dc73daa2b72450bca208a4a315bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7837dc73daa2b72450bca208a4a315bb">&#9670;&nbsp;</a></span>compact_table() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::<a class="el" href="classirk_1_1compact__table.html">compact_table</a> </td>
+          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::<a class="el" href="classirk_1_1compact__table.html">compact_table</a> </td>
           <td>(</td>
-          <td class="paramtype">fs::path&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
+          <td class="paramtype">MemoryBuffer&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdd943c6ec8da8017909598b2e6a4032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd943c6ec8da8017909598b2e6a4032">&#9670;&nbsp;</a></span>compact_table() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::<a class="el" href="classirk_1_1compact__table.html">compact_table</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec, MemoryBuffer &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -180,39 +212,23 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a3400a8843f4c286fd49417eeca2c9e74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3400a8843f4c286fd49417eeca2c9e74">&#9670;&nbsp;</a></span>compact_table() <span class="overload">[2/2]</span></h2>
+<a id="ac598641b6433f4912de02fd830dcdaa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac598641b6433f4912de02fd830dcdaa6">&#9670;&nbsp;</a></span>compact_table() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::<a class="el" href="classirk_1_1compact__table.html">compact_table</a> </td>
+          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::<a class="el" href="classirk_1_1compact__table.html">compact_table</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>values</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec, MemoryBuffer &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>delta_encoded</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>block_size</em> = <code>256</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -225,19 +241,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a33d2d55685fe583f89521c2ca9797973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33d2d55685fe583f89521c2ca9797973">&#9670;&nbsp;</a></span>data()</h2>
+<a id="a6e52197052d12372b72d568ce9df384f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e52197052d12372b72d568ce9df384f">&#9670;&nbsp;</a></span>data()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char* <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::data </td>
+          <td class="memname">const char* <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::data </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -252,19 +268,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac5b6d8b0f58abd180ebd0d57396aa7ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5b6d8b0f58abd180ebd0d57396aa7ac">&#9670;&nbsp;</a></span>header()</h2>
+<a id="a71a7a452bf75a037e9bf22e231124a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a7a452bf75a037e9bf22e231124a5e">&#9670;&nbsp;</a></span>header()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structirk_1_1compact__table__header.html">compact_table_header</a>* <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::header </td>
+          <td class="memname">const <a class="el" href="structirk_1_1compact__table__header.html">compact_table_header</a>* <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::header </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -279,19 +295,47 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ae2947a995621e70e7e7c533e30a0e043"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2947a995621e70e7e7c533e30a0e043">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a8a83916106db809f8b93acb1e90104a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a83916106db809f8b93acb1e90104a2">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::operator== </td>
+          <td class="memname"><a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt;T, Codec, MemoryBuffer&gt;&amp; <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec, MemoryBuffer &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab0fbc092d98001d97e8ec78e24f4040d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0fbc092d98001d97e8ec78e24f4040d">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::operator== </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;&#160;</td>
           <td class="paramname"><em>rhs</em></td><td>)</td>
@@ -307,19 +351,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a7b0ae00675c32fcc1e7804f1ad3ab3ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b0ae00675c32fcc1e7804f1ad3ab3ad">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+<a id="a3233b841db79f2d8fdba81c880b05d88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3233b841db79f2d8fdba81c880b05d88">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::operator[] </td>
+          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::operator[] </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>term_id</em></td><td>)</td>
@@ -335,19 +379,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="ac80ecca694d256e4f3c5c29e98900ccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac80ecca694d256e4f3c5c29e98900ccc">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+<a id="a0078a7510ab8cb5ace71e69c1bc24afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0078a7510ab8cb5ace71e69c1bc24afa">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::operator[] </td>
+          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::operator[] </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>term_id</em></td><td>)</td>
@@ -363,19 +407,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="adb0104bee02709980c7a7f9cd3a7719e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb0104bee02709980c7a7f9cd3a7719e">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a868e5c254b459b6ab831681d5e9f34c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a868e5c254b459b6ab831681d5e9f34c1">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::size </td>
+          <td class="memname">std::size_t <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -397,7 +441,7 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -406,13 +450,13 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
           <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;&#160;</td>
-          <td class="paramname"><em>offset_table</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -430,19 +474,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a780f480df7180c7b750907dc1954e741"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a780f480df7180c7b750907dc1954e741">&#9670;&nbsp;</a></span>codec_</h2>
+<a id="aeac5fcd509fae2f16e455fc6a37eb1d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac5fcd509fae2f16e455fc6a37eb1d3">&#9670;&nbsp;</a></span>codec_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Codec <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::codec_</td>
+          <td class="memname">Codec <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::codec_</td>
         </tr>
       </table>
   </td>
@@ -454,19 +498,19 @@ template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="adf7928280ada85abfdf858586aeadb78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf7928280ada85abfdf858586aeadb78">&#9670;&nbsp;</a></span>data_</h2>
+<a id="a8a8f2eccb0ccc0258c158c51dfbfdbaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a8f2eccb0ccc0258c158c51dfbfdbaa">&#9670;&nbsp;</a></span>data_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T, class Codec = coding::varbyte_codec&lt;T&gt;&gt; </div>
+template&lt;class T, class Codec = varbyte_codec&lt;T&gt;, class MemoryBuffer = std::vector&lt;char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;char&gt; <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec &gt;::data_</td>
+          <td class="memname">MemoryBuffer <a class="el" href="classirk_1_1compact__table.html">irk::compact_table</a>&lt; T, Codec, MemoryBuffer &gt;::data_</td>
         </tr>
       </table>
   </td>

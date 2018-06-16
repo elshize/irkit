@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -84,6 +83,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac43d799be382afcd794720a9c3294f4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html#ac43d799be382afcd794720a9c3294f4d">node</a> (std::size_t <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html#ae303f67bca534f5fcbf2a64a586cd7a9">frequency</a>, std::optional&lt; Symbol &gt; <a class="el" href="porter2_8hpp.html#a04438e24473719aaf288c57833717164">symbol</a>, std::shared_ptr&lt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a>&lt; Symbol &gt;&gt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html#ac4303bd6570125c1d18506a8596f3b8f">left</a>, std::shared_ptr&lt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a>&lt; Symbol &gt;&gt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html#addc238c8601bb721a25a5750f6c33ebd">right</a>)</td></tr>
+<tr class="separator:ac43d799be382afcd794720a9c3294f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e0666381a95883e54e9a952aefd3a31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html#a4e0666381a95883e54e9a952aefd3a31">operator==</a> (const <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a>&lt; Symbol &gt; &amp;rhs) const</td></tr>
 <tr class="separator:a4e0666381a95883e54e9a952aefd3a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -105,7 +106,58 @@ Public Attributes</h2></td></tr>
 struct irk::coding::huffman::node&lt; Symbol &gt;</h3>
 
 <p>A structure representing a node in a Huffman coding tree. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac43d799be382afcd794720a9c3294f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43d799be382afcd794720a9c3294f4d">&#9670;&nbsp;</a></span>node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Symbol = char&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">irk::coding::huffman::node</a>&lt; Symbol &gt;::<a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; Symbol &gt;&#160;</td>
+          <td class="paramname"><em>symbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a>&lt; Symbol &gt;&gt;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="structirk_1_1coding_1_1huffman_1_1node.html">node</a>&lt; Symbol &gt;&gt;&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4e0666381a95883e54e9a952aefd3a31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e0666381a95883e54e9a952aefd3a31">&#9670;&nbsp;</a></span>operator==()</h2>
 

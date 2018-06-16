@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file builder.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -37,7 +37,7 @@
 #include <irkit/coding.hpp>
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
-#include <irkit/index/list.hpp>
+#include <irkit/index/block_inverted_list.hpp>
 
 namespace irk {
 
@@ -52,6 +52,7 @@ public:
     using term_id_type = TermId;
     using frequency_type = Freq;
 
+private:
     struct doc_freq_pair {
         document_type doc;
         frequency_type freq;
@@ -164,7 +165,7 @@ public:
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
             index::block_list_builder<document_type, true> list_builder(
-                block_size_, coding::varbyte_codec<document_type>{});
+                block_size_, varbyte_codec<document_type>{});
             for (const auto& posting : postings_[term_id])
             { list_builder.add(posting.doc); }
             offset += list_builder.write(out);
@@ -183,7 +184,7 @@ public:
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
             index::block_list_builder<frequency_type, false> list_builder(
-                block_size_, coding::varbyte_codec<frequency_type>{});
+                block_size_, varbyte_codec<frequency_type>{});
             for (const auto& posting : postings_[term_id])
             { list_builder.add(posting.freq); }
             offset += list_builder.write(out);
@@ -222,6 +223,7 @@ public:
         out << compact_table;
     }
 
+    //! Writes properties to the output stream.
     void write_properties(std::ostream& out) const
     {
         long sizes_sum = std::accumulate(

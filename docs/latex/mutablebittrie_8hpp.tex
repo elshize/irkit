@@ -5,6 +5,8 @@
 {\ttfamily \#include $<$optional$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/varbyte.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,11 +18,13 @@ struct \mbox{\hyperlink{structirk_1_1mutable__bit__trie_1_1node}{irk\+::mutable\
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$class Value $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_aac8001645bff72cf73bf0f87512c5ed4}{irk\+::operator$<$$<$}} (std\+::ostream \&out, const mutable\+\_\+bit\+\_\+trie$<$ Value $>$ \&mbt)
+\item 
+{\footnotesize template$<$class Value $>$ }\\mutable\+\_\+bit\+\_\+trie$<$ Value $>$ \mbox{\hyperlink{namespaceirk_ae9440cb1246aeaa9376e8d9b678f64ba}{irk\+::load\+\_\+mutable\+\_\+bit\+\_\+trie}} (std\+::istream \&in)
 \end{DoxyCompactItemize}
 
 

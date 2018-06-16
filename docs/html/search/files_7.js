@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['maxscores_2ecpp',['maxscores.cpp',['../maxscores_8cpp.html',1,'']]],
-  ['merger_2ehpp',['merger.hpp',['../merger_8hpp.html',1,'']]],
-  ['movingrange_2ehpp',['movingrange.hpp',['../movingrange_8hpp.html',1,'']]],
-  ['mutablebittrie_2ehpp',['mutablebittrie.hpp',['../mutablebittrie_8hpp.html',1,'']]]
+  ['porter2_2ehpp',['porter2.hpp',['../porter2_8hpp.html',1,'']]],
+  ['posting_5flist_2ehpp',['posting_list.hpp',['../posting__list_8hpp.html',1,'']]],
+  ['postingrange_2ehpp',['postingrange.hpp',['../postingrange_8hpp.html',1,'']]],
+  ['prefixmap_2ehpp',['prefixmap.hpp',['../prefixmap_8hpp.html',1,'']]]
 ];

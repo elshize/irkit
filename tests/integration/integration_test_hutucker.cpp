@@ -29,7 +29,7 @@ TEST(hutucker, build_verify)
         }
     }
     in.close();
-    irk::coding::hutucker_codec<char> codec(frequencies);
+    irk::hutucker_codec<char> codec(frequencies);
 
     std::ifstream in_terms(terms_file);
     std::string term;

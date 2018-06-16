@@ -16,15 +16,17 @@ A W\+A\+RC record.
 \item 
 \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a88b5dab62123bbbef9cd5b58b74e76e7}{warc\+\_\+record}} (std\+::string version)
 \item 
-std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_ad6fae948c69c4379a50c088eb090608e}{type}} ()
+std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a2d8b476a009344abc9f1d41f5c9e3de0}{type}} () const
 \item 
-std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_ab6a7991f2ec751d5e3828ffbcf44c222}{content\+\_\+length}} ()
+std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a46c46772b6e77545047ab9c8cbe5d281}{content\+\_\+length}} () const
 \item 
-std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_abdf0ad04a96e45229806ff1e21d0c8b1}{content}} ()
+std\+::string \& \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_ab53f61c5eb11564671280cdd7666352b}{content}} ()
 \item 
-std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a6dc7157b59a6059ddcba169a03dd2f81}{url}} ()
+const std\+::string \& \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a3ac994f3690d28a5add45485a3b388ec}{content}} () const
 \item 
-std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a57680afe8ad4340c35ddfa403420db98}{trecid}} ()
+std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_ae5bab7d203ec2705e3ae9c4d20b1286c}{url}} () const
+\item 
+std\+::string \mbox{\hyperlink{classirkit_1_1io_1_1warc__record_a5a0ce07bbe522fedf5a49d4cac2c1520}{trecid}} () const
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -52,35 +54,41 @@ A W\+A\+RC record.
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_abdf0ad04a96e45229806ff1e21d0c8b1}\label{classirkit_1_1io_1_1warc__record_abdf0ad04a96e45229806ff1e21d0c8b1}} 
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_ab53f61c5eb11564671280cdd7666352b}\label{classirkit_1_1io_1_1warc__record_ab53f61c5eb11564671280cdd7666352b}} 
 \index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!content@{content}}
 \index{content@{content}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
-\subsubsection{\texorpdfstring{content()}{content()}}
-{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::content (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{content()}{content()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::string\& irkit\+::io\+::warc\+\_\+record\+::content (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_ab6a7991f2ec751d5e3828ffbcf44c222}\label{classirkit_1_1io_1_1warc__record_ab6a7991f2ec751d5e3828ffbcf44c222}} 
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a3ac994f3690d28a5add45485a3b388ec}\label{classirkit_1_1io_1_1warc__record_a3ac994f3690d28a5add45485a3b388ec}} 
+\index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!content@{content}}
+\index{content@{content}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
+\subsubsection{\texorpdfstring{content()}{content()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const std\+::string\& irkit\+::io\+::warc\+\_\+record\+::content (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a46c46772b6e77545047ab9c8cbe5d281}\label{classirkit_1_1io_1_1warc__record_a46c46772b6e77545047ab9c8cbe5d281}} 
 \index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!content\+\_\+length@{content\+\_\+length}}
 \index{content\+\_\+length@{content\+\_\+length}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
 \subsubsection{\texorpdfstring{content\+\_\+length()}{content\_length()}}
-{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::content\+\_\+length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::content\+\_\+length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a57680afe8ad4340c35ddfa403420db98}\label{classirkit_1_1io_1_1warc__record_a57680afe8ad4340c35ddfa403420db98}} 
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a5a0ce07bbe522fedf5a49d4cac2c1520}\label{classirkit_1_1io_1_1warc__record_a5a0ce07bbe522fedf5a49d4cac2c1520}} 
 \index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!trecid@{trecid}}
 \index{trecid@{trecid}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
 \subsubsection{\texorpdfstring{trecid()}{trecid()}}
-{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::trecid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::trecid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_ad6fae948c69c4379a50c088eb090608e}\label{classirkit_1_1io_1_1warc__record_ad6fae948c69c4379a50c088eb090608e}} 
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a2d8b476a009344abc9f1d41f5c9e3de0}\label{classirkit_1_1io_1_1warc__record_a2d8b476a009344abc9f1d41f5c9e3de0}} 
 \index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!type@{type}}
 \index{type@{type}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
 \subsubsection{\texorpdfstring{type()}{type()}}
-{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_a6dc7157b59a6059ddcba169a03dd2f81}\label{classirkit_1_1io_1_1warc__record_a6dc7157b59a6059ddcba169a03dd2f81}} 
+\mbox{\Hypertarget{classirkit_1_1io_1_1warc__record_ae5bab7d203ec2705e3ae9c4d20b1286c}\label{classirkit_1_1io_1_1warc__record_ae5bab7d203ec2705e3ae9c4d20b1286c}} 
 \index{irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}!url@{url}}
 \index{url@{url}!irkit\+::io\+::warc\+\_\+record@{irkit\+::io\+::warc\+\_\+record}}
 \subsubsection{\texorpdfstring{url()}{url()}}
-{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::url (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::string irkit\+::io\+::warc\+\_\+record\+::url (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

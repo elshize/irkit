@@ -31,11 +31,11 @@ std::vector<char> flatten(std::vector<std::vector<char>> vectors)
     return result;
 }
 
-irk::coding::varbyte_codec<std::uint16_t> vb;
+irk::varbyte_codec<std::uint16_t> vb;
 
 auto vb_encode(std::initializer_list<std::uint16_t> integers)
 {
-    return irk::coding::encode(integers, vb);
+    return irk::encode(integers, vb);
 }
 
 class IndexMerging : public ::testing::Test {
@@ -122,8 +122,8 @@ protected:
 //{
 //    index_merger merger(index_dir_m,
 //        {index_dir_1, index_dir_2},
-//        irk::coding::varbyte_codec<long>{},
-//        irk::coding::varbyte_codec<long>{},
+//        irk::varbyte_codec<long>{},
+//        irk::varbyte_codec<long>{},
 //        1);
 //    merger.merge_titles();
 //    std::ostringstream otitles;
@@ -143,15 +143,15 @@ protected:
 //    using Posting = irk::_posting<std::uint16_t, std::uint16_t>;
 //    index_merger merger(index_dir_m,
 //        {index_dir_1, index_dir_2},
-//        irk::coding::varbyte_codec<long>{},
-//        irk::coding::varbyte_codec<long>{},
+//        irk::varbyte_codec<long>{},
+//        irk::varbyte_codec<long>{},
 //        1024);
 //    merger.merge_terms();
 //    merger.merge_titles();
 //    irk::v2::inverted_index_mapped_data_source source(index_dir_m);
 //    irk::v2::inverted_index_view merged(&source,
-//        irk::coding::varbyte_codec<long>{},
-//        irk::coding::varbyte_codec<long>{});
+//        irk::varbyte_codec<long>{},
+//        irk::varbyte_codec<long>{});
 //
 //    // Verify terms
 //    std::ostringstream oterms;

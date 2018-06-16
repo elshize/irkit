@@ -1,134 +1,58 @@
-\hypertarget{structirk_1_1varbyte__codec}{}\section{irk\+:\+:varbyte\+\_\+codec$<$ T, $>$ Struct Template Reference}
-\label{structirk_1_1varbyte__codec}\index{irk\+::varbyte\+\_\+codec$<$ T, $>$@{irk\+::varbyte\+\_\+codec$<$ T, $>$}}
+\hypertarget{structirk_1_1varbyte__codec}{}\section{irk\+:\+:varbyte\+\_\+codec$<$ T $>$ Struct Template Reference}
+\label{structirk_1_1varbyte__codec}\index{irk\+::varbyte\+\_\+codec$<$ T $>$@{irk\+::varbyte\+\_\+codec$<$ T $>$}}
+
+
+Variable-\/\+Byte codec.  
+
+
 
 
 {\ttfamily \#include $<$varbyte.\+hpp$>$}
 
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}} = T
+\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structirk_1_1varbyte__codec_a040800a5446dcd87f19f8cd77dd132df}{append\+\_\+encoded}} (T n, std\+::vector$<$ char $>$ \&bytes)
+std\+::ostream \& \mbox{\hyperlink{structirk_1_1varbyte__codec_a82d69fd436aa9ea1626ad756cfdb6e88}{encode}} (\mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}} n, std\+::ostream \&sink) const
 \item 
-std\+::vector$<$ char $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a73f7d831c8114aab1bc8ba1b78cb0bb3}{encode}} (std\+::initializer\+\_\+list$<$ T $>$ ints)
-\item 
-{\footnotesize template$<$class Range , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Range $>$()) $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a3e65117c796984e516769d2d28fd73bf}{encode}} (const Range \&ints)
-\item 
-std\+::vector$<$ char $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a5f9bba73adbbd513708a1babc8324239}{delta\+\_\+encode}} (const std\+::vector$<$ T $>$ \&ints)
-\item 
-std\+::vector$<$ char $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a191f382522d0e711ee40fa3ab6101335}{delta\+\_\+encode}} (gsl\+::span$<$ const T $>$ ints)
-\item 
-{\footnotesize template$<$class Range , class Transform\+Fn , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Range $>$()) $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_abf78b8a557eccd238fd4c3d7f381dd12}{encode}} (const Range \&range, Transform\+Fn fn)
-\item 
-{\footnotesize template$<$class Iter , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Forward\+Iterator$<$ Iter $>$()) $>$ }\\Iter \mbox{\hyperlink{structirk_1_1varbyte__codec_ac3f5abee39693d13a69c2aaa24f8095f}{append\+\_\+decoded}} (Iter it, Iter end, std\+::vector$<$ T $>$ \&ints)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_afc4fde2f865f909405516b2294cb35c7}{decode}} (const char $\ast$bytes, std\+::size\+\_\+t num\+\_\+values)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a404c53206361afe9e8e921a8b5241643}{delta\+\_\+decode}} (const char $\ast$bytes, std\+::size\+\_\+t num\+\_\+values)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_aea37eb3ac306427295ae4ad795efe6d9}{decode}} (gsl\+::span$<$ const char $>$ bytes)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a416c6640c688c798dc5de3b99c58121d}{decode}} (const std\+::vector$<$ char $>$ \&bytes)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_a82a9ef022440adbc15f615d25bea3d5f}{delta\+\_\+decode}} (gsl\+::span$<$ const char $>$ bytes)
-\item 
-std\+::vector$<$ T $>$ \mbox{\hyperlink{structirk_1_1varbyte__codec_ad7cc0171f9745b29e76fa8de32356067}{delta\+\_\+decode}} (const std\+::vector$<$ char $>$ \&bytes)
+std\+::streamsize \mbox{\hyperlink{structirk_1_1varbyte__codec_aba60747b7941c1f10d104f1cf0778534}{decode}} (std\+::istream \&source, \mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}} \&n) const
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+struct irk\+::varbyte\+\_\+codec$<$ T $>$}
+
+Variable-\/\+Byte codec. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}\label{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}} 
+\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+using \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T $>$\+::\mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}} =  T}
+
+
+
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_ac3f5abee39693d13a69c2aaa24f8095f}\label{structirk_1_1varbyte__codec_ac3f5abee39693d13a69c2aaa24f8095f}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!append\+\_\+decoded@{append\+\_\+decoded}}
-\index{append\+\_\+decoded@{append\+\_\+decoded}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{append\+\_\+decoded()}{append\_decoded()}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-template$<$class Iter , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Forward\+Iterator$<$ Iter $>$()) $>$ \\
-Iter \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::append\+\_\+decoded (\begin{DoxyParamCaption}\item[{Iter}]{it,  }\item[{Iter}]{end,  }\item[{std\+::vector$<$ T $>$ \&}]{ints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a040800a5446dcd87f19f8cd77dd132df}\label{structirk_1_1varbyte__codec_a040800a5446dcd87f19f8cd77dd132df}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!append\+\_\+encoded@{append\+\_\+encoded}}
-\index{append\+\_\+encoded@{append\+\_\+encoded}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{append\+\_\+encoded()}{append\_encoded()}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-void \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::append\+\_\+encoded (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{std\+::vector$<$ char $>$ \&}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_afc4fde2f865f909405516b2294cb35c7}\label{structirk_1_1varbyte__codec_afc4fde2f865f909405516b2294cb35c7}} 
+\mbox{\Hypertarget{structirk_1_1varbyte__codec_aba60747b7941c1f10d104f1cf0778534}\label{structirk_1_1varbyte__codec_aba60747b7941c1f10d104f1cf0778534}} 
 \index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!decode@{decode}}
 \index{decode@{decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::decode (\begin{DoxyParamCaption}\item[{const char $\ast$}]{bytes,  }\item[{std\+::size\+\_\+t}]{num\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+std\+::streamsize \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T $>$\+::decode (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{source,  }\item[{\mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}} \&}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_aea37eb3ac306427295ae4ad795efe6d9}\label{structirk_1_1varbyte__codec_aea37eb3ac306427295ae4ad795efe6d9}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!decode@{decode}}
-\index{decode@{decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::decode (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ const char $>$}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a416c6640c688c798dc5de3b99c58121d}\label{structirk_1_1varbyte__codec_a416c6640c688c798dc5de3b99c58121d}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!decode@{decode}}
-\index{decode@{decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::decode (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ char $>$ \&}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a404c53206361afe9e8e921a8b5241643}\label{structirk_1_1varbyte__codec_a404c53206361afe9e8e921a8b5241643}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!delta\+\_\+decode@{delta\+\_\+decode}}
-\index{delta\+\_\+decode@{delta\+\_\+decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{delta\+\_\+decode()}{delta\_decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::delta\+\_\+decode (\begin{DoxyParamCaption}\item[{const char $\ast$}]{bytes,  }\item[{std\+::size\+\_\+t}]{num\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a82a9ef022440adbc15f615d25bea3d5f}\label{structirk_1_1varbyte__codec_a82a9ef022440adbc15f615d25bea3d5f}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!delta\+\_\+decode@{delta\+\_\+decode}}
-\index{delta\+\_\+decode@{delta\+\_\+decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{delta\+\_\+decode()}{delta\_decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::delta\+\_\+decode (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ const char $>$}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_ad7cc0171f9745b29e76fa8de32356067}\label{structirk_1_1varbyte__codec_ad7cc0171f9745b29e76fa8de32356067}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!delta\+\_\+decode@{delta\+\_\+decode}}
-\index{delta\+\_\+decode@{delta\+\_\+decode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{delta\+\_\+decode()}{delta\_decode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$T$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::delta\+\_\+decode (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ char $>$ \&}]{bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a5f9bba73adbbd513708a1babc8324239}\label{structirk_1_1varbyte__codec_a5f9bba73adbbd513708a1babc8324239}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!delta\+\_\+encode@{delta\+\_\+encode}}
-\index{delta\+\_\+encode@{delta\+\_\+encode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$char$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{ints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a191f382522d0e711ee40fa3ab6101335}\label{structirk_1_1varbyte__codec_a191f382522d0e711ee40fa3ab6101335}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!delta\+\_\+encode@{delta\+\_\+encode}}
-\index{delta\+\_\+encode@{delta\+\_\+encode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$char$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ const T $>$}]{ints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a73f7d831c8114aab1bc8ba1b78cb0bb3}\label{structirk_1_1varbyte__codec_a73f7d831c8114aab1bc8ba1b78cb0bb3}} 
+\mbox{\Hypertarget{structirk_1_1varbyte__codec_a82d69fd436aa9ea1626ad756cfdb6e88}\label{structirk_1_1varbyte__codec_a82d69fd436aa9ea1626ad756cfdb6e88}} 
 \index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!encode@{encode}}
 \index{encode@{encode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-std\+::vector$<$char$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::encode (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ T $>$}]{ints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_a3e65117c796984e516769d2d28fd73bf}\label{structirk_1_1varbyte__codec_a3e65117c796984e516769d2d28fd73bf}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!encode@{encode}}
-\index{encode@{encode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-template$<$class Range , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Range $>$()) $>$ \\
-std\+::vector$<$char$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::encode (\begin{DoxyParamCaption}\item[{const Range \&}]{ints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{structirk_1_1varbyte__codec_abf78b8a557eccd238fd4c3d7f381dd12}\label{structirk_1_1varbyte__codec_abf78b8a557eccd238fd4c3d7f381dd12}} 
-\index{irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}!encode@{encode}}
-\index{encode@{encode}!irk\+::varbyte\+\_\+codec@{irk\+::varbyte\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class T, C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-template$<$class Range , class Transform\+Fn , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Input\+Range$<$ Range $>$()) $>$ \\
-std\+::vector$<$char$>$ \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T, $>$\+::encode (\begin{DoxyParamCaption}\item[{const Range \&}]{range,  }\item[{Transform\+Fn}]{fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+std\+::ostream\& \mbox{\hyperlink{structirk_1_1varbyte__codec}{irk\+::varbyte\+\_\+codec}}$<$ T $>$\+::encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structirk_1_1varbyte__codec_a362fbaf8b27a38eb23a52a85b1af68ac}{value\+\_\+type}}}]{n,  }\item[{std\+::ostream \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
