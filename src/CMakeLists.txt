@@ -47,7 +47,7 @@ target_compile_features(irk-prefmap PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-buildindex irk-buildindex.cpp)
 target_link_libraries(irk-buildindex
-    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL)
+    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL Threads::Threads)
 target_compile_features(irk-buildindex PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-score irk-score.cpp)

@@ -125,11 +125,11 @@ TEST(inverted_index, build_load_verify)
 
     std::ifstream input(collection_file);
     assembler.assemble(input);
-    irk::v2::score_index(index_dir, 24);
+    irk::v2::score_index<irk::score::query_likelihood_scorer>(index_dir, 24);
 
     // then
     auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
-        index_dir);
+        index_dir, irk::score::query_likelihood_tag{});
     irk::v2::inverted_index_view index_view(data.get(),
         irk::coding::varbyte_codec<long>{},
         irk::coding::varbyte_codec<long>{},

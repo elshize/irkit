@@ -26,12 +26,25 @@
 
 #pragma once
 
+#include <optional>
 #include <cmath>
 #include <range/v3/utility/concepts.hpp>
 #include "irkit/types.hpp"
 
 //! Scoring functions and utilities.
 namespace irk::score {
+
+struct scoring_function_tag {
+    virtual operator std::string() = 0;
+};
+
+struct bm25_tag : public scoring_function_tag {
+    operator std::string() override { return "bm25"; }
+};
+
+struct query_likelihood_tag : public scoring_function_tag {
+    operator std::string() override { return "ql"; }
+};
 
 template<class ScoreFn, class Doc, class Freq>
 using score_result_t = decltype(std::declval<ScoreFn>()(
@@ -66,14 +79,28 @@ struct count_scorer {
 
 //! A BM25 scorer.
 struct bm25_scorer {
-    double k1;
-    double b;
+    using tag_type = bm25_tag;
+    tag_type scoring_tag;
+    double x, y, z;
 
-    bm25_scorer(double k1 = 1.2, double b = 0.5) {}
+    bm25_scorer(long term_document_count,
+        long collection_document_count,
+        double avg_document_size,
+        double k1 = 1.2,
+        double b = 0.5)
+    {
+        double numerator = collection_document_count - term_document_count
+            + 0.5;
+        double denominator = term_document_count + 0.5;
+        double idf = std::log(numerator / denominator);
+        x = idf * (k1 + 1);
+        y = k1 - b * k1;
+        z = b * k1 / avg_document_size;
+    }
+
 
     //! Returns the BM25 score.
-    template<class Freq, CONCEPT_REQUIRES_(ranges::Integral<Freq>())>
-    double operator()(Freq tf, Freq df, std::size_t N) const
+    double operator()(long tf, long document_size) const
     {
         return tf;
     }
@@ -81,6 +108,8 @@ struct bm25_scorer {
 
 //! A query likelihood scorer.
 struct query_likelihood_scorer {
+    using tag_type = query_likelihood_tag;
+    tag_type scoring_tag;
     double mu;
     double global_component;
 

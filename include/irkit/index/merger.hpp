@@ -29,6 +29,8 @@
 #include <memory>
 #include <string>
 
+#include <boost/log/trivial.hpp>
+
 #include "irkit/index.hpp"
 
 namespace irk {
@@ -198,6 +200,7 @@ public:
         std::vector<std::ifstream*> term_streams;
         document_type shift(0);
         int index_num = 0;
+        BOOST_LOG_TRIVIAL(debug) << "Initializing heap...";
         for (const index_type& index : indices_) {
             term_streams.push_back(new std::ifstream(
                 (sources_[index_num].dir() / "terms.txt").c_str()));
@@ -210,10 +213,14 @@ public:
 
         long all_occurrences = 0;
         std::vector<long> occurrences;
+        long term_id = 0;
         while (!heap_.empty()) {
             std::vector<entry> indices_to_merge = indices_with_next_term();
             occurrences.push_back(merge_term(indices_to_merge));
             all_occurrences += occurrences.back();
+            BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
+                                    << " from " << indices_to_merge.size()
+                                    << " indices";
             for (entry& e : indices_to_merge) {
                 if (std::size_t(e.current_term_id() + 1) < e.term_count())
                 {
@@ -264,36 +271,46 @@ public:
         tout.close();
     }
 
-    long merge_sizes()
+    std::pair<long, double> merge_sizes()
     {
         std::vector<long> sizes;
         std::ofstream sout(index::doc_sizes_path(target_dir_).c_str());
+        long sizes_sum = 0;
         for (const auto& index : indices_) {
             for (long doc = 0; doc < index.collection_size(); ++doc)
-            { sizes.push_back(index.document_size(doc)); }
+            {
+                long size = index.document_size(doc);
+                sizes.push_back(size);
+                sizes_sum += size;
+            }
         }
         irk::compact_table<long> size_table = irk::build_compact_table(sizes, false);
         sout << size_table;
-        return sizes.size();
+        return std::make_pair(sizes.size(), (double)sizes_sum / sizes.size());
     }
 
-    void write_properties(long documents, long occurrences)
+    void write_properties(long documents, long occurrences, double avg_doc_size)
     {
         std::ofstream out(index::properties_path(target_dir_).c_str());
         nlohmann::json j = {
             {"documents", documents},
             {"occurrences", occurrences},
-            {"skip_block_size", block_size_}
+            {"skip_block_size", block_size_},
+            {"avg_document_size", avg_doc_size}
         };
         out << std::setw(4) << j << std::endl;
     }
 
     void merge()
     {
+        BOOST_LOG_TRIVIAL(info) << "Merging titles...";
         merge_titles();
+        BOOST_LOG_TRIVIAL(info) << "Merging terms...";
         long occurrences = merge_terms();
-        long documents = merge_sizes();
-        write_properties(documents, occurrences);
+        BOOST_LOG_TRIVIAL(info) << "Merging sizes...";
+        auto [documents, avg_doc_size] = merge_sizes();
+        BOOST_LOG_TRIVIAL(info) << "Writing properties...";
+        write_properties(documents, occurrences, avg_doc_size);
     }
 };
 

@@ -224,10 +224,13 @@ public:
 
     void write_properties(std::ostream& out) const
     {
+        long sizes_sum = std::accumulate(
+            document_sizes_.begin(), document_sizes_.end(), 0);
         nlohmann::json j = {
             {"documents", current_doc_ + 1},
             {"occurrences", all_occurrences_},
-            {"skip_block_size", block_size_}
+            {"skip_block_size", block_size_},
+            {"avg_document_size", (double)sizes_sum / document_sizes_.size()}
         };
         out << std::setw(4) << j << std::endl;
     }
