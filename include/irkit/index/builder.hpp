@@ -90,13 +90,14 @@ public:
     void add_term(const term_type& term)
     {
         ++all_occurrences_;
-        ++document_sizes_[current_doc_];
+        ++document_sizes_.back();
         auto ti = term_map_.find(term);
         if (ti != term_map_.end()) {
             term_id_type term_id = ti->second;
             if (postings_[term_id].back().doc == current_doc_) {
                 postings_[term_id].back().freq++;
             } else {
+                std::cout << "pushing new doc to term " << term_id << ": " << current_doc_ << std::endl;
                 postings_[term_id].push_back({current_doc_, 1});
             }
             term_occurrences_[term_id]++;

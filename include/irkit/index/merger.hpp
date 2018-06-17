@@ -153,6 +153,7 @@ public:
             term_id, doc_ids_);
         count_offset_ += index_entry.index()->copy_frequency_list(
             term_id, doc_counts_);
+        term_dfs_.push_back(index_entry.index()->tdf(term_id));
         return index_entry.index()->term_occurrences(term_id);
     }
 
@@ -183,7 +184,8 @@ public:
             occurrences += e.index()->term_occurrences(e.current_term_id());
             auto pr = e.postings();
             for (const auto& p : pr) {
-                doc_ids.push_back(p.document() + e.shift());
+                //doc_ids.push_back(p.document() + e.shift());
+                doc_ids.push_back(p.document());
                 doc_counts.push_back(p.payload());
             }
         }

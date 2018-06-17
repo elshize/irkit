@@ -104,7 +104,7 @@ public:
             std::clog << "Building batch " << batch_number << std::endl;
             fs::path batch_dir = work_dir / std::to_string(batch_number);
             metadata batch_metadata(batch_dir);
-            build_batch(input, batch_metadata);
+            build_batch(input, batch_metadata, batch_number * batch_size_);
             batch_dirs.push_back(std::move(batch_dir));
             ++batch_number;
         }
@@ -129,8 +129,9 @@ public:
     //! \param[in] input            collection stream; see assemble() for
     //!                             more details
     //! \param[in] batch_metadata   information about file paths
-    std::istream&
-    build_batch(std::istream& input, metadata batch_metadata) const
+    std::istream& build_batch(std::istream& input,
+        metadata batch_metadata,
+        document_type first_id) const
     {
         if (!fs::exists(batch_metadata.dir))
         {
@@ -149,15 +150,18 @@ public:
             batch_metadata.term_occurrences.c_str());
         std::ofstream of_properties(batch_metadata.properties.c_str());
 
+        std::cout << "initializing builder: "
+            << first_id << "-" << batch_size_ + first_id - 1 << std::endl;
         builder_type builder(block_size_);
         std::string line;
-        for (int processed_documents_ = 0;
-             processed_documents_ < batch_size_;
+        for (int processed_documents_ = first_id;
+             processed_documents_ < batch_size_ + first_id;
              processed_documents_++)
         {
             if (!std::getline(input, line)) { break; }
             document_type doc = document_type(processed_documents_);
-            builder.add_document(doc++);
+            std::cout << "adding document " << doc << std::endl;
+            builder.add_document(doc);
             std::istringstream linestream(line);
             std::string title;
             linestream >> title;
