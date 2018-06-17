@@ -150,8 +150,6 @@ public:
             batch_metadata.term_occurrences.c_str());
         std::ofstream of_properties(batch_metadata.properties.c_str());
 
-        std::cout << "initializing builder: "
-            << first_id << "-" << batch_size_ + first_id - 1 << std::endl;
         builder_type builder(block_size_);
         std::string line;
         for (int processed_documents_ = first_id;
@@ -160,7 +158,6 @@ public:
         {
             if (!std::getline(input, line)) { break; }
             document_type doc = document_type(processed_documents_);
-            std::cout << "adding document " << doc << std::endl;
             builder.add_document(doc);
             std::istringstream linestream(line);
             std::string title;

@@ -97,7 +97,6 @@ public:
             if (postings_[term_id].back().doc == current_doc_) {
                 postings_[term_id].back().freq++;
             } else {
-                std::cout << "pushing new doc to term " << term_id << ": " << current_doc_ << std::endl;
                 postings_[term_id].push_back({current_doc_, 1});
             }
             term_occurrences_[term_id]++;
