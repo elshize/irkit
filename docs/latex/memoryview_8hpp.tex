@@ -1,0 +1,50 @@
+\hypertarget{memoryview_8hpp}{}\section{include/irkit/memoryview.hpp File Reference}
+\label{memoryview_8hpp}\index{include/irkit/memoryview.\+hpp@{include/irkit/memoryview.\+hpp}}
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/device/mapped\+\_\+file.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iterator/iterator\+\_\+facade.\+hpp$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+util$>$}\newline
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1reinterpret__cast__fn}{irk\+::reinterpret\+\_\+cast\+\_\+fn$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em A base class for all types of memory views. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{irk\+::memory\+\_\+view\+::iterator}}
+\begin{DoxyCompactList}\small\item\em Character iterator. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1memory__view_1_1concept}{irk\+::memory\+\_\+view\+::concept}}
+\item 
+class \mbox{\hyperlink{classirk_1_1memory__view_1_1model}{irk\+::memory\+\_\+view\+::model$<$ source\+\_\+type $>$}}
+\item 
+class \mbox{\hyperlink{classirk_1_1span__memory__source}{irk\+::span\+\_\+memory\+\_\+source$<$ Char\+T $>$}}
+\begin{DoxyCompactList}\small\item\em A gsl\+::span$<$\+T$>$ memory source. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1pointer__memory__source}{irk\+::pointer\+\_\+memory\+\_\+source$<$ Char\+T $>$}}
+\begin{DoxyCompactList}\small\item\em A pointer memory source. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{irk\+::mapped\+\_\+file\+\_\+memory\+\_\+source$<$ Char\+T $>$}}
+\begin{DoxyCompactList}\small\item\em A memory source for mapped files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk}{irk}}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+memory\+\_\+view \mbox{\hyperlink{namespaceirk_ac123106f771ea0ef0ee855f8ee98bc2b}{irk\+::make\+\_\+memory\+\_\+view}} (gsl\+::span$<$ const char $>$ mem)
+\item 
+memory\+\_\+view \mbox{\hyperlink{namespaceirk_ab21cb1ed22fd54ee08ae5d4e93485857}{irk\+::make\+\_\+memory\+\_\+view}} (const char $\ast$data, int size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

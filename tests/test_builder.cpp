@@ -136,7 +136,7 @@ TEST_F(IndexBuilderWrite, write_terms)
 
 TEST_F(IndexBuilderWrite, write_document_ids)
 {
-    irk::coding::varbyte_codec<uint16_t> vb;
+    irk::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_ids(out, off);
@@ -156,7 +156,7 @@ TEST_F(IndexBuilderWrite, write_document_ids)
 
 TEST_F(IndexBuilderWrite, write_document_counts)
 {
-    irk::coding::varbyte_codec<uint16_t> vb;
+    irk::varbyte_codec<uint16_t> vb;
     std::stringstream out;
     std::stringstream off;
     builder.write_document_counts(out, off);

@@ -1,0 +1,150 @@
+\hypertarget{classirk_1_1index_1_1index__assembler}{}\section{irk\+:\+:index\+:\+:index\+\_\+assembler$<$ Doc, Term, Term\+Id, Freq $>$ Class Template Reference}
+\label{classirk_1_1index_1_1index__assembler}\index{irk\+::index\+::index\+\_\+assembler$<$ Doc, Term, Term\+Id, Freq $>$@{irk\+::index\+::index\+\_\+assembler$<$ Doc, Term, Term\+Id, Freq $>$}}
+
+
+{\ttfamily \#include $<$assembler.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}} = Doc
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}} = Term
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}} = Term\+Id
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} = Freq
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a76cb9e6d85a87c9f7d96148e1f28f56e}{builder\+\_\+type}} = \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a059327e71e4de55d8b5872b7775399ed}{merger\+\_\+type}} = \mbox{\hyperlink{classirk_1_1index__merger}{irk\+::index\+\_\+merger}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_aaf0390e58f47335b54a86c8bfe79cec2}{index\+\_\+assembler}} (fs\+::path output\+\_\+dir, int batch\+\_\+size, long block\+\_\+size, \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}} $>$ document\+\_\+codec, \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} $>$ frequency\+\_\+codec) noexcept
+\item 
+void \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a14bcac58459efaa300f324dceff82661}{assemble}} (std\+::istream \&input)
+\begin{DoxyCompactList}\small\item\em Builds all batches and assembles the final index. \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42b294d02349c03a72aaf19a7882f230}{build\+\_\+batch}} (std\+::istream \&input, \mbox{\hyperlink{structirk_1_1index_1_1metadata}{metadata}} batch\+\_\+metadata) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Doc = long, class Term = std\+::string, class Term\+Id = long, class Freq = long$>$\newline
+class irk\+::index\+::index\+\_\+assembler$<$ Doc, Term, Term\+Id, Freq $>$}
+
+Builds an index in batches and merges them together on disk.
+
+See \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a14bcac58459efaa300f324dceff82661}{assemble()}} function documentation for the format of the input file. Note that neither the assembler nor the builder stem terms. It must be done beforehand. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a76cb9e6d85a87c9f7d96148e1f28f56e}\label{classirk_1_1index_1_1index__assembler_a76cb9e6d85a87c9f7d96148e1f28f56e}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!builder\+\_\+type@{builder\+\_\+type}}
+\index{builder\+\_\+type@{builder\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{builder\+\_\+type}{builder\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a76cb9e6d85a87c9f7d96148e1f28f56e}{builder\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}\label{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}} =  Doc}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}\label{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} =  Freq}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a059327e71e4de55d8b5872b7775399ed}\label{classirk_1_1index_1_1index__assembler_a059327e71e4de55d8b5872b7775399ed}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!merger\+\_\+type@{merger\+\_\+type}}
+\index{merger\+\_\+type@{merger\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{merger\+\_\+type}{merger\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a059327e71e4de55d8b5872b7775399ed}{merger\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1index__merger}{irk\+::index\+\_\+merger}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}\label{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}}
+\index{term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{term\+\_\+id\+\_\+type}{term\_id\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_ad632345d29f93e9f10fbc7e91db41f77}{term\+\_\+id\+\_\+type}} =  Term\+Id}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}\label{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!term\+\_\+type@{term\+\_\+type}}
+\index{term\+\_\+type@{term\+\_\+type}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{term\+\_\+type}{term\_type}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a1dec315f145c0e887e0035c3b7f23235}{term\+\_\+type}} =  Term}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_aaf0390e58f47335b54a86c8bfe79cec2}\label{classirk_1_1index_1_1index__assembler_aaf0390e58f47335b54a86c8bfe79cec2}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!index\+\_\+assembler@{index\+\_\+assembler}}
+\index{index\+\_\+assembler@{index\+\_\+assembler}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{index\+\_\+assembler()}{index\_assembler()}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{index\+\_\+assembler}} (\begin{DoxyParamCaption}\item[{fs\+::path}]{output\+\_\+dir,  }\item[{int}]{batch\+\_\+size,  }\item[{long}]{block\+\_\+size,  }\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a42424117b672fc1383b3be13f3338bc4}{document\+\_\+type}} $>$}]{document\+\_\+codec,  }\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a8da91d64fb4a68136f7978944e7f3373}{frequency\+\_\+type}} $>$}]{frequency\+\_\+codec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+dir} & final directory of the index \\
+\hline
+{\em batch\+\_\+size} & number of documents built at once in memory \\
+\hline
+{\em block\+\_\+size} & size of inverted list block (and skip length) \\
+\hline
+{\em document\+\_\+codec} & codec for document I\+Ds \\
+\hline
+{\em frequency\+\_\+codec} & codec for frequencies \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a14bcac58459efaa300f324dceff82661}\label{classirk_1_1index_1_1index__assembler_a14bcac58459efaa300f324dceff82661}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!assemble@{assemble}}
+\index{assemble@{assemble}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{assemble()}{assemble()}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+void \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::assemble (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Builds all batches and assembles the final index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\mbox{[}in\mbox{]}} & collection input stream\\
+\hline
+\end{DoxyParams}
+The input file contains a single document in the following format\+: 
+\begin{DoxyCode}
+document\_title   term0 term1 term2 term3 ...
+\end{DoxyCode}
+ \mbox{\Hypertarget{classirk_1_1index_1_1index__assembler_a42b294d02349c03a72aaf19a7882f230}\label{classirk_1_1index_1_1index__assembler_a42b294d02349c03a72aaf19a7882f230}} 
+\index{irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}!build\+\_\+batch@{build\+\_\+batch}}
+\index{build\+\_\+batch@{build\+\_\+batch}!irk\+::index\+::index\+\_\+assembler@{irk\+::index\+::index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{build\+\_\+batch()}{build\_batch()}}
+{\footnotesize\ttfamily template$<$class Doc  = long, class Term  = std\+::string, class Term\+Id  = long, class Freq  = long$>$ \\
+std\+::istream\& \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{irk\+::index\+::index\+\_\+assembler}}$<$ Doc, Term, Term\+Id, Freq $>$\+::build\+\_\+batch (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{input,  }\item[{\mbox{\hyperlink{structirk_1_1index_1_1metadata}{metadata}}}]{batch\+\_\+metadata }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Builds a single batch.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em input} & collection stream; see \mbox{\hyperlink{classirk_1_1index_1_1index__assembler_a14bcac58459efaa300f324dceff82661}{assemble()}} for more details \\
+\hline
+\mbox{\tt in}  & {\em batch\+\_\+metadata} & information about file paths \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{assembler_8hpp}{assembler.\+hpp}}\end{DoxyCompactItemize}

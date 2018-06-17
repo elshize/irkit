@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -77,9 +76,10 @@ $(function() {
 <div class="title">hutucker.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="alphabetical__bst_8hpp_source.html">irkit/alphabetical_bst.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="huffman_8hpp_source.html">irkit/coding/huffman.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;gsl/gsl_assert&gt;</code><br />
+<code>#include &lt;<a class="el" href="alphabetical__bst_8hpp_source.html">irkit/alphabetical_bst.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="huffman_8hpp_source.html">irkit/coding/huffman.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&gt;</code><br />
 </div>
 <p><a href="hutucker_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -88,14 +88,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1coding_1_1hutucker_1_1level__node.html">irk::coding::hutucker::level_node&lt; Symbol &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores a Huffman tree node pointer along with its level (height).  <a href="structirk_1_1coding_1_1hutucker_1_1level__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1coding_1_1hutucker__codec.html">irk::coding::hutucker_codec&lt; Symbol, MemoryContainer &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hu-Tucker codec.  <a href="classirk_1_1coding_1_1hutucker__codec.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec&lt; Symbol, MemoryContainer &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hu-Tucker codec.  <a href="classirk_1_1hutucker__codec.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceirk_1_1coding"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding.html">irk::coding</a></td></tr>
-<tr class="memdesc:namespaceirk_1_1coding"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
+<tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceirk_1_1coding_1_1hutucker"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html">irk::coding::hutucker</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,10 +108,10 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3cce9468fb0b4bd0b2f30422b8c00284"><td class="memTemplParams" colspan="2">template&lt;class Symbol  = char&gt; </td></tr>
-<tr class="memitem:a3cce9468fb0b4bd0b2f30422b8c00284"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#a3cce9468fb0b4bd0b2f30422b8c00284">irk::coding::hutucker::join_selected</a> (std::list&lt; node_ptr&lt; Symbol &gt;&gt; &amp;forest, std::pair&lt; node_ptr&lt; Symbol &gt;, node_ptr&lt; Symbol &gt;&gt; &amp;selected)</td></tr>
-<tr class="memdesc:a3cce9468fb0b4bd0b2f30422b8c00284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins together a pair of selected nodes in a forest.  <a href="namespaceirk_1_1coding_1_1hutucker.html#a3cce9468fb0b4bd0b2f30422b8c00284">More...</a><br /></td></tr>
-<tr class="separator:a3cce9468fb0b4bd0b2f30422b8c00284"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc598a2671de17423c5d2c0427aab320"><td class="memTemplParams" colspan="2">template&lt;class Symbol  = char&gt; </td></tr>
+<tr class="memitem:afc598a2671de17423c5d2c0427aab320"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#afc598a2671de17423c5d2c0427aab320">irk::coding::hutucker::join_selected</a> (std::list&lt; node_ptr&lt; Symbol &gt;&gt; &amp;forest, std::pair&lt; typename std::list&lt; node_ptr&lt; Symbol &gt;&gt;::iterator, typename std::list&lt; node_ptr&lt; Symbol &gt;&gt;::iterator &gt; selected)</td></tr>
+<tr class="memdesc:afc598a2671de17423c5d2c0427aab320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins together a pair of selected nodes in a forest.  <a href="namespaceirk_1_1coding_1_1hutucker.html#afc598a2671de17423c5d2c0427aab320">More...</a><br /></td></tr>
+<tr class="separator:afc598a2671de17423c5d2c0427aab320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad43136697500a2cc05315ab694767d84"><td class="memTemplParams" colspan="2">template&lt;class Symbol  = char&gt; </td></tr>
 <tr class="memitem:ad43136697500a2cc05315ab694767d84"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#ad43136697500a2cc05315ab694767d84">irk::coding::hutucker::join_next_valid</a> (std::list&lt; node_ptr&lt; Symbol &gt;&gt; &amp;forest)</td></tr>
 <tr class="memdesc:ad43136697500a2cc05315ab694767d84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects and joins the next valid pair in the forest.  <a href="namespaceirk_1_1coding_1_1hutucker.html#ad43136697500a2cc05315ab694767d84">More...</a><br /></td></tr>
@@ -127,10 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:adf2fb7ba2277edb34df80da2766493f8"><td class="memTemplItemLeft" align="right" valign="top">node_ptr&lt; Symbol &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#adf2fb7ba2277edb34df80da2766493f8">irk::coding::hutucker::reconstruct</a> (std::list&lt; level_node&lt; Symbol &gt;&gt; &amp;nodes)</td></tr>
 <tr class="memdesc:adf2fb7ba2277edb34df80da2766493f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstructs the final Hu-Tucker tree based on the level-tagged nodes.  <a href="namespaceirk_1_1coding_1_1hutucker.html#adf2fb7ba2277edb34df80da2766493f8">More...</a><br /></td></tr>
 <tr class="separator:adf2fb7ba2277edb34df80da2766493f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8439e61ebf9f3af2e42bce48905832b5"><td class="memTemplParams" colspan="2">template&lt;class Symbol  = char&gt; </td></tr>
-<tr class="memitem:a8439e61ebf9f3af2e42bce48905832b5"><td class="memTemplItemLeft" align="right" valign="top">alphabetical_bst&lt; Symbol, uint16_t, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#a8439e61ebf9f3af2e42bce48905832b5">irk::coding::hutucker::compact</a> (node_ptr&lt; Symbol &gt; root)</td></tr>
-<tr class="memdesc:a8439e61ebf9f3af2e42bce48905832b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an immutable compact version of the same tree.  <a href="namespaceirk_1_1coding_1_1hutucker.html#a8439e61ebf9f3af2e42bce48905832b5">More...</a><br /></td></tr>
-<tr class="separator:a8439e61ebf9f3af2e42bce48905832b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ab334d2417de57e7ac803d32e751d5"><td class="memItemLeft" align="right" valign="top">alphabetical_bst&lt; char, uint16_t, std::vector&lt; char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1coding_1_1hutucker.html#a92ab334d2417de57e7ac803d32e751d5">irk::coding::hutucker::compact</a> (node_ptr&lt; char &gt; root)</td></tr>
+<tr class="memdesc:a92ab334d2417de57e7ac803d32e751d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an immutable compact version of the same tree.  <a href="namespaceirk_1_1coding_1_1hutucker.html#a92ab334d2417de57e7ac803d32e751d5">More...</a><br /></td></tr>
+<tr class="separator:a92ab334d2417de57e7ac803d32e751d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>

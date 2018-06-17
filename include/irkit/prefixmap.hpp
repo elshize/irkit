@@ -28,6 +28,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <fstream>
 #include <iostream>
 #include <list>
 #include <sstream>
@@ -35,6 +36,8 @@
 
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <gsl/gsl>
 
@@ -82,7 +85,7 @@ public:
         std::size_t size_;
         char* block_begin_;
         irk::bitptr<char> bitp_;
-        const std::shared_ptr<coding::hutucker_codec<char>> codec_;
+        const std::shared_ptr<hutucker_codec<char>> codec_;
 
         void encode_unary(std::uint32_t n)
         {
@@ -104,7 +107,7 @@ public:
         block_builder(Index first_index,
             char* block_begin,
             std::size_t size,
-            const std::shared_ptr<irk::coding::hutucker_codec<char>> codec)
+            const std::shared_ptr<hutucker_codec<char>> codec)
             : first_index_(first_index),
               count_(0),
               pos_(block_data_offset * 8),
@@ -162,12 +165,12 @@ public:
     private:
         const char* block_begin;
         bitptr<const char> current;
-        std::shared_ptr<irk::coding::hutucker_codec<char>> codec_;
+        std::shared_ptr<hutucker_codec<char>> codec_;
         std::string last_value;
 
     public:
         block_ptr(const char* block_ptr,
-            const std::shared_ptr<irk::coding::hutucker_codec<char>> codec)
+            const std::shared_ptr<hutucker_codec<char>> codec)
             : block_begin(block_ptr),
               current(block_ptr + block_data_offset),
               codec_(codec),
@@ -220,7 +223,7 @@ public:
             block_ptr block,
             int block_num,
             int pos_in_block,
-            const std::shared_ptr<coding::hutucker_codec<char>> codec)
+            const std::shared_ptr<hutucker_codec<char>> codec)
             : blocks_(blocks),
               block_size_(block_size),
               block_(block),
@@ -258,7 +261,7 @@ public:
         int block_num_;
         int pos_in_block_;
         mutable std::string val_;
-        const std::shared_ptr<coding::hutucker_codec<char>> codec_;
+        const std::shared_ptr<hutucker_codec<char>> codec_;
     };
     using const_iterator = iterator;
 
@@ -267,7 +270,7 @@ private:
     std::size_t size_;
     std::size_t block_size_;
     std::size_t block_count_;
-    const std::shared_ptr<coding::hutucker_codec<char>> codec_;
+    const std::shared_ptr<hutucker_codec<char>> codec_;
     std::shared_ptr<radix_tree<Index>> block_leaders_;
     mutable std::vector<Index> reverse_lookup_;
 
@@ -354,7 +357,7 @@ public:
         std::size_t size,
         std::size_t block_size,
         std::size_t block_count,
-        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
+        const std::shared_ptr<irk::hutucker_codec<char>> codec,
         std::shared_ptr<radix_tree<Index>> block_leaders)
         : blocks_(blocks),
           size_(size),
@@ -366,7 +369,7 @@ public:
 
     // TODO: get rid of duplication -- leaving for testing now
     prefix_map(fs::path file,
-        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
+        const std::shared_ptr<irk::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
         : size_(0),
           block_size_(block_size),
@@ -407,7 +410,7 @@ public:
 
     template<class StringRange>
     prefix_map(const StringRange& items,
-        const std::shared_ptr<irk::coding::hutucker_codec<char>> codec,
+        const std::shared_ptr<irk::hutucker_codec<char>> codec,
         std::size_t block_size = 1024)
         : size_(0),
           block_size_(block_size),
@@ -535,8 +538,8 @@ build_prefix_map_from_file(fs::path file, std::size_t buffer_size = 1024)
         }
     }
     in.close();
-    auto codec = std::shared_ptr<irk::coding::hutucker_codec<char>>(
-        new irk::coding::hutucker_codec<char>(frequencies));
+    auto codec = std::shared_ptr<irk::hutucker_codec<char>>(
+        new hutucker_codec<char>(frequencies));
     return prefix_map<Index, std::vector<char>>(file, codec, buffer_size);
 }
 
@@ -551,15 +554,15 @@ build_prefix_map(const StringRange& items, std::size_t buffer_size = 1024)
             ++frequencies[ch];
         }
     }
-    auto codec = std::shared_ptr<irk::coding::hutucker_codec<char>>(
-        new irk::coding::hutucker_codec<char>(frequencies));
+    auto codec = std::shared_ptr<hutucker_codec<char>>(
+        new hutucker_codec<char>(frequencies));
     return prefix_map<Index, std::vector<char>>(items, codec, buffer_size);
 }
 
 template<class Index>
 std::shared_ptr<radix_tree<Index>> load_radix_tree(std::istream& in,
     std::size_t block_size,
-    std::shared_ptr<irk::coding::hutucker_codec<char>> codec)
+    std::shared_ptr<hutucker_codec<char>> codec)
 {
     std::shared_ptr<radix_tree<Index>> rt(new radix_tree<Index>());
     std::size_t num_values;
@@ -590,8 +593,7 @@ prefix_map<Index, std::vector<char>> load_prefix_map(std::istream& in)
     std::vector<char> tree_data(tree_size);
     in.read(tree_data.data(), tree_size);
     alphabetical_bst<> encoding_tree(std::move(tree_data));
-    auto codec =
-        std::make_shared<irk::coding::hutucker_codec<char>>(encoding_tree);
+    auto codec = std::make_shared<hutucker_codec<char>>(encoding_tree);
 
     auto block_leaders = load_radix_tree<Index>(in, block_size, codec);
 

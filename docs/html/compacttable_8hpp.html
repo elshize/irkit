@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -71,17 +70,21 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">compacttable.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;experimental/filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/device/mapped_file.hpp&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &quot;<a class="el" href="coding_8hpp_source.html">irkit/coding.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="varbyte_8hpp_source.html">irkit/coding/varbyte.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="io_8hpp_source.html">irkit/io.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="memorybuffer_8hpp_source.html">irkit/io/memorybuffer.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&quot;</code><br />
 </div>
 <p><a href="compacttable_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -93,30 +96,71 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1compact__table__leader.html">irk::compact_table_leader</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table&lt; T, Codec &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table&lt; T, Codec, MemoryBuffer &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast-access compressed array.  <a href="classirk_1_1compact__table.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table&lt; T, Codec &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1compact__table.html">irk::compact_table&lt; T, Codec, MemoryBuffer &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast-access compressed array.  <a href="classirk_1_1compact__table.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1offset__table.html">irk::offset_table&lt; Codec &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceirk_1_1io"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html">irk::io</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a34b2e9b780a3b5d4532d7975d6c1a8bf"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec  = varbyte_codec&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:a34b2e9b780a3b5d4532d7975d6c1a8bf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a34b2e9b780a3b5d4532d7975d6c1a8bf">irk::vector_compact_table</a> = compact_table&lt; T, Codec, std::vector&lt; char &gt; &gt;</td></tr>
+<tr class="separator:a34b2e9b780a3b5d4532d7975d6c1a8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a355b82a658f8685da29eca82444fed3c"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec  = varbyte_codec&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:a355b82a658f8685da29eca82444fed3c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a355b82a658f8685da29eca82444fed3c">irk::mapped_compact_table</a> = compact_table&lt; T, Codec, boost::iostreams::mapped_file_source &gt;</td></tr>
+<tr class="separator:a355b82a658f8685da29eca82444fed3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d7b00f359d122e0bf0f709d21f00098"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;, class MemoryBuffer  = std::vector&lt;char&gt;&gt; </td></tr>
+<tr class="memitem:a3d7b00f359d122e0bf0f709d21f00098"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a3d7b00f359d122e0bf0f709d21f00098">irk::offset_table</a> = compact_table&lt; std::size_t, Codec, MemoryBuffer &gt;</td></tr>
+<tr class="separator:a3d7b00f359d122e0bf0f709d21f00098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d042444ebc87e3036291ec5656b0c51"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;&gt; </td></tr>
+<tr class="memitem:a6d042444ebc87e3036291ec5656b0c51"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a6d042444ebc87e3036291ec5656b0c51">irk::vector_offset_table</a> = compact_table&lt; std::size_t, Codec, std::vector&lt; char &gt; &gt;</td></tr>
+<tr class="separator:a6d042444ebc87e3036291ec5656b0c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3084e78181e92fe4bea7332e0a77e98"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;&gt; </td></tr>
+<tr class="memitem:ab3084e78181e92fe4bea7332e0a77e98"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#ab3084e78181e92fe4bea7332e0a77e98">irk::mapped_offset_table</a> = compact_table&lt; std::size_t, Codec, boost::iostreams::mapped_file_source &gt;</td></tr>
+<tr class="separator:ab3084e78181e92fe4bea7332e0a77e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5a2bb996aa2fce0aa00ae9aafd500bba"><td class="memTemplParams" colspan="2">template&lt;class Mem , class Codec &gt; </td></tr>
 <tr class="memitem:a5a2bb996aa2fce0aa00ae9aafd500bba"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a5a2bb996aa2fce0aa00ae9aafd500bba">irk::read_compact_value</a> (Mem mem, std::uint32_t key, Codec codec)</td></tr>
 <tr class="separator:a5a2bb996aa2fce0aa00ae9aafd500bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cf133b170be4f5de9135aa3936012e9"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec &gt; </td></tr>
-<tr class="memitem:a9cf133b170be4f5de9135aa3936012e9"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a9cf133b170be4f5de9135aa3936012e9">irk::operator&lt;&lt;</a> (std::ostream &amp;out, const compact_table&lt; T, Codec &gt; &amp;offset_table)</td></tr>
-<tr class="separator:a9cf133b170be4f5de9135aa3936012e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bc6394c2673a19ce5bf0ca74641c41d"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec , class MemoryBuffer &gt; </td></tr>
+<tr class="memitem:a2bc6394c2673a19ce5bf0ca74641c41d"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a2bc6394c2673a19ce5bf0ca74641c41d">irk::operator&lt;&lt;</a> (std::ostream &amp;out, const compact_table&lt; T, Codec, MemoryBuffer &gt; &amp;offset_table)</td></tr>
+<tr class="separator:a2bc6394c2673a19ce5bf0ca74641c41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a47c5f38246e32ece50c109e1edaaf"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec  = varbyte_codec&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:aa5a47c5f38246e32ece50c109e1edaaf"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; T, Codec, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#aa5a47c5f38246e32ece50c109e1edaaf">irk::load_compact_table</a> (fs::path file)</td></tr>
+<tr class="memdesc:aa5a47c5f38246e32ece50c109e1edaaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a compact table to main memory.  <a href="namespaceirk.html#aa5a47c5f38246e32ece50c109e1edaaf">More...</a><br /></td></tr>
+<tr class="separator:aa5a47c5f38246e32ece50c109e1edaaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72297d13b3e41cd8dafdcc28ff3c4528"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec  = varbyte_codec&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:a72297d13b3e41cd8dafdcc28ff3c4528"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; T, Codec, boost::iostreams::mapped_file_source &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a72297d13b3e41cd8dafdcc28ff3c4528">irk::map_compact_table</a> (fs::path file)</td></tr>
+<tr class="memdesc:a72297d13b3e41cd8dafdcc28ff3c4528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a compact table with a mapped file.  <a href="namespaceirk.html#a72297d13b3e41cd8dafdcc28ff3c4528">More...</a><br /></td></tr>
+<tr class="separator:a72297d13b3e41cd8dafdcc28ff3c4528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad911a2a5cd8986d97fd92eec33683377"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec  = varbyte_codec&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:ad911a2a5cd8986d97fd92eec33683377"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; T, Codec, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#ad911a2a5cd8986d97fd92eec33683377">irk::build_compact_table</a> (const std::vector&lt; T &gt; &amp;values, bool delta_encoded=false, std::uint32_t block_size=256)</td></tr>
+<tr class="memdesc:ad911a2a5cd8986d97fd92eec33683377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a compact table in main memory.  <a href="namespaceirk.html#ad911a2a5cd8986d97fd92eec33683377">More...</a><br /></td></tr>
+<tr class="separator:ad911a2a5cd8986d97fd92eec33683377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0428139c5d98f138321b9a2b1bff3d5"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;&gt; </td></tr>
+<tr class="memitem:ad0428139c5d98f138321b9a2b1bff3d5"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; std::size_t, Codec, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#ad0428139c5d98f138321b9a2b1bff3d5">irk::load_offset_table</a> (fs::path file)</td></tr>
+<tr class="memdesc:ad0428139c5d98f138321b9a2b1bff3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an offset table to main memory.  <a href="namespaceirk.html#ad0428139c5d98f138321b9a2b1bff3d5">More...</a><br /></td></tr>
+<tr class="separator:ad0428139c5d98f138321b9a2b1bff3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647b6c35c655d88bb5fb522a4d77ef49"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;&gt; </td></tr>
+<tr class="memitem:a647b6c35c655d88bb5fb522a4d77ef49"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; std::size_t, Codec, boost::iostreams::mapped_file_source &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a647b6c35c655d88bb5fb522a4d77ef49">irk::map_offset_table</a> (fs::path file)</td></tr>
+<tr class="memdesc:a647b6c35c655d88bb5fb522a4d77ef49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up an offset table with a mapped file.  <a href="namespaceirk.html#a647b6c35c655d88bb5fb522a4d77ef49">More...</a><br /></td></tr>
+<tr class="separator:a647b6c35c655d88bb5fb522a4d77ef49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af80eeaf7666165b73f3c5787bb51e407"><td class="memTemplParams" colspan="2">template&lt;class Codec  = varbyte_codec&lt;std::size_t&gt;&gt; </td></tr>
+<tr class="memitem:af80eeaf7666165b73f3c5787bb51e407"><td class="memTemplItemLeft" align="right" valign="top">compact_table&lt; std::size_t, Codec, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#af80eeaf7666165b73f3c5787bb51e407">irk::build_offset_table</a> (const std::vector&lt; std::size_t &gt; &amp;values, std::uint32_t block_size=256)</td></tr>
+<tr class="memdesc:af80eeaf7666165b73f3c5787bb51e407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build an offset table in main memory.  <a href="namespaceirk.html#af80eeaf7666165b73f3c5787bb51e407">More...</a><br /></td></tr>
+<tr class="separator:af80eeaf7666165b73f3c5787bb51e407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec &gt; </td></tr>
 <tr class="memitem:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#a7eb5e1bc8d97d131311b0054a1b79b94">irk::io::dump</a> (const compact_table&lt; T, Codec &gt; &amp;offset_table, fs::path file)</td></tr>
 <tr class="memdesc:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a <code><a class="el" href="classirk_1_1compact__table.html" title="Fast-access compressed array. ">compact_table</a></code> to a file.  <a href="namespaceirk_1_1io.html#a7eb5e1bc8d97d131311b0054a1b79b94">More...</a><br /></td></tr>

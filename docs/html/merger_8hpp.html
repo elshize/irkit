@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -76,8 +75,10 @@ $(function() {
 <div class="title">merger.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &quot;<a class="el" href="irkit_2index_8hpp_source.html">irkit/index.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="index_8hpp_source.html">irkit/index.hpp</a>&quot;</code><br />
 </div>
 <p><a href="merger_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -89,12 +90,13 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a1a0dd571a3774e966f9d89abe5d4c6ee"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a1a0dd571a3774e966f9d89abe5d4c6ee">irk::default_index_merger</a> = index_merger&lt; std::uint32_t, std::string, std::uint32_t, std::uint32_t &gt;</td></tr>
-<tr class="separator:a1a0dd571a3774e966f9d89abe5d4c6ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227068f98c83d33da43fab6a15633fb5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a227068f98c83d33da43fab6a15633fb5">irk::default_index_merger</a> = index_merger&lt; long, std::string, long, long &gt;</td></tr>
+<tr class="separator:a227068f98c83d33da43fab6a15633fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>

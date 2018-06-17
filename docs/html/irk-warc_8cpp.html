@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -69,29 +68,42 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">irk-warc.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/iostreams/filter/gzip.hpp&gt;</code><br />
-<code>#include &lt;boost/iostreams/filtering_stream.hpp&gt;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;experimental/filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;gumbo.h&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;regex&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="cmd_8hpp_source.html">cmd.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="warc_8hpp_source.html">irkit/io/warc.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="html_8hpp_source.html">irkit/parsing/html.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="porter2_8hpp_source.html">irkit/parsing/snowball/porter2.hpp</a>&quot;</code><br />
+<code>#include &lt;CLI/CLI.hpp&gt;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/filter/gzip.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/filtering_stream.hpp&gt;</code><br />
+<code>#include &lt;gumbo.h&gt;</code><br />
+<code>#include &lt;gsl/gsl&gt;</code><br />
+<code>#include &lt;<a class="el" href="warc_8hpp_source.html">irkit/io/warc.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="html_8hpp_source.html">irkit/parsing/html.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="porter2_8hpp_source.html">irkit/parsing/snowball/porter2.hpp</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcheck__fields.html">check_fields</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbody__writer.html">body_writer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a44adaf0886fa4ffc57f8ea4447218597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irk-warc_8cpp.html#a44adaf0886fa4ffc57f8ea4447218597">write_term</a> (std::string &amp;&amp;term, <a class="el" href="structSN__env.html">SN_env</a> *z, bool lowercase)</td></tr>
 <tr class="separator:a44adaf0886fa4ffc57f8ea4447218597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540445d56c199741b8ec16c28c40f5e0"><td class="memItemLeft" align="right" valign="top">std::set&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irk-warc_8cpp.html#a540445d56c199741b8ec16c28c40f5e0">parse_field_selection</a> ()</td></tr>
+<tr class="separator:a540445d56c199741b8ec16c28c40f5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaa9afcbcca6c9cac8dfed13f3ec5b3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irk-warc_8cpp.html#aeaa9afcbcca6c9cac8dfed13f3ec5b3d">print_field</a> (char f, const <a class="el" href="classirkit_1_1io_1_1warc__record.html">irkit::io::warc_record</a> &amp;record, <a class="el" href="structbody__writer.html">body_writer</a> write_body)</td></tr>
+<tr class="separator:aeaa9afcbcca6c9cac8dfed13f3ec5b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irk-warc_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -113,6 +125,57 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a540445d56c199741b8ec16c28c40f5e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540445d56c199741b8ec16c28c40f5e0">&#9670;&nbsp;</a></span>parse_field_selection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;char&gt; parse_field_selection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeaa9afcbcca6c9cac8dfed13f3ec5b3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa9afcbcca6c9cac8dfed13f3ec5b3d">&#9670;&nbsp;</a></span>print_field()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_field </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classirkit_1_1io_1_1warc__record.html">irkit::io::warc_record</a> &amp;&#160;</td>
+          <td class="paramname"><em>record</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbody__writer.html">body_writer</a>&#160;</td>
+          <td class="paramname"><em>write_body</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

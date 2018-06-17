@@ -1,22 +1,34 @@
 \hypertarget{irk-warc_8cpp}{}\section{src/irk-\/warc.cpp File Reference}
 \label{irk-warc_8cpp}\index{src/irk-\/warc.\+cpp@{src/irk-\/warc.\+cpp}}
-{\ttfamily \#include $<$boost/iostreams/filter/gzip.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/filtering\+\_\+stream.\+hpp$>$}\newline
 {\ttfamily \#include $<$chrono$>$}\newline
-{\ttfamily \#include $<$experimental/filesystem$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
-{\ttfamily \#include $<$gumbo.\+h$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$regex$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}cmd.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/io/warc.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/parsing/html.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/parsing/snowball/porter2.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/filter/gzip.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/filtering\+\_\+stream.\+hpp$>$}\newline
+{\ttfamily \#include $<$gumbo.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl$>$}\newline
+{\ttfamily \#include $<$irkit/io/warc.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/parsing/html.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/parsing/snowball/porter2.\+hpp$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcheck__fields}{check\+\_\+fields}}
+\item 
+struct \mbox{\hyperlink{structbody__writer}{body\+\_\+writer}}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}{write\+\_\+term}} (std\+::string \&\&term, \mbox{\hyperlink{structSN__env}{S\+N\+\_\+env}} $\ast$z, bool lowercase)
+\item 
+std\+::set$<$ char $>$ \mbox{\hyperlink{irk-warc_8cpp_a540445d56c199741b8ec16c28c40f5e0}{parse\+\_\+field\+\_\+selection}} ()
+\item 
+void \mbox{\hyperlink{irk-warc_8cpp_aeaa9afcbcca6c9cac8dfed13f3ec5b3d}{print\+\_\+field}} (char f, const \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{irkit\+::io\+::warc\+\_\+record}} \&record, \mbox{\hyperlink{structbody__writer}{body\+\_\+writer}} write\+\_\+body)
 \item 
 int \mbox{\hyperlink{irk-warc_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -28,6 +40,18 @@ int \mbox{\hyperlink{irk-warc_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (in
 \index{main@{main}!irk-\/warc.\+cpp@{irk-\/warc.\+cpp}}
 \subsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{irk-warc_8cpp_a540445d56c199741b8ec16c28c40f5e0}\label{irk-warc_8cpp_a540445d56c199741b8ec16c28c40f5e0}} 
+\index{irk-\/warc.\+cpp@{irk-\/warc.\+cpp}!parse\+\_\+field\+\_\+selection@{parse\+\_\+field\+\_\+selection}}
+\index{parse\+\_\+field\+\_\+selection@{parse\+\_\+field\+\_\+selection}!irk-\/warc.\+cpp@{irk-\/warc.\+cpp}}
+\subsubsection{\texorpdfstring{parse\+\_\+field\+\_\+selection()}{parse\_field\_selection()}}
+{\footnotesize\ttfamily std\+::set$<$char$>$ parse\+\_\+field\+\_\+selection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{irk-warc_8cpp_aeaa9afcbcca6c9cac8dfed13f3ec5b3d}\label{irk-warc_8cpp_aeaa9afcbcca6c9cac8dfed13f3ec5b3d}} 
+\index{irk-\/warc.\+cpp@{irk-\/warc.\+cpp}!print\+\_\+field@{print\+\_\+field}}
+\index{print\+\_\+field@{print\+\_\+field}!irk-\/warc.\+cpp@{irk-\/warc.\+cpp}}
+\subsubsection{\texorpdfstring{print\+\_\+field()}{print\_field()}}
+{\footnotesize\ttfamily void print\+\_\+field (\begin{DoxyParamCaption}\item[{char}]{f,  }\item[{const \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{irkit\+::io\+::warc\+\_\+record}} \&}]{record,  }\item[{\mbox{\hyperlink{structbody__writer}{body\+\_\+writer}}}]{write\+\_\+body }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}\label{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}} 
 \index{irk-\/warc.\+cpp@{irk-\/warc.\+cpp}!write\+\_\+term@{write\+\_\+term}}

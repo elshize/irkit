@@ -7,13 +7,19 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_ad2fe3431c27790ef67d21746064cdb6c}{block\+\_\+builder}} (Index first\+\_\+index, char $\ast$block\+\_\+begin, std\+::size\+\_\+t size, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$ codec)
-\item 
-\mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_a9c1475781fa1f5e3ed41aee76ab6adc0}{block\+\_\+builder}} (\mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder}{block\+\_\+builder}} \&\&other)
+\mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_af6ed7104994775956eb88348b87c46d8}{block\+\_\+builder}} (Index first\+\_\+index, char $\ast$block\+\_\+begin, std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_ac3fb0a31f627e1f49b9eb0738742dd23}{size}}, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$$>$ codec)
 \item 
 bool \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_a7624581bf15668f0be6733f8105d4c59}{add}} (const std\+::string \&value)
 \item 
+void \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_a86b281aeb689345c5cac4b3a9266d3a6}{expand\+\_\+by}} (std\+::size\+\_\+t \mbox{\hyperlink{namespaceirk_ac58a8542fe93e44f62867d97613007ae}{nbytes}})
+\item 
+void \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_aa25610a99626d90e1b3232fc05fe58cb}{reset}} (char $\ast$new\+\_\+begin)
+\item 
+auto \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_ac3fb0a31f627e1f49b9eb0738742dd23}{size}} () const
+\item 
 void \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_acd19257e8bac2d4af07431383c1c2c16}{write\+\_\+count}} ()
+\item 
+void \mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder_ac2b76fd0236effde8936f1d710b29aed}{close}} ()
 \end{DoxyCompactItemize}
 
 
@@ -24,19 +30,12 @@ class irk\+::prefix\+\_\+map$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\
 An object of this class is responsible for building a single compressed block of a prefix map. 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_ad2fe3431c27790ef67d21746064cdb6c}\label{classirk_1_1prefix__map_1_1block__builder_ad2fe3431c27790ef67d21746064cdb6c}} 
+\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_af6ed7104994775956eb88348b87c46d8}\label{classirk_1_1prefix__map_1_1block__builder_af6ed7104994775956eb88348b87c46d8}} 
 \index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!block\+\_\+builder@{block\+\_\+builder}}
 \index{block\+\_\+builder@{block\+\_\+builder}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
-\subsubsection{\texorpdfstring{block\+\_\+builder()}{block\_builder()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
-\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::block\+\_\+builder (\begin{DoxyParamCaption}\item[{Index}]{first\+\_\+index,  }\item[{char $\ast$}]{block\+\_\+begin,  }\item[{std\+::size\+\_\+t}]{size,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1coding_1_1hutucker__codec}{irk\+::coding\+::hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_a9c1475781fa1f5e3ed41aee76ab6adc0}\label{classirk_1_1prefix__map_1_1block__builder_a9c1475781fa1f5e3ed41aee76ab6adc0}} 
-\index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!block\+\_\+builder@{block\+\_\+builder}}
-\index{block\+\_\+builder@{block\+\_\+builder}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
-\subsubsection{\texorpdfstring{block\+\_\+builder()}{block\_builder()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
-\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::block\+\_\+builder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1prefix__map_1_1block__builder}{block\+\_\+builder}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{block\+\_\+builder()}{block\_builder()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+\mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::block\+\_\+builder (\begin{DoxyParamCaption}\item[{Index}]{first\+\_\+index,  }\item[{char $\ast$}]{block\+\_\+begin,  }\item[{std\+::size\+\_\+t}]{size,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -45,14 +44,42 @@ An object of this class is responsible for building a single compressed block of
 \index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!add@{add}}
 \index{add@{add}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
 \subsubsection{\texorpdfstring{add()}{add()}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
 bool \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::add (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_ac2b76fd0236effde8936f1d710b29aed}\label{classirk_1_1prefix__map_1_1block__builder_ac2b76fd0236effde8936f1d710b29aed}} 
+\index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!close@{close}}
+\index{close@{close}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
+\subsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_a86b281aeb689345c5cac4b3a9266d3a6}\label{classirk_1_1prefix__map_1_1block__builder_a86b281aeb689345c5cac4b3a9266d3a6}} 
+\index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!expand\+\_\+by@{expand\+\_\+by}}
+\index{expand\+\_\+by@{expand\+\_\+by}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
+\subsubsection{\texorpdfstring{expand\+\_\+by()}{expand\_by()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::expand\+\_\+by (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{nbytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_aa25610a99626d90e1b3232fc05fe58cb}\label{classirk_1_1prefix__map_1_1block__builder_aa25610a99626d90e1b3232fc05fe58cb}} 
+\index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!reset@{reset}}
+\index{reset@{reset}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::reset (\begin{DoxyParamCaption}\item[{char $\ast$}]{new\+\_\+begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_ac3fb0a31f627e1f49b9eb0738742dd23}\label{classirk_1_1prefix__map_1_1block__builder_ac3fb0a31f627e1f49b9eb0738742dd23}} 
+\index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!size@{size}}
+\index{size@{size}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
+auto \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1prefix__map_1_1block__builder_acd19257e8bac2d4af07431383c1c2c16}\label{classirk_1_1prefix__map_1_1block__builder_acd19257e8bac2d4af07431383c1c2c16}} 
 \index{irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}!write\+\_\+count@{write\+\_\+count}}
 \index{write\+\_\+count@{write\+\_\+count}!irk\+::prefix\+\_\+map\+::block\+\_\+builder@{irk\+::prefix\+\_\+map\+::block\+\_\+builder}}
 \subsubsection{\texorpdfstring{write\+\_\+count()}{write\_count()}}
-{\footnotesize\ttfamily template$<$class Index , class Memory\+Buffer , class Counter  = std\+::uint32\+\_\+t$>$ \\
+{\footnotesize\ttfamily template$<$class Index, class Memory\+Buffer, class Counter = std\+::uint32\+\_\+t$>$ \\
 void \mbox{\hyperlink{classirk_1_1prefix__map}{irk\+::prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$\+::block\+\_\+builder\+::write\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 

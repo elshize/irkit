@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -70,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classirk_1_1prefix__map-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -88,14 +88,35 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map_1_1block__ptr.html">block_ptr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:abe4f68e5fc9c0d72e34b87f108e653ed"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#abe4f68e5fc9c0d72e34b87f108e653ed">const_iterator</a> = <a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a></td></tr>
+<tr class="separator:abe4f68e5fc9c0d72e34b87f108e653ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0fbeb344ad4a076d200023a9fc72d359"><td class="memTemplParams" colspan="2">template&lt;class StringRange &gt; </td></tr>
-<tr class="memitem:a0fbeb344ad4a076d200023a9fc72d359"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a0fbeb344ad4a076d200023a9fc72d359">prefix_map</a> (StringRange items, const std::shared_ptr&lt; <a class="el" href="classirk_1_1coding_1_1hutucker__codec.html">irk::coding::hutucker_codec</a>&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td></tr>
-<tr class="separator:a0fbeb344ad4a076d200023a9fc72d359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0460c33c17f3182b9db49b45bc366069"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a0460c33c17f3182b9db49b45bc366069">prefix_map</a> (MemoryBuffer blocks, std::size_t <a class="el" href="classirk_1_1prefix__map.html#ad9055b6d6717495d9b61aa1865bd9a49">size</a>, std::size_t block_size, std::size_t block_count, const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt; codec, std::shared_ptr&lt; <a class="el" href="classirk_1_1radix__tree.html">radix_tree</a>&lt; Index &gt;&gt; block_leaders)</td></tr>
+<tr class="separator:a0460c33c17f3182b9db49b45bc366069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a92eedd3b88338fe84a5980201faf87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a7a92eedd3b88338fe84a5980201faf87">prefix_map</a> (fs::path file, const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td></tr>
+<tr class="separator:a7a92eedd3b88338fe84a5980201faf87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703e139a8c4453383c8f6ec596ef18f0"><td class="memTemplParams" colspan="2">template&lt;class StringRange &gt; </td></tr>
+<tr class="memitem:a703e139a8c4453383c8f6ec596ef18f0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a703e139a8c4453383c8f6ec596ef18f0">prefix_map</a> (const StringRange &amp;items, const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt; codec, std::size_t block_size=1024)</td></tr>
+<tr class="separator:a703e139a8c4453383c8f6ec596ef18f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8c0c9c8a7bc1b31d03111e714aaec2b"><td class="memItemLeft" align="right" valign="top">std::optional&lt; Index &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#af8c0c9c8a7bc1b31d03111e714aaec2b">operator[]</a> (const std::string &amp;key) const</td></tr>
 <tr class="separator:af8c0c9c8a7bc1b31d03111e714aaec2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403d1389dab40173b52d5faa82b6aff6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a403d1389dab40173b52d5faa82b6aff6">operator[]</a> (const Index &amp;val) const</td></tr>
+<tr class="separator:a403d1389dab40173b52d5faa82b6aff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9055b6d6717495d9b61aa1865bd9a49"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#ad9055b6d6717495d9b61aa1865bd9a49">size</a> () const</td></tr>
+<tr class="separator:ad9055b6d6717495d9b61aa1865bd9a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a865e7acbf722c38d76287d4b47cf3e38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a865e7acbf722c38d76287d4b47cf3e38">begin</a> () const</td></tr>
+<tr class="separator:a865e7acbf722c38d76287d4b47cf3e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4677738f2a2a9eb6593e767d2d6a9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a2e4677738f2a2a9eb6593e767d2d6a9e">end</a> () const</td></tr>
+<tr class="separator:a2e4677738f2a2a9eb6593e767d2d6a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169d893870da9dbb102a9f000ef32d3c"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map.html#a169d893870da9dbb102a9f000ef32d3c">dump</a> (std::ostream &amp;out) const</td></tr>
+<tr class="separator:a169d893870da9dbb102a9f000ef32d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt;<br />
@@ -116,14 +137,137 @@ class irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</h3>
 <li>[TODO: intervals]</li>
 </ul>
 <dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0fbeb344ad4a076d200023a9fc72d359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fbeb344ad4a076d200023a9fc72d359">&#9670;&nbsp;</a></span>prefix_map()</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="abe4f68e5fc9c0d72e34b87f108e653ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe4f68e5fc9c0d72e34b87f108e653ed">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Index , class MemoryBuffer , class Counter  = std::uint32_t&gt; </div>
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::<a class="el" href="classirk_1_1prefix__map.html#abe4f68e5fc9c0d72e34b87f108e653ed">const_iterator</a> =  <a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0460c33c17f3182b9db49b45bc366069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0460c33c17f3182b9db49b45bc366069">&#9670;&nbsp;</a></span>prefix_map() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::<a class="el" href="classirk_1_1prefix__map.html">prefix_map</a> </td>
+          <td>(</td>
+          <td class="paramtype">MemoryBuffer&#160;</td>
+          <td class="paramname"><em>blocks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>block_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt;&#160;</td>
+          <td class="paramname"><em>codec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classirk_1_1radix__tree.html">radix_tree</a>&lt; Index &gt;&gt;&#160;</td>
+          <td class="paramname"><em>block_leaders</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a92eedd3b88338fe84a5980201faf87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a92eedd3b88338fe84a5980201faf87">&#9670;&nbsp;</a></span>prefix_map() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::<a class="el" href="classirk_1_1prefix__map.html">prefix_map</a> </td>
+          <td>(</td>
+          <td class="paramtype">fs::path&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt;&#160;</td>
+          <td class="paramname"><em>codec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>block_size</em> = <code>1024</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a703e139a8c4453383c8f6ec596ef18f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703e139a8c4453383c8f6ec596ef18f0">&#9670;&nbsp;</a></span>prefix_map() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
 <div class="memtemplate">
 template&lt;class StringRange &gt; </div>
 <table class="mlabels">
@@ -133,13 +277,13 @@ template&lt;class StringRange &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::<a class="el" href="classirk_1_1prefix__map.html">prefix_map</a> </td>
           <td>(</td>
-          <td class="paramtype">StringRange&#160;</td>
+          <td class="paramtype">const StringRange &amp;&#160;</td>
           <td class="paramname"><em>items</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classirk_1_1coding_1_1hutucker__codec.html">irk::coding::hutucker_codec</a>&lt; char &gt;&gt;&#160;</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classirk_1_1hutucker__codec.html">irk::hutucker_codec</a>&lt; char &gt;&gt;&#160;</td>
           <td class="paramname"><em>codec</em>, </td>
         </tr>
         <tr>
@@ -164,13 +308,95 @@ template&lt;class StringRange &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af8c0c9c8a7bc1b31d03111e714aaec2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8c0c9c8a7bc1b31d03111e714aaec2b">&#9670;&nbsp;</a></span>operator[]()</h2>
+<a id="a865e7acbf722c38d76287d4b47cf3e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a865e7acbf722c38d76287d4b47cf3e38">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Index , class MemoryBuffer , class Counter  = std::uint32_t&gt; </div>
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a> <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a169d893870da9dbb102a9f000ef32d3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a169d893870da9dbb102a9f000ef32d3c">&#9670;&nbsp;</a></span>dump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::dump </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e4677738f2a2a9eb6593e767d2d6a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e4677738f2a2a9eb6593e767d2d6a9e">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">iterator</a> <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8c0c9c8a7bc1b31d03111e714aaec2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8c0c9c8a7bc1b31d03111e714aaec2b">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -180,6 +406,61 @@ template&lt;class Index , class MemoryBuffer , class Counter  = std::uint32_t&gt
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a403d1389dab40173b52d5faa82b6aff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403d1389dab40173b52d5faa82b6aff6">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">const Index &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9055b6d6717495d9b61aa1865bd9a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9055b6d6717495d9b61aa1865bd9a49">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index, class MemoryBuffer, class Counter = std::uint32_t&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="classirk_1_1prefix__map.html">irk::prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

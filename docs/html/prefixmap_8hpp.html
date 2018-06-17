@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -76,15 +75,23 @@ $(function() {
 <div class="title">prefixmap.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/dynamic_bitset.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="bitptr_8hpp_source.html">irkit/bitptr.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="hutucker_8hpp_source.html">irkit/coding/hutucker.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="mutablebittrie_8hpp_source.html">irkit/mutablebittrie.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils_8hpp_source.html">irkit/utils.hpp</a>&quot;</code><br />
+<code>#include &lt;boost/dynamic_bitset.hpp&gt;</code><br />
+<code>#include &lt;boost/filesystem.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/device/array.hpp&gt;</code><br />
+<code>#include &lt;boost/iostreams/stream.hpp&gt;</code><br />
+<code>#include &lt;boost/iterator/iterator_facade.hpp&gt;</code><br />
+<code>#include &lt;gsl/gsl&gt;</code><br />
+<code>#include &lt;<a class="el" href="bitptr_8hpp_source.html">irkit/bitptr.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="hutucker_8hpp_source.html">irkit/coding/hutucker.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="memoryview_8hpp_source.html">irkit/memoryview.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="radix__tree_8hpp_source.html">irkit/radix_tree.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="utils_8hpp_source.html">irkit/utils.hpp</a>&gt;</code><br />
 </div>
 <p><a href="prefixmap_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -97,17 +104,40 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map_1_1block__ptr.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_ptr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1prefix__map_1_1iterator.html">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::iterator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceirk_1_1io"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html">irk::io</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3f96e383c5e7c9f697953cdc4ae30b00"><td class="memTemplParams" colspan="2">template&lt;class Index , class MemoryBuffer , class StringRange &gt; </td></tr>
-<tr class="memitem:a3f96e383c5e7c9f697953cdc4ae30b00"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, MemoryBuffer &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a3f96e383c5e7c9f697953cdc4ae30b00">irk::build_prefix_map</a> (StringRange items, std::size_t buffer_size=1024)</td></tr>
-<tr class="separator:a3f96e383c5e7c9f697953cdc4ae30b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae903af083f9e6a98e9d5f232322a2f2"><td class="memTemplParams" colspan="2">template&lt;class Index &gt; </td></tr>
+<tr class="memitem:aae903af083f9e6a98e9d5f232322a2f2"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#aae903af083f9e6a98e9d5f232322a2f2">irk::build_prefix_map_from_file</a> (fs::path file, std::size_t buffer_size=1024)</td></tr>
+<tr class="separator:aae903af083f9e6a98e9d5f232322a2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e498e43015b0fba26ed452bb2981d21"><td class="memTemplParams" colspan="2">template&lt;class Index , class StringRange &gt; </td></tr>
+<tr class="memitem:a9e498e43015b0fba26ed452bb2981d21"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a9e498e43015b0fba26ed452bb2981d21">irk::build_prefix_map</a> (const StringRange &amp;items, std::size_t buffer_size=1024)</td></tr>
+<tr class="separator:a9e498e43015b0fba26ed452bb2981d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11724f6a30a7fb17f24d0941fa00568d"><td class="memTemplParams" colspan="2">template&lt;class Index &gt; </td></tr>
+<tr class="memitem:a11724f6a30a7fb17f24d0941fa00568d"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; radix_tree&lt; Index &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a11724f6a30a7fb17f24d0941fa00568d">irk::load_radix_tree</a> (std::istream &amp;in, std::size_t block_size, std::shared_ptr&lt; hutucker_codec&lt; char &gt;&gt; codec)</td></tr>
+<tr class="separator:a11724f6a30a7fb17f24d0941fa00568d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1497304f9dcf5e7b72fcd6a6b607c22"><td class="memTemplParams" colspan="2">template&lt;class Index &gt; </td></tr>
+<tr class="memitem:af1497304f9dcf5e7b72fcd6a6b607c22"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#af1497304f9dcf5e7b72fcd6a6b607c22">irk::load_prefix_map</a> (std::istream &amp;in)</td></tr>
+<tr class="separator:af1497304f9dcf5e7b72fcd6a6b607c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae3542b21a20bf6ff0b48555d1be556"><td class="memTemplParams" colspan="2">template&lt;class Index &gt; </td></tr>
+<tr class="memitem:aeae3542b21a20bf6ff0b48555d1be556"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#aeae3542b21a20bf6ff0b48555d1be556">irk::load_prefix_map</a> (memory_view mem)</td></tr>
+<tr class="separator:aeae3542b21a20bf6ff0b48555d1be556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d3931cb977799b449703e53b5b893f"><td class="memTemplParams" colspan="2">template&lt;class Index &gt; </td></tr>
+<tr class="memitem:a42d3931cb977799b449703e53b5b893f"><td class="memTemplItemLeft" align="right" valign="top">prefix_map&lt; Index, std::vector&lt; char &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#a42d3931cb977799b449703e53b5b893f">irk::load_prefix_map</a> (const std::string &amp;file)</td></tr>
+<tr class="separator:a42d3931cb977799b449703e53b5b893f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memTemplParams" colspan="2">template&lt;class Index , class MemoryBuffer , class Counter &gt; </td></tr>
+<tr class="memitem:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#a4b74cc5a440f69992ce2302aebfc0b4d">irk::io::dump</a> (const prefix_map&lt; Index, MemoryBuffer, Counter &gt; &amp;map, fs::path file)</td></tr>
+<tr class="separator:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>

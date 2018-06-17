@@ -5,20 +5,22 @@
 #include <vector>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+
 #define private public
 #define protected public
-#include "irkit/bitstream.hpp"
-#include "irkit/coding/huffman.hpp"
-#include "irkit/coding/hutucker.hpp"
-#include "irkit/coding/varbyte.hpp"
+#include <irkit/bitstream.hpp>
+#include <irkit/coding.hpp>
+#include <irkit/coding/huffman.hpp>
+#include <irkit/coding/hutucker.hpp>
+#include <irkit/coding/varbyte.hpp>
 
 namespace {
 
-using namespace irk::coding;
+using namespace irk;
 
 TEST(VarByte, encode)
 {
-    irk::coding::varbyte_codec<int> vb;
+    irk::varbyte_codec<int> vb;
     std::vector<char> actual = encode({1, 255}, vb);
     std::vector<char> expected = {
         (char)0b10000001u, (char)0b01111111, (char)0b10000001};
@@ -27,7 +29,7 @@ TEST(VarByte, encode)
 
 TEST(VarByte, encode_fn)
 {
-    irk::coding::varbyte_codec<int> vb;
+    irk::varbyte_codec<int> vb;
     std::vector<std::pair<int, char>> input = {
         std::make_pair(1, 'a'), std::make_pair(255, 'b')};
     std::vector<char> actual =
@@ -39,7 +41,7 @@ TEST(VarByte, encode_fn)
 
 TEST(VarByte, decode_range)
 {
-    irk::coding::varbyte_codec<int> vb;
+    irk::varbyte_codec<int> vb;
     std::vector<int> actual =
         decode({(char)0b10000001u, (char)0b01111111, (char)0b10000001}, vb);
     std::vector<int> expected = {1, 255};
@@ -52,7 +54,7 @@ TEST(VarByte, encode_decode)
     std::uniform_int_distribution<int> distribution(0, 1000000);
     auto roll = std::bind(distribution, generator);
 
-    irk::coding::varbyte_codec<int> vb;
+    irk::varbyte_codec<int> vb;
 
     // given
     std::vector<int> initial(100);
@@ -139,11 +141,11 @@ TEST(Huffman, init_nodes)
 
 class HuTucker : public ::testing::Test {
 protected:
-    std::list<node_ptr> nodes = {huffman::make_terminal('a', 4),
-        huffman::make_terminal('b', 3),
-        huffman::make_terminal('c', 3),
-        huffman::make_terminal('d', 5),
-        huffman::make_terminal('e', 19)};
+    std::list<node_ptr> nodes = {irk::coding::huffman::make_terminal('a', 4),
+        irk::coding::huffman::make_terminal('b', 3),
+        irk::coding::huffman::make_terminal('c', 3),
+        irk::coding::huffman::make_terminal('d', 5),
+        irk::coding::huffman::make_terminal('e', 19)};
 };
 
 // TODO
@@ -215,23 +217,23 @@ protected:
 TEST_F(HuTucker, join_next_valid)
 {
     std::list<node_ptr> n(nodes);
-    hutucker::join_next_valid(n);
-    std::list<node_ptr> expected = {huffman::make_terminal('a', 4),
+    irk::coding::hutucker::join_next_valid(n);
+    std::list<node_ptr> expected = {irk::coding::huffman::make_terminal('a', 4),
         std::make_shared<node>(node{6,
             std::nullopt,
-            huffman::make_terminal('b', 3),
-            huffman::make_terminal('c', 3)}),
-        huffman::make_terminal('d', 5),
-        huffman::make_terminal('e', 19)};
+            irk::coding::huffman::make_terminal('b', 3),
+            irk::coding::huffman::make_terminal('c', 3)}),
+        irk::coding::huffman::make_terminal('d', 5),
+        irk::coding::huffman::make_terminal('e', 19)};
     EXPECT_THAT(n, ::testing::ElementsAreArray(expected));
 }
 
 TEST_F(HuTucker, build_tree)
 {
-    auto t = huffman::make_terminal<char>;
-    auto join = huffman::join_nodes<char>;
+    auto t = irk::coding::huffman::make_terminal<char>;
+    auto join = irk::coding::huffman::join_nodes<char>;
     std::list<node_ptr> n(nodes);
-    auto tree = hutucker::build_tree(n);
+    auto tree = irk::coding::hutucker::build_tree(n);
     node_ptr expected =
         join(join(join(t('a', 4), t('d', 5)), join(t('b', 3), t('c', 3))),
             t('e', 19));
@@ -240,11 +242,12 @@ TEST_F(HuTucker, build_tree)
 
 TEST_F(HuTucker, tag_leaves)
 {
-    auto t = huffman::make_terminal<char>;
+    auto t = irk::coding::huffman::make_terminal<char>;
     std::list<node_ptr> n(nodes);
-    auto tree = hutucker::build_tree(n);
-    auto leaves = hutucker::tag_leaves(tree);
-    std::list<hutucker::level_node<char>> expected = {{3, t('a', 4)},
+    auto tree = irk::coding::hutucker::build_tree(n);
+    auto leaves = irk::coding::hutucker::tag_leaves(tree);
+    std::list<irk::coding::hutucker::level_node<char>> expected = {
+        {3, t('a', 4)},
         {3, t('b', 3)},
         {3, t('c', 3)},
         {3, t('d', 5)},
@@ -260,12 +263,12 @@ TEST_F(HuTucker, tag_leaves)
 
 TEST_F(HuTucker, reconstruct)
 {
-    auto t = huffman::make_terminal<char>;
-    auto join = huffman::join_nodes_with_symbol<char>;
+    auto t = irk::coding::huffman::make_terminal<char>;
+    auto join = irk::coding::huffman::join_nodes_with_symbol<char>;
     std::list<node_ptr> n(nodes);
-    auto tree = hutucker::build_tree(n);
-    auto leaves = hutucker::tag_leaves(tree);
-    auto reconstructed = hutucker::reconstruct(leaves);
+    auto tree = irk::coding::hutucker::build_tree(n);
+    auto leaves = irk::coding::hutucker::tag_leaves(tree);
+    auto reconstructed = irk::coding::hutucker::reconstruct(leaves);
     node_ptr expected = join(join(join(t('a', 4), t('b', 3), 'a'),
                                 join(t('c', 3), t('d', 5), 'c'),
                                 'b'),
@@ -283,10 +286,10 @@ TEST_F(HuTucker, to_compact)
     //auto t = huffman::make_terminal<char>;
     //auto join = huffman::join_nodes_bst<char>;
     std::list<node_ptr> n(nodes);
-    auto tree = hutucker::build_tree(n);
-    auto leaves = hutucker::tag_leaves(tree);
-    auto reconstructed = hutucker::reconstruct(leaves);
-    auto compact = hutucker::compact(reconstructed);
+    auto tree = irk::coding::hutucker::build_tree(n);
+    auto leaves = irk::coding::hutucker::tag_leaves(tree);
+    auto reconstructed = irk::coding::hutucker::reconstruct(leaves);
+    auto compact = irk::coding::hutucker::compact(reconstructed);
 
     const uint16_t s = 256;
     std::vector<node> expected_nodes = {
@@ -305,11 +308,11 @@ TEST_F(HuTucker, to_compact)
 TEST_F(HuTucker, with_compact)
 {
     std::list<node_ptr> n(nodes);
-    auto tree = hutucker::build_tree(n);
-    auto leaves = hutucker::tag_leaves(tree);
-    auto reconstructed = hutucker::reconstruct(leaves);
-    auto compact = hutucker::compact(reconstructed);
-    irk::coding::hutucker_codec<char> codec(compact);
+    auto tree = irk::coding::hutucker::build_tree(n);
+    auto leaves = irk::coding::hutucker::tag_leaves(tree);
+    auto reconstructed = irk::coding::hutucker::reconstruct(leaves);
+    auto compact = irk::coding::hutucker::compact(reconstructed);
+    irk::hutucker_codec<char> codec(compact);
 
     std::string content("abcdaaabbbe");
 
@@ -337,7 +340,7 @@ TEST_F(HuTucker, with_frequencies)
     frequencies['c'] = 3;
     frequencies['d'] = 5;
     frequencies['e'] = 19;
-    irk::coding::hutucker_codec<char> codec(frequencies);
+    irk::hutucker_codec<char> codec(frequencies);
 
     std::string content("abcdaaabbbe");
 
@@ -370,7 +373,7 @@ TEST_F(HuTucker, with_frequencies_signed)
     frequencies[(unsigned char)c] = 3;
     frequencies[(unsigned char)d] = 5;
     frequencies[(unsigned char)e] = 19;
-    irk::coding::hutucker_codec<char> codec(frequencies);
+    irk::hutucker_codec<char> codec(frequencies);
 
     std::string content{a, b, c, d, a, a, a, b, b, b, e};
 

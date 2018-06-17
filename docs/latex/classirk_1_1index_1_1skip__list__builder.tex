@@ -1,0 +1,58 @@
+\hypertarget{classirk_1_1index_1_1skip__list__builder}{}\section{irk\+:\+:index\+:\+:skip\+\_\+list\+\_\+builder$<$ Skip, element\+\_\+size, Write\+Fn $>$ Class Template Reference}
+\label{classirk_1_1index_1_1skip__list__builder}\index{irk\+::index\+::skip\+\_\+list\+\_\+builder$<$ Skip, element\+\_\+size, Write\+Fn $>$@{irk\+::index\+::skip\+\_\+list\+\_\+builder$<$ Skip, element\+\_\+size, Write\+Fn $>$}}
+
+
+Builds and writes skip lists for postings.  
+
+
+
+
+{\ttfamily \#include $<$skiplist.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder_a55f45083c19eb7e4a03aeda3e5e1c501}{skip\+\_\+list\+\_\+builder}} (std\+::ostream \&skips\+\_\+out, std\+::ostream \&offsets\+\_\+out, int block\+\_\+size) noexcept
+\item 
+void \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder_ae3526c260650dda4bd771087927fe871}{write\+\_\+term\+\_\+skips}} ()
+\item 
+void \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder_afddff8af3fc2fdd09950ae6036b2bc0c}{close}} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Skip, int element\+\_\+size = sizeof(\+Skip), class Write\+Fn = write\+\_\+fn$<$\+Skip$>$$>$\newline
+class irk\+::index\+::skip\+\_\+list\+\_\+builder$<$ Skip, element\+\_\+size, Write\+Fn $>$}
+
+Builds and writes skip lists for postings. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__builder_a55f45083c19eb7e4a03aeda3e5e1c501}\label{classirk_1_1index_1_1skip__list__builder_a55f45083c19eb7e4a03aeda3e5e1c501}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}!skip\+\_\+list\+\_\+builder@{skip\+\_\+list\+\_\+builder}}
+\index{skip\+\_\+list\+\_\+builder@{skip\+\_\+list\+\_\+builder}!irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}}
+\subsubsection{\texorpdfstring{skip\+\_\+list\+\_\+builder()}{skip\_list\_builder()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Write\+Fn  = write\+\_\+fn$<$\+Skip$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{irk\+::index\+::skip\+\_\+list\+\_\+builder}}$<$ Skip, element\+\_\+size, Write\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{skip\+\_\+list\+\_\+builder}} (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{skips\+\_\+out,  }\item[{std\+::ostream \&}]{offsets\+\_\+out,  }\item[{int}]{block\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__builder_afddff8af3fc2fdd09950ae6036b2bc0c}\label{classirk_1_1index_1_1skip__list__builder_afddff8af3fc2fdd09950ae6036b2bc0c}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}!close@{close}}
+\index{close@{close}!irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}}
+\subsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Write\+Fn  = write\+\_\+fn$<$\+Skip$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{irk\+::index\+::skip\+\_\+list\+\_\+builder}}$<$ Skip, element\+\_\+size, Write\+Fn $>$\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__builder_ae3526c260650dda4bd771087927fe871}\label{classirk_1_1index_1_1skip__list__builder_ae3526c260650dda4bd771087927fe871}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}!write\+\_\+term\+\_\+skips@{write\+\_\+term\+\_\+skips}}
+\index{write\+\_\+term\+\_\+skips@{write\+\_\+term\+\_\+skips}!irk\+::index\+::skip\+\_\+list\+\_\+builder@{irk\+::index\+::skip\+\_\+list\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+term\+\_\+skips()}{write\_term\_skips()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Write\+Fn  = write\+\_\+fn$<$\+Skip$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{irk\+::index\+::skip\+\_\+list\+\_\+builder}}$<$ Skip, element\+\_\+size, Write\+Fn $>$\+::write\+\_\+term\+\_\+skips (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{skiplist_8hpp}{skiplist.\+hpp}}\end{DoxyCompactItemize}

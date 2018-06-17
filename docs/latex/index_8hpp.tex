@@ -1,90 +1,94 @@
-\hypertarget{index_8hpp}{}\section{include/index.hpp File Reference}
-\label{index_8hpp}\index{include/index.\+hpp@{include/index.\+hpp}}
-{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+\hypertarget{index_8hpp}{}\section{include/irkit/index.hpp File Reference}
+\label{index_8hpp}\index{include/irkit/index.\+hpp@{include/irkit/index.\+hpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$bitset$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
-{\ttfamily \#include $<$gsl/span$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include $<$nlohmann/json.\+hpp$>$}\newline
-{\ttfamily \#include $<$type\+\_\+safe/strong\+\_\+typedef.\+hpp$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/device/mapped\+\_\+file.\+hpp$>$}\newline
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$nlohmann/json.\+hpp$>$}\newline
+{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/varbyte.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/compacttable.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/daat.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/block\+\_\+inverted\+\_\+list.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/posting\+\_\+list.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/postingrange.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/io.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/io/memorybuffer.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/memoryview.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/prefixmap.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/score.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structbloodhound_1_1TermId}{bloodhound\+::\+Term\+Id}}
+class \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__mapped__data__source}{irk\+::v2\+::inverted\+\_\+index\+\_\+mapped\+\_\+data\+\_\+source}}
 \item 
-struct \mbox{\hyperlink{structbloodhound_1_1Offset}{bloodhound\+::\+Offset}}
+class \mbox{\hyperlink{classirk_1_1v2_1_1inverted__index__view}{irk\+::v2\+::inverted\+\_\+index\+\_\+view}}
 \item 
-struct \mbox{\hyperlink{structbloodhound_1_1RelativeOffset}{bloodhound\+::\+Relative\+Offset}}
+struct \mbox{\hyperlink{structirk_1_1index__load__exception}{irk\+::index\+\_\+load\+\_\+exception}}
 \item 
-struct \mbox{\hyperlink{structbloodhound_1_1Score}{bloodhound\+::\+Score}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1Doc}{bloodhound\+::\+Doc}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1Posting}{bloodhound\+::\+Posting}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1doc__equal__to}{bloodhound\+::doc\+\_\+equal\+\_\+to$<$ Posting $>$}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1add__postings}{bloodhound\+::add\+\_\+postings$<$ Posting $>$}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1score__greater}{bloodhound\+::score\+\_\+greater$<$ Posting $>$}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1TermWeight}{bloodhound\+::\+Term\+Weight}}
-\item 
-class \mbox{\hyperlink{classbloodhound_1_1PostingList}{bloodhound\+::\+Posting\+List}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1PostingList_1_1const__iterator}{bloodhound\+::\+Posting\+List\+::const\+\_\+iterator}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1PostingList_1_1iterator}{bloodhound\+::\+Posting\+List\+::iterator}}
-\item 
-struct \mbox{\hyperlink{structstd_1_1hash_3_01bloodhound_1_1TermId_01_4}{std\+::hash$<$ bloodhound\+::\+Term\+Id $>$}}
-\item 
-struct \mbox{\hyperlink{structstd_1_1hash_3_01bloodhound_1_1Score_01_4}{std\+::hash$<$ bloodhound\+::\+Score $>$}}
-\item 
-struct \mbox{\hyperlink{structstd_1_1hash_3_01bloodhound_1_1Doc_01_4}{std\+::hash$<$ bloodhound\+::\+Doc $>$}}
-\item 
-struct \mbox{\hyperlink{structbloodhound_1_1index_1_1PostingListHeader}{bloodhound\+::index\+::\+Posting\+List\+Header}}
-\item 
-class \mbox{\hyperlink{classbloodhound_1_1index_1_1InMemoryPostingPolicy}{bloodhound\+::index\+::\+In\+Memory\+Posting\+Policy}}
-\item 
-class \mbox{\hyperlink{classbloodhound_1_1index_1_1Index}{bloodhound\+::index\+::\+Index$<$ Posting\+Policy $>$}}
+class \mbox{\hyperlink{classirk_1_1inverted__index}{irk\+::inverted\+\_\+index$<$ Doc, Term, Term\+Id, Freq $>$}}
 \end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \mbox{\hyperlink{namespacebloodhound}{bloodhound}}
+ \mbox{\hyperlink{namespaceirk_1_1index}{irk\+::index}}
 \item 
- \mbox{\hyperlink{namespacestd}{std}}
-\item 
- \mbox{\hyperlink{namespacebloodhound_1_1index}{bloodhound\+::index}}
+ \mbox{\hyperlink{namespaceirk}{irk}}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+ \mbox{\hyperlink{namespaceirk_1_1v2}{irk\+::v2}}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{namespacebloodhound_ae863daa54e3092bd2bc335e70f7a9dd7}{bloodhound\+::\+Accumulator\+Array}} = std\+::vector$<$ Score $>$
+{\footnotesize template$<$class Posting , class Freq , class Scorer $>$ }\\using \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{irk\+::dspr}} = dynamically\+\_\+scored\+\_\+posting\+\_\+range$<$ Posting, Freq, Scorer $>$
 \item 
-using \mbox{\hyperlink{namespacebloodhound_a94032a3533df0a1b6d3435bad57e6499}{bloodhound\+::\+Lexicon}} = std\+::unordered\+\_\+map$<$ Term\+Id, Offset $>$
-\item 
-using \mbox{\hyperlink{namespacebloodhound_a687d80c6f992eba8b820bf30a482f4b4}{bloodhound\+::\+Max\+Scores}} = std\+::unordered\+\_\+map$<$ Term\+Id, Score $>$
+using \mbox{\hyperlink{namespaceirk_af6ee69596c3b148bdec81164443f37f8}{irk\+::default\+\_\+index}} = inverted\+\_\+index$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{namespacebloodhound_aa37ad87847e4da8983f626e6c5779c73}{bloodhound\+::operator==}} (const Posting \&a, const Posting \&b)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a5880f03dd72d6ebbae004d2ab83c219e}{irk\+::index\+::properties\+\_\+path}} (fs\+::path dir)
 \item 
-bool \mbox{\hyperlink{namespacebloodhound_a4a683ebe3ff767a829b87a89bade978c}{bloodhound\+::operator$>$}} (const Posting \&a, const Posting \&b)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a1680416c227181a5ab2f0b0169adb11e}{irk\+::index\+::doc\+\_\+ids\+\_\+path}} (fs\+::path dir)
 \item 
-bool \mbox{\hyperlink{namespacebloodhound_ae20cf3f97304dde56dd526eaa08c41dc}{bloodhound\+::operator$<$}} (const Posting \&a, const Posting \&b)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aae22e4280b8fc44a46c81159429bf889}{irk\+::index\+::doc\+\_\+ids\+\_\+off\+\_\+path}} (fs\+::path dir)
 \item 
-Posting \mbox{\hyperlink{namespacebloodhound_a0ee8a7512bc2dea6326445fa8b7509b2}{bloodhound\+::operator$\ast$}} (const Posting \&p, Score weight)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aee9cb8e5de7bc61fdc17458d5b597e04}{irk\+::index\+::doc\+\_\+counts\+\_\+path}} (fs\+::path dir)
 \item 
-std\+::ostream \& \mbox{\hyperlink{namespacebloodhound_a1422cc04658f6eb8616381224186059f}{bloodhound\+::operator$<$$<$}} (std\+::ostream \&os, const Posting \&p)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a5f8f21506f18df93a60b7ff061a800df}{irk\+::index\+::doc\+\_\+counts\+\_\+off\+\_\+path}} (fs\+::path dir)
 \item 
-Posting \mbox{\hyperlink{namespacebloodhound_a0b07d73bf298a56b219b270d5fa70b83}{bloodhound\+::operator+}} (const Posting \&lhs, const Posting \&rhs)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a003bce4c8d885ec3e8ffffd7dc53222f}{irk\+::index\+::terms\+\_\+path}} (fs\+::path dir)
 \item 
-std\+::vector$<$ char $>$ \mbox{\hyperlink{namespacebloodhound_1_1index_a4b6f89a17c10bf2927aff24df7081bb3}{bloodhound\+::index\+::read\+\_\+file}} (fs\+::path filepath)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aa8e9c3cb825736431f0f63ca2b380da3}{irk\+::index\+::term\+\_\+map\+\_\+path}} (fs\+::path dir)
 \item 
-Index$<$ In\+Memory\+Posting\+Policy $>$ \mbox{\hyperlink{namespacebloodhound_1_1index_ac508959a4f3ab5ce65d62f1c294359e2}{bloodhound\+::index\+::build\+\_\+index\+\_\+from\+\_\+ids}} (const std\+::vector$<$ std\+::vector$<$ Term\+Weight $>$$>$ \&input)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a616162aee34d0fe0460174bab4e8e518}{irk\+::index\+::term\+\_\+doc\+\_\+freq\+\_\+path}} (fs\+::path dir)
 \item 
-Index$<$ In\+Memory\+Posting\+Policy $>$ \mbox{\hyperlink{namespacebloodhound_1_1index_a306f62c55e8d06a9703f552f7cf312c5}{bloodhound\+::index\+::sorted\+\_\+index}} (const Index$<$ In\+Memory\+Posting\+Policy $>$ \&index)
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdbe94}{irk\+::index\+::titles\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a276ffa432d29c350840382f2aff86479}{irk\+::index\+::title\+\_\+map\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a823e8c1206224466802b3cee4c138c8a}{irk\+::index\+::doc\+\_\+sizes\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a1cd8d96d17fa744fdcc7cb3321b4dd25}{irk\+::index\+::term\+\_\+occurrences\+\_\+path}} (fs\+::path dir)
+\item 
+{\footnotesize template$<$class Scorer $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1v2_a7bd9312938eb7a79b39c30fe6d56bee4}{irk\+::v2\+::score\+\_\+index}} (fs\+::path dir\+\_\+path, int bits)
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

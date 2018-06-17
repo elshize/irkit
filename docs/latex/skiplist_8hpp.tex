@@ -1,0 +1,46 @@
+\hypertarget{skiplist_8hpp}{}\section{include/irkit/index/skiplist.hpp File Reference}
+\label{skiplist_8hpp}\index{include/irkit/index/skiplist.\+hpp@{include/irkit/index/skiplist.\+hpp}}
+{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$irkit/compacttable.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/memoryview.\+hpp$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view$<$ Skip, element\+\_\+size, Cast\+Fn $>$}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{irk\+::index\+::skip\+\_\+list\+\_\+view$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::const\+\_\+iterator}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1idskip}{irk\+::index\+::idskip$<$ Doc, Skip $>$}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1idskip__cast__fn}{irk\+::index\+::idskip\+\_\+cast\+\_\+fn$<$ Doc, Skip $>$}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1write__fn}{irk\+::index\+::write\+\_\+fn$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{irk\+::index\+::skip\+\_\+list\+\_\+builder$<$ Skip, element\+\_\+size, Write\+Fn $>$}}
+\begin{DoxyCompactList}\small\item\em Builds and writes skip lists for postings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1index}{irk\+::index}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceirk_1_1index_a4089fad8418d09bec3dd2a7ff91d1cea}{irk\+::index\+::byte\+\_\+iterator}} = typename \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{irk\+::memory\+\_\+view\+::iterator}}
+\item 
+{\footnotesize template$<$class Doc , class Skip $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1index_ab41287bdb0b0d461d4aa1ec2bda99ddc}{irk\+::index\+::id\+\_\+skip\+\_\+list\+\_\+view}} = skip\+\_\+list\+\_\+view$<$ idskip$<$ Doc, Skip $>$, sizeof(Doc)+sizeof(Skip), idskip\+\_\+cast\+\_\+fn$<$ Doc, Skip $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Doc , class Skip $>$ }\\bool \mbox{\hyperlink{namespaceirk_1_1index_abd8c6907b919343282e10fd76dec4dba}{irk\+::index\+::operator==}} (const idskip$<$ Doc, Skip $>$ \&lhs, const idskip$<$ Doc, Skip $>$ \&rhs)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

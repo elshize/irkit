@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['file',['file',['../structirk_1_1index__load__exception.html#a38c51abcb6c272187ba08e0c9ad7f674',1,'irk::index_load_exception']]],
-  ['flags',['flags',['../structirk_1_1compact__table__header.html#ae76b0ba32ba8873575f480e3148f1738',1,'irk::compact_table_header']]],
-  ['freq',['freq',['../structirk_1_1index__builder_1_1doc__freq__pair.html#ae71d3afc16b2a295ef6338886639dff7',1,'irk::index_builder::doc_freq_pair']]],
-  ['frequency',['frequency',['../structirk_1_1coding_1_1huffman_1_1node.html#ae303f67bca534f5fcbf2a64a586cd7a9',1,'irk::coding::huffman::node']]],
-  ['function',['function',['../structamong.html#a22ec20bb10a12a3ab638901c61ba4b40',1,'among']]]
+  ['g_5fv',['g_v',['../porter2_8hpp.html#aec923b2b45d0f8f61ac4a6098d08ec92',1,'porter2.hpp']]],
+  ['g_5fv_5fwxy',['g_v_WXY',['../porter2_8hpp.html#a8ba4ef0bc196f06312762b2368b1a96c',1,'porter2.hpp']]],
+  ['g_5fvalid_5fli',['g_valid_LI',['../porter2_8hpp.html#a870a3525139e7c76422c43fc4fb9cf57',1,'porter2.hpp']]],
+  ['global_5fcomponent',['global_component',['../structirk_1_1score_1_1query__likelihood__scorer.html#ab32a8a554078c02c337eeb6fc585be2f',1,'irk::score::query_likelihood_scorer']]]
 ];

@@ -20,32 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file block.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
-#include <gsl/span>
-#include <irkit/coding.hpp>
-#include <irkit/memoryview.hpp>
 #include <optional>
 #include <vector>
 
-namespace irk::index
-{
+#include <gsl/span>
 
-//! A view to an encoded block.
-/*!
- * \tparam  T   the type of values encoded in the block
- */
+#include <irkit/coding.hpp>
+#include <irkit/memoryview.hpp>
+
+namespace irk::index {
+
+//! A view to an encoded block in an inverted index.
+//!
+//! \tparam T   the type of values encoded in the block
+//!
 template<class T = std::nullopt_t>
 class block_view {
+    bool constexpr static supports_skips = !std::is_same_v<T, std::nullopt_t>;
+
 public:
     using value_type = T;
     using char_type = char;
-    bool constexpr static supports_skips = !std::is_same_v<T, std::nullopt_t>;
 
+    //! Constructs a block view **with** its last value to support skips.
+    //! \param last_value   last value of the block
+    //! \param memory       underlying memory
     block_view(T last_value, irk::memory_view memory)
         : memory_view_(memory)
     {
@@ -54,14 +59,18 @@ public:
         last_value_[0] = last_value;
     }
 
+    //! Constructs a block view **without** its last value (no skips supported).
+    //! \param memory       underlying memory
     block_view(irk::memory_view memory) : memory_view_(memory)
     {
         static_assert(!supports_skips,
             "must construct with a value when parameter type defined");
     }
 
+    //! Returns the underlying memory view.
     const irk::memory_view& data() const { return memory_view_; }
 
+    //! Returns the last value.
     template<class = std::enable_if_t<supports_skips>>
     const T& back() const { return last_value_[0]; }
 

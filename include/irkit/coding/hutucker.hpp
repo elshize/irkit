@@ -20,24 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file hutucker.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
 #include <gsl/gsl_assert>
-#include "irkit/alphabetical_bst.hpp"
-#include "irkit/coding/huffman.hpp"
-#include "irkit/types.hpp"
 
-namespace irk::coding {
+#include <irkit/alphabetical_bst.hpp>
+#include <irkit/coding/huffman.hpp>
+#include <irkit/types.hpp>
+
+namespace irk {
 
 /*!
  * This namespace contains implementation of the internal mechanics behind the
  * Hu-Tucker codec.
  */
-namespace hutucker {
+namespace coding::hutucker {
 
     template<class Symbol = char>
     using node_ptr = std::shared_ptr<huffman::node<Symbol>>;
@@ -234,7 +235,7 @@ namespace hutucker {
         return alphabetical_bst(mem);
     }
 
-};  // namespace hutucker
+};  // namespace coding::hutucker
 
 //! Hu-Tucker codec.
 /*!
@@ -271,11 +272,11 @@ public:
     hutucker_codec(const std::vector<std::size_t>& frequencies)
     {
         Expects(frequencies.size() == symbol_count);
-        auto initial = huffman::init_nodes(frequencies);
-        auto initial_tree = hutucker::build_tree(initial);
-        auto tagged_leaves = hutucker::tag_leaves(initial_tree);
-        auto tree = hutucker::reconstruct(tagged_leaves);
-        abst_ = hutucker::compact(tree);
+        auto initial = coding::huffman::init_nodes(frequencies);
+        auto initial_tree = coding::hutucker::build_tree(initial);
+        auto tagged_leaves = coding::hutucker::tag_leaves(initial_tree);
+        auto tree = coding::hutucker::reconstruct(tagged_leaves);
+        abst_ = coding::hutucker::compact(tree);
     }
 
     //! Returns a dynamic bitset representing the encoded word.

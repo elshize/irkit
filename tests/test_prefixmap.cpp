@@ -1,14 +1,16 @@
-#include <boost/filesystem.hpp>
 #include <string>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <boost/filesystem.hpp>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include "irkit/alphabetical_bst.hpp"
-#include "irkit/coding/hutucker.hpp"
-#include "irkit/prefixmap.hpp"
-#include "irkit/radix_tree.hpp"
+#include <irkit/alphabetical_bst.hpp>
+#include <irkit/coding/hutucker.hpp>
+#include <irkit/prefixmap.hpp>
+#include <irkit/radix_tree.hpp>
 
 namespace {
 
@@ -27,13 +29,13 @@ protected:
         {'e', s + 35, 'f'},     // 30
         {'d', 'd', 'e'}         // 35
     };
-    std::shared_ptr<irk::coding::hutucker_codec<>> ht()
+    std::shared_ptr<irk::hutucker_codec<>> ht()
     {
         std::vector<char> mem;
         for (auto& node : nodes) {
             mem.insert(mem.end(), node.bytes, node.bytes + 5);
         }
-        return std::make_shared<irk::coding::hutucker_codec<>>(
+        return std::make_shared<irk::hutucker_codec<>>(
             irk::alphabetical_bst(mem));
     }
 };

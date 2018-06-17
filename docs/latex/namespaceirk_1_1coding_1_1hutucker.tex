@@ -13,7 +13,7 @@ struct \mbox{\hyperlink{structirk_1_1coding_1_1hutucker_1_1level__node}{level\+\
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a3cce9468fb0b4bd0b2f30422b8c00284}{join\+\_\+selected}} (std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&forest, std\+::pair$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$, \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&selected)
+{\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_afc598a2671de17423c5d2c0427aab320}{join\+\_\+selected}} (std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&forest, std\+::pair$<$ typename std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$\+::iterator, typename std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$\+::iterator $>$ selected)
 \begin{DoxyCompactList}\small\item\em Joins together a pair of selected nodes in a forest. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Symbol  = char$>$ }\\void \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_ad43136697500a2cc05315ab694767d84}{join\+\_\+next\+\_\+valid}} (std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&forest)
 \begin{DoxyCompactList}\small\item\em Selects and joins the next valid pair in the forest. \end{DoxyCompactList}\item 
@@ -23,7 +23,7 @@ struct \mbox{\hyperlink{structirk_1_1coding_1_1hutucker_1_1level__node}{level\+\
 \item 
 {\footnotesize template$<$class Symbol  = char$>$ }\\\mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_adf2fb7ba2277edb34df80da2766493f8}{reconstruct}} (std\+::list$<$ \mbox{\hyperlink{structirk_1_1coding_1_1hutucker_1_1level__node}{level\+\_\+node}}$<$ Symbol $>$$>$ \&nodes)
 \begin{DoxyCompactList}\small\item\em Reconstructs the final Hu-\/\+Tucker tree based on the level-\/tagged nodes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Symbol  = char$>$ }\\\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$ Symbol, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a8439e61ebf9f3af2e42bce48905832b5}{compact}} (\mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$ root)
+\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$ char, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a92ab334d2417de57e7ac803d32e751d5}{compact}} (\mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ char $>$ root)
 \begin{DoxyCompactList}\small\item\em Returns an immutable compact version of the same tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -60,12 +60,11 @@ Constructs a first-\/phase Hu-\/\+Tucker tree from a list of external nodes.
 \begin{DoxyReturn}{Returns}
 a pointer to the root of the constructed tree 
 \end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_1_1coding_1_1hutucker_a8439e61ebf9f3af2e42bce48905832b5}\label{namespaceirk_1_1coding_1_1hutucker_a8439e61ebf9f3af2e42bce48905832b5}} 
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1hutucker_a92ab334d2417de57e7ac803d32e751d5}\label{namespaceirk_1_1coding_1_1hutucker_a92ab334d2417de57e7ac803d32e751d5}} 
 \index{irk\+::coding\+::hutucker@{irk\+::coding\+::hutucker}!compact@{compact}}
 \index{compact@{compact}!irk\+::coding\+::hutucker@{irk\+::coding\+::hutucker}}
 \subsubsection{\texorpdfstring{compact()}{compact()}}
-{\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
-\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$Symbol, uint16\+\_\+t, std\+::vector$<$char$>$ $>$ irk\+::coding\+::hutucker\+::compact (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$}]{root }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$char, uint16\+\_\+t, std\+::vector$<$char$>$ $>$ irk\+::coding\+::hutucker\+::compact (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ char $>$}]{root }\end{DoxyParamCaption})}
 
 
 
@@ -82,12 +81,12 @@ void irk\+::coding\+::hutucker\+::join\+\_\+next\+\_\+valid (\begin{DoxyParamCap
 
 Selects and joins the next valid pair in the forest. 
 
-\mbox{\Hypertarget{namespaceirk_1_1coding_1_1hutucker_a3cce9468fb0b4bd0b2f30422b8c00284}\label{namespaceirk_1_1coding_1_1hutucker_a3cce9468fb0b4bd0b2f30422b8c00284}} 
+\mbox{\Hypertarget{namespaceirk_1_1coding_1_1hutucker_afc598a2671de17423c5d2c0427aab320}\label{namespaceirk_1_1coding_1_1hutucker_afc598a2671de17423c5d2c0427aab320}} 
 \index{irk\+::coding\+::hutucker@{irk\+::coding\+::hutucker}!join\+\_\+selected@{join\+\_\+selected}}
 \index{join\+\_\+selected@{join\+\_\+selected}!irk\+::coding\+::hutucker@{irk\+::coding\+::hutucker}}
 \subsubsection{\texorpdfstring{join\+\_\+selected()}{join\_selected()}}
 {\footnotesize\ttfamily template$<$class Symbol  = char$>$ \\
-void irk\+::coding\+::hutucker\+::join\+\_\+selected (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&}]{forest,  }\item[{std\+::pair$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$, \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&}]{selected }\end{DoxyParamCaption})}
+void irk\+::coding\+::hutucker\+::join\+\_\+selected (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$ \&}]{forest,  }\item[{std\+::pair$<$ typename std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$\+::iterator, typename std\+::list$<$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_aa5d22cfdf05ffec38f2531e0307248fe}{node\+\_\+ptr}}$<$ Symbol $>$$>$\+::iterator $>$}]{selected }\end{DoxyParamCaption})}
 
 
 

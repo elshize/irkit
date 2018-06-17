@@ -4,11 +4,6 @@
 
 {\ttfamily \#include $<$builder.\+hpp$>$}
 
-\subsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structirk_1_1index__builder_1_1doc__freq__pair}{doc\+\_\+freq\+\_\+pair}}
-\end{DoxyCompactItemize}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,7 +18,7 @@ using \mbox{\hyperlink{classirk_1_1index__builder_af2efa68fc3f10fd9cb000d16279bf
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1index__builder_a00c690294474cf2ef39fcf94edc8b594}{index\+\_\+builder}} ()
+\mbox{\hyperlink{classirk_1_1index__builder_a828accec899ce3440bc52268ed3979fa}{index\+\_\+builder}} (int block\+\_\+size=64)
 \item 
 void \mbox{\hyperlink{classirk_1_1index__builder_a005813bfb531005ce2ca54a9f7cfd261}{add\+\_\+document}} ()
 \begin{DoxyCompactList}\small\item\em Initiates a new document with an incremented ID. \end{DoxyCompactList}\item 
@@ -46,20 +41,13 @@ void \mbox{\hyperlink{classirk_1_1index__builder_adcb91466aff37e3fe77b400bffdadf
 void \mbox{\hyperlink{classirk_1_1index__builder_a69082abb251ed664e6ba7550995c8cf6}{write\+\_\+document\+\_\+counts}} (std\+::ostream \&out, std\+::ostream \&off)
 \begin{DoxyCompactList}\small\item\em Writes term-\/document frequencies (tf). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classirk_1_1index__builder_a10f84fb4c00cea77259d275fc47635ed}{write\+\_\+document\+\_\+frequencies}} (std\+::ostream \&out)
-\begin{DoxyCompactList}\small\item\em Writes document frequencies (df). \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{classirk_1_1index__builder_a4230ae91e9f84c95ee99b3607c6e952e}{document\+\_\+type}} \mbox{\hyperlink{classirk_1_1index__builder_a5d40288309af28bfcfc48aed2e2d97d1}{current\+\_\+doc\+\_\+}}
-\item 
-std\+::optional$<$ std\+::vector$<$ \mbox{\hyperlink{classirk_1_1index__builder_ad80a8f10f3e72ed3b9a2f181350f3f1f}{term\+\_\+type}} $>$ $>$ \mbox{\hyperlink{classirk_1_1index__builder_abf42fb9c98133b69f1a201c50310e8f4}{sorted\+\_\+terms\+\_\+}}
-\item 
-std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{structirk_1_1index__builder_1_1doc__freq__pair}{doc\+\_\+freq\+\_\+pair}} $>$ $>$ \mbox{\hyperlink{classirk_1_1index__builder_aa64eef56687fc708cbf0b1ec7342c45c}{postings\+\_\+}}
-\item 
-std\+::vector$<$ std\+::size\+\_\+t $>$ \mbox{\hyperlink{classirk_1_1index__builder_ab2c35e654feb4e162215cc2e684b1241}{term\+\_\+occurrences\+\_\+}}
-\item 
-std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{classirk_1_1index__builder_ad80a8f10f3e72ed3b9a2f181350f3f1f}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index__builder_a6736f4a9aa142d3ca15c5e8c3b0a352f}{term\+\_\+id\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1index__builder_aa4f91b07c97bcb9830983f72c4eba42b}{term\+\_\+map\+\_\+}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Writes document frequencies (df). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1index__builder_a734a12d7e31414de11758e18c24010b2}{write\+\_\+document\+\_\+sizes}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes document sizes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1index__builder_a624ac52ee94b6d6e9b3a7c2521d550a1}{write\+\_\+term\+\_\+occurrences}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes document sizes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1index__builder_a72af15b21025b78e52b36ba27d1a74c9}{write\+\_\+properties}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes properties to the output stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Member Typedef Documentation}
@@ -94,12 +82,12 @@ using \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1index__builder_a00c690294474cf2ef39fcf94edc8b594}\label{classirk_1_1index__builder_a00c690294474cf2ef39fcf94edc8b594}} 
+\mbox{\Hypertarget{classirk_1_1index__builder_a828accec899ce3440bc52268ed3979fa}\label{classirk_1_1index__builder_a828accec899ce3440bc52268ed3979fa}} 
 \index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!index\+\_\+builder@{index\+\_\+builder}}
 \index{index\+\_\+builder@{index\+\_\+builder}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
 \subsubsection{\texorpdfstring{index\+\_\+builder()}{index\_builder()}}
 {\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-\mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index__builder}{index\+\_\+builder}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::\mbox{\hyperlink{classirk_1_1index__builder}{index\+\_\+builder}} (\begin{DoxyParamCaption}\item[{int}]{block\+\_\+size = {\ttfamily 64} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -214,6 +202,39 @@ void \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$
 
 Writes document I\+Ds. 
 
+\mbox{\Hypertarget{classirk_1_1index__builder_a734a12d7e31414de11758e18c24010b2}\label{classirk_1_1index__builder_a734a12d7e31414de11758e18c24010b2}} 
+\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!write\+\_\+document\+\_\+sizes@{write\+\_\+document\+\_\+sizes}}
+\index{write\+\_\+document\+\_\+sizes@{write\+\_\+document\+\_\+sizes}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+document\+\_\+sizes()}{write\_document\_sizes()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+document\+\_\+sizes (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document sizes. 
+
+\mbox{\Hypertarget{classirk_1_1index__builder_a72af15b21025b78e52b36ba27d1a74c9}\label{classirk_1_1index__builder_a72af15b21025b78e52b36ba27d1a74c9}} 
+\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!write\+\_\+properties@{write\+\_\+properties}}
+\index{write\+\_\+properties@{write\+\_\+properties}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+properties()}{write\_properties()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+properties (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes properties to the output stream. 
+
+\mbox{\Hypertarget{classirk_1_1index__builder_a624ac52ee94b6d6e9b3a7c2521d550a1}\label{classirk_1_1index__builder_a624ac52ee94b6d6e9b3a7c2521d550a1}} 
+\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!write\+\_\+term\+\_\+occurrences@{write\+\_\+term\+\_\+occurrences}}
+\index{write\+\_\+term\+\_\+occurrences@{write\+\_\+term\+\_\+occurrences}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+term\+\_\+occurrences()}{write\_term\_occurrences()}}
+{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
+void \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::write\+\_\+term\+\_\+occurrences (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document sizes. 
+
 \mbox{\Hypertarget{classirk_1_1index__builder_a7bd993ab3ceb6527e622187bde86c93a}\label{classirk_1_1index__builder_a7bd993ab3ceb6527e622187bde86c93a}} 
 \index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!write\+\_\+terms@{write\+\_\+terms}}
 \index{write\+\_\+terms@{write\+\_\+terms}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
@@ -224,44 +245,6 @@ void \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$
 
 
 Writes new-\/line-\/delimited sorted list of terms. 
-
-
-
-\subsection{Member Data Documentation}
-\mbox{\Hypertarget{classirk_1_1index__builder_a5d40288309af28bfcfc48aed2e2d97d1}\label{classirk_1_1index__builder_a5d40288309af28bfcfc48aed2e2d97d1}} 
-\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!current\+\_\+doc\+\_\+@{current\+\_\+doc\+\_\+}}
-\index{current\+\_\+doc\+\_\+@{current\+\_\+doc\+\_\+}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
-\subsubsection{\texorpdfstring{current\+\_\+doc\+\_\+}{current\_doc\_}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-\mbox{\hyperlink{classirk_1_1index__builder_a4230ae91e9f84c95ee99b3607c6e952e}{document\+\_\+type}} \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::current\+\_\+doc\+\_\+}
-
-\mbox{\Hypertarget{classirk_1_1index__builder_aa64eef56687fc708cbf0b1ec7342c45c}\label{classirk_1_1index__builder_aa64eef56687fc708cbf0b1ec7342c45c}} 
-\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!postings\+\_\+@{postings\+\_\+}}
-\index{postings\+\_\+@{postings\+\_\+}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
-\subsubsection{\texorpdfstring{postings\+\_\+}{postings\_}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::vector$<$std\+::vector$<$\mbox{\hyperlink{structirk_1_1index__builder_1_1doc__freq__pair}{doc\+\_\+freq\+\_\+pair}}$>$ $>$ \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::postings\+\_\+}
-
-\mbox{\Hypertarget{classirk_1_1index__builder_abf42fb9c98133b69f1a201c50310e8f4}\label{classirk_1_1index__builder_abf42fb9c98133b69f1a201c50310e8f4}} 
-\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!sorted\+\_\+terms\+\_\+@{sorted\+\_\+terms\+\_\+}}
-\index{sorted\+\_\+terms\+\_\+@{sorted\+\_\+terms\+\_\+}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
-\subsubsection{\texorpdfstring{sorted\+\_\+terms\+\_\+}{sorted\_terms\_}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::optional$<$std\+::vector$<$\mbox{\hyperlink{classirk_1_1index__builder_ad80a8f10f3e72ed3b9a2f181350f3f1f}{term\+\_\+type}}$>$ $>$ \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::sorted\+\_\+terms\+\_\+}
-
-\mbox{\Hypertarget{classirk_1_1index__builder_aa4f91b07c97bcb9830983f72c4eba42b}\label{classirk_1_1index__builder_aa4f91b07c97bcb9830983f72c4eba42b}} 
-\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!term\+\_\+map\+\_\+@{term\+\_\+map\+\_\+}}
-\index{term\+\_\+map\+\_\+@{term\+\_\+map\+\_\+}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
-\subsubsection{\texorpdfstring{term\+\_\+map\+\_\+}{term\_map\_}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::unordered\+\_\+map$<$\mbox{\hyperlink{classirk_1_1index__builder_ad80a8f10f3e72ed3b9a2f181350f3f1f}{term\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index__builder_a6736f4a9aa142d3ca15c5e8c3b0a352f}{term\+\_\+id\+\_\+type}}$>$ \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+map\+\_\+}
-
-\mbox{\Hypertarget{classirk_1_1index__builder_ab2c35e654feb4e162215cc2e684b1241}\label{classirk_1_1index__builder_ab2c35e654feb4e162215cc2e684b1241}} 
-\index{irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}!term\+\_\+occurrences\+\_\+@{term\+\_\+occurrences\+\_\+}}
-\index{term\+\_\+occurrences\+\_\+@{term\+\_\+occurrences\+\_\+}!irk\+::index\+\_\+builder@{irk\+::index\+\_\+builder}}
-\subsubsection{\texorpdfstring{term\+\_\+occurrences\+\_\+}{term\_occurrences\_}}
-{\footnotesize\ttfamily template$<$class Doc  = std\+::size\+\_\+t, class Term  = std\+::string, class Term\+Id  = std\+::size\+\_\+t, class Freq  = std\+::size\+\_\+t$>$ \\
-std\+::vector$<$std\+::size\+\_\+t$>$ \mbox{\hyperlink{classirk_1_1index__builder}{irk\+::index\+\_\+builder}}$<$ Doc, Term, Term\+Id, Freq $>$\+::term\+\_\+occurrences\+\_\+}
 
 
 

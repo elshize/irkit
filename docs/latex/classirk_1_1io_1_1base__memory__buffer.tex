@@ -1,0 +1,91 @@
+\hypertarget{classirk_1_1io_1_1base__memory__buffer}{}\section{irk\+:\+:io\+:\+:base\+\_\+memory\+\_\+buffer Class Reference}
+\label{classirk_1_1io_1_1base__memory__buffer}\index{irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}}
+
+
+A base class for all types of memory buffers.  
+
+
+
+
+{\ttfamily \#include $<$memorybuffer.\+hpp$>$}
+
+Inheritance diagram for irk\+:\+:io\+:\+:base\+\_\+memory\+\_\+buffer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classirk_1_1io_1_1base__memory__buffer}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{char\+\_\+type}} = char
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{char\+\_\+type}} $\ast$ \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_ae8247b83aae579cbc04b5432bd4858cc}{data}} ()=0
+\item 
+virtual const \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{char\+\_\+type}} $\ast$ \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a87bbff1a6d211e26f0c0aa924a980b9e}{data}} () const =0
+\item 
+virtual std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_ae634ab934981e7e4baf5e1e67ef3b006}{size}} () const =0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A base class for all types of memory buffers. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Block} & the underlying type \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}\label{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}} 
+\index{irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}!char\+\_\+type@{char\+\_\+type}}
+\index{char\+\_\+type@{char\+\_\+type}!irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}}
+\subsubsection{\texorpdfstring{char\+\_\+type}{char\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{irk\+::io\+::base\+\_\+memory\+\_\+buffer\+::char\+\_\+type}} =  char}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1io_1_1base__memory__buffer_ae8247b83aae579cbc04b5432bd4858cc}\label{classirk_1_1io_1_1base__memory__buffer_ae8247b83aae579cbc04b5432bd4858cc}} 
+\index{irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}!data@{data}}
+\index{data@{data}!irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}}
+\subsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{char\+\_\+type}}$\ast$ irk\+::io\+::base\+\_\+memory\+\_\+buffer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classirk_1_1io_1_1mapped__memory__buffer_a2b731cf50320c20fb271bdd5c6f384c4}{irk\+::io\+::mapped\+\_\+memory\+\_\+buffer}}, and \mbox{\hyperlink{classirk_1_1io_1_1vector__memory__buffer_a28ddafbb2610a463d13dc7fe5cf0708f}{irk\+::io\+::vector\+\_\+memory\+\_\+buffer}}.
+
+\mbox{\Hypertarget{classirk_1_1io_1_1base__memory__buffer_a87bbff1a6d211e26f0c0aa924a980b9e}\label{classirk_1_1io_1_1base__memory__buffer_a87bbff1a6d211e26f0c0aa924a980b9e}} 
+\index{irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}!data@{data}}
+\index{data@{data}!irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}}
+\subsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer_a1b539180df4274dd4ad0402a0ac821ec}{char\+\_\+type}}$\ast$ irk\+::io\+::base\+\_\+memory\+\_\+buffer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classirk_1_1io_1_1mapped__memory__buffer_ab4bbb25488358a3d527d45d16a845fb6}{irk\+::io\+::mapped\+\_\+memory\+\_\+buffer}}, and \mbox{\hyperlink{classirk_1_1io_1_1vector__memory__buffer_ad0d18022442c081ac51abb8da8b68e54}{irk\+::io\+::vector\+\_\+memory\+\_\+buffer}}.
+
+\mbox{\Hypertarget{classirk_1_1io_1_1base__memory__buffer_ae634ab934981e7e4baf5e1e67ef3b006}\label{classirk_1_1io_1_1base__memory__buffer_ae634ab934981e7e4baf5e1e67ef3b006}} 
+\index{irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}!size@{size}}
+\index{size@{size}!irk\+::io\+::base\+\_\+memory\+\_\+buffer@{irk\+::io\+::base\+\_\+memory\+\_\+buffer}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily virtual std\+::size\+\_\+t irk\+::io\+::base\+\_\+memory\+\_\+buffer\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classirk_1_1io_1_1mapped__memory__buffer_ae64bb8d5018d83bd9feb605704bb0c82}{irk\+::io\+::mapped\+\_\+memory\+\_\+buffer}}, and \mbox{\hyperlink{classirk_1_1io_1_1vector__memory__buffer_ab79eda0d916da980b78ecae09883bba1}{irk\+::io\+::vector\+\_\+memory\+\_\+buffer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/io/\mbox{\hyperlink{memorybuffer_8hpp}{memorybuffer.\+hpp}}\end{DoxyCompactItemize}

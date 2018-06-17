@@ -1,12 +1,14 @@
 #include <unordered_map>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/index.hpp"
-#include "irkit/io.hpp"
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/index.hpp>
+#include <irkit/io.hpp>
 
 namespace {
 
@@ -31,10 +33,10 @@ std::vector<char> flatten(std::vector<std::vector<char>> vectors)
     return result;
 }
 
-irk::coding::varbyte_codec<std::uint16_t> vb;
+irk::varbyte_codec<std::uint16_t> vb;
 auto vb_encode(std::initializer_list<std::uint16_t> integers)
 {
-    return irk::coding::encode(integers, vb);
+    return irk::encode(integers, vb);
 }
 
 irk::mapped_compact_table<std::uint16_t>

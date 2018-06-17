@@ -12,13 +12,17 @@ struct \mbox{\hyperlink{structirk_1_1__posting}{irk\+::\+\_\+posting$<$ Doc, Sco
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{namespaceirk_a979e09720c2ef05573819388a3c0e79a}{irk\+::bitword}} = boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$
+using \mbox{\hyperlink{namespaceirk_a332c28497c23c3702c56f3c1c100d028}{irk\+::byte}} = unsigned char
+\item 
+using \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{irk\+::bitword}} = boost\+::dynamic\+\_\+bitset$<$ byte $>$
 \item 
 {\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a57b757ac14c20845b38f720c2ad8e822}{irk\+::enable\+\_\+if\+\_\+equal}} = typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
+\item 
+{\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}{irk\+::enable\+\_\+if\+\_\+not\+\_\+equal}} = typename std\+::enable\+\_\+if$<$!std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
 \item 
 {\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a44ec708d671914dae1d40355ac05c280}{irk\+::element\+\_\+t}} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
 \begin{DoxyCompactList}\small\item\em The type of the element of Range. \end{DoxyCompactList}\item 

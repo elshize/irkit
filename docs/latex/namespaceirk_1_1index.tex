@@ -1,7 +1,49 @@
 \hypertarget{namespaceirk_1_1index}{}\section{irk\+:\+:index Namespace Reference}
 \label{namespaceirk_1_1index}\index{irk\+::index@{irk\+::index}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em A view of a block document list. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}
+\begin{DoxyCompactList}\small\item\em Block iterator. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__list__builder}{block\+\_\+list\+\_\+builder}}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{block\+\_\+payload\+\_\+list\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em A view of a block payload list. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{block\+\_\+posting\+\_\+list\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em A view of a block posting list (ID, payload). \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__view}{block\+\_\+view}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1idskip__cast__fn}{idskip\+\_\+cast\+\_\+fn}}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{index\+\_\+assembler}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1metadata}{metadata}}
+\begin{DoxyCompactList}\small\item\em Container for index-\/related metadata. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1skip__list__builder}{skip\+\_\+list\+\_\+builder}}
+\begin{DoxyCompactList}\small\item\em Builds and writes skip lists for postings. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1write__fn}{write\+\_\+fn}}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1zipped__payload__list__view}{zipped\+\_\+payload\+\_\+list\+\_\+view}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceirk_1_1index_a0f1c105dfd7dd3ada51c4c2eb2b6850e}{default\+\_\+index\+\_\+assembler}} = \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{index\+\_\+assembler}}$<$$>$
+\item 
+using \mbox{\hyperlink{namespaceirk_1_1index_a4089fad8418d09bec3dd2a7ff91d1cea}{byte\+\_\+iterator}} = typename \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{irk\+::memory\+\_\+view\+::iterator}}
+\item 
+{\footnotesize template$<$class Doc , class Skip $>$ }\\using \mbox{\hyperlink{namespaceirk_1_1index_ab41287bdb0b0d461d4aa1ec2bda99ddc}{id\+\_\+skip\+\_\+list\+\_\+view}} = \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}}$<$ \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$ Doc, Skip $>$, sizeof(Doc)+sizeof(Skip), \mbox{\hyperlink{structirk_1_1index_1_1idskip__cast__fn}{idskip\+\_\+cast\+\_\+fn}}$<$ Doc, Skip $>$ $>$
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Doc , class Skip $>$ }\\bool \mbox{\hyperlink{namespaceirk_1_1index_abd8c6907b919343282e10fd76dec4dba}{operator==}} (const \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$ Doc, Skip $>$ \&lhs, const \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$ Doc, Skip $>$ \&rhs)
 \item 
 fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a5880f03dd72d6ebbae004d2ab83c219e}{properties\+\_\+path}} (fs\+::path dir)
 \item 
@@ -20,7 +62,35 @@ fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_aa8e9c3cb825736431f0f63ca2b380
 fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a616162aee34d0fe0460174bab4e8e518}{term\+\_\+doc\+\_\+freq\+\_\+path}} (fs\+::path dir)
 \item 
 fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdbe94}{titles\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a276ffa432d29c350840382f2aff86479}{title\+\_\+map\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a823e8c1206224466802b3cee4c138c8a}{doc\+\_\+sizes\+\_\+path}} (fs\+::path dir)
+\item 
+fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a1cd8d96d17fa744fdcc7cb3321b4dd25}{term\+\_\+occurrences\+\_\+path}} (fs\+::path dir)
 \end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1index_a4089fad8418d09bec3dd2a7ff91d1cea}\label{namespaceirk_1_1index_a4089fad8418d09bec3dd2a7ff91d1cea}} 
+\index{irk\+::index@{irk\+::index}!byte\+\_\+iterator@{byte\+\_\+iterator}}
+\index{byte\+\_\+iterator@{byte\+\_\+iterator}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{byte\+\_\+iterator}{byte\_iterator}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_1_1index_a4089fad8418d09bec3dd2a7ff91d1cea}{irk\+::index\+::byte\+\_\+iterator}} = typedef typename \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{irk\+::memory\+\_\+view\+::iterator}}}
+
+\mbox{\Hypertarget{namespaceirk_1_1index_a0f1c105dfd7dd3ada51c4c2eb2b6850e}\label{namespaceirk_1_1index_a0f1c105dfd7dd3ada51c4c2eb2b6850e}} 
+\index{irk\+::index@{irk\+::index}!default\+\_\+index\+\_\+assembler@{default\+\_\+index\+\_\+assembler}}
+\index{default\+\_\+index\+\_\+assembler@{default\+\_\+index\+\_\+assembler}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{default\+\_\+index\+\_\+assembler}{default\_index\_assembler}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_1_1index_a0f1c105dfd7dd3ada51c4c2eb2b6850e}{irk\+::index\+::default\+\_\+index\+\_\+assembler}} = typedef \mbox{\hyperlink{classirk_1_1index_1_1index__assembler}{index\+\_\+assembler}}$<$$>$}
+
+\mbox{\Hypertarget{namespaceirk_1_1index_ab41287bdb0b0d461d4aa1ec2bda99ddc}\label{namespaceirk_1_1index_ab41287bdb0b0d461d4aa1ec2bda99ddc}} 
+\index{irk\+::index@{irk\+::index}!id\+\_\+skip\+\_\+list\+\_\+view@{id\+\_\+skip\+\_\+list\+\_\+view}}
+\index{id\+\_\+skip\+\_\+list\+\_\+view@{id\+\_\+skip\+\_\+list\+\_\+view}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{id\+\_\+skip\+\_\+list\+\_\+view}{id\_skip\_list\_view}}
+{\footnotesize\ttfamily template$<$class Doc , class Skip $>$ \\
+using \mbox{\hyperlink{namespaceirk_1_1index_ab41287bdb0b0d461d4aa1ec2bda99ddc}{irk\+::index\+::id\+\_\+skip\+\_\+list\+\_\+view}} = typedef \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}}$<$\mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$Doc, Skip$>$, sizeof(Doc) + sizeof(Skip), \mbox{\hyperlink{structirk_1_1index_1_1idskip__cast__fn}{idskip\+\_\+cast\+\_\+fn}}$<$Doc, Skip$>$ $>$}
+
 
 
 \subsection{Function Documentation}
@@ -48,6 +118,19 @@ fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdb
 \subsubsection{\texorpdfstring{doc\+\_\+ids\+\_\+path()}{doc\_ids\_path()}}
 {\footnotesize\ttfamily fs\+::path irk\+::index\+::doc\+\_\+ids\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespaceirk_1_1index_a823e8c1206224466802b3cee4c138c8a}\label{namespaceirk_1_1index_a823e8c1206224466802b3cee4c138c8a}} 
+\index{irk\+::index@{irk\+::index}!doc\+\_\+sizes\+\_\+path@{doc\+\_\+sizes\+\_\+path}}
+\index{doc\+\_\+sizes\+\_\+path@{doc\+\_\+sizes\+\_\+path}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{doc\+\_\+sizes\+\_\+path()}{doc\_sizes\_path()}}
+{\footnotesize\ttfamily fs\+::path irk\+::index\+::doc\+\_\+sizes\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1index_abd8c6907b919343282e10fd76dec4dba}\label{namespaceirk_1_1index_abd8c6907b919343282e10fd76dec4dba}} 
+\index{irk\+::index@{irk\+::index}!operator==@{operator==}}
+\index{operator==@{operator==}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class Doc , class Skip $>$ \\
+bool irk\+::index\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$ Doc, Skip $>$ \&}]{lhs,  }\item[{const \mbox{\hyperlink{structirk_1_1index_1_1idskip}{idskip}}$<$ Doc, Skip $>$ \&}]{rhs }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespaceirk_1_1index_a5880f03dd72d6ebbae004d2ab83c219e}\label{namespaceirk_1_1index_a5880f03dd72d6ebbae004d2ab83c219e}} 
 \index{irk\+::index@{irk\+::index}!properties\+\_\+path@{properties\+\_\+path}}
 \index{properties\+\_\+path@{properties\+\_\+path}!irk\+::index@{irk\+::index}}
@@ -66,11 +149,23 @@ fs\+::path \mbox{\hyperlink{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdb
 \subsubsection{\texorpdfstring{term\+\_\+map\+\_\+path()}{term\_map\_path()}}
 {\footnotesize\ttfamily fs\+::path irk\+::index\+::term\+\_\+map\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespaceirk_1_1index_a1cd8d96d17fa744fdcc7cb3321b4dd25}\label{namespaceirk_1_1index_a1cd8d96d17fa744fdcc7cb3321b4dd25}} 
+\index{irk\+::index@{irk\+::index}!term\+\_\+occurrences\+\_\+path@{term\+\_\+occurrences\+\_\+path}}
+\index{term\+\_\+occurrences\+\_\+path@{term\+\_\+occurrences\+\_\+path}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{term\+\_\+occurrences\+\_\+path()}{term\_occurrences\_path()}}
+{\footnotesize\ttfamily fs\+::path irk\+::index\+::term\+\_\+occurrences\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespaceirk_1_1index_a003bce4c8d885ec3e8ffffd7dc53222f}\label{namespaceirk_1_1index_a003bce4c8d885ec3e8ffffd7dc53222f}} 
 \index{irk\+::index@{irk\+::index}!terms\+\_\+path@{terms\+\_\+path}}
 \index{terms\+\_\+path@{terms\+\_\+path}!irk\+::index@{irk\+::index}}
 \subsubsection{\texorpdfstring{terms\+\_\+path()}{terms\_path()}}
 {\footnotesize\ttfamily fs\+::path irk\+::index\+::terms\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_1_1index_a276ffa432d29c350840382f2aff86479}\label{namespaceirk_1_1index_a276ffa432d29c350840382f2aff86479}} 
+\index{irk\+::index@{irk\+::index}!title\+\_\+map\+\_\+path@{title\+\_\+map\+\_\+path}}
+\index{title\+\_\+map\+\_\+path@{title\+\_\+map\+\_\+path}!irk\+::index@{irk\+::index}}
+\subsubsection{\texorpdfstring{title\+\_\+map\+\_\+path()}{title\_map\_path()}}
+{\footnotesize\ttfamily fs\+::path irk\+::index\+::title\+\_\+map\+\_\+path (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdbe94}\label{namespaceirk_1_1index_a2c4aa814da3f9412179fe44a70fdbe94}} 
 \index{irk\+::index@{irk\+::index}!titles\+\_\+path@{titles\+\_\+path}}

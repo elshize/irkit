@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['zip',['zip',['../namespaceirk_1_1view.html#a1375ca93181b0bcbc509d6b0bf6c5be9',1,'irk::view']]],
-  ['zipview',['ZipView',['../classirk_1_1view_1_1ZipView.html',1,'irk::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;'],['../classirk_1_1view_1_1ZipView.html#a538eabe5e10f14e89bbe394bf601af41',1,'irk::view::ZipView::ZipView()']]]
+  ['x',['x',['../structirk_1_1score_1_1bm25__scorer.html#ae9c6a79715c86d4fbd91651b36f0b2a3',1,'irk::score::bm25_scorer']]]
 ];

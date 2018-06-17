@@ -20,25 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file huffman.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
-#include <gsl/span>
 #include <iostream>
 #include <list>
-#include "irkit/io.hpp"
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+#include <memory>
+#include <optional>
+#include <vector>
 
 namespace irk::coding {
 
-/*!
- * This namespace contains the internal implementation of structures and
- * algorithms related to Huffman coding and trees.
- */
+//! This namespace contains the internal implementation of structures and
+//! algorithms related to Huffman coding and trees.
 namespace huffman {
 
     //! A structure representing a node in a Huffman coding tree.

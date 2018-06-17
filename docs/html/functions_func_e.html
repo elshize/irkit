@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -68,22 +67,33 @@ $(function() {
 
 <h3><a id="index_e"></a>- e -</h3><ul>
 <li>empty()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a28ec60331aec6acaa9c281d4d412bf26">bloodhound::PostingList</a>
-, <a class="el" href="classirk_1_1Heap.html#a6f7cb66b2e9eea341877b8b42a2b7b38">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
-, <a class="el" href="structirk_1_1moving__range.html#ae3f8227591a53d22d087d8633ce3172f">irk::moving_range&lt; Iter &gt;</a>
+: <a class="el" href="structirk_1_1moving__range.html#ae3f8227591a53d22d087d8633ce3172f">irk::moving_range&lt; Iter &gt;</a>
 , <a class="el" href="classirk_1_1mutable__bit__trie.html#abbfbe73cb98af4bb0375f00229cec50a">irk::mutable_bit_trie&lt; Value &gt;</a>
 , <a class="el" href="classirk_1_1union__range.html#a661cc5c6767ecd8b468e5b13fb6460f5">irk::union_range&lt; Range &gt;</a>
 </li>
+<li>empty_posting_range()
+: <a class="el" href="classirk_1_1inverted__index.html#ae2401a96c224235b8efb4ca40c580f18">irk::inverted_index&lt; Doc, Term, TermId, Freq &gt;</a>
+</li>
 <li>encode()
-: <a class="el" href="classirk_1_1alphabetical__bst.html#a4d63267c3e8de620411494f5b49fa2a2">irk::alphabetical_bst&lt; Symbol, Ptr, MemoryContainer &gt;</a>
-, <a class="el" href="classirk_1_1coding_1_1hutucker__codec.html#a7bb02638e686dd00d98150829134cd6d">irk::coding::hutucker_codec&lt; Symbol, MemoryContainer &gt;</a>
-, <a class="el" href="structirk_1_1coding_1_1varbyte__codec.html#a330889102c7d1c2213eba270ee64e2f5">irk::coding::varbyte_codec&lt; T, &gt;</a>
+: <a class="el" href="structboost_1_1type__erasure_1_1concept__interface_3_01irk_1_1has__encode_3_01C_00_01T_01_4_00_01Base_00_01C_01_4.html#aaab1ac62febefb2752117b06067e317a">boost::type_erasure::concept_interface&lt; irk::has_encode&lt; C, T &gt;, Base, C &gt;</a>
+, <a class="el" href="classirk_1_1alphabetical__bst.html#a788eae986e42bf08ba2566927416a367">irk::alphabetical_bst&lt; Symbol, Ptr, MemoryContainer &gt;</a>
+, <a class="el" href="structirk_1_1copy__codec.html#a72a66688818ee37592ee6fe5e25ec3cb">irk::copy_codec&lt; T &gt;</a>
+, <a class="el" href="classirk_1_1hutucker__codec.html#a86c90c76d29d5badfd89b74efe7f1afd">irk::hutucker_codec&lt; Symbol, MemoryContainer &gt;</a>
+, <a class="el" href="structirk_1_1varbyte__codec.html#a82d69fd436aa9ea1626ad756cfdb6e88">irk::varbyte_codec&lt; T &gt;</a>
 </li>
 <li>end()
-: <a class="el" href="classbloodhound_1_1PostingList.html#a2e1f899bd04ae64e1318494d358ade94">bloodhound::PostingList</a>
-, <a class="el" href="classirk_1_1dynamically__scored__posting__range.html#a9d5aba54aba865a979c414603ad4ebe4">irk::dynamically_scored_posting_range&lt; Posting, Freq, Scorer &gt;</a>
-, <a class="el" href="classirk_1_1Heap.html#af663889a1e5ba217970a850b5a9f21ff">irk::Heap&lt; Key, Value, Compare, Mapping &gt;</a>
+: <a class="el" href="classirk_1_1dynamically__scored__posting__range.html#a9d5aba54aba865a979c414603ad4ebe4">irk::dynamically_scored_posting_range&lt; Posting, Freq, Scorer &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__document__list__view.html#a1edd00780b264af57cadf53fadf2ced3">irk::index::block_document_list_view&lt; Doc &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__payload__list__view.html#a0daeb1ce7d6b877d6345067956dd8c9e">irk::index::block_payload_list_view&lt; Payload &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1block__posting__list__view.html#a22d74833bc37a7f8e4fd1541663dc40d">irk::index::block_posting_list_view&lt; Doc, Payload &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1skip__list__view.html#aa22abee7366f281e77e8ab0f556832a5">irk::index::skip_list_view&lt; Skip, element_size, CastFn &gt;</a>
+, <a class="el" href="classirk_1_1index_1_1zipped__payload__list__view.html#af10848c654db6e4d0b342fe764c0f77b">irk::index::zipped_payload_list_view&lt; Payload &gt;</a>
+, <a class="el" href="classirk_1_1memory__view.html#a393e04a837ff706e408fbea11219d7ed">irk::memory_view</a>
 , <a class="el" href="structirk_1_1moving__range.html#ad904d898c5132ebb7d6f479db591d093">irk::moving_range&lt; Iter &gt;</a>
+, <a class="el" href="classirk_1_1posting__list__view.html#a57999e9c9b9347a86b242147fbd930b7">irk::posting_list_view&lt; DocumentListT, PayloadListT &gt;</a>
+, <a class="el" href="classirk_1_1prefix__map.html#a2e4677738f2a2a9eb6593e767d2d6a9e">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;</a>
+, <a class="el" href="classirk_1_1vector__document__list.html#adafc0267ab0f84e5240011c96efd9681">irk::vector_document_list&lt; TDoc &gt;</a>
+, <a class="el" href="classirk_1_1vector__payload__list.html#ae8f6de3134a3fbb22ff3334363c1e583">irk::vector_payload_list&lt; PayloadT &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1aggregate__sorted__view.html#ae4e1532ad4e90508404311f47c6de00f">irk::view::aggregate_sorted_view&lt; Rng, Equals, Aggregate &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1any__range.html#ac176e096d851d509b2fb3f22a28cd401">irk::view::any_range&lt; Rng &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1fast__union__merge__view.html#a4d2d07efe1f3c65330bb31545816aa0f">irk::view::fast_union_merge_view&lt; Rngs &gt;</a>
@@ -91,11 +101,11 @@ $(function() {
 , <a class="el" href="classirk_1_1view_1_1transform__view.html#a3dcf8d4581ef47b812141d79b9c47de1">irk::view::transform_view&lt; Rng, Fun &gt;</a>
 , <a class="el" href="classirk_1_1view_1_1ZipView.html#a4739d0dbb2dd5e6a5c31f456cd8e62fc">irk::view::ZipView&lt; ZipFn, LeftRange, RightRange &gt;</a>
 </li>
-<li>Entry()
-: <a class="el" href="structirk_1_1Entry.html#a648740a9fb42c6dad26fe160991dd940">irk::Entry&lt; Key, Value &gt;</a>
+<li>exists()
+: <a class="el" href="classirk_1_1radix__tree.html#aaedca67d183c9b0b4f64c1b6ae240d7b">irk::radix_tree&lt; T &gt;</a>
 </li>
-<li>ExactSaatRetriever()
-: <a class="el" href="classbloodhound_1_1query_1_1ExactSaatRetriever.html#a50c5c53b4b7aff76e4eabf040219be52">bloodhound::query::ExactSaatRetriever&lt; PostingList &gt;</a>
+<li>expand_by()
+: <a class="el" href="classirk_1_1prefix__map_1_1block__builder.html#a86b281aeb689345c5cac4b3a9266d3a6">irk::prefix_map&lt; Index, MemoryBuffer, Counter &gt;::block_builder</a>
 </li>
 </ul>
 </div><!-- contents -->

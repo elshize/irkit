@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['score_5fresult_5ft',['score_result_t',['../namespaceirk_1_1score.html#af4a2c84b3548a4ac12aac3862bc94875',1,'irk::score']]],
-  ['score_5ft',['score_t',['../namespaceirk.html#a87bce44d1e3fdff0b1b3bb78f2a5f924',1,'irk']]],
-  ['score_5ftype',['score_type',['../classirk_1_1dynamically__scored__posting__range.html#aa0c12118410f44552410fbcfd80c6f1b',1,'irk::dynamically_scored_posting_range::score_type()'],['../classirk_1_1union__range.html#af728218b976df464ebb051a9e5358e93',1,'irk::union_range::score_type()']]],
-  ['scorer_5ftype',['scorer_type',['../classirk_1_1dynamically__scored__posting__range.html#aa82b83ad2a96aeda0fff2cb233d877f9',1,'irk::dynamically_scored_posting_range']]],
-  ['symbol',['symbol',['../porter2_8hpp.html#a04438e24473719aaf288c57833717164',1,'porter2.hpp']]],
-  ['symbol_5ftype',['symbol_type',['../classirk_1_1alphabetical__bst.html#a296ccb8fa9fa9dce3b3c3beab0a5ca28',1,'irk::alphabetical_bst']]]
+  ['tag_5ftype',['tag_type',['../structirk_1_1score_1_1bm25__scorer.html#ab99e02fc9ede9441ad9ee7a99077a720',1,'irk::score::bm25_scorer::tag_type()'],['../structirk_1_1score_1_1query__likelihood__scorer.html#a4a7795fbd9f018d25bdc59c5ae001e2a',1,'irk::score::query_likelihood_scorer::tag_type()']]],
+  ['term_5fid_5ftype',['term_id_type',['../classirk_1_1index_1_1index__assembler.html#ad632345d29f93e9f10fbc7e91db41f77',1,'irk::index::index_assembler::term_id_type()'],['../classirk_1_1index__builder.html#a6736f4a9aa142d3ca15c5e8c3b0a352f',1,'irk::index_builder::term_id_type()'],['../classirk_1_1index__merger.html#a3731db86b5c514a2dd44555c07abe58e',1,'irk::index_merger::term_id_type()'],['../classirk_1_1inverted__index.html#aac7579f5261c795a6f19a7f700b57b2b',1,'irk::inverted_index::term_id_type()']]],
+  ['term_5ftype',['term_type',['../classirk_1_1index_1_1index__assembler.html#a1dec315f145c0e887e0035c3b7f23235',1,'irk::index::index_assembler::term_type()'],['../classirk_1_1index__builder.html#ad80a8f10f3e72ed3b9a2f181350f3f1f',1,'irk::index_builder::term_type()'],['../classirk_1_1index__merger.html#a2b76203064ec60dc3b0fa662fd8aa3f0',1,'irk::index_merger::term_type()'],['../classirk_1_1inverted__index.html#a7a60c2cec1774c08f21e8e27ccb5ac33',1,'irk::inverted_index::term_type()']]]
 ];

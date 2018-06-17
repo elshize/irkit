@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['qidx_5fshifted',['qidx_shifted',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa27d16b326df60affe26e005f9abb4f6',1,'bloodhound::query::TaatRetriever']]],
-  ['query_2ehpp',['query.hpp',['../query_8hpp.html',1,'']]],
-  ['query_5fid',['query_id',['../classbloodhound_1_1query_1_1TaatRetriever.html#aa9a1b8ca0cb570bcffe6b6c68e8c2e20',1,'bloodhound::query::TaatRetriever']]],
-  ['queryid',['QueryId',['../namespacebloodhound_1_1query.html#aa67214af106292b2483995adea986b08',1,'bloodhound::query']]]
+  ['query_5flikelihood_5fscorer',['query_likelihood_scorer',['../structirk_1_1score_1_1query__likelihood__scorer.html',1,'irk::score::query_likelihood_scorer'],['../structirk_1_1score_1_1query__likelihood__scorer.html#a2dec2ccfc8fd86799470a53a007ee898',1,'irk::score::query_likelihood_scorer::query_likelihood_scorer()']]],
+  ['query_5flikelihood_5ftag',['query_likelihood_tag',['../structirk_1_1score_1_1query__likelihood__tag.html',1,'irk::score']]]
 ];

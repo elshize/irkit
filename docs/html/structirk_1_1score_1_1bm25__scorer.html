@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -69,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structirk_1_1score_1_1bm25__scorer-members.html">List of all members</a>  </div>
@@ -82,27 +82,50 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="score_8hpp_source.html">score.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab99e02fc9ede9441ad9ee7a99077a720"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab99e02fc9ede9441ad9ee7a99077a720">tag_type</a> = <a class="el" href="structirk_1_1score_1_1bm25__tag.html">bm25_tag</a></td></tr>
+<tr class="separator:ab99e02fc9ede9441ad9ee7a99077a720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8ba7a12182356ea58d5d1b5f279cf58a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#a8ba7a12182356ea58d5d1b5f279cf58a">bm25_scorer</a> (double <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ad39731decbddbe8d09c3094e75938f4e">k1</a>=1.2, double <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#adbc316be2c46daf96501ec1f79c96e73">b</a>=0.5)</td></tr>
-<tr class="separator:a8ba7a12182356ea58d5d1b5f279cf58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82755eac7a52ec53f578cff81170422"><td class="memTemplParams" colspan="2">template&lt;class Freq , CONCEPT_REQUIRES_(ranges::Integral&lt; Freq &gt;()) &gt; </td></tr>
-<tr class="memitem:aa82755eac7a52ec53f578cff81170422"><td class="memTemplItemLeft" align="right" valign="top">Freq&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#aa82755eac7a52ec53f578cff81170422">operator()</a> (Freq tf, Freq df, std::size_t N) const</td></tr>
-<tr class="memdesc:aa82755eac7a52ec53f578cff81170422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the BM25 score.  <a href="#aa82755eac7a52ec53f578cff81170422">More...</a><br /></td></tr>
-<tr class="separator:aa82755eac7a52ec53f578cff81170422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9150dc6a3574f9e5b67c5b0637fee26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab9150dc6a3574f9e5b67c5b0637fee26">bm25_scorer</a> (long term_document_count, long collection_document_count, double avg_document_size, double k1=1.2, double b=0.5)</td></tr>
+<tr class="separator:ab9150dc6a3574f9e5b67c5b0637fee26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a6fe27959c307bbc3288b0b92f9361"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab0a6fe27959c307bbc3288b0b92f9361">operator()</a> (long tf, long document_size) const</td></tr>
+<tr class="memdesc:ab0a6fe27959c307bbc3288b0b92f9361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the BM25 score.  <a href="#ab0a6fe27959c307bbc3288b0b92f9361">More...</a><br /></td></tr>
+<tr class="separator:ab0a6fe27959c307bbc3288b0b92f9361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad39731decbddbe8d09c3094e75938f4e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ad39731decbddbe8d09c3094e75938f4e">k1</a></td></tr>
-<tr class="separator:ad39731decbddbe8d09c3094e75938f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbc316be2c46daf96501ec1f79c96e73"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#adbc316be2c46daf96501ec1f79c96e73">b</a></td></tr>
-<tr class="separator:adbc316be2c46daf96501ec1f79c96e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd5b1c82f311ec4a02446de5f4dc2bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab99e02fc9ede9441ad9ee7a99077a720">tag_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#a2dd5b1c82f311ec4a02446de5f4dc2bd">scoring_tag</a></td></tr>
+<tr class="separator:a2dd5b1c82f311ec4a02446de5f4dc2bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c6a79715c86d4fbd91651b36f0b2a3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ae9c6a79715c86d4fbd91651b36f0b2a3">x</a></td></tr>
+<tr class="separator:ae9c6a79715c86d4fbd91651b36f0b2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a76be6700391b2b1309d03abd845975"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#a2a76be6700391b2b1309d03abd845975">y</a></td></tr>
+<tr class="separator:a2a76be6700391b2b1309d03abd845975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb7948471b6e6e960b49d184f717f683"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#abb7948471b6e6e960b49d184f717f683">z</a></td></tr>
+<tr class="separator:abb7948471b6e6e960b49d184f717f683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A BM25 scorer. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8ba7a12182356ea58d5d1b5f279cf58a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ba7a12182356ea58d5d1b5f279cf58a">&#9670;&nbsp;</a></span>bm25_scorer()</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab99e02fc9ede9441ad9ee7a99077a720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99e02fc9ede9441ad9ee7a99077a720">&#9670;&nbsp;</a></span>tag_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab99e02fc9ede9441ad9ee7a99077a720">irk::score::bm25_scorer::tag_type</a> =  <a class="el" href="structirk_1_1score_1_1bm25__tag.html">bm25_tag</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab9150dc6a3574f9e5b67c5b0637fee26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9150dc6a3574f9e5b67c5b0637fee26">&#9670;&nbsp;</a></span>bm25_scorer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -113,6 +136,24 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">irk::score::bm25_scorer::bm25_scorer </td>
           <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>term_document_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>collection_document_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>avg_document_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>k1</em> = <code>1.2</code>, </td>
         </tr>
@@ -138,34 +179,26 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa82755eac7a52ec53f578cff81170422"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa82755eac7a52ec53f578cff81170422">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="ab0a6fe27959c307bbc3288b0b92f9361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a6fe27959c307bbc3288b0b92f9361">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class Freq , CONCEPT_REQUIRES_(ranges::Integral&lt; Freq &gt;()) &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Freq irk::score::bm25_scorer::operator() </td>
+          <td class="memname">double irk::score::bm25_scorer::operator() </td>
           <td>(</td>
-          <td class="paramtype">Freq&#160;</td>
+          <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>tf</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Freq&#160;</td>
-          <td class="paramname"><em>df</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>N</em>&#160;</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>document_size</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -185,28 +218,56 @@ template&lt;class Freq , CONCEPT_REQUIRES_(ranges::Integral&lt; Freq &gt;()) &gt
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="adbc316be2c46daf96501ec1f79c96e73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbc316be2c46daf96501ec1f79c96e73">&#9670;&nbsp;</a></span>b</h2>
+<a id="a2dd5b1c82f311ec4a02446de5f4dc2bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd5b1c82f311ec4a02446de5f4dc2bd">&#9670;&nbsp;</a></span>scoring_tag</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double irk::score::bm25_scorer::b</td>
+          <td class="memname"><a class="el" href="structirk_1_1score_1_1bm25__scorer.html#ab99e02fc9ede9441ad9ee7a99077a720">tag_type</a> irk::score::bm25_scorer::scoring_tag</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad39731decbddbe8d09c3094e75938f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad39731decbddbe8d09c3094e75938f4e">&#9670;&nbsp;</a></span>k1</h2>
+<a id="ae9c6a79715c86d4fbd91651b36f0b2a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9c6a79715c86d4fbd91651b36f0b2a3">&#9670;&nbsp;</a></span>x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double irk::score::bm25_scorer::k1</td>
+          <td class="memname">double irk::score::bm25_scorer::x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a76be6700391b2b1309d03abd845975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a76be6700391b2b1309d03abd845975">&#9670;&nbsp;</a></span>y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double irk::score::bm25_scorer::y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb7948471b6e6e960b49d184f717f683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb7948471b6e6e960b49d184f717f683">&#9670;&nbsp;</a></span>z</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double irk::score::bm25_scorer::z</td>
         </tr>
       </table>
 </div><div class="memdoc">

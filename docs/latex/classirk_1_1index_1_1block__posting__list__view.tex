@@ -1,0 +1,156 @@
+\hypertarget{classirk_1_1index_1_1block__posting__list__view}{}\section{irk\+:\+:index\+:\+:block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$ Class Template Reference}
+\label{classirk_1_1index_1_1block__posting__list__view}\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$}}
+
+
+A view of a block posting list (ID, payload).  
+
+
+
+
+{\ttfamily \#include $<$block\+\_\+inverted\+\_\+list.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}
+\begin{DoxyCompactList}\small\item\em Document iterator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} = Doc
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4298691f17976ec1cec5bc21ab6132ce}{difference\+\_\+type}} = long
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a5b6c3f910a1bd819ff3efa0a619e32a0}{document\+\_\+iterator\+\_\+t}} = typename \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_ad7beed21d25c7cb3b2b389c28022be12}{payload\+\_\+iterator\+\_\+t}} = typename \mbox{\hyperlink{classirk_1_1index_1_1zipped__payload__list__view}{zipped\+\_\+payload\+\_\+list\+\_\+view}}$<$ Payload... $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a09936613ed78d60fc695429ab4315d24}{block\+\_\+posting\+\_\+list\+\_\+view}} (\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} $>$ documents, \mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{block\+\_\+payload\+\_\+list\+\_\+view}}$<$ Payload $>$... payloads)
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple\+\_\+element\+\_\+t$<$ 0, std\+::tuple$<$ Payload... $>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a47c5ede6a59868de82629e8cab826cf0}{begin}} () const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple\+\_\+element\+\_\+t$<$ 0, std\+::tuple$<$ Payload... $>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a22d74833bc37a7f8e4fd1541663dc40d}{end}} () const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple\+\_\+element\+\_\+t$<$ 0, std\+::tuple$<$ Payload... $>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a0b62cb7c0c729c187b6591ba6a667721}{lookup}} (\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} doc) const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple$<$ Payload... $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4b5c29ebc678f45016e27083855d1d96}{begin}} () const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple$<$ Payload... $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4d6077530158675e55238d8b506bd86b}{end}} () const
+\item 
+{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$ std\+::tuple$<$ Payload... $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a8a777f2895961f7cc792a118c909cd78}{lookup}} (\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} doc) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Doc, class... Payload$>$\newline
+class irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$}
+
+A view of a block posting list (ID, payload). 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Doc} & type of the document ID, must be integer \\
+\hline
+{\em Payload} & a list of types of the payload, must be primitive types \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a4298691f17976ec1cec5bc21ab6132ce}\label{classirk_1_1index_1_1block__posting__list__view_a4298691f17976ec1cec5bc21ab6132ce}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!difference\+\_\+type@{difference\+\_\+type}}
+\index{difference\+\_\+type@{difference\+\_\+type}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{difference\+\_\+type}{difference\_type}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4298691f17976ec1cec5bc21ab6132ce}{difference\+\_\+type}} =  long}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a5b6c3f910a1bd819ff3efa0a619e32a0}\label{classirk_1_1index_1_1block__posting__list__view_a5b6c3f910a1bd819ff3efa0a619e32a0}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!document\+\_\+iterator\+\_\+t@{document\+\_\+iterator\+\_\+t}}
+\index{document\+\_\+iterator\+\_\+t@{document\+\_\+iterator\+\_\+t}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+iterator\+\_\+t}{document\_iterator\_t}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a5b6c3f910a1bd819ff3efa0a619e32a0}{document\+\_\+iterator\+\_\+t}} =  typename \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}}$>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}\label{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} =  Doc}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_ad7beed21d25c7cb3b2b389c28022be12}\label{classirk_1_1index_1_1block__posting__list__view_ad7beed21d25c7cb3b2b389c28022be12}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!payload\+\_\+iterator\+\_\+t@{payload\+\_\+iterator\+\_\+t}}
+\index{payload\+\_\+iterator\+\_\+t@{payload\+\_\+iterator\+\_\+t}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{payload\+\_\+iterator\+\_\+t}{payload\_iterator\_t}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_ad7beed21d25c7cb3b2b389c28022be12}{payload\+\_\+iterator\+\_\+t}} =  typename \mbox{\hyperlink{classirk_1_1index_1_1zipped__payload__list__view}{zipped\+\_\+payload\+\_\+list\+\_\+view}}$<$Payload...$>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a09936613ed78d60fc695429ab4315d24}\label{classirk_1_1index_1_1block__posting__list__view_a09936613ed78d60fc695429ab4315d24}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!block\+\_\+posting\+\_\+list\+\_\+view@{block\+\_\+posting\+\_\+list\+\_\+view}}
+\index{block\+\_\+posting\+\_\+list\+\_\+view@{block\+\_\+posting\+\_\+list\+\_\+view}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{block\+\_\+posting\+\_\+list\+\_\+view()}{block\_posting\_list\_view()}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{block\+\_\+posting\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}} $>$}]{documents,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{block\+\_\+payload\+\_\+list\+\_\+view}}$<$ Payload $>$...}]{payloads }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a47c5ede6a59868de82629e8cab826cf0}\label{classirk_1_1index_1_1block__posting__list__view_a47c5ede6a59868de82629e8cab826cf0}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!begin@{begin}}
+\index{begin@{begin}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Payload...$>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a4b5c29ebc678f45016e27083855d1d96}\label{classirk_1_1index_1_1block__posting__list__view_a4b5c29ebc678f45016e27083855d1d96}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!begin@{begin}}
+\index{begin@{begin}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple$<$Payload...$>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a22d74833bc37a7f8e4fd1541663dc40d}\label{classirk_1_1index_1_1block__posting__list__view_a22d74833bc37a7f8e4fd1541663dc40d}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!end@{end}}
+\index{end@{end}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Payload...$>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a4d6077530158675e55238d8b506bd86b}\label{classirk_1_1index_1_1block__posting__list__view_a4d6077530158675e55238d8b506bd86b}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!end@{end}}
+\index{end@{end}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple$<$Payload...$>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a0b62cb7c0c729c187b6591ba6a667721}\label{classirk_1_1index_1_1block__posting__list__view_a0b62cb7c0c729c187b6591ba6a667721}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!lookup@{lookup}}
+\index{lookup@{lookup}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{lookup()}{lookup()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) == 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Payload...$>$ $>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__posting__list__view_a8a777f2895961f7cc792a118c909cd78}\label{classirk_1_1index_1_1block__posting__list__view_a8a777f2895961f7cc792a118c909cd78}} 
+\index{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}!lookup@{lookup}}
+\index{lookup@{lookup}!irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{lookup()}{lookup()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Doc , class... Payload$>$ \\
+template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$sizeof...(\+Payload) != 1$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{iterator}}$<$std\+::tuple$<$Payload...$>$ $>$ \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view}}$<$ Doc, Payload $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_a4a778116d22c9cf347f38da132ca0900}{document\+\_\+type}}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{block__inverted__list_8hpp}{block\+\_\+inverted\+\_\+list.\+hpp}}\end{DoxyCompactItemize}

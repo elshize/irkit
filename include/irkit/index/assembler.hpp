@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file assembler.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -31,13 +31,18 @@
 #include <optional>
 #include <unordered_map>
 #include <vector>
-#include <irkit/index/metadata.hpp>
+
 #include <irkit/index/builder.hpp>
 #include <irkit/index/merger.hpp>
+#include <irkit/index/metadata.hpp>
 
 namespace irk::index {
 
 //! Builds an index in batches and merges them together on disk.
+//!
+//! See assemble() function documentation for the format of the input file.
+//! Note that neither the assembler nor the builder stem terms.
+//! It must be done beforehand.
 template<class Doc = long,
     class Term = std::string,
     class TermId = long,
@@ -61,6 +66,11 @@ private:
     any_codec<frequency_type> frequency_codec_;
 
 public:
+    //! \param output_dir       final directory of the index
+    //! \param batch_size       number of documents built at once in memory
+    //! \param block_size       size of inverted list block (and skip length)
+    //! \param document_codec   codec for document IDs
+    //! \param frequency_codec  codec for frequencies
     index_assembler(fs::path output_dir,
         int batch_size,
         long block_size,
@@ -73,6 +83,14 @@ public:
           frequency_codec_(frequency_codec)
     {}
 
+    //! \brief Builds all batches and assembles the final index.
+    //!
+    //! \param input[in] collection input stream
+    //!
+    //! The input file contains a single document in the following format:
+    //! ```
+    //! document_title   term0 term1 term2 term3 ...
+    //! ```
     void assemble(std::istream& input)
     {
         if (!fs::exists(output_dir_)) { fs::create_directory(output_dir_); }
@@ -106,6 +124,11 @@ public:
         std::clog << "Success!" << std::endl;
     }
 
+    //! Builds a single batch.
+    //!
+    //! \param[in] input            collection stream; see assemble() for
+    //!                             more details
+    //! \param[in] batch_metadata   information about file paths
     std::istream&
     build_batch(std::istream& input, metadata batch_metadata) const
     {

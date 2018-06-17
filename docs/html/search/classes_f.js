@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['rawtaatretriever',['RawTaatRetriever',['../classbloodhound_1_1query_1_1RawTaatRetriever.html',1,'bloodhound::query']]],
+  ['radix_5ftree',['radix_tree',['../classirk_1_1radix__tree.html',1,'irk']]],
   ['reader',['reader',['../structirk_1_1bitptr_1_1reader.html',1,'irk::bitptr']]],
-  ['relativeoffset',['RelativeOffset',['../structbloodhound_1_1RelativeOffset.html',1,'bloodhound']]],
-  ['result',['Result',['../structbloodhound_1_1query_1_1Result.html',1,'bloodhound::query']]],
-  ['retriever',['Retriever',['../classbloodhound_1_1query_1_1Retriever.html',1,'bloodhound::query']]]
+  ['reinterpret_5fcast_5ffn',['reinterpret_cast_fn',['../structirk_1_1reinterpret__cast__fn.html',1,'irk']]]
 ];

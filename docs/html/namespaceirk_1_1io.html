@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -69,20 +68,31 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">irk::io Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1io_1_1base__memory__buffer.html">base_memory_buffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A base class for all types of memory buffers.  <a href="classirk_1_1io_1_1base__memory__buffer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1io_1_1mapped__memory__buffer.html">mapped_memory_buffer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirk_1_1io_1_1vector__memory__buffer.html">vector_memory_buffer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memTemplParams" colspan="2">template&lt;class T , class Codec &gt; </td></tr>
-<tr class="memitem:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#a7eb5e1bc8d97d131311b0054a1b79b94">dump</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;<a class="el" href="classirk_1_1offset__table.html">offset_table</a>, fs::path file)</td></tr>
+<tr class="memitem:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#a7eb5e1bc8d97d131311b0054a1b79b94">dump</a> (const <a class="el" href="classirk_1_1compact__table.html">compact_table</a>&lt; T, Codec &gt; &amp;<a class="el" href="namespaceirk.html#a3d7b00f359d122e0bf0f709d21f00098">offset_table</a>, fs::path file)</td></tr>
 <tr class="memdesc:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a <code><a class="el" href="classirk_1_1compact__table.html" title="Fast-access compressed array. ">compact_table</a></code> to a file.  <a href="#a7eb5e1bc8d97d131311b0054a1b79b94">More...</a><br /></td></tr>
 <tr class="separator:a7eb5e1bc8d97d131311b0054a1b79b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae2b76d3f044ad43f8b25e08a142285f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#aae2b76d3f044ad43f8b25e08a142285f">enforce_exist</a> (fs::path file)</td></tr>
-<tr class="separator:aae2b76d3f044ad43f8b25e08a142285f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9967d537be4185e88420785431fb63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#aa9967d537be4185e88420785431fb63b">enforce_exist</a> (const fs::path &amp;file)</td></tr>
+<tr class="separator:aa9967d537be4185e88420785431fb63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa680509002f530048131492dea584724"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#aa680509002f530048131492dea584724">load_data</a> (fs::path data_file, std::vector&lt; char &gt; &amp;data_container)</td></tr>
 <tr class="separator:aa680509002f530048131492dea584724"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b56c2c88f08eba5647f662fe701be3c"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
@@ -93,6 +103,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae89e77960d5da14cd0068835eaa3a442"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#ae89e77960d5da14cd0068835eaa3a442">append_collection</a> (const Collection &amp;collection, std::vector&lt; char &gt; &amp;buffer)</td></tr>
 <tr class="memdesc:ae89e77960d5da14cd0068835eaa3a442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the underlying bytes of a collection to a byte buffer.  <a href="#ae89e77960d5da14cd0068835eaa3a442">More...</a><br /></td></tr>
 <tr class="separator:ae89e77960d5da14cd0068835eaa3a442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memTemplParams" colspan="2">template&lt;class Index , class MemoryBuffer , class Counter &gt; </td></tr>
+<tr class="memitem:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk_1_1io.html#a4b74cc5a440f69992ce2302aebfc0b4d">dump</a> (const <a class="el" href="classirk_1_1prefix__map.html">prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt; &amp;map, fs::path file)</td></tr>
+<tr class="separator:a4b74cc5a440f69992ce2302aebfc0b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae89e77960d5da14cd0068835eaa3a442"></a>
@@ -160,7 +173,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="a7eb5e1bc8d97d131311b0054a1b79b94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eb5e1bc8d97d131311b0054a1b79b94">&#9670;&nbsp;</a></span>dump()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb5e1bc8d97d131311b0054a1b79b94">&#9670;&nbsp;</a></span>dump() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,8 +204,38 @@ template&lt;class T , class Codec &gt; </div>
 
 </div>
 </div>
-<a id="aae2b76d3f044ad43f8b25e08a142285f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae2b76d3f044ad43f8b25e08a142285f">&#9670;&nbsp;</a></span>enforce_exist()</h2>
+<a id="a4b74cc5a440f69992ce2302aebfc0b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b74cc5a440f69992ce2302aebfc0b4d">&#9670;&nbsp;</a></span>dump() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Index , class MemoryBuffer , class Counter &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void irk::io::dump </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classirk_1_1prefix__map.html">prefix_map</a>&lt; Index, MemoryBuffer, Counter &gt; &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">fs::path&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9967d537be4185e88420785431fb63b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9967d537be4185e88420785431fb63b">&#9670;&nbsp;</a></span>enforce_exist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +243,7 @@ template&lt;class T , class Codec &gt; </div>
         <tr>
           <td class="memname">void irk::io::enforce_exist </td>
           <td>(</td>
-          <td class="paramtype">fs::path&#160;</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
           <td class="paramname"><em>file</em></td><td>)</td>
           <td></td>
         </tr>

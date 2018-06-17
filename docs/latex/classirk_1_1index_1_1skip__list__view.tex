@@ -1,0 +1,139 @@
+\hypertarget{classirk_1_1index_1_1skip__list__view}{}\section{irk\+:\+:index\+:\+:skip\+\_\+list\+\_\+view$<$ Skip, element\+\_\+size, Cast\+Fn $>$ Class Template Reference}
+\label{classirk_1_1index_1_1skip__list__view}\index{irk\+::index\+::skip\+\_\+list\+\_\+view$<$ Skip, element\+\_\+size, Cast\+Fn $>$@{irk\+::index\+::skip\+\_\+list\+\_\+view$<$ Skip, element\+\_\+size, Cast\+Fn $>$}}
+
+
+{\ttfamily \#include $<$skiplist.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a7fa2224428803eee24062bb123978755}{skip\+\_\+type}} = Skip
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a7e7a81a64ede6bcd7c49bc05cd6243d3}{iterator}} = \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a97abe4d23715e60ef30892bdd8ad9cd7}{skip\+\_\+list\+\_\+view}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_ab77d6c40db66d837d83675767b25f6f8}{skip\+\_\+list\+\_\+view}} (const \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a2e1d39b4efd56dd98ead2a39713d5508}{skip\+\_\+list\+\_\+view}} (\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} \&\&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a9cadb9826ca85f857e83781ca811f6d3}{skip\+\_\+list\+\_\+view}} (\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}})
+\item 
+auto \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a923176e9b8851cea6f32f530ad88d25c}{block\+\_\+count}} () const noexcept
+\item 
+auto \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_ab77e0b9d495904034e1948609089cf28}{size}} () const noexcept
+\item 
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a22e0239c33e18137997aad3da5337591}{begin}} () const noexcept
+\item 
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_ae6a3b8d467288b8dd044d0ff3fab48a5}{cbegin}} () const noexcept
+\item 
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_aa22abee7366f281e77e8ab0f556832a5}{end}} () const noexcept
+\item 
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_afce38149f8be877dd4426e16da060dc6}{cend}} () const noexcept
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a7e7a81a64ede6bcd7c49bc05cd6243d3}\label{classirk_1_1index_1_1skip__list__view_a7e7a81a64ede6bcd7c49bc05cd6243d3}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!iterator@{iterator}}
+\index{iterator@{iterator}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{iterator}{iterator}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a7e7a81a64ede6bcd7c49bc05cd6243d3}{iterator}} =  \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a7fa2224428803eee24062bb123978755}\label{classirk_1_1index_1_1skip__list__view_a7fa2224428803eee24062bb123978755}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!skip\+\_\+type@{skip\+\_\+type}}
+\index{skip\+\_\+type@{skip\+\_\+type}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+type}{skip\_type}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view_a7fa2224428803eee24062bb123978755}{skip\+\_\+type}} =  Skip}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a97abe4d23715e60ef30892bdd8ad9cd7}\label{classirk_1_1index_1_1skip__list__view_a97abe4d23715e60ef30892bdd8ad9cd7}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}}
+\index{skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+list\+\_\+view()}{skip\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_ab77d6c40db66d837d83675767b25f6f8}\label{classirk_1_1index_1_1skip__list__view_ab77d6c40db66d837d83675767b25f6f8}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}}
+\index{skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+list\+\_\+view()}{skip\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a2e1d39b4efd56dd98ead2a39713d5508}\label{classirk_1_1index_1_1skip__list__view_a2e1d39b4efd56dd98ead2a39713d5508}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}}
+\index{skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+list\+\_\+view()}{skip\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a9cadb9826ca85f857e83781ca811f6d3}\label{classirk_1_1index_1_1skip__list__view_a9cadb9826ca85f857e83781ca811f6d3}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}}
+\index{skip\+\_\+list\+\_\+view@{skip\+\_\+list\+\_\+view}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+list\+\_\+view()}{skip\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{skip\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}}]{memory\+\_\+view }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a22e0239c33e18137997aad3da5337591}\label{classirk_1_1index_1_1skip__list__view_a22e0239c33e18137997aad3da5337591}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!begin@{begin}}
+\index{begin@{begin}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_a923176e9b8851cea6f32f530ad88d25c}\label{classirk_1_1index_1_1skip__list__view_a923176e9b8851cea6f32f530ad88d25c}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!block\+\_\+count@{block\+\_\+count}}
+\index{block\+\_\+count@{block\+\_\+count}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{block\+\_\+count()}{block\_count()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::block\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_ae6a3b8d467288b8dd044d0ff3fab48a5}\label{classirk_1_1index_1_1skip__list__view_ae6a3b8d467288b8dd044d0ff3fab48a5}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_afce38149f8be877dd4426e16da060dc6}\label{classirk_1_1index_1_1skip__list__view_afce38149f8be877dd4426e16da060dc6}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!cend@{cend}}
+\index{cend@{cend}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_aa22abee7366f281e77e8ab0f556832a5}\label{classirk_1_1index_1_1skip__list__view_aa22abee7366f281e77e8ab0f556832a5}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!end@{end}}
+\index{end@{end}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+constexpr \mbox{\hyperlink{structirk_1_1index_1_1skip__list__view_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1skip__list__view_ab77e0b9d495904034e1948609089cf28}\label{classirk_1_1index_1_1skip__list__view_ab77e0b9d495904034e1948609089cf28}} 
+\index{irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}!size@{size}}
+\index{size@{size}!irk\+::index\+::skip\+\_\+list\+\_\+view@{irk\+::index\+::skip\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class Skip , int element\+\_\+size = sizeof(\+Skip), class Cast\+Fn  = irk\+::reinterpret\+\_\+cast\+\_\+fn$<$\+Skip$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1index_1_1skip__list__view}{irk\+::index\+::skip\+\_\+list\+\_\+view}}$<$ Skip, element\+\_\+size, Cast\+Fn $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{skiplist_8hpp}{skiplist.\+hpp}}\end{DoxyCompactItemize}

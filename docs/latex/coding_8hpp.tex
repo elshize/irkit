@@ -1,56 +1,86 @@
 \hypertarget{coding_8hpp}{}\section{include/irkit/coding.hpp File Reference}
 \label{coding_8hpp}\index{include/irkit/coding.\+hpp@{include/irkit/coding.\+hpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$boost/concept/assert.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/device/array.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/device/back\+\_\+inserter.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/filtering\+\_\+stream.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/stream.\+hpp$>$}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/concepts.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$boost/mpl/vector.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+erasure/any.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+erasure/builtin.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+erasure/concept\+\_\+interface.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/type\+\_\+erasure/rebind\+\_\+any.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/bitptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structirk_1_1has__encode}{irk\+::has\+\_\+encode$<$ C, T $>$}}
+\begin{DoxyCompactList}\small\item\em Encoder concept for type erasure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1has__decode}{irk\+::has\+\_\+decode$<$ C, T $>$}}
+\begin{DoxyCompactList}\small\item\em Decoder concept for type erasure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structboost_1_1type__erasure_1_1concept__interface_3_01irk_1_1has__encode_3_01C_00_01T_01_4_00_01Base_00_01C_01_4}{boost\+::type\+\_\+erasure\+::concept\+\_\+interface$<$ irk\+::has\+\_\+encode$<$ C, T $>$, Base, C $>$}}
+\item 
+struct \mbox{\hyperlink{structboost_1_1type__erasure_1_1concept__interface_3_01irk_1_1has__decode_3_01C_00_01T_01_4_00_01Base_00_01C_01_4}{boost\+::type\+\_\+erasure\+::concept\+\_\+interface$<$ irk\+::has\+\_\+decode$<$ C, T $>$, Base, C $>$}}
+\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \mbox{\hyperlink{namespaceirk_1_1coding}{irk\+::coding}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+ \mbox{\hyperlink{namespaceirk}{irk}}
+\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+ \mbox{\hyperlink{namespaceboost_1_1type__erasure}{boost\+::type\+\_\+erasure}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , class S  = boost\+::type\+\_\+erasure\+::\+\_\+self$>$ }\\using \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{irk\+::any\+\_\+codec}} = boost\+::type\+\_\+erasure\+::any$<$ boost\+::mpl\+::vector$<$ has\+\_\+encode$<$ S, T $>$, has\+\_\+decode$<$ S, T $>$, boost\+::type\+\_\+erasure\+::copy\+\_\+constructible$<$ S $>$, boost\+::type\+\_\+erasure\+::assignable$<$ S $>$ $>$$>$
+\begin{DoxyCompactList}\small\item\em Type for any codec, i.\+e., an object able to encode and decode type {\ttfamily T}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_1_1coding_ab9ed90a54275b0b51b3b43a6943e0c5d}{irk\+::coding\+::encode}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_ae6ff93ae9ba08469e917652442a288b2}{irk\+::encode}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Encodes a range of integer values to an output stream. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_1_1coding_a626fc8a444ee503d1210d1a72b14fec3}{irk\+::coding\+::encode}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a5ff7324ee83ee713f6184883642c2713}{irk\+::encode}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Encodes a range of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_1_1coding_a5a8bcf925049c4f53e3912ed177cd8cc}{irk\+::coding\+::encode}} (std\+::initializer\+\_\+list$<$ typename Codec\+::value\+\_\+type $>$ integers, const Codec \&codec=Codec\{\})
+{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_ad1f30da1af48df56b32a99c59af8412a}{irk\+::encode}} (std\+::initializer\+\_\+list$<$ typename Codec\+::value\+\_\+type $>$ integers, const Codec \&codec=Codec\{\})
 \begin{DoxyCompactList}\small\item\em Encodes an initializer list of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_1_1coding_a7f925618ccd33c9c9255a9b9219e655f}{irk\+::coding\+::encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, std\+::ostream \&sink, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a1f1961138bf0a1851597756639a3bee5}{irk\+::encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, std\+::ostream \&sink, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Encodes a range of values, mapped to integers, to an output stream. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_1_1coding_adf1134471c6eb122da222bfc2c4f89d1}{irk\+::coding\+::encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_ae02f4d520c0e53d21a65398bbb4f3637}{irk\+::encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Encodes a range of values, mapped to integers, to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_1_1coding_a83d7677e7537e69bb62c3d2b1d88a372}{irk\+::coding\+::encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a76d26e66fd2b02cada45345b5ca3e995}{irk\+::encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Encodes a range of integers to an output stream, applying delta encoding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_1_1coding_ae399ee16c686b77605425fc04901aa7e}{irk\+::coding\+::encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec\{\}, typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a0e851f5c1edd1e639c8c5132f3027ac0}{irk\+::encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec\{\}, typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Encodes a range of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_1_1coding_aea610966545ed9edb7ad11c76a2d29f2}{irk\+::coding\+::decode}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_acce34441889b1a20715396eb4e4cb6b3}{irk\+::decode}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Decodes an entire input stream to an output iterator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_abff99a70f9cc20c7e4419f67ed72dbc6}{irk\+::coding\+::decode}} (const Source\+Range \&source, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a54aebb88cf4cd63c2d724bfbfee53435}{irk\+::decode}} (const Source\+Range \&source, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Decodes a range of encoded bytes to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_abb7007b10914de62d5b89cd28b13d67e}{irk\+::coding\+::decode}} (std\+::initializer\+\_\+list$<$ char $>$ bytes, const Codec \&codec=Codec\{\})
+{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a939f0cf6fd86def4ef2d1035d61ff789}{irk\+::decode}} (std\+::initializer\+\_\+list$<$ char $>$ bytes, const Codec \&codec=Codec\{\})
 \begin{DoxyCompactList}\small\item\em Decodes an initializer list of bytes to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_1_1coding_a89b7865e53cb6def37c104625ff21844}{irk\+::coding\+::decode\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_a9df7297fc361e7db737ef2f5d452b234}{irk\+::decode\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from an input stream to an output iterator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_af198bcc29586085b2a4ae2bf18f1fd2b}{irk\+::coding\+::decode\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
+{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a37493e1aca6b08f1d85998653343e7a6}{irk\+::decode\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
 \begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from an input stream to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_1_1coding_aedcc1c74d9530b8aaa51e1a88afcf7d6}{irk\+::coding\+::decode\+\_\+delta}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a6fb4092edc448640f1d37c4822ced00a}{irk\+::decode\+\_\+n}} (const Source\+Range \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
+\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from a range to a vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_ab01706e2b10ac8d4cd7bfe5d37f307f7}{irk\+::decode\+\_\+delta}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Decodes an entire input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_afa46e8e12454722bbfd86e0f9dbfbfd8}{irk\+::coding\+::decode\+\_\+delta}} (const Source\+Range \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_ac3c3f0b74d845f8d3313689ff709e191}{irk\+::decode\+\_\+delta}} (const Source\+Range \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Decodes a range of bytes, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_1_1coding_a8ed42826b36ba86d9707eac7c8b42dbc}{irk\+::coding\+::decode\+\_\+delta\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t num=0, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_a9dbe259f7a22df7f96241e95331c9305}{irk\+::decode\+\_\+delta\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t num=0, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_a067a41d448d494c7384717fa369b7493}{irk\+::coding\+::decode\+\_\+delta\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t num, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a0081bb3a1c56da342a22305aab6e0805}{irk\+::decode\+\_\+delta\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t num, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
 \begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_1_1coding_aeea4bf2688a5aec5abe8ddaa05d0b4b0}{irk\+::coding\+::decode\+\_\+delta\+\_\+n}} (const Source\+Range \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_ac12ab4662c42689bfed43ea00cca4aa7}{irk\+::decode\+\_\+delta\+\_\+n}} (const Source\+Range \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
+\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Size\+Codec $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_ad5beaa760e39ac6f6b3c001030388a6f}{irk\+::encode\+\_\+bits}} (const bitword \&bits, std\+::ostream \&out, const Size\+Codec \&size\+\_\+codec=Size\+Codec())
+\item 
+{\footnotesize template$<$class Size\+Codec $>$ }\\bitword \mbox{\hyperlink{namespaceirk_a9e83666a824362c954771e5fc6a4e0df}{irk\+::decode\+\_\+bits}} (std\+::istream \&in, const Size\+Codec \&size\+\_\+codec=Size\+Codec())
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}

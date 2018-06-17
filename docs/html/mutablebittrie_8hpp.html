@@ -13,7 +13,6 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -81,6 +80,8 @@ $(function() {
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;<a class="el" href="types_8hpp_source.html">irkit/types.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="varbyte_8hpp_source.html">irkit/coding/varbyte.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="coding_8hpp_source.html">irkit/coding.hpp</a>&gt;</code><br />
 </div>
 <p><a href="mutablebittrie_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -95,6 +96,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceirk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceirk.html">irk</a></td></tr>
+<tr class="memdesc:namespaceirk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codecs and coding utilities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -102,6 +104,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aac8001645bff72cf73bf0f87512c5ed4"><td class="memTemplParams" colspan="2">template&lt;class Value &gt; </td></tr>
 <tr class="memitem:aac8001645bff72cf73bf0f87512c5ed4"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#aac8001645bff72cf73bf0f87512c5ed4">irk::operator&lt;&lt;</a> (std::ostream &amp;out, const mutable_bit_trie&lt; Value &gt; &amp;mbt)</td></tr>
 <tr class="separator:aac8001645bff72cf73bf0f87512c5ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9440cb1246aeaa9376e8d9b678f64ba"><td class="memTemplParams" colspan="2">template&lt;class Value &gt; </td></tr>
+<tr class="memitem:ae9440cb1246aeaa9376e8d9b678f64ba"><td class="memTemplItemLeft" align="right" valign="top">mutable_bit_trie&lt; Value &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceirk.html#ae9440cb1246aeaa9376e8d9b678f64ba">irk::load_mutable_bit_trie</a> (std::istream &amp;in)</td></tr>
+<tr class="separator:ae9440cb1246aeaa9376e8d9b678f64ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Michal Siedlaczek </dd></dl>

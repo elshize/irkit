@@ -1,0 +1,88 @@
+\hypertarget{structirk_1_1score_1_1query__likelihood__scorer}{}\section{irk\+:\+:score\+:\+:query\+\_\+likelihood\+\_\+scorer Struct Reference}
+\label{structirk_1_1score_1_1query__likelihood__scorer}\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+
+
+A query likelihood scorer.  
+
+
+
+
+{\ttfamily \#include $<$score.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}{tag\+\_\+type}} = \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__tag}{query\+\_\+likelihood\+\_\+tag}}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a2dec2ccfc8fd86799470a53a007ee898}{query\+\_\+likelihood\+\_\+scorer}} (long term\+\_\+occurrences, long all\+\_\+occurrences, double \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a9322ba7c56a58a417ac72b33e93e7300}{mu}}=2500)
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a3f5b6ba010468b0a0eccbbca849a9393}{operator()}} (long tf, long document\+\_\+size) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}{tag\+\_\+type}} \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_ab0248969eb132cf91b9b6103d7d2568e}{scoring\+\_\+tag}}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a9322ba7c56a58a417ac72b33e93e7300}{mu}}
+\item 
+double \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_ab32a8a554078c02c337eeb6fc585be2f}{global\+\_\+component}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A query likelihood scorer. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}\label{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!tag\+\_\+type@{tag\+\_\+type}}
+\index{tag\+\_\+type@{tag\+\_\+type}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{tag\+\_\+type}{tag\_type}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::tag\+\_\+type}} =  \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__tag}{query\+\_\+likelihood\+\_\+tag}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_a2dec2ccfc8fd86799470a53a007ee898}\label{structirk_1_1score_1_1query__likelihood__scorer_a2dec2ccfc8fd86799470a53a007ee898}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!query\+\_\+likelihood\+\_\+scorer@{query\+\_\+likelihood\+\_\+scorer}}
+\index{query\+\_\+likelihood\+\_\+scorer@{query\+\_\+likelihood\+\_\+scorer}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{query\+\_\+likelihood\+\_\+scorer()}{query\_likelihood\_scorer()}}
+{\footnotesize\ttfamily irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::query\+\_\+likelihood\+\_\+scorer (\begin{DoxyParamCaption}\item[{long}]{term\+\_\+occurrences,  }\item[{long}]{all\+\_\+occurrences,  }\item[{double}]{mu = {\ttfamily 2500} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_a3f5b6ba010468b0a0eccbbca849a9393}\label{structirk_1_1score_1_1query__likelihood__scorer_a3f5b6ba010468b0a0eccbbca849a9393}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!operator()@{operator()}}
+\index{operator()@{operator()}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily double irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::operator() (\begin{DoxyParamCaption}\item[{long}]{tf,  }\item[{long}]{document\+\_\+size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_ab32a8a554078c02c337eeb6fc585be2f}\label{structirk_1_1score_1_1query__likelihood__scorer_ab32a8a554078c02c337eeb6fc585be2f}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!global\+\_\+component@{global\+\_\+component}}
+\index{global\+\_\+component@{global\+\_\+component}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{global\+\_\+component}{global\_component}}
+{\footnotesize\ttfamily double irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::global\+\_\+component}
+
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_a9322ba7c56a58a417ac72b33e93e7300}\label{structirk_1_1score_1_1query__likelihood__scorer_a9322ba7c56a58a417ac72b33e93e7300}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!mu@{mu}}
+\index{mu@{mu}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{mu}{mu}}
+{\footnotesize\ttfamily double irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::mu}
+
+\mbox{\Hypertarget{structirk_1_1score_1_1query__likelihood__scorer_ab0248969eb132cf91b9b6103d7d2568e}\label{structirk_1_1score_1_1query__likelihood__scorer_ab0248969eb132cf91b9b6103d7d2568e}} 
+\index{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}!scoring\+\_\+tag@{scoring\+\_\+tag}}
+\index{scoring\+\_\+tag@{scoring\+\_\+tag}!irk\+::score\+::query\+\_\+likelihood\+\_\+scorer@{irk\+::score\+::query\+\_\+likelihood\+\_\+scorer}}
+\subsubsection{\texorpdfstring{scoring\+\_\+tag}{scoring\_tag}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structirk_1_1score_1_1query__likelihood__scorer_a4a7795fbd9f018d25bdc59c5ae001e2a}{tag\+\_\+type}} irk\+::score\+::query\+\_\+likelihood\+\_\+scorer\+::scoring\+\_\+tag}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{score_8hpp}{score.\+hpp}}\end{DoxyCompactItemize}

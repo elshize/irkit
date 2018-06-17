@@ -211,16 +211,17 @@ public:
             index_num++;
         }
 
+        BOOST_LOG_TRIVIAL(debug) << "Initialized.";
         long all_occurrences = 0;
         std::vector<long> occurrences;
         long term_id = 0;
         while (!heap_.empty()) {
             std::vector<entry> indices_to_merge = indices_with_next_term();
+            BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
+                                     << " from " << indices_to_merge.size()
+                                     << " indices";
             occurrences.push_back(merge_term(indices_to_merge));
             all_occurrences += occurrences.back();
-            BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
-                                    << " from " << indices_to_merge.size()
-                                    << " indices";
             for (entry& e : indices_to_merge) {
                 if (std::size_t(e.current_term_id() + 1) < e.term_count())
                 {
