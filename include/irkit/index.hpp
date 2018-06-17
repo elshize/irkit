@@ -360,6 +360,20 @@ inline namespace v2 {
         any_codec<document_type> document_codec() { return document_codec_; }
         any_codec<frequency_type> frequency_codec() { return frequency_codec_; }
 
+        std::streamsize
+        copy_document_list(long term_id, std::ostream& out) const
+        {
+            auto offset = document_offsets_[term_id];
+            return copy_list(documents_view_, offset, out);
+        }
+
+        std::streamsize
+        copy_frequency_list(long term_id, std::ostream& out) const
+        {
+            auto offset = count_offsets_[term_id];
+            return copy_list(counts_view_, offset, out);
+        }
+
     private:
         memory_view documents_view_;
         memory_view counts_view_;
@@ -380,6 +394,22 @@ inline namespace v2 {
         long occurrences_count_;
         int block_size_;
         double avg_document_size_;
+
+        std::streamsize copy_list(const memory_view& memory,
+            std::streamsize offset,
+            std::ostream& sink) const
+        {
+            irk::varbyte_codec<long> vb;
+            const char* list_ptr = memory.data() + offset;
+            boost::iostreams::stream_buffer<
+                boost::iostreams::basic_array_source<char>>
+                buf(list_ptr, list_ptr + sizeof(long) + 1);
+            std::istream istr(&buf);
+            long size;
+            vb.decode(istr, size);
+            sink.write(list_ptr, size);
+            return size;
+        }
     };
 
     template<class Scorer>

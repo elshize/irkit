@@ -102,10 +102,22 @@ using any_codec = boost::type_erasure::any<boost::mpl::vector<has_encode<S, T>,
     boost::type_erasure::copy_constructible<S>,
     boost::type_erasure::assignable<S>>>;
 
-};  // namespace irk
+template<class, class, class = void>
+struct has_pointer_decode : std::false_type {};
 
-//! Codecs and coding utilities.
-namespace irk {
+template<class Codec, class T>
+struct has_pointer_decode<Codec,
+    T,
+    std::void_t<decltype(std::declval<T>().decode(std::declval<T>(),
+        std::declval<std::ostream&>()))>> : std::true_type {};
+
+// TODO:
+//template<class T, class Codec>
+//T decode(const char* data, const any_codec<T>& codec)
+//{
+//    if constexpr () {
+//    }
+//}
 
 //! Encodes a range of integer values to an output stream.
 /*!

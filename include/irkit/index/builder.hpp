@@ -90,7 +90,7 @@ public:
     void add_term(const term_type& term)
     {
         ++all_occurrences_;
-        ++document_sizes_[current_doc_];
+        ++document_sizes_.back();
         auto ti = term_map_.find(term);
         if (ti != term_map_.end()) {
             term_id_type term_id = ti->second;

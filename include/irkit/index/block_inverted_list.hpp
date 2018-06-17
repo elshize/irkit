@@ -342,6 +342,8 @@ public:
         vb.decode(istr, block_size_);
         vb.decode(istr, num_blocks);
 
+        memory_ = irk::make_memory_view(list_ptr, list_byte_size);
+
         std::vector<long> skips = irk::decode_n(istr, num_blocks, vb);
         std::vector<value_type> last_documents = irk::decode_delta_n(
             istr, num_blocks, codec_);
@@ -368,6 +370,12 @@ public:
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
     long size() const { return length_; }
+    long memory_size() const { return memory_.size(); }
+
+    std::ostream write(std::ostream& out) const
+    {
+        return out.write(memory_.data(), memory_.size());
+    }
 
 private:
     friend class block_iterator<self_type, true>;
@@ -375,6 +383,7 @@ private:
     any_codec<Doc> codec_;
     std::vector<irk::index::block_view<value_type>> blocks_;
     long block_size_;
+    irk::memory_view memory_;
 };
 
 //! A view of a block payload list.
@@ -422,6 +431,8 @@ public:
         vb.decode(istr, block_size_);
         vb.decode(istr, num_blocks);
 
+        memory_ = irk::make_memory_view(list_ptr, list_byte_size);
+
         std::vector<long> skips = irk::decode_n(istr, num_blocks, vb);
 
         int running_offset = offset + istr.tellg();
@@ -441,6 +452,12 @@ public:
         return iterator{*this, length_ / block_size_, length_ % block_size_};
     };
     long size() const { return length_; }
+    long memory_size() const { return memory_.size(); }
+
+    std::ostream write(std::ostream& out) const
+    {
+        return out.write(memory_.data(), memory_.size());
+    }
 
 private:
     friend class block_iterator<self_type, false>;
@@ -448,6 +465,7 @@ private:
     any_codec<Payload> codec_;
     std::vector<irk::index::block_view<>> blocks_;
     long block_size_;
+    irk::memory_view memory_;
 };
 
 template<class ...Payload>

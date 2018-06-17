@@ -72,6 +72,7 @@ public:
         : self_(std::make_shared<model<source_type>>(source))
     {}
 
+    memory_view() = default;
     memory_view(const memory_view& other) = default;
 
     //! Returns a pointer to the underlying data.
