@@ -146,11 +146,27 @@ public:
         count_offset_ = 0;
     }
 
+    long copy_term(const entry& index_entry)
+    {
+        auto term_id = index_entry.current_term_id();
+        doc_offset_ += index_entry.index()->copy_document_list(
+            term_id, doc_ids_);
+        count_offset_ += index_entry.index()->copy_frequency_list(
+            term_id, doc_counts_);
+        return index_entry.index()->term_occurrences(term_id);
+    }
+
     long merge_term(std::vector<entry>& indices)
     {
         // Write the term.
         std::string term = indices.front().current_term();
         terms_out_ << term << std::endl;
+
+        // Accumulate offsets.
+        doc_ids_off_.push_back(doc_offset_);
+        doc_counts_off_.push_back(count_offset_);
+
+        if (indices.size() == 1) { return copy_term(indices.front()); }
 
         // Sort by shift, i.e., effectively document IDs.
         std::sort(indices.begin(),
@@ -175,10 +191,6 @@ public:
         // Accumulate the term's document frequency.
         term_dfs_.push_back(doc_ids.size());
 
-        // Accumulate offsets.
-        doc_ids_off_.push_back(doc_offset_);
-        doc_counts_off_.push_back(count_offset_);
-
         // Write documents and counts.
         index::block_list_builder<document_type, true> doc_list_builder(
             block_size_, document_codec_);
@@ -200,7 +212,7 @@ public:
         std::vector<std::ifstream*> term_streams;
         document_type shift(0);
         int index_num = 0;
-        BOOST_LOG_TRIVIAL(debug) << "Initializing heap...";
+        BOOST_LOG_TRIVIAL(debug) << "Initializing heap..." << std::flush;
         for (const index_type& index : indices_) {
             term_streams.push_back(new std::ifstream(
                 (sources_[index_num].dir() / "terms.txt").c_str()));
@@ -219,7 +231,7 @@ public:
             std::vector<entry> indices_to_merge = indices_with_next_term();
             BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
                                      << " from " << indices_to_merge.size()
-                                     << " indices";
+                                     << " indices" << std::flush;
             occurrences.push_back(merge_term(indices_to_merge));
             all_occurrences += occurrences.back();
             for (entry& e : indices_to_merge) {
