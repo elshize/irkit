@@ -31,4 +31,4 @@ install:
     - sudo make install
     - cd ../
 script:
-    - run-tests.sh "${SUITE}"
+    - scripts/run-tests.sh "${SUITE}"
