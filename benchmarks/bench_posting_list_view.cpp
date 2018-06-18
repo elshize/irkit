@@ -70,18 +70,22 @@ int main(int argc, char** argv)
     for (long term_id = 0; term_id < index.terms().size(); term_id++) {
         auto document_list = index.documents(term_id);
         auto frequency_list = index.frequencies(term_id);
-        std::vector<long> documents;
-        std::vector<long> frequencies;
-        documents.reserve(document_list.size());
-        frequencies.reserve(frequency_list.size());
+        auto last = document_list.end();
+        auto docit = document_list.begin();
+        auto freqit = frequency_list.begin();
         auto start = std::chrono::steady_clock::now();
-        for (const auto& doc : document_list) { documents.push_back(doc); }
-        for (const auto& freq : frequency_list) { frequencies.push_back(freq); }
+        for (; docit != last; ++docit, ++freqit) {
+            ++posting_count;
+        }
+        //std::for_each(document_list.begin(),
+        //    document_list.end(),
+        //    [&posting_count](const auto&) { ++posting_count; });
+        //std::for_each(frequency_list.begin(),
+        //    frequency_list.end(),
+        //    [&posting_count](const auto&) { ++posting_count; });
         auto end = std::chrono::steady_clock::now();
         independent_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        assert(documents.size() == frequencies.size());
-        posting_count += documents.size();
     }
     int independent_avg = independent_elapsed.count() / posting_count;
     std::cout << "Documents and frequencies independently: " << independent_avg
@@ -90,21 +94,16 @@ int main(int argc, char** argv)
     posting_count = 0;
     for (long term_id = 0; term_id < index.terms().size(); term_id++) {
         auto posting_list = index.postings(term_id);
-        std::vector<long> documents;
-        std::vector<long> frequencies;
-        documents.reserve(posting_list.size());
-        frequencies.reserve(posting_list.size());
+        auto it = posting_list.begin();
+        auto last = posting_list.end();
         auto start = std::chrono::steady_clock::now();
-        for (const auto& posting : posting_list)
-        {
-            documents.push_back(posting.document());
-            frequencies.push_back(posting.payload());
-        }
+        for (; it != last; ++it) { ++posting_count; }
+        //std::for_each(posting_list.begin(),
+        //    posting_list.end(),
+        //    [&posting_count](const auto&) { ++posting_count; });
         auto end = std::chrono::steady_clock::now();
         together_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        assert(documents.size() == frequencies.size());
-        posting_count += documents.size();
     }
     int together_avg = together_elapsed.count() / posting_count;
     std::cout << "As posting_list_view: " << together_avg << "ns/posting"
