@@ -90,12 +90,15 @@ public:
             return iter;
         }
 
+        document_type document() const { return *document_iterator_; }
+        payload_type payload() const { return *payload_iterator_; }
+
     private:
         friend class boost::iterator_core_access;
         void increment()
         {
-            document_iterator_++;
-            payload_iterator_++;
+            ++document_iterator_;
+            ++payload_iterator_;
         }
         void advance(difference_type n)
         {
@@ -109,6 +112,7 @@ public:
 
         const posting_view& dereference() const { return current_posting_; }
 
+    public:
         document_iterator_t document_iterator_;
         payload_iterator_t payload_iterator_;
         posting_view current_posting_;

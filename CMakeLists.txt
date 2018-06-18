@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.9)
 project(IRKit VERSION 0.1 LANGUAGES CXX C)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 option(IRKit_BUILD_INTEGRATION_TEST "whether or not to build the integration test" OFF)
+option(IRKit_BUILD_BENCHMARKS "whether or not to build the benchmarks" OFF)
 option(IRKit_INSTALL_SUBMODULES "whether or not to install submodules" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -44,8 +46,13 @@ install(EXPORT irkit DESTINATION lib/irkit)
 export(PACKAGE irkit)
 
 add_subdirectory(src)
+configure_file(scripts/run-tests.sh run-tests.sh COPYONLY)
 
 if (IRKit_BUILD_TEST)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if (IRKit_BUILD_BENCHMARKS)
+    add_subdirectory(benchmarks)
 endif()

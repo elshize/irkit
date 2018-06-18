@@ -80,6 +80,117 @@ inline namespace v2 {
 
     class inverted_index_view;
 
+    class inverted_index_inmemory_data_source {
+    public:
+        explicit inverted_index_inmemory_data_source(
+            fs::path dir, std::optional<std::string> score_name = std::nullopt)
+            : dir_(dir)
+        {
+            io::load_data(index::doc_ids_path(dir), documents_);
+            io::load_data(index::doc_counts_path(dir), counts_);
+            io::load_data(index::doc_ids_off_path(dir), document_offsets_);
+            io::load_data(index::doc_counts_off_path(dir), count_offsets_);
+            io::load_data(
+                index::term_doc_freq_path(dir), term_collection_frequencies_);
+            io::load_data(index::term_map_path(dir), term_map_);
+            io::load_data(index::title_map_path(dir), title_map_);
+            io::load_data(index::doc_sizes_path(dir), document_sizes_);
+            io::load_data(index::term_occurrences_path(dir),
+                term_collection_occurrences_);
+            io::load_data(index::properties_path(dir), properties_);
+
+            if (score_name.has_value()) {
+                auto scores_path = dir / (*score_name + ".scores");
+                auto score_offsets_path = dir / (*score_name + ".offsets");
+                if (fs::exists(scores_path) && fs::exists(score_offsets_path))
+                {
+                    scores_ = std::make_optional<std::vector<char>>();
+                    score_offsets_ = std::make_optional<std::vector<char>>();
+                    io::load_data(scores_path, *scores_);
+                    io::load_data(score_offsets_path, *score_offsets_);
+                }
+            }
+        }
+
+        fs::path dir() { return dir_; }
+
+        memory_view documents_view() const
+        { return make_memory_view(documents_.data(), documents_.size()); }
+
+        memory_view counts_view() const
+        { return make_memory_view(counts_.data(), counts_.size()); }
+
+        memory_view document_offsets_view() const
+        {
+            return make_memory_view(
+                document_offsets_.data(), document_offsets_.size());
+        }
+
+        memory_view count_offsets_view() const
+        {
+            return make_memory_view(
+                count_offsets_.data(), count_offsets_.size());
+        }
+
+        memory_view term_collection_frequencies_view() const
+        {
+            return make_memory_view(term_collection_frequencies_.data(),
+                term_collection_frequencies_.size());
+        }
+
+        memory_view term_collection_occurrences_view() const
+        {
+            return make_memory_view(term_collection_occurrences_.data(),
+                term_collection_occurrences_.size());
+        }
+
+        memory_view term_map_source() const
+        { return make_memory_view(term_map_.data(), term_map_.size()); }
+
+        memory_view title_map_source() const
+        { return make_memory_view(title_map_.data(), title_map_.size()); }
+
+        memory_view document_sizes_view() const
+        {
+            return make_memory_view(
+                document_sizes_.data(), document_sizes_.size());
+        }
+
+        memory_view properties_view() const
+        {
+            return make_memory_view(properties_.data(), properties_.size());
+        }
+
+        std::optional<memory_view> scores_source() const
+        {
+            if (!scores_.has_value()) { return std::nullopt; }
+            return make_memory_view(scores_.value().data(),
+                                    scores_.value().size());
+        }
+
+        std::optional<memory_view> score_offset_source() const
+        {
+            if (!score_offsets_.has_value()) { return std::nullopt; }
+            return make_memory_view(score_offsets_.value().data(),
+                                    score_offsets_.value().size());
+        }
+
+    private:
+        fs::path dir_;
+        std::vector<char> documents_;
+        std::vector<char> counts_;
+        std::vector<char> document_offsets_;
+        std::vector<char> count_offsets_;
+        std::vector<char> term_collection_frequencies_;
+        std::vector<char> term_collection_occurrences_;
+        std::vector<char> term_map_;
+        std::vector<char> title_map_;
+        std::vector<char> document_sizes_;
+        std::vector<char> properties_;
+        std::optional<std::vector<char>> scores_;
+        std::optional<std::vector<char>> score_offsets_;
+    };
+
     class inverted_index_mapped_data_source {
         using mapped_file_source = boost::iostreams::mapped_file_source;
 
