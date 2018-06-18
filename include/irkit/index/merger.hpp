@@ -89,6 +89,9 @@ private:
 
         auto term_count() const { return index_->term_count(); }
         auto postings() const { return index_->postings(current_term_id_); }
+        auto documents() const { return index_->documents(current_term_id_); }
+        auto frequencies() const
+        { return index_->frequencies(current_term_id_); }
     };
     fs::path target_dir_;
     bool skip_unique_;
@@ -182,12 +185,10 @@ public:
         std::vector<frequency_type> doc_counts;
         for (const entry& e : indices) {
             occurrences += e.index()->term_occurrences(e.current_term_id());
-            auto pr = e.postings();
-            for (const auto& p : pr) {
-                //doc_ids.push_back(p.document() + e.shift());
-                doc_ids.push_back(p.document());
-                doc_counts.push_back(p.payload());
-            }
+            auto d = e.documents();
+            auto f = e.frequencies();
+            doc_ids.insert(doc_ids.end(), d.begin(), d.end());
+            doc_counts.insert(doc_counts.end(), f.begin(), f.end());
         }
 
         // Accumulate the term's document frequency.

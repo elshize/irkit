@@ -38,6 +38,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/log/trivial.hpp>
 #include <gsl/span>
 #include <nlohmann/json.hpp>
 #include <range/v3/utility/concepts.hpp>
@@ -418,8 +419,8 @@ inline namespace v2 {
         std::string name(typename Scorer::tag_type{});
         fs::path scores_path = dir_path / (name + ".scores");
         fs::path score_offsets_path = dir_path / (name + ".offsets");
-        v2::inverted_index_mapped_data_source source(dir_path);
-        irk::v2::inverted_index_view index(&source,
+        inverted_index_mapped_data_source source(dir_path);
+        inverted_index_view index(&source,
             irk::varbyte_codec<long>{},
             irk::varbyte_codec<long>{},
             irk::varbyte_codec<long>{});
@@ -430,6 +431,7 @@ inline namespace v2 {
         std::ofstream sout(scores_path.c_str());
         std::ofstream offout(score_offsets_path.c_str());
 
+        BOOST_LOG_TRIVIAL(info) << "Calculating max score." << std::flush;
         double max_score = 0;
         for (long term_id = 0; term_id < index.terms().size(); term_id++)
         {
@@ -441,7 +443,9 @@ inline namespace v2 {
                 max_score = std::max(max_score, score);
             }
         }
+        BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
 
+        BOOST_LOG_TRIVIAL(info) << "Scoring..." << std::flush;
         long max_int = (1 << bits) - 1;
         for (long term_id = 0; term_id < index.terms().size(); term_id++)
         {

@@ -40,8 +40,10 @@ int main(int argc, char** argv)
     std::string output_dir;
     int batch_size = 100'000;
     int skip_block_size = 64;
+    bool merge_only = false;
 
     CLI::App app{"Build an inverted index."};
+    app.add_flag("--merge-only", merge_only, "Merge already existing batches.");
     app.add_option("--batch-size,-b",
         batch_size,
         "Max number of documents to build in memory.",
@@ -55,11 +57,34 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    irk::index::default_index_assembler assembler(fs::path(output_dir),
-        batch_size,
-        skip_block_size,
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
-    assembler.assemble(std::cin);
+    if (merge_only)
+    {
+        fs::path dir(output_dir);
+        fs::path batch_dir = dir / ".batches";
+        std::vector<fs::path> batch_dirs{
+            fs::directory_iterator(batch_dir), fs::directory_iterator()};
+        irk::index_merger<long, std::string, long, long> merger(
+            dir,
+            batch_dirs,
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{},
+            skip_block_size);
+        merger.merge();
+        auto term_map = irk::build_prefix_map_from_file<long>(
+            irk::index::terms_path(output_dir));
+        irk::io::dump(term_map, irk::index::term_map_path(output_dir));
+        auto title_map = irk::build_prefix_map_from_file<long>(
+            irk::index::titles_path(output_dir));
+        irk::io::dump(title_map, irk::index::title_map_path(output_dir));
+    }
+    else
+    {
+        irk::index::default_index_assembler assembler(fs::path(output_dir),
+            batch_size,
+            skip_block_size,
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{});
+        assembler.assemble(std::cin);
+    }
     return 0;
 }
