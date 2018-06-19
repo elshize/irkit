@@ -102,39 +102,38 @@ on_fly_index postings_on_fly(fs::path collection_file, int bits)
         collection_size};
 }
 
-TEST(inverted_index, build_load_verify)
-{
-    auto index_dir = irk::fs::temp_directory_path()
-        / "InvertedIndexIntegrationTest";
-    if (irk::fs::exists(index_dir)) {
-        irk::fs::remove_all(index_dir);
+class inverted_index : public ::testing::Test {
+protected:
+    boost::filesystem::path index_dir;
+    std::string collection_file;
+    on_fly_index expected_index;
+
+    inverted_index() {
+        index_dir = irk::fs::temp_directory_path()
+            / "irkit-inverted_index";
+        if (irk::fs::exists(index_dir)) { irk::fs::remove_all(index_dir); }
+        irk::fs::create_directory(index_dir);
+
+        // given
+        collection_file = "collection.txt";
+        expected_index = postings_on_fly(collection_file, 24);
+        irk::index::index_assembler<long, std::string, long, long> assembler(
+            fs::path(index_dir),
+            32,
+            1024,
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{});
+
+        std::ifstream input(collection_file);
+        assembler.assemble(input);
+        irk::v2::score_index<irk::score::query_likelihood_scorer>(
+            index_dir, 24);
     }
-    irk::fs::create_directory(index_dir);
+};
 
-    // given
-    std::string collection_file("collection.txt");
-    auto expected_index = postings_on_fly(collection_file, 24);
-
-    // when
-    irk::index::index_assembler<long, std::string, long, long> assembler(
-        fs::path(index_dir),
-        32,
-        1024,
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
-
-    std::ifstream input(collection_file);
-    assembler.assemble(input);
-    irk::v2::score_index<irk::score::query_likelihood_scorer>(index_dir, 24);
-
-    // then
-    auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
-        index_dir, irk::score::query_likelihood_tag{});
-    irk::v2::inverted_index_view index_view(data.get(),
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
-
+void test(const irk::inverted_index_view& index_view,
+    on_fly_index& expected_index)
+{
     ASSERT_EQ(index_view.collection_size(), 100);
     ASSERT_EQ(index_view.occurrences_count(), expected_index.collection_occurrences);
     for (long doc = 0; doc < index_view.collection_size(); doc++) {
@@ -160,6 +159,30 @@ TEST(inverted_index, build_load_verify)
         ASSERT_THAT(
             actual_scored, ::testing::ElementsAreArray(expected_scored));
     }
+}
+
+TEST_F(inverted_index, mapped_file)
+{
+    // then
+    auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
+        index_dir, irk::score::query_likelihood_tag{});
+    irk::inverted_index_view index_view(data.get(),
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{});
+    test(index_view, expected_index);
+}
+
+TEST_F(inverted_index, disk)
+{
+    // then
+    auto data = std::make_shared<irk::inverted_index_disk_data_source>(
+        index_dir, irk::score::query_likelihood_tag{});
+    irk::inverted_index_view index_view(data.get(),
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<long>{});
+    test(index_view, expected_index);
 }
 
 };  // namespace

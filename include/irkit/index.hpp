@@ -80,6 +80,89 @@ inline namespace v2 {
 
     class inverted_index_view;
 
+    class inverted_index_disk_data_source {
+    public:
+        explicit inverted_index_disk_data_source(
+            fs::path dir, std::optional<std::string> score_name = std::nullopt)
+            : dir_(dir)
+        {
+            documents_ = index::doc_ids_path(dir);
+            counts_ = index::doc_counts_path(dir);
+            document_offsets_ = index::doc_ids_off_path(dir);
+            count_offsets_ = index::doc_counts_off_path(dir);
+            term_collection_frequencies_ = index::term_doc_freq_path(dir);
+            term_map_ = index::term_map_path(dir);
+            title_map_ = index::title_map_path(dir);
+            document_sizes_ = index::doc_sizes_path(dir);
+            term_collection_occurrences_ = index::term_occurrences_path(dir);
+            properties_ = index::properties_path(dir);
+
+            if (score_name.has_value()) {
+                scores_ = std::make_optional(dir / (*score_name + ".scores"));
+                score_offsets_ = std::make_optional(
+                    dir / (*score_name + ".offsets"));
+            }
+        }
+
+        fs::path dir() { return dir_; }
+
+        memory_view documents_view() const
+        { return make_memory_view(documents_); }
+
+        memory_view counts_view() const { return make_memory_view(counts_); }
+
+        memory_view document_offsets_view() const
+        { return make_memory_view(document_offsets_); }
+
+        memory_view count_offsets_view() const
+        { return make_memory_view(count_offsets_); }
+
+        memory_view term_collection_frequencies_view() const
+        { return make_memory_view(term_collection_frequencies_); }
+
+        memory_view term_collection_occurrences_view() const
+        { return make_memory_view(term_collection_occurrences_); }
+
+        memory_view term_map_source() const
+        { return make_memory_view(term_map_); }
+
+        memory_view title_map_source() const
+        { return make_memory_view(title_map_); }
+
+        memory_view document_sizes_view() const
+        { return make_memory_view(document_sizes_); }
+
+        memory_view properties_view() const
+        { return make_memory_view(properties_); }
+
+        std::optional<memory_view> scores_source() const
+        {
+            if (!scores_.has_value()) { return std::nullopt; }
+            return make_memory_view(*scores_);
+        }
+
+        std::optional<memory_view> score_offset_source() const
+        {
+            if (!score_offsets_.has_value()) { return std::nullopt; }
+            return make_memory_view(*score_offsets_);
+        }
+
+    private:
+        boost::filesystem::path dir_;
+        boost::filesystem::path documents_;
+        boost::filesystem::path counts_;
+        boost::filesystem::path document_offsets_;
+        boost::filesystem::path count_offsets_;
+        boost::filesystem::path term_collection_frequencies_;
+        boost::filesystem::path term_collection_occurrences_;
+        boost::filesystem::path term_map_;
+        boost::filesystem::path title_map_;
+        boost::filesystem::path document_sizes_;
+        boost::filesystem::path properties_;
+        std::optional<boost::filesystem::path> scores_;
+        std::optional<boost::filesystem::path> score_offsets_;
+    };
+
     class inverted_index_inmemory_data_source {
     public:
         explicit inverted_index_inmemory_data_source(
@@ -363,11 +446,9 @@ inline namespace v2 {
                 score_offsets_ = std::make_optional<offset_table_type>(
                     data->score_offset_source().value());
             }
-            nlohmann::json properties;
-            boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
-                buffer(data->properties_view().data(),
-                    data->properties_view().size());
-            buffer >> properties;
+            std::string buffer(
+                data->properties_view().data(), data->properties_view().size());
+            nlohmann::json properties = nlohmann::json::parse(buffer);
             document_count_ = properties["documents"];
             occurrences_count_ = properties["occurrences"];
             block_size_ = properties["skip_block_size"];
@@ -530,7 +611,7 @@ inline namespace v2 {
         std::string name(typename Scorer::tag_type{});
         fs::path scores_path = dir_path / (name + ".scores");
         fs::path score_offsets_path = dir_path / (name + ".offsets");
-        inverted_index_mapped_data_source source(dir_path);
+        inverted_index_disk_data_source source(dir_path);
         inverted_index_view index(&source,
             irk::varbyte_codec<long>{},
             irk::varbyte_codec<long>{},
