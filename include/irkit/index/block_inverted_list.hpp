@@ -89,7 +89,8 @@ public:
         : view_(view),
           block_(block),
           pos_(pos),
-          decoded_blocks_(view_.blocks_.size(), std::nullopt)
+          block_count_(view_.blocks_.size()),
+          decoded_block_num_(-1)
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -108,7 +109,7 @@ public:
     self_type& moveto(value_type val)
     {
         int block = nextgeq_block(block_, val);
-        if (block >= decoded_blocks_.size())
+        if (block >= block_count_)
         {
             finish();
             return *this;
@@ -116,7 +117,7 @@ public:
         pos_ = block == block_ ? pos_ : 0;
         block_ = block;
         ensure_decoded();
-        while ((*decoded_blocks_[block_])[pos_] < val) { pos_++; }
+        while (decoded_block_[pos_] < val) { pos_++; }
         return *this;
     };
 
@@ -166,26 +167,25 @@ private:
     const value_type& dereference() const
     {
         ensure_decoded();
-        return (*decoded_blocks_[block_])[pos_];
+        return decoded_block_[pos_];
     }
 
     //! Decodes and caches the current block if not decoded.
     void ensure_decoded() const
     {
-        if (!decoded_blocks_[block_].has_value())
+        if (block_ != decoded_block_num_)
         {
-            decoded_blocks_[block_] = std::make_optional(
-                std::vector<value_type>(view_.block_size_));
+            decoded_block_.clear();
             if constexpr (delta_encoded)
             {
                 auto preceding = block_ > 0
                     ? view_.blocks_[block_ - 1].back() : 0;
-                decoded_blocks_[block_] = std::make_optional(irk::decode_delta(
-                    view_.blocks_[block_].data(), view_.codec_, preceding));
+                decoded_block_ = irk::decode_delta(
+                    view_.blocks_[block_].data(), view_.codec_, preceding);
             } else
             {
-                decoded_blocks_[block_] = std::make_optional(
-                    irk::decode(view_.blocks_[block_].data(), view_.codec_));
+                decoded_block_ = irk::decode(
+                    view_.blocks_[block_].data(), view_.codec_);
             }
         }
     }
@@ -209,8 +209,11 @@ private:
     const view_type& view_;
     std::size_t block_;
     std::size_t pos_;
-    mutable std::vector<std::optional<std::vector<value_type>>>
-        decoded_blocks_;
+    const std::size_t block_count_;
+    long decoded_block_num_;
+    mutable std::vector<value_type> decoded_block_;
+    //mutable std::vector<std::optional<std::vector<value_type>>>
+    //    decoded_blocks_;
 };
 
 template<class Value, bool delta_encoded = false>
