@@ -1,18 +1,3 @@
-#add_subdirectory(bovw)
-
-#add_executable(runtaat runtaat.cpp)
-#target_link_libraries(runtaat ${Boost_LIBRARIES})
-#
-#add_executable(rundaat rundaat.cpp)
-#target_link_libraries(rundaat ${Boost_LIBRARIES})
-#
-#add_executable(build_index build_index.cpp)
-#target_link_libraries(build_index ${Boost_LIBRARIES})
-
-
-
-# irk commands
-
 add_executable(irk irk.cpp)
 target_link_libraries(irk CLI11::CLI11)
 
@@ -44,6 +29,10 @@ target_compile_features(irk-part PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 add_executable(irk-prefmap irk-prefmap.cpp)
 target_link_libraries(irk-prefmap irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax GSL)
 target_compile_features(irk-prefmap PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
+add_executable(irk-table irk-table.cpp)
+target_link_libraries(irk-table irkit CLI11::CLI11 ${Boost_LIBRARIES} GSL)
+target_compile_features(irk-table PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-buildindex irk-buildindex.cpp)
 target_link_libraries(irk-buildindex

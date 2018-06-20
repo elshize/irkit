@@ -126,7 +126,7 @@ protected:
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
-        irk::v2::score_index<irk::score::query_likelihood_scorer>(
+        irk::score_index<irk::score::query_likelihood_scorer>(
             index_dir, 24);
     }
 };
@@ -155,7 +155,7 @@ void test(const irk::inverted_index_view& index_view,
         const auto& expected_scored =
             expected_index.scored_postings[index_view.term(term_id)];
         std::vector<std::pair<long, long>> actual_scored(
-            scored_postings.begin(), postings.end());
+            scored_postings.begin(), scored_postings.end());
         ASSERT_THAT(
             actual_scored, ::testing::ElementsAreArray(expected_scored));
     }

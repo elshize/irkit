@@ -45,7 +45,7 @@ public:
     using term_type = Term;
     using term_id_type = TermId;
     using frequency_type = Freq;
-    using index_type = v2::inverted_index_view;
+    using index_type = inverted_index_view;
 
 private:
     class entry {

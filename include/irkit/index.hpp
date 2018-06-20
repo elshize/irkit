@@ -464,30 +464,39 @@ inline namespace v2 {
         {
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
-            auto document_offset = document_offsets_[term_id];
-            return index::block_document_list_view(
-                document_codec_, documents_view_, length, document_offset);
+            return index::block_document_list_view(document_codec_,
+                select(term_id, document_offsets_, documents_view_),
+                length);
         }
 
         auto frequencies(long term_id) const
         {
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
-            auto count_offset = count_offsets_[term_id];
-            return index::block_payload_list_view(
-                frequency_codec_, counts_view_, length, count_offset);
+            return index::block_payload_list_view(frequency_codec_,
+                select(term_id, count_offsets_, counts_view_),
+                length);
+        }
+
+        auto scores(long term_id) const
+        {
+            assert(term_id < term_count_);
+            auto length = term_collection_frequencies_[term_id];
+            return index::block_payload_list_view(frequency_codec_,
+                select(term_id, *score_offsets_, *scores_view_),
+                length);
         }
 
         auto postings(long term_id) const
         {
             assert(term_id < term_count_);
             auto length = term_collection_frequencies_[term_id];
-            auto document_offset = document_offsets_[term_id];
-            auto documents = index::block_document_list_view(
-                document_codec_, documents_view_, length, document_offset);
-            auto count_offset = count_offsets_[term_id];
-            auto counts = index::block_payload_list_view(
-                frequency_codec_, counts_view_, length, count_offset);
+            auto documents = index::block_document_list_view(document_codec_,
+                select(term_id, document_offsets_, documents_view_),
+                length);
+            auto counts = index::block_payload_list_view(frequency_codec_,
+                select(term_id, count_offsets_, counts_view_),
+                length);
             return posting_list_view(documents, counts);
         }
 
@@ -505,12 +514,12 @@ inline namespace v2 {
             if (!scores_view_.has_value())
             { throw std::runtime_error("scores not loaded"); }
             auto length = term_collection_frequencies_[term_id];
-            auto document_offset = document_offsets_[term_id];
-            auto documents = index::block_document_list_view(
-                document_codec_, documents_view_, length, document_offset);
-            auto score_offset = (*score_offsets_)[term_id];
-            auto scores = index::block_payload_list_view(
-                score_codec_, *scores_view_, length, score_offset);
+            auto documents = index::block_document_list_view(document_codec_,
+                select(term_id, document_offsets_, documents_view_),
+                length);
+            auto scores = index::block_payload_list_view(score_codec_,
+                select(term_id, *score_offsets_, *scores_view_),
+                length);
             return posting_list_view(documents, scores);
         }
 
@@ -602,6 +611,19 @@ inline namespace v2 {
             vb.decode(istr, size);
             sink.write(list_ptr, size);
             return size;
+        }
+
+        memory_view select(long term_id,
+                const offset_table_type& offsets,
+                const memory_view& memory) const
+        {
+            auto offset = offsets[term_id];
+            auto next_offset = (term_id + 1 < term_count_)
+                ? offsets[term_id + 1]
+                : memory.size();
+            std::cout << "[" << offset << " " << next_offset - 1
+                << "] term: " << term_id << "/" << term_count_ << std::endl;
+            return memory[{offset, next_offset - 1}];
         }
     };
 

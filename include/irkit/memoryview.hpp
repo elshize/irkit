@@ -257,45 +257,62 @@ public:
 
     disk_memory_source() = default;
     disk_memory_source(boost::filesystem::path file_path)
-        : file_path_(file_path), offset_(0), size_(calc_size())
+        : file_path_(file_path),
+          offset_(0),
+          size_(calc_size()),
+          internal_offset_(0)
     {}
     disk_memory_source(boost::filesystem::path file_path,
         std::streamsize offset,
-        std::streamsize file_size)
-        : file_path_(file_path), offset_(offset), size_(file_size)
+        std::streamsize file_size,
+        std::streamsize internal_offset,
+        std::shared_ptr<std::vector<char_type>> buffer = nullptr)
+        : file_path_(file_path),
+          offset_(offset),
+          size_(file_size),
+          internal_offset_(internal_offset),
+          buffer_(buffer)
     {}
 
     const char_type* data() const
     {
         ensure_loaded();
-        return &buffer_[0];
+        return &(*buffer_)[internal_offset_];
     }
 
     std::streamsize size() const { return size_; }
 
-    const char_type& operator[](int n) const { return data()[n]; }
+    const char_type& operator[](int n) const
+    { return data()[n + internal_offset_]; }
 
     disk_memory_source<char_type>
     range(std::streamsize first, std::streamsize size) const
     {
-        return disk_memory_source(file_path_, first, size);
+        if (buffer_ != nullptr)
+        {
+            auto internal_offset = first + internal_offset_;
+            return disk_memory_source(
+                file_path_, offset_, size, internal_offset, buffer_);
+        }
+        return disk_memory_source(file_path_, offset_ + first, size, 0);
     }
 
 private:
     boost::filesystem::path file_path_;
     std::streamsize offset_;
     std::streamsize size_;
-    mutable std::vector<char_type> buffer_;
+    mutable std::shared_ptr<std::vector<char_type>> buffer_;
+    std::streamsize internal_offset_;
 
     void ensure_loaded() const
     {
-        if (buffer_.empty()) {
+        if (buffer_ == nullptr) {
             io::enforce_exist(file_path_);
             auto flags = std::ifstream::ate | std::ifstream::binary;
             std::ifstream in(file_path_.c_str(), flags);
             in.seekg(offset_, std::ios::beg);
-            buffer_.resize(size_);
-            if (!in.read(&buffer_[0], size_))
+            buffer_ = std::make_shared<std::vector<char_type>>(size_);
+            if (!in.read(buffer_->data(), size_))
             {
                 throw std::runtime_error(
                     "Failed reading " + file_path_.string());

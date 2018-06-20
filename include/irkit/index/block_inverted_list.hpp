@@ -27,6 +27,7 @@
 #pragma once
 
 #include <vector>
+#include <sstream>
 
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
@@ -284,7 +285,6 @@ public:
         if constexpr (delta_encoded)
         { out.write(&encoded_last_vals[0], encoded_last_vals.size()); }
         out.write(&encoded_blocks[0], encoded_blocks.size());
-        out.flush();
 
         return list_byte_size;
     }
@@ -325,18 +325,14 @@ public:
      */
     block_document_list_view(any_codec<value_type> doc_codec,
         irk::memory_view mem,
-        long length,
-        int offset = 0)
-        : length_(length), codec_(doc_codec)
+        long length)
+        : length_(length), codec_(doc_codec), memory_(mem)
     {
         using slice = memory_view::slice_type;
 
-        // TODO: make that more efficient, a dedicated istream
-        //       avoid using `data()`.
-        const char* list_ptr = mem.data() + offset;
         boost::iostreams::stream_buffer<
             boost::iostreams::basic_array_source<char>>
-            buf(list_ptr, mem.size() - offset);
+            buf(memory_.data(), memory_.size());
         std::istream istr(&buf);
 
         irk::varbyte_codec<long> vb;
@@ -344,23 +340,27 @@ public:
         vb.decode(istr, list_byte_size);
         vb.decode(istr, block_size_);
         vb.decode(istr, num_blocks);
-
-        memory_ = irk::make_memory_view(list_ptr, list_byte_size);
+        if (list_byte_size != memory_.size()) {
+            std::ostringstream str;
+            str << "list size " << list_byte_size
+                << " does not match memory view size " << memory_.size();
+            throw std::runtime_error(str.str());
+        }
 
         std::vector<long> skips = irk::decode_n(istr, num_blocks, vb);
         std::vector<value_type> last_documents = irk::decode_delta_n(
             istr, num_blocks, codec_);
 
-        int running_offset = offset + istr.tellg();
+        int running_offset = istr.tellg();
 
         for (int block = 0; block < num_blocks - 1; block++) {
             running_offset += skips[block];
             blocks_.emplace_back(last_documents[block],
-                mem.range(running_offset, skips[block + 1]));
+                memory_.range(running_offset, skips[block + 1]));
         }
         running_offset += skips.back();
         blocks_.emplace_back(last_documents.back(),
-            mem[slice(running_offset, offset + list_byte_size - 1)]);
+            memory_[slice(running_offset, std::nullopt)]);
     }
 
     iterator begin() const { return iterator{*this, 0, 0}; };
@@ -412,20 +412,15 @@ public:
      * \param length        the number of elements in the list
      * \param offset        offset from the beginning of `mem`
      */
-    block_payload_list_view(any_codec<value_type> payload_codec,
-        irk::memory_view mem,
-        long length,
-        int offset = 0)
-        : length_(length), codec_(payload_codec)
+    block_payload_list_view(
+        any_codec<value_type> payload_codec, irk::memory_view mem, long length)
+        : length_(length), codec_(payload_codec), memory_(mem)
     {
         using slice = memory_view::slice_type;
 
-        // TODO: make that more efficient, a dedicated istream
-        //       avoid using `data()`.
-        const char* list_ptr = mem.data() + offset;
         boost::iostreams::stream_buffer<
             boost::iostreams::basic_array_source<char>>
-            buf(list_ptr, mem.size() - offset);
+            buf(memory_.data(), memory_.size());
         std::istream istr(&buf);
 
         irk::varbyte_codec<long> vb;
@@ -433,20 +428,24 @@ public:
         vb.decode(istr, list_byte_size);
         vb.decode(istr, block_size_);
         vb.decode(istr, num_blocks);
-
-        memory_ = irk::make_memory_view(list_ptr, list_byte_size);
+        if (list_byte_size != memory_.size()) {
+            std::ostringstream str;
+            str << "list size " << list_byte_size
+                << " does not match memory view size " << memory_.size();
+            throw std::runtime_error(str.str());
+        }
 
         std::vector<long> skips = irk::decode_n(istr, num_blocks, vb);
 
-        int running_offset = offset + istr.tellg();
+        int running_offset = istr.tellg();
 
         for (int block = 0; block < num_blocks - 1; block++) {
             running_offset += skips[block];
-            blocks_.emplace_back(mem.range(running_offset, skips[block + 1]));
+            blocks_.emplace_back(
+                memory_.range(running_offset, skips[block + 1]));
         }
         running_offset += skips.back();
-        blocks_.emplace_back(
-            mem[slice(running_offset, offset + list_byte_size - 1)]);
+        blocks_.emplace_back(memory_[slice(running_offset, std::nullopt)]);
     }
 
     iterator begin() const { return iterator{*this, 0, 0}; };
