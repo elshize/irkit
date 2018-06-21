@@ -26,29 +26,35 @@
 
 #pragma once
 
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 namespace irk::runtime {
 
 struct leq_type {
+    std::string op = "<=";
     template<class L, class R>
     bool operator()(const L& left, const R& right)
     { return left <= right; }
 } LEQ;
 
 struct lt_type {
+    std::string op = "<";
     template<class L, class R>
     bool operator()(const L& left, const R& right)
     { return left < right; }
 } LT;
 
 struct eq_type {
+    std::string op = "==";
     template<class L, class R>
     bool operator()(const L& left, const R& right)
     { return left == right; }
 } EQ;
 
 struct neq_type {
+    std::string op = "!=";
     template<class L, class R>
     bool operator()(const L& left, const R& right)
     { return left != right; }
@@ -56,7 +62,11 @@ struct neq_type {
 
 template<class L, class R, class AssertFn>
 void expects(const L& left, AssertFn fn, const R& right) {
-    if (!fn(left, right)) { throw std::runtime_error(fn.print_message()); }
+    if (!fn(left, right)) {
+        std::ostringstream msg;
+        msg << "expects error: " << left << " " << fn.op << " " << right;
+        throw std::runtime_error(msg.str());
+    }
 }
 
 };  // namespace irk::runtime
