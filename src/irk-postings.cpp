@@ -1,43 +1,58 @@
-#include <boost/filesystem.hpp>
 #include <iostream>
-#include "cmd.hpp"
-#include "irkit/index.hpp"
+
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
+
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/index.hpp>
 
 namespace fs = boost::filesystem;
 
+template<class PostingListT>
+void print_postings(const PostingListT& postings)
+{
+    for (const auto& posting : postings)
+    { std::cout << posting.document() << "\t" << posting.payload() << "\n"; }
+}
+
 int main(int argc, char** argv)
 {
-    irk::CmdLineProgram program("irk-postings");
-    program.flag("use-term-ids", "use term IDs as input")
-        .flag("help", "print out help message")
-        .option<std::string>("index-dir,d", "index base directory", ".")
-        .arg<std::string>("term", "the term to look up", -1);
+    std::string dir = ".";
+    std::string term;
+    std::string scoring;
+    bool use_id = false;
+
+    CLI::App app{"Prints postings."
+                 "Fist column: document IDs. Second column: payload."};
+    app.add_option("-d,--index-dir", dir, "index directory", true)
+        ->check(CLI::ExistingDirectory);
+    app.add_flag("-i,--use-id", use_id, "use a term ID");
+    app.add_option("-s,--scores",
+        scoring,
+        "print given scores instead of frequencies",
+        true);
+    app.add_option("term", term, "term to look up", false)->required();
+
+    CLI11_PARSE(app, argc, argv);
+
+    bool scores_defined = app.count("--scores") > 0;
+
     try {
-        if (!program.parse(argc, argv)) {
-            return 0;
+        irk::inverted_index_disk_data_source data(fs::path{dir},
+            scores_defined ? std::make_optional(scoring) : std::nullopt);
+        irk::inverted_index_view index(&data,
+                irk::varbyte_codec<long>{},
+                irk::varbyte_codec<long>{},
+                irk::varbyte_codec<long>{});
+
+        long term_id = use_id ? std::stol(term) : *index.term_id(term);
+        if (app.count("--scores") > 0) {
+            print_postings(index.scored_postings(term_id));
+        } else {
+            print_postings(index.postings(term_id));
         }
-    } catch (irk::po::error& e) {
-        std::cout << e.what() << std::endl;
-    }
-
-    fs::path dir(program.get<std::string>("index-dir").value());
-
-    std::unique_ptr<irk::default_index> index(nullptr);
-    try {
-        index.reset(new irk::default_index(dir, false));
-    } catch (std::invalid_argument& e) {
-        std::cerr << e.what() << " (not an index directory?)" << std::endl;
-        std::exit(1);
-    }
-
-    if (program.defined("use-term-ids")) {
-        //auto postings = index.posting_range(
-    } else {
-        auto postings =
-            index->posting_range(program.get<std::string>("term").value());
-        for (auto posting : postings) {
-            std::cout << posting.doc << "\t" << posting.score << std::endl;
-        }
+    } catch (std::bad_optional_access e) {
+        std::cerr << "Term " << term << " not found." << std::endl;
     }
 
 }

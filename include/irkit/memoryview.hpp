@@ -37,6 +37,13 @@
 #include <gsl/span>
 
 #include <irkit/io.hpp>
+#include <irkit/contracts.hpp>
+
+using irk::runtime::expects;
+using irk::runtime::EQ;
+using irk::runtime::NEQ;
+using irk::runtime::LT;
+using irk::runtime::LEQ;
 
 namespace fs = boost::filesystem;
 
@@ -106,7 +113,7 @@ public:
     {
         int left = slice.first.value_or(0);
         int right = slice.second.value_or(size() - 1);
-        assert(left <= right);
+        expects(left, LEQ, right);
         return range(left, right - left + 1);
     }
 

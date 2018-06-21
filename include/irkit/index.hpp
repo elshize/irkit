@@ -46,6 +46,7 @@
 #include <irkit/coding.hpp>
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
+#include <irkit/contracts.hpp>
 #include <irkit/daat.hpp>
 #include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
@@ -56,6 +57,12 @@
 #include <irkit/prefixmap.hpp>
 #include <irkit/score.hpp>
 #include <irkit/types.hpp>
+
+using irk::runtime::expects;
+using irk::runtime::EQ;
+using irk::runtime::NEQ;
+using irk::runtime::LT;
+using irk::runtime::LEQ;
 
 namespace irk::index {
 
@@ -440,8 +447,9 @@ inline namespace v2 {
               title_map_(load_prefix_map<long>(data->title_map_source())),
               term_count_(term_collection_frequencies_.size())
         {
-            assert(document_offsets_.size() == term_count_);
-            assert(count_offsets_.size() == term_count_);
+            expects(document_offsets_.size(), EQ, term_count_);
+            expects(count_offsets_.size(), EQ, term_count_);
+
             if (data->score_offset_source().has_value()) {
                 score_offsets_ = std::make_optional<offset_table_type>(
                     data->score_offset_source().value());
@@ -462,7 +470,7 @@ inline namespace v2 {
 
         auto documents(long term_id) const
         {
-            assert(term_id < term_count_);
+            expects(term_id, LT, term_count_);
             auto length = term_collection_frequencies_[term_id];
             return index::block_document_list_view(document_codec_,
                 select(term_id, document_offsets_, documents_view_),
@@ -471,7 +479,7 @@ inline namespace v2 {
 
         auto frequencies(long term_id) const
         {
-            assert(term_id < term_count_);
+            expects(term_id, LT, term_count_);
             auto length = term_collection_frequencies_[term_id];
             return index::block_payload_list_view(frequency_codec_,
                 select(term_id, count_offsets_, counts_view_),
@@ -480,7 +488,7 @@ inline namespace v2 {
 
         auto scores(long term_id) const
         {
-            assert(term_id < term_count_);
+            expects(term_id, LT, term_count_);
             auto length = term_collection_frequencies_[term_id];
             return index::block_payload_list_view(frequency_codec_,
                 select(term_id, *score_offsets_, *scores_view_),
@@ -489,7 +497,7 @@ inline namespace v2 {
 
         auto postings(long term_id) const
         {
-            assert(term_id < term_count_);
+            expects(term_id, LT, term_count_);
             auto length = term_collection_frequencies_[term_id];
             auto documents = index::block_document_list_view(document_codec_,
                 select(term_id, document_offsets_, documents_view_),
@@ -510,7 +518,7 @@ inline namespace v2 {
 
         auto scored_postings(long term_id) const
         {
-            assert(term_id < term_count_);
+            expects(term_id, LT, term_count_);
             if (!scores_view_.has_value())
             { throw std::runtime_error("scores not loaded"); }
             auto length = term_collection_frequencies_[term_id];

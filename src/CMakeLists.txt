@@ -3,10 +3,7 @@ target_link_libraries(irk CLI11::CLI11)
 
 #add_executable(irk-merge irk-merge.cpp)
 #target_link_libraries(irk-merge ${Boost_LIBRARIES})
-#
-#add_executable(irk-postings irk-postings.cpp)
-#target_link_libraries(irk-postings ${Boost_LIBRARIES})
-#
+
 #add_executable(irk-compress irk-compress.cpp)
 #target_link_libraries(irk-compress ${Boost_LIBRARIES})
 #
@@ -43,5 +40,9 @@ add_executable(irk-score irk-score.cpp)
 target_link_libraries(irk-score
     irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL Threads::Threads)
 target_compile_features(irk-score PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
+add_executable(irk-postings irk-postings.cpp)
+target_link_libraries(irk-postings irkit Boost::iostreams Boost::filesystem CLI11::CLI11 rax)
+target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 install(TARGETS irk irk-warc irk-part irk-buildindex irk-score DESTINATION bin)
