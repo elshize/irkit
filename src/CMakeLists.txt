@@ -42,7 +42,9 @@ target_link_libraries(irk-score
 target_compile_features(irk-score PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 add_executable(irk-postings irk-postings.cpp)
-target_link_libraries(irk-postings irkit Boost::iostreams Boost::filesystem CLI11::CLI11 rax)
+target_link_libraries(irk-postings
+    irkit Boost::iostreams Boost::filesystem CLI11::CLI11
+    rax GSL Threads::Threads nlohmann_json ranges)
 target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
 install(TARGETS irk irk-warc irk-part irk-buildindex irk-score DESTINATION bin)
