@@ -67,9 +67,9 @@ public:
 
     using view_type = irk::index::block_document_list_view<std::int32_t>;
     view_type view = view_type(irk::varbyte_codec<std::int32_t>{},
-        irk::make_memory_view(gsl::span<const char>(&memory[0], memory.size())),
-        5, /* frequency */
-        3 /* offset */);
+        irk::make_memory_view(
+            gsl::span<const char>(&memory[3], memory.size() - 6)),
+        5 /* frequency */);
 
     std::vector<int> documents = {9, 11, 12, 22, 27};
 };
@@ -94,9 +94,9 @@ public:
 
     using view_type = irk::index::block_payload_list_view<std::int32_t>;
     view_type view = view_type(irk::varbyte_codec<std::int32_t>{},
-        irk::make_memory_view(gsl::span<const char>(&memory[0], memory.size())),
-        5, /* frequency */
-        3 /* offset */);
+        irk::make_memory_view(
+            gsl::span<const char>(&memory[3], memory.size() - 6)),
+        5 /* frequency */);
 
     std::vector<int> payloads = {9, 2, 1, 10, 5};
 };
@@ -119,8 +119,7 @@ public:
     {
         memory.insert(memory.end(),
             reinterpret_cast<char*>(&scores[0]),
-            reinterpret_cast<char*>(
-                &scores[0] + 5 * sizeof(double)));
+            reinterpret_cast<char*>(&scores[0]) + 5 * sizeof(double));
         view = view_type(irk::copy_codec<double>{},
             irk::make_memory_view(
                 gsl::span<const char>(&memory[0], memory.size())),
@@ -357,50 +356,53 @@ TEST_F(block_list_builder, write_docs)
 {
     irk::index::block_list_builder<int, true> builder(
         2 /* block_size */, irk::varbyte_codec<int>{});
-    std::vector<char> bytes;
-    boost::iostreams::stream<
-        boost::iostreams::back_insert_device<std::vector<char>>>
-        buffer(boost::iostreams::back_inserter(bytes));
+    std::ostringstream buffer;
+    //std::vector<char> bytes;
+    //boost::iostreams::stream<
+    //    boost::iostreams::back_insert_device<std::vector<char>>>
+    //    buffer(boost::iostreams::back_inserter(bytes));
     for (int doc : doc_data.documents) { builder.add(doc); }
     builder.write(buffer);
 
     std::vector<char> expected(
         doc_data.memory.begin() + 3, doc_data.memory.end() - 3);
 
-    EXPECT_THAT(bytes, ::testing::ElementsAreArray(expected));
+    EXPECT_THAT(buffer.str(), ::testing::ElementsAreArray(expected));
 }
 
 TEST_F(block_list_builder, write_payloads)
 {
     irk::index::block_list_builder<int, false> builder(
         2 /* block_size */, irk::varbyte_codec<int>{});
-    std::vector<char> bytes;
-    boost::iostreams::stream<
-        boost::iostreams::back_insert_device<std::vector<char>>>
-        buffer(boost::iostreams::back_inserter(bytes));
+    std::ostringstream buffer;
+    //std::vector<char> bytes;
+    //boost::iostreams::stream<
+    //    boost::iostreams::back_insert_device<std::vector<char>>>
+    //    buffer(boost::iostreams::back_inserter(bytes));
     for (int pay : pay_data.payloads) { builder.add(pay); }
     builder.write(buffer);
 
     std::vector<char> expected(
         pay_data.memory.begin() + 3, pay_data.memory.end() - 3);
 
-    EXPECT_THAT(bytes, ::testing::ElementsAreArray(expected));
+    EXPECT_THAT(buffer.str(), ::testing::ElementsAreArray(expected));
 }
 
 TEST_F(block_list_builder, write_double_payloads)
 {
     irk::index::block_list_builder<double, false> builder(
         2 /* block_size */, irk::copy_codec<double>{});
-    std::vector<char> bytes;
-    boost::iostreams::stream<
-        boost::iostreams::back_insert_device<std::vector<char>>>
-        buffer(boost::iostreams::back_inserter(bytes));
+    std::ostringstream buffer;
+    //std::vector<char> bytes;
+    //boost::iostreams::stream<
+    //    boost::iostreams::back_insert_device<std::vector<char>>>
+    //    buffer(boost::iostreams::back_inserter(bytes));
     for (double pay : double_data.scores) { builder.add(pay); }
     builder.write(buffer);
 
     std::vector<char>
         expected(double_data.memory.begin(), double_data.memory.begin() + 46);
-    EXPECT_THAT(bytes, ::testing::ElementsAreArray(expected));
+    EXPECT_THAT(buffer.str(), ::testing::ElementsAreArray(expected));
 }
 
 };  // namespace

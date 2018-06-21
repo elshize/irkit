@@ -26,14 +26,17 @@
 
 #pragma once
 
+#include <iostream>
+#include <vector>
+
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/concepts.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <gsl/gsl_util>
 #include <gsl/span>
-#include <iostream>
-#include <vector>
+
+#include <irkit/io.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -214,7 +217,7 @@ private:
 
 memory_view make_memory_view(gsl::span<const char> mem)
 {
-    return memory_view(span_memory_source(mem));
+    return memory_view(span_memory_source<const char>(mem));
 }
 
 memory_view make_memory_view(const char* data, int size)
@@ -243,5 +246,91 @@ public:
 private:
     boost::iostreams::mapped_file_source file_;
 };
+
+//! A memory source that loads data from disk.
+template<class CharT = char>
+class disk_memory_source {
+public:
+    using char_type = CharT;
+    using pointer = char_type*;
+    using reference = char_type&;
+
+    disk_memory_source() = default;
+    disk_memory_source(boost::filesystem::path file_path)
+        : file_path_(file_path),
+          offset_(0),
+          size_(calc_size()),
+          internal_offset_(0)
+    {}
+    disk_memory_source(boost::filesystem::path file_path,
+        std::streamsize offset,
+        std::streamsize file_size,
+        std::streamsize internal_offset,
+        std::shared_ptr<std::vector<char_type>> buffer = nullptr)
+        : file_path_(file_path),
+          offset_(offset),
+          size_(file_size),
+          internal_offset_(internal_offset),
+          buffer_(buffer)
+    {}
+
+    const char_type* data() const
+    {
+        ensure_loaded();
+        return &(*buffer_)[internal_offset_];
+    }
+
+    std::streamsize size() const { return size_; }
+
+    const char_type& operator[](int n) const
+    { return data()[n + internal_offset_]; }
+
+    disk_memory_source<char_type>
+    range(std::streamsize first, std::streamsize size) const
+    {
+        if (buffer_ != nullptr)
+        {
+            auto internal_offset = first + internal_offset_;
+            return disk_memory_source(
+                file_path_, offset_, size, internal_offset, buffer_);
+        }
+        return disk_memory_source(file_path_, offset_ + first, size, 0);
+    }
+
+private:
+    boost::filesystem::path file_path_;
+    std::streamsize offset_;
+    std::streamsize size_;
+    mutable std::shared_ptr<std::vector<char_type>> buffer_;
+    std::streamsize internal_offset_;
+
+    void ensure_loaded() const
+    {
+        if (buffer_ == nullptr) {
+            io::enforce_exist(file_path_);
+            auto flags = std::ifstream::ate | std::ifstream::binary;
+            std::ifstream in(file_path_.c_str(), flags);
+            in.seekg(offset_, std::ios::beg);
+            buffer_ = std::make_shared<std::vector<char_type>>(size_);
+            if (!in.read(buffer_->data(), size_))
+            {
+                throw std::runtime_error(
+                    "Failed reading " + file_path_.string());
+            }
+        }
+    }
+
+    std::streamsize calc_size() const
+    {
+        auto flags = std::ifstream::ate | std::ifstream::binary;
+        std::ifstream in(file_path_.c_str(), flags);
+        return in.tellg();
+    }
+};
+
+memory_view make_memory_view(boost::filesystem::path file_path)
+{
+    return memory_view(disk_memory_source(file_path));
+}
 
 };  // namespace irk

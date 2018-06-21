@@ -146,12 +146,8 @@ public:
     //! Writes new-line-delimited sorted list of terms.
     void write_terms(std::ostream& out)
     {
-        if (sorted_terms_ == std::nullopt) {
-            sort_terms();
-        }
-        for (auto& term : sorted_terms_.value()) {
-            out << term << std::endl;
-        }
+        if (sorted_terms_ == std::nullopt) { sort_terms(); }
+        for (auto& term : sorted_terms_.value()) { out << term << std::endl; }
     }
 
     //! Writes document IDs

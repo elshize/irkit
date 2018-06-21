@@ -81,6 +81,15 @@ void test_slices(const irk::memory_view& view,
     test_slice(view,
         std::vector<char>(container.begin(), container.end() - 2),
         {std::nullopt, container.size() - 3});
+
+    auto s = view.range(1, 3);
+    test_slice(s, {2, 1, 4}, {std::nullopt, std::nullopt});
+    test_slice(s, {1, 4}, {1, std::nullopt});
+    test_slice(s, {2, 1}, {std::nullopt, 1});
+    test_slice(s, {1}, {1, 1});
+    auto ss = s.range(1, 2);
+    test_slice(ss, {1, 4}, {std::nullopt, std::nullopt});
+    test_slice(ss, {4}, {1, std::nullopt});
 }
 
 TEST_F(span_memory_source, size)
@@ -94,6 +103,42 @@ TEST_F(span_memory_source, iterator)
 }
 
 TEST_F(span_memory_source, slice)
+{
+    test_slices(view, container);
+}
+
+class disk_memory_source : public ::testing::Test {
+protected:
+    std::vector<char> container = {4, 2, 1, 4, 6};
+    boost::filesystem::path path;
+    irk::memory_view view;
+
+    disk_memory_source() {
+        auto tmpdir = boost::filesystem::temp_directory_path();
+        auto dir = tmpdir / "irkit-disk_memory_source";
+        if (boost::filesystem::exists(dir)) {
+            boost::filesystem::remove_all(dir);
+        }
+        boost::filesystem::create_directory(dir);
+        path = dir / "source_file";
+        std::ofstream out(path.c_str());
+        out.write(&container[0], container.size());
+        out.flush();
+        view = irk::make_memory_view(path);
+    }
+};
+
+TEST_F(disk_memory_source, size)
+{
+    test_size(view, container);
+}
+
+TEST_F(disk_memory_source, iterator)
+{
+    test_iterator(view, container);
+}
+
+TEST_F(disk_memory_source, slice)
 {
     test_slices(view, container);
 }
