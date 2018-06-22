@@ -68,7 +68,7 @@ struct reinterpret_cast_fn {
  */
 class memory_view {
 public:
-    using slice_end = std::optional<int>;
+    using slice_end = std::optional<std::ptrdiff_t>;
     using slice_type = std::pair<slice_end, slice_end>;
 
     //! Creates a memory view.
@@ -97,13 +97,13 @@ public:
     const char* data() const { return self_->data(); }
 
     //! Returns the number of characters in the memory area.
-    gsl::index size() const { return self_->size(); }
+    std::ptrdiff_t size() const { return self_->size(); }
 
-    //! Returns a  a character at offset `n` in the memory.
-    const char& operator[](int n) const { return (*self_)[n]; }
+    //! Returns a character at offset `n` in the memory.
+    const char& operator[](std::ptrdiff_t n) const { return (*self_)[n]; }
 
     //! Returns a new memory view defined by the given range.
-    irk::memory_view range(int first, int size) const
+    irk::memory_view range(std::ptrdiff_t first, std::ptrdiff_t size) const
     {
         return {self_->range(first, size)};
     }
@@ -111,8 +111,8 @@ public:
     //! Returns a new memory view defined by the given slice.
     irk::memory_view operator[](slice_type slice) const
     {
-        int left = slice.first.value_or(0);
-        int right = slice.second.value_or(size() - 1);
+        std::ptrdiff_t left = slice.first.value_or(0);
+        std::ptrdiff_t right = slice.second.value_or(size() - 1);
         expects(left, LEQ, right);
         return range(left, right - left + 1);
     }
@@ -152,8 +152,9 @@ public:
         virtual ~concept() = default;
         virtual const char* data() const = 0;
         virtual gsl::index size() const = 0;
-        virtual const char& operator[](int) const = 0;
-        virtual memory_view range(int first, gsl::index size) const = 0;
+        virtual const char& operator[](std::ptrdiff_t) const = 0;
+        virtual memory_view range(std::ptrdiff_t first, std::ptrdiff_t size)
+            const = 0;
     };
 
     template<class source_type>
@@ -162,8 +163,9 @@ public:
         model(source_type source) : source_(source) {}
         const char* data() const override { return source_.data(); }
         gsl::index size() const override { return source_.size(); }
-        const char& operator[](int n) const override { return source_[n]; }
-        memory_view range(int first, gsl::index size) const override
+        const char& operator[](std::ptrdiff_t n) const override { return source_[n]; }
+        memory_view
+        range(std::ptrdiff_t first, std::ptrdiff_t size) const override
         {
             return memory_view(source_.range(first, size));
         }
@@ -187,9 +189,9 @@ public:
     span_memory_source(gsl::span<const char_type> memory_span)
         : span_(memory_span){};
     const char_type* data() const { return span_.data(); }
-    gsl::index size() const { return span_.size(); }
-    const char_type& operator[](int n) const { return span_[n]; }
-    span_memory_source range(int first, gsl::index size) const
+    std::ptrdiff_t size() const { return span_.size(); }
+    const char_type& operator[](std::ptrdiff_t n) const { return span_[n]; }
+    span_memory_source range(std::ptrdiff_t first, std::ptrdiff_t size) const
     {
         return span_memory_source(span_.subspan(first, size));
     }
@@ -206,19 +208,19 @@ public:
     using pointer = char_type*;
     using reference = char_type&;
     pointer_memory_source() = default;
-    pointer_memory_source(const char_type* data, gsl::index size)
+    pointer_memory_source(const char_type* data, std::ptrdiff_t size)
         : data_(data), size_(size){};
     const char_type* data() const { return data_; }
-    gsl::index size() const { return size_; }
-    const char_type& operator[](int n) const { return data_[n]; }
-    pointer_memory_source range(int first, gsl::index size) const
+    std::ptrdiff_t size() const { return size_; }
+    const char_type& operator[](std::ptrdiff_t n) const { return data_[n]; }
+    pointer_memory_source range(std::ptrdiff_t first, std::ptrdiff_t size) const
     {
         return pointer_memory_source(data_ + first, size);
     }
 
 private:
     const char_type* data_;
-    gsl::index size_;
+    std::ptrdiff_t size_;
 };
 
 
@@ -227,7 +229,7 @@ memory_view make_memory_view(gsl::span<const char> mem)
     return memory_view(span_memory_source<const char>(mem));
 }
 
-memory_view make_memory_view(const char* data, int size)
+memory_view make_memory_view(const char* data, std::ptrdiff_t size)
 {
     return memory_view(pointer_memory_source(data, size));
 }
@@ -243,9 +245,9 @@ public:
     mapped_file_memory_source(boost::iostreams::mapped_file_source file)
         : file_(file) {}
     const char_type* data() const { return file_.data(); }
-    gsl::index size() const { return file_.size(); }
-    char operator[](int n) const { return data()[n]; }
-    pointer_memory_source<char_type> range(int first, gsl::index size) const
+    std::ptrdiff_t size() const { return file_.size(); }
+    char operator[](std::ptrdiff_t n) const { return data()[n]; }
+    pointer_memory_source<char_type> range(std::ptrdiff_t first, std::ptrdiff_t size) const
     {
         return pointer_memory_source(file_.data() + first, size);
     }
@@ -289,7 +291,7 @@ public:
 
     std::streamsize size() const { return size_; }
 
-    const char_type& operator[](int n) const
+    const char_type& operator[](std::ptrdiff_t n) const
     { return data()[n + internal_offset_]; }
 
     disk_memory_source<char_type>

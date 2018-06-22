@@ -325,9 +325,10 @@ private:
         const offset_table_type& offsets,
         const memory_view& memory) const
     {
-        auto offset = offsets[term_id];
-        auto next_offset = (term_id + 1 < term_count_) ? offsets[term_id + 1]
-                                                       : memory.size();
+        index::offset_t offset = offsets[term_id];
+        index::offset_t next_offset = (term_id + 1 < term_count_)
+            ? offsets[term_id + 1]
+            : memory.size();
         std::cout << "[" << offset << " " << next_offset - 1
                   << "] term: " << term_id << "/" << term_count_ << std::endl;
         return memory[{offset, next_offset - 1}];
