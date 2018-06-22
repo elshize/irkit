@@ -20,6 +20,6 @@ set(INVERTED_INDEX integration_test_index)
 add_executable(${INVERTED_INDEX} integration_test_index.cpp)
 target_link_libraries(${INVERTED_INDEX}
     irkit gtest gmock rax ranges Boost::filesystem Boost::iostreams Boost::log
-    nlohmann_json GSL Threads::Threads)
+    nlohmann_json GSL Threads::Threads type_safe)
 target_compile_features(${INVERTED_INDEX} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 gtest_add_tests(TARGET ${INVERTED_INDEX} TEST_PREFIX "integration.")
