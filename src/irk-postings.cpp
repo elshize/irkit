@@ -5,6 +5,7 @@
 
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
 
 namespace fs = boost::filesystem;
 

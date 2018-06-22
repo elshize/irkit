@@ -33,6 +33,7 @@
 
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
 
 int main(int argc, char** argv)
 {
@@ -56,8 +57,8 @@ int main(int argc, char** argv)
     CLI11_PARSE(app, argc, argv);
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
-    irk::v2::inverted_index_inmemory_data_source data(dir);
-    irk::v2::inverted_index_view index(&data,
+    irk::inverted_index_inmemory_data_source data(dir);
+    irk::inverted_index_view index(&data,
         irk::varbyte_codec<long>{},
         irk::varbyte_codec<long>{},
         irk::varbyte_codec<long>{});

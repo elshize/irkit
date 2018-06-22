@@ -6,8 +6,10 @@
 #include <boost/filesystem.hpp>
 
 #include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
 
 namespace fs = boost::filesystem;
+using source_type = irk::inverted_index_disk_data_source;
 
 struct valid_scoring_function {
     std::unordered_set<std::string> available_scorers;
@@ -44,9 +46,10 @@ int main(int argc, char** argv)
 
     fs::path dir_path(dir);
     if (scorer == "bm25") {
-        irk::v2::score_index<irk::score::bm25_scorer>(dir, bits);
+        irk::score_index<irk::score::bm25_scorer, source_type>(dir, bits);
     } else if (scorer == "ql") {
-        irk::v2::score_index<irk::score::query_likelihood_scorer>(dir, bits);
+        irk::score_index<irk::score::query_likelihood_scorer, source_type>(
+            dir, bits);
     }
 
     return 0;

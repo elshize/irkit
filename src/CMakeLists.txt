@@ -47,4 +47,6 @@ target_link_libraries(irk-postings
     rax GSL Threads::Threads nlohmann_json ranges)
 target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
-install(TARGETS irk irk-warc irk-part irk-buildindex irk-score DESTINATION bin)
+install(
+    TARGETS irk irk-warc irk-part irk-buildindex irk-score irk-postings irk-table
+    DESTINATION bin)
