@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file merger.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -31,7 +31,8 @@
 
 #include <boost/log/trivial.hpp>
 
-#include "irkit/index.hpp"
+#include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
 
 namespace irk {
 
@@ -96,7 +97,7 @@ private:
     fs::path target_dir_;
     bool skip_unique_;
     std::vector<index_type> indices_;
-    std::vector<irk::v2::inverted_index_mapped_data_source> sources_;
+    std::vector<irk::inverted_index_mapped_data_source> sources_;
     std::vector<entry> heap_;
     std::ofstream terms_out_;
     std::ofstream doc_ids_;
@@ -104,8 +105,8 @@ private:
     std::vector<std::size_t> doc_ids_off_;
     std::vector<std::size_t> doc_counts_off_;
     std::vector<frequency_type> term_dfs_;
-    std::size_t doc_offset_;
-    std::size_t count_offset_;
+    index::offset_t doc_offset_;
+    index::offset_t count_offset_;
     long block_size_;
     any_codec<document_type> document_codec_;
     any_codec<frequency_type> frequency_codec_;

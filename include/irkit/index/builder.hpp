@@ -38,6 +38,7 @@
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/index/block_inverted_list.hpp>
+#include <irkit/index/types.hpp>
 
 namespace irk {
 
@@ -154,8 +155,8 @@ public:
     void write_document_ids(std::ostream& out, std::ostream& off)
     {
         if (sorted_terms_ == std::nullopt) { sort_terms(); }
-        std::size_t offset = 0;
-        std::vector<std::size_t> offsets;
+        index::offset_t offset = 0;
+        std::vector<index::offset_t> offsets;
         for (auto& term : sorted_terms_.value())
         {
             offsets.push_back(offset);

@@ -232,7 +232,7 @@ template<class Codec, class InputRange>
 std::ostream& encode_delta(const InputRange& int_range,
     std::ostream& sink,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
     typename Codec::value_type prev = initial_value;
@@ -254,7 +254,7 @@ std::ostream& encode_delta(const InputRange& int_range,
 template<class Codec, class InputRange>
 std::vector<char> encode_delta(const InputRange& int_range,
     const Codec& codec = Codec{},
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT((concept::InputRange<InputRange>));
     std::vector<char> bytes;
@@ -402,7 +402,7 @@ template<class Codec, class OutputIterator>
 std::istream& decode_delta(OutputIterator output,
     std::istream& source,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT(
         (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
@@ -425,7 +425,7 @@ std::istream& decode_delta(OutputIterator output,
 template<class Codec, class SourceRange>
 std::vector<typename Codec::value_type> decode_delta(const SourceRange& source,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT((concept::InputRange<SourceRange>));
     std::vector<typename Codec::value_type> result;
@@ -449,7 +449,7 @@ std::istream& decode_delta_n(OutputIterator output,
     std::istream& source,
     std::size_t num = 0,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT(
         (boost::OutputIterator<OutputIterator, typename Codec::value_type>));
@@ -475,7 +475,7 @@ template<class Codec>
 std::vector<typename Codec::value_type> decode_delta_n(std::istream& source,
     std::size_t num,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     std::vector<typename Codec::value_type> result;
     decode_delta_n(
@@ -495,7 +495,7 @@ std::vector<typename Codec::value_type>
 decode_delta_n(const SourceRange& source,
     std::size_t n,
     const Codec& codec = Codec(),
-    typename Codec::value_type initial_value = typename Codec::value_type(0))
+    typename Codec::value_type initial_value = typename Codec::value_type())
 {
     BOOST_CONCEPT_ASSERT((concept::InputRange<SourceRange>));
     std::vector<typename Codec::value_type> result;

@@ -26,15 +26,18 @@
 
 #pragma once
 
-#include <boost/filesystem.hpp>
-#include <boost/iostreams/device/mapped_file.hpp>
 #include <fstream>
 #include <iostream>
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/io.hpp"
-#include "irkit/io/memorybuffer.hpp"
-#include "irkit/types.hpp"
+
+#include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include <type_safe/index.hpp>
+
+#include <irkit/coding.hpp>
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/io.hpp>
+#include <irkit/io/memorybuffer.hpp>
+#include <irkit/types.hpp>
 
 namespace irk {
 
@@ -61,7 +64,7 @@ struct compact_table_leader {
 };
 
 template<class Mem, class Codec>
-std::size_t read_compact_value(Mem mem, std::uint32_t key, Codec codec)
+auto read_compact_value(Mem mem, std::uint32_t key, Codec codec)
 {
     auto header = reinterpret_cast<const compact_table_header*>(mem.data());
     bool delta_encoded = header->flags & CompactTableHeaderFlags::DeltaEncoding;
@@ -137,12 +140,12 @@ public:
         return *this;
     }
 
-    std::size_t operator[](std::size_t term_id)
+    T operator[](std::size_t term_id)
     {
         return read_compact_value(data_, term_id, codec_);
     }
 
-    std::size_t operator[](std::size_t term_id) const
+    T operator[](std::size_t term_id) const
     {
         return read_compact_value(data_, term_id, codec_);
     }

@@ -8,6 +8,7 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
+#include <irkit/index/source.hpp>
 
 namespace {
 
@@ -126,8 +127,8 @@ protected:
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
-        irk::score_index<irk::score::query_likelihood_scorer>(
-            index_dir, 24);
+        irk::score_index<irk::score::query_likelihood_scorer,
+            irk::inverted_index_inmemory_data_source>(index_dir, 24);
     }
 };
 
@@ -164,7 +165,7 @@ void test(const irk::inverted_index_view& index_view,
 TEST_F(inverted_index, mapped_file)
 {
     // then
-    auto data = std::make_shared<irk::v2::inverted_index_mapped_data_source>(
+    auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
         index_dir, irk::score::query_likelihood_tag{});
     irk::inverted_index_view index_view(data.get(),
         irk::varbyte_codec<long>{},

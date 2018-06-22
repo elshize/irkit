@@ -15,7 +15,7 @@ namespace fs = boost::filesystem;
 
 void run_lookup(const std::string& table_file, int index)
 {
-    auto table = irk::load_compact_table<long>(table_file);
+    auto table = irk::load_compact_table<std::ptrdiff_t>(table_file);
     if (index >= table.size()) {
         std::cerr << "Given index (" << index << ") is out of range [0-"
                   << table.size() << ")" << std::endl;
