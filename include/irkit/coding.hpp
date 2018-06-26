@@ -50,7 +50,7 @@ namespace irk {
 //! Encoder concept for type erasure.
 template<class C, class T>
 struct has_encode {
-    static std::ostream& apply(const C& codec, T n, std::ostream& sink)
+    static std::ostream& apply(C codec, const T& n, std::ostream& sink)
     {
         return codec.encode(n, sink);
     }

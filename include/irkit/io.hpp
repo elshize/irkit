@@ -18,6 +18,17 @@ namespace irk::io {
 
 namespace fs = boost::filesystem;
 
+namespace detail {
+    class line : public std::string {
+        friend std::istream& operator>>(std::istream& is, line& line)
+        {
+            return std::getline(is, line);
+        }
+    };
+}  // namespace detail
+
+using line_iterator = std::istream_iterator<detail::line>;
+
 void enforce_exist(const fs::path& file)
 {
     if (!fs::exists(file)) {
@@ -36,7 +47,25 @@ void load_data(fs::path data_file, std::vector<char>& data_container)
     if (!in.read(data_container.data(), size)) {
         throw std::runtime_error("Failed reading " + data_file.string());
     }
-    in.close();
+}
+
+void load_lines(fs::path data_file, std::vector<std::string>& lines)
+{
+    enforce_exist(data_file);
+    std::ifstream in(data_file.c_str());
+    std::string line;
+    int n = 0;
+    while (std::getline(in, line)) {
+        lines.push_back(line);
+        n++;
+    }
+}
+
+std::vector<std::string> load_lines(fs::path data_file)
+{
+    std::vector<std::string> lines;
+    load_lines(data_file, lines);
+    return lines;
 }
 
 //! Appends the underlying bytes of an object to a byte buffer.

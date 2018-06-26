@@ -54,6 +54,7 @@ public:
     using symbol_type = Symbol;
     using pointer_type = Ptr;
     using container_type = MemoryContainer;
+    using self_type = alphabetical_bst<symbol_type, pointer_type, container_type>;
 
 private:
     container_type mem_;
@@ -68,7 +69,11 @@ public:
         sizeof(pointer_type) + sizeof(symbol_type);
 
     alphabetical_bst() = default;
+    alphabetical_bst(const self_type&) = default;
+    alphabetical_bst(self_type&&) = default;
     alphabetical_bst(container_type mem) : mem_(std::move(mem)) {}
+    self_type& operator=(const self_type&) = default;
+    self_type& operator=(self_type&&) = default;
 
     struct node_ptr {
         const char* bytes;
@@ -173,19 +178,18 @@ public:
         return *reinterpret_cast<const symbol_type*>(&next);
     }
 
-
     template<class InputBitStream>
     symbol_type decode(InputBitStream& source) const
     {
         pointer_type next(symbol_bound);
         node_ptr node;
         while (next >= symbol_bound) {
-            node = node_at(next - symbol_bound);
             std::int8_t bit = source.read();
             if (bit == -1) {
                 throw std::runtime_error(
                     "bit stream ended before finishing decoding a symbol");
             }
+            node = node_at(next - symbol_bound);
             next = bit ? node.right() : node.left();
         }
         return *reinterpret_cast<const symbol_type*>(&next);

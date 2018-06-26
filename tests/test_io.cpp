@@ -15,7 +15,6 @@ TEST(InputBitStream, read)
 {
     std::istringstream in(std::string({0b01010101, (char)0b10000000}));
     irk::input_bit_stream ibs(in);
-    EXPECT_EQ(ibs.read(), 0);
     EXPECT_EQ(ibs.read(), 1);
     EXPECT_EQ(ibs.read(), 0);
     EXPECT_EQ(ibs.read(), 1);
@@ -23,14 +22,15 @@ TEST(InputBitStream, read)
     EXPECT_EQ(ibs.read(), 1);
     EXPECT_EQ(ibs.read(), 0);
     EXPECT_EQ(ibs.read(), 1);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
+    EXPECT_EQ(ibs.read(), 0);
     EXPECT_EQ(ibs.read(), 1);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
-    EXPECT_EQ(ibs.read(), 0);
     EXPECT_EQ(ibs.read(), -1);
 }
 
@@ -55,7 +55,7 @@ TEST(OutputBitStream, read)
     obs.write(0);
     obs.write(0);
     obs.flush();
-    EXPECT_EQ(out.str(), std::string({0b01010101, (char)0b10000000}));
+    EXPECT_EQ(out.str(), std::string({(char)0b10101010, 0b00000001}));
 }
 
 TEST(OffsetTable, from_ints_write_load)

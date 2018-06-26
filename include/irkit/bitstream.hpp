@@ -35,24 +35,25 @@ class input_bit_stream {
 protected:
     std::istream& in_;
     char byte_;
-    std::uint8_t buffered_bits_;
+    std::uint8_t buffered_pos_;
 
     std::int8_t get_bit(int n) { return ((byte_ & (1 << n)) != 0); }
 
 public:
-    input_bit_stream(std::istream& in) : in_(in), buffered_bits_(0) {}
+    explicit input_bit_stream(std::istream& in) : in_(in), buffered_pos_(8) {}
 
     //! Returns bit: 0 or 1, or -1 if no bit could be read.
     std::int8_t read()
     {
-        if (buffered_bits_ == 0) {
-            if (!in_.read(&byte_, 1)) {
-                return -1;
-            }
-            buffered_bits_ = 8;
+        if (buffered_pos_ == 8)
+        {
+            if (!in_.read(&byte_, 1)) { return -1; }
+            buffered_pos_ = 0;
         }
-        return get_bit(--buffered_bits_);
+        return get_bit(buffered_pos_++);
     };
+
+    void clear_buffer() { buffered_pos_ = 8; }
 };
 
 //! An output stream writing bits.
@@ -60,35 +61,32 @@ class output_bit_stream {
 protected:
     std::ostream& out_;
     char byte_;
-    std::uint8_t available_bits_;
+    std::uint8_t buffered_bits_;
 
     void set_bit(int n, bool bit) { byte_ |= (bit << n); }
 
     void do_flush()
     {
         out_.write(&byte_, 1);
-        available_bits_ = 8;
+        buffered_bits_ = 0;
         byte_ = 0;
     }
 
 public:
-    output_bit_stream(std::ostream& out)
-        : out_(out), byte_(0), available_bits_(8)
+    explicit output_bit_stream(std::ostream& out)
+        : out_(out), byte_(0), buffered_bits_(0)
     {}
 
     void write(bool bit)
     {
-        set_bit(--available_bits_, bit);
-        if (available_bits_ == 0) {
-            do_flush();
-        }
+        set_bit(buffered_bits_++, bit);
+        if (buffered_bits_ == 8) { do_flush(); }
     };
 
     void flush()
     {
-        if (available_bits_ < 8) {
-            do_flush();
-        }
+        if (buffered_bits_ > 0) { do_flush(); }
+        out_.flush();
     }
 };
 

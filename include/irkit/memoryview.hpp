@@ -147,6 +147,12 @@ public:
     iterator begin() const { return {data()}; }
     iterator end() const { return {data() + size()}; }
 
+    auto stream() const
+    {
+        return boost::iostreams::stream<
+            boost::iostreams::basic_array_source<char>>(data(), size());
+    }
+
     struct concept
     {
         virtual ~concept() = default;
@@ -223,6 +229,10 @@ private:
     std::ptrdiff_t size_;
 };
 
+memory_view make_memory_view(const std::vector<char>& mem)
+{
+    return memory_view(pointer_memory_source(mem.data(), mem.size()));
+}
 
 memory_view make_memory_view(gsl::span<const char> mem)
 {
