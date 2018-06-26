@@ -15,6 +15,6 @@ gtest_add_tests(TARGET ${POSTING_LIST} TEST_PREFIX "unit.")
 set(COMPACT_TABLE compact_table)
 add_executable(${COMPACT_TABLE} unit_test_compact_table.cpp)
 target_link_libraries(${COMPACT_TABLE}
-    irkit gtest gmock rax Boost::filesystem GSL)
+    irkit gtest gmock rax Boost::filesystem GSL type_safe debug_assert)
 target_compile_features(${COMPACT_TABLE} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 gtest_add_tests(TARGET ${COMPACT_TABLE} TEST_PREFIX "unit.")
