@@ -72,7 +72,7 @@ public:
 
     void reset() { prev_ = ""; }
 
-    Codec* codec() { return codec_.get(); }
+    std::shared_ptr<Codec> codec() { return codec_; }
 
 private:
     std::shared_ptr<Codec> codec_;

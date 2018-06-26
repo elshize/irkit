@@ -30,7 +30,7 @@ void run_lookup(const std::string& lexicon_file, const std::string& key)
 int main(int argc, char** argv)
 {
     std::string input, lexicon_file, string_key;
-    std::ptrdiff_t keys_per_block;
+    std::ptrdiff_t keys_per_block = 128;
 
     CLI::App app{"Builds a lexicon (string to positional index mapping)."};
     app.require_subcommand(1);

@@ -67,7 +67,8 @@ public:
 
     irk::memory_view block_memory_view(int block) const
     {
-        EXPECTS(0 <= block && block < block_offsets_.size());
+        EXPECTS(block >= 0);
+        EXPECTS(block < block_offsets_.size());
         auto block_offset = block_offsets_[block];
         auto next_block_offset = block + 1 < block_offsets_.size()
             ? block_offsets_[block + 1]
@@ -127,6 +128,7 @@ public:
         out.write(
             reinterpret_cast<char*>(&header_size), sizeof(std::ptrdiff_t));
         out.write(&header[0], header.size());
+        out.flush();
 
         dump_blocks(out);
         return out;
@@ -221,20 +223,24 @@ private:
     std::ostream& dump_blocks(std::ostream& out) const
     {
         std::size_t blocks_size = blocks_.size();
-        out.write(reinterpret_cast<char*>(&blocks_size), sizeof(blocks_size));
         out.write(blocks_.data(), blocks_size);
         return out;
     }
 
     std::ostream& dump_leading_keys(std::ostream& out) const
     {
-        const auto& codec = codec_->codec();
+        output_bit_stream bout(out);
+        irk::prefix_codec<codec_type> encoder(codec_->codec());
         for (const auto& block : boost::irange<int>(0, block_offsets_.size()))
         {
+            codec_->reset();
             auto buffer = block_memory_view(block).stream();
             irk::input_bit_stream bin(buffer);
-            codec->decode(bin, out, 1);
+            std::string key;
+            codec_->decode(bin, key);
+            encoder.encode(key, bout);
         }
+        bout.flush();
         return out;
     }
 };
@@ -272,11 +278,11 @@ lexicon_view<hutucker_codec<char>> load_lexicon(irk::memory_view memory)
     }
 
     // Encoding tree
-    std::ptrdiff_t tree_size;
-    intcodec.decode(header_stream, tree_size);
+    std::size_t tree_size;
+    header_stream.read(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
     std::vector<char> tree_data(tree_size);
     header_stream.read(tree_data.data(), tree_size);
-    alphabetical_bst<> encoding_tree(std::move(tree_data));
+    alphabetical_bst<> encoding_tree(tree_data);
     auto ht_codec = std::make_shared<hutucker_codec<char>>(encoding_tree);
 
     // Block leading values
@@ -287,7 +293,7 @@ lexicon_view<hutucker_codec<char>> load_lexicon(irk::memory_view memory)
     for (int idx : boost::irange<int>(0, block_count)) {
         std::string key;
         pcodec->decode(bin, key);
-        leading_keys->insert(key, leading_indices[idx]);
+        leading_keys->insert(key, idx);
     }
     return lexicon_view<hutucker_codec<char>>(
         std::move(block_offsets),

@@ -33,13 +33,24 @@ TEST(lexicon, build_load_verify)
         boost::iostreams::back_insert_device<std::vector<char>>>
         out(boost::iostreams::back_inserter(buffer));
     lexicon.serialize(out);
+    out.flush();
 
     // Load
     auto loaded_lex = irk::load_lexicon(irk::make_memory_view(buffer));
 
+    ASSERT_THAT(lexicon.leading_indices_,
+        ::testing::ElementsAreArray(loaded_lex.leading_indices_));
+    ASSERT_THAT(lexicon.block_offsets_,
+        ::testing::ElementsAreArray(loaded_lex.block_offsets_));
+    ASSERT_EQ(lexicon.count_, loaded_lex.count_);
+    ASSERT_EQ(lexicon.keys_per_block_, loaded_lex.keys_per_block_);
+    std::vector<char> loaded_blocks(
+        loaded_lex.blocks_.begin(), loaded_lex.blocks_.end());
+    ASSERT_THAT(lexicon.blocks_, ::testing::ElementsAreArray(loaded_blocks));
+
     int idx = 0;
     for (const auto& term : lines) {
-        auto res = lexicon.index_at(term);
+        auto res = loaded_lex.index_at(term);
         ASSERT_TRUE(res.has_value());
         ASSERT_EQ(res.value(), idx++);
     }
