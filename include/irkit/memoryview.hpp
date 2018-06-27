@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file memoryview.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -37,13 +37,7 @@
 #include <gsl/span>
 
 #include <irkit/io.hpp>
-#include <irkit/contracts.hpp>
-
-using irk::runtime::expects;
-using irk::runtime::EQ;
-using irk::runtime::NEQ;
-using irk::runtime::LT;
-using irk::runtime::LEQ;
+#include <irkit/assert.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -113,8 +107,22 @@ public:
     {
         std::ptrdiff_t left = slice.first.value_or(0);
         std::ptrdiff_t right = slice.second.value_or(size() - 1);
-        expects(left, LEQ, right);
+        EXPECTS(left <= right);
         return range(left, right - left + 1);
+    }
+
+    //! Returns a new memory view defined by a half-open range [lo, hi).
+    irk::memory_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
+    {
+        EXPECTS(lo < hi);
+        return range(lo, hi - lo);
+    }
+
+    //! Returns a new memory view defined by the given cut.
+    irk::memory_view operator()(std::ptrdiff_t cut) const
+    {
+        if (cut < 0) { return range(size() + cut, -cut); }
+        else { return range(0, cut); }
     }
 
     template<class T, class CastFn = reinterpret_cast_fn<T>>

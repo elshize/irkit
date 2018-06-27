@@ -40,6 +40,7 @@ int main(int argc, char** argv)
     std::string output_dir;
     int batch_size = 100'000;
     int skip_block_size = 64;
+    int lexicon_block_size = 256;
     bool merge_only = false;
 
     CLI::App app{"Build an inverted index."};
@@ -49,6 +50,10 @@ int main(int argc, char** argv)
         "Max number of documents to build in memory.",
         true);
     app.add_option("--skip-block-size,-s",
+        skip_block_size,
+        "Size of skip blocks for inverted lists.",
+        true);
+    app.add_option("--lexicon-block-size",
         skip_block_size,
         "Size of skip blocks for inverted lists.",
         true);
@@ -70,18 +75,19 @@ int main(int argc, char** argv)
             irk::varbyte_codec<long>{},
             skip_block_size);
         merger.merge();
-        auto term_map = irk::build_prefix_map_from_file<long>(
-            irk::index::terms_path(output_dir));
-        irk::io::dump(term_map, irk::index::term_map_path(output_dir));
-        auto title_map = irk::build_prefix_map_from_file<long>(
-            irk::index::titles_path(output_dir));
-        irk::io::dump(title_map, irk::index::title_map_path(output_dir));
+        auto term_map = irk::build_lexicon(
+            irk::index::terms_path(output_dir), lexicon_block_size);
+        term_map.serialize(irk::index::term_map_path(output_dir));
+        auto title_map = irk::build_lexicon(
+            irk::index::titles_path(output_dir), lexicon_block_size);
+        title_map.serialize(irk::index::title_map_path(output_dir));
     }
     else
     {
         irk::index::default_index_assembler assembler(fs::path(output_dir),
             batch_size,
             skip_block_size,
+            lexicon_block_size,
             irk::varbyte_codec<long>{},
             irk::varbyte_codec<long>{});
         assembler.assemble(std::cin);

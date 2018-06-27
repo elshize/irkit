@@ -35,6 +35,7 @@
 #include <irkit/index/builder.hpp>
 #include <irkit/index/merger.hpp>
 #include <irkit/index/metadata.hpp>
+#include <irkit/lexicon.hpp>
 
 namespace irk::index {
 
@@ -62,6 +63,7 @@ private:
     fs::path output_dir_;
     int batch_size_;
     long block_size_;
+    long lexicon_block_size_;
     any_codec<document_type> document_codec_;
     any_codec<frequency_type> frequency_codec_;
 
@@ -74,11 +76,13 @@ public:
     index_assembler(fs::path output_dir,
         int batch_size,
         long block_size,
+        int lexicon_block_size,
         any_codec<document_type> document_codec,
         any_codec<frequency_type> frequency_codec) noexcept
         : output_dir_(output_dir),
           batch_size_(batch_size),
           block_size_(block_size),
+          lexicon_block_size_(lexicon_block_size),
           document_codec_(document_codec),
           frequency_codec_(frequency_codec)
     {}
@@ -115,12 +119,12 @@ public:
             frequency_codec_,
             block_size_);
         merger.merge();
-        auto term_map = irk::build_prefix_map_from_file<long>(
-            irk::index::terms_path(output_dir_));
-        irk::io::dump(term_map, irk::index::term_map_path(output_dir_));
-        auto title_map = irk::build_prefix_map_from_file<long>(
-            irk::index::titles_path(output_dir_));
-        irk::io::dump(title_map, irk::index::title_map_path(output_dir_));
+        auto term_map = build_lexicon(
+            irk::index::terms_path(output_dir_), lexicon_block_size_);
+        term_map.serialize(irk::index::term_map_path(output_dir_));
+        auto title_map = build_lexicon(
+            irk::index::titles_path(output_dir_), lexicon_block_size_);
+        title_map.serialize(irk::index::title_map_path(output_dir_));
         std::clog << "Success!" << std::endl;
     }
 
@@ -177,13 +181,12 @@ public:
         builder.write_properties(of_properties);
         of_titles.close();
         of_terms.close();
-        auto term_map = irk::build_prefix_map_from_file<long>(
-            irk::index::terms_path(batch_metadata.dir));
-        irk::io::dump(term_map, irk::index::term_map_path(batch_metadata.dir));
-        auto title_map = irk::build_prefix_map_from_file<long>(
-            irk::index::titles_path(batch_metadata.dir));
-        irk::io::dump(
-            title_map, irk::index::title_map_path(batch_metadata.dir));
+        auto term_map = build_lexicon(
+            irk::index::terms_path(batch_metadata.dir), lexicon_block_size_);
+        term_map.serialize(irk::index::term_map_path(batch_metadata.dir));
+        auto title_map = build_lexicon(
+            irk::index::titles_path(batch_metadata.dir), lexicon_block_size_);
+        title_map.serialize(irk::index::title_map_path(batch_metadata.dir));
 
         return input;
     }

@@ -1,13 +1,16 @@
 #include <unordered_map>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/index.hpp"
-#include "irkit/index/merger.hpp"
+#include <irkit/coding.hpp>
+#include <irkit/coding/varbyte.hpp>
+#include <irkit/index.hpp>
+#include <irkit/index/merger.hpp>
+#include <irkit/lexicon.hpp>
 
 namespace {
 
@@ -71,12 +74,12 @@ protected:
         std::string titles = "Doc1\nDoc2\nDoc3\n";
         std::vector<char> titles_array(titles.begin(), titles.end());
         write_bytes(irk::index::titles_path(index_dir_1), titles_array);
-        auto term_map_1 = irk::build_prefix_map_from_file<long>(
-            irk::index::terms_path(index_dir_1));
-        irk::io::dump(term_map_1, irk::index::term_map_path(index_dir_1));
-        auto title_map_1 = irk::build_prefix_map_from_file<long>(
-            irk::index::titles_path(index_dir_1));
-        irk::io::dump(title_map_1, irk::index::title_map_path(index_dir_1));
+        auto term_map_1 = irk::build_lexicon(
+            irk::index::terms_path(index_dir_1), 64);
+        term_map_1.serialize(irk::index::term_map_path(index_dir_1));
+        auto title_map_1 = irk::build_lexicon(
+            irk::index::titles_path(index_dir_1), 64);
+        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
 
         index_dir_2 = tmpdir / "IndexMergingTest-index_2";
         if (irk::fs::exists(index_dir_2)) {
@@ -98,12 +101,12 @@ protected:
         std::string titles_2 = "Doc4\nDoc5\nDoc6\n";
         std::vector<char> titles_array_2(titles_2.begin(), titles_2.end());
         write_bytes(irk::index::titles_path(index_dir_2), titles_array_2);
-        auto term_map_2 = irk::build_prefix_map_from_file<long>(
-            irk::index::terms_path(index_dir_2));
-        irk::io::dump(term_map_2, irk::index::term_map_path(index_dir_2));
-        auto title_map_2 = irk::build_prefix_map_from_file<long>(
-            irk::index::titles_path(index_dir_2));
-        irk::io::dump(title_map_2, irk::index::title_map_path(index_dir_2));
+        auto term_map_2 = irk::build_lexicon(
+            irk::index::terms_path(index_dir_2), 64);
+        term_map_2.serialize(irk::index::term_map_path(index_dir_2));
+        auto title_map_2 = irk::build_lexicon(
+            irk::index::titles_path(index_dir_2), 64);
+        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
     }
     ~IndexMerging() {
         irk::fs::remove_all(index_dir_1);

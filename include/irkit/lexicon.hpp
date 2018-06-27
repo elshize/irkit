@@ -75,7 +75,7 @@ public:
             : blocks_.size();
         std::ptrdiff_t size = next_block_offset - block_offset;
         ENSURES(size > 0);
-        ENSURES(size < blocks_.size());
+        ENSURES(size <= blocks_.size());
         if constexpr (std::is_same<memory_container, irk::memory_view>::value) {
             return blocks_.range(block_offset, size);
         } else {
@@ -101,6 +101,28 @@ public:
             ++value;
         }
         return k == key ? std::make_optional(value) : std::nullopt;
+    }
+
+    std::string key_at(std::ptrdiff_t index) const
+    {
+        EXPECTS(index < size());
+        auto block_pos = std::prev(std::upper_bound(
+            leading_indices_.begin(), leading_indices_.end(), index));
+        auto block = std::distance(leading_indices_.begin(), block_pos);
+        auto block_memory = block_memory_view(block);
+        boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
+            buffer(block_memory.data(), block_memory.size());
+        irk::input_bit_stream bin(buffer);
+
+        value_type value = *block_pos;
+        std::string key;
+        codec_->reset();
+        codec_->decode(bin, key);
+        while (value < index) {
+            codec_->decode(bin, key);
+            ++value;
+        }
+        return key;
     }
 
     std::ostream& serialize(std::ostream& out) const
@@ -134,26 +156,36 @@ public:
         return out;
     }
 
+    void serialize(boost::filesystem::path file) const
+    {
+        std::ofstream out(file.c_str());
+        serialize(out);
+    }
+
+    std::ptrdiff_t size() const { return count_; }
+
     class iterator : public boost::iterator_facade<
         iterator, const std::string, boost::single_pass_traversal_tag> {
     public:
         iterator(const lexicon<codec_type, memory_container>& lex,
             const memory_container& blocks,
-            int block_size,
             int block_num,
             int pos_in_block,
             int keys_per_block,
-            const std::shared_ptr<hutucker_codec<char>> codec)
+            std::shared_ptr<prefix_codec<codec_type>> codec)
             : lex_(lex),
               blocks_(blocks),
-              block_size_(block_size),
               block_num_(block_num),
               pos_in_block_(pos_in_block),
               keys_per_block_(keys_per_block),
-              stream_(blocks_.data(), blocks_.size()),
-              bin_(stream_),
               codec_(codec)
         {
+            decode_block(block_num_, decoded_block_);
+        }
+
+        bool operator!=(const iterator& other) const
+        {
+            return !equal(other);
         }
 
     private:
@@ -165,8 +197,8 @@ public:
             {
                 pos_in_block_ = 0;
                 block_num_++;
-                codec_->reset();
-                bin_.clear_buffer();
+                decoded_block_.clear();
+                decode_block(block_num_, decoded_block_);
             }
         }
 
@@ -181,24 +213,54 @@ public:
 
         const std::string& dereference() const
         {
-            codec_->decode(bin_, val_);
-            return val_;
+            return decoded_block_[pos_in_block_];
+        }
+
+        void decode_block(int block, std::vector<std::string>& keys) const
+        {
+            std::cout << "decoding block " << block << std::endl;
+            auto block_memory = lex_.block_memory_view(block);
+            boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
+                buffer(block_memory.data(), block_memory.size());
+            irk::input_bit_stream bin(buffer);
+
+            codec_->reset();
+            for (value_type idx = 0; idx < keys_per_block_; ++idx)
+            {
+                std::string key;
+                codec_->decode(bin, key);
+                keys.push_back(key);
+            }
         }
 
         const lexicon<codec_type, memory_container>& lex_;
         const memory_container& blocks_;
-        int block_size_;
         int block_num_;
         int pos_in_block_;
         int keys_per_block_;
         std::ptrdiff_t block_offset_;
         mutable std::string val_;
-        boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
-            stream_;
-        irk::input_bit_stream bin_;
-        const std::shared_ptr<irk::prefix_codec<codec_type>>& codec_;
+        mutable std::vector<std::string> decoded_block_;
+        std::shared_ptr<irk::prefix_codec<codec_type>> codec_;
     };
     using const_iterator = iterator;
+
+    iterator begin() const {
+        return iterator(*this, blocks_, 0, 0, keys_per_block_, codec_);
+    }
+
+    iterator end() const {
+        auto block_count = block_offsets_.size();
+        auto pos_in_block = (count_ - leading_indices_.back())
+            % keys_per_block_;
+        auto block = pos_in_block == 0 ? block_count : block_count - 1;
+        return iterator(*this,
+            blocks_,
+            block_offsets_.size() - 1,
+            pos_in_block,
+            keys_per_block_,
+            codec_);
+    }
 
 private:
     std::vector<std::ptrdiff_t> block_offsets_;
@@ -253,7 +315,7 @@ lexicon_view<hutucker_codec<char>> load_lexicon(irk::memory_view memory)
     // Total header size: everything that will be always read to memory.
     std::ptrdiff_t header_size =
         memory.range(0, sizeof(ptrdiff_t)).as<std::ptrdiff_t>();
-    auto header_memory = memory[{sizeof(ptrdiff_t), header_size - 1}];
+    auto header_memory = memory(sizeof(ptrdiff_t), header_size);
     irk::varbyte_codec<std::ptrdiff_t> intcodec;
     auto header_stream = header_memory.stream();
 
@@ -298,7 +360,7 @@ lexicon_view<hutucker_codec<char>> load_lexicon(irk::memory_view memory)
     return lexicon_view<hutucker_codec<char>>(
         std::move(block_offsets),
         std::move(leading_indices),
-        memory[{header_size, std::nullopt}],
+        memory(header_size, memory.size()),
         value_count,
         keys_per_block,
         leading_keys,

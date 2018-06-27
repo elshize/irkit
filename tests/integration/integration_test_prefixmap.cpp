@@ -37,6 +37,7 @@ TEST(lexicon, build_load_verify)
 
     // Load
     auto loaded_lex = irk::load_lexicon(irk::make_memory_view(buffer));
+    std::vector<std::string> all_keys(loaded_lex.begin(), loaded_lex.end());
 
     ASSERT_THAT(lexicon.leading_indices_,
         ::testing::ElementsAreArray(loaded_lex.leading_indices_));
@@ -49,10 +50,18 @@ TEST(lexicon, build_load_verify)
     ASSERT_THAT(lexicon.blocks_, ::testing::ElementsAreArray(loaded_blocks));
 
     int idx = 0;
+    auto it = loaded_lex.begin();
+    std::cout << "TESTING\n";
     for (const auto& term : lines) {
+        std::cout << term << std::endl;
         auto res = loaded_lex.index_at(term);
+        ASSERT_EQ(*it, term);
         ASSERT_TRUE(res.has_value());
-        ASSERT_EQ(res.value(), idx++);
+        ASSERT_EQ(res.value(), idx);
+        auto t = loaded_lex.key_at(idx);
+        ASSERT_EQ(t, term);
+        ++it;
+        ++idx;
     }
 }
 

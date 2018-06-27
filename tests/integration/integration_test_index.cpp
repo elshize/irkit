@@ -122,6 +122,7 @@ protected:
             fs::path(index_dir),
             32,
             1024,
+            16,
             irk::varbyte_codec<long>{},
             irk::varbyte_codec<long>{});
 
