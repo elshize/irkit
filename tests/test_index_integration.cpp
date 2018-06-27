@@ -87,6 +87,7 @@ TEST(IndexIntegration, build_write_read)
         fs::path(index_dir),
         2,
         1024,
+        16,
         irk::coding::varbyte_codec<long>{},
         irk::coding::varbyte_codec<long>{});
 

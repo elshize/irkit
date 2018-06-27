@@ -27,7 +27,9 @@
 #pragma once
 
 #include <gsl/gsl_assert>
+#include <debug_assert.hpp>
 
+#include <irkit/assert.hpp>
 #include <irkit/alphabetical_bst.hpp>
 #include <irkit/coding/huffman.hpp>
 #include <irkit/types.hpp>
@@ -110,12 +112,12 @@ namespace coding::hutucker {
     template<class Symbol = char>
     node_ptr<Symbol> build_tree(std::list<node_ptr<Symbol>>& nodes)
     {
-        Expects(nodes.size() > 0);
+        EXPECTS(nodes.size() > 0);
         while (nodes.size() > 1) {
             join_next_valid(nodes);
         }
-        assert(nodes.size() == 1);
-        assert(nodes.front() != nullptr);
+        ENSURES(nodes.size() == 1);
+        ENSURES(nodes.front() != nullptr);
         return nodes.front();
     }
 
@@ -159,7 +161,7 @@ namespace coding::hutucker {
     template<class Symbol = char>
     node_ptr<Symbol> reconstruct(std::list<level_node<Symbol>>& nodes)
     {
-        Expects(nodes.size() > 1);
+        EXPECTS(nodes.size() > 1);
         std::list<level_node<Symbol>> stack;
         std::list<Symbol> propagated_symbols;
         while (true) {
@@ -251,12 +253,15 @@ class hutucker_codec {
 public:
     using symbol_type = Symbol;
     using buffer_type = MemoryContainer;
+    using self_type = hutucker_codec<symbol_type, buffer_type>;
     static constexpr std::size_t symbol_count = 1 << (sizeof(symbol_type) * 8);
 
 private:
     alphabetical_bst<symbol_type, uint16_t, buffer_type> abst_;
 
 public:
+    hutucker_codec(const self_type&) = default;
+    hutucker_codec(self_type&&) = default;
     //! Constructs a codec from an existing ABST.
     hutucker_codec(
         alphabetical_bst<symbol_type, uint16_t, buffer_type> abst)
@@ -271,7 +276,7 @@ public:
     template<class = enable_if_equal<buffer_type, std::vector<char>>>
     hutucker_codec(const std::vector<std::size_t>& frequencies)
     {
-        Expects(frequencies.size() == symbol_count);
+        EXPECTS(frequencies.size() == symbol_count);
         auto initial = coding::huffman::init_nodes(frequencies);
         auto initial_tree = coding::hutucker::build_tree(initial);
         auto tagged_leaves = coding::hutucker::tag_leaves(initial_tree);
@@ -323,6 +328,24 @@ public:
             ++read_symbols;
         }
         return read_symbols;
+    }
+
+    template<class SymbolIterator, class BitOutputStream>
+    std::ptrdiff_t encode(
+        SymbolIterator first, SymbolIterator last, BitOutputStream& sink) const
+    {
+        auto it = first;
+        while (it != last) {
+            abst_.encode(*it, sink);
+            ++it;
+        }
+        return std::distance(first, last);
+    }
+
+    template<class SymbolIterator, class BitOutputStream>
+    std::ptrdiff_t encode(const std::string& word, BitOutputStream& sink) const
+    {
+        return encode(word.begin(), word.end(), sink);
     }
 
     //! Decodes `n` symbols from a bitset and writes to an output stream.

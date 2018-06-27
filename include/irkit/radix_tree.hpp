@@ -20,44 +20,53 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file radix_tree.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
+#include <cstring>
 #include <memory>
 #include <optional>
-#include "irkit/types.hpp"
+#include <list>
+
 extern "C" {
-#include "rax.h"
+#include <rax.h>
 }
+
+#include <irkit/types.hpp>
+
+/* Return the current total size of the node. */
+#define raxNodeCurrentLength(n) ( \
+    sizeof(raxNode)+(n)->size+ \
+    ((n)->iscompr ? sizeof(raxNode*) : sizeof(raxNode*)*(n)->size)+ \
+    (((n)->iskey && !(n)->isnull)*sizeof(void*)) \
+)
 
 namespace irk {
 
+
+/* Get the node auxiliary data. */
+void *raxGetData(raxNode *n) {
+    if (n->isnull) return NULL;
+    void **ndata =(void**)((char*)n+raxNodeCurrentLength(n)-sizeof(void*));
+    void *data;
+    std::memcpy(&data,ndata,sizeof(data));
+    return data;
+}
+
 template<class T>
 class radix_tree {
-    // public:
-    //    class iterator {
-    //    private:
-    //        std::shared_ptr<raxIterator> iter_;
-    //
-    //    public:
-    //        iterator(std::shared_ptr<raxIterator> iter) : iter_(iter) {}
-    //        ~iterator() { raxStop(iter_.get()); }
-    //        bool operator==(const iterator& rhs) const
-    //        {
-    //
-    //        }
-    //    };
-
 private:
+
     rax* c_rax_;
-    //std::vector<std::shared_ptr<T>> values_;
-    //std::vector<T*> values_;
+    std::list<std::unique_ptr<T>> data_;
 
 public:
-    radix_tree() { c_rax_ = raxNew(); }
+    radix_tree()
+        : c_rax_(raxNew())
+    {}
     radix_tree(const radix_tree&) = delete;
     radix_tree(radix_tree&& other) = delete;
     ~radix_tree() { raxFree(c_rax_); }
@@ -65,8 +74,8 @@ public:
     int insert(const std::string& key, T value)
     {
         std::vector<char> cstr(key.begin(), key.end());
-        T* value_ptr = new T(value);
-        void* data = value_ptr;
+        data_.push_back(std::make_unique<T>(value));
+        void* data = data_.back().get();
         int result = raxInsert(c_rax_,
             reinterpret_cast<unsigned char*>(cstr.data()),
             cstr.size(),
@@ -93,8 +102,9 @@ public:
     template<class = enable_if_not_equal<T, void>>
     std::optional<T> find(const std::string& key)
     {
+        std::vector<char> key_data(key.begin(), key.end());
         void* data = raxFind(c_rax_,
-            reinterpret_cast<const unsigned char*>(key.data()),
+            reinterpret_cast<unsigned char*>(key_data.data()),
             key.size());
         if (data == raxNotFound) {
             return std::nullopt;
@@ -112,20 +122,21 @@ public:
 
     std::optional<T> seek_le(std::string key) const
     {
+        std::vector<char> key_data(key.begin(), key.end());
         raxIterator iter;
         raxStart(&iter, c_rax_);
         int result = raxSeek(&iter,
             "<=",
-            reinterpret_cast<unsigned char*>(key.data()),
-            key.size());
+            reinterpret_cast<unsigned char*>(key_data.data()),
+            key_data.size());
         if (result == 0) {
             throw std::bad_alloc();
         }
         if (raxNext(&iter) == 0) {
             return std::nullopt;
         }
-        T val = *reinterpret_cast<T*>(iter.data);
-        //std::cout << "seeking: " << key << "; found: " << val << std::endl;
+        std::string s((char*)iter.key, iter.key_len);
+        T val = *reinterpret_cast<T*>(raxGetData(iter.node));
         raxStop(&iter);
         return std::make_optional(val);
     }

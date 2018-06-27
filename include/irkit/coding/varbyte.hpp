@@ -41,14 +41,15 @@ template<class T>
 struct varbyte_codec {
     using value_type = T;
 
-    std::ostream& encode(value_type n, std::ostream& sink) const
+    std::ostream& encode(const value_type& n, std::ostream& sink) const
     {
+        value_type v(n);
         while (true) {
-            sink.put(n < 128 ? 128 + n : n % 128);
-            if (n < 128) {
+            sink.put(v < 128 ? 128 + v : v % 128);
+            if (v < 128) {
                 break;
             }
-            n /= 128;
+            v /= 128;
         }
         return sink;
     }
@@ -59,7 +60,7 @@ struct varbyte_codec {
         n = 0;
         unsigned short shift = 0;
         auto process_next_byte = [&b, &n, &shift]() {
-            int val = b & 0b01111111;
+            value_type val = b & 0b01111111;
             n |= val << shift;
             shift += 7;
             return val;

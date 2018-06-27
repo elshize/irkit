@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file index.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -47,27 +47,21 @@
 #include <type_safe/types.hpp>
 #include <type_safe/index.hpp>
 
+#include <irkit/assert.hpp>
 #include <irkit/coding.hpp>
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
-#include <irkit/contracts.hpp>
 #include <irkit/daat.hpp>
 #include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/index/postingrange.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/io.hpp>
-#include <irkit/io/memorybuffer.hpp>
+#include <irkit/lexicon.hpp>
 #include <irkit/memoryview.hpp>
-#include <irkit/prefixmap.hpp>
 #include <irkit/score.hpp>
 #include <irkit/types.hpp>
 
-using irk::runtime::EQ;
-using irk::runtime::expects;
-using irk::runtime::LEQ;
-using irk::runtime::LT;
-using irk::runtime::NEQ;
 namespace ts = type_safe;
 
 namespace irk {
@@ -132,12 +126,12 @@ public:
               data->term_collection_frequencies_view()),
           term_collection_occurrences_(
               data->term_collection_occurrences_view()),
-          term_map_(load_prefix_map<long>(data->term_map_source())),
-          title_map_(load_prefix_map<long>(data->title_map_source())),
+          term_map_(std::move(load_lexicon(data->term_map_source()))),
+          title_map_(std::move(load_lexicon(data->title_map_source()))),
           term_count_(term_collection_frequencies_.size())
     {
-        expects(document_offsets_.size(), EQ, term_count_);
-        expects(count_offsets_.size(), EQ, term_count_);
+        EXPECTS(document_offsets_.size() == term_count_);
+        EXPECTS(count_offsets_.size() == term_count_);
 
         if (data->score_offset_source().has_value())
         {
@@ -162,7 +156,7 @@ public:
 
     auto documents(long term_id) const
     {
-        expects(term_id, LT, term_count_);
+        EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_document_list_view(document_codec_,
             select(term_id, document_offsets_, documents_view_),
@@ -171,7 +165,7 @@ public:
 
     auto frequencies(long term_id) const
     {
-        expects(term_id, LT, term_count_);
+        EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_payload_list_view(frequency_codec_,
             select(term_id, count_offsets_, counts_view_),
@@ -180,7 +174,7 @@ public:
 
     auto scores(long term_id) const
     {
-        expects(term_id, LT, term_count_);
+        EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_payload_list_view(frequency_codec_,
             select(term_id, *score_offsets_, *scores_view_),
@@ -189,7 +183,7 @@ public:
 
     auto postings(long term_id) const
     {
-        expects(term_id, LT, term_count_);
+        EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         auto documents = index::block_document_list_view(document_codec_,
             select(term_id, document_offsets_, documents_view_),
@@ -210,7 +204,7 @@ public:
 
     auto scored_postings(long term_id) const
     {
-        expects(term_id, LT, term_count_);
+        EXPECTS(term_id < term_count_);
         if (!scores_view_.has_value())
         { throw std::runtime_error("scores not loaded"); }
         auto length = term_collection_frequencies_[term_id];
@@ -241,10 +235,10 @@ public:
 
     std::optional<long> term_id(const std::string& term) const
     {
-        return term_map_[term];
+        return term_map_.index_at(term);
     }
 
-    std::string term(const long& id) const { return term_map_[id]; }
+    std::string term(const long& id) const { return term_map_.key_at(id); }
 
     long tdf(long term_id) const
     {
@@ -261,11 +255,11 @@ public:
     int skip_block_size() const { return block_size_; }
     int avg_document_size() const { return avg_document_size_; }
 
-    const prefix_map<long, std::vector<char>>& terms() const
+    const auto& terms() const
     {
         return term_map_;
     }
-    const prefix_map<long, std::vector<char>>& titles() const
+    const auto& titles() const
     {
         return title_map_;
     }
@@ -297,11 +291,11 @@ private:
     std::optional<offset_table_type> score_offsets_;
     frequency_table_type term_collection_frequencies_;
     frequency_table_type term_collection_occurrences_;
-    prefix_map<long, std::vector<char>> term_map_;
-    prefix_map<long, std::vector<char>> title_map_;
-    long term_count_;
-    long document_count_;
-    long occurrences_count_;
+    lexicon<hutucker_codec<char>, memory_view> term_map_;
+    lexicon<hutucker_codec<char>, memory_view> title_map_;
+    std::ptrdiff_t term_count_;
+    std::ptrdiff_t document_count_;
+    std::ptrdiff_t occurrences_count_;
     int block_size_;
     double avg_document_size_;
 
