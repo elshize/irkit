@@ -15,7 +15,7 @@
 namespace {
 
 using Posting = irk::_posting<std::uint16_t, double>;
-using index_merger = irk::index_merger<long, std::string, long, long>;
+using index_merger = irk::index_merger<std::string, long, long>;
 
 struct FakeScore {
     template<class Freq>
@@ -34,10 +34,10 @@ std::vector<char> flatten(std::vector<std::vector<char>> vectors)
     return result;
 }
 
-irk::varbyte_codec<std::uint16_t> vb;
-
-auto vb_encode(std::initializer_list<std::uint16_t> integers)
+template<class T>
+auto vb_encode(std::initializer_list<T> integers)
 {
+    irk::varbyte_codec<T> vb;
     return irk::encode(integers, vb);
 }
 

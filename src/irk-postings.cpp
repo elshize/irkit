@@ -5,6 +5,7 @@
 
 #include <irkit/coding/varbyte.hpp>
 #include <irkit/index.hpp>
+#include <irkit/index/types.hpp>
 #include <irkit/index/source.hpp>
 
 namespace fs = boost::filesystem;
@@ -42,9 +43,9 @@ int main(int argc, char** argv)
         irk::inverted_index_disk_data_source data(fs::path{dir},
             scores_defined ? std::make_optional(scoring) : std::nullopt);
         irk::inverted_index_view index(&data,
-                irk::varbyte_codec<long>{},
-                irk::varbyte_codec<long>{},
-                irk::varbyte_codec<long>{});
+            irk::varbyte_codec<irk::index::document_t>{},
+            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<long>{});
 
         long term_id = use_id ? std::stol(term) : *index.term_id(term);
         if (app.count("--scores") > 0) {

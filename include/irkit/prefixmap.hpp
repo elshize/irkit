@@ -129,7 +129,8 @@ public:
                     break;
                 }
             }
-            auto encoded = codec_->encode(value.begin() + pos, value.end());
+            auto encoded = codec_->encode(
+                std::next(value.begin(), pos), value.end());
             if (!can_encode(value.size() + 2 + encoded.size())) {
                 return false;
             }

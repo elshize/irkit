@@ -1,4 +1,4 @@
-// MIT License //
+// MIT License
 // Copyright (c) 2018 Michal Siedlaczek
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_inmemory_data_source data(dir);
     irk::inverted_index_view index(&data,
-        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<irk::index::document_t>{},
         irk::varbyte_codec<long>{},
         irk::varbyte_codec<long>{});
     std::cout << " done." << std::endl;

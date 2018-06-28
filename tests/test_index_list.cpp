@@ -65,8 +65,8 @@ public:
         5, 127, -128 /* some random bytes after posting list */
     };
 
-    using view_type = irk::index::block_document_list_view<std::int32_t>;
-    view_type view = view_type(irk::varbyte_codec<std::int32_t>{},
+    using view_type = irk::index::block_document_list_view;
+    view_type view = view_type(irk::varbyte_codec<irk::index::document_t>{},
         irk::make_memory_view(
             gsl::span<const char>(&memory[3], memory.size() - 6)),
         5 /* frequency */);
@@ -134,13 +134,6 @@ protected:
 class block_payload_list_view : public ::testing::Test {
 protected:
     C_block_payload_list_view data;
-};
-class block_posting_list_view : public ::testing::Test {
-protected:
-    C_block_document_list_view doc_data;
-    C_block_payload_list_view payload_data;
-    irk::index::block_posting_list_view<int, int> posting_list =
-        irk::index::block_posting_list_view(doc_data.view, payload_data.view);
 };
 class zipped_payload_list_view : public ::testing::Test {
 protected:
@@ -214,7 +207,7 @@ TEST_F(block_document_list_view, next_ge)
 
 TEST_F(block_document_list_view, copy)
 {
-    auto test_wrapper = [=](irk::index::block_document_list_view<int> view) {
+    auto test_wrapper = [=](irk::index::block_document_list_view view) {
         std::vector<int> documents(view.begin(), view.end());
         EXPECT_THAT(documents, ::testing::ElementsAreArray(data.documents));
     };
@@ -223,7 +216,7 @@ TEST_F(block_document_list_view, copy)
 
 TEST_F(block_document_list_view, move)
 {
-    irk::index::block_document_list_view<int> copy(std::move(data.view));
+    irk::index::block_document_list_view copy(std::move(data.view));
     std::vector<int> documents(copy.begin(), copy.end());
     EXPECT_THAT(documents, ::testing::ElementsAreArray(data.documents));
 }
@@ -255,33 +248,6 @@ TEST_F(block_payload_list_view, read_iterator)
     EXPECT_THAT(payloads, ::testing::ElementsAreArray(data.payloads));
 }
 
-TEST_F(block_posting_list_view, read_iterator_doc_pay)
-{
-    std::vector<int> documents;
-    std::vector<int> payloads;
-    for (auto pos = posting_list.begin(); pos != posting_list.end(); pos++) {
-        auto doc = pos.document();
-        auto pay = pos.payload();
-        documents.push_back(doc);
-        payloads.push_back(pay);
-    }
-    EXPECT_THAT(documents, ::testing::ElementsAreArray(doc_data.documents));
-    EXPECT_THAT(payloads, ::testing::ElementsAreArray(payload_data.payloads));
-}
-
-TEST_F(block_posting_list_view, read_iterator_loop)
-{
-    std::vector<int> documents;
-    std::vector<int> payloads;
-    for (auto pos = posting_list.begin(); pos != posting_list.end(); pos++) {
-        auto [doc, pay] = *pos;
-        documents.push_back(doc);
-        payloads.push_back(pay);
-    }
-    EXPECT_THAT(documents, ::testing::ElementsAreArray(doc_data.documents));
-    EXPECT_THAT(payloads, ::testing::ElementsAreArray(payload_data.payloads));
-}
-
 TEST_F(zipped_payload_list_view, read_iterator_loop)
 {
     std::vector<int> payloads_1;
@@ -308,59 +274,11 @@ TEST_F(zipped_payload_list_view, read_iterator_copy)
     EXPECT_THAT(payloads, ::testing::ElementsAreArray(expected));
 }
 
-TEST_F(block_posting_list_view, zipped_payload)
-{
-    C_block_payload_list_view_double payload_data_double;
-    irk::index::block_posting_list_view<int, int, double> pl =
-        irk::index::block_posting_list_view(
-            doc_data.view, payload_data.view, payload_data_double.view);
-    std::vector<int> documents;
-    std::vector<int> payloads;
-    std::vector<double> d_payloads;
-    for (auto pos = pl.begin(); pos != pl.end(); pos++) {
-        auto doc = pos.document();
-        auto [pay_1, pay_2] = pos.payload();
-        documents.push_back(doc);
-        payloads.push_back(pay_1);
-        d_payloads.push_back(pay_2);
-    }
-    EXPECT_THAT(documents, ::testing::ElementsAreArray(doc_data.documents));
-    EXPECT_THAT(payloads, ::testing::ElementsAreArray(payload_data.payloads));
-    EXPECT_THAT(
-        d_payloads, ::testing::ElementsAreArray(payload_data_double.scores));
-}
-
-TEST_F(block_posting_list_view, zipped_payload_dereference)
-{
-    C_block_payload_list_view_double payload_data_double;
-    irk::index::block_posting_list_view<int, int, double> pl =
-        irk::index::block_posting_list_view(
-            doc_data.view, payload_data.view, payload_data_double.view);
-    std::vector<int> documents;
-    std::vector<int> payloads;
-    std::vector<double> d_payloads;
-    for (auto pos = pl.begin(); pos != pl.end(); pos++) {
-        auto [doc, pays] = *pos;
-        auto [pay_1, pay_2] = pays;
-        documents.push_back(doc);
-        payloads.push_back(pay_1);
-        d_payloads.push_back(pay_2);
-    }
-    EXPECT_THAT(documents, ::testing::ElementsAreArray(doc_data.documents));
-    EXPECT_THAT(payloads, ::testing::ElementsAreArray(payload_data.payloads));
-    EXPECT_THAT(
-        d_payloads, ::testing::ElementsAreArray(payload_data_double.scores));
-}
-
 TEST_F(block_list_builder, write_docs)
 {
     irk::index::block_list_builder<int, true> builder(
         2 /* block_size */, irk::varbyte_codec<int>{});
     std::ostringstream buffer;
-    //std::vector<char> bytes;
-    //boost::iostreams::stream<
-    //    boost::iostreams::back_insert_device<std::vector<char>>>
-    //    buffer(boost::iostreams::back_inserter(bytes));
     for (int doc : doc_data.documents) { builder.add(doc); }
     builder.write(buffer);
 
@@ -375,10 +293,6 @@ TEST_F(block_list_builder, write_payloads)
     irk::index::block_list_builder<int, false> builder(
         2 /* block_size */, irk::varbyte_codec<int>{});
     std::ostringstream buffer;
-    //std::vector<char> bytes;
-    //boost::iostreams::stream<
-    //    boost::iostreams::back_insert_device<std::vector<char>>>
-    //    buffer(boost::iostreams::back_inserter(bytes));
     for (int pay : pay_data.payloads) { builder.add(pay); }
     builder.write(buffer);
 
@@ -393,10 +307,6 @@ TEST_F(block_list_builder, write_double_payloads)
     irk::index::block_list_builder<double, false> builder(
         2 /* block_size */, irk::copy_codec<double>{});
     std::ostringstream buffer;
-    //std::vector<char> bytes;
-    //boost::iostreams::stream<
-    //    boost::iostreams::back_insert_device<std::vector<char>>>
-    //    buffer(boost::iostreams::back_inserter(bytes));
     for (double pay : double_data.scores) { builder.add(pay); }
     builder.write(buffer);
 

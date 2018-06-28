@@ -44,6 +44,7 @@
 #include <irkit/coding/copy.hpp>
 #include <irkit/index/block.hpp>
 #include <irkit/index/skiplist.hpp>
+#include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 
 namespace irk::index
@@ -180,7 +181,7 @@ private:
             if constexpr (delta_encoded)
             {
                 auto preceding = block_ > 0
-                    ? view_.blocks_[block_ - 1].back() : 0;
+                    ? view_.blocks_[block_ - 1].back() : 0_id;
                 decoded_block_ = irk::decode_delta(
                     view_.blocks_[block_].data(), view_.codec_, preceding);
             } else
@@ -308,12 +309,11 @@ private:
 /*!
  * \tparam Doc  type of document ID, must be integer.
  */
-template<class Doc>
 class block_document_list_view {
 public:
     using size_type = long;
-    using value_type = Doc;
-    using self_type = block_document_list_view<value_type>;
+    using value_type = document_t;
+    using self_type = block_document_list_view;
     using iterator = block_iterator<self_type, true>;
 
     //! Constructs the view.
@@ -375,7 +375,7 @@ public:
     long size() const { return length_; }
     long memory_size() const { return memory_.size(); }
 
-    std::ostream write(std::ostream& out) const
+    std::ostream& write(std::ostream& out) const
     {
         return out.write(memory_.data(), memory_.size());
     }
@@ -383,7 +383,7 @@ public:
 private:
     friend class block_iterator<self_type, true>;
     long length_;
-    any_codec<Doc> codec_;
+    any_codec<value_type> codec_;
     std::vector<irk::index::block_view<value_type>> blocks_;
     long block_size_;
     irk::memory_view memory_;
@@ -563,137 +563,6 @@ private:
     }
 
     std::tuple<block_payload_list_view<Payload>...> views_;
-};
-
-//! A view of a block posting list (ID, payload).
-/*!
- * \tparam Doc      type of the document ID, must be integer
- * \tparam Payload  a list of types of the payload, must be primitive types
- */
-template<class Doc, class... Payload>
-class block_posting_list_view {
-public:
-    using document_type = Doc;
-    using difference_type = long;
-    using document_iterator_t =
-        typename block_document_list_view<document_type>::iterator;
-    using payload_iterator_t =
-        typename zipped_payload_list_view<Payload...>::iterator;
-
-    //! Document iterator
-    template<class payload_type>
-    class iterator : public boost::iterator_facade<iterator<payload_type>,
-                         std::pair<document_type, payload_type>,
-                         boost::forward_traversal_tag,
-                         std::pair<document_type, payload_type>> {
-    public:
-        iterator(document_iterator_t document_iterator,
-            payload_iterator_t payload_iterator)
-            : document_iterator_(document_iterator),
-              payload_iterator_(payload_iterator)
-        {}
-
-        iterator& moveto(document_type doc)
-        {
-            document_iterator_.nextgeq(doc);
-            payload_iterator_.align(document_iterator_);
-            return *this;
-        }
-        iterator nextgeq(document_type doc)
-        {
-            iterator it(*this);
-            it.moveto(doc);
-            return it;
-        }
-
-        const document_type& document() const { return *document_iterator_; }
-
-        payload_type payload() const
-        {
-            if constexpr (sizeof...(Payload) == 1) {
-                return std::get<0>(*payload_iterator_);
-            } else {
-                return *payload_iterator_;
-            }
-        }
-
-    private:
-        friend class boost::iterator_core_access;
-        void increment()
-        {
-            document_iterator_++;
-            payload_iterator_++;
-        }
-        void advance(difference_type n)
-        {
-            document_iterator_ += n;
-            payload_iterator_ += n;
-        }
-        bool equal(const iterator& other) const
-        {
-            return document_iterator_ == other.document_iterator_;
-        }
-
-        std::pair<document_type, payload_type> dereference() const
-        {
-            if constexpr (sizeof...(Payload) == 1) {
-                return std::make_pair(
-                    *document_iterator_, std::get<0>(*payload_iterator_));
-            } else {
-                return std::make_pair(*document_iterator_, *payload_iterator_);
-            }
-        }
-
-        document_iterator_t document_iterator_;
-        payload_iterator_t payload_iterator_;
-    };
-
-    block_posting_list_view(block_document_list_view<document_type> documents,
-        block_payload_list_view<Payload>... payloads)
-        : documents_(documents), payloads_(payloads...)
-    {}
-
-    template<class = std::enable_if_t<sizeof...(Payload) == 1>>
-    iterator<std::tuple_element_t<0, std::tuple<Payload...>>> begin() const
-    {
-        return iterator<std::tuple_element_t<0, std::tuple<Payload...>>>(
-            documents_.begin(), payloads_.begin());
-    };
-
-    template<class = std::enable_if_t<sizeof...(Payload) == 1>>
-    iterator<std::tuple_element_t<0, std::tuple<Payload...>>> end() const
-    {
-        return iterator<std::tuple_element_t<0, std::tuple<Payload...>>>(
-            documents_.end(), payloads_.end());
-    };
-
-    template<class = std::enable_if_t<sizeof...(Payload) == 1>>
-    iterator<std::tuple_element_t<0, std::tuple<Payload...>>>
-    lookup(document_type doc) const { return begin().nextgeq(doc); };
-
-    template<class = std::enable_if_t<sizeof...(Payload) != 1>>
-    iterator<std::tuple<Payload...>> begin() const
-    {
-        return iterator<std::tuple<Payload...>>(
-            documents_.begin(), payloads_.begin());
-    };
-
-    template<class = std::enable_if_t<sizeof...(Payload) != 1>>
-    iterator<std::tuple<Payload...>> end() const
-    {
-        return iterator<std::tuple<Payload...>>(
-            documents_.end(), payloads_.end());
-    };
-
-    template<class = std::enable_if_t<sizeof...(Payload) != 1>>
-    iterator<std::tuple<Payload...>> lookup(document_type doc) const
-    {
-        return begin().nextgeq(doc);
-    };
-
-private:
-    block_document_list_view<document_type> documents_;
-    zipped_payload_list_view<Payload...> payloads_;
 };
 
 };  // namespace irk::index

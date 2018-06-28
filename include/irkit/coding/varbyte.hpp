@@ -43,43 +43,47 @@ struct varbyte_codec {
 
     std::ostream& encode(const value_type& n, std::ostream& sink) const
     {
-        value_type v(n);
-        while (true) {
+        std::size_t v = static_cast<std::size_t>(n);
+        while (true)
+        {
             sink.put(v < 128 ? 128 + v : v % 128);
-            if (v < 128) {
-                break;
-            }
+            if (v < 128) { break; }
             v /= 128;
         }
         return sink;
     }
 
-    std::streamsize decode(std::istream& source, value_type& n) const
+    std::streamsize decode(std::istream& source, value_type& out_val) const
     {
         char b;
-        n = 0;
+        std::size_t n = 0;
         unsigned short shift = 0;
         auto process_next_byte = [&b, &n, &shift]() {
-            value_type val = b & 0b01111111;
+            std::ptrdiff_t val = b & 0b01111111;
             n |= val << shift;
             shift += 7;
             return val;
         };
         std::streamsize bytes_read = 0;
-        if (source.get(b)) {
+        if (source.get(b))
+        {
             bytes_read++;
             if (process_next_byte() != b) {
+                out_val = static_cast<value_type>(n);
                 return bytes_read;
             }
-            while (source.get(b)) {
+            while (source.get(b))
+            {
                 bytes_read++;
                 if (process_next_byte() != b) {
+                    out_val = static_cast<value_type>(n);
                     return bytes_read;
                 }
             }
             throw std::runtime_error(
                 "reached end of byte range before end of value");
         }
+        out_val = static_cast<value_type>(n);
         return bytes_read;
     }
 };

@@ -33,16 +33,16 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/index/types.hpp>
 
 namespace irk {
 
-template<class Doc = std::size_t,
-    class Term = std::string,
+template<class Term = std::string,
     class TermId = std::size_t,
     class Freq = std::size_t>
 class index_merger {
 public:
-    using document_type = Doc;
+    using document_type = irk::index::document_t;
     using term_type = Term;
     using term_id_type = TermId;
     using frequency_type = Freq;
@@ -331,6 +331,6 @@ public:
     }
 };
 
-using default_index_merger = index_merger<long, std::string, long, long>;
+using default_index_merger = index_merger<std::string, long, long>;
 
 };  // namespace irk

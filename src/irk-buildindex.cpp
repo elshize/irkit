@@ -30,8 +30,9 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 
-#include <irkit/index/assembler.hpp>
 #include <irkit/coding/varbyte.hpp>
+#include <irkit/index/assembler.hpp>
+#include <irkit/index/types.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -68,10 +69,10 @@ int main(int argc, char** argv)
         fs::path batch_dir = dir / ".batches";
         std::vector<fs::path> batch_dirs{
             fs::directory_iterator(batch_dir), fs::directory_iterator()};
-        irk::index_merger<long, std::string, long, long> merger(
+        irk::index_merger<std::string, long, long> merger(
             dir,
             batch_dirs,
-            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<irk::index::document_t>{},
             irk::varbyte_codec<long>{},
             skip_block_size);
         merger.merge();
@@ -88,7 +89,7 @@ int main(int argc, char** argv)
             batch_size,
             skip_block_size,
             lexicon_block_size,
-            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<irk::index::document_t>{},
             irk::varbyte_codec<long>{});
         assembler.assemble(std::cin);
     }
