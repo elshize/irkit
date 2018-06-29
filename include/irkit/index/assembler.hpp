@@ -35,6 +35,7 @@
 #include <irkit/index/builder.hpp>
 #include <irkit/index/merger.hpp>
 #include <irkit/index/metadata.hpp>
+#include <irkit/index/types.hpp>
 #include <irkit/lexicon.hpp>
 
 namespace irk::index {
@@ -44,20 +45,17 @@ namespace irk::index {
 //! See assemble() function documentation for the format of the input file.
 //! Note that neither the assembler nor the builder stem terms.
 //! It must be done beforehand.
-template<class Doc = long,
-    class Term = std::string,
-    class TermId = long,
-    class Freq = long>
+template<class Term = std::string, class TermId = long, class Freq = long>
 class index_assembler {
 public:
-    using document_type = Doc;
+    using document_type = irk::index::document_t;
     using term_type = Term;
     using term_id_type = TermId;
     using frequency_type = Freq;
-    using builder_type = irk::index_builder<
-        document_type, term_type, term_id_type, frequency_type>;
+    using builder_type =
+        irk::index_builder<term_type, term_id_type, frequency_type>;
     using merger_type = irk::index_merger<
-        document_type, term_type, term_id_type, frequency_type>;
+        term_type, term_id_type, frequency_type>;
 
 private:
     fs::path output_dir_;
@@ -108,12 +106,14 @@ public:
             std::clog << "Building batch " << batch_number << std::endl;
             fs::path batch_dir = work_dir / std::to_string(batch_number);
             metadata batch_metadata(batch_dir);
-            build_batch(input, batch_metadata, batch_number * batch_size_);
+            build_batch(input,
+                batch_metadata,
+                static_cast<document_type>(batch_number * batch_size_));
             batch_dirs.push_back(std::move(batch_dir));
             ++batch_number;
         }
         std::clog << "Merging " << batch_number << " batches" << std::endl;
-        irk::index_merger<long, std::string, long, long> merger(output_dir_,
+        irk::index_merger<std::string, long, long> merger(output_dir_,
             batch_dirs,
             document_codec_,
             frequency_codec_,

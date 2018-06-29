@@ -88,7 +88,7 @@ namespace index {
 
 class inverted_index_view {
 public:
-    using document_type = long;
+    using document_type = irk::index::document_t;
     using frequency_type = long;
     using size_type = long;
     using score_type = long;
@@ -337,9 +337,9 @@ private:
         fs::path score_offsets_path = dir_path / (name + ".offsets");
         DataSourceT source(dir_path);
         inverted_index_view index(&source,
-            irk::varbyte_codec<long>{},
-            irk::varbyte_codec<long>{},
-            irk::varbyte_codec<long>{});
+            varbyte_codec<index::document_t>{},
+            varbyte_codec<long>{},
+            varbyte_codec<long>{});
 
         long collection_size = index.collection_size();
         long offset = 0;

@@ -42,13 +42,12 @@
 
 namespace irk {
 
-template<class Doc = std::size_t,
-    class Term = std::string,
+template<class Term = std::string,
     class TermId = std::size_t,
     class Freq = std::size_t>
 class index_builder {
 public:
-    using document_type = Doc;
+    using document_type = irk::index::document_t;
     using term_type = Term;
     using term_id_type = TermId;
     using frequency_type = Freq;
@@ -226,7 +225,7 @@ public:
         long sizes_sum = std::accumulate(
             document_sizes_.begin(), document_sizes_.end(), 0);
         nlohmann::json j = {
-            {"documents", current_doc_ + 1},
+            {"documents", static_cast<long>(current_doc_ + 1)},
             {"occurrences", all_occurrences_},
             {"skip_block_size", block_size_},
             {"avg_document_size", (double)sizes_sum / document_sizes_.size()}
@@ -236,6 +235,6 @@ public:
 };
 
 using default_index_builder =
-    index_builder<std::uint32_t, std::string, std::uint32_t, std::uint32_t>;
+    index_builder<std::string, std::uint32_t, std::uint32_t>;
 
 };  // namespace irk

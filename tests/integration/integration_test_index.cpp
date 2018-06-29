@@ -14,7 +14,8 @@ namespace {
 
 namespace fs = boost::filesystem;
 
-using posting_map = std::map<std::string, std::vector<std::pair<long, long>>>;
+using posting_type = std::pair<irk::index::document_t, long>;
+using posting_map = std::map<std::string, std::vector<posting_type>>;
 
 struct on_fly_index {
     posting_map freq_postings;
@@ -32,7 +33,7 @@ auto scored(const posting_map& postings,
     int collection_size,
     int bits)
 {
-    std::map<std::string, std::vector<std::pair<long, long>>> scored;
+    std::map<std::string, std::vector<posting_type>> scored;
     double max_score = 0;
     for (const auto& [term, posting_for_term] : postings)
     {
@@ -46,7 +47,7 @@ auto scored(const posting_map& postings,
     long max_int = (1 << bits) - 1;
     for (const auto& [term, posting_for_term] : postings)
     {
-        std::vector<std::pair<long, long>> scored_for_term;
+        std::vector<posting_type> scored_for_term;
         irk::score::query_likelihood_scorer scorer(
             occurrences[term], collection_occurrences);
         for (const auto& [doc, freq] : posting_for_term) {
@@ -61,7 +62,7 @@ auto scored(const posting_map& postings,
 
 on_fly_index postings_on_fly(fs::path collection_file, int bits)
 {
-    std::map<std::string, std::vector<std::pair<long, long>>> postings;
+    std::map<std::string, std::vector<posting_type>> postings;
     std::map<std::string, std::map<long, long>> postings_map;
     std::vector<long> document_sizes;
     std::map<std::string, long> occurrences;
@@ -118,12 +119,12 @@ protected:
         // given
         collection_file = "collection.txt";
         expected_index = postings_on_fly(collection_file, 24);
-        irk::index::index_assembler<long, std::string, long, long> assembler(
+        irk::index::index_assembler<std::string, long, long> assembler(
             fs::path(index_dir),
             32,
             1024,
             16,
-            irk::varbyte_codec<long>{},
+            irk::varbyte_codec<irk::index::document_t>{},
             irk::varbyte_codec<long>{});
 
         std::ifstream input(collection_file);
@@ -150,13 +151,13 @@ void test(const irk::inverted_index_view& index_view,
         auto postings = index_view.postings(term_id);
         const auto& expected =
             expected_index.freq_postings[index_view.term(term_id)];
-        std::vector<std::pair<long, long>> actual(
+        std::vector<posting_type> actual(
             postings.begin(), postings.end());
         ASSERT_THAT(actual, ::testing::ElementsAreArray(expected));
         auto scored_postings = index_view.scored_postings(term_id);
         const auto& expected_scored =
             expected_index.scored_postings[index_view.term(term_id)];
-        std::vector<std::pair<long, long>> actual_scored(
+        std::vector<posting_type> actual_scored(
             scored_postings.begin(), scored_postings.end());
         ASSERT_THAT(
             actual_scored, ::testing::ElementsAreArray(expected_scored));
@@ -169,7 +170,7 @@ TEST_F(inverted_index, mapped_file)
     auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
         index_dir, irk::score::query_likelihood_tag{});
     irk::inverted_index_view index_view(data.get(),
-        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<irk::index::document_t>{},
         irk::varbyte_codec<long>{},
         irk::varbyte_codec<long>{});
     test(index_view, expected_index);
@@ -181,7 +182,7 @@ TEST_F(inverted_index, disk)
     auto data = std::make_shared<irk::inverted_index_disk_data_source>(
         index_dir, irk::score::query_likelihood_tag{});
     irk::inverted_index_view index_view(data.get(),
-        irk::varbyte_codec<long>{},
+        irk::varbyte_codec<irk::index::document_t>{},
         irk::varbyte_codec<long>{},
         irk::varbyte_codec<long>{});
     test(index_view, expected_index);
