@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file compacttable.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -34,7 +34,7 @@
 #include <type_safe/index.hpp>
 
 #include <irkit/coding.hpp>
-#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/io.hpp>
 #include <irkit/io/memorybuffer.hpp>
 #include <irkit/types.hpp>
@@ -82,14 +82,8 @@ auto read_compact_value(Mem mem, std::uint32_t key, Codec codec)
     }
     const char* block_beg = mem.data() + leader->ptr;
     std::size_t num_skip = key - leader->key;
-    auto decoded = delta_encoded
-        ? decode_delta_n(
-              gsl::span<const char>(block_beg, mem.size() - leader->ptr),
-              num_skip + 1,
-              codec)
-        : decode_n(gsl::span<const char>(block_beg, mem.size() - leader->ptr),
-              num_skip + 1,
-              codec);
+    auto decoded = delta_encoded ? delta_decode(codec, block_beg, num_skip + 1)
+                                 : decode(codec, block_beg, num_skip + 1);
     return decoded.back();
 }
 
@@ -117,7 +111,7 @@ std::ostream& operator<<(std::ostream& out,
     \author Michal Siedlaczek
  */
 template<class T,
-    class Codec = varbyte_codec<T>,
+    class Codec = vbyte_codec<T>,
     class MemoryBuffer = std::vector<char>>
 class compact_table {
     static_assert(std::is_convertible<T, typename Codec::value_type>::value);
@@ -169,7 +163,7 @@ public:
 };
 
 //! Load a compact table to main memory.
-template<class T, class Codec = varbyte_codec<T>>
+template<class T, class Codec = vbyte_codec<T>>
 compact_table<T, Codec, std::vector<char>> load_compact_table(fs::path file)
 {
     std::vector<char> data;
@@ -178,7 +172,7 @@ compact_table<T, Codec, std::vector<char>> load_compact_table(fs::path file)
 }
 
 //! Set up a compact table with a mapped file.
-template<class T, class Codec = varbyte_codec<T>>
+template<class T, class Codec = vbyte_codec<T>>
 compact_table<T, Codec, boost::iostreams::mapped_file_source>
 map_compact_table(fs::path file)
 {
@@ -188,7 +182,7 @@ map_compact_table(fs::path file)
 }
 
 //! Build a compact table in main memory.
-template<class T, class Codec = varbyte_codec<T>>
+template<class T, class Codec = vbyte_codec<T>>
 compact_table<T, Codec, std::vector<char>>
 build_compact_table(const std::vector<T>& values,
     bool delta_encoded = false,
@@ -216,8 +210,8 @@ build_compact_table(const std::vector<T>& values,
         leaders.push_back(
             {beg, data_offset + static_cast<std::uint32_t>(blocks.size())});
         gsl::span<const T> block_span(values.data() + beg, values.data() + end);
-        auto encoded_block = delta_encoded ? encode_delta(block_span, codec)
-                                           : encode(block_span, codec);
+        auto encoded_block = delta_encoded ? delta_encode(codec, block_span)
+                                           : encode(codec, block_span);
         blocks.insert(blocks.end(), encoded_block.begin(), encoded_block.end());
     }
     io::append_collection(leaders, data);
@@ -226,7 +220,7 @@ build_compact_table(const std::vector<T>& values,
 }
 
 //! Load an offset table to main memory.
-template<class Codec = varbyte_codec<std::size_t>>
+template<class Codec = vbyte_codec<std::size_t>>
 compact_table<std::size_t, Codec, std::vector<char>>
 load_offset_table(fs::path file)
 {
@@ -236,7 +230,7 @@ load_offset_table(fs::path file)
 }
 
 //! Set up an offset table with a mapped file.
-template<class Codec = varbyte_codec<std::size_t>>
+template<class Codec = vbyte_codec<std::size_t>>
 compact_table<std::size_t, Codec, boost::iostreams::mapped_file_source>
 map_offset_table(fs::path file)
 {
@@ -247,29 +241,29 @@ map_offset_table(fs::path file)
 }
 
 //! Build an offset table in main memory.
-template<class Codec = varbyte_codec<std::size_t>>
+template<class Codec = vbyte_codec<std::size_t>>
 compact_table<std::size_t, Codec, std::vector<char>> build_offset_table(
     const std::vector<std::size_t>& values, std::uint32_t block_size = 256)
 {
     return build_compact_table<std::size_t, Codec>(values, true, block_size);
 }
 
-template<class T, class Codec = varbyte_codec<T>>
+template<class T, class Codec = vbyte_codec<T>>
 using vector_compact_table = compact_table<T, Codec, std::vector<char>>;
 
-template<class T, class Codec = varbyte_codec<T>>
+template<class T, class Codec = vbyte_codec<T>>
 using mapped_compact_table =
     compact_table<T, Codec, boost::iostreams::mapped_file_source>;
 
-template<class Codec = varbyte_codec<std::size_t>,
+template<class Codec = vbyte_codec<std::size_t>,
     class MemoryBuffer = std::vector<char>>
 using offset_table = compact_table<std::size_t, Codec, MemoryBuffer>;
 
-template<class Codec = varbyte_codec<std::size_t>>
+template<class Codec = vbyte_codec<std::size_t>>
 using vector_offset_table =
     compact_table<std::size_t, Codec, std::vector<char>>;
 
-template<class Codec = varbyte_codec<std::size_t>>
+template<class Codec = vbyte_codec<std::size_t>>
 using mapped_offset_table =
     compact_table<std::size_t, Codec, boost::iostreams::mapped_file_source>;
 

@@ -42,15 +42,16 @@
 
 namespace irk {
 
-template<class Term = std::string,
-    class TermId = std::size_t,
-    class Freq = std::size_t>
-class index_builder {
+template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
+    class FrequencyCodec = irk::stream_vbyte_codec<index::frequency_t>>
+class basic_index_builder {
 public:
     using document_type = irk::index::document_t;
-    using term_type = Term;
-    using term_id_type = TermId;
-    using frequency_type = Freq;
+    using term_type = index::term_t;
+    using term_id_type = index::term_id_t;
+    using frequency_type = index::frequency_t;
+    using document_codec_type = DocumentCodec;
+    using frequency_codec_type = FrequencyCodec;
 
 private:
     struct doc_freq_pair {
@@ -72,7 +73,7 @@ private:
     std::unordered_map<term_type, term_id_type> term_map_;
 
 public:
-    index_builder(int block_size = 64)
+    basic_index_builder(int block_size = 64)
         : block_size_(block_size), current_doc_(0), all_occurrences_(0)
     {}
 
@@ -118,7 +119,8 @@ public:
     std::size_t term_count() { return term_map_.size(); }
 
     //! Returns the number of the accumulated documents.
-    std::size_t collection_size() { return current_doc_ + 1; }
+    std::size_t collection_size()
+    { return static_cast<std::size_t>(current_doc_ + 1); }
 
     //! Sorts the terms, and all related structures, lexicographically.
     void sort_terms()
@@ -160,8 +162,8 @@ public:
         {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            index::block_list_builder<document_type, true> list_builder(
-                block_size_, varbyte_codec<document_type>{});
+            index::block_list_builder<document_type, document_codec_type, true>
+                list_builder(block_size_);
             for (const auto& posting : postings_[term_id])
             { list_builder.add(posting.doc); }
             offset += list_builder.write(out);
@@ -179,8 +181,9 @@ public:
         for (auto& term : sorted_terms_.value()) {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            index::block_list_builder<frequency_type, false> list_builder(
-                block_size_, varbyte_codec<frequency_type>{});
+            index::
+                block_list_builder<frequency_type, frequency_codec_type, false>
+                    list_builder(block_size_);
             for (const auto& posting : postings_[term_id])
             { list_builder.add(posting.freq); }
             offset += list_builder.write(out);
@@ -234,7 +237,6 @@ public:
     }
 };
 
-using default_index_builder =
-    index_builder<std::string, std::uint32_t, std::uint32_t>;
+using index_builder = basic_index_builder<>;
 
 };  // namespace irk

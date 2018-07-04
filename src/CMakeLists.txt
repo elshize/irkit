@@ -23,7 +23,8 @@ set(COMMON_LIBRARIES
     debug_assert
     type_safe
     ranges
-    nlohmann_json)
+    nlohmann_json
+    streamvbyte)
 
 add_executable(irk-warc irk-warc.cpp)
 target_link_libraries(irk-warc PUBLIC ${COMMON_LIBRARIES} ${ZLIB_LIBRARIES} ${gumbo_LIBRARIES})

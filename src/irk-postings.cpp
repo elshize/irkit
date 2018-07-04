@@ -3,7 +3,7 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 
-#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/index/source.hpp>
@@ -42,10 +42,7 @@ int main(int argc, char** argv)
     try {
         irk::inverted_index_disk_data_source data(fs::path{dir},
             scores_defined ? std::make_optional(scoring) : std::nullopt);
-        irk::inverted_index_view index(&data,
-            irk::varbyte_codec<irk::index::document_t>{},
-            irk::varbyte_codec<long>{},
-            irk::varbyte_codec<long>{});
+        irk::inverted_index_view index(&data);
 
         long term_id = use_id ? std::stol(term) : *index.term_id(term);
         if (app.count("--scores") > 0) {

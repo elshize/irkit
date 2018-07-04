@@ -33,31 +33,46 @@
 
 namespace irk::index {
 
+    namespace details {
+        using document_base_type = std::uint32_t;
+        using term_id_base_type = std::uint32_t;
+        using term_base_type = std::string;
+        using frequency_base_type = std::uint32_t;
+    };
+
 namespace ts = type_safe;
 
-// TODO: Change aliases to strong types.
-using term_id_t = type_safe::index_t;
-using term_t = std::string;
+using term_id_t = details::term_id_base_type;
+using term_t = details::term_base_type;
 using offset_t = std::size_t;
+using frequency_t = details::frequency_base_type;
 
-struct document_t : ts::strong_typedef<document_t, long>,
+struct document_t : ts::strong_typedef<document_t, details::document_base_type>,
                     ts::strong_typedef_op::equality_comparison<document_t>,
                     ts::strong_typedef_op::relational_comparison<document_t>,
                     ts::strong_typedef_op::unary_plus<document_t>,
                     ts::strong_typedef_op::unary_minus<document_t>,
                     ts::strong_typedef_op::addition<document_t>,
-                    ts::strong_typedef_op::subtraction<document_t> {
+                    ts::strong_typedef_op::subtraction<document_t>,
+                    ts::strong_typedef_op::mixed_addition<document_t,
+                        details::document_base_type>,
+                    ts::strong_typedef_op::mixed_subtraction<document_t,
+                        details::document_base_type>
+{
     using strong_typedef::strong_typedef;
 
-    constexpr document_t() noexcept : strong_typedef(0) {}
+    explicit constexpr document_t() noexcept : strong_typedef(0) {}
 
     template<typename T,
-        typename = typename std::enable_if<ts::detail::
-                is_safe_integer_conversion<T, std::ptrdiff_t>::value>::type>
+        typename =
+            typename std::enable_if<ts::detail::is_safe_integer_conversion<T,
+                details::document_base_type>::value>::type>
     constexpr document_t(T d) noexcept : strong_typedef(d)
     {}
 
-    operator long() const noexcept { return ts::get(*this); }
+    explicit operator long() const noexcept { return ts::get(*this); }
+    explicit operator int() const noexcept { return ts::get(*this); }
+    explicit operator std::size_t() const noexcept { return ts::get(*this); }
 };
 
 std::ostream& operator<<(std::ostream& out, const document_t& d)
@@ -65,7 +80,6 @@ std::ostream& operator<<(std::ostream& out, const document_t& d)
     return out << ts::get(d);
 }
 
-document_t operator"" _id(unsigned long long n) { return 0; }
 
 //struct offset_t : ts::strong_typedef<offset_t, ptrdiff_t>,
 //                  ts::strong_typedef_op::equality_comparison<offset_t>,
@@ -93,4 +107,32 @@ document_t operator"" _id(unsigned long long n) { return 0; }
 //    return out << ts::get(d);
 //}
 
-};  // namespace irk::index
+}  // namespace irk::index
+
+namespace std {
+
+    template<>
+    struct make_unsigned<irk::index::document_t> {
+        using type = irk::index::details::document_base_type;
+    };
+
+    template<>
+    struct numeric_limits<irk::index::document_t> {
+        static const bool is_specialized = true;
+        static irk::index::document_t max()
+        {
+            return numeric_limits<irk::index::details::document_base_type>()
+                .max();
+        }
+    };
+
+}
+
+namespace irk::literals {
+
+irk::index::document_t operator"" _id(unsigned long long n)
+{
+    return irk::index::document_t(n);
+}
+
+}  // namespace irk::literal

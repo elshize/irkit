@@ -37,16 +37,17 @@
 
 namespace irk {
 
-template<class Term = std::string,
-    class TermId = std::size_t,
-    class Freq = std::size_t>
-class index_merger {
+template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
+    class FrequencyCodec = irk::stream_vbyte_codec<index::frequency_t>>
+class basic_index_merger {
 public:
-    using document_type = irk::index::document_t;
-    using term_type = Term;
-    using term_id_type = TermId;
-    using frequency_type = Freq;
-    using index_type = inverted_index_view;
+    using document_type = index::document_t;
+    using term_type = index::term_t;
+    using term_id_type = index::term_id_t;
+    using frequency_type = index::frequency_t;
+    using document_codec_type = DocumentCodec;
+    using frequency_codec_type = FrequencyCodec;
+    using index_type = basic_inverted_index_view<document_codec_type>;
 
 private:
     class entry {
@@ -108,8 +109,8 @@ private:
     index::offset_t doc_offset_;
     index::offset_t count_offset_;
     long block_size_;
-    any_codec<document_type> document_codec_;
-    any_codec<frequency_type> frequency_codec_;
+    document_codec_type document_codec_;
+    frequency_codec_type frequency_codec_;
 
     std::vector<entry> indices_with_next_term()
     {
@@ -124,24 +125,17 @@ private:
     }
 
 public:
-    index_merger(fs::path target_dir,
+    basic_index_merger(fs::path target_dir,
         std::vector<fs::path> indices,
-        any_codec<document_type> document_codec,
-        any_codec<frequency_type> frequency_codec,
         long block_size,
         bool skip_unique = false)
         : target_dir_(target_dir),
-          document_codec_(document_codec),
-          frequency_codec_(frequency_codec),
           block_size_(block_size),
           skip_unique_(skip_unique)
     {
         for (fs::path index_dir : indices) {
             sources_.emplace_back(index_dir);
-            indices_.emplace_back(&sources_.back(),
-                document_codec_,
-                frequency_codec_,
-                frequency_codec_);
+            indices_.emplace_back(&sources_.back());
         }
         terms_out_.open(index::terms_path(target_dir).c_str());
         doc_ids_.open(index::doc_ids_path(target_dir).c_str());
@@ -196,13 +190,13 @@ public:
         term_dfs_.push_back(doc_ids.size());
 
         // Write documents and counts.
-        index::block_list_builder<document_type, true> doc_list_builder(
-            block_size_, document_codec_);
+        index::block_list_builder<document_type, document_codec_type, true>
+            doc_list_builder(block_size_);
         for (const auto& doc : doc_ids) { doc_list_builder.add(doc); }
         doc_offset_ += doc_list_builder.write(doc_ids_);
 
-        index::block_list_builder<frequency_type, false> count_list_builder(
-            block_size_, frequency_codec_);
+        index::block_list_builder<frequency_type, frequency_codec_type, false>
+            count_list_builder(block_size_);
         for (const auto& count : doc_counts) { count_list_builder.add(count); }
         count_offset_ += count_list_builder.write(doc_counts_);
 
@@ -223,7 +217,7 @@ public:
             std::string current_term;
             *term_streams.back() >> current_term;
             heap_.emplace_back(index_num, 0, &index, shift, current_term);
-            shift += index.collection_size();
+            shift += static_cast<document_type>(index.collection_size());
             index_num++;
         }
 
@@ -296,7 +290,8 @@ public:
         for (const auto& index : indices_) {
             for (long doc = 0; doc < index.collection_size(); ++doc)
             {
-                long size = index.document_size(doc);
+                long size = index.document_size(
+                    static_cast<document_type>(doc));
                 sizes.push_back(size);
                 sizes_sum += size;
             }
@@ -331,6 +326,6 @@ public:
     }
 };
 
-using default_index_merger = index_merger<std::string, long, long>;
+using index_merger = basic_index_merger<>;
 
 };  // namespace irk

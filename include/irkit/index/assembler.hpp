@@ -45,25 +45,28 @@ namespace irk::index {
 //! See assemble() function documentation for the format of the input file.
 //! Note that neither the assembler nor the builder stem terms.
 //! It must be done beforehand.
-template<class Term = std::string, class TermId = long, class Freq = long>
-class index_assembler {
+template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
+    class FrequencyCodec = irk::stream_vbyte_codec<index::frequency_t>>
+class basic_index_assembler {
 public:
     using document_type = irk::index::document_t;
-    using term_type = Term;
-    using term_id_type = TermId;
-    using frequency_type = Freq;
+    using term_type = irk::index::term_t;
+    using term_id_type = irk::index::term_id_t;
+    using frequency_type = irk::index::frequency_t;
+    using document_codec_type = DocumentCodec;
+    using frequency_codec_type = FrequencyCodec;
     using builder_type =
-        irk::index_builder<term_type, term_id_type, frequency_type>;
-    using merger_type = irk::index_merger<
-        term_type, term_id_type, frequency_type>;
+        irk::basic_index_builder<document_codec_type, frequency_codec_type>;
+    using merger_type =
+        irk::basic_index_merger<document_codec_type, frequency_codec_type>;
 
 private:
     fs::path output_dir_;
     int batch_size_;
     long block_size_;
     long lexicon_block_size_;
-    any_codec<document_type> document_codec_;
-    any_codec<frequency_type> frequency_codec_;
+    document_codec_type document_codec_;
+    frequency_codec_type frequency_codec_;
 
 public:
     //! \param output_dir       final directory of the index
@@ -71,18 +74,16 @@ public:
     //! \param block_size       size of inverted list block (and skip length)
     //! \param document_codec   codec for document IDs
     //! \param frequency_codec  codec for frequencies
-    index_assembler(fs::path output_dir,
+    basic_index_assembler(fs::path output_dir,
         int batch_size,
         long block_size,
-        int lexicon_block_size,
-        any_codec<document_type> document_codec,
-        any_codec<frequency_type> frequency_codec) noexcept
+        int lexicon_block_size) noexcept
         : output_dir_(output_dir),
           batch_size_(batch_size),
           block_size_(block_size),
           lexicon_block_size_(lexicon_block_size),
-          document_codec_(document_codec),
-          frequency_codec_(frequency_codec)
+          document_codec_(),
+          frequency_codec_()
     {}
 
     //! \brief Builds all batches and assembles the final index.
@@ -113,11 +114,7 @@ public:
             ++batch_number;
         }
         std::clog << "Merging " << batch_number << " batches" << std::endl;
-        irk::index_merger<std::string, long, long> merger(output_dir_,
-            batch_dirs,
-            document_codec_,
-            frequency_codec_,
-            block_size_);
+        merger_type merger(output_dir_, batch_dirs, block_size_);
         merger.merge();
         auto term_map = build_lexicon(
             irk::index::terms_path(output_dir_), lexicon_block_size_);
@@ -156,8 +153,8 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        for (int processed_documents_ = first_id;
-             processed_documents_ < batch_size_ + first_id;
+        for (auto processed_documents_ = static_cast<long>(first_id);
+             processed_documents_ < batch_size_ + static_cast<long>(first_id);
              processed_documents_++)
         {
             if (!std::getline(input, line)) { break; }
@@ -192,6 +189,6 @@ public:
     }
 };
 
-using default_index_assembler = index_assembler<>;
+using index_assembler = basic_index_assembler<>;
 
 };  // namespace irk::index

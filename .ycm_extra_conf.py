@@ -42,6 +42,7 @@ flags = [
     '-I/home/elshize/dev/irkit/submodules/GSL/include',
     '-I/home/elshize/dev/irkit/submodules/CLI11/include',
     '-I/home/elshize/dev/irkit/submodules/json/include',
+    '-I/home/elshize/dev/irkit/submodules/streamvbyte/include',
     '-I/usr/local/include',
     '-Wall',
     '-std=c++17',

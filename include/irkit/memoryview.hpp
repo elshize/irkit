@@ -361,3 +361,16 @@ memory_view make_memory_view(boost::filesystem::path file_path)
 }
 
 };  // namespace irk
+
+
+namespace std {
+
+template<>
+struct iterator_traits<irk::memory_view::iterator> {
+    using value_type = const char;
+    using reference = const char&;
+    using difference_type = std::ptrdiff_t;
+    using iterator_category = std::random_access_iterator_tag;
+};
+
+};

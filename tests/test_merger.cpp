@@ -14,8 +14,9 @@
 
 namespace {
 
+using irk::index_merger;
+
 using Posting = irk::_posting<std::uint16_t, double>;
-using index_merger = irk::index_merger<std::string, long, long>;
 
 struct FakeScore {
     template<class Freq>
@@ -41,85 +42,85 @@ auto vb_encode(std::initializer_list<T> integers)
     return irk::encode(integers, vb);
 }
 
-class IndexMerging : public ::testing::Test {
-protected:
-    irk::fs::path index_dir_1;
-    irk::fs::path index_dir_2;
-    irk::fs::path index_dir_m;
-    IndexMerging()
-    {
-        irk::fs::path tmpdir = irk::fs::temp_directory_path();
-        index_dir_m = tmpdir / "IndexMergingTest-index_m";
-        if (irk::fs::exists(index_dir_m)) {
-            irk::fs::remove_all(index_dir_m);
-        }
-        irk::fs::create_directory(index_dir_m);
-        index_dir_1 = tmpdir / "IndexMergingTest-index_1";
-        if (irk::fs::exists(index_dir_1)) {
-            irk::fs::remove_all(index_dir_1);
-        }
-        irk::fs::create_directory(index_dir_1);
-        write_bytes(irk::index::terms_path(index_dir_1),
-            {'b', '\n', 'c', '\n', 'z', '\n'});
-        auto tdfs = irk::build_compact_table<std::uint16_t>({0, 2, 3});
-        irk::io::dump(tdfs, irk::index::term_doc_freq_path(index_dir_1));
-        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
-            irk::index::doc_ids_off_path(index_dir_1));
-        write_bytes(irk::index::doc_ids_path(index_dir_1),
-            flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
-        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
-            irk::index::doc_counts_off_path(index_dir_1));
-        write_bytes(irk::index::doc_counts_path(index_dir_1),
-            flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
-        std::string titles = "Doc1\nDoc2\nDoc3\n";
-        std::vector<char> titles_array(titles.begin(), titles.end());
-        write_bytes(irk::index::titles_path(index_dir_1), titles_array);
-        auto term_map_1 = irk::build_lexicon(
-            irk::index::terms_path(index_dir_1), 64);
-        term_map_1.serialize(irk::index::term_map_path(index_dir_1));
-        auto title_map_1 = irk::build_lexicon(
-            irk::index::titles_path(index_dir_1), 64);
-        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
-
-        index_dir_2 = tmpdir / "IndexMergingTest-index_2";
-        if (irk::fs::exists(index_dir_2)) {
-            irk::fs::remove_all(index_dir_2);
-        }
-        irk::fs::create_directory(index_dir_2);
-        write_bytes(irk::index::terms_path(index_dir_2),
-            {'b', '\n', 'c', '\n', 'd', '\n'});
-        auto tdfs2 = irk::build_compact_table<std::uint16_t>({2, 1, 1});
-        irk::io::dump(tdfs2, irk::index::term_doc_freq_path(index_dir_2));
-        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
-            irk::index::doc_ids_off_path(index_dir_2));
-        write_bytes(irk::index::doc_ids_path(index_dir_2),
-            flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
-        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
-            irk::index::doc_counts_off_path(index_dir_2));
-        write_bytes(irk::index::doc_counts_path(index_dir_2),
-            flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
-        std::string titles_2 = "Doc4\nDoc5\nDoc6\n";
-        std::vector<char> titles_array_2(titles_2.begin(), titles_2.end());
-        write_bytes(irk::index::titles_path(index_dir_2), titles_array_2);
-        auto term_map_2 = irk::build_lexicon(
-            irk::index::terms_path(index_dir_2), 64);
-        term_map_2.serialize(irk::index::term_map_path(index_dir_2));
-        auto title_map_2 = irk::build_lexicon(
-            irk::index::titles_path(index_dir_2), 64);
-        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
-    }
-    ~IndexMerging() {
-        irk::fs::remove_all(index_dir_1);
-        irk::fs::remove_all(index_dir_2);
-        irk::fs::remove_all(index_dir_m);
-    }
-    void write_bytes(irk::fs::path file, const std::vector<char>& bytes)
-    {
-        std::ofstream ofs(file.c_str());
-        ofs.write(bytes.data(), bytes.size());
-        ofs.close();
-    }
-};
+//class IndexMerging : public ::testing::Test {
+//protected:
+//    irk::fs::path index_dir_1;
+//    irk::fs::path index_dir_2;
+//    irk::fs::path index_dir_m;
+//    IndexMerging()
+//    {
+//        irk::fs::path tmpdir = irk::fs::temp_directory_path();
+//        index_dir_m = tmpdir / "IndexMergingTest-index_m";
+//        if (irk::fs::exists(index_dir_m)) {
+//            irk::fs::remove_all(index_dir_m);
+//        }
+//        irk::fs::create_directory(index_dir_m);
+//        index_dir_1 = tmpdir / "IndexMergingTest-index_1";
+//        if (irk::fs::exists(index_dir_1)) {
+//            irk::fs::remove_all(index_dir_1);
+//        }
+//        irk::fs::create_directory(index_dir_1);
+//        write_bytes(irk::index::terms_path(index_dir_1),
+//            {'b', '\n', 'c', '\n', 'z', '\n'});
+//        auto tdfs = irk::build_compact_table<std::uint16_t>({0, 2, 3});
+//        irk::io::dump(tdfs, irk::index::term_doc_freq_path(index_dir_1));
+//        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
+//            irk::index::doc_ids_off_path(index_dir_1));
+//        write_bytes(irk::index::doc_ids_path(index_dir_1),
+//            flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
+//        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
+//            irk::index::doc_counts_off_path(index_dir_1));
+//        write_bytes(irk::index::doc_counts_path(index_dir_1),
+//            flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
+//        std::string titles = "Doc1\nDoc2\nDoc3\n";
+//        std::vector<char> titles_array(titles.begin(), titles.end());
+//        write_bytes(irk::index::titles_path(index_dir_1), titles_array);
+//        auto term_map_1 = irk::build_lexicon(
+//            irk::index::terms_path(index_dir_1), 64);
+//        term_map_1.serialize(irk::index::term_map_path(index_dir_1));
+//        auto title_map_1 = irk::build_lexicon(
+//            irk::index::titles_path(index_dir_1), 64);
+//        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
+//
+//        index_dir_2 = tmpdir / "IndexMergingTest-index_2";
+//        if (irk::fs::exists(index_dir_2)) {
+//            irk::fs::remove_all(index_dir_2);
+//        }
+//        irk::fs::create_directory(index_dir_2);
+//        write_bytes(irk::index::terms_path(index_dir_2),
+//            {'b', '\n', 'c', '\n', 'd', '\n'});
+//        auto tdfs2 = irk::build_compact_table<std::uint16_t>({2, 1, 1});
+//        irk::io::dump(tdfs2, irk::index::term_doc_freq_path(index_dir_2));
+//        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
+//            irk::index::doc_ids_off_path(index_dir_2));
+//        write_bytes(irk::index::doc_ids_path(index_dir_2),
+//            flatten({vb_encode({0, 1}), vb_encode({1}), vb_encode({0})}));
+//        irk::io::dump(irk::build_offset_table<>({0, 2, 3}),
+//            irk::index::doc_counts_off_path(index_dir_2));
+//        write_bytes(irk::index::doc_counts_path(index_dir_2),
+//            flatten({vb_encode({1, 2}), vb_encode({1}), vb_encode({2})}));
+//        std::string titles_2 = "Doc4\nDoc5\nDoc6\n";
+//        std::vector<char> titles_array_2(titles_2.begin(), titles_2.end());
+//        write_bytes(irk::index::titles_path(index_dir_2), titles_array_2);
+//        auto term_map_2 = irk::build_lexicon(
+//            irk::index::terms_path(index_dir_2), 64);
+//        term_map_2.serialize(irk::index::term_map_path(index_dir_2));
+//        auto title_map_2 = irk::build_lexicon(
+//            irk::index::titles_path(index_dir_2), 64);
+//        title_map_1.serialize(irk::index::title_map_path(index_dir_1));
+//    }
+//    ~IndexMerging() {
+//        irk::fs::remove_all(index_dir_1);
+//        irk::fs::remove_all(index_dir_2);
+//        irk::fs::remove_all(index_dir_m);
+//    }
+//    void write_bytes(irk::fs::path file, const std::vector<char>& bytes)
+//    {
+//        std::ofstream ofs(file.c_str());
+//        ofs.write(bytes.data(), bytes.size());
+//        ofs.close();
+//    }
+//};
 
 //TEST_F(IndexMerging, titles)
 //{

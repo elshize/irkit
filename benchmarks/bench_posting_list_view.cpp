@@ -38,19 +38,8 @@
 int main(int argc, char** argv)
 {
     std::string index_dir;
-    int time_limit;
-    double overhead_limit;
 
     CLI::App app{"Posting reading benchmark."};
-    app.add_option(
-           "--time-limit", time_limit, "Time limit per posting in ns", false)
-        ->required();
-    app.add_option("--overhead-limit",
-           overhead_limit,
-           "Zipped posting list overhead limit per posting (e.g., 1.1 means "
-           "max 110\% of sequential time",
-           false)
-        ->required();
     app.add_option("index_dir", index_dir, "Index directory", false)
         ->required();
 
@@ -58,10 +47,7 @@ int main(int argc, char** argv)
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_inmemory_data_source data(dir);
-    irk::inverted_index_view index(&data,
-        irk::varbyte_codec<irk::index::document_t>{},
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
+    irk::inverted_index_view index(&data);
     std::cout << " done." << std::endl;
 
     std::chrono::nanoseconds independent_elapsed(0);
@@ -83,9 +69,9 @@ int main(int argc, char** argv)
         independent_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
     }
-    int independent_avg = independent_elapsed.count() / posting_count;
-    std::cout << "Documents and frequencies independently: " << independent_avg
-              << "ns/posting" << std::endl;
+    auto ns_per_int = (double)independent_elapsed.count() / posting_count;
+    std::cout << "Documents and frequencies independently: " << ns_per_int
+              << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
 
     posting_count = 0;
     for (long term_id = 0; term_id < index.terms().size(); term_id++) {
@@ -99,13 +85,10 @@ int main(int argc, char** argv)
         together_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
     }
-    int together_avg = together_elapsed.count() / posting_count;
-    std::cout << "As posting_list_view: " << together_avg << "ns/posting"
-              << std::endl;
+    ns_per_int = (double)together_elapsed.count() / posting_count;
+    std::cout << "As posting_list_view: " << ns_per_int
+              << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
 
-    assert(independent_avg <= time_limit);
-    assert(together_avg <= time_limit);
-    assert((double)together_avg <= overhead_limit * independent_avg);
     return 0;
 }
 

@@ -69,12 +69,7 @@ int main(int argc, char** argv)
         fs::path batch_dir = dir / ".batches";
         std::vector<fs::path> batch_dirs{
             fs::directory_iterator(batch_dir), fs::directory_iterator()};
-        irk::index_merger<std::string, long, long> merger(
-            dir,
-            batch_dirs,
-            irk::varbyte_codec<irk::index::document_t>{},
-            irk::varbyte_codec<long>{},
-            skip_block_size);
+        irk::index_merger merger(dir, batch_dirs, skip_block_size);
         merger.merge();
         auto term_map = irk::build_lexicon(
             irk::index::terms_path(output_dir), lexicon_block_size);
@@ -85,12 +80,10 @@ int main(int argc, char** argv)
     }
     else
     {
-        irk::index::default_index_assembler assembler(fs::path(output_dir),
+        irk::index::index_assembler assembler(fs::path(output_dir),
             batch_size,
             skip_block_size,
-            lexicon_block_size,
-            irk::varbyte_codec<irk::index::document_t>{},
-            irk::varbyte_codec<long>{});
+            lexicon_block_size);
         assembler.assemble(std::cin);
     }
     return 0;

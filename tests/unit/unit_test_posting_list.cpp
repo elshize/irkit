@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file unit_test_posting_list.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
