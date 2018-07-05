@@ -64,6 +64,7 @@ class memory_view {
 public:
     using slice_end = std::optional<std::ptrdiff_t>;
     using slice_type = std::pair<slice_end, slice_end>;
+    using iterator = const char*;
 
     //! Creates a memory view.
     /*!
@@ -131,29 +132,9 @@ public:
         return cast_fn(data());
     }
 
-    //! Character iterator.
-    class iterator : public boost::iterator_facade<
-        iterator, const char, boost::random_access_traversal_tag> {
-    public:
-        iterator() = default;
-        iterator(const char* pos) : pos_(pos) {}
 
-    private:
-        friend class boost::iterator_core_access;
-        void increment() { pos_++; }
-        void decrement() { pos_--; }
-        void advance(difference_type n) { pos_ += n; }
-        difference_type distance_to(const iterator& other) const
-        {
-            return other.pos_ - pos_;
-        }
-        bool equal(const iterator& other) const { return pos_ == other.pos_; }
-        const char& dereference() const { return *pos_; }
-        const char* pos_;
-    };
-
-    iterator begin() const { return {data()}; }
-    iterator end() const { return {data() + size()}; }
+    iterator begin() const { return data(); }
+    iterator end() const { return data() + size(); }
 
     auto stream() const
     {
@@ -177,7 +158,10 @@ public:
         model(source_type source) : source_(source) {}
         const char* data() const override { return source_.data(); }
         gsl::index size() const override { return source_.size(); }
-        const char& operator[](std::ptrdiff_t n) const override { return source_[n]; }
+
+        const char& operator[](std::ptrdiff_t n) const override
+        { return source_[n]; }
+
         memory_view
         range(std::ptrdiff_t first, std::ptrdiff_t size) const override
         {
@@ -191,6 +175,14 @@ public:
 private:
     std::shared_ptr<concept> self_;
 };
+
+std::ostream& operator<<(std::ostream& out, const memory_view& mv)
+{
+    for (const char& byte : mv) {
+        out << (int)byte << " ";
+    }
+    return out;
+}
 
 //! A gsl::span<T> memory source.
 template<class CharT = char>
@@ -265,7 +257,9 @@ public:
     const char_type* data() const { return file_.data(); }
     std::ptrdiff_t size() const { return file_.size(); }
     char operator[](std::ptrdiff_t n) const { return data()[n]; }
-    pointer_memory_source<char_type> range(std::ptrdiff_t first, std::ptrdiff_t size) const
+
+    pointer_memory_source<char_type>
+    range(std::ptrdiff_t first, std::ptrdiff_t size) const
     {
         return pointer_memory_source(file_.data() + first, size);
     }
@@ -339,7 +333,7 @@ private:
             std::ifstream in(file_path_.c_str(), flags);
             in.seekg(offset_, std::ios::beg);
             buffer_ = std::make_shared<std::vector<char_type>>(size_);
-            if (!in.read(buffer_->data(), size_))
+            if (not in.read(buffer_->data(), size_))
             {
                 throw std::runtime_error(
                     "Failed reading " + file_path_.string());
@@ -365,12 +359,12 @@ memory_view make_memory_view(boost::filesystem::path file_path)
 
 namespace std {
 
-template<>
-struct iterator_traits<irk::memory_view::iterator> {
-    using value_type = const char;
-    using reference = const char&;
-    using difference_type = std::ptrdiff_t;
-    using iterator_category = std::random_access_iterator_tag;
-};
+//template<>
+//struct iterator_traits<irk::memory_view::iterator> {
+//    using value_type = const char;
+//    using reference = const char&;
+//    using difference_type = std::ptrdiff_t;
+//    using iterator_category = std::random_access_iterator_tag;
+//};
 
 };

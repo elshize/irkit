@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file documentlist.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
@@ -99,7 +99,8 @@ public:
           pos_(pos),
           block_size_(block_size),
           block_count_(view_.blocks_.size()),
-          decoded_block_num_(-1)
+          decoded_block_num_(-1),
+          decoded_block_(block_size_)
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -184,24 +185,26 @@ private:
     {
         if (block_ != decoded_block_num_)
         {
-            decoded_block_.clear();
+            auto count = block_ < block_count_ - 1
+                ? block_size_
+                : view_.length_ % block_size_;
             if constexpr (delta_encoded)
             {
-                auto preceding = block_ > 0
-                    ? view_.blocks_[block_ - 1].back() : 0_id;
-                decoded_block_.resize(block_size_);
+                auto preceding = block_ > 0 ? view_.blocks_[block_ - 1].back()
+                                            : 0_id;
                 view_.codec_.delta_decode(
                     std::begin(view_.blocks_[block_].data()),
                     std::begin(decoded_block_),
-                    block_size_,
+                    count,
                     preceding);
             } else
             {
                 decoded_block_.resize(block_size_);
                 view_.codec_.decode(std::begin(view_.blocks_[block_].data()),
                     std::begin(decoded_block_),
-                    block_size_);
+                    count);
             }
+            decoded_block_num_ = block_;
         }
     }
 
@@ -223,10 +226,10 @@ private:
 
     long block_size_;
     const view_type& view_;
-    std::size_t block_;
-    std::size_t pos_;
+    long block_;
+    long pos_;
     const std::size_t block_count_;
-    long decoded_block_num_;
+    mutable long decoded_block_num_;
     mutable std::vector<value_type> decoded_block_;
 };
 
@@ -260,6 +263,7 @@ public:
 
             const value_type* begin = values_.data() + begin_idx;
             const value_type* end = values_.data() + end_idx;
+
             encoded_blocks.resize(
                 pos + value_codec_.max_encoded_size(end_idx - begin_idx));
             if constexpr (delta_encoded)
@@ -273,15 +277,13 @@ public:
                 pos += value_codec_.encode(begin, end, &encoded_blocks[pos]);
             }
         }
-        encoded_blocks.resize(pos);
 
         const std::vector<char> encoded_header = irk::encode(
             int_codec_, {block_size_, num_blocks});
         const std::vector<char> encoded_skips = irk::delta_encode(
             int_codec_, absolute_skips);
 
-        int list_byte_size = encoded_header.size() + encoded_skips.size()
-            + encoded_blocks.size();
+        int list_byte_size = encoded_header.size() + encoded_skips.size() + pos;
         std::vector<char> encoded_last_vals;
 
         if constexpr (delta_encoded)
@@ -297,7 +299,7 @@ public:
         out.write(&encoded_skips[0], encoded_skips.size());
         if constexpr (delta_encoded)
         { out.write(&encoded_last_vals[0], encoded_last_vals.size()); }
-        out.write(&encoded_blocks[0], encoded_blocks.size());
+        out.write(&encoded_blocks[0], pos);
 
         return list_byte_size;
     }
@@ -338,7 +340,7 @@ public:
      * \param offset        offset from the beginning of `mem`
      */
     block_document_list_view(irk::memory_view mem, long length)
-        : length_(length), memory_(mem)
+        : length_(length), codec_(), blocks_(), block_size_(), memory_(mem)
     {
         auto pos = mem.begin();
         irk::vbyte_codec<long> vb;

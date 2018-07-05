@@ -65,8 +65,6 @@ private:
     int batch_size_;
     long block_size_;
     long lexicon_block_size_;
-    document_codec_type document_codec_;
-    frequency_codec_type frequency_codec_;
 
 public:
     //! \param output_dir       final directory of the index
@@ -81,9 +79,7 @@ public:
         : output_dir_(output_dir),
           batch_size_(batch_size),
           block_size_(block_size),
-          lexicon_block_size_(lexicon_block_size),
-          document_codec_(),
-          frequency_codec_()
+          lexicon_block_size_(lexicon_block_size)
     {}
 
     //! \brief Builds all batches and assembles the final index.

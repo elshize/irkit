@@ -58,7 +58,7 @@ struct stream_vbyte_codec {
     template<class InputIterator, class OutputIterator>
     std::ptrdiff_t encode(InputIterator in, OutputIterator out) const
     {
-        static_assert(!is_output_iterator<OutputIterator>(),
+        static_assert(not is_output_iterator<OutputIterator>(),
             "stream_vbyte_codec does not support back inserters");
         static_assert(sizeof(value_type_of<InputIterator>) == int_size);
         static_assert(sizeof(value_type_of<OutputIterator>) == byte_size);
@@ -72,14 +72,11 @@ struct stream_vbyte_codec {
     std::ptrdiff_t
     encode(InputIterator lo, InputIterator hi, OutputIterator out) const
     {
-        static_assert(!is_output_iterator<OutputIterator>(),
+        static_assert(not is_output_iterator<OutputIterator>(),
             "stream_vbyte_codec does not support back inserters");
         static_assert(sizeof(value_type_of<InputIterator>) == int_size);
         static_assert(sizeof(value_type_of<OutputIterator>) == byte_size);
-        // TODO: change when the following is resolved:
-        //       https://github.com/lemire/streamvbyte/issues/24
-        auto inptr = const_cast<std::uint32_t*>(  // NOLINT
-            reinterpret_cast<const std::uint32_t*>(&*lo));
+        auto inptr = reinterpret_cast<const std::uint32_t*>(&*lo);
         auto outptr = reinterpret_cast<std::uint8_t*>(&*out);
         std::size_t size = streamvbyte_encode(
             inptr, std::distance(lo, hi), outptr);
@@ -92,14 +89,11 @@ struct stream_vbyte_codec {
         OutputIterator out,
         T initial = T()) const
     {
-        static_assert(!is_output_iterator<OutputIterator>(),
+        static_assert(not is_output_iterator<OutputIterator>(),
             "stream_vbyte_codec does not support back inserters");
         static_assert(sizeof(value_type_of<InputIterator>) == int_size);
         static_assert(sizeof(value_type_of<OutputIterator>) == byte_size);
-        // TODO: change when the following is resolved:
-        //       https://github.com/lemire/streamvbyte/issues/24
-        auto inptr = const_cast<std::uint32_t*>(  // NOLINT
-            reinterpret_cast<const std::uint32_t*>(&*lo));
+        auto inptr = reinterpret_cast<const std::uint32_t*>(&*lo);
         auto outptr = reinterpret_cast<std::uint8_t*>(&*out);
         std::size_t size = streamvbyte_delta_encode(inptr,
             std::distance(lo, hi),

@@ -28,3 +28,6 @@
 [submodule "submodules/CLI11"]
 	path = submodules/CLI11
 	url = https://github.com/CLIUtils/CLI11.git
+[submodule "submodules/streamvbyte"]
+	path = submodules/streamvbyte
+	url = https://github.com/lemire/streamvbyte.git

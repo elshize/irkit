@@ -98,6 +98,7 @@ public:
     using frequency_type = index::frequency_t;
     using size_type = long;
     using score_type = std::uint32_t;
+    using term_id_type = index::term_id_t;
     using offset_table_type = compact_table<index::offset_t,
         irk::vbyte_codec<index::offset_t>,
         memory_view>;
@@ -154,7 +155,7 @@ public:
         return document_sizes_[ts::get(doc)];
     }
 
-    auto documents(long term_id) const
+    auto documents(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
@@ -162,7 +163,7 @@ public:
             select(term_id, document_offsets_, documents_view_), length);
     }
 
-    auto frequencies(long term_id) const
+    auto frequencies(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
@@ -171,7 +172,7 @@ public:
             select(term_id, count_offsets_, counts_view_), length);
     }
 
-    auto scores(long term_id) const
+    auto scores(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
@@ -179,7 +180,7 @@ public:
             select(term_id, *score_offsets_, *scores_view_), length);
     }
 
-    auto postings(long term_id) const
+    auto postings(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
@@ -194,15 +195,15 @@ public:
     auto postings(const std::string& term) const
     {
         auto idopt = term_id(term);
-        if (!idopt.has_value())
+        if (not idopt.has_value())
         { throw std::runtime_error("TODO: implement empty posting list"); }
         return postings(*idopt);
     }
 
-    auto scored_postings(long term_id) const
+    auto scored_postings(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
-        if (!scores_view_.has_value())
+        if (not scores_view_.has_value())
         { throw std::runtime_error("scores not loaded"); }
         auto length = term_collection_frequencies_[term_id];
         auto documents = index::block_document_list_view<document_codec_type>(
@@ -214,7 +215,7 @@ public:
     }
 
     template<class Scorer>
-    Scorer term_scorer(long term_id) const
+    Scorer term_scorer(term_id_type term_id) const
     {
         if constexpr (std::is_same<Scorer, score::bm25_scorer>::value)
         {
@@ -234,14 +235,17 @@ public:
         return term_map_.index_at(term);
     }
 
-    std::string term(const long& id) const { return term_map_.key_at(id); }
+    std::string term(const term_id_type& id) const
+    {
+        return term_map_.key_at(id);
+    }
 
-    long tdf(long term_id) const
+    long tdf(term_id_type term_id) const
     {
         return term_collection_frequencies_[term_id];
     }
 
-    long term_occurrences(long term_id) const
+    long term_occurrences(term_id_type term_id) const
     {
         return term_collection_occurrences_[term_id];
     }
@@ -262,13 +266,14 @@ public:
     document_codec_type document_codec() { return document_codec_; }
     frequency_codec_type frequency_codec() { return frequency_codec_; }
 
-    std::streamsize copy_document_list(long term_id, std::ostream& out) const
+    std::streamsize copy_document_list(term_id_type term_id, std::ostream& out) const
     {
         auto offset = document_offsets_[term_id];
         return copy_list(documents_view_, offset, out);
     }
 
-    std::streamsize copy_frequency_list(long term_id, std::ostream& out) const
+    std::streamsize
+    copy_frequency_list(term_id_type term_id, std::ostream& out) const
     {
         auto offset = count_offsets_[term_id];
         return copy_list(counts_view_, offset, out);

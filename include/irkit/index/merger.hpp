@@ -116,7 +116,8 @@ private:
     {
         std::vector<entry> result;
         std::string next_term = heap_.front().current_term();
-        while (!heap_.empty() && heap_.front().current_term() == next_term) {
+        while (not heap_.empty() && heap_.front().current_term() == next_term)
+        {
             std::pop_heap(heap_.begin(), heap_.end());
             result.push_back(heap_.back());
             heap_.pop_back();
@@ -225,7 +226,8 @@ public:
         long all_occurrences = 0;
         std::vector<long> occurrences;
         long term_id = 0;
-        while (!heap_.empty()) {
+        while (not heap_.empty())
+        {
             std::vector<entry> indices_to_merge = indices_with_next_term();
             BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
                                      << " from " << indices_to_merge.size()

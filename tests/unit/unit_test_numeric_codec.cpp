@@ -35,6 +35,7 @@
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/memoryview.hpp>
 
 using irk::literals::operator""_id;
 
@@ -63,6 +64,23 @@ TEST(stream_vbyte, signed_int)
     codec.encode(std::begin(values), std::end(values), std::begin(buffer));
     codec.decode(std::begin(buffer), std::begin(actual), values.size());
     ASSERT_THAT(actual, ::testing::ElementsAreArray(values));
+}
+
+TEST(stream_vbyte, delta_decode)
+{
+    irk::stream_vbyte_codec<std::uint32_t> codec;
+    std::array<char, 45> mem = {
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 1, 2, 4, 4, 6, 1, 4, 2, 3, 6, 5,
+        4, 1, 1, 2, 5, 5, 1, 2, 1, 2, 7, 15, 2, 1, 1, 4, (char)192, 0,
+        (char)136, (char)129, (char)128, 0, 99};
+    std::array<irk::index::document_t, 30> nums;
+    std::array<irk::index::document_t, 30> expected = {
+        1_id, 4_id, 5_id, 6_id, 8_id, 12_id, 16_id, 22_id, 23_id, 27_id, 29_id,
+        32_id, 38_id, 43_id, 47_id, 48_id, 49_id, 51_id, 56_id, 61_id, 62_id,
+        64_id, 65_id, 67_id, 74_id, 89_id, 91_id, 92_id, 93_id, 97_id};
+    irk::memory_view view = irk::make_memory_view(&mem[0], 45);
+    codec.delta_decode(std::begin(mem), std::begin(nums), 30, 0);
+    ASSERT_THAT(nums, ::testing::ElementsAreArray(expected));
 }
 
 TEST(vbyte, int)
