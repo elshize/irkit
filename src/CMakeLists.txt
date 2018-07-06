@@ -55,6 +55,10 @@ add_executable(irk-postings irk-postings.cpp)
 target_link_libraries(irk-postings ${COMMON_LIBRARIES} rax Threads::Threads)
 target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
+add_executable(irk-hits irk-hits.cpp)
+target_link_libraries(irk-hits CLI11::CLI11 Boost::log Threads::Threads)
+target_compile_features(irk-hits PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
 install(
     TARGETS
         irk
@@ -65,4 +69,5 @@ install(
         irk-postings
         irk-table
         irk-lexicon
+        irk-hits
     DESTINATION bin)
