@@ -221,7 +221,8 @@ namespace coding::hutucker {
             return ptr;
         };
 
-        while (!queue.empty()) {
+        while (not queue.empty())
+        {
             auto n = queue.front();
             queue.pop_front();
             auto left_ptr = calc_ptr(n->left);

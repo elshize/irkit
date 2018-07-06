@@ -20,18 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file irk-part.cpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
-#include <CLI/CLI.hpp>
-#include <boost/filesystem.hpp>
+#include <cstdio>
 #include <fstream>
-#include <gumbo.h>
 #include <iomanip>
 #include <iostream>
 #include <regex>
-#include <stdio.h>
+
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
+#include <gumbo.h>
 
 namespace fs = boost::filesystem;
 
@@ -73,15 +74,17 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    if (!app.count("input")) {
+    if (not app.count("input")) {
         args.input_files.push_back("");
-        if (!app.count("--output")) {
+        if (not app.count("--output"))
+        {
             std::cerr << "you must define --output when reading from stdin"
                       << std::endl;
             return 1;
         }
     } else {
-        if (!app.count("output") && args.input_files.size() > 1) {
+        if (not app.count("output") && args.input_files.size() > 1)
+        {
             std::cerr << "you must define --output when reading multiple files"
                       << std::endl;
             return 1;
@@ -132,4 +135,3 @@ int main(int argc, char** argv)
     }
     out.close();
 }
-

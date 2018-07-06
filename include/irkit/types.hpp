@@ -39,7 +39,8 @@ template<class T, class U>
 using enable_if_equal = typename std::enable_if<std::is_same<T, U>::value>;
 
 template<class T, class U>
-using enable_if_not_equal = typename std::enable_if<!std::is_same<T, U>::value>;
+using enable_if_not_equal =
+    typename std::enable_if<std::is_same<T, U>::value == false>;
 
 //! The type of the element of Range.
 template<class Range>

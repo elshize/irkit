@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file warc.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -74,7 +74,8 @@ public:
     std::string url() const { return warc_fields_.at("WARC-Target-URI"); }
     std::string trecid() const { return warc_fields_.at("WARC-TREC-ID"); }
 
-    friend std::istream& read_warc_record(std::istream& in, warc_record& record);
+    friend std::istream&
+    read_warc_record(std::istream& in, warc_record& record);
 };
 
 namespace warc {
@@ -84,12 +85,12 @@ namespace warc {
     {
         std::string line;
         std::getline(in, line);
-        if (line == "" && !std::getline(in, line)) {
+        if (line == "" && not std::getline(in, line)) {
             return in;
         }
         std::regex version_pattern("^WARC/(.+)$");
         std::smatch sm;
-        if (!std::regex_search(line, sm, version_pattern)) {
+        if (not std::regex_search(line, sm, version_pattern)) {
             throw warc_format_exception(line, "could not parse version: ");
         }
         version = sm.str(1);
@@ -104,7 +105,7 @@ namespace warc {
         while (line != "") {
             std::regex field_pattern("^(.+):\\s+(.*)$");
             std::smatch sm;
-            if (!std::regex_search(line, sm, field_pattern)) {
+            if (not std::regex_search(line, sm, field_pattern)) {
                 //throw WarcFormatException(line, "could not parse field: ");
                 std::cerr << "cound not parse field: " << line << std::endl;
             } else {
@@ -125,7 +126,7 @@ namespace warc {
 std::istream& read_warc_record(std::istream& in, warc_record& record)
 {
     std::string version;
-    if (!warc::read_version(in, version)) {
+    if (not warc::read_version(in, version)) {
         return in;
     }
     record.version_ = std::move(version);

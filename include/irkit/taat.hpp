@@ -175,4 +175,3 @@ std::vector<pure_element_t<Range>> taat(
 }
 
 };  // namespace irk
-

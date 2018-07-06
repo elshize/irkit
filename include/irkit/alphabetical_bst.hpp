@@ -54,7 +54,8 @@ public:
     using symbol_type = Symbol;
     using pointer_type = Ptr;
     using container_type = MemoryContainer;
-    using self_type = alphabetical_bst<symbol_type, pointer_type, container_type>;
+    using self_type =
+        alphabetical_bst<symbol_type, pointer_type, container_type>;
 
 private:
     container_type mem_;

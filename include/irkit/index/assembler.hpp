@@ -92,9 +92,9 @@ public:
     //! ```
     void assemble(std::istream& input)
     {
-        if (!fs::exists(output_dir_)) { fs::create_directory(output_dir_); }
+        if (not fs::exists(output_dir_)) { fs::create_directory(output_dir_); }
         fs::path work_dir = output_dir_ / ".batches";
-        if (!fs::exists(work_dir)) { fs::create_directory(work_dir); }
+        if (not fs::exists(work_dir)) { fs::create_directory(work_dir); }
 
         int batch_number = 0;
         std::vector<fs::path> batch_dirs;
@@ -130,7 +130,7 @@ public:
         metadata batch_metadata,
         document_type first_id) const
     {
-        if (!fs::exists(batch_metadata.dir))
+        if (not fs::exists(batch_metadata.dir))
         {
             fs::create_directory(batch_metadata.dir);
         }
@@ -153,7 +153,7 @@ public:
              processed_documents_ < batch_size_ + static_cast<long>(first_id);
              processed_documents_++)
         {
-            if (!std::getline(input, line)) { break; }
+            if (not std::getline(input, line)) { break; }
             document_type doc = document_type(processed_documents_);
             builder.add_document(doc);
             std::istringstream linestream(line);

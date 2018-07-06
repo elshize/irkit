@@ -47,7 +47,7 @@ public:
     {
         if (buffered_pos_ == 8)
         {
-            if (!in_.read(&byte_, 1)) { return -1; }
+            if (not in_.read(&byte_, 1)) { return -1; }
             buffered_pos_ = 0;
         }
         return get_bit(buffered_pos_++);

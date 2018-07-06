@@ -253,7 +253,8 @@ public:
 
         gsl::index pos = 0;
         value_type previous_doc(0);
-        const long num_blocks = (values_.size() + block_size_ - 1) / block_size_;
+        const long num_blocks = (values_.size() + block_size_ - 1)
+            / block_size_;
         for (gsl::index block = 0; block < num_blocks; ++block)
         {
             absolute_skips.push_back(pos);

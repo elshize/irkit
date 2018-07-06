@@ -43,8 +43,7 @@ template<typename T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
 constexpr unsigned short nbits(T n)
 {
     unsigned short bits = 0;
-    while (n >>= 1)
-        ++bits;
+    while (n >>= 1) { ++bits; }
     return bits;
 }
 

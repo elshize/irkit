@@ -42,7 +42,8 @@ namespace irk::index {
 //!
 template<class T = std::nullopt_t>
 class block_view {
-    bool constexpr static supports_skips = !std::is_same_v<T, std::nullopt_t>;
+    bool constexpr static supports_skips =
+        not std::is_same_v<T, std::nullopt_t>;
 
 public:
     using value_type = T;
@@ -63,7 +64,7 @@ public:
     //! \param memory       underlying memory
     block_view(irk::memory_view memory) : memory_view_(memory)
     {
-        static_assert(!supports_skips,
+        static_assert(not supports_skips,
             "must construct with a value when parameter type defined");
     }
 

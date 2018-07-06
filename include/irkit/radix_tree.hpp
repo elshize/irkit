@@ -41,7 +41,7 @@ extern "C" {
 #define raxNodeCurrentLength(n) ( \
     sizeof(raxNode)+(n)->size+ \
     ((n)->iscompr ? sizeof(raxNode*) : sizeof(raxNode*)*(n)->size)+ \
-    (((n)->iskey && !(n)->isnull)*sizeof(void*)) \
+    (((n)->iskey && not (n)->isnull) * sizeof(void*)) \
 )
 
 namespace irk {
@@ -49,10 +49,10 @@ namespace irk {
 
 /* Get the node auxiliary data. */
 void *raxGetData(raxNode *n) {
-    if (n->isnull) return NULL;
+    if (n->isnull) { return NULL; }
     void **ndata =(void**)((char*)n+raxNodeCurrentLength(n)-sizeof(void*));
     void *data;
-    std::memcpy(&data,ndata,sizeof(data));
+    std::memcpy(&data, ndata, sizeof(data));
     return data;
 }
 

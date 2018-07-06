@@ -266,7 +266,8 @@ public:
     document_codec_type document_codec() { return document_codec_; }
     frequency_codec_type frequency_codec() { return frequency_codec_; }
 
-    std::streamsize copy_document_list(term_id_type term_id, std::ostream& out) const
+    std::streamsize
+    copy_document_list(term_id_type term_id, std::ostream& out) const
     {
         auto offset = document_offsets_[term_id];
         return copy_list(documents_view_, offset, out);

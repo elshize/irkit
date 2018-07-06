@@ -33,6 +33,7 @@
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <type_safe/index.hpp>
 
+#include <irkit/assert.hpp>
 #include <irkit/coding.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/io.hpp>
@@ -136,11 +137,13 @@ public:
 
     T operator[](std::size_t term_id)
     {
+        EXPECTS(term_id < size());
         return read_compact_value(data_, term_id, codec_);
     }
 
     T operator[](std::size_t term_id) const
     {
+        EXPECTS(term_id < size());
         return read_compact_value(data_, term_id, codec_);
     }
 

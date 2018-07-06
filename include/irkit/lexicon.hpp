@@ -86,7 +86,7 @@ public:
     std::optional<value_type> index_at(const std::string& key) const
     {
         auto block = leading_keys_->seek_le(key);
-        if (!block.has_value()) { return std::nullopt; }
+        if (not block.has_value()) { return std::nullopt; }
         auto block_memory = block_memory_view(*block);
         boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
             buffer(block_memory.data(), block_memory.size());
@@ -185,7 +185,7 @@ public:
 
         bool operator!=(const iterator& other) const
         {
-            return !equal(other);
+            return not equal(other);
         }
 
     private:

@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file index.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -109,13 +109,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(*scores_);
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(*score_offsets_);
     }
 
@@ -225,13 +225,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(scores_.value().data(), scores_.value().size());
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(
             score_offsets_.value().data(), score_offsets_.value().size());
     }
@@ -351,13 +351,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(scores_.value().data(), scores_.value().size());
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(
             score_offsets_.value().data(), score_offsets_.value().size());
     }

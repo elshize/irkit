@@ -298,7 +298,8 @@ public:
                 sizes_sum += size;
             }
         }
-        irk::compact_table<long> size_table = irk::build_compact_table(sizes, false);
+        irk::compact_table<long> size_table = irk::build_compact_table(
+            sizes, false);
         sout << size_table;
         return std::make_pair(sizes.size(), (double)sizes_sum / sizes.size());
     }

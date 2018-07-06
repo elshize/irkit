@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file irk.cpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
@@ -49,12 +49,12 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    if (!system(NULL)) exit(EXIT_FAILURE);
+    if (system(NULL) == false) { exit(EXIT_FAILURE); }
 
     std::ostringstream command;
     command << "irk-";
-    if (*part) command << CommandPart;
-    else if (*warc) command << CommandWarc;
+    if (*part) { command << CommandPart; }
+    else if (*warc) { command << CommandWarc; }
     else {
         std::cout << app.help() << std::endl;
         return 1;
@@ -67,4 +67,3 @@ int main(int argc, char** argv)
     int result = system(command.str().c_str());
     return result;
 }
-

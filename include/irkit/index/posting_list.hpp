@@ -44,8 +44,8 @@ public:
 
     class posting_view {
     public:
-        posting_view(document_iterator_t& document_iterator,
-            payload_iterator_t& payload_iterator)
+        posting_view(const document_iterator_t& document_iterator,
+            const payload_iterator_t& payload_iterator)
             : document_iterator_(document_iterator),
               payload_iterator_(payload_iterator)
         {}
@@ -53,10 +53,12 @@ public:
         const payload_type& payload() const { return *payload_iterator_; }
         operator std::pair<document_type, payload_type>() const
         { return std::make_pair(document(), payload()); }
+        operator std::tuple<document_type, payload_type>() const
+        { return std::make_pair(document(), payload()); }
 
     private:
-        document_iterator_t& document_iterator_;
-        payload_iterator_t& payload_iterator_;
+        const document_iterator_t& document_iterator_;
+        const payload_iterator_t& payload_iterator_;
     };
 
     class iterator : public boost::iterator_facade<iterator,
