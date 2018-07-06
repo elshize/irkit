@@ -30,22 +30,12 @@
 #include <sstream>
 #include <vector>
 
-#include <boost/iostreams/device/array.hpp>
-#include <boost/iostreams/device/back_inserter.hpp>
-#include <boost/iostreams/filtering_stream.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/type_erasure/any.hpp>
-#include <boost/type_erasure/builtin.hpp>
-#include <boost/type_erasure/concept_interface.hpp>
-#include <boost/type_erasure/rebind_any.hpp>
-#include <gsl/span>
+#include <boost/iterator.hpp>
 
 #include <irkit/coding.hpp>
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index/block.hpp>
-#include <irkit/index/skiplist.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 
