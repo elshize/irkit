@@ -15,12 +15,10 @@ set(TEST_SOURCES
     test_daat.cpp
     test_io.cpp
     test_merger.cpp
-    test_posting_ranges.cpp
     test_prefixmap.cpp
     test_radix_tree.cpp
     test_taat.cpp
     test_warc.cpp
-    test_skiplist.cpp
     test_block.cpp
     test_memoryview.cpp
     test_index_list.cpp)
