@@ -49,8 +49,8 @@ namespace huffman {
         std::size_t level = 0;
         node(std::size_t frequency,
             std::optional<Symbol> symbol,
-            std::shared_ptr<node<Symbol>> left,
-            std::shared_ptr<node<Symbol>> right)
+            std::shared_ptr<node<Symbol>> left,  // NOLINT
+            std::shared_ptr<node<Symbol>> right)  // NOLINT
             : frequency(frequency), symbol(symbol), left(left), right(right)
         {}
         bool operator==(const node<Symbol>& rhs) const
@@ -82,7 +82,7 @@ namespace huffman {
             if (v >= 0) {
                 out << v;
             } else {
-                out << (int)v;
+                out << static_cast<int>(v);
             }
         } else {
             out << "null";
@@ -138,8 +138,8 @@ namespace huffman {
     template<class Symbol = char>
     std::vector<std::size_t> symbol_frequencies(std::istream& stream)
     {
-        std::size_t symbol_size = sizeof(Symbol);
-        std::size_t alphabet_size = 1 << (symbol_size * 8);
+        constexpr std::size_t symbol_size = sizeof(Symbol);
+        std::size_t alphabet_size = 1u << (symbol_size * 8u);
         std::vector<std::size_t> frequencies(alphabet_size, 0);
         Symbol symbol;
         while (stream.read(reinterpret_cast<char*>(&symbol), symbol_size)) {
@@ -158,7 +158,7 @@ namespace huffman {
              ++symbol_number) {
             std::size_t frequency = frequencies[symbol_number];
             if (frequency > 0) {
-                Symbol symbol = static_cast<Symbol>(symbol_number);
+                auto symbol = static_cast<Symbol>(symbol_number);
                 terminals.push_back(make_terminal(symbol, frequency));
             }
         }

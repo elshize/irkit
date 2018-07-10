@@ -45,8 +45,7 @@ auto scored(const posting_map& postings,
             occurrences[term], collection_occurrences);
         for (const auto& [doc, freq] : posting_for_term)
         {
-            max_score = std::max(
-                max_score, scorer(freq, document_sizes[ts::get(doc)]));
+            max_score = std::max(max_score, scorer(freq, document_sizes[doc]));
         }
     }
     long max_int = (1 << bits) - 1;
@@ -56,7 +55,7 @@ auto scored(const posting_map& postings,
         irk::score::query_likelihood_scorer scorer(
             occurrences[term], collection_occurrences);
         for (const auto& [doc, freq] : posting_for_term) {
-            double score = scorer(freq, document_sizes[ts::get(doc)]);
+            double score = scorer(freq, document_sizes[doc]);
             long quantized_score = (long)(score * max_int / max_score);
             scored_for_term.push_back({doc, quantized_score});
         }
@@ -83,7 +82,7 @@ on_fly_index postings_on_fly(fs::path collection_file, int bits)
         line_input >> title;
         long doc_size = 0;
         while (line_input >> term) {
-            postings_map[term][ts::get(doc)]++;
+            postings_map[term][doc]++;
             occurrences[term]++;
             collection_occurrences++;
             doc_size++;
@@ -91,7 +90,7 @@ on_fly_index postings_on_fly(fs::path collection_file, int bits)
         document_sizes.push_back(doc_size);
         doc++;
     }
-    long collection_size = ts::get(doc);
+    long collection_size = doc;
     for (const auto& [term, map] : postings_map)
     {
         for (const auto& [id, count] : map)
@@ -154,14 +153,18 @@ void test(const irk::basic_inverted_index_view<D, F, S>& index_view,
         auto postings = index_view.postings(term_id);
         const auto& expected =
             expected_index.freq_postings[index_view.term(term_id)];
-        std::vector<posting_type> actual(
-            postings.begin(), postings.end());
+        std::vector<posting_type> actual;
+        for (const auto& posting : postings) {
+            actual.emplace_back(posting.document(), posting.payload());
+        }
         ASSERT_THAT(actual, ::testing::ElementsAreArray(expected));
         auto scored_postings = index_view.scored_postings(term_id);
         const auto& expected_scored =
             expected_index.scored_postings[index_view.term(term_id)];
-        std::vector<posting_type> actual_scored(
-            scored_postings.begin(), scored_postings.end());
+        std::vector<posting_type> actual_scored;
+        for (const auto& posting : scored_postings) {
+            actual_scored.emplace_back(posting.document(), posting.payload());
+        }
         ASSERT_THAT(
             actual_scored, ::testing::ElementsAreArray(expected_scored));
     }
@@ -171,7 +174,8 @@ TEST_F(inverted_index, mapped_file)
 {
     // when
     auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
-        index_dir, irk::score::query_likelihood_tag{});
+        index_dir,
+        static_cast<std::string>(irk::score::query_likelihood_tag{}));
     irk::inverted_index_view index_view(data.get());
     // then
     test(index_view, expected_index);
@@ -181,7 +185,8 @@ TEST_F(inverted_index, disk)
 {
     // when
     auto data = std::make_shared<irk::inverted_index_disk_data_source>(
-        index_dir, irk::score::query_likelihood_tag{});
+        index_dir,
+        static_cast<std::string>(irk::score::query_likelihood_tag{}));
     irk::inverted_index_view index_view(data.get());
     // then
     test(index_view, expected_index);

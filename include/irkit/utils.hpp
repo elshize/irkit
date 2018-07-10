@@ -20,19 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file utils.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
 #include <algorithm>
 #include <ostream>
-#include <range/v3/utility/concepts.hpp>
 #include <vector>
-#include "irkit/types.hpp"
+
+#include <range/v3/utility/concepts.hpp>
+
+#include <irkit/types.hpp>
 
 namespace irk {
+
+using std::int16_t;
+using std::uint16_t;
 
 //! Computes the number of bits required to store an integer n.
 /*!
@@ -40,11 +45,11 @@ namespace irk {
  * @param n The integer of which to return the size in bits.
  */
 template<typename T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
-constexpr unsigned short nbits(T n)
+constexpr int16_t nbits(T n)
 {
-    unsigned short bits = 0;
+    uint16_t bits = 0;
     while (n >>= 1) { ++bits; }
-    return bits;
+    return static_cast<int16_t>(bits);
 }
 
 //! Computes the number of full bytes required to store an integer n.
@@ -53,7 +58,7 @@ constexpr unsigned short nbits(T n)
  * @param n The integer of which to return the size in bytes.
  */
 template<typename T, CONCEPT_REQUIRES_(ranges::Integral<T>())>
-constexpr unsigned short nbytes(T n)
+constexpr int16_t nbytes(T n)
 {
     auto bits = nbits(n);
     return (bits + 7) / 8;
@@ -82,7 +87,7 @@ public:
      * @param k The size of the accumulator, i.e., the number of postings to
      *          accumulate.
      */
-    top_k_accumulator(std::size_t k) : k_(k), threshold_(0){};
+    explicit top_k_accumulator(std::size_t k) : k_(k), threshold_(0){};
 
     //! Accumulates the given posting.
     /*!

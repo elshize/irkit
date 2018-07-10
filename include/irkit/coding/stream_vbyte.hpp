@@ -49,8 +49,8 @@ struct stream_vbyte_codec {
         std::is_same<typename std::iterator_traits<Iter>::iterator_category,
             std::output_iterator_tag>;
 
-    std::ptrdiff_t
-    max_encoded_size(int count, std::optional<T> max_value = std::nullopt) const
+    std::ptrdiff_t max_encoded_size(
+        int count, std::optional<T> /* max_value */ = std::nullopt) const
     {
         return streamvbyte_max_compressedbytes(count);
     }

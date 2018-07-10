@@ -31,10 +31,11 @@
 
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
-#include <irkit/index/types.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/index/types.hpp>
 
 namespace fs = boost::filesystem;
+using irk::index::term_id_t;
 
 template<class PostingListT>
 void print_postings(const PostingListT& postings)
@@ -70,13 +71,13 @@ int main(int argc, char** argv)
             scores_defined ? std::make_optional(scoring) : std::nullopt);
         irk::inverted_index_view index(&data);
 
-        long term_id = use_id ? std::stol(term) : *index.term_id(term);
+        term_id_t term_id = use_id ? std::stol(term) : *index.term_id(term);
         if (app.count("--scores") > 0) {
             print_postings(index.scored_postings(term_id));
         } else {
             print_postings(index.postings(term_id));
         }
-    } catch (std::bad_optional_access e) {
+    } catch (const std::bad_optional_access& e) {
         std::cerr << "Term " << term << " not found." << std::endl;
     }
 

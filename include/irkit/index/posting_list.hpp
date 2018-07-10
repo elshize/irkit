@@ -28,9 +28,11 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
+#include <irkit/assert.hpp>
+
 namespace irk {
 
-// TODO: Make variable numbers of payloads
+// TODO(michal): Make variable numbers of payloads
 template<class DocumentListT, class PayloadListT>
 class posting_list_view {
 public:
@@ -38,7 +40,7 @@ public:
     using payload_list_type = PayloadListT;
     using document_type = typename document_list_type::value_type;
     using payload_type = typename payload_list_type::value_type;
-    using difference_type = long;
+    using difference_type = std::int32_t;
     using document_iterator_t = typename document_list_type::iterator;
     using payload_iterator_t = typename payload_list_type::iterator;
 
@@ -51,10 +53,14 @@ public:
         {}
         const document_type& document() const { return *document_iterator_; }
         const payload_type& payload() const { return *payload_iterator_; }
-        operator std::pair<document_type, payload_type>() const
-        { return std::make_pair(document(), payload()); }
-        operator std::tuple<document_type, payload_type>() const
-        { return std::make_pair(document(), payload()); }
+        explicit operator std::pair<document_type, payload_type>() const
+        {
+            return std::pair(document(), payload());
+        }
+        explicit operator std::tuple<document_type, payload_type>() const
+        {
+            return std::pair(document(), payload());
+        }
 
     private:
         const document_iterator_t& document_iterator_;
@@ -68,8 +74,8 @@ public:
     public:
         iterator(document_iterator_t document_iterator,
             payload_iterator_t payload_iterator)
-            : document_iterator_(document_iterator),
-              payload_iterator_(payload_iterator),
+            : document_iterator_(std::move(document_iterator)),
+              payload_iterator_(std::move(payload_iterator)),
               current_posting_(document_iterator_, payload_iterator_)
         {}
         iterator(const iterator& other)
@@ -77,6 +83,10 @@ public:
               payload_iterator_(other.payload_iterator_),
               current_posting_(document_iterator_, payload_iterator_)
         {}
+        iterator(iterator&&) = default;  // NOLINT
+        iterator& operator=(const iterator&) = default;
+        iterator& operator=(iterator&&) = default;  // NOLINT
+        ~iterator() = default;
 
         iterator& moveto(document_type doc)
         {
@@ -122,8 +132,8 @@ public:
     using const_iterator = iterator;
 
     posting_list_view(document_list_type documents, payload_list_type payloads)
-        : documents_(documents), payloads_(payloads)
-    { assert(documents_.size() == payloads_.size()); }
+        : documents_(std::move(documents)), payloads_(std::move(payloads))
+    { EXPECTS(documents_.size() == payloads_.size()); }
 
     iterator begin() const
     { return iterator(documents_.begin(), payloads_.begin()); };

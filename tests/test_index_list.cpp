@@ -42,6 +42,7 @@
 namespace {
 
 using irk::index::document_t;
+using irk::index::operator""_id;
 
 char vb(int n)
 {

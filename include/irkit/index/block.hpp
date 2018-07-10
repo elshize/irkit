@@ -52,8 +52,8 @@ public:
     //! Constructs a block view **with** its last value to support skips.
     //! \param last_value   last value of the block
     //! \param memory       underlying memory
-    block_view(T last_value, irk::memory_view memory)
-        : memory_view_(memory)
+    explicit block_view(T last_value, irk::memory_view memory)
+        : memory_view_(std::move(memory))
     {
         static_assert(supports_skips,
             "must define parameter type to construct with a value");
@@ -62,7 +62,8 @@ public:
 
     //! Constructs a block view **without** its last value (no skips supported).
     //! \param memory       underlying memory
-    block_view(irk::memory_view memory) : memory_view_(memory)
+    explicit block_view(irk::memory_view memory)
+        : memory_view_(std::move(memory))
     {
         static_assert(not supports_skips,
             "must construct with a value when parameter type defined");
@@ -71,12 +72,14 @@ public:
     //! Returns the underlying memory view.
     const irk::memory_view& data() const { return memory_view_; }
 
-    //! Returns the last value.
-    template<class = std::enable_if_t<supports_skips>>
-    const T& back() const { return last_value_[0]; }
+    const T& back() const
+    {
+        static_assert(supports_skips, "list does not support skips: no value");
+        return last_value_[0];
+    }
 
 private:
-    std::array<T, supports_skips> last_value_;
+    std::array<T, supports_skips ? 1 : 0> last_value_;
     irk::memory_view memory_view_;
 };
 

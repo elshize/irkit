@@ -26,11 +26,11 @@
 
 #pragma once
 
-#include <gsl/gsl_assert>
 #include <debug_assert.hpp>
+#include <gsl/gsl_assert>
 
-#include <irkit/assert.hpp>
 #include <irkit/alphabetical_bst.hpp>
+#include <irkit/assert.hpp>
 #include <irkit/coding/huffman.hpp>
 #include <irkit/types.hpp>
 
@@ -112,7 +112,7 @@ namespace coding::hutucker {
     template<class Symbol = char>
     node_ptr<Symbol> build_tree(std::list<node_ptr<Symbol>>& nodes)
     {
-        EXPECTS(nodes.size() > 0);
+        EXPECTS(not nodes.empty());
         while (nodes.size() > 1) {
             join_next_valid(nodes);
         }
@@ -182,7 +182,7 @@ namespace coding::hutucker {
                 }
                 stack.push_back(joined);
                 propagated_symbols.push_back(rs);
-            } else if (nodes.size() > 0) {
+            } else if (not nodes.empty()) {
                 auto next = nodes.front();
                 nodes.pop_front();
                 stack.push_back(next);
@@ -196,8 +196,8 @@ namespace coding::hutucker {
 
     //! Returns an immutable compact version of the same tree.
     //template<class Symbol = char>
-    alphabetical_bst<char, uint16_t, std::vector<char>>
-    compact(node_ptr<char> root)
+    inline alphabetical_bst<char, uint16_t, std::vector<char>>
+    compact(const node_ptr<char>& root)
     {
         using alphabetical_bst =
             alphabetical_bst<char, uint16_t, std::vector<char>>;
@@ -212,7 +212,8 @@ namespace coding::hutucker {
         auto calc_ptr = [&compact_nodes, &queue, node_size, is_leaf](auto n) {
             uint16_t ptr;
             if (is_leaf(n)) {
-                ptr = static_cast<uint16_t>((unsigned char)n->symbol.value());
+                ptr = static_cast<uint16_t>(
+                    static_cast<unsigned char>(n->symbol.value()));
             } else {
                 ptr = alphabetical_bst::symbol_bound
                     + (compact_nodes.size() + queue.size() + 1) * node_size;
@@ -227,13 +228,12 @@ namespace coding::hutucker {
             queue.pop_front();
             auto left_ptr = calc_ptr(n->left);
             auto right_ptr = calc_ptr(n->right);
-            compact_nodes.push_back(
-                node(n->symbol.value(), left_ptr, right_ptr));
+            compact_nodes.emplace_back(n->symbol.value(), left_ptr, right_ptr);
         }
 
         std::vector<char> mem;
         for (const auto& node : compact_nodes) {
-            mem.insert(mem.end(), node.bytes, node.bytes + node_size);
+            mem.insert(mem.end(), std::begin(node.bytes), std::end(node.bytes));
         }
         return alphabetical_bst(mem);
     }
@@ -255,18 +255,23 @@ public:
     using symbol_type = Symbol;
     using buffer_type = MemoryContainer;
     using self_type = hutucker_codec<symbol_type, buffer_type>;
-    static constexpr std::size_t symbol_count = 1 << (sizeof(symbol_type) * 8);
+    static constexpr std::size_t symbol_count = 1u
+        << (sizeof(symbol_type) * 8u);
 
 private:
     alphabetical_bst<symbol_type, uint16_t, buffer_type> abst_;
 
 public:
-    hutucker_codec(const self_type&) = default;
-    hutucker_codec(self_type&&) = default;
+    hutucker_codec(const hutucker_codec&) = default;
+    hutucker_codec(hutucker_codec&&) noexcept = default;
+    hutucker_codec& operator=(const hutucker_codec&) = delete;
+    hutucker_codec& operator=(hutucker_codec&&) noexcept = delete;
+    ~hutucker_codec() = default;
+
     //! Constructs a codec from an existing ABST.
-    hutucker_codec(
+    explicit hutucker_codec(
         alphabetical_bst<symbol_type, uint16_t, buffer_type> abst)
-        : abst_(abst)
+        : abst_(std::move(abst))
     {}
 
     //! Constructs a codec from a vector of all symbols' frequencies.
@@ -275,7 +280,7 @@ public:
      * is a `std::vector<char>`.
      */
     template<class = enable_if_equal<buffer_type, std::vector<char>>>
-    hutucker_codec(const std::vector<std::size_t>& frequencies)
+    explicit hutucker_codec(const std::vector<std::size_t>& frequencies)
     {
         EXPECTS(frequencies.size() == symbol_count);
         auto initial = coding::huffman::init_nodes(frequencies);

@@ -28,17 +28,19 @@
 
 #include <algorithm>
 #include <bitset>
+#include <fstream>
+#include <vector>
+
 #include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
-#include <fstream>
 #include <gsl/span>
-#include <vector>
-#include "irkit/bitptr.hpp"
-#include "irkit/bitstream.hpp"
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
+
+#include <irkit/bitptr.hpp>
+#include <irkit/bitstream.hpp>
+#include <irkit/coding.hpp>
+#include <irkit/coding/varbyte.hpp>
 
 namespace irk::io {
 
@@ -55,14 +57,15 @@ namespace detail {
 
 using line_iterator = std::istream_iterator<detail::line>;
 
-void enforce_exist(const fs::path& file)
+inline void enforce_exist(const fs::path& file)
 {
     if (not fs::exists(file)) {
         throw std::invalid_argument("File not found: " + file.generic_string());
     }
 }
 
-void load_data(fs::path data_file, std::vector<char>& data_container)
+inline void
+load_data(const fs::path& data_file, std::vector<char>& data_container)
 {
     enforce_exist(data_file);
     std::ifstream in(data_file.c_str(), std::ios::binary);
@@ -75,7 +78,8 @@ void load_data(fs::path data_file, std::vector<char>& data_container)
     }
 }
 
-void load_lines(fs::path data_file, std::vector<std::string>& lines)
+inline void
+load_lines(const fs::path& data_file, std::vector<std::string>& lines)
 {
     enforce_exist(data_file);
     std::ifstream in(data_file.c_str());
@@ -87,7 +91,7 @@ void load_lines(fs::path data_file, std::vector<std::string>& lines)
     }
 }
 
-std::vector<std::string> load_lines(fs::path data_file)
+inline std::vector<std::string> load_lines(const fs::path& data_file)
 {
     std::vector<std::string> lines;
     load_lines(data_file, lines);
@@ -107,7 +111,8 @@ void append_object(const T& object, std::vector<char>& buffer)
 template<class Collection>
 void append_collection(const Collection& collection, std::vector<char>& buffer)
 {
-    if (collection.size() > 0) {
+    if (not collection.empty())
+    {
         buffer.insert(buffer.end(),
             reinterpret_cast<const char*>(collection.data()),
             reinterpret_cast<const char*>(collection.data())

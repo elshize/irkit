@@ -1,11 +1,12 @@
 #include <bitset>
 #include <string>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include "irkit/bitptr.hpp"
+#include <irkit/bitptr.hpp>
 
 namespace {
 

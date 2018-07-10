@@ -61,8 +61,8 @@ TEST(hutucker, prefix_coding)
         }
     }
     in.close();
-    auto codec = std::make_shared<irk::hutucker_codec<char>>(frequencies);
-    irk::prefix_codec<irk::hutucker_codec<char>> pref_codec(codec);
+    auto codec = irk::hutucker_codec<char>(frequencies);
+    irk::prefix_codec<irk::hutucker_codec<char>> pref_codec(std::move(codec));
 
     int count = 0;
     std::vector<std::string> terms;

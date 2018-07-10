@@ -38,7 +38,12 @@ namespace irk {
 template<class Codec>
 class prefix_codec {
 public:
-    prefix_codec(std::shared_ptr<Codec> codec) : codec_(codec), prev_() {}
+    explicit prefix_codec(Codec codec) : codec_(std::move(codec)) {}
+    prefix_codec(const prefix_codec&) = default;
+    prefix_codec(prefix_codec&&) noexcept = default;
+    prefix_codec& operator=(const prefix_codec&) = default;
+    prefix_codec& operator=(prefix_codec&&) noexcept = delete;
+    ~prefix_codec() = default;
 
     output_bit_stream&
     encode(const std::string& value, output_bit_stream& out) const
@@ -49,7 +54,7 @@ public:
 
         encode_unary(pos, out);
         encode_unary(value.size() - pos, out);
-        codec_->encode(std::next(value.cbegin(), pos), value.cend(), out);
+        codec_.encode(std::next(value.cbegin(), pos), value.cend(), out);
         prev_ = value;
         return out;
     }
@@ -63,25 +68,25 @@ public:
         boost::iostreams::stream<
             boost::iostreams::back_insert_device<std::string>>
             buffer(boost::iostreams::back_inserter(value));
-        auto size = codec_->decode(in, buffer, suffix_length) + prefix_length
+        auto size = codec_.decode(in, buffer, suffix_length) + prefix_length
             + suffix_length + 2;
         buffer.flush();
         prev_ = value;
         return size;
     }
 
-    void reset() { prev_ = ""; }
+    void reset() const { prev_ = ""; }
 
-    std::shared_ptr<Codec> codec() { return codec_; }
+    const Codec& codec() const { return codec_; }
 
 private:
-    std::shared_ptr<Codec> codec_;
-    mutable std::string prev_;
+    Codec codec_;
+    mutable std::string prev_{};
 
     void encode_unary(int n, output_bit_stream& out) const
     {
-        for (int idx = 0; idx < n; ++idx) { out.write(1); }
-        out.write(0);
+        for (int idx = 0; idx < n; ++idx) { out.write(true); }
+        out.write(false);
     }
 
     int decode_unary(input_bit_stream& in) const

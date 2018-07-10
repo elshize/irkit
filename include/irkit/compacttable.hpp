@@ -50,8 +50,8 @@ struct CompactTableHeaderFlags {
 };
 
 struct compact_table_header {
-    std::uint32_t count;
-    std::uint32_t block_size;
+    std::uint32_t count = 0;
+    std::uint32_t block_size = 0;
     std::uint32_t flags = CompactTableHeaderFlags::Default;
 };
 
@@ -121,19 +121,16 @@ public:
     using value_type = typename Codec::value_type;
 
 protected:
-    Codec codec_;
+    Codec codec_{};
     MemoryBuffer data_;
 
 public:
-    explicit compact_table(MemoryBuffer data) : data_(data) {}
-    compact_table(compact_table&& other) : data_(std::move(other.data_)) {}
-    compact_table(const compact_table& other) : data_(other.data_) {}
-    compact_table<T, Codec, MemoryBuffer>&
-    operator=(const compact_table<T, Codec, MemoryBuffer>& other)
-    {
-        data_ = other.data_;
-        return *this;
-    }
+    explicit compact_table(MemoryBuffer data) : data_(std::move(data)) {}
+    compact_table(compact_table&& other) noexcept = default;
+    compact_table(const compact_table& other) = default;
+    compact_table& operator=(compact_table&& other) noexcept = default;
+    compact_table& operator=(const compact_table& other) = default;
+    ~compact_table() = default;
 
     T operator[](std::size_t term_id)
     {
@@ -167,7 +164,8 @@ public:
 
 //! Load a compact table to main memory.
 template<class T, class Codec = vbyte_codec<T>>
-compact_table<T, Codec, std::vector<char>> load_compact_table(fs::path file)
+compact_table<T, Codec, std::vector<char>>
+load_compact_table(const fs::path& file)
 {
     std::vector<char> data;
     io::load_data(file, data);
@@ -177,7 +175,7 @@ compact_table<T, Codec, std::vector<char>> load_compact_table(fs::path file)
 //! Set up a compact table with a mapped file.
 template<class T, class Codec = vbyte_codec<T>>
 compact_table<T, Codec, boost::iostreams::mapped_file_source>
-map_compact_table(fs::path file)
+map_compact_table(const fs::path& file)
 {
     boost::iostreams::mapped_file_source mf(file);
     return compact_table<T, Codec, boost::iostreams::mapped_file_source>(
@@ -208,8 +206,8 @@ build_compact_table(const std::vector<T>& values,
     std::vector<compact_table_leader> leaders;
     for (std::size_t block = 0; block < block_count; ++block) {
         std::uint32_t beg = block * block_size;
-        std::uint32_t end =
-            std::min(static_cast<std::size_t>(beg + block_size), values.size());
+        std::uint32_t end = std::min(
+            beg + block_size, static_cast<std::uint32_t>(values.size()));
         leaders.push_back(
             {beg, data_offset + static_cast<std::uint32_t>(blocks.size())});
         gsl::span<const T> block_span(values.data() + beg, values.data() + end);
@@ -225,7 +223,7 @@ build_compact_table(const std::vector<T>& values,
 //! Load an offset table to main memory.
 template<class Codec = vbyte_codec<std::size_t>>
 compact_table<std::size_t, Codec, std::vector<char>>
-load_offset_table(fs::path file)
+load_offset_table(const fs::path& file)
 {
     std::vector<char> data;
     io::load_data(file, data);
@@ -235,7 +233,7 @@ load_offset_table(fs::path file)
 //! Set up an offset table with a mapped file.
 template<class Codec = vbyte_codec<std::size_t>>
 compact_table<std::size_t, Codec, boost::iostreams::mapped_file_source>
-map_offset_table(fs::path file)
+map_offset_table(const fs::path& file)
 {
     boost::iostreams::mapped_file_source mf(file);
     return compact_table<std::size_t,
@@ -274,7 +272,7 @@ namespace io {
 
     //! Write a `compact_table` to a file.
     template<class T, class Codec>
-    void dump(const compact_table<T, Codec>& offset_table, fs::path file)
+    void dump(const compact_table<T, Codec>& offset_table, const fs::path& file)
     {
         std::ofstream out(file.c_str(), std::ios::binary);
         out << offset_table;

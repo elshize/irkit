@@ -64,8 +64,8 @@ private:
     };
 
     int block_size_;
-    document_type current_doc_;
-    long all_occurrences_;
+    document_type current_doc_ = 0;
+    int64_t all_occurrences_ = 0;
     std::optional<std::vector<term_type>> sorted_terms_;
     std::vector<std::vector<doc_freq_pair>> postings_;
     std::vector<frequency_type> term_occurrences_;
@@ -73,12 +73,12 @@ private:
     std::unordered_map<term_type, term_id_type> term_map_;
 
 public:
-    basic_index_builder(int block_size = 64)
-        : block_size_(block_size), current_doc_(0), all_occurrences_(0)
+    explicit basic_index_builder(int block_size = 64)
+        : block_size_(block_size)
     {}
 
     //! Initiates a new document with an incremented ID.
-    void add_document() { add_document(current_doc_ + 1); }
+    void add_document() { add_document(current_doc_ + 1u); }
 
     //! Initiates a new document with the given ID.
     void add_document(document_type doc)
@@ -120,7 +120,7 @@ public:
 
     //! Returns the number of the accumulated documents.
     std::size_t collection_size()
-    { return static_cast<std::size_t>(current_doc_ + 1); }
+    { return static_cast<std::size_t>(current_doc_ + 1u); }
 
     //! Sorts the terms, and all related structures, lexicographically.
     void sort_terms()
@@ -225,13 +225,13 @@ public:
     //! Writes properties to the output stream.
     void write_properties(std::ostream& out) const
     {
-        long sizes_sum = std::accumulate(
+        int64_t sizes_sum = std::accumulate(
             document_sizes_.begin(), document_sizes_.end(), 0);
         nlohmann::json j = {
-            {"documents", static_cast<long>(current_doc_ + 1)},
+            {"documents", static_cast<uint32_t>(current_doc_ + 1u)},
             {"occurrences", all_occurrences_},
             {"skip_block_size", block_size_},
-            {"avg_document_size", (double)sizes_sum / document_sizes_.size()}
+            {"avg_document_size", static_cast<double>(sizes_sum) / document_sizes_.size()}
         };
         out << std::setw(4) << j << std::endl;
     }

@@ -30,8 +30,9 @@
 #include <boost/filesystem.hpp>
 
 #include <irkit/compacttable.hpp>
+#include <irkit/index/types.hpp>
 
-namespace fs = boost::filesystem;
+using irk::index::term_id_t;
 
 //void run_build(const std::string& input, const std::string& output)
 //{
@@ -53,7 +54,7 @@ void run_lookup(const std::string& table_file, int index)
 int main(int argc, char** argv)
 {
     std::string input, table_file;
-    long index;
+    term_id_t index;
 
     CLI::App app{"Operations related to compact tables."};
     app.require_subcommand(1);

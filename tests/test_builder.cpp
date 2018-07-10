@@ -14,6 +14,8 @@
 
 namespace {
 
+using irk::index::operator""_id;
+
 template<class Term, class TermId>
 void assert_term_map(std::unordered_map<Term, TermId>& actual,
     std::unordered_map<Term, TermId> expected)

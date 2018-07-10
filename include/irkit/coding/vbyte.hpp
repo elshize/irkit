@@ -48,8 +48,8 @@ struct vbyte_codec {
     using value_type = T;
     static constexpr std::uint8_t maxv = 128;
 
-    std::ptrdiff_t
-    max_encoded_size(int count, std::optional<T> max_value = std::nullopt) const
+    std::ptrdiff_t max_encoded_size(
+        int count, std::optional<T> /* max_value */ = std::nullopt) const
     {
         return streamvbyte_max_compressedbytes(count);
     }
@@ -60,7 +60,7 @@ struct vbyte_codec {
         using iterator_type = std::iterator_traits<InputIterator>;
         using value_type =
             std::make_unsigned_t<typename iterator_type::value_type>;
-        value_type v = static_cast<value_type>(*in);
+        auto v = static_cast<value_type>(*in);
         std::ptrdiff_t size = 0;
         while (true)
         {
@@ -105,22 +105,22 @@ struct vbyte_codec {
         using iterator_type = std::iterator_traits<OutputIterator>;
         using value_type =
             std::make_unsigned_t<typename iterator_type::value_type>;
-        char b;
+        unsigned char b;
         std::size_t n = 0;
         unsigned int shift = 0;
 
         auto process_next_byte = [&b, &n, &shift]() -> std::size_t {
-            std::size_t val = b & 0b01111111;
+            std::size_t val = b & 0b01111111u;
             n |= val << shift;
             shift += 7;
             return val;
         };
 
-        b = *in;
+        b = static_cast<unsigned char>(*in);
         ++in;
         while (process_next_byte() == b)
         {
-            b = *in;
+            b = static_cast<unsigned char>(*in);
             ++in;
         }
         *out = static_cast<typename iterator_type::value_type>(n);

@@ -39,10 +39,10 @@
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 
-using irk::literals::operator""_id;
-
 namespace irk::index
 {
+
+using irk::literals::operator""_id;
 
 //! Block iterator.
 /*!
@@ -68,11 +68,14 @@ class block_iterator : public boost::iterator_facade<
 public:
     using view_type = ListView;
     using self_type = block_iterator<view_type, delta_encoded>;
-    using difference_type = long;
+    using difference_type = int;
     using value_type = typename ListView::value_type;
 
-    block_iterator() = default;
     block_iterator(const self_type&) = default;
+    block_iterator(self_type&&) noexcept = default;
+    block_iterator& operator=(const self_type&) = delete;
+    block_iterator& operator=(self_type&&) noexcept = delete;
+    ~block_iterator() = default;
 
     /*!
      * The iterator is strictly connected to a list view and it stores a const
@@ -83,7 +86,7 @@ public:
     block_iterator(const view_type& view,
         difference_type block,
         difference_type pos,
-        long block_size)
+        int block_size)
         : view_(view),
           block_(block),
           pos_(pos),
@@ -105,9 +108,9 @@ public:
      * the resulting iterator will point after the last element (equivalent to
      * calling `end()` on the list view).
      */
-    template<class = std::enable_if_t<delta_encoded>>
     self_type& moveto(value_type val)
     {
+        static_assert(delta_encoded, "must be delta encoded to call moveto");
         int block = nextgeq_block(block_, val);
         if (block >= block_count_)
         {
@@ -121,9 +124,9 @@ public:
         return *this;
     };
 
-    template<class = std::enable_if_t<delta_encoded>>
     self_type nextgeq(value_type val)
     {
+        static_assert(delta_encoded, "must be delta encoded to call nextgeq");
         self_type next(*this);
         next.moveto(val);
         return next;
@@ -143,10 +146,10 @@ public:
     }
 
     //! Returns the current block number.
-    long block() const { return block_; }
+    int block() const { return block_; }
 
     //! Returns the current position within the current block.
-    long pos() const { return pos_; }
+    int pos() const { return pos_; }
 
 private:
     friend class boost::iterator_core_access;
@@ -178,8 +181,7 @@ private:
             auto count = block_ < block_count_ - 1
                 ? block_size_
                 : view_.length_ % block_size_;
-            if constexpr (delta_encoded)
-            {
+            if constexpr (delta_encoded) {  // NOLINT
                 auto preceding = block_ > 0 ? view_.blocks_[block_ - 1].back()
                                             : 0_id;
                 view_.codec_.delta_decode(
@@ -187,8 +189,8 @@ private:
                     std::begin(decoded_block_),
                     count,
                     preceding);
-            } else
-            {
+            }
+            else {
                 decoded_block_.resize(block_size_);
                 view_.codec_.decode(std::begin(view_.blocks_[block_].data()),
                     std::begin(decoded_block_),
@@ -214,12 +216,12 @@ private:
         pos_ = view_.length_ % view_.block_size_;
     }
 
-    long block_size_;
+    int block_size_;
     const view_type& view_;
-    long block_;
-    long pos_;
+    int block_;
+    int pos_;
     const std::size_t block_count_;
-    mutable long decoded_block_num_;
+    mutable int decoded_block_num_;
     mutable std::vector<value_type> decoded_block_;
 };
 
@@ -231,19 +233,19 @@ public:
     using encoding_device =
         boost::iostreams::back_insert_device<std::vector<char>>;
 
-    block_list_builder(int block_size) : block_size_(block_size) {}
+    explicit block_list_builder(int block_size) : block_size_(block_size) {}
 
     void add(value_type id) { values_.push_back(id); }
 
     std::streamsize write(std::ostream& out) const
     {
-        std::vector<int> absolute_skips;
+        std::vector<int32_t> absolute_skips;
         std::vector<value_type> last_values;
         std::vector<char> encoded_blocks;
 
         gsl::index pos = 0;
         value_type previous_doc(0);
-        const long num_blocks = (values_.size() + block_size_ - 1)
+        const int32_t num_blocks = (values_.size() + block_size_ - 1)
             / block_size_;
         for (gsl::index block = 0; block < num_blocks; ++block)
         {
@@ -257,14 +259,13 @@ public:
 
             encoded_blocks.resize(
                 pos + value_codec_.max_encoded_size(end_idx - begin_idx));
-            if constexpr (delta_encoded)
-            {
+            if constexpr (delta_encoded) {  // NOLINT
                 last_values.push_back(values_[end_idx - 1]);
                 pos += value_codec_.delta_encode(
                     begin, end, &encoded_blocks[pos], previous_doc);
                 previous_doc = last_values.back();
-            } else
-            {
+            }
+            else {
                 pos += value_codec_.encode(begin, end, &encoded_blocks[pos]);
             }
         }
@@ -277,20 +278,22 @@ public:
         int list_byte_size = encoded_header.size() + encoded_skips.size() + pos;
         std::vector<char> encoded_last_vals;
 
-        if constexpr (delta_encoded)
-        {
-            encoded_last_vals = irk::delta_encode(value_codec_, last_values);
+        if constexpr (delta_encoded) {  // NOLINT
+            encoded_last_vals = irk::delta_encode(
+                value_codec_, last_values);  // NOLINT
             list_byte_size += encoded_last_vals.size();
-        }
-        list_byte_size = expanded_size(list_byte_size);
+        }  // NOLINT
+        list_byte_size = expanded_size(list_byte_size);  // NOLINT
 
         auto encoded_list_byte_size = irk::encode(int_codec_, {list_byte_size});
         out.write(&encoded_list_byte_size[0], encoded_list_byte_size.size());
         out.write(&encoded_header[0], encoded_header.size());
         out.write(&encoded_skips[0], encoded_skips.size());
-        if constexpr (delta_encoded)
-        { out.write(&encoded_last_vals[0], encoded_last_vals.size()); }
-        out.write(&encoded_blocks[0], pos);
+        if constexpr (delta_encoded) {  // NOLINT
+            out.write(
+                &encoded_last_vals[0], encoded_last_vals.size());  // NOLINT
+        }
+        out.write(&encoded_blocks[0], pos);  // NOLINT
 
         return list_byte_size;
     }
@@ -298,16 +301,17 @@ public:
 private:
     int expanded_size(int list_byte_size) const
     {
-        int extra_bytes = 1;
-        while (list_byte_size + extra_bytes >= (1 << (extra_bytes * 7)))
+        unsigned int extra_bytes = 1;
+        while (static_cast<unsigned int>(list_byte_size) + extra_bytes
+            >= (1u << (extra_bytes * 7u)))
         { extra_bytes++; }
-        return list_byte_size + extra_bytes;
+        return static_cast<int>(list_byte_size + extra_bytes);
     }
 
-    long block_size_;
+    int32_t block_size_;
     codec_type value_codec_;
     std::vector<value_type> values_;
-    irk::vbyte_codec<int> int_codec_;
+    irk::vbyte_codec<int32_t> int_codec_;
 };
 
 //! A view of a block document list.
@@ -317,7 +321,7 @@ private:
 template<class Codec>
 class block_document_list_view {
 public:
-    using size_type = long;
+    using size_type = int32_t;
     using value_type = document_t;
     using self_type = block_document_list_view;
     using iterator = block_iterator<self_type, true>;
@@ -330,13 +334,13 @@ public:
      * \param length        the number of elements in the list
      * \param offset        offset from the beginning of `mem`
      */
-    block_document_list_view(irk::memory_view mem, long length)
-        : length_(length), codec_(), blocks_(), block_size_(), memory_(mem)
+    block_document_list_view(irk::memory_view mem, int32_t length)
+        : length_(length), memory_(std::move(mem))
     {
-        auto pos = mem.begin();
-        irk::vbyte_codec<long> vb;
+        auto pos = memory_.begin();
+        irk::vbyte_codec<int64_t> vb;
 
-        long list_byte_size, num_blocks;
+        int64_t list_byte_size, num_blocks;
         pos = vb.decode(pos, &list_byte_size);
         pos = vb.decode(pos, &block_size_);
         pos = vb.decode(pos, &num_blocks);
@@ -347,12 +351,12 @@ public:
             throw std::runtime_error(str.str());
         }
 
-        std::vector<long> skips(num_blocks);
+        std::vector<int64_t> skips(num_blocks);
         pos = vb.decode(pos, &skips[0], num_blocks);
         std::vector<value_type> last_documents(num_blocks);
         pos = codec_.delta_decode(pos, &last_documents[0], num_blocks);
 
-        int running_offset = std::distance(mem.begin(), pos);
+        int64_t running_offset = std::distance(memory_.begin(), pos);
 
         for (int block = 0; block < num_blocks - 1; block++) {
             running_offset += skips[block];
@@ -374,8 +378,8 @@ public:
     //! Finds the position of `id` or the next greater.
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
-    long size() const { return length_; }
-    long memory_size() const { return memory_.size(); }
+    int32_t size() const { return length_; }
+    int64_t memory_size() const { return memory_.size(); }
 
     std::ostream& write(std::ostream& out) const
     {
@@ -384,10 +388,10 @@ public:
 
 private:
     friend class block_iterator<self_type, true>;
-    long length_;
+    int32_t length_ = 0;
     codec_type codec_;
     std::vector<irk::index::block_view<value_type>> blocks_;
-    long block_size_;
+    int32_t block_size_ = 0;
     irk::memory_view memory_;
 };
 
@@ -404,7 +408,7 @@ public:
     using self_type = block_payload_list_view<value_type, codec_type>;
     using iterator = block_iterator<self_type, false>;
 
-    block_payload_list_view() : length_(0) {}
+    block_payload_list_view() = default;
 
     //! Constructs the view.
     /*!
@@ -413,13 +417,13 @@ public:
      * \param length        the number of elements in the list
      * \param offset        offset from the beginning of `mem`
      */
-    block_payload_list_view(irk::memory_view mem, long length)
-        : length_(length), memory_(mem)
+    block_payload_list_view(irk::memory_view mem, int32_t length)
+        : length_(length), memory_(std::move(mem))
     {
-        auto pos = mem.begin();
-        irk::vbyte_codec<long> vb;
+        auto pos = memory_.begin();
+        irk::vbyte_codec<int64_t> vb;
 
-        long list_byte_size, num_blocks;
+        int64_t list_byte_size, num_blocks;
         pos = vb.decode(pos, &list_byte_size);
         pos = vb.decode(pos, &block_size_);
         pos = vb.decode(pos, &num_blocks);
@@ -430,10 +434,10 @@ public:
             throw std::runtime_error(str.str());
         }
 
-        std::vector<long> skips(num_blocks);
+        std::vector<int64_t> skips(num_blocks);
         pos = vb.decode(pos, &skips[0], num_blocks);
 
-        int running_offset = std::distance(mem.begin(), pos);
+        int64_t running_offset = std::distance(memory_.begin(), pos);
 
         for (int block = 0; block < num_blocks - 1; block++) {
             running_offset += skips[block];
@@ -450,8 +454,8 @@ public:
         return iterator{
             *this, length_ / block_size_, length_ % block_size_, block_size_};
     };
-    long size() const { return length_; }
-    long memory_size() const { return memory_.size(); }
+    int32_t size() const { return length_; }
+    int64_t memory_size() const { return memory_.size(); }
 
     std::ostream write(std::ostream& out) const
     {
@@ -460,10 +464,10 @@ public:
 
 private:
     friend class block_iterator<self_type, false>;
-    long length_;
+    int32_t length_ = 0;
     codec_type codec_;
     std::vector<irk::index::block_view<>> blocks_;
-    long block_size_;
+    int32_t block_size_ = 0;
     irk::memory_view memory_;
 };
 

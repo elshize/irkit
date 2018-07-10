@@ -42,9 +42,9 @@ class warc_format_exception : public std::exception {
 
 public:
     warc_format_exception(std::string line, std::string message)
-        : message_(message)
+        : message_(std::move(message)), line_(std::move(line))
     {}
-    const char* what() const throw()
+    const char* what() const noexcept override
     {
         std::string whatstr = message_ + line_;
         return whatstr.c_str();
@@ -65,7 +65,7 @@ private:
 
 public:
     warc_record() = default;
-    warc_record(std::string version) : version_(std::move(version)) {}
+    explicit warc_record(std::string version) : version_(std::move(version)) {}
     std::string type() const { return warc_fields_.at("WARC-Type"); }
     std::string content_length() const
     { return http_fields_.at("Content-Length"); }
@@ -81,11 +81,11 @@ public:
 namespace warc {
 
     //! Read WARC record's version.
-    std::istream& read_version(std::istream& in, std::string& version)
+    inline std::istream& read_version(std::istream& in, std::string& version)
     {
         std::string line;
         std::getline(in, line);
-        if (line == "" && not std::getline(in, line)) {
+        if (line.empty() && not std::getline(in, line)) {
             return in;
         }
         std::regex version_pattern("^WARC/(.+)$");
@@ -98,11 +98,11 @@ namespace warc {
     }
 
     //! Read WARC record's fields.
-    void read_fields(std::istream& in, field_map_type& fields)
+    inline void read_fields(std::istream& in, field_map_type& fields)
     {
         std::string line;
         std::getline(in, line);
-        while (line != "") {
+        while (not line.empty()) {
             std::regex field_pattern("^(.+):\\s+(.*)$");
             std::smatch sm;
             if (not std::regex_search(line, sm, field_pattern)) {
@@ -123,7 +123,7 @@ namespace warc {
     \param record   a WARC record reference to write to
     \returns        `in` stream
  */
-std::istream& read_warc_record(std::istream& in, warc_record& record)
+inline std::istream& read_warc_record(std::istream& in, warc_record& record)
 {
     std::string version;
     if (not warc::read_version(in, version)) {

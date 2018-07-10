@@ -63,8 +63,8 @@ public:
 private:
     fs::path output_dir_;
     int batch_size_;
-    long block_size_;
-    long lexicon_block_size_;
+    int block_size_;
+    int lexicon_block_size_;
 
 public:
     //! \param output_dir       final directory of the index
@@ -74,9 +74,9 @@ public:
     //! \param frequency_codec  codec for frequencies
     basic_index_assembler(fs::path output_dir,
         int batch_size,
-        long block_size,
+        int block_size,
         int lexicon_block_size) noexcept
-        : output_dir_(output_dir),
+        : output_dir_(std::move(output_dir)),
           batch_size_(batch_size),
           block_size_(block_size),
           lexicon_block_size_(lexicon_block_size)
@@ -149,12 +149,13 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        for (auto processed_documents_ = static_cast<long>(first_id);
-             processed_documents_ < batch_size_ + static_cast<long>(first_id);
+        for (auto processed_documents_ = static_cast<int32_t>(first_id);
+             processed_documents_
+                < batch_size_ + static_cast<int32_t>(first_id);
              processed_documents_++)
         {
             if (not std::getline(input, line)) { break; }
-            document_type doc = document_type(processed_documents_);
+            auto doc = static_cast<document_type>(processed_documents_);
             builder.add_document(doc);
             std::istringstream linestream(line);
             std::string title;

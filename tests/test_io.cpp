@@ -113,7 +113,9 @@ protected:
     {
         std::vector<char> mem;
         for (auto& node : nodes) {
-            mem.insert(mem.end(), node.bytes, node.bytes + 5);
+            mem.insert(mem.end(),
+                std::begin(node.bytes),
+                std::next(std::begin(node.bytes), 5));
         }
         return irk::alphabetical_bst(mem);
     }

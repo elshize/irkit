@@ -27,10 +27,11 @@
 #pragma once
 
 #include <algorithm>
-#include "irkit/movingrange.hpp"
-#include "irkit/unionrange.hpp"
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+
+#include <irkit/movingrange.hpp>
+#include <irkit/types.hpp>
+#include <irkit/unionrange.hpp>
+#include <irkit/utils.hpp>
 
 namespace irk {
 

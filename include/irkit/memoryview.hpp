@@ -36,8 +36,8 @@
 #include <gsl/gsl_util>
 #include <gsl/span>
 
-#include <irkit/io.hpp>
 #include <irkit/assert.hpp>
+#include <irkit/io.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -78,7 +78,11 @@ public:
     {}
 
     memory_view() = default;
-    memory_view(const memory_view& other) = default;
+    memory_view(const memory_view&) = default;
+    memory_view(memory_view&& other) = default;
+    memory_view& operator=(const memory_view&) = default;
+    memory_view& operator=(memory_view&&) noexcept = default;
+    ~memory_view() = default;
 
     //! Returns a pointer to the underlying data.
     /*!
@@ -123,7 +127,7 @@ public:
     irk::memory_view operator()(std::ptrdiff_t cut) const
     {
         if (cut < 0) { return range(size() + cut, -cut); }
-        else { return range(0, cut); }
+        return range(0, cut);
     }
 
     template<class T, class CastFn = reinterpret_cast_fn<T>>
@@ -144,6 +148,11 @@ public:
 
     struct concept
     {
+        concept() = default;
+        concept(const concept&) = default;
+        concept(concept&&) noexcept = default;
+        concept& operator=(const concept&) = default;
+        concept& operator=(concept&&) noexcept = default;
         virtual ~concept() = default;
         virtual const char* data() const = 0;
         virtual gsl::index size() const = 0;
@@ -155,7 +164,7 @@ public:
     template<class source_type>
     class model : public concept {
     public:
-        model(source_type source) : source_(source) {}
+        explicit model(source_type source) : source_(std::move(source)) {}
         const char* data() const override { return source_.data(); }
         gsl::index size() const override { return source_.size(); }
 
@@ -176,11 +185,9 @@ private:
     std::shared_ptr<concept> self_;
 };
 
-std::ostream& operator<<(std::ostream& out, const memory_view& mv)
+inline std::ostream& operator<<(std::ostream& out, const memory_view& mv)
 {
-    for (const char& byte : mv) {
-        out << (int)byte << " ";
-    }
+    for (const char& byte : mv) { out << static_cast<int>(byte) << " "; }
     return out;
 }
 
@@ -192,7 +199,7 @@ public:
     using pointer = char_type*;
     using reference = char_type&;
     span_memory_source() = default;
-    span_memory_source(gsl::span<const char_type> memory_span)
+    explicit span_memory_source(gsl::span<const char_type> memory_span)
         : span_(memory_span){};
     const char_type* data() const { return span_.data(); }
     std::ptrdiff_t size() const { return span_.size(); }
@@ -214,8 +221,14 @@ public:
     using pointer = char_type*;
     using reference = char_type&;
     pointer_memory_source() = default;
+    pointer_memory_source(const pointer_memory_source&) = default;
+    pointer_memory_source(pointer_memory_source&&) noexcept = default;
+    pointer_memory_source& operator=(const pointer_memory_source&) = default;
+    pointer_memory_source&
+    operator=(pointer_memory_source&&) noexcept = default;
     pointer_memory_source(const char_type* data, std::ptrdiff_t size)
         : data_(data), size_(size){};
+    ~pointer_memory_source() = default;
     const char_type* data() const { return data_; }
     std::ptrdiff_t size() const { return size_; }
     const char_type& operator[](std::ptrdiff_t n) const { return data_[n]; }
@@ -225,21 +238,21 @@ public:
     }
 
 private:
-    const char_type* data_;
-    std::ptrdiff_t size_;
+    const char_type* data_ = nullptr;
+    std::ptrdiff_t size_ = 0;
 };
 
-memory_view make_memory_view(const std::vector<char>& mem)
+inline memory_view make_memory_view(const std::vector<char>& mem)
 {
     return memory_view(pointer_memory_source(mem.data(), mem.size()));
 }
 
-memory_view make_memory_view(gsl::span<const char> mem)
+inline memory_view make_memory_view(gsl::span<const char> mem)
 {
     return memory_view(span_memory_source<const char>(mem));
 }
 
-memory_view make_memory_view(const char* data, std::ptrdiff_t size)
+inline memory_view make_memory_view(const char* data, std::ptrdiff_t size)
 {
     return memory_view(pointer_memory_source(data, size));
 }
@@ -252,8 +265,10 @@ public:
     using pointer = char_type*;
     using reference = char_type&;
     mapped_file_memory_source() = default;
-    mapped_file_memory_source(boost::iostreams::mapped_file_source file)
-        : file_(file) {}
+    explicit mapped_file_memory_source(
+        const boost::iostreams::mapped_file_source& file)
+        : file_(file)
+    {}
     const char_type* data() const { return file_.data(); }
     std::ptrdiff_t size() const { return file_.size(); }
     char operator[](std::ptrdiff_t n) const { return data()[n]; }
@@ -265,7 +280,7 @@ public:
     }
 
 private:
-    boost::iostreams::mapped_file_source file_;
+    const boost::iostreams::mapped_file_source& file_;
 };
 
 //! A memory source that loads data from disk.
@@ -277,18 +292,20 @@ public:
     using reference = char_type&;
 
     disk_memory_source() = default;
-    disk_memory_source(boost::filesystem::path file_path)
-        : file_path_(file_path),
-          offset_(0),
-          size_(calc_size()),
-          internal_offset_(0)
+    disk_memory_source(const disk_memory_source&) = default;
+    disk_memory_source(disk_memory_source&&) noexcept = default;
+    disk_memory_source& operator=(const disk_memory_source&) = default;
+    disk_memory_source& operator=(disk_memory_source&&) noexcept = default;
+    ~disk_memory_source() = default;
+    explicit disk_memory_source(boost::filesystem::path file_path)
+        : file_path_(std::move(file_path)), size_(calc_size())
     {}
     disk_memory_source(boost::filesystem::path file_path,
         std::streamsize offset,
         std::streamsize file_size,
         std::streamsize internal_offset,
-        std::shared_ptr<std::vector<char_type>> buffer = nullptr)
-        : file_path_(file_path),
+        std::shared_ptr<std::vector<char_type>> buffer = nullptr)  // NOLINT
+        : file_path_(std::move(file_path)),
           offset_(offset),
           size_(file_size),
           internal_offset_(internal_offset),
@@ -319,11 +336,11 @@ public:
     }
 
 private:
-    boost::filesystem::path file_path_;
-    std::streamsize offset_;
-    std::streamsize size_;
+    boost::filesystem::path file_path_{};
+    std::streamsize offset_ = 0;
+    std::streamsize size_ = 0;
     mutable std::shared_ptr<std::vector<char_type>> buffer_;
-    std::streamsize internal_offset_;
+    std::streamsize internal_offset_ = 0;
 
     void ensure_loaded() const
     {
@@ -349,22 +366,9 @@ private:
     }
 };
 
-memory_view make_memory_view(boost::filesystem::path file_path)
+inline memory_view make_memory_view(const boost::filesystem::path& file_path)
 {
     return memory_view(disk_memory_source(file_path));
 }
 
 };  // namespace irk
-
-
-namespace std {
-
-//template<>
-//struct iterator_traits<irk::memory_view::iterator> {
-//    using value_type = const char;
-//    using reference = const char&;
-//    using difference_type = std::ptrdiff_t;
-//    using iterator_category = std::random_access_iterator_tag;
-//};
-
-};

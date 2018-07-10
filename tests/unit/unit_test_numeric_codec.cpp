@@ -45,7 +45,7 @@ TEST(stream_vbyte, unsigned_int)
 {
     irk::stream_vbyte_codec<std::uint32_t> codec;
     std::vector<std::uint32_t> values = {
-        0, 3, 7, 3, 18, 99, 123456, std::numeric_limits<std::uint32_t>().max()};
+        0, 3, 7, 3, 18, 99, 123456, std::numeric_limits<std::uint32_t>::max()};
     std::vector<std::uint32_t> actual(values.size());
     std::vector<char> buffer(codec.max_encoded_size(values.size()));
     codec.encode(std::begin(values), std::end(values), std::begin(buffer));
@@ -57,10 +57,10 @@ TEST(stream_vbyte, signed_int)
 {
     irk::stream_vbyte_codec<int> codec;
     std::vector<int> values = {
-        0, 3, 7, 3, 18, 99, 123456, std::numeric_limits<int>().max()};
+        0, 3, 7, 3, 18, 99, 123456, std::numeric_limits<int>::max()};
     std::vector<std::uint32_t> actual(values.size());
-    std::vector<char> buffer(codec.max_encoded_size(
-        values.size(), std::numeric_limits<int>().max()));
+    std::vector<char> buffer(
+        codec.max_encoded_size(values.size(), std::numeric_limits<int>::max()));
     codec.encode(std::begin(values), std::end(values), std::begin(buffer));
     codec.decode(std::begin(buffer), std::begin(actual), values.size());
     ASSERT_THAT(actual, ::testing::ElementsAreArray(values));
@@ -87,7 +87,7 @@ TEST(vbyte, int)
 {
     irk::vbyte_codec<int> codec;
     std::vector<std::uint8_t> values = {
-        0, 3, 7, 3, 18, 99, 123, std::numeric_limits<std::uint8_t>().max()};
+        0, 3, 7, 3, 18, 99, 123, std::numeric_limits<std::uint8_t>::max()};
     std::vector<std::uint32_t> actual(values.size());
     std::vector<char> buffer(codec.max_encoded_size(values.size()));
     codec.encode(std::begin(values), std::end(values), std::begin(buffer));
@@ -100,7 +100,7 @@ TEST(vbyte, document)
     irk::vbyte_codec<irk::index::document_t> codec;
     std::vector<irk::index::document_t> values = {
         0_id, 3_id, 7_id, 3_id, 18_id, 99_id, 123_id,
-        std::numeric_limits<irk::index::document_t>().max()};
+        std::numeric_limits<irk::index::document_t>::max()};
     std::vector<irk::index::document_t> actual(values.size());
     std::vector<char> buffer(codec.max_encoded_size(values.size()));
     codec.encode(std::begin(values), std::end(values), std::begin(buffer));

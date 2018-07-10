@@ -41,7 +41,7 @@ using boost::iostreams::mapped_file_source;
 
 class inverted_index_disk_data_source {
 public:
-    explicit inverted_index_disk_data_source(path dir,
+    explicit inverted_index_disk_data_source(const path& dir,
         std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
@@ -138,7 +138,7 @@ private:
 class inverted_index_inmemory_data_source {
 public:
     explicit inverted_index_inmemory_data_source(
-        path dir, std::optional<std::string> score_name = std::nullopt)
+        const path& dir, std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
         io::load_data(index::doc_ids_path(dir), documents_);
@@ -256,7 +256,7 @@ class inverted_index_mapped_data_source {
 
 public:
     explicit inverted_index_mapped_data_source(
-        path dir, std::optional<std::string> score_name = std::nullopt)
+        const path& dir, std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
         io::enforce_exist(index::doc_ids_path(dir));

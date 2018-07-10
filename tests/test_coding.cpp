@@ -250,7 +250,9 @@ TEST_F(HuTucker, to_compact)
     };
     std::vector<char> expected_bytes;
     for (auto& node : expected_nodes) {
-        expected_bytes.insert(expected_bytes.end(), node.bytes, node.bytes + 5);
+        expected_bytes.insert(expected_bytes.end(),
+            std::begin(node.bytes),
+            std::next(std::begin(node.bytes), 5));
     }
     EXPECT_THAT(compact.mem_, ::testing::ElementsAreArray(expected_bytes));
 }

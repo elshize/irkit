@@ -31,27 +31,28 @@
 
 namespace irk::parsing::html {
 
-// TODO: Make it iterative rather than recursive.
-std::string cleantext(GumboNode* node)
+// TODO(michal): Make it iterative rather than recursive.
+inline std::string cleantext(GumboNode* node)
 {
     if (node->type == GUMBO_NODE_TEXT) {
-        return std::string(node->v.text.text);
-    } else if (node->type == GUMBO_NODE_ELEMENT
-        && node->v.element.tag != GUMBO_TAG_SCRIPT
-        && node->v.element.tag != GUMBO_TAG_STYLE) {
-        std::string contents = "";
-        GumboVector* children = &node->v.element.children;
+        return std::string(node->v.text.text);  // NOLINT
+    }
+    if (node->type == GUMBO_NODE_ELEMENT
+        && node->v.element.tag != GUMBO_TAG_SCRIPT  // NOLINT
+        && node->v.element.tag != GUMBO_TAG_STYLE) {  // NOLINT
+        std::string contents;
+        GumboVector* children = &node->v.element.children;  // NOLINT
         for (unsigned int i = 0; i < children->length; ++i) {
-            const std::string text = cleantext((GumboNode*)children->data[i]);
+            const std::string text = cleantext(
+                reinterpret_cast<GumboNode*>(children->data[i]));
             if (i != 0 && not text.empty()) {
                 contents.append(" ");
             }
             contents.append(text);
         }
         return contents;
-    } else {
-        return "";
     }
+    return std::string();
 }
 
 //! Returns a clean text content of a HTML string.
@@ -60,7 +61,7 @@ std::string cleantext(GumboNode* node)
  * mismatches that could otherwise cause XML parsing errors.
  * @returns a string with text stripped of HTML tags
  */
-std::string cleantext(const std::string& html)
+inline std::string cleantext(const std::string& html)
 {
     GumboOutput* output = gumbo_parse(html.c_str());
     std::string content = cleantext(output->root);

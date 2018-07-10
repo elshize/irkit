@@ -27,9 +27,10 @@
 #pragma once
 
 #include <algorithm>
-#include "irkit/movingrange.hpp"
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+
+#include <irkit/movingrange.hpp>
+#include <irkit/types.hpp>
+#include <irkit/utils.hpp>
 
 namespace irk {
 
@@ -183,14 +184,15 @@ public:
                     }
                 }
                 return {pivot_doc, score};
-            } else {
-                // Move
-                for (auto & [doc, term] : preceding) {
-                    nextge(term, pivot_doc);
-                    if (not ranges_[term].empty()) {
-                        heap_.push_back({doc, term});
-                        std::push_heap(heap_.begin(), heap_.end());
-                    }
+            }
+            // Move
+            for (auto& [doc, term] : preceding)
+            {
+                nextge(term, pivot_doc);
+                if (not ranges_[term].empty())
+                {
+                    heap_.push_back({doc, term});
+                    std::push_heap(heap_.begin(), heap_.end());
                 }
             }
         }

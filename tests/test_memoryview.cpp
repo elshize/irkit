@@ -41,10 +41,7 @@ namespace {
 class span_memory_source : public ::testing::Test {
 protected:
     std::vector<char> container = {4, 2, 1, 4, 6};
-    gsl::span<const char> span = gsl::span<const char>(
-        &container[0], container.size());
-    irk::memory_view view = irk::memory_view(
-        irk::span_memory_source<char>(span));
+    irk::memory_view view = irk::make_memory_view(container);
 };
 
 void test_size(const irk::memory_view& view, const std::vector<char>& container)

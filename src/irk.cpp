@@ -27,19 +27,12 @@
 #include <CLI/CLI.hpp>
 #include <cstdlib>
 
-const std::string CommandPart = "part";
-const std::string CommandWarc = "warc";
-
 int main(int argc, char** argv)
 {
-    struct {
-        std::size_t padding_width = 4;
-        std::string output;
-        std::vector<std::string> input_files;
-        std::size_t limit;
-    } args;
+    const std::string CommandPart = "part";
+    const std::string CommandWarc = "warc";
 
-    CLI::App app{"irk: Command Linie IRKit tools"};
+    CLI::App app{"A set of command linie IRKit tools"};
     app.set_help_flag();
     auto part = app.add_subcommand(
                        "part", "Partition a text file by line number.")
@@ -49,7 +42,7 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    if (system(NULL) == false) { exit(EXIT_FAILURE); }
+    if (system(nullptr) == 0) { exit(EXIT_FAILURE); }
 
     std::ostringstream command;
     command << "irk-";
@@ -64,6 +57,6 @@ int main(int argc, char** argv)
         command << " " << arg;
     }
 
-    int result = system(command.str().c_str());
+    int result = system(command.str().c_str());  // NOLINT
     return result;
 }
