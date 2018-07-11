@@ -37,7 +37,6 @@
 #include <irkit/coding.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/io.hpp>
-#include <irkit/io/memorybuffer.hpp>
 #include <irkit/types.hpp>
 
 namespace irk {
