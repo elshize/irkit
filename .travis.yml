@@ -11,13 +11,13 @@ matrix:
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
-      env:
-        - MATRIX_EVAL="SUITE=vera && CC=gcc-7 && CXX=g++-7"
       addons:
         apt:
           packages:
             - vera++
       install: ''
+      script:
+        - scripts/vera.sh
 before_install:
     - eval "${MATRIX_EVAL}"
 addons:
