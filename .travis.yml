@@ -18,6 +18,7 @@ matrix:
           packages:
             - lua5.1
             - liblua5.1
+            - luabind
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera
