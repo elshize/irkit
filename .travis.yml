@@ -11,11 +11,21 @@ matrix:
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
+      env:
+        - vera++
       addons:
         apt:
           packages:
-            - vera++
-      install: ''
+            - lua5.1
+            - liblua5.1
+      install:
+        - git clone https://bitbucket.org/verateam/vera.git
+        - cd vera
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make -j
+        - make install
       script:
         - scripts/vera.sh
 before_install:
