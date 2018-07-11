@@ -15,10 +15,12 @@ matrix:
         - vera++
       addons:
         apt:
+          sources:
+            - ubuntu-toolchain-r-test
           packages:
             - lua5.1
             - liblua5.1
-            - luabind
+            - libluabind-dev
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera
