@@ -7,7 +7,7 @@ if [ "$SUITE" == "unit" ]; then
 elif [ "$SUITE" == "integration" ]; then
     cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_BUILD_INTEGRATION_TEST:BOOL=ON -D IRKit_BUILD_BENCHMARKS:BOOL=OFF .
     cmake --build .
-    ctest -R -V integration*
+    ctest -V -R integration*
 elif [ "$SUITE" == "benchmarks" ]; then
     cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_BUILD_INTEGRATION_TEST:BOOL=OFF -D IRKit_BUILD_BENCHMARKS:BOOL=ON .
     cmake --build .
