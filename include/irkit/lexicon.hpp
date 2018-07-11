@@ -51,16 +51,16 @@ public:
     using memory_container = M;
 
     lexicon() = delete;
-    lexicon(std::vector<std::ptrdiff_t>&& block_offsets,
-        std::vector<value_type>&& leading_indices,
-        memory_container&& blocks,
+    lexicon(std::vector<std::ptrdiff_t> block_offsets,
+        std::vector<value_type> leading_indices,
+        memory_container blocks,
         std::ptrdiff_t count,
         int keys_per_block,
         std::shared_ptr<irk::radix_tree<int>> leading_keys,  // NOLINT
         irk::prefix_codec<codec_type> codec)
-        : block_offsets_(block_offsets),
-          leading_indices_(leading_indices),
-          blocks_(blocks),
+        : block_offsets_(std::move(block_offsets)),
+          leading_indices_(std::move(leading_indices)),
+          blocks_(std::move(blocks)),
           count_(count),
           keys_per_block_(keys_per_block),
           leading_keys_(std::move(leading_keys)),
@@ -372,7 +372,9 @@ load_lexicon(const irk::memory_view& memory)
 
     // Block leading values
     boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
-        tree_end, std::next(memory.begin(), header_size));
+        tree_end,
+        header_size - std::distance(header_memory.begin(), tree_end)
+            - sizeof(header_size));
     irk::input_bit_stream bin(buffer);
     auto leading_keys = std::make_shared<irk::radix_tree<int>>();
     auto pcodec = irk::prefix_codec<hutucker_codec<char>>(std::move(ht_codec));
