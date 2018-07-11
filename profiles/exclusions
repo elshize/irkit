@@ -1,4 +1,1 @@
 .*snowball/porter2.*
-.*/submodules/.*
-.*tests.*
-.*/build/.*
