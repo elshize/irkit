@@ -34,7 +34,7 @@
 
 //using boost::log::keywords::format;
 
-int run(const std::string& input_file, std::size_t document_count)
+int run(const std::string& input_file, std::size_t document_count, int k)
 {
     boost::log::add_console_log(std::cerr);
     BOOST_LOG_TRIVIAL(info) << "Allocating memory...";
@@ -48,7 +48,8 @@ int run(const std::string& input_file, std::size_t document_count)
         {
             std::istringstream linestream(line);
             std::string doc;
-            while (linestream >> doc)
+            int idx = 0;
+            while (idx++ < k && linestream >> doc)
             {
                 int docid = std::stoi(doc);
                 ++hits[docid];
@@ -68,6 +69,7 @@ int main(int argc, char** argv)
 {
     std::string input;
     std::size_t document_count;
+    int k = 10;
 
     CLI::App app{"Aggregates document hits.\n"
                  "Input format: each line consists of document IDs "
@@ -81,7 +83,8 @@ int main(int argc, char** argv)
            "Document count in index",
            false)
         ->required();
+    app.add_option("-k", k, "As in top-k", true);
 
     CLI11_PARSE(app, argc, argv);
-    return run(input, document_count);
+    return run(input, document_count, k);
 }
