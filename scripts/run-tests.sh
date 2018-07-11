@@ -13,8 +13,6 @@ elif [ "$SUITE" == "benchmarks" ]; then
     cmake --build .
     sudo make install
     ./benchmarks/all.sh
-elif [ "$SUITE" == "vera" ]; then
-    ./scripts/vera.sh
 #elif [ "$SUITE" == "tidy" ]; then
 #    ~/builds/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py -header-filter=.*include/irkit/[^0-9]*hpp
 fi

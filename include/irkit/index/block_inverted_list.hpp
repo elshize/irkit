@@ -356,16 +356,14 @@ public:
         std::vector<value_type> last_documents(num_blocks);
         pos = codec_.delta_decode(pos, &last_documents[0], num_blocks);
 
-        int64_t running_offset = std::distance(memory_.begin(), pos);
-
         for (int block = 0; block < num_blocks - 1; block++) {
-            running_offset += skips[block];
+            std::advance(pos, skips[block]);
             blocks_.emplace_back(last_documents[block],
-                memory_.range(running_offset, skips[block + 1]));
+                irk::make_memory_view(pos, skips[block + 1]));
         }
-        running_offset += skips.back();
-        blocks_.emplace_back(
-            last_documents.back(), memory_(running_offset, memory_.size()));
+        std::advance(pos, skips.back());
+        blocks_.emplace_back(last_documents.back(),
+            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
     }
 
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
@@ -437,15 +435,14 @@ public:
         std::vector<int64_t> skips(num_blocks);
         pos = vb.decode(pos, &skips[0], num_blocks);
 
-        int64_t running_offset = std::distance(memory_.begin(), pos);
-
-        for (int block = 0; block < num_blocks - 1; block++) {
-            running_offset += skips[block];
-            blocks_.emplace_back(
-                memory_.range(running_offset, skips[block + 1]));
+        for (int block = 0; block < num_blocks - 1; block++)
+        {
+            std::advance(pos, skips[block]);
+            blocks_.emplace_back(irk::make_memory_view(pos, skips[block + 1]));
         }
-        running_offset += skips.back();
-        blocks_.emplace_back(memory_(running_offset, memory_.size()));
+        std::advance(pos, skips.back());
+        blocks_.emplace_back(
+            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
     }
 
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
