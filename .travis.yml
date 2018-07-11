@@ -14,21 +14,22 @@ matrix:
       env:
         - MATRIX_EVAL="SUITE=vera && CC=gcc-7 && CXX=g++-7"
       addons:
-        packages:
-          - vera++
+        apt:
+          packages:
+            - vera++
       install: ''
 before_install:
     - eval "${MATRIX_EVAL}"
 addons:
-    apt:
-      sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-6.0
-      packages:
-        - g++-7
-        - clang-6.0
-        - clang-tidy-6.0
-        - libboost-all-dev
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-6.0
+    packages:
+      - g++-7
+      - clang-6.0
+      - clang-tidy-6.0
+      - libboost-all-dev
 install:
   - git clone https://github.com/google/gumbo-parser.git
   - cd gumbo-parser
