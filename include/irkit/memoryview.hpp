@@ -299,10 +299,9 @@ public:
     disk_memory_source& operator=(const disk_memory_source&) = default;
     ~disk_memory_source() noexcept = default;
 
-    disk_memory_source(disk_memory_source&&) noexcept(
-        std::is_nothrow_move_constructible_v<std::vector<char_type>>) = default;
-    disk_memory_source& operator=(disk_memory_source&&) noexcept(
-        std::is_nothrow_move_assignable_v<std::vector<char_type>>) = default;
+    disk_memory_source(disk_memory_source&&) = default;  // NOLINT: #27
+    disk_memory_source&
+    operator=(disk_memory_source&&) = default;  // NOLINT: #27
 
     explicit disk_memory_source(boost::filesystem::path file_path)
         : file_path_(std::move(file_path)), size_(calc_size())
