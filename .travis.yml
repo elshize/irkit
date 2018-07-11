@@ -16,6 +16,7 @@ matrix:
       addons:
         packages:
           - vera++
+      install: ''
 before_install:
     - eval "${MATRIX_EVAL}"
 addons:
