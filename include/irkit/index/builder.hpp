@@ -35,7 +35,6 @@
 #include <nlohmann/json.hpp>
 
 #include <irkit/coding.hpp>
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/types.hpp>

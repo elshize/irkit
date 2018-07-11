@@ -35,6 +35,7 @@
 #include <irkit/assert.hpp>
 #include <irkit/bitstream.hpp>
 #include <irkit/coding/hutucker.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/coding/prefix_codec.hpp>
 #include <irkit/io.hpp>
 #include <irkit/memoryview.hpp>
@@ -136,20 +137,26 @@ public:
 
     std::ostream& serialize(std::ostream& out) const
     {
-        std::vector<char> header;
+        std::vector<char> header(max_serialized_header_size());
+        vbyte_codec<std::ptrdiff_t> intcodec;
+        auto header_iter = std::begin(header);
+
+        std::advance(header_iter, intcodec.encode(&count_, header_iter));
+        auto size = block_offsets_.size();
+        std::advance(header_iter, intcodec.encode(&size, header_iter));
+        std::advance(
+            header_iter, intcodec.encode(&keys_per_block_, header_iter));
+
+        for (const auto& offset : block_offsets_)
+        { std::advance(header_iter, intcodec.encode(&offset, header_iter)); }
+        for (const auto& index : leading_indices_)
+        { std::advance(header_iter, intcodec.encode(&index, header_iter)); }
+
+        header.resize(std::distance(std::begin(header), header_iter));
+
         boost::iostreams::stream<
             boost::iostreams::back_insert_device<std::vector<char>>>
             buffer(boost::iostreams::back_inserter(header));
-        varbyte_codec<std::ptrdiff_t> intcodec;
-
-        intcodec.encode(count_, buffer);
-        intcodec.encode(block_offsets_.size(), buffer);
-        intcodec.encode(keys_per_block_, buffer);
-
-        for (const auto& offset : block_offsets_)
-        { intcodec.encode(offset, buffer); }
-        for (const auto& index : leading_indices_)
-        { intcodec.encode(index, buffer); }
 
         dump_coding_tree(buffer);
         dump_leading_keys(buffer);
@@ -279,6 +286,14 @@ private:
     std::shared_ptr<irk::radix_tree<int>> leading_keys_;
     irk::prefix_codec<codec_type> codec_;
 
+    std::ptrdiff_t max_serialized_header_size() const
+    {
+        auto size = block_offsets_.size();
+        return sizeof(count_) + sizeof(size) + sizeof(keys_per_block_)
+            + size * sizeof(block_offsets_[0])
+            + size * sizeof(leading_indices_[0]);
+    }
+
     std::ostream& dump_coding_tree(std::ostream& out) const
     {
         auto coding_tree = codec_.codec().tree();
@@ -324,39 +339,42 @@ load_lexicon(const irk::memory_view& memory)
     // Total header size: everything that will be always read to memory.
     auto header_size = memory.range(0, sizeof(ptrdiff_t)).as<std::ptrdiff_t>();
     auto header_memory = memory(sizeof(ptrdiff_t), header_size);
-    irk::varbyte_codec<std::ptrdiff_t> intcodec;
-    auto header_stream = header_memory.stream();
+    irk::vbyte_codec<std::ptrdiff_t> intcodec;
+    auto header_iter = header_memory.begin();
 
     // Block metadata
     std::ptrdiff_t block_count, value_count, keys_per_block;
     std::vector<std::ptrdiff_t> block_offsets;
     std::vector<std::ptrdiff_t> leading_indices;
-    intcodec.decode(header_stream, value_count);
-    intcodec.decode(header_stream, block_count);
-    intcodec.decode(header_stream, keys_per_block);
+    header_iter = intcodec.decode(header_iter, &value_count);
+    header_iter = intcodec.decode(header_iter, &block_count);
+    header_iter = intcodec.decode(header_iter, &keys_per_block);
     for (int idx : boost::irange<int>(0, block_count)) {
         (void)idx;
         std::ptrdiff_t offset;
-        intcodec.decode(header_stream, offset);
+        header_iter = intcodec.decode(header_iter, &offset);
         block_offsets.push_back(offset);
     }
     for (int idx : boost::irange<int>(0, block_count)) {
         (void)idx;
         std::ptrdiff_t first_index;
-        intcodec.decode(header_stream, first_index);
+        header_iter = intcodec.decode(header_iter, &first_index);
         leading_indices.push_back(first_index);
     }
 
     // Encoding tree
-    std::size_t tree_size;
-    header_stream.read(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
-    std::vector<char> tree_data(tree_size);
-    header_stream.read(tree_data.data(), tree_size);
-    alphabetical_bst<> encoding_tree(tree_data);
-    hutucker_codec<char> ht_codec(encoding_tree);
+    std::size_t tree_size = *reinterpret_cast<const std::size_t*>(
+        &*header_iter);
+    std::advance(header_iter, sizeof(std::size_t));
+    auto tree_end = std::next(header_iter, tree_size);
+    std::vector<char> tree_data(header_iter, tree_end);
+    alphabetical_bst<> encoding_tree(std::move(tree_data));
+    hutucker_codec<char> ht_codec(std::move(encoding_tree));
 
     // Block leading values
-    irk::input_bit_stream bin(header_stream);
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        tree_end, std::next(memory.begin(), header_size));
+    irk::input_bit_stream bin(buffer);
     auto leading_keys = std::make_shared<irk::radix_tree<int>>();
     auto pcodec = irk::prefix_codec<hutucker_codec<char>>(std::move(ht_codec));
     for (int idx : boost::irange<int>(0, block_count)) {

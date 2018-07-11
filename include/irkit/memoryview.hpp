@@ -31,7 +31,9 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/concepts.hpp>
+#include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <gsl/gsl_util>
 #include <gsl/span>

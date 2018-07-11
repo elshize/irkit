@@ -40,7 +40,6 @@
 #include <irkit/bitptr.hpp>
 #include <irkit/bitstream.hpp>
 #include <irkit/coding.hpp>
-#include <irkit/coding/varbyte.hpp>
 
 namespace irk::io {
 

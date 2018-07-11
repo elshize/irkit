@@ -7,7 +7,6 @@
 #define protected public
 #include <irkit/alphabetical_bst.hpp>
 #include <irkit/bitstream.hpp>
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/io.hpp>
 
