@@ -13,4 +13,6 @@ elif [ "$SUITE" == "benchmarks" ]; then
     cmake --build .
     sudo make install
     ./benchmarks/all.sh
+elif [ "$SUITE" == "vera" ]; then
+    vera++ -p irkit
 fi
