@@ -35,8 +35,8 @@
 #include <irkit/assert.hpp>
 #include <irkit/bitstream.hpp>
 #include <irkit/coding/hutucker.hpp>
-#include <irkit/coding/vbyte.hpp>
 #include <irkit/coding/prefix_codec.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/io.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/radix_tree.hpp>
@@ -234,7 +234,6 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
-            std::cout << "decoding block " << block << std::endl;
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());

@@ -71,7 +71,6 @@ TEST(hutucker, prefix_coding)
     std::string term, last = "";
     std::ifstream in_terms(terms_file);
     while (std::getline(in_terms, term)) {
-        std::cout << term << std::endl;
         pref_codec.encode(term, bout);
         terms.push_back(term);
         ++count;

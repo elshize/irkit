@@ -4,4 +4,4 @@ cat \
     <(find src -type f \( -iname \*.cpp -o -iname \*.hpp \)) \
     <(find tests -type f \( -iname \*.cpp -o -iname \*.hpp \)) \
     <(find benchmarks -type f \( -iname \*.cpp -o -iname \*.hpp \)) \
-    | vera++ -p vera --exclusions profiles/exclusions --error
+    | vera++ -p irkit --exclusions profiles/exclusions --error

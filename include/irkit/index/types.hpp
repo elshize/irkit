@@ -48,7 +48,8 @@ using offset_t = std::size_t;
 using frequency_t = details::frequency_base_type;
 using document_t = details::document_base_type;
 
-//struct document_t : ts::strong_typedef<document_t, details::document_base_type>,
+// struct document_t : ts::strong_typedef<document_t,
+// details::document_base_type>,
 //                    ts::strong_typedef_op::equality_comparison<document_t>,
 //                    ts::strong_typedef_op::relational_comparison<document_t>,
 //                    ts::strong_typedef_op::unary_plus<document_t>,
@@ -74,15 +75,15 @@ using document_t = details::document_base_type;
 //
 //    explicit operator long() const noexcept { return ts::get(*this); }
 //    explicit operator int() const noexcept { return ts::get(*this); }
-//    explicit operator std::uint32_t() const noexcept { return ts::get(*this); }
-//    explicit operator std::size_t() const noexcept { return ts::get(*this); }
+//    explicit operator std::uint32_t() const noexcept { return ts::get(*this);
+//    } explicit operator std::size_t() const noexcept { return ts::get(*this);
+//    }
 //};
 //
-//std::ostream& operator<<(std::ostream& out, const document_t& d)
+// std::ostream& operator<<(std::ostream& out, const document_t& d)
 //{
 //    return out << ts::get(d);
 //}
-
 
 //struct offset_t : ts::strong_typedef<offset_t, ptrdiff_t>,
 //                  ts::strong_typedef_op::equality_comparison<offset_t>,

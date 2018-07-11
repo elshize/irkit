@@ -48,7 +48,6 @@ int run(const std::string& input_file, std::size_t document_count)
         {
             std::istringstream linestream(line);
             std::string doc;
-            std::cerr << "LINE\n";
             while (linestream >> doc)
             {
                 int docid = std::stoi(doc);

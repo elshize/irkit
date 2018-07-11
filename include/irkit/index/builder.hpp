@@ -230,8 +230,8 @@ public:
             {"documents", static_cast<uint32_t>(current_doc_ + 1u)},
             {"occurrences", all_occurrences_},
             {"skip_block_size", block_size_},
-            {"avg_document_size", static_cast<double>(sizes_sum) / document_sizes_.size()}
-        };
+            {"avg_document_size",
+                static_cast<double>(sizes_sum) / document_sizes_.size()}};
         out << std::setw(4) << j << std::endl;
     }
 };
