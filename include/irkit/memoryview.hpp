@@ -304,55 +304,41 @@ public:
     {}
     disk_memory_source(boost::filesystem::path file_path,
         std::streamsize offset,
-        std::streamsize file_size,
-        std::streamsize internal_offset,
-        std::shared_ptr<std::vector<char_type>> buffer = nullptr)  // NOLINT
-        : file_path_(std::move(file_path)),
-          offset_(offset),
-          size_(file_size),
-          internal_offset_(internal_offset),
-          buffer_(buffer)
+        std::streamsize size)
+        : file_path_(std::move(file_path)), offset_(offset), size_(size)
     {}
 
     const char_type* data() const
     {
         ensure_loaded();
-        return &(*buffer_)[internal_offset_];
+        return &buffer_[0];
     }
 
     std::streamsize size() const { return size_; }
 
-    const char_type& operator[](std::ptrdiff_t n) const
-    { return data()[n + internal_offset_]; }
+    const char_type& operator[](std::ptrdiff_t n) const { return data()[n]; }
 
     disk_memory_source<char_type>
     range(std::streamsize first, std::streamsize size) const
     {
-        if (buffer_ != nullptr)
-        {
-            auto internal_offset = first + internal_offset_;
-            return disk_memory_source(
-                file_path_, offset_, size, internal_offset, buffer_);
-        }
-        return disk_memory_source(file_path_, offset_ + first, size, 0);
+        return disk_memory_source(file_path_, offset_ + first, size);
     }
 
 private:
     boost::filesystem::path file_path_{};
     std::streamsize offset_ = 0;
     std::streamsize size_ = 0;
-    mutable std::shared_ptr<std::vector<char_type>> buffer_;
-    std::streamsize internal_offset_ = 0;
+    mutable std::vector<char_type> buffer_;
 
     void ensure_loaded() const
     {
-        if (buffer_ == nullptr) {
+        if (buffer_.empty()) {
             io::enforce_exist(file_path_);
             auto flags = std::ifstream::ate | std::ifstream::binary;
             std::ifstream in(file_path_.c_str(), flags);
             in.seekg(offset_, std::ios::beg);
-            buffer_ = std::make_shared<std::vector<char_type>>(size_);
-            if (not in.read(buffer_->data(), size_))
+            buffer_.resize(size_);
+            if (not in.read(buffer_.data(), size_))
             {
                 throw std::runtime_error(
                     "Failed reading " + file_path_.string());
