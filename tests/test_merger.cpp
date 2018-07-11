@@ -7,7 +7,7 @@
 #define private public
 #define protected public
 #include <irkit/coding.hpp>
-#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/merger.hpp>
 #include <irkit/lexicon.hpp>
@@ -38,8 +38,8 @@ std::vector<char> flatten(std::vector<std::vector<char>> vectors)
 template<class T>
 auto vb_encode(std::initializer_list<T> integers)
 {
-    irk::varbyte_codec<T> vb;
-    return irk::encode(integers, vb);
+    irk::vbyte_codec<T> vb;
+    return irk::encode(vb, integers);
 }
 
 //class IndexMerging : public ::testing::Test {
@@ -126,8 +126,8 @@ auto vb_encode(std::initializer_list<T> integers)
 //{
 //    index_merger merger(index_dir_m,
 //        {index_dir_1, index_dir_2},
-//        irk::varbyte_codec<long>{},
-//        irk::varbyte_codec<long>{},
+//        irk::vbyte_codec<long>{},
+//        irk::vbyte_codec<long>{},
 //        1);
 //    merger.merge_titles();
 //    std::ostringstream otitles;
@@ -147,15 +147,15 @@ auto vb_encode(std::initializer_list<T> integers)
 //    using Posting = irk::_posting<std::uint16_t, std::uint16_t>;
 //    index_merger merger(index_dir_m,
 //        {index_dir_1, index_dir_2},
-//        irk::varbyte_codec<long>{},
-//        irk::varbyte_codec<long>{},
+//        irk::vbyte_codec<long>{},
+//        irk::vbyte_codec<long>{},
 //        1024);
 //    merger.merge_terms();
 //    merger.merge_titles();
 //    irk::v2::inverted_index_mapped_data_source source(index_dir_m);
 //    irk::v2::inverted_index_view merged(&source,
-//        irk::varbyte_codec<long>{},
-//        irk::varbyte_codec<long>{});
+//        irk::vbyte_codec<long>{},
+//        irk::vbyte_codec<long>{});
 //
 //    // Verify terms
 //    std::ostringstream oterms;

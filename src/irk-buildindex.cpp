@@ -30,7 +30,6 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
 

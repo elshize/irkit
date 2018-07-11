@@ -29,11 +29,12 @@
 #include <random>
 #include <sstream>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/index/block.hpp>
 #include <irkit/memoryview.hpp>
 
