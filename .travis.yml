@@ -21,13 +21,16 @@ matrix:
             - lua5.1
             - liblua5.1
             - libluabind-dev
+            - libtcl8.6
+            - tcl-dev
+            - libboost-all-dev
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera
         - mkdir build
         - cd build
-        - cmake ..
-        - make -j
+        - cmake -D VERA_USE_SYSTEM_BOOST:BOOL=ON ..
+        - make
         - make install
       script:
         - scripts/vera.sh
