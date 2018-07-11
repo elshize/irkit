@@ -32,6 +32,7 @@ matrix:
         - cmake -D VERA_USE_SYSTEM_BOOST:BOOL=ON ..
         - make
         - sudo make install
+        - cd ../
       script:
         - scripts/vera.sh
 before_install:
