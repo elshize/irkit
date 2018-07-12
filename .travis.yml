@@ -33,6 +33,9 @@ matrix:
             - clang-tidy-6.0
       env:
         - MATRIX_EVAL="SUITE=clang-tidy && CC=gcc-7 && CXX=g++-7"
+      install:
+        - git clone https://github.com/llvm-mirror/clang-tools-extra/
+        - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
       script:
         - mkdir tidy && cd tidy
         - ../scripts/clang-tidy.sh
