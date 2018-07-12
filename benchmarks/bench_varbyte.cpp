@@ -33,10 +33,6 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/range/algorithm.hpp>
-#include <range/v3/algorithm/for_each.hpp>
-#include <range/v3/view/generate.hpp>
-#include <range/v3/view/take.hpp>
-#include <range/v3/view/transform.hpp>
 
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/coding/vbyte.hpp>
