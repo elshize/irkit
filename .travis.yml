@@ -32,7 +32,7 @@ matrix:
             - clang-6.0
             - clang-tidy-6.0
       env:
-        - clang-tidy
+        - MATRIX_EVAL="SUITE=clang-tidy && CC=gcc-7 && CXX=g++-7"
       script:
         - mkdir tidy && cd tidy
         - ../scripts/clang-tidy.sh
