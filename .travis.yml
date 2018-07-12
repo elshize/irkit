@@ -27,6 +27,8 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-6.0
           packages:
+            - g++-7
+            - libboost-all-dev
             - clang-6.0
             - clang-tidy-6.0
       env:
