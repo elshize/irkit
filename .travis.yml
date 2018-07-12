@@ -8,6 +8,19 @@ matrix:
       env:
         - MATRIX_EVAL="SUITE=integration && CC=gcc-7 && CXX=g++-7"
     - os: linux
+      env:
+        - MATRIX_EVAL="SUITE=benchmarks && CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+          packages:
+            - clang-6.0
+      env:
+        - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
+    - os: linux
       addons:
         apt:
           sources:
@@ -17,7 +30,10 @@ matrix:
             - clang-6.0
             - clang-tidy-6.0
       env:
-        - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
+        - clang-tidy
+      script:
+        - mkdir tidy && cd tidy
+        - ../scripts/clang-tidy.sh
     - os: linux
       env:
         - vera++

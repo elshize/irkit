@@ -54,7 +54,9 @@ if (IRKit_INSTALL_SUBMODULES)
 endif()
 
 # Google Test
+if (IRKit_BUILD_TEST)
 add_subdirectory(submodules/googletest EXCLUDE_FROM_ALL)
+endif()
 
 # Gumbo HTML5 parser
 #set(GUMBO_DIR "gumbo-parser")

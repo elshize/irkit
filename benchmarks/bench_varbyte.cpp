@@ -38,10 +38,8 @@
 #include <range/v3/view/take.hpp>
 #include <range/v3/view/transform.hpp>
 
-#include <irkit/coding/vbyte.hpp>
-#include <irkit/coding/quickbyte.hpp>
 #include <irkit/coding/stream_vbyte.hpp>
-#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding/vbyte.hpp>
 
 using std::chrono::seconds;
 using std::chrono::nanoseconds;
