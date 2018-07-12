@@ -29,11 +29,12 @@
 #include <random>
 #include <sstream>
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/index/block.hpp>
 #include <irkit/memoryview.hpp>
 
@@ -44,8 +45,7 @@ using namespace irk::index;
 TEST(block_view, int_skips)
 {
     std::vector<char> items = {4, 2, 1, 4, 6};
-    auto span = gsl::span<const char>(&items[0], items.size());
-    auto source = irk::span_memory_source(span);
+    auto source = irk::make_memory_view(items);
     auto mem = irk::memory_view(source);
     block_view block(6, mem);
     auto block_mem = block.data();
@@ -57,8 +57,7 @@ TEST(block_view, int_skips)
 TEST(block_view, no_skips)
 {
     std::vector<char> items = {4, 2, 1, 4, 6};
-    auto span = gsl::span<const char>(&items[0], items.size());
-    auto source = irk::span_memory_source(span);
+    auto source = irk::make_memory_view(items);
     auto mem = irk::memory_view(source);
     block_view block(mem);
     auto block_mem = block.data();

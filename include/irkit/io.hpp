@@ -1,18 +1,45 @@
+// MIT License
+//
+// Copyright (c) 2018 Michal Siedlaczek
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
+
 #pragma once
 
 #include <algorithm>
 #include <bitset>
+#include <fstream>
+#include <vector>
+
 #include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
-#include <fstream>
 #include <gsl/span>
-#include <vector>
-#include "irkit/bitptr.hpp"
-#include "irkit/bitstream.hpp"
-#include "irkit/coding.hpp"
-#include "irkit/coding/varbyte.hpp"
+
+#include <irkit/bitptr.hpp>
+#include <irkit/bitstream.hpp>
+#include <irkit/coding.hpp>
 
 namespace irk::io {
 
@@ -29,14 +56,15 @@ namespace detail {
 
 using line_iterator = std::istream_iterator<detail::line>;
 
-void enforce_exist(const fs::path& file)
+inline void enforce_exist(const fs::path& file)
 {
-    if (!fs::exists(file)) {
+    if (not fs::exists(file)) {
         throw std::invalid_argument("File not found: " + file.generic_string());
     }
 }
 
-void load_data(fs::path data_file, std::vector<char>& data_container)
+inline void
+load_data(const fs::path& data_file, std::vector<char>& data_container)
 {
     enforce_exist(data_file);
     std::ifstream in(data_file.c_str(), std::ios::binary);
@@ -44,12 +72,13 @@ void load_data(fs::path data_file, std::vector<char>& data_container)
     std::streamsize size = in.tellg();
     in.seekg(0, std::ios::beg);
     data_container.resize(size);
-    if (!in.read(data_container.data(), size)) {
+    if (not in.read(data_container.data(), size)) {
         throw std::runtime_error("Failed reading " + data_file.string());
     }
 }
 
-void load_lines(fs::path data_file, std::vector<std::string>& lines)
+inline void
+load_lines(const fs::path& data_file, std::vector<std::string>& lines)
 {
     enforce_exist(data_file);
     std::ifstream in(data_file.c_str());
@@ -61,7 +90,7 @@ void load_lines(fs::path data_file, std::vector<std::string>& lines)
     }
 }
 
-std::vector<std::string> load_lines(fs::path data_file)
+inline std::vector<std::string> load_lines(const fs::path& data_file)
 {
     std::vector<std::string> lines;
     load_lines(data_file, lines);
@@ -81,7 +110,8 @@ void append_object(const T& object, std::vector<char>& buffer)
 template<class Collection>
 void append_collection(const Collection& collection, std::vector<char>& buffer)
 {
-    if (collection.size() > 0) {
+    if (not collection.empty())
+    {
         buffer.insert(buffer.end(),
             reinterpret_cast<const char*>(collection.data()),
             reinterpret_cast<const char*>(collection.data())

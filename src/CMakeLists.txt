@@ -23,7 +23,8 @@ set(COMMON_LIBRARIES
     debug_assert
     type_safe
     ranges
-    nlohmann_json)
+    nlohmann_json
+    streamvbyte_static)
 
 add_executable(irk-warc irk-warc.cpp)
 target_link_libraries(irk-warc PUBLIC ${COMMON_LIBRARIES} ${ZLIB_LIBRARIES} ${gumbo_LIBRARIES})
@@ -54,6 +55,10 @@ add_executable(irk-postings irk-postings.cpp)
 target_link_libraries(irk-postings ${COMMON_LIBRARIES} rax Threads::Threads)
 target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
+add_executable(irk-hits irk-hits.cpp)
+target_link_libraries(irk-hits CLI11::CLI11 Boost::log Threads::Threads)
+target_compile_features(irk-hits PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
 install(
     TARGETS
         irk
@@ -64,4 +69,5 @@ install(
         irk-postings
         irk-table
         irk-lexicon
+        irk-hits
     DESTINATION bin)

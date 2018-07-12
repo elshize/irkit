@@ -27,9 +27,9 @@
 #pragma once
 
 #include <cstring>
+#include <list>
 #include <memory>
 #include <optional>
-#include <list>
 
 extern "C" {
 #include <rax.h>
@@ -38,21 +38,22 @@ extern "C" {
 #include <irkit/types.hpp>
 
 /* Return the current total size of the node. */
-#define raxNodeCurrentLength(n) ( \
-    sizeof(raxNode)+(n)->size+ \
-    ((n)->iscompr ? sizeof(raxNode*) : sizeof(raxNode*)*(n)->size)+ \
-    (((n)->iskey && !(n)->isnull)*sizeof(void*)) \
-)
+#define raxNodeCurrentLength(n)                                                \
+    (sizeof(raxNode) + (n)->size                                               \
+        + ((n)->iscompr ? sizeof(raxNode*) : sizeof(raxNode*) * (n)->size)     \
+        + (((n)->iskey && not(n)->isnull) * sizeof(void*)))
 
 namespace irk {
 
 
 /* Get the node auxiliary data. */
-void *raxGetData(raxNode *n) {
-    if (n->isnull) return NULL;
-    void **ndata =(void**)((char*)n+raxNodeCurrentLength(n)-sizeof(void*));
+inline void* raxGetData(raxNode* n)
+{
+    if (n->isnull != 0) { return nullptr; }
+    auto** ndata = reinterpret_cast<void**>(
+        reinterpret_cast<char*>(n) + raxNodeCurrentLength(n) - sizeof(void*));
     void *data;
-    std::memcpy(&data,ndata,sizeof(data));
+    std::memcpy(&data, ndata, sizeof(data));
     return data;
 }
 
@@ -69,6 +70,8 @@ public:
     {}
     radix_tree(const radix_tree&) = delete;
     radix_tree(radix_tree&& other) = delete;
+    radix_tree& operator=(const radix_tree&) = delete;
+    radix_tree& operator=(radix_tree&&) = delete;
     ~radix_tree() { raxFree(c_rax_); }
 
     int insert(const std::string& key, T value)
@@ -80,7 +83,7 @@ public:
             reinterpret_cast<unsigned char*>(cstr.data()),
             cstr.size(),
             data,
-            NULL);
+            nullptr);
         if (result == 0 && errno == ENOMEM) {
             throw std::bad_alloc();
         }
@@ -112,7 +115,7 @@ public:
         return std::make_optional(*reinterpret_cast<T*>(data));
     }
 
-    bool exists(const std::string key)
+    bool exists(const std::string& key)
     {
         void* data = raxFind(c_rax_,
             reinterpret_cast<const unsigned char*>(key.data()),
@@ -135,7 +138,7 @@ public:
         if (raxNext(&iter) == 0) {
             return std::nullopt;
         }
-        std::string s((char*)iter.key, iter.key_len);
+        std::string s(reinterpret_cast<char*>(iter.key), iter.key_len);
         T val = *reinterpret_cast<T*>(raxGetData(iter.node));
         raxStop(&iter);
         return std::make_optional(val);

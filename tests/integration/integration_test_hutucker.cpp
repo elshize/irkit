@@ -61,8 +61,8 @@ TEST(hutucker, prefix_coding)
         }
     }
     in.close();
-    auto codec = std::make_shared<irk::hutucker_codec<char>>(frequencies);
-    irk::prefix_codec<irk::hutucker_codec<char>> pref_codec(codec);
+    auto codec = irk::hutucker_codec<char>(frequencies);
+    irk::prefix_codec<irk::hutucker_codec<char>> pref_codec(std::move(codec));
 
     int count = 0;
     std::vector<std::string> terms;
@@ -71,7 +71,6 @@ TEST(hutucker, prefix_coding)
     std::string term, last = "";
     std::ifstream in_terms(terms_file);
     while (std::getline(in_terms, term)) {
-        std::cout << term << std::endl;
         pref_codec.encode(term, bout);
         terms.push_back(term);
         ++count;

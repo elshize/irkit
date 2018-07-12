@@ -51,9 +51,7 @@ TEST(lexicon, build_load_verify)
 
     int idx = 0;
     auto it = loaded_lex.begin();
-    std::cout << "TESTING\n";
     for (const auto& term : lines) {
-        std::cout << term << std::endl;
         auto res = loaded_lex.index_at(term);
         ASSERT_EQ(*it, term);
         ASSERT_TRUE(res.has_value());

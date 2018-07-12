@@ -67,11 +67,15 @@ private:
 
     struct bit_reference {
         bitptr ptr;
-        void operator=(bool bit)
+        void operator=(bool bit)  // NOLINT
         {
-            *ptr.block_ptr_ ^= (-bit ^ *ptr.block_ptr_) & (1 << ptr.shift_);
+            *ptr.block_ptr_ ^= (-static_cast<int>(bit) ^ *ptr.block_ptr_)
+                & (1 << ptr.shift_);
         }
-        operator bool() const { return *ptr.block_ptr_ & (1 << ptr.shift_); }
+        operator bool() const  // NOLINT: intended implicit conversion
+        {
+            return *ptr.block_ptr_ & (1 << ptr.shift_);
+        }
     };
 
 public:
@@ -86,7 +90,7 @@ public:
      * @param shift     the bit offset from the least significant bit of
      *                  `block_ptr`.
      */
-    bitptr(Block* block_ptr, std::uint8_t shift = 0)
+    explicit bitptr(Block* block_ptr, std::uint8_t shift = 0)
         : block_ptr_(block_ptr + (shift / block_bit_size)),
           shift_(shift % block_bit_size)
     {}
@@ -97,11 +101,16 @@ public:
     {}
 
     //! Assignment operator
-    void operator=(const bitptr<Block>& other)
+    bitptr& operator=(const bitptr& other)
     {
         block_ptr_ = other.block_ptr_;
         shift_ = other.shift_;
+        return *this;
     }
+
+    bitptr(bitptr&&) noexcept = default;
+    bitptr& operator=(bitptr&&) noexcept = default;
+    ~bitptr() = default;
 
     //! Sets the bit to the chosen value.
     /*!
@@ -110,7 +119,10 @@ public:
      * If you can determine `bit` at compile time, you might consider using
      * `set()` or `clear()` functions, as they can be slightly more efficient.
      */
-    void set(bool bit) { *block_ptr_ ^= (-bit ^ *block_ptr_) & (1 << shift_); }
+    void set(bool bit)
+    {
+        *block_ptr_ ^= (-static_cast<int>(bit) ^ *block_ptr_) & (1u << shift_);
+    }
 
     //! Sets the bit to 1.
     void set() { *block_ptr_ |= 1 << shift_; }

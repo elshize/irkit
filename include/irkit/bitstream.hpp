@@ -33,21 +33,22 @@ namespace irk {
 //! An input stream reading bits.
 class input_bit_stream {
 protected:
+    unsigned char byte_ = 0;
+    std::uint8_t buffered_pos_ = 8;
     std::istream& in_;
-    char byte_;
-    std::uint8_t buffered_pos_;
 
-    std::int8_t get_bit(int n) { return ((byte_ & (1 << n)) != 0); }
+    std::int8_t get_bit(unsigned int n)
+    { return static_cast<std::int8_t>((byte_ & (1u << n)) != 0); }
 
 public:
-    explicit input_bit_stream(std::istream& in) : in_(in), buffered_pos_(8) {}
+    explicit input_bit_stream(std::istream& in) : in_(in) {}
 
     //! Returns bit: 0 or 1, or -1 if no bit could be read.
     std::int8_t read()
     {
         if (buffered_pos_ == 8)
         {
-            if (!in_.read(&byte_, 1)) { return -1; }
+            if (not in_.read(reinterpret_cast<char*>(&byte_), 1)) { return -1; }
             buffered_pos_ = 0;
         }
         return get_bit(buffered_pos_++);
@@ -59,11 +60,12 @@ public:
 //! An output stream writing bits.
 class output_bit_stream {
 protected:
+    char byte_ = 0;
+    std::uint8_t buffered_bits_ = 0;
     std::ostream& out_;
-    char byte_;
-    std::uint8_t buffered_bits_;
 
-    void set_bit(int n, bool bit) { byte_ |= (bit << n); }
+    void set_bit(unsigned int n, bool bit)
+    { byte_ |= (static_cast<unsigned int>(bit) << n); }
 
     void do_flush()
     {
@@ -74,7 +76,7 @@ protected:
 
 public:
     explicit output_bit_stream(std::ostream& out)
-        : out_(out), byte_(0), buffered_bits_(0)
+        : out_(out)
     {}
 
     void write(bool bit)

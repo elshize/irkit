@@ -9,13 +9,17 @@
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/index/types.hpp>
 
 namespace {
 
 namespace fs = boost::filesystem;
+namespace ts = type_safe;
 
-using posting_type = std::pair<irk::index::document_t, long>;
+using posting_type = std::pair<irk::index::document_t, irk::index::frequency_t>;
 using posting_map = std::map<std::string, std::vector<posting_type>>;
+using irk::index::document_t;
+using irk::index::frequency_t;
 
 struct on_fly_index {
     posting_map freq_postings;
@@ -63,12 +67,14 @@ auto scored(const posting_map& postings,
 on_fly_index postings_on_fly(fs::path collection_file, int bits)
 {
     std::map<std::string, std::vector<posting_type>> postings;
-    std::map<std::string, std::map<long, long>> postings_map;
+    std::map<std::string,
+        std::map<irk::index::document_t, irk::index::frequency_t>>
+        postings_map;
     std::vector<long> document_sizes;
     std::map<std::string, long> occurrences;
     std::ifstream input(collection_file.c_str());
     std::string line;
-    long doc = 0;
+    irk::index::document_t doc(0);
     long collection_occurrences = 0;
     while (std::getline(input, line)) {
         std::istringstream line_input(line);
@@ -118,30 +124,26 @@ protected:
 
         // given
         collection_file = "collection.txt";
-        expected_index = postings_on_fly(collection_file, 24);
-        irk::index::index_assembler<std::string, long, long> assembler(
-            fs::path(index_dir),
-            32,
-            1024,
-            16,
-            irk::varbyte_codec<irk::index::document_t>{},
-            irk::varbyte_codec<long>{});
+        expected_index = postings_on_fly(collection_file, 8);
+        irk::index::index_assembler assembler(
+            fs::path(index_dir), 32, 1024, 16);
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
         irk::score_index<irk::score::query_likelihood_scorer,
-            irk::inverted_index_inmemory_data_source>(index_dir, 24);
+            irk::inverted_index_inmemory_data_source>(index_dir, 8);
     }
 };
 
-void test(const irk::inverted_index_view& index_view,
+template<class D, class F, class S>
+void test(const irk::basic_inverted_index_view<D, F, S>& index_view,
     on_fly_index& expected_index)
 {
     ASSERT_EQ(index_view.collection_size(), 100);
     ASSERT_EQ(index_view.occurrences_count(), expected_index.collection_occurrences);
     for (long doc = 0; doc < index_view.collection_size(); doc++) {
-        ASSERT_EQ(
-            index_view.document_size(doc), expected_index.document_sizes[doc]);
+        ASSERT_EQ(index_view.document_size(irk::index::document_t(doc)),
+            expected_index.document_sizes[doc]);
     }
 
     for (long term_id = 0; term_id < index_view.terms().size(); term_id++) {
@@ -151,14 +153,18 @@ void test(const irk::inverted_index_view& index_view,
         auto postings = index_view.postings(term_id);
         const auto& expected =
             expected_index.freq_postings[index_view.term(term_id)];
-        std::vector<posting_type> actual(
-            postings.begin(), postings.end());
+        std::vector<posting_type> actual;
+        for (const auto& posting : postings) {
+            actual.emplace_back(posting.document(), posting.payload());
+        }
         ASSERT_THAT(actual, ::testing::ElementsAreArray(expected));
         auto scored_postings = index_view.scored_postings(term_id);
         const auto& expected_scored =
             expected_index.scored_postings[index_view.term(term_id)];
-        std::vector<posting_type> actual_scored(
-            scored_postings.begin(), scored_postings.end());
+        std::vector<posting_type> actual_scored;
+        for (const auto& posting : scored_postings) {
+            actual_scored.emplace_back(posting.document(), posting.payload());
+        }
         ASSERT_THAT(
             actual_scored, ::testing::ElementsAreArray(expected_scored));
     }
@@ -166,25 +172,23 @@ void test(const irk::inverted_index_view& index_view,
 
 TEST_F(inverted_index, mapped_file)
 {
-    // then
+    // when
     auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
-        index_dir, irk::score::query_likelihood_tag{});
-    irk::inverted_index_view index_view(data.get(),
-        irk::varbyte_codec<irk::index::document_t>{},
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
+        index_dir,
+        static_cast<std::string>(irk::score::query_likelihood_tag{}));
+    irk::inverted_index_view index_view(data.get());
+    // then
     test(index_view, expected_index);
 }
 
 TEST_F(inverted_index, disk)
 {
-    // then
+    // when
     auto data = std::make_shared<irk::inverted_index_disk_data_source>(
-        index_dir, irk::score::query_likelihood_tag{});
-    irk::inverted_index_view index_view(data.get(),
-        irk::varbyte_codec<irk::index::document_t>{},
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
+        index_dir,
+        static_cast<std::string>(irk::score::query_likelihood_tag{}));
+    irk::inverted_index_view index_view(data.get());
+    // then
     test(index_view, expected_index);
 }
 

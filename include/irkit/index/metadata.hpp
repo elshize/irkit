@@ -47,7 +47,7 @@ struct metadata {
     fs::path term_occurrences = irk::index::term_occurrences_path(dir);
     fs::path properties = irk::index::properties_path(dir);
 
-    metadata(fs::path dir) : dir(dir) {}
+    explicit metadata(fs::path dir) : dir(std::move(dir)) {}
 };
 
 };  // namespace irk::index

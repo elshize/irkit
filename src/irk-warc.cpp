@@ -1,34 +1,56 @@
+// MIT License
+//
+// Copyright (c) 2018 Michal Siedlaczek
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+//! \file
+//! \author Michal Siedlaczek
+//! \copyright MIT License
+
 #include <chrono>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <regex>
-#include <stdio.h>
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <gumbo.h>
 #include <gsl/gsl>
+#include <gumbo.h>
 
 #include <irkit/io/warc.hpp>
 #include <irkit/parsing/html.hpp>
 #include <irkit/parsing/snowball/porter2.hpp>
 
-namespace fs = boost::filesystem;
-
 void write_term(std::string&& term, SN_env* z, bool lowercase)
 {
     if (lowercase) {
-        for (std::size_t idx = 0; idx < term.size(); ++idx) {
-            term[idx] = tolower(term[idx]);
-        }
+        for (char& c : term) { c = tolower(c); }
     }
     if (z != nullptr) {
         SN_set_current(
             z, term.size(), reinterpret_cast<unsigned char*>(&term[0]));
         stem(z);
-        z->p[z->l] = 0;
+        z->p[z->l] = 0;  // NOLINT
         std::cout << z->p;
     } else {
         std::cout << term;
@@ -46,7 +68,7 @@ private:
     const std::set<char>& available_fields_;
 
 public:
-    check_fields(const std::set<char>& available_fields)
+    explicit check_fields(const std::set<char>& available_fields)
         : available_fields_(available_fields)
     {}
     std::string operator()(const std::string& description)
@@ -55,7 +77,7 @@ public:
         { throw CLI::ValidationError("last field must be body (b)"); }
         for (const char ch : description)
         {
-            if (!available_fields_.count(ch))
+            if (available_fields_.count(ch) == 0u)
             {
                 std::ostringstream msg;
                 msg << "Illegal field requested: " << ch;
@@ -146,16 +168,15 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    bool lowercase = app.count("--lowercase");
+    bool lowercase = app.count("--lowercase") != 0u;
 
     SN_env* z = nullptr;
-    if (app.count("--stem")) {
-        z = create_env();
-    }
+    if (app.count("--stem") != 0) { z = create_env(); }
     body_writer writer{lowercase, z};
 
-    if (!app.count("--skip-header")) {
-        std::vector<std::string> headers;
+    if (app.count("--skip-header") == 0u)
+    {
+        std::vector<std::string> headers(fields.size());
         for (char f : fields) { headers.push_back(field_headers.at(f)); }
         auto it = headers.begin();
         if (it != headers.end()) {
@@ -169,7 +190,7 @@ int main(int argc, char** argv)
     for (auto& input_file : input_files) {
         std::ifstream fin(input_file);
         boost::iostreams::filtering_istream in;
-        if (app.count("--zip")) {
+        if (app.count("--zip") != 0u) {
             in.push(boost::iostreams::gzip_decompressor());
         }
         in.push(fin);
@@ -186,8 +207,5 @@ int main(int argc, char** argv)
             }
         }
     }
-    if (app.count("--stem")) {
-        close_env(z);
-    }
+    if (app.count("--stem") != 0u) { close_env(z); }
 }
-

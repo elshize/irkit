@@ -1,13 +1,14 @@
 #include <vector>
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #define private public
 #define protected public
-#include "irkit/alphabetical_bst.hpp"
-#include "irkit/bitstream.hpp"
-#include "irkit/coding/varbyte.hpp"
-#include "irkit/compacttable.hpp"
-#include "irkit/io.hpp"
+#include <irkit/alphabetical_bst.hpp>
+#include <irkit/bitstream.hpp>
+#include <irkit/compacttable.hpp>
+#include <irkit/io.hpp>
 
 namespace {
 
@@ -111,7 +112,9 @@ protected:
     {
         std::vector<char> mem;
         for (auto& node : nodes) {
-            mem.insert(mem.end(), node.bytes, node.bytes + 5);
+            mem.insert(mem.end(),
+                std::begin(node.bytes),
+                std::next(std::begin(node.bytes), 5));
         }
         return irk::alphabetical_bst(mem);
     }

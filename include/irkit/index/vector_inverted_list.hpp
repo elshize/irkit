@@ -159,9 +159,14 @@ public:
     using iterator = vector_block_iterator<self_type, true>;
     using const_iterator = iterator;
 
+    vector_document_list() = default;
     vector_document_list(std::vector<value_type> vec)
         : ids_(std::move(vec)), block_size_(ids_.size())
     {}
+    vector_document_list(const vector_document_list&) = default;
+    vector_document_list(vector_document_list&&) noexcept = default;
+    vector_document_list& operator=(const vector_document_list&) = default;
+    vector_document_list& operator=(vector_document_list&&) noexcept = default;
 
     size_type size() const { return ids_.size(); }
     size_type block_size() const { return block_size_; }

@@ -28,7 +28,6 @@ TEST(radix_tree, build_read)
         if (idx % block_size == 0) { t.insert(term, idx / block_size); }
         idx++;
     }
-    //std::cout << idx << std::endl;
 
     idx = 0;
     in_terms.clear();

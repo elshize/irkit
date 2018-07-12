@@ -12,61 +12,11 @@
 #include <irkit/coding.hpp>
 #include <irkit/coding/huffman.hpp>
 #include <irkit/coding/hutucker.hpp>
-#include <irkit/coding/varbyte.hpp>
+#include <irkit/coding/vbyte.hpp>
 
 namespace {
 
 using namespace irk;
-
-TEST(VarByte, encode)
-{
-    irk::varbyte_codec<int> vb;
-    std::vector<char> actual = encode({1, 255}, vb);
-    std::vector<char> expected = {
-        (char)0b10000001u, (char)0b01111111, (char)0b10000001};
-    EXPECT_THAT(actual, ::testing::ElementsAreArray(expected));
-}
-
-TEST(VarByte, encode_fn)
-{
-    irk::varbyte_codec<int> vb;
-    std::vector<std::pair<int, char>> input = {
-        std::make_pair(1, 'a'), std::make_pair(255, 'b')};
-    std::vector<char> actual =
-        encode_fn(input, [](const auto& p) { return p.first; }, vb);
-    std::vector<char> expected = {
-        (char)0b10000001u, (char)0b01111111, (char)0b10000001};
-    EXPECT_THAT(actual, ::testing::ElementsAreArray(expected));
-}
-
-TEST(VarByte, decode_range)
-{
-    irk::varbyte_codec<int> vb;
-    std::vector<int> actual =
-        decode({(char)0b10000001u, (char)0b01111111, (char)0b10000001}, vb);
-    std::vector<int> expected = {1, 255};
-    EXPECT_THAT(actual, ::testing::ElementsAreArray(expected));
-}
-
-TEST(VarByte, encode_decode)
-{
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0, 1000000);
-    auto roll = std::bind(distribution, generator);
-
-    irk::varbyte_codec<int> vb;
-
-    // given
-    std::vector<int> initial(100);
-    std::generate(initial.begin(), initial.end(), roll);
-
-    // when
-    std::vector<char> encoded = encode(initial, vb);
-    std::vector<int> decoded = decode(encoded, vb);
-
-    // then
-    EXPECT_THAT(decoded, ::testing::ElementsAreArray(initial));
-}
 
 using node = irk::coding::huffman::node<char>;
 using node_ptr = std::shared_ptr<node>;
@@ -300,7 +250,9 @@ TEST_F(HuTucker, to_compact)
     };
     std::vector<char> expected_bytes;
     for (auto& node : expected_nodes) {
-        expected_bytes.insert(expected_bytes.end(), node.bytes, node.bytes + 5);
+        expected_bytes.insert(expected_bytes.end(),
+            std::begin(node.bytes),
+            std::next(std::begin(node.bytes), 5));
     }
     EXPECT_THAT(compact.mem_, ::testing::ElementsAreArray(expected_bytes));
 }

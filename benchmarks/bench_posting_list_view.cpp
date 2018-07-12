@@ -31,81 +31,93 @@
 #include <boost/filesystem.hpp>
 #include <CLI/CLI.hpp>
 
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 
+template<class T>
+inline void do_not_optimize_away(T&& datum)
+{
+    asm volatile("" : "+r"(datum));
+}
+
 int main(int argc, char** argv)
 {
-    std::string index_dir;
-    int time_limit;
-    double overhead_limit;
+    std::string index_dir, term;
 
     CLI::App app{"Posting reading benchmark."};
-    app.add_option(
-           "--time-limit", time_limit, "Time limit per posting in ns", false)
-        ->required();
-    app.add_option("--overhead-limit",
-           overhead_limit,
-           "Zipped posting list overhead limit per posting (e.g., 1.1 means "
-           "max 110\% of sequential time",
-           false)
-        ->required();
     app.add_option("index_dir", index_dir, "Index directory", false)
         ->required();
+    app.add_option("term", term, "Term", false)->required();
 
     CLI11_PARSE(app, argc, argv);
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_inmemory_data_source data(dir);
-    irk::inverted_index_view index(&data,
-        irk::varbyte_codec<irk::index::document_t>{},
-        irk::varbyte_codec<long>{},
-        irk::varbyte_codec<long>{});
+    irk::inverted_index_disk_data_source data(dir);
+    irk::inverted_index_view index(&data);
     std::cout << " done." << std::endl;
 
-    std::chrono::nanoseconds independent_elapsed(0);
     std::chrono::nanoseconds together_elapsed(0);
 
-    long posting_count = 0;
-    for (long term_id = 0; term_id < index.terms().size(); term_id++) {
+    auto term_id = index.term_id(term).value_or(0);
+    {
+        std::chrono::nanoseconds elapsed(0);
+        auto document_list = index.documents(term_id);
+        auto last = document_list.end();
+        auto docit = document_list.begin();
+        auto start = std::chrono::steady_clock::now();
+        for (; docit != last; ++docit) {
+            irk::index::document_t d = *docit;
+            asm volatile("" : "+r"(d));
+        }
+        auto end = std::chrono::steady_clock::now();
+        elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
+            end - start);
+        auto ns_per_int = (double)elapsed.count() / document_list.size();
+        std::cout << "Documents only: " << ns_per_int
+                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
+    }
+
+    {
+        std::chrono::nanoseconds elapsed(0);
         auto document_list = index.documents(term_id);
         auto frequency_list = index.frequencies(term_id);
-        if (document_list.size() < 1000) continue;
         auto last = document_list.end();
         auto docit = document_list.begin();
         auto freqit = frequency_list.begin();
         auto start = std::chrono::steady_clock::now();
         for (; docit != last; ++docit, ++freqit) {
-            ++posting_count;
+            irk::index::document_t d = *docit;
+            irk::index::document_t f = *freqit;
+            asm volatile("" : "+r"(d));
+            asm volatile("" : "+r"(f));
         }
         auto end = std::chrono::steady_clock::now();
-        independent_elapsed +=
-            std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
+            end - start);
+        auto ns_per_int = (double)elapsed.count() / document_list.size();
+        std::cout << "Documents and frequencies independently: " << ns_per_int
+                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
     }
-    int independent_avg = independent_elapsed.count() / posting_count;
-    std::cout << "Documents and frequencies independently: " << independent_avg
-              << "ns/posting" << std::endl;
 
-    posting_count = 0;
-    for (long term_id = 0; term_id < index.terms().size(); term_id++) {
+    {
         auto posting_list = index.postings(term_id);
-        if (posting_list.size() < 1000) continue;
         auto it = posting_list.begin();
         auto last = posting_list.end();
         auto start = std::chrono::steady_clock::now();
-        for (; it != last; ++it) { ++posting_count; }
+        for (auto p : posting_list) {
+            irk::index::document_t d = p.document();
+            irk::index::document_t f = p.payload();
+            asm volatile("" : "+r"(d));
+            asm volatile("" : "+r"(f));
+        }
         auto end = std::chrono::steady_clock::now();
         together_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        auto ns_per_int = (double)together_elapsed.count()
+            / posting_list.size();
+        std::cout << "As posting_list_view: " << ns_per_int
+                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
     }
-    int together_avg = together_elapsed.count() / posting_count;
-    std::cout << "As posting_list_view: " << together_avg << "ns/posting"
-              << std::endl;
 
-    assert(independent_avg <= time_limit);
-    assert(together_avg <= time_limit);
-    assert((double)together_avg <= overhead_limit * independent_avg);
     return 0;
 }
-

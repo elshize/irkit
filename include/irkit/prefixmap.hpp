@@ -131,9 +131,8 @@ public:
             }
             auto encoded = codec_->encode(
                 std::next(value.begin(), pos), value.end());
-            if (!can_encode(value.size() + 2 + encoded.size())) {
-                return false;
-            }
+            if (not can_encode(value.size() + 2 + encoded.size()))
+            { return false; }
             encode_unary(pos);
             encode_unary(value.size() - pos);
             irk::bitcpy(bitp_, encoded);
@@ -327,7 +326,7 @@ private:
         std::string last;
         std::vector<Index> values;
         std::vector<std::string> keys;
-        while(raxNext(&iter)) {
+        while (raxNext(&iter)) {
             std::string key(iter.key, iter.key + iter.key_len);
             values.push_back(*reinterpret_cast<Index*>(iter.data));
             keys.push_back(std::move(key));
@@ -345,7 +344,7 @@ private:
 
     void init_reverse_lookup() const
     {
-        for(long block_num = 0; block_num < block_count_; block_num++)
+        for (long block_num = 0; block_num < block_count_; block_num++)
         {
             auto block = block_ptr(
                 blocks_.data() + block_num * block_size_, codec_);
@@ -381,22 +380,23 @@ public:
         std::ifstream in(file.c_str());
         Index index(0);
         std::string item;
-        if (!std::getline(in, item)) {
+        if (not std::getline(in, item)) {
             throw std::invalid_argument("prefix map cannot be empty");
         }
         block_leaders_->insert(item, index);
         auto current_block = append_block(index, nullptr);
-        if (!current_block->add(item)) {
-            throw std::runtime_error("TODO: first item too long; feature pending");
+        if (not current_block->add(item)) {
+            throw std::runtime_error(
+                "TODO: first item too long; feature pending");
         }
         index++;
 
         while (std::getline(in, item)) {
-            if (!current_block->add(item)) {
+            if (not current_block->add(item)) {
                 block_leaders_->insert(item, block_count_);
                 current_block = append_block(index, current_block.get());
-                if (!current_block->add(item)) {
-                    while (!current_block->add(item)) {
+                if (not current_block->add(item)) {
+                    while (not current_block->add(item)) {
                         expand_block(current_block.get());
                     }
                     current_block->close();
@@ -432,11 +432,11 @@ public:
 
         for (; it != last; ++it) {
             std::string item(it->begin(), it->end());
-            if (!current_block->add(item)) {
+            if (not current_block->add(item)) {
                 block_leaders_->insert(item, block_count_);
                 current_block = append_block(index, current_block.get());
-                if (!current_block->add(item)) {
-                    while (!current_block->add(item)) {
+                if (not current_block->add(item)) {
+                    while (not current_block->add(item)) {
                         expand_block(current_block.get());
                     }
                     current_block->close();
@@ -451,9 +451,7 @@ public:
     std::optional<Index> operator[](const std::string& key) const
     {
         auto block_opt = block_leaders_->seek_le(key);
-        if (!block_opt.has_value()) {
-            return std::nullopt;
-        }
+        if (not block_opt.has_value()) { return std::nullopt; }
         std::size_t block_number = block_opt.value();
         block_ptr block{blocks_.data() + block_number * block_size_, codec_};
         Index idx = block.first_index();

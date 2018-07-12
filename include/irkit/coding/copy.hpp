@@ -44,7 +44,8 @@ struct copy_codec {
 
     std::streamsize decode(std::istream& source, value_type& n) const
     {
-        if (!source.read(reinterpret_cast<char*>(&n), sizeof(n))) { return 0; }
+        if (not source.read(reinterpret_cast<char*>(&n), sizeof(n)))
+        { return 0; }
         return sizeof(n);
     }
 };

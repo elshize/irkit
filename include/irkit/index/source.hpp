@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file index.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -41,7 +41,7 @@ using boost::iostreams::mapped_file_source;
 
 class inverted_index_disk_data_source {
 public:
-    explicit inverted_index_disk_data_source(path dir,
+    explicit inverted_index_disk_data_source(const path& dir,
         std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
@@ -109,13 +109,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(*scores_);
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(*score_offsets_);
     }
 
@@ -138,7 +138,7 @@ private:
 class inverted_index_inmemory_data_source {
 public:
     explicit inverted_index_inmemory_data_source(
-        path dir, std::optional<std::string> score_name = std::nullopt)
+        const path& dir, std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
         io::load_data(index::doc_ids_path(dir), documents_);
@@ -225,13 +225,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(scores_.value().data(), scores_.value().size());
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(
             score_offsets_.value().data(), score_offsets_.value().size());
     }
@@ -256,7 +256,7 @@ class inverted_index_mapped_data_source {
 
 public:
     explicit inverted_index_mapped_data_source(
-        path dir, std::optional<std::string> score_name = std::nullopt)
+        const path& dir, std::optional<std::string> score_name = std::nullopt)
         : dir_(dir)
     {
         io::enforce_exist(index::doc_ids_path(dir));
@@ -351,13 +351,13 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (!scores_.has_value()) { return std::nullopt; }
+        if (not scores_.has_value()) { return std::nullopt; }
         return make_memory_view(scores_.value().data(), scores_.value().size());
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (!score_offsets_.has_value()) { return std::nullopt; }
+        if (not score_offsets_.has_value()) { return std::nullopt; }
         return make_memory_view(
             score_offsets_.value().data(), score_offsets_.value().size());
     }

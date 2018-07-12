@@ -20,23 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file irk-part.cpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
-#include <CLI/CLI.hpp>
-#include <boost/filesystem.hpp>
+#include <cstdio>
 #include <fstream>
-#include <gumbo.h>
 #include <iomanip>
 #include <iostream>
 #include <regex>
-#include <stdio.h>
 
-namespace fs = boost::filesystem;
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
+#include <gumbo.h>
 
 std::ofstream& new_file(std::ofstream& out,
-    std::string prefix,
+    const std::string& prefix,
     std::size_t num,
     std::size_t padding)
 {
@@ -55,7 +54,7 @@ int main(int argc, char** argv)
         std::size_t padding_width = 4;
         std::string output;
         std::vector<std::string> input_files;
-        std::size_t limit;
+        std::size_t limit = 0;
     } args;
 
     CLI::App app{"Partition a text file by line number."};
@@ -73,34 +72,40 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    if (!app.count("input")) {
-        args.input_files.push_back("");
-        if (!app.count("--output")) {
+    if (app.count("input") == 0u) {
+        args.input_files.emplace_back("");
+        if (app.count("--output") != 0u)
+        {
             std::cerr << "you must define --output when reading from stdin"
                       << std::endl;
             return 1;
         }
     } else {
-        if (!app.count("output") && args.input_files.size() > 1) {
+        if (app.count("output") != 0u && args.input_files.size() > 1)
+        {
             std::cerr << "you must define --output when reading multiple files"
                       << std::endl;
             return 1;
         }
     }
 
-    bool use_header = app.count("--no-header");
+    bool use_header = app.count("--no-header") != 0u;
     std::size_t line_num = 0;
     std::size_t file_num = 0;
-    std::string output_prefix =
-        app.count("--output") ? args.output : args.input_files[0];
+    std::string output_prefix = app.count("--output") != 0u
+        ? args.output
+        : args.input_files[0];
 
     std::ofstream out;
     std::optional<std::string> header;
 
     for (std::string& input_file : args.input_files) {
+        std::unique_ptr<std::ifstream> file_in = nullptr;
         std::istream* in;
-        if (input_file != "") {
-            in = new std::ifstream(input_file);
+        if (not input_file.empty()) {
+            file_in = std::make_unique<std::ifstream>(input_file);
+            //in = new std::ifstream(input_file);
+            in = file_in.get();
         } else {
             in = &std::cin;
         }
@@ -126,10 +131,6 @@ int main(int argc, char** argv)
             out << line << std::endl;
             line_num = (line_num + 1) % args.limit;
         }
-        if (input_file != "") {
-            delete in;
-        }
     }
     out.close();
 }
-

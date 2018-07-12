@@ -30,7 +30,8 @@
 #include <boost/dynamic_bitset.hpp>
 #include <cstdint>
 #include <vector>
-#include "irkit/bitstream.hpp"
+
+#include <irkit/bitstream.hpp>
 
 namespace irk {
 
@@ -54,13 +55,15 @@ public:
     using symbol_type = Symbol;
     using pointer_type = Ptr;
     using container_type = MemoryContainer;
-    using self_type = alphabetical_bst<symbol_type, pointer_type, container_type>;
+    using self_type =
+        alphabetical_bst<symbol_type, pointer_type, container_type>;
 
 private:
     container_type mem_;
 
 public:
-    static constexpr std::size_t symbol_bound = 1 << (sizeof(symbol_type) * 8);
+    static constexpr std::size_t symbol_bound = 1u
+        << (sizeof(symbol_type) * 8u);
     static constexpr std::size_t node_size =
         sizeof(symbol_type) + sizeof(pointer_type) * 2;
     static constexpr std::size_t symbol_offset = 0;
@@ -68,15 +71,16 @@ public:
     static constexpr std::size_t right_offset =
         sizeof(pointer_type) + sizeof(symbol_type);
 
+    explicit alphabetical_bst(container_type mem) : mem_(std::move(mem)) {}
     alphabetical_bst() = default;
-    alphabetical_bst(const self_type&) = default;
-    alphabetical_bst(self_type&&) = default;
-    alphabetical_bst(container_type mem) : mem_(std::move(mem)) {}
-    self_type& operator=(const self_type&) = default;
-    self_type& operator=(self_type&&) = default;
+    alphabetical_bst(const alphabetical_bst&) = default;
+    alphabetical_bst(alphabetical_bst&&) noexcept = default;
+    alphabetical_bst& operator=(const alphabetical_bst&) = default;
+    alphabetical_bst& operator=(alphabetical_bst&&) noexcept = default;
+    ~alphabetical_bst() = default;
 
     struct node_ptr {
-        const char* bytes;
+        const char* bytes = nullptr;
         const symbol_type& symbol() const {
             return *reinterpret_cast<const symbol_type*>(bytes + symbol_offset);
         };
@@ -89,16 +93,16 @@ public:
     };
 
     struct node {
-        char bytes[node_size];
-        node(symbol_type symbol)
+        std::array<char, node_size> bytes;
+        explicit node(symbol_type symbol)
         {
-            memcpy(bytes + symbol_offset, &symbol, sizeof(symbol_type));
+            memcpy(&bytes[symbol_offset], &symbol, sizeof(symbol_type));
         }
         node(symbol_type symbol, pointer_type left, pointer_type right)
         {
-            memcpy(bytes + symbol_offset, &symbol, sizeof(symbol_type));
-            memcpy(bytes + left_offset, &left, sizeof(pointer_type));
-            memcpy(bytes + right_offset, &right, sizeof(pointer_type));
+            memcpy(&bytes[symbol_offset], &symbol, sizeof(symbol_type));
+            memcpy(&bytes[left_offset], &left, sizeof(pointer_type));
+            memcpy(&bytes[right_offset], &right, sizeof(pointer_type));
         }
         const node_ptr ptr() const { return node_ptr(bytes); }
         const symbol_type& symbol() const {
@@ -182,7 +186,7 @@ public:
     symbol_type decode(InputBitStream& source) const
     {
         pointer_type next(symbol_bound);
-        node_ptr node;
+        node_ptr node{};
         while (next >= symbol_bound) {
             std::int8_t bit = source.read();
             if (bit == -1) {

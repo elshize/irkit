@@ -20,30 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file score.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
 #pragma once
 
-#include <optional>
 #include <cmath>
+#include <optional>
 #include <range/v3/utility/concepts.hpp>
-#include "irkit/types.hpp"
+
+#include <irkit/types.hpp>
 
 //! Scoring functions and utilities.
 namespace irk::score {
 
 struct scoring_function_tag {
-    virtual operator std::string() = 0;
+    virtual explicit operator std::string() = 0;
 };
 
 struct bm25_tag : public scoring_function_tag {
-    operator std::string() override { return "bm25"; }
+    explicit operator std::string() override { return "bm25"; }
 };
 
 struct query_likelihood_tag : public scoring_function_tag {
-    operator std::string() override { return "ql"; }
+    explicit operator std::string() override { return "ql"; }
 };
 
 template<class ScoreFn, class Doc, class Freq>
@@ -71,7 +72,7 @@ struct tf_idf_scorer {
 struct count_scorer {
     //! Returns the term frequency.
     template<class Freq, CONCEPT_REQUIRES_(ranges::Integral<Freq>())>
-    Freq operator()(Freq tf, Freq df, std::size_t N) const
+    Freq operator()(Freq tf, Freq /* df */, std::size_t /* N */) const
     {
         return tf;
     }
@@ -83,26 +84,25 @@ struct bm25_scorer {
     tag_type scoring_tag;
     double x, y, z;
 
-    bm25_scorer(long term_document_count,
-        long collection_document_count,
+    bm25_scorer(int32_t documents_with_term_count,
+        int32_t total_document_count,
         double avg_document_size,
         double k1 = 1.2,
         double b = 0.5)
     {
-        double numerator = collection_document_count - term_document_count
+        double idf_numerator = total_document_count - documents_with_term_count
             + 0.5;
-        double denominator = term_document_count + 0.5;
-        double idf = std::log(numerator / denominator);
+        double idf_denominator = documents_with_term_count + 0.5;
+        double idf = std::log(idf_numerator / idf_denominator);
         x = idf * (k1 + 1);
         y = k1 - b * k1;
         z = b * k1 / avg_document_size;
     }
 
-
     //! Returns the BM25 score.
-    double operator()(long tf, long document_size) const
+    double operator()(int32_t tf, int32_t document_size) const
     {
-        return tf;
+        return (tf * x) / (tf + y + (z * document_size));
     }
 };
 
@@ -114,11 +114,11 @@ struct query_likelihood_scorer {
     double global_component;
 
     query_likelihood_scorer(
-        long term_occurrences, long all_occurrences, double mu = 2500)
+        int32_t term_occurrences, int32_t all_occurrences, double mu = 2500)
         : mu(mu), global_component(mu * term_occurrences * all_occurrences)
     {}
 
-    double operator()(long tf, long document_size) const
+    double operator()(int32_t tf, int32_t document_size) const
     {
         return (tf + global_component) / (document_size + mu);
     }

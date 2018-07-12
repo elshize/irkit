@@ -36,6 +36,7 @@
 #include <irkit/bitstream.hpp>
 #include <irkit/coding/hutucker.hpp>
 #include <irkit/coding/prefix_codec.hpp>
+#include <irkit/coding/vbyte.hpp>
 #include <irkit/io.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/radix_tree.hpp>
@@ -49,21 +50,27 @@ public:
     using codec_type = C;
     using memory_container = M;
 
-    lexicon(std::vector<std::ptrdiff_t> &&block_offsets,
-        std::vector<value_type> &&leading_indices,
-        memory_container &&blocks,
+    lexicon() = delete;
+    lexicon(std::vector<std::ptrdiff_t> block_offsets,
+        std::vector<value_type> leading_indices,
+        memory_container blocks,
         std::ptrdiff_t count,
         int keys_per_block,
-        std::shared_ptr<irk::radix_tree<int>> leading_keys,
-        std::shared_ptr<irk::prefix_codec<codec_type>> codec)
-        : block_offsets_(block_offsets),
-          leading_indices_(leading_indices),
-          blocks_(blocks),
+        std::shared_ptr<irk::radix_tree<int>> leading_keys,  // NOLINT
+        irk::prefix_codec<codec_type> codec)
+        : block_offsets_(std::move(block_offsets)),
+          leading_indices_(std::move(leading_indices)),
+          blocks_(std::move(blocks)),
           count_(count),
           keys_per_block_(keys_per_block),
-          leading_keys_(leading_keys),
-          codec_(codec)
+          leading_keys_(std::move(leading_keys)),
+          codec_(std::move(codec))
     {}
+    lexicon(const lexicon&) = default;
+    lexicon(lexicon&&) noexcept = default;
+    lexicon& operator=(const lexicon&) = default;
+    lexicon& operator=(lexicon&&) noexcept = delete;
+    ~lexicon() = default;
 
     irk::memory_view block_memory_view(int block) const
     {
@@ -76,9 +83,12 @@ public:
         std::ptrdiff_t size = next_block_offset - block_offset;
         ENSURES(size > 0);
         ENSURES(size <= blocks_.size());
-        if constexpr (std::is_same<memory_container, irk::memory_view>::value) {
+        if constexpr (std::is_same<memory_container,
+                                   irk::memory_view>::value)  // NOLINT
+        {
             return blocks_.range(block_offset, size);
-        } else {
+        }
+        else {  // NOLINT
             return irk::make_memory_view(&blocks_[block_offset], size);
         }
     }
@@ -86,7 +96,7 @@ public:
     std::optional<value_type> index_at(const std::string& key) const
     {
         auto block = leading_keys_->seek_le(key);
-        if (!block.has_value()) { return std::nullopt; }
+        if (not block.has_value()) { return std::nullopt; }
         auto block_memory = block_memory_view(*block);
         boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
             buffer(block_memory.data(), block_memory.size());
@@ -94,10 +104,10 @@ public:
 
         value_type value = leading_indices_[*block];
         std::string k;
-        codec_->reset();
-        codec_->decode(bin, k);
+        codec_.reset();
+        codec_.decode(bin, k);
         while (k < key) {
-            codec_->decode(bin, k);
+            codec_.decode(bin, k);
             ++value;
         }
         return k == key ? std::make_optional(value) : std::nullopt;
@@ -116,10 +126,10 @@ public:
 
         value_type value = *block_pos;
         std::string key;
-        codec_->reset();
-        codec_->decode(bin, key);
+        codec_.reset();
+        codec_.decode(bin, key);
         while (value < index) {
-            codec_->decode(bin, key);
+            codec_.decode(bin, key);
             ++value;
         }
         return key;
@@ -127,20 +137,26 @@ public:
 
     std::ostream& serialize(std::ostream& out) const
     {
-        std::vector<char> header;
+        std::vector<char> header(max_serialized_header_size());
+        vbyte_codec<std::ptrdiff_t> intcodec;
+        auto header_iter = std::begin(header);
+
+        std::advance(header_iter, intcodec.encode(&count_, header_iter));
+        auto size = block_offsets_.size();
+        std::advance(header_iter, intcodec.encode(&size, header_iter));
+        std::advance(
+            header_iter, intcodec.encode(&keys_per_block_, header_iter));
+
+        for (const auto& offset : block_offsets_)
+        { std::advance(header_iter, intcodec.encode(&offset, header_iter)); }
+        for (const auto& index : leading_indices_)
+        { std::advance(header_iter, intcodec.encode(&index, header_iter)); }
+
+        header.resize(std::distance(std::begin(header), header_iter));
+
         boost::iostreams::stream<
             boost::iostreams::back_insert_device<std::vector<char>>>
             buffer(boost::iostreams::back_inserter(header));
-        varbyte_codec<std::ptrdiff_t> intcodec;
-
-        intcodec.encode(count_, buffer);
-        intcodec.encode(block_offsets_.size(), buffer);
-        intcodec.encode(keys_per_block_, buffer);
-
-        for (const auto& offset : block_offsets_)
-        { intcodec.encode(offset, buffer); }
-        for (const auto& index : leading_indices_)
-        { intcodec.encode(index, buffer); }
 
         dump_coding_tree(buffer);
         dump_leading_keys(buffer);
@@ -156,7 +172,7 @@ public:
         return out;
     }
 
-    void serialize(boost::filesystem::path file) const
+    void serialize(const boost::filesystem::path& file) const
     {
         std::ofstream out(file.c_str());
         serialize(out);
@@ -172,7 +188,7 @@ public:
             int block_num,
             int pos_in_block,
             int keys_per_block,
-            std::shared_ptr<prefix_codec<codec_type>> codec)
+            const prefix_codec<codec_type>& codec)
             : lex_(lex),
               blocks_(blocks),
               block_num_(block_num),
@@ -185,7 +201,7 @@ public:
 
         bool operator!=(const iterator& other) const
         {
-            return !equal(other);
+            return not equal(other);
         }
 
     private:
@@ -202,8 +218,8 @@ public:
             }
         }
 
-        void advance(long n)
-        { for (int idx = 0; idx < n; idx++) { increment(); } }
+        //void advance(long n)
+        //{ for (int idx = 0; idx < n; idx++) { increment(); } }
 
         bool equal(const iterator& other) const
         {
@@ -218,17 +234,16 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
-            std::cout << "decoding block " << block << std::endl;
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());
             irk::input_bit_stream bin(buffer);
 
-            codec_->reset();
+            codec_.reset();
             for (value_type idx = 0; idx < keys_per_block_; ++idx)
             {
                 std::string key;
-                codec_->decode(bin, key);
+                codec_.decode(bin, key);
                 keys.push_back(key);
             }
         }
@@ -238,10 +253,9 @@ public:
         int block_num_;
         int pos_in_block_;
         int keys_per_block_;
-        std::ptrdiff_t block_offset_;
         mutable std::string val_;
         mutable std::vector<std::string> decoded_block_;
-        std::shared_ptr<irk::prefix_codec<codec_type>> codec_;
+        const irk::prefix_codec<codec_type>& codec_;
     };
     using const_iterator = iterator;
 
@@ -269,11 +283,19 @@ private:
     std::ptrdiff_t count_;
     int keys_per_block_;
     std::shared_ptr<irk::radix_tree<int>> leading_keys_;
-    std::shared_ptr<irk::prefix_codec<codec_type>> codec_;
+    irk::prefix_codec<codec_type> codec_;
+
+    std::ptrdiff_t max_serialized_header_size() const
+    {
+        auto size = block_offsets_.size();
+        return sizeof(count_) + sizeof(size) + sizeof(keys_per_block_)
+            + size * sizeof(block_offsets_[0])
+            + size * sizeof(leading_indices_[0]);
+    }
 
     std::ostream& dump_coding_tree(std::ostream& out) const
     {
-        auto coding_tree = codec_->codec()->tree();
+        auto coding_tree = codec_.codec().tree();
         auto mem = coding_tree.memory_container();
         std::size_t tree_size = mem.size();
         out.write(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
@@ -292,14 +314,14 @@ private:
     std::ostream& dump_leading_keys(std::ostream& out) const
     {
         output_bit_stream bout(out);
-        irk::prefix_codec<codec_type> encoder(codec_->codec());
+        irk::prefix_codec<codec_type> encoder(codec_.codec());
         for (const auto& block : boost::irange<int>(0, block_offsets_.size()))
         {
-            codec_->reset();
+            codec_.reset();
             auto buffer = block_memory_view(block).stream();
             irk::input_bit_stream bin(buffer);
             std::string key;
-            codec_->decode(bin, key);
+            codec_.decode(bin, key);
             encoder.encode(key, bout);
         }
         bout.flush();
@@ -310,61 +332,64 @@ private:
 template<class C>
 using lexicon_view = lexicon<C, irk::memory_view>;
 
-lexicon_view<hutucker_codec<char>> load_lexicon(irk::memory_view memory)
+inline lexicon_view<hutucker_codec<char>>
+load_lexicon(const irk::memory_view& memory)
 {
     // Total header size: everything that will be always read to memory.
-    std::ptrdiff_t header_size =
-        memory.range(0, sizeof(ptrdiff_t)).as<std::ptrdiff_t>();
+    auto header_size = memory.range(0, sizeof(ptrdiff_t)).as<std::ptrdiff_t>();
     auto header_memory = memory(sizeof(ptrdiff_t), header_size);
-    irk::varbyte_codec<std::ptrdiff_t> intcodec;
-    auto header_stream = header_memory.stream();
+    irk::vbyte_codec<std::ptrdiff_t> intcodec;
+    auto header_iter = header_memory.begin();
 
     // Block metadata
     std::ptrdiff_t block_count, value_count, keys_per_block;
     std::vector<std::ptrdiff_t> block_offsets;
     std::vector<std::ptrdiff_t> leading_indices;
-    intcodec.decode(header_stream, value_count);
-    intcodec.decode(header_stream, block_count);
-    intcodec.decode(header_stream, keys_per_block);
+    header_iter = intcodec.decode(header_iter, &value_count);
+    header_iter = intcodec.decode(header_iter, &block_count);
+    header_iter = intcodec.decode(header_iter, &keys_per_block);
     for (int idx : boost::irange<int>(0, block_count)) {
         (void)idx;
         std::ptrdiff_t offset;
-        intcodec.decode(header_stream, offset);
+        header_iter = intcodec.decode(header_iter, &offset);
         block_offsets.push_back(offset);
     }
     for (int idx : boost::irange<int>(0, block_count)) {
         (void)idx;
         std::ptrdiff_t first_index;
-        intcodec.decode(header_stream, first_index);
+        header_iter = intcodec.decode(header_iter, &first_index);
         leading_indices.push_back(first_index);
     }
 
     // Encoding tree
-    std::size_t tree_size;
-    header_stream.read(reinterpret_cast<char*>(&tree_size), sizeof(tree_size));
-    std::vector<char> tree_data(tree_size);
-    header_stream.read(tree_data.data(), tree_size);
-    alphabetical_bst<> encoding_tree(tree_data);
-    auto ht_codec = std::make_shared<hutucker_codec<char>>(encoding_tree);
+    std::size_t tree_size = *reinterpret_cast<const std::size_t*>(
+        &*header_iter);
+    std::advance(header_iter, sizeof(std::size_t));
+    auto tree_end = std::next(header_iter, tree_size);
+    std::vector<char> tree_data(header_iter, tree_end);
+    alphabetical_bst<> encoding_tree(std::move(tree_data));
+    hutucker_codec<char> ht_codec(std::move(encoding_tree));
 
     // Block leading values
-    irk::input_bit_stream bin(header_stream);
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char>> buffer(
+        tree_end,
+        header_size - std::distance(header_memory.begin(), tree_end)
+            - sizeof(header_size));
+    irk::input_bit_stream bin(buffer);
     auto leading_keys = std::make_shared<irk::radix_tree<int>>();
-    auto pcodec = std::make_shared<irk::prefix_codec<hutucker_codec<char>>>(
-        ht_codec);
+    auto pcodec = irk::prefix_codec<hutucker_codec<char>>(std::move(ht_codec));
     for (int idx : boost::irange<int>(0, block_count)) {
         std::string key;
-        pcodec->decode(bin, key);
+        pcodec.decode(bin, key);
         leading_keys->insert(key, idx);
     }
-    return lexicon_view<hutucker_codec<char>>(
-        std::move(block_offsets),
+    return lexicon_view<hutucker_codec<char>>(std::move(block_offsets),
         std::move(leading_indices),
         memory(header_size, memory.size()),
         value_count,
         keys_per_block,
         leading_keys,
-        pcodec);
+        std::move(pcodec));
 }
 
 //! Build a lexicon in memory.
@@ -395,7 +420,7 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         for (const char& ch : *corpus_begin)
         { ++frequencies[static_cast<unsigned char>(ch)]; }
     }
-    auto codec = std::make_shared<hutucker_codec<char>>(frequencies);
+    auto codec = hutucker_codec<char>(frequencies);
 
     std::vector<std::ptrdiff_t> block_offsets;
     std::vector<std::ptrdiff_t> leading_indices;
@@ -405,8 +430,7 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         boost::iostreams::back_insert_device<std::vector<char>>>
         buffer(boost::iostreams::back_inserter(blocks));
     irk::output_bit_stream bout(buffer);
-    auto pcodec = std::make_shared<irk::prefix_codec<hutucker_codec<char>>>(
-        codec);
+    auto pcodec = irk::prefix_codec<hutucker_codec<char>>(std::move(codec));
 
     std::ptrdiff_t index = 0;
     int block_idx = 0;
@@ -415,18 +439,18 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         leading_indices.push_back(index++);
         std::string leading_key = *keys_begin++;
         leading_keys->insert(leading_key, block_idx);
-        pcodec->reset();
-        pcodec->encode(leading_key, bout);
+        pcodec.reset();
+        pcodec.encode(leading_key, bout);
         for (std::size_t idx_in_block = 1;
              idx_in_block < keys_per_block && keys_begin != keys_end;
              ++idx_in_block, ++index, ++keys_begin)
         {
-            pcodec->encode(*keys_begin, bout);
+            pcodec.encode(*keys_begin, bout);
         }
         ++block_idx;
         bout.flush();
     }
-    pcodec->reset();
+    pcodec.reset();
     return lexicon<irk::hutucker_codec<char>, std::vector<char>>(
         std::move(block_offsets),
         std::move(leading_indices),
@@ -434,18 +458,18 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         index,
         keys_per_block,
         leading_keys,
-        pcodec);
+        std::move(pcodec));
 }
 
-lexicon<hutucker_codec<char>, std::vector<char>>
+inline lexicon<hutucker_codec<char>, std::vector<char>>
 build_lexicon(const std::vector<std::string>& keys, int keys_per_block)
 {
     return build_lexicon(
         keys.begin(), keys.end(), keys.begin(), keys.end(), keys_per_block);
 }
 
-lexicon<hutucker_codec<char>, std::vector<char>>
-build_lexicon(boost::filesystem::path file, int keys_per_block)
+inline lexicon<hutucker_codec<char>, std::vector<char>>
+build_lexicon(const boost::filesystem::path& file, int keys_per_block)
 {
     std::ifstream keys(file.c_str());
     std::ifstream corpus(file.c_str());

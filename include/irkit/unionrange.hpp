@@ -27,9 +27,10 @@
 #pragma once
 
 #include <algorithm>
-#include "irkit/movingrange.hpp"
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+
+#include <irkit/movingrange.hpp>
+#include <irkit/types.hpp>
+#include <irkit/utils.hpp>
 
 namespace irk {
 
@@ -72,7 +73,7 @@ protected:
             ranges_.emplace_back(postinglist.cbegin(), postinglist.cend());
         }
         for (unsigned int term = 0; term < ranges_.size(); ++term) {
-            if (!ranges_[term].empty()) {
+            if (not ranges_[term].empty()) {
                 heap_.push_back({ranges_[term].front().doc, term});
             }
         }
@@ -115,7 +116,7 @@ public:
         posting_type next = ranges_[term].front();
         next.score *= weights_[term];
         ranges_[term].advance();
-        if (!ranges_[term].empty()) {
+        if (not ranges_[term].empty()) {
             heap_.push_back({ranges_[term].front().doc, term});
         }
         std::pop_heap(heap_.begin(), heap_.end());
@@ -136,7 +137,7 @@ public:
     {
         auto next = next_posting();
         auto min_doc = next.doc;
-        while (!heap_.empty() && heap_[0].doc == min_doc) {
+        while (not heap_.empty() && heap_[0].doc == min_doc) {
             next.score += next_posting().score;
         }
         return next;
@@ -148,7 +149,7 @@ public:
     {
         score_type sum_max_scores(0);
         std::vector<docterm> preceding;
-        while (!heap_.empty()) {
+        while (not heap_.empty()) {
             std::pop_heap(heap_.begin(), heap_.end());
             preceding.push_back(heap_.back());
             auto term = preceding.back().term;
@@ -159,7 +160,7 @@ public:
             }
         }
         auto pivot_doc = preceding.back().doc;
-        while (!heap_.empty() && peek_posting().doc == pivot_doc) {
+        while (not heap_.empty() && peek_posting().doc == pivot_doc) {
             std::pop_heap(heap_.begin(), heap_.end());
             preceding.push_back(heap_.back());
             heap_.pop_back();
@@ -177,20 +178,21 @@ public:
                 for (auto & [doc, term] : preceding) {
                     score += ranges_[term].front().score;
                     ranges_[term].advance();
-                    if (!ranges_[term].empty()) {
+                    if (not ranges_[term].empty()) {
                         heap_.push_back({doc, term});
                         std::push_heap(heap_.begin(), heap_.end());
                     }
                 }
                 return {pivot_doc, score};
-            } else {
-                // Move
-                for (auto & [doc, term] : preceding) {
-                    nextge(term, pivot_doc);
-                    if (!ranges_[term].empty()) {
-                        heap_.push_back({doc, term});
-                        std::push_heap(heap_.begin(), heap_.end());
-                    }
+            }
+            // Move
+            for (auto& [doc, term] : preceding)
+            {
+                nextge(term, pivot_doc);
+                if (not ranges_[term].empty())
+                {
+                    heap_.push_back({doc, term});
+                    std::push_heap(heap_.begin(), heap_.end());
                 }
             }
         }

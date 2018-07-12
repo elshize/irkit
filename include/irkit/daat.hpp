@@ -20,17 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file daat.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
 #include <algorithm>
-#include "irkit/movingrange.hpp"
-#include "irkit/unionrange.hpp"
-#include "irkit/types.hpp"
-#include "irkit/utils.hpp"
+
+#include <irkit/movingrange.hpp>
+#include <irkit/types.hpp>
+#include <irkit/unionrange.hpp>
+#include <irkit/utils.hpp>
 
 namespace irk {
 
@@ -44,7 +45,7 @@ std::vector<pure_element_t<Range>> daat_or(
     using Posting = pure_element_t<Range>;
     union_range postings_union(query_postings, weights);
     top_k_accumulator<Posting> topk(k);
-    while (!postings_union.empty()) {
+    while (not postings_union.empty()) {
         topk.accumulate(postings_union.next_doc());
     }
     return topk.sorted();
@@ -60,11 +61,10 @@ std::vector<pure_element_t<Range>> wand(
     using Posting = pure_element_t<Range>;
     union_range postings_union(query_postings, weights);
     top_k_accumulator<Posting> topk(k);
-    while (!postings_union.empty()) {
+    while (not postings_union.empty()) {
         topk.accumulate(postings_union.next_doc_wand(topk.threshold()));
     }
     return topk.sorted();
 }
 
-};  // namespace irkit
-
+}  // namespace irk

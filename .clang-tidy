@@ -1,0 +1,13 @@
+HeaderFilterRegex: '.*include/irkit.*\.hpp'
+Checks: |
+    *,
+    -clang-diagnostic-c++17-extensions,
+    -llvm-header-guard,
+    -cppcoreguidelines-pro-type-reinterpret-cast,
+    -google-runtime-references,
+    -fuchsia-default-arguments,
+    -fuchsia-overloaded-operator,
+    -google-readability-namespace-comments,
+    -llvm-namespace-comment,
+    -clang-diagnostic-error,
+    -cppcoreguidelines-pro-bounds-pointer-arithmetic

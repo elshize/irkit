@@ -29,6 +29,8 @@ set(JSON_BuildTests OFF CACHE INTERNAL "" FORCE)
 add_subdirectory(submodules/json EXCLUDE_FROM_ALL)
 add_subdirectory(submodules/debug_assert EXCLUDE_FROM_ALL)
 add_subdirectory(submodules/CLI11 EXCLUDE_FROM_ALL)
+set(STREAMVBYTE_ENABLE_TESTS OFF CACHE INTERNAL "" FORCE)
+add_subdirectory(submodules/streamvbyte EXCLUDE_FROM_ALL)
 if (IRKit_INSTALL_SUBMODULES)
     install(DIRECTORY submodules/json/include/nlohmann DESTINATION include)
     install(FILES submodules/debug_assert/debug_assert.hpp DESTINATION include)
@@ -52,7 +54,9 @@ if (IRKit_INSTALL_SUBMODULES)
 endif()
 
 # Google Test
+if (IRKit_BUILD_TEST)
 add_subdirectory(submodules/googletest EXCLUDE_FROM_ALL)
+endif()
 
 # Gumbo HTML5 parser
 #set(GUMBO_DIR "gumbo-parser")
