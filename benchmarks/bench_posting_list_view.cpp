@@ -31,7 +31,6 @@
 #include <boost/filesystem.hpp>
 #include <CLI/CLI.hpp>
 
-#include <irkit/coding/varbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 
