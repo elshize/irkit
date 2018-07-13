@@ -142,6 +142,9 @@ public:
     iterator lookup(document_type id) const { return begin().nextgeq(id); };
     difference_type size() const { return documents_.size(); }
 
+    const document_list_type& document_list() const { return documents_; }
+    const payload_list_type& payload_list() const { return payloads_; }
+
 private:
     document_list_type documents_;
     payload_list_type payloads_;

@@ -35,36 +35,36 @@
 
 namespace irk {
 
-//! Returns top-*k* results, given vectors of posting lists and term weights.
-template<class Range, class Score>
-std::vector<pure_element_t<Range>> daat_or(
-    const std::vector<Range>& query_postings,
-    std::size_t k,
-    const std::vector<Score>& weights)
-{
-    using Posting = pure_element_t<Range>;
-    union_range postings_union(query_postings, weights);
-    top_k_accumulator<Posting> topk(k);
-    while (not postings_union.empty()) {
-        topk.accumulate(postings_union.next_doc());
-    }
-    return topk.sorted();
-}
-
-//! Returns top-*k* results, given vectors of posting lists and term weights.
-template<class Range, class Score>
-std::vector<pure_element_t<Range>> wand(
-    const std::vector<Range>& query_postings,
-    std::size_t k,
-    const std::vector<Score>& weights)
-{
-    using Posting = pure_element_t<Range>;
-    union_range postings_union(query_postings, weights);
-    top_k_accumulator<Posting> topk(k);
-    while (not postings_union.empty()) {
-        topk.accumulate(postings_union.next_doc_wand(topk.threshold()));
-    }
-    return topk.sorted();
-}
+////! Returns top-*k* results, given vectors of posting lists and term weights.
+//template<class Range, class Score>
+//std::vector<pure_element_t<Range>> daat_or(
+//    const std::vector<Range>& query_postings,
+//    std::size_t k,
+//    const std::vector<Score>& weights)
+//{
+//    using Posting = pure_element_t<Range>;
+//    union_range postings_union(query_postings, weights);
+//    top_k_accumulator<Posting> topk(k);
+//    while (not postings_union.empty()) {
+//        topk.accumulate(postings_union.next_doc());
+//    }
+//    return topk.sorted();
+//}
+//
+////! Returns top-*k* results, given vectors of posting lists and term weights.
+//template<class Range, class Score>
+//std::vector<pure_element_t<Range>> wand(
+//    const std::vector<Range>& query_postings,
+//    std::size_t k,
+//    const std::vector<Score>& weights)
+//{
+//    using Posting = pure_element_t<Range>;
+//    union_range postings_union(query_postings, weights);
+//    top_k_accumulator<Posting> topk(k);
+//    while (not postings_union.empty()) {
+//        topk.accumulate(postings_union.next_doc_wand(topk.threshold()));
+//    }
+//    return topk.sorted();
+//}
 
 }  // namespace irk

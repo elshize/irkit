@@ -24,74 +24,66 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
-#include <boost/filesystem.hpp>
 #include <chrono>
 #include <iostream>
-#include "cmd.hpp"
-#include "irkit/index.hpp"
-#include "irkit/taat.hpp"
 
-namespace fs = boost::filesystem;
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
 
-template<class Score>
-std::pair<std::vector<std::string>, std::vector<Score>> parse(std::string query)
+#include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
+#include <irkit/taat.hpp>
+
+using std::uint32_t;
+using irk::index::document_t;
+
+auto query_postings(const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
 {
-    //struct SN_env * z;
-    //z = Khotanese_create_env();
-    std::vector<std::string> terms;
-    std::vector<Score> weights;
-    std::istringstream stream(query);
-    std::string term;
-    while (stream >> term) {
-        terms.push_back(term);
-        weights.push_back(Score(1));
-    }
-    return std::make_pair(terms, weights);
+    using posting_list_type = decltype(
+        index.scored_postings(std::declval<std::string>()));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query)
+    { postings.push_back(index.scored_postings(term)); }
+    return postings;
 }
 
 int main(int argc, char** argv)
 {
-    irk::CmdLineProgram program("irk-query");
-    program.flag("stem,s", "perform stemming on the input query terms")
-        .option<std::string>("index-dir,d", "index base directory", ".");
-    try {
-        if (not program.parse(argc, argv)) {
-            return 0;
-        }
-    } catch (irk::po::error& e) {
-        std::cout << e.what() << std::endl;
-    }
+    std::string index_dir = ".";
+    std::vector<std::string> query;
+    int k = 1000;
 
-    fs::path dir(program.get<std::string>("index-dir").value());
-    //bool stem = program.defined("stem");
+    CLI::App app{"Query inverted index"};
+    app.add_option("-d,--index-dir", index_dir, "index directory", true)
+        ->check(CLI::ExistingDirectory);
+    app.add_option("-k", k, "as in top-k", true);
+    app.add_option("query", query, "Query", false)->required();
 
-    std::cerr << "Loading index... ";
-    std::unique_ptr<irk::default_index> index(nullptr);
-    try {
-        index.reset(new irk::default_index(dir, false));
-    } catch (std::invalid_argument& e) {
-        std::cerr << e.what() << " (not an index directory?)" << std::endl;
-        std::exit(1);
-    }
-    std::cerr << "Done.\n";
+    CLI11_PARSE(app, argc, argv);
 
-    std::string line;
-    std::cout << "> ";
-    while (std::getline(std::cin, line)) {
-        std::cout << "Running query: " << line << std::endl;
-        auto start_time = std::chrono::steady_clock::now();
-        auto[terms, weights] = parse<double>(line);
-        auto postings = index->posting_ranges(terms);
-        auto results =
-            irk::taat(postings, 10, weights, index->collection_size());
-        auto end_time = std::chrono::steady_clock::now();
-        for (auto& result : results) {
-            std::cout << result << " (" << index->title(result.doc) << ")"
-                      << std::endl;
-        }
-        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time);
-        std::cout << "Elasped time: " << elapsed.count() << " ms" << std::endl;
-        std::cout << "> ";
+    std::cout << "Loading index...";
+    boost::filesystem::path dir(index_dir);
+    irk::inverted_index_disk_data_source data(dir, "bm25");
+    irk::inverted_index_view index(&data);
+    std::cout << " done." << std::endl;
+
+    auto start_time = std::chrono::steady_clock::now();
+
+    std::vector<uint32_t> acc(index.collection_size());
+    irk::taat(query_postings(index, query), acc);
+    auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+
+    auto end_time = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+        end_time - start_time);
+
+    const auto& titles = index.titles();
+    for (auto& result : results)
+    {
+        std::cout << titles.key_at(result.first) << "\t" << result.second
+                  << std::endl;
     }
+    std::cout << "Query time: " << elapsed.count() << " ms" << std::endl;
 }

@@ -1,18 +1,6 @@
 add_executable(irk irk.cpp)
 target_link_libraries(irk CLI11::CLI11)
 
-#add_executable(irk-merge irk-merge.cpp)
-#target_link_libraries(irk-merge ${Boost_LIBRARIES})
-
-#add_executable(irk-compress irk-compress.cpp)
-#target_link_libraries(irk-compress ${Boost_LIBRARIES})
-#
-#add_executable(irk-uncompress irk-uncompress.cpp)
-#target_link_libraries(irk-uncompress ${Boost_LIBRARIES})
-#
-#add_executable(irk-query irk-query.cpp)
-#target_link_libraries(irk-query ${Boost_LIBRARIES})
-
 set(COMMON_LIBRARIES
     irkit
     CLI11::CLI11
@@ -55,6 +43,10 @@ add_executable(irk-postings irk-postings.cpp)
 target_link_libraries(irk-postings ${COMMON_LIBRARIES} rax Threads::Threads)
 target_compile_features(irk-postings PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
+add_executable(irk-query irk-query.cpp)
+target_link_libraries(irk-query ${COMMON_LIBRARIES} rax Threads::Threads)
+target_compile_features(irk-query PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
 add_executable(irk-hits irk-hits.cpp)
 target_link_libraries(irk-hits CLI11::CLI11 Boost::log Threads::Threads)
 target_compile_features(irk-hits PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
@@ -67,6 +59,7 @@ install(
         irk-buildindex
         irk-score
         irk-postings
+        irk-query
         irk-table
         irk-lexicon
         irk-hits

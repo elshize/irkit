@@ -230,6 +230,14 @@ public:
         return posting_list_view(documents, scores);
     }
 
+    auto scored_postings(const std::string& term) const
+    {
+        auto idopt = term_id(term);
+        if (not idopt.has_value())
+        { throw std::runtime_error("TODO: implement empty posting list"); }
+        return scored_postings(*idopt);
+    }
+
     template<class Scorer>
     Scorer term_scorer(term_id_type term_id) const
     {
