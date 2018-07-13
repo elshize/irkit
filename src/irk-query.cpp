@@ -50,25 +50,39 @@ auto query_postings(const irk::inverted_index_view& index,
     return postings;
 }
 
+inline std::string ExistingDirectory(const std::string &filename) {
+    struct stat buffer;
+    bool exist = stat(filename.c_str(), &buffer) == 0;
+    bool is_dir = (buffer.st_mode & S_IFDIR) != 0;
+    if(!exist) {
+        return "Directory does not exist: " + filename;
+    } else if(!is_dir) {
+        return "Directory is actually a file: " + filename;
+    }
+    return std::string();
+}
+
 int main(int argc, char** argv)
 {
     std::string index_dir = ".";
     std::vector<std::string> query;
     int k = 1000;
     bool stem = false;
+    int trecid = -1;
 
     CLI::App app{"Query inverted index"};
     app.add_option("-d,--index-dir", index_dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_option("-k", k, "as in top-k", true);
     app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
+    app.add_flag("--trecid", trecid, "Print in trec_eval format with this QID");
     app.add_option("query", query, "Query", false)->required();
 
     CLI11_PARSE(app, argc, argv);
 
     std::cout << "Loading index..." << std::flush;
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_disk_data_source data(dir, "bm25");
+    irk::inverted_index_mapped_data_source data(dir, "bm25");
     irk::inverted_index_view index(&data);
     std::cout << " done." << std::endl;
 
@@ -103,10 +117,20 @@ int main(int argc, char** argv)
         end_time - after_acc);
 
     const auto& titles = index.titles();
+    int rank = 0;
     for (auto& result : results)
     {
-        std::cout << titles.key_at(result.first) << "\t" << result.second
-                  << std::endl;
+        if (app.count("--trecid")) {
+            std::cout << trecid << '\t'
+                      << "Q0\t"
+                      << titles.key_at(result.first) << "\t"
+                      << rank++ << "\t"
+                      << result.second << "\tnull\n";
+        }
+        else {
+            std::cout << titles.key_at(result.first) << "\t" << result.second
+                      << '\n';
+        }
     }
     std::cerr << "Total time: " << total.count() << " ms" << std::endl;
     std::cerr << "Fetch: " << fetch.count() << " ms" << std::endl;
