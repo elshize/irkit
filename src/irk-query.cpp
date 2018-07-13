@@ -75,16 +75,17 @@ int main(int argc, char** argv)
         ->check(CLI::ExistingDirectory);
     app.add_option("-k", k, "as in top-k", true);
     app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
-    app.add_flag("--trecid", trecid, "Print in trec_eval format with this QID");
+    app.add_option(
+        "--trecid", trecid, "Print in trec_eval format with this QID");
     app.add_option("query", query, "Query", false)->required();
 
     CLI11_PARSE(app, argc, argv);
 
-    std::cout << "Loading index..." << std::flush;
+    std::cerr << "Loading index..." << std::flush;
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_mapped_data_source data(dir, "bm25");
     irk::inverted_index_view index(&data);
-    std::cout << " done." << std::endl;
+    std::cerr << " done." << std::endl;
 
     if (stem) {
         irk::porter2_stemmer stemmer;
