@@ -24,6 +24,7 @@
 #define SET_SIZE(p, n) ((int *)(p))[-1] = n
 #define CAPACITY(p)    ((int *)(p))[-2]
 
+namespace irk::porter2 {
 typedef unsigned char symbol;
 
 /* Or replace 'char' above with 'short' for 16 bit characters.
@@ -1736,3 +1737,5 @@ extern void debug(struct SN_env * z, int number, int line_count) {
     printf("'\n");
 }
 #endif
+
+};  // namespace irk::porter2

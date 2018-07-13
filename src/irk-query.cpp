@@ -32,6 +32,7 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/parsing/stemmer.hpp>
 #include <irkit/taat.hpp>
 
 using std::uint32_t;
@@ -54,30 +55,52 @@ int main(int argc, char** argv)
     std::string index_dir = ".";
     std::vector<std::string> query;
     int k = 1000;
+    bool stem = false;
 
     CLI::App app{"Query inverted index"};
     app.add_option("-d,--index-dir", index_dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_option("-k", k, "as in top-k", true);
+    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
     app.add_option("query", query, "Query", false)->required();
 
     CLI11_PARSE(app, argc, argv);
 
-    std::cout << "Loading index...";
+    std::cout << "Loading index..." << std::flush;
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_disk_data_source data(dir, "bm25");
     irk::inverted_index_view index(&data);
     std::cout << " done." << std::endl;
 
+    if (stem) {
+        irk::porter2_stemmer stemmer;
+        for (auto& term : query) { term = stemmer.stem(term); }
+    }
+
     auto start_time = std::chrono::steady_clock::now();
 
-    std::vector<uint32_t> acc(index.collection_size());
-    irk::taat(query_postings(index, query), acc);
-    auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+    auto postings = query_postings(index, query);
+    auto after_fetch = std::chrono::steady_clock::now();
 
+    std::vector<uint32_t> acc(index.collection_size(), 0);
+    auto after_init = std::chrono::steady_clock::now();
+
+    irk::taat(postings, acc);
+    auto after_acc = std::chrono::steady_clock::now();
+
+    auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
     auto end_time = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+
+    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_time - start_time);
+    auto fetch = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_fetch - start_time);
+    auto init = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_init - after_fetch);
+    auto accum = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_acc - after_init);
+    auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
+        end_time - after_acc);
 
     const auto& titles = index.titles();
     for (auto& result : results)
@@ -85,5 +108,9 @@ int main(int argc, char** argv)
         std::cout << titles.key_at(result.first) << "\t" << result.second
                   << std::endl;
     }
-    std::cout << "Query time: " << elapsed.count() << " ms" << std::endl;
+    std::cerr << "Total time: " << total.count() << " ms" << std::endl;
+    std::cerr << "Fetch: " << fetch.count() << " ms" << std::endl;
+    std::cerr << "Initialization: " << init.count() << " ms" << std::endl;
+    std::cerr << "Accumulation: " << accum.count() << " ms" << std::endl;
+    std::cerr << "Aggregation: " << agg.count() << " ms" << std::endl;
 }
