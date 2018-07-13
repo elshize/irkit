@@ -33,6 +33,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/parsing/stemmer.hpp>
 
 namespace fs = boost::filesystem;
 using irk::index::term_id_t;
@@ -59,6 +60,7 @@ int main(int argc, char** argv)
     std::string scoring;
     bool use_id = false;
     bool use_titles = false;
+    bool stem = false;
 
     CLI::App app{"Prints postings."
                  "Fist column: document IDs. Second column: payload."};
@@ -66,11 +68,16 @@ int main(int argc, char** argv)
         ->check(CLI::ExistingDirectory);
     app.add_flag("-i,--use-id", use_id, "use a term ID");
     app.add_flag("-t,--titles", use_titles, "print document titles");
-    app.add_option("-s,--scores",
-        scoring,
-        "print given scores instead of frequencies",
-        true);
+    app.add_flag("--stem", stem, "Stem terems (Porter2)");
+    app.add_option(
+        "--scores", scoring, "print given scores instead of frequencies", true);
     app.add_option("term", term, "term to look up", false)->required();
+
+    if (not use_id && stem)
+    {
+        irk::porter2_stemmer stemmer;
+        term = stemmer.stem(term);
+    }
 
     CLI11_PARSE(app, argc, argv);
 
