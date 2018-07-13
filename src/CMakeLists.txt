@@ -64,6 +64,7 @@ install(
         irk-score
         irk-postings
         irk-query
+        irk-lookup
         irk-table
         irk-lexicon
         irk-hits
