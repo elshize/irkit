@@ -37,33 +37,19 @@
 
 namespace fs = boost::filesystem;
 using irk::index::term_id_t;
-
-template<class PostingListT>
-void print_postings(const PostingListT& postings,
-    bool use_titles,
-    const irk::inverted_index_view& index)
-{
-    for (const auto& posting : postings)
-    {
-        std::cout << posting.document() << "\t";
-        if (use_titles) {
-            std::cout << index.titles().key_at(posting.document()) << "\t";
-        }
-        std::cout << posting.payload() << "\n";
-    }
-}
+using irk::index::document_t;
 
 int main(int argc, char** argv)
 {
     std::string dir = ".";
     std::string term;
     std::string scoring;
+    std::string document;
     bool use_id = false;
     bool use_titles = false;
     bool stem = false;
 
-    CLI::App app{"Prints postings."
-                 "Fist column: document IDs. Second column: payload."};
+    CLI::App app{"Look up a specific posting."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_flag("-i,--use-id", use_id, "use a term ID");
@@ -71,7 +57,8 @@ int main(int argc, char** argv)
     app.add_flag("--stem", stem, "Stem terems (Porter2)");
     app.add_option(
         "--scores", scoring, "print given scores instead of frequencies", true);
-    app.add_option("term", term, "term to look up", false)->required();
+    app.add_option("term", term, "term", false)->required();
+    app.add_option("document", document, "document", false)->required();
 
     if (not use_id && stem)
     {
@@ -90,10 +77,27 @@ int main(int argc, char** argv)
 
         term_id_t term_id = use_id ? std::stoi(term)
                                    : index.term_id(term).value();
+        document_t doc = index.titles().index_at(document).value();
         if (app.count("--scores") > 0) {
-            print_postings(index.scored_postings(term_id), use_titles, index);
+            auto postings = index.scored_postings(term_id);
+            auto pos = postings.lookup(doc);
+            if (pos == postings.end()) {
+                std::cerr << "Posting not found." << std::endl;
+            }
+            else {
+                std::cout << term << '\t' << document << '\t' << pos.payload()
+                          << std::endl;
+            }
         } else {
-            print_postings(index.postings(term_id), use_titles, index);
+            auto postings = index.postings(term_id);
+            auto pos = postings.lookup(doc);
+            if (pos == postings.end()) {
+                std::cerr << "Posting not found." << std::endl;
+            }
+            else {
+                std::cout << term << '\t' << document << '\t' << pos.payload()
+                          << std::endl;
+            }
         }
     } catch (const std::bad_optional_access& e) {
         std::cerr << "Term " << term << " not found." << std::endl;

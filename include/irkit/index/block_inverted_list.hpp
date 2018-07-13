@@ -143,6 +143,7 @@ public:
     {
         block_ = other.block();
         pos_ = other.pos();
+        return *this;
     }
 
     //! Returns the current block number.

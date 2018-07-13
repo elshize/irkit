@@ -47,6 +47,10 @@ add_executable(irk-query irk-query.cpp)
 target_link_libraries(irk-query ${COMMON_LIBRARIES} rax Threads::Threads)
 target_compile_features(irk-query PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 
+add_executable(irk-lookup irk-lookup.cpp)
+target_link_libraries(irk-lookup ${COMMON_LIBRARIES} rax Threads::Threads)
+target_compile_features(irk-lookup PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
 add_executable(irk-hits irk-hits.cpp)
 target_link_libraries(irk-hits CLI11::CLI11 Boost::log Threads::Threads)
 target_compile_features(irk-hits PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
