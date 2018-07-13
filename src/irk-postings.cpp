@@ -38,10 +38,18 @@ namespace fs = boost::filesystem;
 using irk::index::term_id_t;
 
 template<class PostingListT>
-void print_postings(const PostingListT& postings)
+void print_postings(const PostingListT& postings,
+    bool use_titles,
+    const irk::inverted_index_view& index)
 {
     for (const auto& posting : postings)
-    { std::cout << posting.document() << "\t" << posting.payload() << "\n"; }
+    {
+        std::cout << posting.document() << "\t";
+        if (use_titles) {
+            std::cout << index.titles().key_at(posting.document()) << "\t";
+        }
+        std::cout << posting.payload() << "\n";
+    }
 }
 
 int main(int argc, char** argv)
@@ -50,12 +58,14 @@ int main(int argc, char** argv)
     std::string term;
     std::string scoring;
     bool use_id = false;
+    bool use_titles = false;
 
     CLI::App app{"Prints postings."
                  "Fist column: document IDs. Second column: payload."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_flag("-i,--use-id", use_id, "use a term ID");
+    app.add_flag("-t,--titles", use_titles, "print document titles");
     app.add_option("-s,--scores",
         scoring,
         "print given scores instead of frequencies",
@@ -71,11 +81,12 @@ int main(int argc, char** argv)
             scores_defined ? std::make_optional(scoring) : std::nullopt);
         irk::inverted_index_view index(&data);
 
-        term_id_t term_id = use_id ? std::stol(term) : *index.term_id(term);
+        term_id_t term_id = use_id ? std::stoi(term)
+                                   : index.term_id(term).value();
         if (app.count("--scores") > 0) {
-            print_postings(index.scored_postings(term_id));
+            print_postings(index.scored_postings(term_id), use_titles, index);
         } else {
-            print_postings(index.postings(term_id));
+            print_postings(index.postings(term_id), use_titles, index);
         }
     } catch (const std::bad_optional_access& e) {
         std::cerr << "Term " << term << " not found." << std::endl;

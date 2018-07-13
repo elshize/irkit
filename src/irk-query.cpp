@@ -54,9 +54,9 @@ inline std::string ExistingDirectory(const std::string &filename) {
     struct stat buffer;
     bool exist = stat(filename.c_str(), &buffer) == 0;
     bool is_dir = (buffer.st_mode & S_IFDIR) != 0;
-    if(!exist) {
+    if(not exist) {
         return "Directory does not exist: " + filename;
-    } else if(!is_dir) {
+    } else if(not is_dir) {
         return "Directory is actually a file: " + filename;
     }
     return std::string();
