@@ -60,22 +60,28 @@ int main(int argc, char** argv)
     std::string dir;
     std::string scorer("bm25");
     std::unordered_set<std::string> available_scorers = {"bm24", "ql"};
+    double max;
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_option("-b,--bits", bits, "number of bits for a score", true);
+    app.add_option("-m,--max-score", max, "maximum score (if known)", false);
     app.add_option("scorer", scorer, "scoring function", true)
         ->check(valid_scoring_function{available_scorers});
 
     CLI11_PARSE(app, argc, argv);
 
+    std::optional<double> max_score = app.count("--max-score") > 0
+        ? std::make_optional(max)
+        : std::nullopt;
     fs::path dir_path(dir);
     if (scorer == "bm25") {
-        irk::score_index<irk::score::bm25_scorer, source_type>(dir, bits);
+        irk::score_index<irk::score::bm25_scorer, source_type>(
+            dir, bits, max_score);
     } else if (scorer == "ql") {
         irk::score_index<irk::score::query_likelihood_scorer, source_type>(
-            dir, bits);
+            dir, bits, max_score);
     }
 
     return 0;
