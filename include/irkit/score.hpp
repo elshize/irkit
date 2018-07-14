@@ -88,12 +88,14 @@ struct bm25_scorer {
         int32_t total_document_count,
         double avg_document_size,
         double k1 = 1.2,
-        double b = 0.5)
+        double b = 0.5,
+        double min_idf = 1.0E-6)
     {
         double idf_numerator = total_document_count - documents_with_term_count
             + 0.5;
         double idf_denominator = documents_with_term_count + 0.5;
-        double idf = std::log(idf_numerator / idf_denominator);
+        double idf = std::max(
+            min_idf, std::log(idf_numerator / idf_denominator));
         x = idf * (k1 + 1);
         y = k1 - b * k1;
         z = b * k1 / avg_document_size;

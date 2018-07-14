@@ -386,6 +386,7 @@ void score_index(fs::path dir_path,
                 double score = scorer(
                     posting.payload(), index.document_size(posting.document()));
                 max_score = std::max(max_score, score);
+                ASSERT(max_score >= 0.0);
             }
         }
         BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
@@ -407,6 +408,7 @@ void score_index(fs::path dir_path,
                 posting.payload(), index.document_size(posting.document()));
             auto quantized_score = static_cast<int64_t>(
                 (static_cast<double>(max_int) / max_score) * score);
+            ASSERT(quantized_score >= 0);
             ASSERT(quantized_score <= max_int);
             list_builder.add(quantized_score);
         }
