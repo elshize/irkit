@@ -397,6 +397,7 @@ void score_index(fs::path dir_path, unsigned int bits)
                 posting.payload(), index.document_size(posting.document()));
             auto quantized_score = static_cast<int64_t>(
                 (static_cast<double>(max_int) / max_score) * score);
+            ASSERT(quantized_score <= max_int);
             list_builder.add(quantized_score);
         }
         offset += list_builder.write(sout);
