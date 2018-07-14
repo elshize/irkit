@@ -54,19 +54,18 @@ int main(int argc, char** argv)
         ->check(CLI::ExistingDirectory);
     app.add_flag("-i,--use-id", use_id, "use a term ID");
     app.add_flag("-t,--titles", use_titles, "print document titles");
-    app.add_flag("--stem", stem, "Stem terems (Porter2)");
+    app.add_flag("--stem", stem, "Stem terms (Porter2)");
     app.add_option(
         "--scores", scoring, "print given scores instead of frequencies", true);
     app.add_option("term", term, "term", false)->required();
     app.add_option("document", document, "document", false)->required();
+    CLI11_PARSE(app, argc, argv);
 
     if (not use_id && stem)
     {
         irk::porter2_stemmer stemmer;
         term = stemmer.stem(term);
     }
-
-    CLI11_PARSE(app, argc, argv);
 
     bool scores_defined = app.count("--scores") > 0;
 

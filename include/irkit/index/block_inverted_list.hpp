@@ -379,6 +379,7 @@ public:
 
     int32_t size() const { return length_; }
     int64_t memory_size() const { return memory_.size(); }
+    memory_view memory() const { return memory_; }
 
     std::ostream& write(std::ostream& out) const
     {

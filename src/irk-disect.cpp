@@ -29,6 +29,7 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 
+#include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -37,6 +38,66 @@
 
 namespace fs = boost::filesystem;
 using irk::index::term_id_t;
+using irk::index::document_t;
+
+void disect_document_list(const irk::memory_view memory, int64_t length)
+{
+    auto pos = memory.begin();
+    irk::vbyte_codec<int64_t> vb;
+    irk::stream_vbyte_codec<document_t> codec;
+
+    int64_t list_byte_size, num_blocks, block_size;
+    pos = vb.decode(pos, &list_byte_size);
+    pos = vb.decode(pos, &block_size);
+    pos = vb.decode(pos, &num_blocks);
+    if (list_byte_size != memory.size())
+    {
+        std::ostringstream str;
+        str << "list size " << list_byte_size
+            << " does not match memory view size " << memory.size();
+        throw std::runtime_error(str.str());
+    }
+
+    std::cout << "List size in bytes: " << list_byte_size << std::endl;
+    std::cout << "Block size: " << block_size << std::endl;
+    std::cout << "Block count: " << num_blocks << std::endl;
+
+    std::vector<int64_t> skips(num_blocks);
+    pos = vb.decode(pos, &skips[0], num_blocks);
+    std::vector<document_t> last_documents(num_blocks);
+    pos = codec.delta_decode(pos, &last_documents[0], num_blocks);
+
+    std::cout << "Skips: [ ";
+    for (const auto& skip : skips) { std::cout << skip << " "; }
+    std::cout << "]\nLast doc in block: [ ";
+    for (const auto& doc : last_documents) { std::cout << doc << " "; }
+    std::cout << std::endl;
+
+    for (int block = 0; block < num_blocks - 1; block++)
+    {
+        std::advance(pos, skips[block]);
+        auto mem = irk::make_memory_view(pos, skips[block + 1]);
+        auto count = block < num_blocks - 1 ? block_size : length % block_size;
+        auto preceding = block > 0 ? last_documents[block - 1] : 0;
+        std::vector<document_t> decoded(count);
+        codec.delta_decode(
+            std::begin(mem), std::begin(decoded), count, preceding);
+        std::cout << "B" << block << ": [ ";
+        for (const auto& doc : decoded) { std::cout << doc << " "; }
+        std::cout << "]\n";
+    }
+    std::advance(pos, skips.back());
+    auto mem = irk::make_memory_view(pos, std::distance(pos, std::end(memory)));
+    auto count = length % block_size;
+    std::vector<document_t> decoded(count);
+    codec.delta_decode(std::begin(mem),
+        std::begin(decoded),
+        count,
+        last_documents[num_blocks - 1]);
+    std::cout << "B" << num_blocks - 1 << ": [ ";
+    for (const auto& doc : decoded) { std::cout << doc << " "; }
+    std::cout << "]\n";
+}
 
 template<class PostingListT>
 void print_postings(const PostingListT& postings,
@@ -62,8 +123,7 @@ int main(int argc, char** argv)
     bool use_titles = false;
     bool stem = false;
 
-    CLI::App app{"Prints postings."
-                 "Fist column: document IDs. Second column: payload."};
+    CLI::App app{"Disects a posting list."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_flag("-i,--use-id", use_id, "use a term ID");
@@ -89,11 +149,14 @@ int main(int argc, char** argv)
 
         term_id_t term_id = use_id ? std::stoi(term)
                                    : index.term_id(term).value();
-        if (app.count("--scores") > 0) {
-            print_postings(index.scored_postings(term_id), use_titles, index);
-        } else {
-            print_postings(index.postings(term_id), use_titles, index);
-        }
+        disect_document_list(
+            index.documents(term_id).memory(), index.tdf(term_id));
+
+        //if (app.count("--scores") > 0) {
+        //    disect_document_list(index.documents(term_id).memory(), block_size);
+        //} else {
+        //    disect_document_list(index.postings(term_id).memory(), block_size);
+        //}
     } catch (const std::bad_optional_access& e) {
         std::cerr << "Term " << term << " not found." << std::endl;
     }

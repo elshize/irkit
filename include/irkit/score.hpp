@@ -122,7 +122,7 @@ struct query_likelihood_scorer {
 
     double operator()(int32_t tf, int32_t document_size) const
     {
-        return (tf + global_component) / (document_size + mu);
+        return std::log(tf + global_component) - std::log(document_size + mu);
     }
 };
 

@@ -386,7 +386,7 @@ void score_index(fs::path dir_path,
                 double score = scorer(
                     posting.payload(), index.document_size(posting.document()));
                 max_score = std::max(max_score, score);
-                ASSERT(max_score >= 0.0);
+                ASSERT(score >= 0.0);
             }
         }
         BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
