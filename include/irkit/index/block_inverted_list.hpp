@@ -181,7 +181,7 @@ private:
         {
             auto count = block_ < block_count_ - 1
                 ? block_size_
-                : view_.length_ % block_size_;
+                : view_.length_ - ((block_count_ - 1) * block_size_);
             if constexpr (delta_encoded) {  // NOLINT
                 auto preceding = block_ > 0 ? view_.blocks_[block_ - 1].back()
                                             : 0_id;

@@ -278,6 +278,61 @@ TEST_F(block_list_builder, write_payloads)
     EXPECT_THAT(buffer.str(), ::testing::ElementsAreArray(expected));
 }
 
+TEST_F(block_list_builder, build_organ)  // Issue #30
+{
+    irk::index::block_list_builder<document_t,
+        irk::vbyte_codec<document_t>,
+        true>
+        builder(64);
+    std::ifstream in("doclist.txt");
+    std::vector<document_t> documents;
+    std::string line;
+    while (std::getline(in, line))
+    {
+        documents.push_back(std::stoi(line));
+        builder.add(documents.back());
+    }
+    EXPECT_THAT(documents, ::testing::ElementsAreArray(builder.values_));
+
+    std::ostringstream buffer;
+    builder.write(buffer);
+    auto s = buffer.str();
+    std::vector<char> data(s.begin(), s.end());
+    irk::index::block_document_list_view<irk::vbyte_codec<document_t>>
+       view(irk::make_memory_view(data), documents.size());
+
+    document_t prev = 0;
+    const int32_t num_blocks = (documents.size() + 63) / 64;
+    std::vector<document_t> all_decoded;
+    for (int block = 0; block < num_blocks; ++block)
+    {
+        const gsl::index begin_idx = 64 * block;
+        const gsl::index end_idx = std::min(
+            begin_idx + 64, gsl::index(documents.size()));
+        auto count = end_idx - begin_idx;
+        std::vector<document_t> block_documents(
+            &documents[begin_idx], &documents[end_idx]);
+        std::vector<char> expected_data = irk::delta_encode(
+            irk::vbyte_codec<document_t>{},
+            block_documents.begin(),
+            block_documents.end(),
+            prev);
+        std::vector<char> actual_data(view.blocks_[block].data().data(),
+            view.blocks_[block].data().data()
+                + view.blocks_[block].data().size());
+        ASSERT_THAT(actual_data, ::testing::ElementsAreArray(expected_data));
+        std::vector<document_t> decoded(count);
+        irk::vbyte_codec<document_t>{}.delta_decode(
+            actual_data.begin(), decoded.begin(), count, prev);
+        ASSERT_THAT(decoded, ::testing::ElementsAreArray(block_documents));
+        prev = documents[end_idx - 1];
+        all_decoded.insert(all_decoded.end(), decoded.begin(), decoded.end());
+    }
+    EXPECT_THAT(all_decoded, ::testing::ElementsAreArray(documents));
+    std::vector<document_t> decoded_iter(view.begin(), view.end());
+    EXPECT_THAT(decoded_iter, ::testing::ElementsAreArray(documents));
+}
+
 //TEST_F(block_list_builder, write_double_payloads)
 //{
 //    irk::index::block_list_builder<double, false> builder(

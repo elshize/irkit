@@ -89,7 +89,9 @@ int main(int argc, char** argv)
 
     if (stem) {
         irk::porter2_stemmer stemmer;
-        for (auto& term : query) { term = stemmer.stem(term); }
+        for (auto& term : query) {
+            term = stemmer.stem(term);
+        }
     }
 
     auto start_time = std::chrono::steady_clock::now();

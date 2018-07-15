@@ -151,12 +151,6 @@ int main(int argc, char** argv)
                                    : index.term_id(term).value();
         disect_document_list(
             index.documents(term_id).memory(), index.tdf(term_id));
-
-        //if (app.count("--scores") > 0) {
-        //    disect_document_list(index.documents(term_id).memory(), block_size);
-        //} else {
-        //    disect_document_list(index.postings(term_id).memory(), block_size);
-        //}
     } catch (const std::bad_optional_access& e) {
         std::cerr << "Term " << term << " not found." << std::endl;
     }

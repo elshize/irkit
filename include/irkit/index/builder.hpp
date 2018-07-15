@@ -157,14 +157,15 @@ public:
         if (sorted_terms_ == std::nullopt) { sort_terms(); }
         index::offset_t offset = 0;
         std::vector<index::offset_t> offsets;
-        for (auto& term : sorted_terms_.value())
+        for (const auto& term : sorted_terms_.value())
         {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
             index::block_list_builder<document_type, document_codec_type, true>
                 list_builder(block_size_);
-            for (const auto& posting : postings_[term_id])
-            { list_builder.add(posting.doc); }
+            for (const auto& posting : postings_[term_id]) {
+                list_builder.add(posting.doc);
+            }
             offset += list_builder.write(out);
         }
         offset_table<> offset_table = build_offset_table<>(offsets);

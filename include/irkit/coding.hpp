@@ -65,6 +65,16 @@ delta_encode(const Codec& codec, InputIterator lo, InputIterator hi)
     return data;
 }
 
+template<class Codec, class InputIterator, class T>
+std::vector<char>
+delta_encode(const Codec& codec, InputIterator lo, InputIterator hi, T initial)
+{
+    std::vector<char> data(codec.max_encoded_size(std::distance(lo, hi)));
+    auto size = codec.delta_encode(lo, hi, std::begin(data), initial);
+    data.resize(size);
+    return data;
+}
+
 template<class Codec, class InputRange>
 std::vector<char> delta_encode(const Codec& codec, InputRange in)
 {

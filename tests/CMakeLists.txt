@@ -8,6 +8,7 @@ set(CMAKE_EXE_LINKER_FLAGS "-pthread")
 # TODO: Move to `unit` folder.
 configure_file(randstr.txt randstr.txt COPYONLY)
 configure_file(ukb_queries ukb_queries COPYONLY)
+configure_file(doclist.txt doclist.txt COPYONLY)
 set(TEST_SOURCES
     test_bitptr.cpp
     test_builder.cpp
