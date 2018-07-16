@@ -306,6 +306,7 @@ TEST_F(block_list_builder, build_organ)  // Issue #30
     std::vector<document_t> all_decoded;
     for (int block = 0; block < num_blocks; ++block)
     {
+        std::cout << block << std::endl;
         const gsl::index begin_idx = 64 * block;
         const gsl::index end_idx = std::min(
             begin_idx + 64, gsl::index(documents.size()));

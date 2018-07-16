@@ -214,7 +214,7 @@ private:
     void finish()
     {
         block_ = view_.length_ / view_.block_size_;
-        pos_ = view_.length_ % view_.block_size_;
+        pos_ = view_.length_ - ((block_count_ - 1) * block_size_);
     }
 
     int block_size_;
@@ -370,8 +370,10 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
-        return iterator{
-            *this, length_ / block_size_, length_ % block_size_, block_size_};
+        auto end_pos =
+            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+            % block_size_;
+        return iterator{*this, length_ / block_size_, end_pos, block_size_};
     };
 
     //! Finds the position of `id` or the next greater.
@@ -450,8 +452,10 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
-        return iterator{
-            *this, length_ / block_size_, length_ % block_size_, block_size_};
+        auto end_pos =
+            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+            % block_size_;
+        return iterator{*this, length_ / block_size_, end_pos, block_size_};
     };
     int32_t size() const { return length_; }
     int64_t memory_size() const { return memory_.size(); }
