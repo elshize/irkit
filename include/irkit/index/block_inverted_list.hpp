@@ -214,7 +214,8 @@ private:
     void finish()
     {
         block_ = view_.length_ / view_.block_size_;
-        pos_ = view_.length_ - ((block_count_ - 1) * block_size_);
+        pos_ = (view_.length_ - ((block_count_ - 1) * block_size_))
+            % block_size_;
     }
 
     int block_size_;

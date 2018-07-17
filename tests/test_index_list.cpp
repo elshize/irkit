@@ -221,6 +221,31 @@ TEST_F(block_document_list_view, move)
     EXPECT_THAT(documents, ::testing::ElementsAreArray(data.documents));
 }
 
+TEST(move_equals_end, vbyte)
+{
+    irk::index::
+        block_list_builder<document_t, irk::vbyte_codec<document_t>, true>
+            builder(2 /* block_size */);
+    builder.add(1);
+    builder.add(2);
+    builder.add(3);
+    builder.add(4);
+    std::ostringstream buffer;
+    builder.write(buffer);
+    std::string str = buffer.str();
+    std::vector<char> data(str.begin(), str.end());
+
+    irk::index::block_document_list_view<irk::vbyte_codec<document_t>> view(
+        irk::make_memory_view(data), 4);
+    auto i = view.end();
+    auto j = view.begin().nextgeq(100);
+    std::cout << i.block_ << " " << i.pos_ << std::endl;
+    std::cout << j.block_ << " " << j.pos_ << std::endl;
+    ASSERT_EQ(i.block_, j.block_);
+    ASSERT_EQ(i.pos_, j.pos_);
+    ASSERT_EQ(view.end(), view.begin().nextgeq(100));
+}
+
 TEST_F(block_payload_list_view, read_blocks_mem)
 {
     ASSERT_EQ(data.view.blocks_[0].data().size(), 2);
@@ -333,19 +358,6 @@ TEST_F(block_list_builder, build_organ)  // Issue #30
     std::vector<document_t> decoded_iter(view.begin(), view.end());
     EXPECT_THAT(decoded_iter, ::testing::ElementsAreArray(documents));
 }
-
-//TEST_F(block_list_builder, write_double_payloads)
-//{
-//    irk::index::block_list_builder<double, false> builder(
-//        2 /* block_size */, irk::copy_codec<double>{});
-//    std::ostringstream buffer;
-//    for (double pay : double_data.scores) { builder.add(pay); }
-//    builder.write(buffer);
-//
-//    std::vector<char>
-//        expected(double_data.memory.begin(), double_data.memory.begin() + 46);
-//    EXPECT_THAT(buffer.str(), ::testing::ElementsAreArray(expected));
-//}
 
 };  // namespace
 
