@@ -28,8 +28,8 @@
 #include <string>
 #include <vector>
 
-#include <boost/filesystem.hpp>
 #include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -111,15 +111,26 @@ int main(int argc, char** argv)
         agg += duration_cast<milliseconds>(end_time - after_acc);
         posting_count++;
     }
-    auto total_ns_per_post = (double)total.count() / posting_count;
+    auto total_ns_per_post = static_cast<double>(total.count()) / posting_count;
+    auto fetch_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
+    auto init_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
+    auto accum_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
+    auto agg_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
+
     std::cout << "Total: " << total_ns_per_post << " ns/p\t";
     std::cout << 1'000 / total_ns_per_post << " mln p/s" << std::endl;
 
-    // std::cerr << "Total time: " << total.count() << " ms" << std::endl;
-    // std::cerr << "Fetch: " << fetch.count() << " ms" << std::endl;
-    // std::cerr << "Initialization: " << init.count() << " ms" << std::endl;
-    // std::cerr << "Accumulation: " << accum.count() << " ms" << std::endl;
-    // std::cerr << "Aggregation: " << agg.count() << " ms" << std::endl;
+    std::cout << "Fetch: " << fetch_ns_per_post << " ns/p\t";
+    std::cout << 1'000 / fetch_ns_per_post << " mln p/s" << std::endl;
+
+    std::cout << "Init: " << init_ns_per_post << " ns/p\t";
+    std::cout << 1'000 / init_ns_per_post << " mln p/s" << std::endl;
+
+    std::cout << "Accumulation: " << accum_ns_per_post << " ns/p\t";
+    std::cout << 1'000 / accum_ns_per_post << " mln p/s" << std::endl;
+
+    std::cout << "Aggregation: " << agg_ns_per_post << " ns/p\t";
+    std::cout << 1'000 / agg_ns_per_post << " mln p/s" << std::endl;
 
     return 0;
 }

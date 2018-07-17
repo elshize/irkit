@@ -34,9 +34,10 @@ namespace irk {
 class porter2_stemmer {
 public:
     porter2_stemmer() = default;
-    porter2_stemmer(const porter2_stemmer& other) : env_(porter2::create_env())
+    porter2_stemmer(const porter2_stemmer& /* other */)
+        : env_(porter2::create_env())
     {}
-    porter2_stemmer& operator=(const porter2_stemmer& other)
+    porter2_stemmer& operator=(const porter2_stemmer& /* other */)
     {
         env_ = porter2::create_env();
         return *this;

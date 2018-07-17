@@ -28,8 +28,8 @@
 #include <string>
 #include <vector>
 
-#include <boost/filesystem.hpp>
 #include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -37,7 +37,7 @@
 template<class T>
 inline void do_not_optimize_away(T&& datum)
 {
-    asm volatile("" : "+r"(datum));
+    asm volatile("" : "+r"(datum));  // NOLINT
 }
 
 int main(int argc, char** argv)
@@ -67,12 +67,13 @@ int main(int argc, char** argv)
         auto start = std::chrono::steady_clock::now();
         for (; docit != last; ++docit) {
             irk::index::document_t d = *docit;
-            asm volatile("" : "+r"(d));
+            asm volatile("" : "+r"(d));  // NOLINT
         }
         auto end = std::chrono::steady_clock::now();
         elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
             end - start);
-        auto ns_per_int = (double)elapsed.count() / document_list.size();
+        auto ns_per_int = static_cast<double>(elapsed.count())
+            / document_list.size();
         std::cout << "Documents only: " << ns_per_int
                   << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
     }
@@ -88,13 +89,14 @@ int main(int argc, char** argv)
         for (; docit != last; ++docit, ++freqit) {
             irk::index::document_t d = *docit;
             irk::index::document_t f = *freqit;
-            asm volatile("" : "+r"(d));
-            asm volatile("" : "+r"(f));
+            asm volatile("" : "+r"(d));  // NOLINT
+            asm volatile("" : "+r"(f));  // NOLINT
         }
         auto end = std::chrono::steady_clock::now();
         elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
             end - start);
-        auto ns_per_int = (double)elapsed.count() / document_list.size();
+        auto ns_per_int = static_cast<double>(elapsed.count())
+            / document_list.size();
         std::cout << "Documents and frequencies independently: " << ns_per_int
                   << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
     }
@@ -107,13 +109,13 @@ int main(int argc, char** argv)
         for (auto p : posting_list) {
             irk::index::document_t d = p.document();
             irk::index::document_t f = p.payload();
-            asm volatile("" : "+r"(d));
-            asm volatile("" : "+r"(f));
+            asm volatile("" : "+r"(d));  // NOLINT
+            asm volatile("" : "+r"(f));  // NOLINT
         }
         auto end = std::chrono::steady_clock::now();
         together_elapsed +=
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        auto ns_per_int = (double)together_elapsed.count()
+        auto ns_per_int = static_cast<double>(together_elapsed.count())
             / posting_list.size();
         std::cout << "As posting_list_view: " << ns_per_int
                   << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;

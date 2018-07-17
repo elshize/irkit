@@ -362,7 +362,7 @@ private:
 
 using inverted_index_view = basic_inverted_index_view<>;
 
-auto query_postings(const irk::inverted_index_view& index,
+inline auto query_postings(const irk::inverted_index_view& index,
     const std::vector<std::string>& query)
 {
     using posting_list_type = decltype(

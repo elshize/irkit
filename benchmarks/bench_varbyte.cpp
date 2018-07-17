@@ -27,9 +27,9 @@
 #include <algorithm>
 #include <bitset>
 #include <chrono>
+#include <random>
 #include <string>
 #include <vector>
-#include <random>
 
 #include <CLI/CLI.hpp>
 #include <boost/range/algorithm.hpp>
@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 {
     int count = 100'000'000;
     int max_val = 10'000;
-    long seed = 987654321;
+    int seed = 987654321;
 
     CLI::App app{"Varbyte coding benchmark"};
     app.add_option("--count", count, "Number of integers to process", true);
@@ -89,8 +89,10 @@ int main(int argc, char** argv)
     }
     auto avg = std::accumulate(random_numbers.begin(), random_numbers.end(), 0L)
         / count;
-    auto encode_ns_per_int = (double)encode_elapsed.count() / count;
-    auto decode_ns_per_int = (double)decode_elapsed.count() / count;
+    auto encode_ns_per_int = static_cast<double>(encode_elapsed.count())
+        / count;
+    auto decode_ns_per_int = static_cast<double>(decode_elapsed.count())
+        / count;
     std::cout << "Average number encoded: " << avg << std::endl;
     std::cout << "Encoding: " << encode_ns_per_int << " ns/int" << std::endl;
     std::cout << "Encoding: " << 1'000 / encode_ns_per_int << " mln int/s"

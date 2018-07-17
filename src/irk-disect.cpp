@@ -40,7 +40,7 @@ namespace fs = boost::filesystem;
 using irk::index::term_id_t;
 using irk::index::document_t;
 
-void disect_document_list(const irk::memory_view memory, int64_t length)
+void disect_document_list(const irk::memory_view& memory, int64_t length)
 {
     auto pos = memory.begin();
     irk::vbyte_codec<int64_t> vb;

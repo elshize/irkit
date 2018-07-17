@@ -39,14 +39,11 @@ using std::uint32_t;
 using irk::index::document_t;
 
 inline std::string ExistingDirectory(const std::string &filename) {
-    struct stat buffer;
+    struct stat buffer{};
     bool exist = stat(filename.c_str(), &buffer) == 0;
-    bool is_dir = (buffer.st_mode & S_IFDIR) != 0;
-    if(not exist) {
-        return "Directory does not exist: " + filename;
-    } else if(not is_dir) {
-        return "Directory is actually a file: " + filename;
-    }
+    bool is_dir = (buffer.st_mode & S_IFDIR) != 0;  // NOLINT
+    if (not exist) { return "Directory does not exist: " + filename; }
+    if (not is_dir) { return "Directory is actually a file: " + filename; }
     return std::string();
 }
 
@@ -111,7 +108,7 @@ int main(int argc, char** argv)
     int rank = 0;
     for (auto& result : results)
     {
-        if (app.count("--trecid")) {
+        if (app.count("--trecid") != 0u) {
             std::cout << trecid << '\t'
                       << "Q0\t"
                       << titles.key_at(result.first) << "\t"
