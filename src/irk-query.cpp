@@ -38,18 +38,6 @@
 using std::uint32_t;
 using irk::index::document_t;
 
-auto query_postings(const irk::inverted_index_view& index,
-    const std::vector<std::string>& query)
-{
-    using posting_list_type = decltype(
-        index.scored_postings(std::declval<std::string>()));
-    std::vector<posting_list_type> postings;
-    postings.reserve(query.size());
-    for (const auto& term : query)
-    { postings.push_back(index.scored_postings(term)); }
-    return postings;
-}
-
 inline std::string ExistingDirectory(const std::string &filename) {
     struct stat buffer;
     bool exist = stat(filename.c_str(), &buffer) == 0;
@@ -96,7 +84,7 @@ int main(int argc, char** argv)
 
     auto start_time = std::chrono::steady_clock::now();
 
-    auto postings = query_postings(index, query);
+    auto postings = irk::query_postings(index, query);
     auto after_fetch = std::chrono::steady_clock::now();
 
     std::vector<uint32_t> acc(index.collection_size(), 0);

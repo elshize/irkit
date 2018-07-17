@@ -329,6 +329,7 @@ public:
     using iterator = block_iterator<self_type, true>;
     using codec_type = Codec;
 
+    block_document_list_view() = default;
     //! Constructs the view.
     /*!
      * \param doc_codec     a codec for document IDs
@@ -371,6 +372,7 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
+        if (length_ == 0) { return begin(); };
         auto end_pos =
             (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
             % block_size_;
@@ -453,6 +455,7 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
+        if (length_ == 0) { return begin(); };
         auto end_pos =
             (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
             % block_size_;

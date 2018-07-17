@@ -212,7 +212,12 @@ public:
     {
         auto idopt = term_id(term);
         if (not idopt.has_value())
-        { throw std::runtime_error("TODO: implement empty posting list"); }
+        {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<frequency_type, frequency_codec_type>
+                frequencies;
+            return posting_list_view(documents, frequencies);
+        }
         return postings(*idopt);
     }
 
@@ -234,7 +239,11 @@ public:
     {
         auto idopt = term_id(term);
         if (not idopt.has_value())
-        { throw std::runtime_error("TODO: implement empty posting list"); }
+        {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<score_type, score_codec_type> scores;
+            return posting_list_view(documents, scores);
+        }
         return scored_postings(*idopt);
     }
 
@@ -352,6 +361,18 @@ private:
 };
 
 using inverted_index_view = basic_inverted_index_view<>;
+
+auto query_postings(const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using posting_list_type = decltype(
+        index.scored_postings(std::declval<std::string>()));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query)
+    { postings.push_back(index.scored_postings(term)); }
+    return postings;
+}
 
 template<class Scorer, class DataSourceT>
 void score_index(fs::path dir_path,
