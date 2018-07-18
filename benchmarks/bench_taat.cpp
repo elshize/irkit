@@ -39,7 +39,33 @@
 
 using irk::index::document_t;
 using std::chrono::milliseconds;
+using std::chrono::nanoseconds;
 using std::chrono::duration_cast;
+
+void print_hline()
+{
+    std::cout << std::string(61, '-') << std::endl;
+}
+
+void print_header()
+{
+    std::cout << std::setw(18) << std::left << "Phase";
+    std::cout << std::setw(10) << std::right << "ms/query";
+    std::cout << std::setw(15) << std::right << "ns/posting";
+    std::cout << std::setw(18) << std::right << "mln postings/s";
+    std::cout << std::endl;
+}
+
+void print(const std::string& label, nanoseconds time, int64_t posting_count)
+{
+    auto ns_per_post = static_cast<double>(time.count()) / posting_count;
+    std::cout << std::setw(18) << std::left << label;
+    std::cout << std::setw(10) << std::right
+              << duration_cast<milliseconds>(time).count();
+    std::cout << std::setw(15) << std::right << ns_per_post;
+    std::cout << std::setw(18) << std::right << 1'000 / ns_per_post;
+    std::cout << std::endl;
+}
 
 int main(int argc, char** argv)
 {
@@ -57,19 +83,17 @@ int main(int argc, char** argv)
         ->required();
 
     CLI11_PARSE(app, argc, argv);
-    std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_disk_data_source data(dir, "bm25");
     irk::inverted_index_view index(&data);
-    std::cout << " done." << std::endl;
 
-    milliseconds total(0);
-    milliseconds fetch(0);
-    milliseconds init(0);
-    milliseconds accum(0);
-    milliseconds agg(0);
+    nanoseconds total(0);
+    nanoseconds fetch(0);
+    nanoseconds init(0);
+    nanoseconds accum(0);
+    nanoseconds agg(0);
 
-    int posting_count = 0;
+    std::int64_t posting_count = 0;
     std::string query;
     std::ifstream in(queries_path);
     while (std::getline(in, query)) {
@@ -90,47 +114,34 @@ int main(int argc, char** argv)
             posting_count += posting_list.size();
         }
 
-        auto start_time = std::chrono::steady_clock::now();
+        auto start_time = std::chrono::high_resolution_clock::now();
 
         auto postings = irk::query_postings(index, terms);
-        auto after_fetch = std::chrono::steady_clock::now();
+        auto after_fetch = std::chrono::high_resolution_clock::now();
 
         std::vector<uint32_t> acc(index.collection_size(), 0);
-        auto after_init = std::chrono::steady_clock::now();
+        auto after_init = std::chrono::high_resolution_clock::now();
 
         irk::taat(postings, acc);
-        auto after_acc = std::chrono::steady_clock::now();
+        auto after_acc = std::chrono::high_resolution_clock::now();
 
         auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
-        auto end_time = std::chrono::steady_clock::now();
+        auto end_time = std::chrono::high_resolution_clock::now();
 
-        total += duration_cast<milliseconds>(end_time - start_time);
-        fetch += duration_cast<milliseconds>(after_fetch - start_time);
-        init += duration_cast<milliseconds>(after_init - after_fetch);
-        accum += duration_cast<milliseconds>(after_acc - after_init);
-        agg += duration_cast<milliseconds>(end_time - after_acc);
-        posting_count++;
+        total += duration_cast<nanoseconds>(end_time - start_time);
+        fetch += duration_cast<nanoseconds>(after_fetch - start_time);
+        init += duration_cast<nanoseconds>(after_init - after_fetch);
+        accum += duration_cast<nanoseconds>(after_acc - after_init);
+        agg += duration_cast<nanoseconds>(end_time - after_acc);
     }
-    auto total_ns_per_post = static_cast<double>(total.count()) / posting_count;
-    auto fetch_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
-    auto init_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
-    auto accum_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
-    auto agg_ns_per_post = static_cast<double>(fetch.count()) / posting_count;
-
-    std::cout << "Total: " << total_ns_per_post << " ns/p\t";
-    std::cout << 1'000 / total_ns_per_post << " mln p/s" << std::endl;
-
-    std::cout << "Fetch: " << fetch_ns_per_post << " ns/p\t";
-    std::cout << 1'000 / fetch_ns_per_post << " mln p/s" << std::endl;
-
-    std::cout << "Init: " << init_ns_per_post << " ns/p\t";
-    std::cout << 1'000 / init_ns_per_post << " mln p/s" << std::endl;
-
-    std::cout << "Accumulation: " << accum_ns_per_post << " ns/p\t";
-    std::cout << 1'000 / accum_ns_per_post << " mln p/s" << std::endl;
-
-    std::cout << "Aggregation: " << agg_ns_per_post << " ns/p\t";
-    std::cout << 1'000 / agg_ns_per_post << " mln p/s" << std::endl;
+    print_header();
+    print_hline();
+    print("Fetching", fetch, posting_count);
+    print("Initialization", init, posting_count);
+    print("Accummulation", accum, posting_count);
+    print("Aggregation", agg, posting_count);
+    print_hline();
+    print("Total", total, posting_count);
 
     return 0;
 }
