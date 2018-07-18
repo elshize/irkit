@@ -143,6 +143,7 @@ public:
     {
         block_ = other.block();
         pos_ = other.pos();
+        return *this;
     }
 
     //! Returns the current block number.
@@ -180,7 +181,7 @@ private:
         {
             auto count = block_ < block_count_ - 1
                 ? block_size_
-                : view_.length_ % block_size_;
+                : view_.length_ - ((block_count_ - 1) * block_size_);
             if constexpr (delta_encoded) {  // NOLINT
                 auto preceding = block_ > 0 ? view_.blocks_[block_ - 1].back()
                                             : 0_id;
@@ -213,7 +214,8 @@ private:
     void finish()
     {
         block_ = view_.length_ / view_.block_size_;
-        pos_ = view_.length_ % view_.block_size_;
+        pos_ = (view_.length_ - ((block_count_ - 1) * block_size_))
+            % block_size_;
     }
 
     int block_size_;
@@ -327,6 +329,7 @@ public:
     using iterator = block_iterator<self_type, true>;
     using codec_type = Codec;
 
+    block_document_list_view() = default;
     //! Constructs the view.
     /*!
      * \param doc_codec     a codec for document IDs
@@ -369,8 +372,11 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
-        return iterator{
-            *this, length_ / block_size_, length_ % block_size_, block_size_};
+        if (length_ == 0) { return begin(); };
+        auto end_pos =
+            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+            % block_size_;
+        return iterator{*this, length_ / block_size_, end_pos, block_size_};
     };
 
     //! Finds the position of `id` or the next greater.
@@ -378,6 +384,7 @@ public:
 
     int32_t size() const { return length_; }
     int64_t memory_size() const { return memory_.size(); }
+    memory_view memory() const { return memory_; }
 
     std::ostream& write(std::ostream& out) const
     {
@@ -448,8 +455,11 @@ public:
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
     iterator end() const
     {
-        return iterator{
-            *this, length_ / block_size_, length_ % block_size_, block_size_};
+        if (length_ == 0) { return begin(); };
+        auto end_pos =
+            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+            % block_size_;
+        return iterator{*this, length_ / block_size_, end_pos, block_size_};
     };
     int32_t size() const { return length_; }
     int64_t memory_size() const { return memory_.size(); }

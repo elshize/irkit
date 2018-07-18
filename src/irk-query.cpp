@@ -24,74 +24,105 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
-#include <boost/filesystem.hpp>
 #include <chrono>
 #include <iostream>
-#include "cmd.hpp"
-#include "irkit/index.hpp"
-#include "irkit/taat.hpp"
 
-namespace fs = boost::filesystem;
+#include <CLI/CLI.hpp>
+#include <boost/filesystem.hpp>
 
-template<class Score>
-std::pair<std::vector<std::string>, std::vector<Score>> parse(std::string query)
-{
-    //struct SN_env * z;
-    //z = Khotanese_create_env();
-    std::vector<std::string> terms;
-    std::vector<Score> weights;
-    std::istringstream stream(query);
-    std::string term;
-    while (stream >> term) {
-        terms.push_back(term);
-        weights.push_back(Score(1));
-    }
-    return std::make_pair(terms, weights);
+#include <irkit/index.hpp>
+#include <irkit/index/source.hpp>
+#include <irkit/parsing/stemmer.hpp>
+#include <irkit/taat.hpp>
+
+using std::uint32_t;
+using irk::index::document_t;
+
+inline std::string ExistingDirectory(const std::string &filename) {
+    struct stat buffer{};
+    bool exist = stat(filename.c_str(), &buffer) == 0;
+    bool is_dir = (buffer.st_mode & S_IFDIR) != 0;  // NOLINT
+    if (not exist) { return "Directory does not exist: " + filename; }
+    if (not is_dir) { return "Directory is actually a file: " + filename; }
+    return std::string();
 }
 
 int main(int argc, char** argv)
 {
-    irk::CmdLineProgram program("irk-query");
-    program.flag("stem,s", "perform stemming on the input query terms")
-        .option<std::string>("index-dir,d", "index base directory", ".");
-    try {
-        if (not program.parse(argc, argv)) {
-            return 0;
+    std::string index_dir = ".";
+    std::vector<std::string> query;
+    int k = 1000;
+    bool stem = false;
+    int trecid = -1;
+
+    CLI::App app{"Query inverted index"};
+    app.add_option("-d,--index-dir", index_dir, "index directory", true)
+        ->check(CLI::ExistingDirectory);
+    app.add_option("-k", k, "as in top-k", true);
+    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
+    app.add_option(
+        "--trecid", trecid, "Print in trec_eval format with this QID");
+    app.add_option("query", query, "Query", false)->required();
+
+    CLI11_PARSE(app, argc, argv);
+
+    std::cerr << "Loading index..." << std::flush;
+    boost::filesystem::path dir(index_dir);
+    irk::inverted_index_mapped_data_source data(dir, "bm25");
+    irk::inverted_index_view index(&data);
+    std::cerr << " done." << std::endl;
+
+    if (stem) {
+        irk::porter2_stemmer stemmer;
+        for (auto& term : query) {
+            term = stemmer.stem(term);
         }
-    } catch (irk::po::error& e) {
-        std::cout << e.what() << std::endl;
     }
 
-    fs::path dir(program.get<std::string>("index-dir").value());
-    //bool stem = program.defined("stem");
+    auto start_time = std::chrono::steady_clock::now();
 
-    std::cerr << "Loading index... ";
-    std::unique_ptr<irk::default_index> index(nullptr);
-    try {
-        index.reset(new irk::default_index(dir, false));
-    } catch (std::invalid_argument& e) {
-        std::cerr << e.what() << " (not an index directory?)" << std::endl;
-        std::exit(1);
-    }
-    std::cerr << "Done.\n";
+    auto postings = irk::query_postings(index, query);
+    auto after_fetch = std::chrono::steady_clock::now();
 
-    std::string line;
-    std::cout << "> ";
-    while (std::getline(std::cin, line)) {
-        std::cout << "Running query: " << line << std::endl;
-        auto start_time = std::chrono::steady_clock::now();
-        auto[terms, weights] = parse<double>(line);
-        auto postings = index->posting_ranges(terms);
-        auto results =
-            irk::taat(postings, 10, weights, index->collection_size());
-        auto end_time = std::chrono::steady_clock::now();
-        for (auto& result : results) {
-            std::cout << result << " (" << index->title(result.doc) << ")"
-                      << std::endl;
+    std::vector<uint32_t> acc(index.collection_size(), 0);
+    auto after_init = std::chrono::steady_clock::now();
+
+    irk::taat(postings, acc);
+    auto after_acc = std::chrono::steady_clock::now();
+
+    auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+    auto end_time = std::chrono::steady_clock::now();
+
+    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
+        end_time - start_time);
+    auto fetch = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_fetch - start_time);
+    auto init = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_init - after_fetch);
+    auto accum = std::chrono::duration_cast<std::chrono::milliseconds>(
+        after_acc - after_init);
+    auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
+        end_time - after_acc);
+
+    const auto& titles = index.titles();
+    int rank = 0;
+    for (auto& result : results)
+    {
+        if (app.count("--trecid") != 0u) {
+            std::cout << trecid << '\t'
+                      << "Q0\t"
+                      << titles.key_at(result.first) << "\t"
+                      << rank++ << "\t"
+                      << result.second << "\tnull\n";
         }
-        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time);
-        std::cout << "Elasped time: " << elapsed.count() << " ms" << std::endl;
-        std::cout << "> ";
+        else {
+            std::cout << titles.key_at(result.first) << "\t" << result.second
+                      << '\n';
+        }
     }
+    std::cerr << "Total time: " << total.count() << " ms" << std::endl;
+    std::cerr << "Fetch: " << fetch.count() << " ms" << std::endl;
+    std::cerr << "Initialization: " << init.count() << " ms" << std::endl;
+    std::cerr << "Accumulation: " << accum.count() << " ms" << std::endl;
+    std::cerr << "Aggregation: " << agg.count() << " ms" << std::endl;
 }

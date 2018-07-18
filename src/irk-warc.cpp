@@ -41,15 +41,15 @@
 #include <irkit/parsing/html.hpp>
 #include <irkit/parsing/snowball/porter2.hpp>
 
-void write_term(std::string&& term, SN_env* z, bool lowercase)
+void write_term(std::string&& term, irk::porter2::SN_env* z, bool lowercase)
 {
     if (lowercase) {
         for (char& c : term) { c = tolower(c); }
     }
     if (z != nullptr) {
-        SN_set_current(
+        irk::porter2::SN_set_current(
             z, term.size(), reinterpret_cast<unsigned char*>(&term[0]));
-        stem(z);
+        irk::porter2::stem(z);
         z->p[z->l] = 0;  // NOLINT
         std::cout << z->p;
     } else {
@@ -90,7 +90,7 @@ public:
 
 struct body_writer {
     bool lowercase;
-    SN_env* z;
+    irk::porter2::SN_env* z;
 
     void operator()(const std::string& content)
     {
@@ -170,8 +170,8 @@ int main(int argc, char** argv)
 
     bool lowercase = app.count("--lowercase") != 0u;
 
-    SN_env* z = nullptr;
-    if (app.count("--stem") != 0) { z = create_env(); }
+    irk::porter2::SN_env* z = nullptr;
+    if (app.count("--stem") != 0) { z = irk::porter2::create_env(); }
     body_writer writer{lowercase, z};
 
     if (app.count("--skip-header") == 0u)
@@ -207,5 +207,5 @@ int main(int argc, char** argv)
             }
         }
     }
-    if (app.count("--stem") != 0u) { close_env(z); }
+    if (app.count("--stem") != 0u) { irk::porter2::close_env(z); }
 }

@@ -12,3 +12,9 @@ target_link_libraries(varbyte
     irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL Threads::Threads
     streamvbyte type_safe debug_assert)
 target_compile_features(varbyte PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+
+add_executable(taat bench_taat.cpp)
+target_link_libraries(taat
+    irkit CLI11::CLI11 ranges ${Boost_LIBRARIES} rax nlohmann_json GSL Threads::Threads
+    streamvbyte type_safe debug_assert)
+target_compile_features(taat PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})

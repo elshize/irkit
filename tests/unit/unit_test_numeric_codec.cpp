@@ -28,7 +28,6 @@
 #include <sstream>
 #include <vector>
 
-#include <boost/type_erasure/call.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 

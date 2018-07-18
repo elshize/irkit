@@ -212,7 +212,12 @@ public:
     {
         auto idopt = term_id(term);
         if (not idopt.has_value())
-        { throw std::runtime_error("TODO: implement empty posting list"); }
+        {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<frequency_type, frequency_codec_type>
+                frequencies;
+            return posting_list_view(documents, frequencies);
+        }
         return postings(*idopt);
     }
 
@@ -228,6 +233,18 @@ public:
             index::block_payload_list_view<score_type, score_codec_type>(
                 select(term_id, *score_offsets_, *scores_view_), length);
         return posting_list_view(documents, scores);
+    }
+
+    auto scored_postings(const std::string& term) const
+    {
+        auto idopt = term_id(term);
+        if (not idopt.has_value())
+        {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<score_type, score_codec_type> scores;
+            return posting_list_view(documents, scores);
+        }
+        return scored_postings(*idopt);
     }
 
     template<class Scorer>
@@ -345,8 +362,22 @@ private:
 
 using inverted_index_view = basic_inverted_index_view<>;
 
+inline auto query_postings(const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using posting_list_type = decltype(
+        index.scored_postings(std::declval<std::string>()));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query)
+    { postings.push_back(index.scored_postings(term)); }
+    return postings;
+}
+
 template<class Scorer, class DataSourceT>
-void score_index(fs::path dir_path, unsigned int bits)
+void score_index(fs::path dir_path,
+    unsigned int bits,
+    std::optional<double> max = std::nullopt)
 {
     std::string name(typename Scorer::tag_type{});
     fs::path scores_path = dir_path / (name + ".scores");
@@ -359,19 +390,28 @@ void score_index(fs::path dir_path, unsigned int bits)
     std::ofstream sout(scores_path.c_str());
     std::ofstream offout(score_offsets_path.c_str());
 
-    BOOST_LOG_TRIVIAL(info) << "Calculating max score." << std::flush;
-    double max_score = 0;
-    for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
-    {
-        auto scorer = index.term_scorer<Scorer>(term_id);
-        for (const auto& posting : index.postings(term_id))
-        {
-            double score = scorer(
-                posting.payload(), index.document_size(posting.document()));
-            max_score = std::max(max_score, score);
-        }
+    double max_score;
+    if (max.has_value()) {
+        max_score = max.value();
+        BOOST_LOG_TRIVIAL(info)
+            << "Max score provided: " << max_score << std::flush;
     }
-    BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
+    else {
+        BOOST_LOG_TRIVIAL(info) << "Calculating max score." << std::flush;
+        max_score = 0;
+        for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
+        {
+            auto scorer = index.term_scorer<Scorer>(term_id);
+            for (const auto& posting : index.postings(term_id))
+            {
+                double score = scorer(
+                    posting.payload(), index.document_size(posting.document()));
+                max_score = std::max(max_score, score);
+                ASSERT(score >= 0.0);
+            }
+        }
+        BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
+    }
 
     BOOST_LOG_TRIVIAL(info) << "Scoring..." << std::flush;
     int64_t max_int = (1u << bits) - 1u;
@@ -388,7 +428,9 @@ void score_index(fs::path dir_path, unsigned int bits)
             double score = scorer(
                 posting.payload(), index.document_size(posting.document()));
             auto quantized_score = static_cast<int64_t>(
-                score * max_int / max_score);
+                (static_cast<double>(max_int) / max_score) * score);
+            ASSERT(quantized_score >= 0);
+            ASSERT(quantized_score <= max_int);
             list_builder.add(quantized_score);
         }
         offset += list_builder.write(sout);

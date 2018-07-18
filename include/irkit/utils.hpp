@@ -65,20 +65,20 @@ constexpr int16_t nbytes(T n)
 }
 
 //! An container accumulating top-k postings (or results).
-template<class Posting>
+template<class Key, class Value>
 class top_k_accumulator {
 public:
-    using posting_type = Posting;
-    using score_type = score_t<posting_type>;
-
+    using key_type = Key;
+    using value_type = Value;
+    using entry_type = std::pair<key_type, value_type>;
 private:
     std::size_t k_;
-    score_type threshold_;
-    std::vector<Posting> top_;
+    key_type threshold_ = 0;
+    std::vector<entry_type> top_;
 
-    static bool result_order(const Posting& lhs, const Posting& rhs)
+    static bool result_order(const entry_type& lhs, const entry_type& rhs)
     {
-        return lhs.score > rhs.score;
+        return lhs.second > rhs.second;
     };
 
 public:
@@ -87,7 +87,7 @@ public:
      * @param k The size of the accumulator, i.e., the number of postings to
      *          accumulate.
      */
-    explicit top_k_accumulator(std::size_t k) : k_(k), threshold_(0){};
+    explicit top_k_accumulator(std::size_t k) : k_(k){};
 
     //! Accumulates the given posting.
     /*!
@@ -95,17 +95,17 @@ public:
      * Furthermore, if the container grows beyond `k`, the lowest scoring
      * posting is discarded.
      */
-    void accumulate(Posting posting)
+    void accumulate(key_type key, value_type value)
     {
-        if (posting.score > threshold_) {
-            top_.push_back(posting);
+        if (value > threshold_) {
+            top_.emplace_back(key, value);
             if (top_.size() <= k_) {
                 std::push_heap(top_.begin(), top_.end(), result_order);
             } else {
                 std::pop_heap(top_.begin(), top_.end(), result_order);
                 top_.pop_back();
             }
-            threshold_ = top_.size() == k_ ? top_[0].score : threshold_;
+            threshold_ = top_.size() == k_ ? top_[0].second : threshold_;
         }
     }
 
@@ -114,9 +114,9 @@ public:
      * @returns The list of postings that have been accumulated so far, in order
      *          of decreasing scores.
      */
-    std::vector<Posting> sorted()
+    std::vector<entry_type> sorted()
     {
-        std::vector<Posting> sorted = top_;
+        std::vector<entry_type> sorted = top_;
         std::sort(sorted.begin(), sorted.end(), result_order);
         return sorted;
     }
@@ -127,7 +127,7 @@ public:
      *          the score of the k-th result, or 0 if fewer than k results have
      *          been accumulated.
      */
-    score_type threshold() { return threshold_; }
+    value_type threshold() { return threshold_; }
 };
 
 namespace view {
