@@ -56,12 +56,16 @@ void print_header()
     std::cout << std::endl;
 }
 
-void print(const std::string& label, nanoseconds time, int64_t posting_count)
+void print(const std::string& label,
+    nanoseconds time,
+    int64_t posting_count,
+    int query_count)
 {
     auto ns_per_post = static_cast<double>(time.count()) / posting_count;
+    auto total_ms = duration_cast<milliseconds>(time).count();
+    auto ms_per_query = static_cast<double>(total_ms) / query_count;
     std::cout << std::setw(18) << std::left << label;
-    std::cout << std::setw(10) << std::right
-              << duration_cast<milliseconds>(time).count();
+    std::cout << std::setw(10) << std::right << ms_per_query;
     std::cout << std::setw(15) << std::right << ns_per_post;
     std::cout << std::setw(18) << std::right << 1'000 / ns_per_post;
     std::cout << std::endl;
@@ -94,6 +98,7 @@ int main(int argc, char** argv)
     nanoseconds agg(0);
 
     std::int64_t posting_count = 0;
+    int query_count = 0;
     std::string query;
     std::ifstream in(queries_path);
     while (std::getline(in, query)) {
@@ -133,15 +138,16 @@ int main(int argc, char** argv)
         init += duration_cast<nanoseconds>(after_init - after_fetch);
         accum += duration_cast<nanoseconds>(after_acc - after_init);
         agg += duration_cast<nanoseconds>(end_time - after_acc);
+        ++query_count;
     }
     print_header();
     print_hline();
-    print("Fetching", fetch, posting_count);
-    print("Initialization", init, posting_count);
-    print("Accummulation", accum, posting_count);
-    print("Aggregation", agg, posting_count);
+    print("Fetching", fetch, posting_count, query_count);
+    print("Initialization", init, posting_count, query_count);
+    print("Accummulation", accum, posting_count, query_count);
+    print("Aggregation", agg, posting_count, query_count);
     print_hline();
-    print("Total", total, posting_count);
+    print("Total", total, posting_count, query_count);
 
     return 0;
 }
