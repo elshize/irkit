@@ -38,9 +38,11 @@
 #include <irkit/taat.hpp>
 
 using irk::index::document_t;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 using std::chrono::nanoseconds;
-using std::chrono::duration_cast;
+using std::chrono::time_point;
 
 void print_hline()
 {
@@ -76,12 +78,17 @@ int main(int argc, char** argv)
     std::string index_dir, queries_path;
     bool stem = false;
     int k = 1000;
+    int block_size;
 
     CLI::App app{"TAAT query benchmark."};
+    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
+    app.add_option("-b,--block-size",
+        block_size,
+        "Use blocks of this size to aggregate",
+        false);
+    app.add_option("-k", k, "as in top-k", true);
     app.add_option("index_dir", index_dir, "Index directory", false)
         ->required();
-    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
-    app.add_option("-k", k, "as in top-k", true);
     app.add_option(
            "queries_file", queries_path, "File containing queries", false)
         ->required();
@@ -124,14 +131,26 @@ int main(int argc, char** argv)
         auto postings = irk::query_postings(index, terms);
         auto after_fetch = std::chrono::high_resolution_clock::now();
 
-        std::vector<uint32_t> acc(index.collection_size(), 0);
-        auto after_init = std::chrono::high_resolution_clock::now();
-
-        irk::taat(postings, acc);
-        auto after_acc = std::chrono::high_resolution_clock::now();
-
-        auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
-        auto end_time = std::chrono::high_resolution_clock::now();
+        time_point<high_resolution_clock> after_init;
+        time_point<high_resolution_clock> after_acc;
+        time_point<high_resolution_clock> end_time;
+        if (app.count("--block-size") > 0 && block_size > 1) {
+            irk::block_accumulator_vector<uint32_t> acc(
+                index.collection_size(), block_size);
+            after_init = std::chrono::high_resolution_clock::now();
+            irk::taat(postings, acc);
+            after_acc = std::chrono::high_resolution_clock::now();
+            auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+            end_time = std::chrono::high_resolution_clock::now();
+        }
+        else {
+            std::vector<uint32_t> acc(index.collection_size(), 0);
+            after_init = std::chrono::high_resolution_clock::now();
+            irk::taat(postings, acc);
+            after_acc = std::chrono::high_resolution_clock::now();
+            auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+            end_time = std::chrono::high_resolution_clock::now();
+        }
 
         total += duration_cast<nanoseconds>(end_time - start_time);
         fetch += duration_cast<nanoseconds>(after_fetch - start_time);
