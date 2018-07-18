@@ -74,12 +74,7 @@ addons:
       - g++-7
       - libboost-all-dev
 install:
-  - git clone https://github.com/google/gumbo-parser.git
-  - cd gumbo-parser
-  - ./autogen.sh
-  - ./configure
-  - make
-  - sudo make install
-  - cd ../
+  - pip install conan
+  - conan remote add irkit https://api.bintray.com/conan/elshize/irkit
 script:
   - scripts/run-tests.sh "${SUITE}"
