@@ -79,5 +79,14 @@ install:
   - conan profile update settings.compiler.libcxx=libstdc++11 default
   - conan remote add irkit https://api.bintray.com/conan/elshize/irkit
   - conan install . --build=missing
+  - |
+    # Print environment
+    which $CXX
+    which $CC
+    $CXX --version
+    which cmake
+    cmake --version
+    conan --version
+    conan profile show default
 script:
   - scripts/run-tests.sh "${SUITE}"
