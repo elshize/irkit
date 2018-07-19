@@ -15,7 +15,7 @@ set(COMMON_LIBRARIES
     streamvbyte_static)
 
 add_executable(irk-warc irk-warc.cpp)
-target_link_libraries(irk-warc PUBLIC ${COMMON_LIBRARIES} ${ZLIB_LIBRARIES} ${gumbo_LIBRARIES})
+target_link_libraries(irk-warc PUBLIC ${COMMON_LIBRARIES} zlib::zlib gumbo-parser::gumbo-parser)
 target_compile_features(irk-warc PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 target_compile_options(irk-warc PRIVATE -Wall)
 

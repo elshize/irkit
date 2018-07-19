@@ -18,9 +18,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -march=native")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 
-if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
+if (EXISTS ${CMAKE_BINARY_DIR}/conan_paths.cmake)
+    include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 endif()
 
 # Find dependencies
@@ -28,9 +27,12 @@ find_package(PkgConfig REQUIRED)
 find_package(Boost 1.40
     COMPONENTS iostreams filesystem system log
     REQUIRED)
-find_package(ZLIB REQUIRED)
+find_package(zlib REQUIRED)
 find_package(Threads REQUIRED)
-pkg_check_modules(gumbo REQUIRED gumbo)
+MESSAGE(STATUS ${ZLIB_LIBRARIES})
+find_package(gumbo-parser REQUIRED)
+MESSAGE(STATUS ${gumbo-parser_LIBRARIES})
+#pkg_check_modules(gumbo REQUIRED gumbo)
 
 include(submodules/submodules.cmake)
 

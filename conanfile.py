@@ -5,7 +5,7 @@ class HelloConan(ConanFile):
     name = "irkit"
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "cmake_find_package", "cmake_paths"
 
     def source(self):
         self.run("git clone https://github.com/elshize/irkit.git")
