@@ -76,5 +76,6 @@ addons:
 install:
   - sudo pip install conan
   - conan remote add irkit https://api.bintray.com/conan/elshize/irkit
+  - conan install .
 script:
   - scripts/run-tests.sh "${SUITE}"
