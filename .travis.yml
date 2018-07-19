@@ -75,6 +75,8 @@ addons:
       - libboost-all-dev
 install:
   - sudo pip install conan
+  - conan profile new default --detect
+  - conan profile update settings.compiler.libcxx=libstdc++11 default
   - conan remote add irkit https://api.bintray.com/conan/elshize/irkit
   - conan install . --build=missing
 script:
