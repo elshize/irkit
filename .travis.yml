@@ -75,8 +75,8 @@ before_install:
     conan profile new default --detect
     conan profile update settings.compiler.libcxx=libstdc++11 default
     if [[ $CXX = *"clang"* ]]; then
-        conan profile update env.CC=/usr/bin/clang default
-        conan profile update env.CXX=/usr/bin/clang++ default
+        conan profile update env.CC=clang default
+        conan profile update env.CXX=clang++ default
     fi
     conan remote add irkit https://api.bintray.com/conan/elshize/irkit
     conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
