@@ -34,6 +34,7 @@ matrix:
       env:
         - MATRIX_EVAL="SUITE=clang-tidy && CC=gcc-7 && CXX=g++-7"
       script:
+        - cd ${TRAVIS_BUILD_DIR}
         - git clone https://github.com/llvm-mirror/clang-tools-extra/
         - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
         - mkdir tidy && cd tidy
@@ -101,7 +102,8 @@ install:
     cd ${TRAVIS_BUILD_DIR}
     mkdir build && cd build
     conan install .. --build=missing
-    cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+    export FOLDER=`conan info zlib/1.2.11@conan/stable --paths | grep package_folder | cut -d" " -f6`
+    cat "${FOLDER}/conaninfo.txt"
 script:
   - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"
