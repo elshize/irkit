@@ -74,7 +74,11 @@ before_install:
     export PATH=$HOME/.local/bin:$PATH
     pip install --user conan
     conan profile new default --detect
-    conan profile update settings.compiler.libcxx=libstdc++11 default
+    if [[ $CXX = *"clang"* ]]; then
+        conan profile update settings.compiler.libcxx=libc++ default
+    else
+        conan profile update settings.compiler.libcxx=libstdc++11 default
+    fi
     conan remote add irkit https://api.bintray.com/conan/elshize/irkit
     conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
     conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
