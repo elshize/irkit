@@ -65,20 +65,18 @@ matrix:
       script:
         - scripts/vera.sh
 before_install:
-    - eval "${MATRIX_EVAL}"
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-7
-      - libboost-all-dev
-install:
-  - sudo pip install conan
-  - conan profile new default --detect
-  - conan profile update settings.compiler.libcxx=libstdc++11 default
-  - conan remote add irkit https://api.bintray.com/conan/elshize/irkit
-  - conan install . --build
+  - eval "${MATRIX_EVAL}"
+  - |
+    # Install conan
+    export PATH=$HOME/.local/bin:$PATH
+    pip install --user conan
+    conan profile new default --detect
+    conan profile update settings.compiler.libcxx=libstdc++11 default
+    conan remote add irkit https://api.bintray.com/conan/elshize/irkit
+    conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+    conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
+    conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+    conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
   - |
     # Print environment
     which $CXX
@@ -88,5 +86,20 @@ install:
     cmake --version
     conan --version
     conan profile show default
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
+      - libboost-all-dev
+install:
+  - |
+    # Configure project
+    cd ${TRAVIS_BUILD_DIR}
+    mkdir build && cd build
+    conan install .. --build=missing
+    cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
 script:
+  - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"
