@@ -77,7 +77,7 @@ before_install:
     if [[ $CXX = *"clang"* ]]; then
         conan profile update env.CC=/usr/bin/clang default
         conan profile update env.CXX=/usr/bin/clang++ default
-    endif
+    end
     conan remote add irkit https://api.bintray.com/conan/elshize/irkit
     conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
     conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
