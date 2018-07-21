@@ -37,6 +37,8 @@ matrix:
         - git clone https://github.com/llvm-mirror/clang-tools-extra/
         - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
         - mkdir tidy && cd tidy
+        - pwd
+        - ls ../
         - cp ../.clang-tidy ./
         - ../scripts/clang-tidy.sh
     - os: linux

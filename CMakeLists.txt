@@ -12,7 +12,7 @@ endif()
 MESSAGE(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
 
 set(IRKit_CXX_PRIVATE_FEATURES cxx_std_17)
-set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c99 -fno-strict-aliasing -march=native")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99 -fno-strict-aliasing -march=native")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -march=native")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
@@ -41,7 +41,7 @@ target_link_libraries(irkit INTERFACE
     CONAN_PKG::gsl_microsoft
     CONAN_PKG::streamvbyte
     CONAN_PKG::rax
-    Threads::Threads)
+    pthread)
 #add_dependencies(irkit CONAN_PKG::rangev3 rax CONAN_PKG::nlohmann_json CONAN_PKG::gsl_microsoft CONAN_PKG::type_safe)
 install(DIRECTORY include/irkit DESTINATION include)
 install(FILES irkit-config.cmake DESTINATION lib/irkit)
