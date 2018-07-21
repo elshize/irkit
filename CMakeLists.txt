@@ -18,7 +18,6 @@ set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 add_definitions(-DBOOST_LOG_DYN_LINK)
 
-find_package(Threads REQUIRED)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 

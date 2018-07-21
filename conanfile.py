@@ -6,7 +6,7 @@ class HelloConan(ConanFile):
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
-    default_options = "*:shared=False"
+    default_options = "zlib:shared=True"
 
     def source(self):
         self.run("git clone https://github.com/elshize/irkit.git")
