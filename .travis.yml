@@ -19,6 +19,7 @@ matrix:
           packages:
             - clang-6.0
             - libboost-all-dev
+            - g++-7
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
@@ -31,6 +32,7 @@ matrix:
             - clang-6.0
             - clang-tidy-6.0
             - libboost-all-dev
+            - g++-7
       env:
         - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
       script:
