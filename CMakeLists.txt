@@ -28,20 +28,15 @@ target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 target_link_libraries(irkit INTERFACE
-    boost_filesystem
-    boost_iostreams
-    boost_system
-    boost_log
-    boost_thread
+    CONAN_PKG::boost
     CONAN_PKG::rangev3
-    CONAN_PKG::nlohmann_json
+    CONAN_PKG::jsonformoderncpp
     CONAN_PKG::type_safe
     CONAN_PKG::debug_assert
     CONAN_PKG::gsl_microsoft
     CONAN_PKG::streamvbyte
     CONAN_PKG::rax
     pthread)
-#add_dependencies(irkit CONAN_PKG::rangev3 rax CONAN_PKG::nlohmann_json CONAN_PKG::gsl_microsoft CONAN_PKG::type_safe)
 install(DIRECTORY include/irkit DESTINATION include)
 install(FILES irkit-config.cmake DESTINATION lib/irkit)
 install(TARGETS irkit EXPORT irkit DESTINATION lib)

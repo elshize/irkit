@@ -27,18 +27,15 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-6.0
           packages:
-            - libboost-all-dev
             - clang-6.0
             - clang-tidy-6.0
       env:
-        - MATRIX_EVAL="SUITE=clang-tidy && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
       script:
         - cd ${TRAVIS_BUILD_DIR}
         - git clone https://github.com/llvm-mirror/clang-tools-extra/
         - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
-        - mkdir tidy && cd tidy
-        - pwd
-        - ls ../
+        - mkdir build && cd build
         - cp ../.clang-tidy ./
         - ../scripts/clang-tidy.sh
     - os: linux
@@ -54,7 +51,6 @@ matrix:
             - libluabind-dev
             - libtcl8.6
             - tcl-dev
-            - libboost-all-dev
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera
@@ -98,7 +94,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      - libboost-all-dev
 install:
   - |
     # Configure project
