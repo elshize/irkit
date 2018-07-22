@@ -18,6 +18,7 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - clang-6.0
+            - libboost-all-dev
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
@@ -29,6 +30,7 @@ matrix:
           packages:
             - clang-6.0
             - clang-tidy-6.0
+            - libboost-all-dev
       env:
         - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
       script:
