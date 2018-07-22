@@ -51,6 +51,7 @@ matrix:
             - libluabind-dev
             - libtcl8.6
             - tcl-dev
+            - libboost-all-dev
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera

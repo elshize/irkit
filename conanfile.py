@@ -1,13 +1,5 @@
 from conans import ConanFile, CMake
 
-#boost_libs = ['math', 'wave', 'container', 'contract', 'exception', 'graph', 'iostreams', 'locale', 'log',
-#              'program_options', 'random', 'regex', 'mpi', 'serialization', 'signals',
-#              'coroutine', 'fiber', 'context', 'timer', 'thread', 'chrono', 'date_time',
-#              'atomic', 'filesystem', 'system', 'graph_parallel', 'python',
-#              'stacktrace', 'test', 'type_erasure']
-
-#included_libs = ['filesystem', 'system', 'iostreams', 'log', 'thread']
-
 
 class HelloConan(ConanFile):
     name = "irkit"
@@ -62,4 +54,4 @@ class HelloConan(ConanFile):
         self.requires("jsonformoderncpp/3.1.2@vthiery/stable")
 
     def configure(self):
-        self.options["boost"].shared = True
+        self.options["boost"].shared = False
