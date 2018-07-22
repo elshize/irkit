@@ -95,12 +95,13 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
+      - libboost-all-dev
 install:
   - |
     # Configure project
     cd ${TRAVIS_BUILD_DIR}
     mkdir build && cd build
-    conan install .. --build=missing
+    conan install .. --build=missing -o irkit:use_system_boost=True
 script:
   - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"

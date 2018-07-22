@@ -6,7 +6,9 @@ class HelloConan(ConanFile):
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
-    default_options = ("zlib:shared=True",
+    options = {"use_system_boost": [True, False]}
+    default_options = ("use_system_boost=False",
+                       "zlib:shared=True",
                        "boost:without_math=True",
                        "boost:without_wave=True",
                        "boost:without_container=True",
@@ -42,7 +44,8 @@ class HelloConan(ConanFile):
         self.requires("rangev3/master@elshize/testing")
         self.requires("rax/master@elshize/testing")
 
-        self.requires("boost/1.66.0@conan/stable")
+        if not self.options.use_system_boost:
+            self.requires("boost/1.66.0@conan/stable")
         self.requires("zlib/1.2.11@conan/stable")
         self.requires("gtest/1.8.0@conan/stable")
 
