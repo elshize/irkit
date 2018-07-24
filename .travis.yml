@@ -77,7 +77,7 @@ before_install:
   - |
     # Install libc++ (if clang)
     if [[ $CXX = *"clang"* ]]; then
-      LLVM_VERSION=6.0
+      LLVM_VERSION=6.0.1
       LLVM_DIR=${DEPS_DIR}/llvm/llvm-${LLVM_VERSION}
       if [ ! -f ${LLVM_DIR}/cached ]; then
         LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
