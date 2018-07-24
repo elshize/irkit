@@ -1,4 +1,7 @@
 language: cpp
+env:
+  global:
+    - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
 cache:
   directories:
     - ${DEPS_DIR}/llvm
