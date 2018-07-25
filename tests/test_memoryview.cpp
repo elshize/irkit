@@ -29,8 +29,10 @@
 #include <random>
 #include <sstream>
 #include <vector>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+
 #define private public
 #define protected public
 #include <gsl/span>
@@ -138,6 +140,14 @@ TEST_F(disk_memory_source, iterator)
 TEST_F(disk_memory_source, slice)
 {
     test_slices(view, container);
+}
+
+TEST_F(disk_memory_source, move_constructor)
+{
+    irk::disk_memory_source v(path);
+    irk::disk_memory_source w(std::move(v));
+    irk::memory_view mv(w);
+    test_iterator(mv, container);
 }
 
 };  // namespace
