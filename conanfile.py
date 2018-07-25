@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake
+from conans import ConanFile, CMake, tools
 
 
 class HelloConan(ConanFile):
@@ -28,9 +28,9 @@ class HelloConan(ConanFile):
                        "boost:without_stacktrace=True",
                        "boost:without_test=True",
                        "boost:without_type_erasure=True")
-
-    def source(self):
-        self.run("git clone https://github.com/elshize/irkit.git")
+    exports_sources = ("LICENSE", "README.md", "include/*", "src/*",
+                       "cmake/*", "CMakeLists.txt", "tests/*", "benchmarks/*",
+                       "scripts/*")
 
     def build(self):
         cmake = CMake(self)
@@ -58,3 +58,7 @@ class HelloConan(ConanFile):
 
     def configure(self):
         self.options["boost"].shared = False
+
+    def package(self):
+        cmake = CMake(self)
+        cmake.install()
