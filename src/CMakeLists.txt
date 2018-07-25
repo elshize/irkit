@@ -10,7 +10,7 @@ function(add_irk TOOL_NAME)
     add_executable(irk-${TOOL_NAME} irk-${TOOL_NAME}.cpp)
     target_link_libraries(irk-${TOOL_NAME} PUBLIC ${COMMON_LIBRARIES})
     target_compile_features(irk-${TOOL_NAME} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
-    target_compile_options(irk-${TOOL_NAME} PRIVATE -Wall -Wnunused-local-typedef)
+    target_compile_options(irk-${TOOL_NAME} PRIVATE -Wall)
 endfunction()
 
 add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
