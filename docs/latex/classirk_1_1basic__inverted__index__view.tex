@@ -1,0 +1,415 @@
+\hypertarget{classirk_1_1basic__inverted__index__view}{}\section{irk\+:\+:basic\+\_\+inverted\+\_\+index\+\_\+view$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$ Class Template Reference}
+\label{classirk_1_1basic__inverted__index__view}\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$}}
+
+
+{\ttfamily \#include $<$index.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}{document\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{index\+::document\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}{document\+\_\+codec\+\_\+type}} = Document\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}{frequency\+\_\+codec\+\_\+type}} = Frequency\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a1ab4b8054127c66df13fc39d22d316ad}{score\+\_\+codec\+\_\+type}} = Score\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} = int32\+\_\+t
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a4ce80db3851ca86612fa854329c45142}{score\+\_\+type}} = std\+::uint32\+\_\+t
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad9f3d11fa37ab4d1ce1b47a579466589}{offset\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ \mbox{\hyperlink{namespaceirk_1_1index_ad66c0e72549ffc6b78a85158293bb47b}{index\+::offset\+\_\+t}}, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ \mbox{\hyperlink{namespaceirk_1_1index_ad66c0e72549ffc6b78a85158293bb47b}{index\+::offset\+\_\+t}} $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a61954abd58d702c89a299a0e3ab78104}{frequency\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}}, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}} $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a55dabda525be5920c6faeaa009c2c918}{size\+\_\+table\+\_\+type}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ int32\+\_\+t, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ int32\+\_\+t $>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ac50afe9fc376318d6a2034e3fa36a59f}{array\+\_\+stream}} = boost\+::iostreams\+::stream\+\_\+buffer$<$ boost\+::iostreams\+::basic\+\_\+array\+\_\+source$<$ char $>$ $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a8f30f4f42aae72ec340cf198557b0a25}{basic\+\_\+inverted\+\_\+index\+\_\+view}} ()=delete
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ab8a6c43523b96e95044bb68e6fdfd54a}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a89b00d9e8a620fdc318f419d1a628b1c}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a61b08aa3e377ac442f95488ef8514ba5}{operator=}} (const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a35a6bba483082c7060577551f1511763}{operator=}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a737a736a6a54a55d22c493b9d78e81e3}{$\sim$basic\+\_\+inverted\+\_\+index\+\_\+view}} ()=default
+\item 
+{\footnotesize template$<$class Data\+SourceT $>$ }\\\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a84a35a3338c4c00bd80345a1ddfdd342}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (Data\+SourceT $\ast$data)
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a15e7fc01a2e9a4e79eef6fa6ca103632}{collection\+\_\+size}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a8b804064946c0ee238599fb6c84215c7}{document\+\_\+size}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}{document\+\_\+type}} doc) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a1269e76e99a2505e34d80ba992613080}{documents}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_abd006dfc6b00dff46a2f46576efb71cd}{frequencies}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a91c355845935ffa26fd6a07e5a8b9201}{scores}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a5cfa1edc73b63f481e64b3adb18e846c}{postings}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a0bbf2074549e68969f3847013672910a}{postings}} (const std\+::string \&\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}{term}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ae49eebb12342ae4847a4b25a94636fba}{scored\+\_\+postings}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_acd6baa5b98edddbb2f560bcd713be44b}{scored\+\_\+postings}} (const std\+::string \&\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}{term}}) const
+\item 
+{\footnotesize template$<$class Scorer $>$ }\\Scorer \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_af30c9c8277058831a878ea9eb18840ba}{term\+\_\+scorer}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+std\+::optional$<$ \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}} (const std\+::string \&\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}{term}}) const
+\item 
+std\+::string \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}{term}} (const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \&id) const
+\item 
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad0616dba820e013107e4cad02d13d73f}{tdf}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad87994cfa2fd03569e9154966b81a505}{term\+\_\+occurrences}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}) const
+\item 
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aef452bf73078178f01cc87db85d8886d}{term\+\_\+count}} () const
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a7a5dbe03c2b4aac509e3567a97ba2aa4}{occurrences\+\_\+count}} () const
+\item 
+int \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a9d250a6240d62fcb5fa8c2287c6b9194}{skip\+\_\+block\+\_\+size}} () const
+\item 
+int \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a2882c94b94350de22c6e58ada56ed523}{avg\+\_\+document\+\_\+size}} () const
+\item 
+const auto \& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad1d0983d65f8001c3ced2c4cd424eca3}{terms}} () const
+\item 
+const auto \& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad5ad5baee856f92041abac627c4f494d}{titles}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}{document\+\_\+codec\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a52ba001bb12567d0c25f22519e194ce9}{document\+\_\+codec}} ()
+\item 
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}{frequency\+\_\+codec\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a7338edd10ee7eab058b840fa3e382faa}{frequency\+\_\+codec}} ()
+\item 
+std\+::streamsize \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a31a82a662afae22750e62bda04f8301f}{copy\+\_\+document\+\_\+list}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}, std\+::ostream \&out) const
+\item 
+std\+::streamsize \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a7f5eae6697a96cc81e74e620b9447884}{copy\+\_\+frequency\+\_\+list}} (\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}{term\+\_\+id}}, std\+::ostream \&out) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ac50afe9fc376318d6a2034e3fa36a59f}\label{classirk_1_1basic__inverted__index__view_ac50afe9fc376318d6a2034e3fa36a59f}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!array\+\_\+stream@{array\+\_\+stream}}
+\index{array\+\_\+stream@{array\+\_\+stream}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{array\+\_\+stream}{array\_stream}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ac50afe9fc376318d6a2034e3fa36a59f}{array\+\_\+stream}} =  boost\+::iostreams\+::stream\+\_\+buffer$<$ boost\+::iostreams\+::basic\+\_\+array\+\_\+source$<$char$>$ $>$}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}\label{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}}
+\index{document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+codec\+\_\+type}{document\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}{document\+\_\+codec\+\_\+type}} =  Document\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}\label{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}{document\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{index\+::document\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}\label{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}}
+\index{frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec\+\_\+type}{frequency\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}{frequency\+\_\+codec\+\_\+type}} =  Frequency\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a61954abd58d702c89a299a0e3ab78104}\label{classirk_1_1basic__inverted__index__view_a61954abd58d702c89a299a0e3ab78104}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!frequency\+\_\+table\+\_\+type@{frequency\+\_\+table\+\_\+type}}
+\index{frequency\+\_\+table\+\_\+type@{frequency\+\_\+table\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+table\+\_\+type}{frequency\_table\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a61954abd58d702c89a299a0e3ab78104}{frequency\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}}, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}}$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}\label{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a01218db8d72e7ee07f3a9f71225f03c8}{frequency\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ad9f3d11fa37ab4d1ce1b47a579466589}\label{classirk_1_1basic__inverted__index__view_ad9f3d11fa37ab4d1ce1b47a579466589}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!offset\+\_\+table\+\_\+type@{offset\+\_\+table\+\_\+type}}
+\index{offset\+\_\+table\+\_\+type@{offset\+\_\+table\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{offset\+\_\+table\+\_\+type}{offset\_table\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_ad9f3d11fa37ab4d1ce1b47a579466589}{offset\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$\mbox{\hyperlink{namespaceirk_1_1index_ad66c0e72549ffc6b78a85158293bb47b}{index\+::offset\+\_\+t}}, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$\mbox{\hyperlink{namespaceirk_1_1index_ad66c0e72549ffc6b78a85158293bb47b}{index\+::offset\+\_\+t}}$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a1ab4b8054127c66df13fc39d22d316ad}\label{classirk_1_1basic__inverted__index__view_a1ab4b8054127c66df13fc39d22d316ad}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!score\+\_\+codec\+\_\+type@{score\+\_\+codec\+\_\+type}}
+\index{score\+\_\+codec\+\_\+type@{score\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{score\+\_\+codec\+\_\+type}{score\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a1ab4b8054127c66df13fc39d22d316ad}{score\+\_\+codec\+\_\+type}} =  Score\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a4ce80db3851ca86612fa854329c45142}\label{classirk_1_1basic__inverted__index__view_a4ce80db3851ca86612fa854329c45142}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!score\+\_\+type@{score\+\_\+type}}
+\index{score\+\_\+type@{score\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{score\+\_\+type}{score\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a4ce80db3851ca86612fa854329c45142}{score\+\_\+type}} =  std\+::uint32\+\_\+t}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a55dabda525be5920c6faeaa009c2c918}\label{classirk_1_1basic__inverted__index__view_a55dabda525be5920c6faeaa009c2c918}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!size\+\_\+table\+\_\+type@{size\+\_\+table\+\_\+type}}
+\index{size\+\_\+table\+\_\+type@{size\+\_\+table\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{size\+\_\+table\+\_\+type}{size\_table\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a55dabda525be5920c6faeaa009c2c918}{size\+\_\+table\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$int32\+\_\+t, \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$int32\+\_\+t$>$, \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}\label{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!size\+\_\+type@{size\+\_\+type}}
+\index{size\+\_\+type@{size\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{size\+\_\+type}{size\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} =  int32\+\_\+t}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}\label{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}}
+\index{term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+id\+\_\+type}{term\_id\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a8f30f4f42aae72ec340cf198557b0a25}\label{classirk_1_1basic__inverted__index__view_a8f30f4f42aae72ec340cf198557b0a25}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\index{basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{basic\+\_\+inverted\+\_\+index\+\_\+view()}{basic\_inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ab8a6c43523b96e95044bb68e6fdfd54a}\label{classirk_1_1basic__inverted__index__view_ab8a6c43523b96e95044bb68e6fdfd54a}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\index{basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{basic\+\_\+inverted\+\_\+index\+\_\+view()}{basic\_inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a89b00d9e8a620fdc318f419d1a628b1c}\label{classirk_1_1basic__inverted__index__view_a89b00d9e8a620fdc318f419d1a628b1c}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\index{basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{basic\+\_\+inverted\+\_\+index\+\_\+view()}{basic\_inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a737a736a6a54a55d22c493b9d78e81e3}\label{classirk_1_1basic__inverted__index__view_a737a736a6a54a55d22c493b9d78e81e3}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!````~basic\+\_\+inverted\+\_\+index\+\_\+view@{$\sim$basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\index{````~basic\+\_\+inverted\+\_\+index\+\_\+view@{$\sim$basic\+\_\+inverted\+\_\+index\+\_\+view}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{$\sim$basic\+\_\+inverted\+\_\+index\+\_\+view()}{~basic\_inverted\_index\_view()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::$\sim$\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a84a35a3338c4c00bd80345a1ddfdd342}\label{classirk_1_1basic__inverted__index__view_a84a35a3338c4c00bd80345a1ddfdd342}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\index{basic\+\_\+inverted\+\_\+index\+\_\+view@{basic\+\_\+inverted\+\_\+index\+\_\+view}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{basic\+\_\+inverted\+\_\+index\+\_\+view()}{basic\_inverted\_index\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+template$<$class Data\+SourceT $>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}} (\begin{DoxyParamCaption}\item[{Data\+SourceT $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a2882c94b94350de22c6e58ada56ed523}\label{classirk_1_1basic__inverted__index__view_a2882c94b94350de22c6e58ada56ed523}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!avg\+\_\+document\+\_\+size@{avg\+\_\+document\+\_\+size}}
+\index{avg\+\_\+document\+\_\+size@{avg\+\_\+document\+\_\+size}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{avg\+\_\+document\+\_\+size()}{avg\_document\_size()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::avg\+\_\+document\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a15e7fc01a2e9a4e79eef6fa6ca103632}\label{classirk_1_1basic__inverted__index__view_a15e7fc01a2e9a4e79eef6fa6ca103632}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!collection\+\_\+size@{collection\+\_\+size}}
+\index{collection\+\_\+size@{collection\+\_\+size}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a31a82a662afae22750e62bda04f8301f}\label{classirk_1_1basic__inverted__index__view_a31a82a662afae22750e62bda04f8301f}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!copy\+\_\+document\+\_\+list@{copy\+\_\+document\+\_\+list}}
+\index{copy\+\_\+document\+\_\+list@{copy\+\_\+document\+\_\+list}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{copy\+\_\+document\+\_\+list()}{copy\_document\_list()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+std\+::streamsize \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::copy\+\_\+document\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id,  }\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a7f5eae6697a96cc81e74e620b9447884}\label{classirk_1_1basic__inverted__index__view_a7f5eae6697a96cc81e74e620b9447884}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!copy\+\_\+frequency\+\_\+list@{copy\+\_\+frequency\+\_\+list}}
+\index{copy\+\_\+frequency\+\_\+list@{copy\+\_\+frequency\+\_\+list}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{copy\+\_\+frequency\+\_\+list()}{copy\_frequency\_list()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+std\+::streamsize \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::copy\+\_\+frequency\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id,  }\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a52ba001bb12567d0c25f22519e194ce9}\label{classirk_1_1basic__inverted__index__view_a52ba001bb12567d0c25f22519e194ce9}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!document\+\_\+codec@{document\+\_\+codec}}
+\index{document\+\_\+codec@{document\+\_\+codec}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+codec()}{document\_codec()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a90415f73bd983f8a661d5502134d334f}{document\+\_\+codec\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::document\+\_\+codec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a8b804064946c0ee238599fb6c84215c7}\label{classirk_1_1basic__inverted__index__view_a8b804064946c0ee238599fb6c84215c7}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!document\+\_\+size@{document\+\_\+size}}
+\index{document\+\_\+size@{document\+\_\+size}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+size()}{document\_size()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a57ae4c0a2a602340c31996d3e240be46}{size\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::document\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_aa687d7f6babce15088ca5792a6fbb9b3}{document\+\_\+type}}}]{doc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a1269e76e99a2505e34d80ba992613080}\label{classirk_1_1basic__inverted__index__view_a1269e76e99a2505e34d80ba992613080}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!documents@{documents}}
+\index{documents@{documents}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{documents()}{documents()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::documents (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_abd006dfc6b00dff46a2f46576efb71cd}\label{classirk_1_1basic__inverted__index__view_abd006dfc6b00dff46a2f46576efb71cd}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!frequencies@{frequencies}}
+\index{frequencies@{frequencies}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequencies()}{frequencies()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::frequencies (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a7338edd10ee7eab058b840fa3e382faa}\label{classirk_1_1basic__inverted__index__view_a7338edd10ee7eab058b840fa3e382faa}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!frequency\+\_\+codec@{frequency\+\_\+codec}}
+\index{frequency\+\_\+codec@{frequency\+\_\+codec}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec()}{frequency\_codec()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a3d985daf7381825ddf7788611d03cb8f}{frequency\+\_\+codec\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::frequency\+\_\+codec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a7a5dbe03c2b4aac509e3567a97ba2aa4}\label{classirk_1_1basic__inverted__index__view_a7a5dbe03c2b4aac509e3567a97ba2aa4}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!occurrences\+\_\+count@{occurrences\+\_\+count}}
+\index{occurrences\+\_\+count@{occurrences\+\_\+count}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{occurrences\+\_\+count()}{occurrences\_count()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::occurrences\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a61b08aa3e377ac442f95488ef8514ba5}\label{classirk_1_1basic__inverted__index__view_a61b08aa3e377ac442f95488ef8514ba5}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}\& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a35a6bba483082c7060577551f1511763}\label{classirk_1_1basic__inverted__index__view_a35a6bba483082c7060577551f1511763}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}\& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a5cfa1edc73b63f481e64b3adb18e846c}\label{classirk_1_1basic__inverted__index__view_a5cfa1edc73b63f481e64b3adb18e846c}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!postings@{postings}}
+\index{postings@{postings}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{postings()}{postings()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::postings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a0bbf2074549e68969f3847013672910a}\label{classirk_1_1basic__inverted__index__view_a0bbf2074549e68969f3847013672910a}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!postings@{postings}}
+\index{postings@{postings}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{postings()}{postings()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::postings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ae49eebb12342ae4847a4b25a94636fba}\label{classirk_1_1basic__inverted__index__view_ae49eebb12342ae4847a4b25a94636fba}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!scored\+\_\+postings@{scored\+\_\+postings}}
+\index{scored\+\_\+postings@{scored\+\_\+postings}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{scored\+\_\+postings()}{scored\_postings()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::scored\+\_\+postings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_acd6baa5b98edddbb2f560bcd713be44b}\label{classirk_1_1basic__inverted__index__view_acd6baa5b98edddbb2f560bcd713be44b}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!scored\+\_\+postings@{scored\+\_\+postings}}
+\index{scored\+\_\+postings@{scored\+\_\+postings}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{scored\+\_\+postings()}{scored\_postings()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::scored\+\_\+postings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a91c355845935ffa26fd6a07e5a8b9201}\label{classirk_1_1basic__inverted__index__view_a91c355845935ffa26fd6a07e5a8b9201}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!scores@{scores}}
+\index{scores@{scores}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{scores()}{scores()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+auto \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::scores (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a9d250a6240d62fcb5fa8c2287c6b9194}\label{classirk_1_1basic__inverted__index__view_a9d250a6240d62fcb5fa8c2287c6b9194}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!skip\+\_\+block\+\_\+size@{skip\+\_\+block\+\_\+size}}
+\index{skip\+\_\+block\+\_\+size@{skip\+\_\+block\+\_\+size}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{skip\+\_\+block\+\_\+size()}{skip\_block\_size()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::skip\+\_\+block\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ad0616dba820e013107e4cad02d13d73f}\label{classirk_1_1basic__inverted__index__view_ad0616dba820e013107e4cad02d13d73f}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!tdf@{tdf}}
+\index{tdf@{tdf}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{tdf()}{tdf()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::tdf (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}\label{classirk_1_1basic__inverted__index__view_a9d148686eeca4dc1f9fd1530834ef8f6}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term@{term}}
+\index{term@{term}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term()}{term()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+std\+::string \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::term (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}} \&}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_aef452bf73078178f01cc87db85d8886d}\label{classirk_1_1basic__inverted__index__view_aef452bf73078178f01cc87db85d8886d}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term\+\_\+count@{term\+\_\+count}}
+\index{term\+\_\+count@{term\+\_\+count}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+count()}{term\_count()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::term\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}\label{classirk_1_1basic__inverted__index__view_aa7d7b49b3657d589020b4325162f55bf}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term\+\_\+id@{term\+\_\+id}}
+\index{term\+\_\+id@{term\+\_\+id}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+id()}{term\_id()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+std\+::optional$<$\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}$>$ \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::term\+\_\+id (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{term }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ad87994cfa2fd03569e9154966b81a505}\label{classirk_1_1basic__inverted__index__view_ad87994cfa2fd03569e9154966b81a505}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term\+\_\+occurrences@{term\+\_\+occurrences}}
+\index{term\+\_\+occurrences@{term\+\_\+occurrences}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+occurrences()}{term\_occurrences()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::term\+\_\+occurrences (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_af30c9c8277058831a878ea9eb18840ba}\label{classirk_1_1basic__inverted__index__view_af30c9c8277058831a878ea9eb18840ba}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!term\+\_\+scorer@{term\+\_\+scorer}}
+\index{term\+\_\+scorer@{term\+\_\+scorer}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{term\+\_\+scorer()}{term\_scorer()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+template$<$class Scorer $>$ \\
+Scorer \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::term\+\_\+scorer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__inverted__index__view_a6b272abc76df208ce59bac93810e7331}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ad1d0983d65f8001c3ced2c4cd424eca3}\label{classirk_1_1basic__inverted__index__view_ad1d0983d65f8001c3ced2c4cd424eca3}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!terms@{terms}}
+\index{terms@{terms}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{terms()}{terms()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+const auto\& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__inverted__index__view_ad5ad5baee856f92041abac627c4f494d}\label{classirk_1_1basic__inverted__index__view_ad5ad5baee856f92041abac627c4f494d}} 
+\index{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}!titles@{titles}}
+\index{titles@{titles}!irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view@{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\subsubsection{\texorpdfstring{titles()}{titles()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$, class Score\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$std\+::uint32\+\_\+t$>$$>$ \\
+const auto\& \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{irk\+::basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ Document\+Codec, Frequency\+Codec, Score\+Codec $>$\+::titles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/\mbox{\hyperlink{index_8hpp}{index.\+hpp}}\end{DoxyCompactItemize}

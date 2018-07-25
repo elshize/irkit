@@ -1,0 +1,271 @@
+\hypertarget{classirk_1_1basic__index__builder}{}\section{irk\+:\+:basic\+\_\+index\+\_\+builder$<$ Document\+Codec, Frequency\+Codec $>$ Class Template Reference}
+\label{classirk_1_1basic__index__builder}\index{irk\+::basic\+\_\+index\+\_\+builder$<$ Document\+Codec, Frequency\+Codec $>$@{irk\+::basic\+\_\+index\+\_\+builder$<$ Document\+Codec, Frequency\+Codec $>$}}
+
+
+{\ttfamily \#include $<$builder.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}{document\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{irk\+::index\+::document\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}{term\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{index\+::term\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}{term\+\_\+id\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}{frequency\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_a8e4abd85a04c6a2801c66d2c6630841c}{document\+\_\+codec\+\_\+type}} = Document\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__builder_afbcd5c7087007a9d832bc43e89a9533b}{frequency\+\_\+codec\+\_\+type}} = Frequency\+Codec
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1basic__index__builder_a82fdaa57c7b4db8620fc4633d8359f77}{basic\+\_\+index\+\_\+builder}} (int block\+\_\+size=64)
+\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a1259cef9edadcf01b310dc7bbfae366d}{add\+\_\+document}} ()
+\begin{DoxyCompactList}\small\item\em Initiates a new document with an incremented ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_acbaea2f2be4a4210d126d904277a8206}{add\+\_\+document}} (\mbox{\hyperlink{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}{document\+\_\+type}} doc)
+\begin{DoxyCompactList}\small\item\em Initiates a new document with the given ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a7eb14756ab6e8b0a45ff1e967997709b}{add\+\_\+term}} (const \mbox{\hyperlink{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}{term\+\_\+type}} \&term)
+\begin{DoxyCompactList}\small\item\em Adds a term to the current document. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}{frequency\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__index__builder_a43dbe8e0d0274efbce2d37075fd03056}{document\+\_\+frequency}} (\mbox{\hyperlink{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}{term\+\_\+id\+\_\+type}} term\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Returns the document frequency of the given term. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__builder_a3e3ae890adf282fda311ede956c82a15}{term\+\_\+count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of distinct terms. \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__builder_ac65b6c8e3ee962c25f5216203e1f250e}{collection\+\_\+size}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of the accumulated documents. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a0c4dec2cdf87c0858b2622aaca7c5eaa}{sort\+\_\+terms}} ()
+\begin{DoxyCompactList}\small\item\em Sorts the terms, and all related structures, lexicographically. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a23dc2edc635553b5b9a0f1e2ba0961fa}{write\+\_\+terms}} (std\+::ostream \&out)
+\begin{DoxyCompactList}\small\item\em Writes new-\/line-\/delimited sorted list of terms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a4c4449ae288aaf72e3d42cf5d05f1e33}{write\+\_\+document\+\_\+ids}} (std\+::ostream \&out, std\+::ostream \&off)
+\begin{DoxyCompactList}\small\item\em Writes document I\+Ds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a4bc9da9cf70f4e799d47c97644742616}{write\+\_\+document\+\_\+counts}} (std\+::ostream \&out, std\+::ostream \&off)
+\begin{DoxyCompactList}\small\item\em Writes term-\/document frequencies (tf). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a06053105f446531a65192e987dbdb839}{write\+\_\+document\+\_\+frequencies}} (std\+::ostream \&out)
+\begin{DoxyCompactList}\small\item\em Writes document frequencies (df). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_a19f7a4ae586c56956966dbc1a854e105}{write\+\_\+document\+\_\+sizes}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes document sizes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_af432f500e307f241c961163e6388b050}{write\+\_\+term\+\_\+occurrences}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes document sizes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__builder_ab5449278bf35ebae604a9caf12180657}{write\+\_\+properties}} (std\+::ostream \&out) const
+\begin{DoxyCompactList}\small\item\em Writes properties to the output stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a8e4abd85a04c6a2801c66d2c6630841c}\label{classirk_1_1basic__index__builder_a8e4abd85a04c6a2801c66d2c6630841c}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}}
+\index{document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{document\+\_\+codec\+\_\+type}{document\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_a8e4abd85a04c6a2801c66d2c6630841c}{document\+\_\+codec\+\_\+type}} =  Document\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}\label{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}{document\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{irk\+::index\+::document\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_afbcd5c7087007a9d832bc43e89a9533b}\label{classirk_1_1basic__index__builder_afbcd5c7087007a9d832bc43e89a9533b}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}}
+\index{frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec\+\_\+type}{frequency\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_afbcd5c7087007a9d832bc43e89a9533b}{frequency\+\_\+codec\+\_\+type}} =  Frequency\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}\label{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}{frequency\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}\label{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}}
+\index{term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{term\+\_\+id\+\_\+type}{term\_id\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}{term\+\_\+id\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}\label{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!term\+\_\+type@{term\+\_\+type}}
+\index{term\+\_\+type@{term\+\_\+type}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{term\+\_\+type}{term\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}{term\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{index\+::term\+\_\+t}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a82fdaa57c7b4db8620fc4633d8359f77}\label{classirk_1_1basic__index__builder_a82fdaa57c7b4db8620fc4633d8359f77}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!basic\+\_\+index\+\_\+builder@{basic\+\_\+index\+\_\+builder}}
+\index{basic\+\_\+index\+\_\+builder@{basic\+\_\+index\+\_\+builder}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{basic\+\_\+index\+\_\+builder()}{basic\_index\_builder()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__builder}{basic\+\_\+index\+\_\+builder}} (\begin{DoxyParamCaption}\item[{int}]{block\+\_\+size = {\ttfamily 64} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a1259cef9edadcf01b310dc7bbfae366d}\label{classirk_1_1basic__index__builder_a1259cef9edadcf01b310dc7bbfae366d}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!add\+\_\+document@{add\+\_\+document}}
+\index{add\+\_\+document@{add\+\_\+document}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{add\+\_\+document()}{add\_document()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::add\+\_\+document (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initiates a new document with an incremented ID. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_acbaea2f2be4a4210d126d904277a8206}\label{classirk_1_1basic__index__builder_acbaea2f2be4a4210d126d904277a8206}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!add\+\_\+document@{add\+\_\+document}}
+\index{add\+\_\+document@{add\+\_\+document}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{add\+\_\+document()}{add\_document()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::add\+\_\+document (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__index__builder_a757a96c8851f4aeee2014a74f60b183e}{document\+\_\+type}}}]{doc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initiates a new document with the given ID. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a7eb14756ab6e8b0a45ff1e967997709b}\label{classirk_1_1basic__index__builder_a7eb14756ab6e8b0a45ff1e967997709b}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!add\+\_\+term@{add\+\_\+term}}
+\index{add\+\_\+term@{add\+\_\+term}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{add\+\_\+term()}{add\_term()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::add\+\_\+term (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1basic__index__builder_a612e4d83700711a72d442056226a2908}{term\+\_\+type}} \&}]{term }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a term to the current document. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_ac65b6c8e3ee962c25f5216203e1f250e}\label{classirk_1_1basic__index__builder_ac65b6c8e3ee962c25f5216203e1f250e}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!collection\+\_\+size@{collection\+\_\+size}}
+\index{collection\+\_\+size@{collection\+\_\+size}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{collection\+\_\+size()}{collection\_size()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::collection\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of the accumulated documents. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a43dbe8e0d0274efbce2d37075fd03056}\label{classirk_1_1basic__index__builder_a43dbe8e0d0274efbce2d37075fd03056}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!document\+\_\+frequency@{document\+\_\+frequency}}
+\index{document\+\_\+frequency@{document\+\_\+frequency}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{document\+\_\+frequency()}{document\_frequency()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__index__builder_a17364f665244bc4dc6b021f52442f794}{frequency\+\_\+type}} \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::document\+\_\+frequency (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1basic__index__builder_a468351209183fbd35691ab9b75f10d61}{term\+\_\+id\+\_\+type}}}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the document frequency of the given term. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a0c4dec2cdf87c0858b2622aaca7c5eaa}\label{classirk_1_1basic__index__builder_a0c4dec2cdf87c0858b2622aaca7c5eaa}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!sort\+\_\+terms@{sort\+\_\+terms}}
+\index{sort\+\_\+terms@{sort\+\_\+terms}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{sort\+\_\+terms()}{sort\_terms()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::sort\+\_\+terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sorts the terms, and all related structures, lexicographically. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a3e3ae890adf282fda311ede956c82a15}\label{classirk_1_1basic__index__builder_a3e3ae890adf282fda311ede956c82a15}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!term\+\_\+count@{term\+\_\+count}}
+\index{term\+\_\+count@{term\+\_\+count}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{term\+\_\+count()}{term\_count()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::term\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of distinct terms. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a4bc9da9cf70f4e799d47c97644742616}\label{classirk_1_1basic__index__builder_a4bc9da9cf70f4e799d47c97644742616}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+document\+\_\+counts@{write\+\_\+document\+\_\+counts}}
+\index{write\+\_\+document\+\_\+counts@{write\+\_\+document\+\_\+counts}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+document\+\_\+counts()}{write\_document\_counts()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+document\+\_\+counts (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes term-\/document frequencies (tf). 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a06053105f446531a65192e987dbdb839}\label{classirk_1_1basic__index__builder_a06053105f446531a65192e987dbdb839}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+document\+\_\+frequencies@{write\+\_\+document\+\_\+frequencies}}
+\index{write\+\_\+document\+\_\+frequencies@{write\+\_\+document\+\_\+frequencies}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+document\+\_\+frequencies()}{write\_document\_frequencies()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+document\+\_\+frequencies (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document frequencies (df). 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a4c4449ae288aaf72e3d42cf5d05f1e33}\label{classirk_1_1basic__index__builder_a4c4449ae288aaf72e3d42cf5d05f1e33}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+document\+\_\+ids@{write\+\_\+document\+\_\+ids}}
+\index{write\+\_\+document\+\_\+ids@{write\+\_\+document\+\_\+ids}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+document\+\_\+ids()}{write\_document\_ids()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+document\+\_\+ids (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{std\+::ostream \&}]{off }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document I\+Ds. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a19f7a4ae586c56956966dbc1a854e105}\label{classirk_1_1basic__index__builder_a19f7a4ae586c56956966dbc1a854e105}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+document\+\_\+sizes@{write\+\_\+document\+\_\+sizes}}
+\index{write\+\_\+document\+\_\+sizes@{write\+\_\+document\+\_\+sizes}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+document\+\_\+sizes()}{write\_document\_sizes()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+document\+\_\+sizes (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document sizes. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_ab5449278bf35ebae604a9caf12180657}\label{classirk_1_1basic__index__builder_ab5449278bf35ebae604a9caf12180657}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+properties@{write\+\_\+properties}}
+\index{write\+\_\+properties@{write\+\_\+properties}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+properties()}{write\_properties()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+properties (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes properties to the output stream. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_af432f500e307f241c961163e6388b050}\label{classirk_1_1basic__index__builder_af432f500e307f241c961163e6388b050}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+term\+\_\+occurrences@{write\+\_\+term\+\_\+occurrences}}
+\index{write\+\_\+term\+\_\+occurrences@{write\+\_\+term\+\_\+occurrences}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+term\+\_\+occurrences()}{write\_term\_occurrences()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+term\+\_\+occurrences (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes document sizes. 
+
+\mbox{\Hypertarget{classirk_1_1basic__index__builder_a23dc2edc635553b5b9a0f1e2ba0961fa}\label{classirk_1_1basic__index__builder_a23dc2edc635553b5b9a0f1e2ba0961fa}} 
+\index{irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}!write\+\_\+terms@{write\+\_\+terms}}
+\index{write\+\_\+terms@{write\+\_\+terms}!irk\+::basic\+\_\+index\+\_\+builder@{irk\+::basic\+\_\+index\+\_\+builder}}
+\subsubsection{\texorpdfstring{write\+\_\+terms()}{write\_terms()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+terms (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Writes new-\/line-\/delimited sorted list of terms. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{builder_8hpp}{builder.\+hpp}}\end{DoxyCompactItemize}

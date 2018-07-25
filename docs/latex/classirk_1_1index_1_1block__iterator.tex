@@ -22,28 +22,34 @@ using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719a
 \item 
 using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} = \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719af7284ee91afa0}{view\+\_\+type}}, delta\+\_\+encoded $>$
 \item 
-using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}} = long
+using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}} = int
 \item 
 using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}} = typename List\+View\+::value\+\_\+type
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_ad6c58cc01009120754c5c3797a6deb82}{block\+\_\+iterator}} ()=default
-\item 
 \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a00174f254405749a39d2009b2a6819bf}{block\+\_\+iterator}} (const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&)=default
 \item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a485803aa36bf95c6c5e401e44a432c1b}{block\+\_\+iterator}} (const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719af7284ee91afa0}{view\+\_\+type}} \&view, \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_ae172ebede460597574078b85ae820a4c}{block}}, \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a36dd1b7e5b2b3d3b8865030c239d4ac9}{pos}})
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_ab166ce990eeb6efb45506acd57626042}{block\+\_\+iterator}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&\&) noexcept=default
 \item 
-{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$delta\+\_\+encoded$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a1809157e963a0ec3569c5abc50467810}{moveto}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}} val)
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_afc88fc6cd2cd2a148b821e5e89b6649a}{operator=}} (const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&)=delete
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a6696d285fe4899cb9aec7ac50fb09ad6}{operator=}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&\&) noexcept=delete
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a6fd6578325dd4bcc585accac5782bf74}{$\sim$block\+\_\+iterator}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_ad68e07c02a8233cb098a23d57abf0e01}{block\+\_\+iterator}} (const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719af7284ee91afa0}{view\+\_\+type}} \&view, \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_afc0c06615fcd46d243bccd2a6a77ffeb}{block}}, \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a145b1a3e5f50d3eb0fc1135cda5f1253}{pos}}, int block\+\_\+size)
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a7fd567ed2c5ece1ad02cf21957396c88}{moveto}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}} val)
 \begin{DoxyCompactList}\small\item\em Move to the next position greater or equal {\ttfamily val}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$delta\+\_\+encoded$>$$>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_aae123dcccac278876262bf6514669e43}{nextgeq}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}} val)
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_aff7b154913783f7984e50c11efa10cb1}{nextgeq}} (\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}} val)
 \item 
 {\footnotesize template$<$class Block\+Iterator $>$ }\\\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a901a557c429c737587e30b123bfc1641}{align}} (const Block\+Iterator \&other)
 \begin{DoxyCompactList}\small\item\em Align this iterator to another. \end{DoxyCompactList}\item 
-long \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_ae172ebede460597574078b85ae820a4c}{block}} () const
+int \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_afc0c06615fcd46d243bccd2a6a77ffeb}{block}} () const
 \begin{DoxyCompactList}\small\item\em Returns the current block number. \end{DoxyCompactList}\item 
-long \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a36dd1b7e5b2b3d3b8865030c239d4ac9}{pos}} () const
+int \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a145b1a3e5f50d3eb0fc1135cda5f1253}{pos}} () const
 \begin{DoxyCompactList}\small\item\em Returns the current position within the current block. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -62,7 +68,7 @@ Block iterator.
 \begin{DoxyTemplParams}{Template Parameters}
 {\em List\+View} & type of list (see \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}} and \mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{block\+\_\+payload\+\_\+list\+\_\+view}}) \\
 \hline
-{\em delta\+\_\+encoded} & whether or not values are delta encoded; if so, an additional operation {\ttfamily \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_aae123dcccac278876262bf6514669e43}{nextgeq(value\+\_\+type)}}} is available to skip to the next greater or equal value\\
+{\em delta\+\_\+encoded} & whether or not values are delta encoded; if so, an additional operation {\ttfamily \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_aff7b154913783f7984e50c11efa10cb1}{nextgeq(value\+\_\+type)}}} is available to skip to the next greater or equal value\\
 \hline
 \end{DoxyTemplParams}
 This iterator will decode and cache blocks that are accessed. The following operation will cause decoding of the entire block\+:
@@ -74,12 +80,12 @@ This iterator will decode and cache blocks that are accessed. The following oper
 Any other operations will not decode or access any data. 
 
 \subsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}\label{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}\label{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!difference\+\_\+type@{difference\+\_\+type}}
 \index{difference\+\_\+type@{difference\+\_\+type}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{difference\+\_\+type}{difference\_type}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}} =  long}
+using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}} =  int}
 
 \mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}\label{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!self\+\_\+type@{self\+\_\+type}}
@@ -105,26 +111,33 @@ using \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::blo
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_ad6c58cc01009120754c5c3797a6deb82}\label{classirk_1_1index_1_1block__iterator_ad6c58cc01009120754c5c3797a6deb82}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a00174f254405749a39d2009b2a6819bf}\label{classirk_1_1index_1_1block__iterator_a00174f254405749a39d2009b2a6819bf}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!block\+\_\+iterator@{block\+\_\+iterator}}
 \index{block\+\_\+iterator@{block\+\_\+iterator}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{block\+\_\+iterator()}{block\_iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a00174f254405749a39d2009b2a6819bf}\label{classirk_1_1index_1_1block__iterator_a00174f254405749a39d2009b2a6819bf}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_ab166ce990eeb6efb45506acd57626042}\label{classirk_1_1index_1_1block__iterator_ab166ce990eeb6efb45506acd57626042}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!block\+\_\+iterator@{block\+\_\+iterator}}
 \index{block\+\_\+iterator@{block\+\_\+iterator}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{block\+\_\+iterator()}{block\_iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a485803aa36bf95c6c5e401e44a432c1b}\label{classirk_1_1index_1_1block__iterator_a485803aa36bf95c6c5e401e44a432c1b}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a6fd6578325dd4bcc585accac5782bf74}\label{classirk_1_1index_1_1block__iterator_a6fd6578325dd4bcc585accac5782bf74}} 
+\index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!````~block\+\_\+iterator@{$\sim$block\+\_\+iterator}}
+\index{````~block\+\_\+iterator@{$\sim$block\+\_\+iterator}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
+\subsubsection{\texorpdfstring{$\sim$block\+\_\+iterator()}{~block\_iterator()}}
+{\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::$\sim$\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_ad68e07c02a8233cb098a23d57abf0e01}\label{classirk_1_1index_1_1block__iterator_ad68e07c02a8233cb098a23d57abf0e01}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!block\+\_\+iterator@{block\+\_\+iterator}}
 \index{block\+\_\+iterator@{block\+\_\+iterator}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{block\+\_\+iterator()}{block\_iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719af7284ee91afa0}{view\+\_\+type}} \&}]{view,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}}}]{block,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a3a314c46329b349e7534670b21978ab6}{difference\+\_\+type}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a75bc89b691db97f719af7284ee91afa0}{view\+\_\+type}} \&}]{view,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}}}]{block,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_abb90b6c7a6100113770359e6eb9dd8cf}{difference\+\_\+type}}}]{pos,  }\item[{int}]{block\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 The iterator is strictly connected to a list view and it stores a const reference to it internally. However, for performance reasons, when comparing iterators, it is not checked whether they belong to the same list\+: this check must be performed by the user if required. 
 
@@ -141,23 +154,22 @@ template$<$class Block\+Iterator $>$ \\
 
 Align this iterator to another. 
 
-Sets the position of this iterator to the position of {\ttfamily other}. Both lists should have the same length and block size, but this is not checked at runtime! \mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_ae172ebede460597574078b85ae820a4c}\label{classirk_1_1index_1_1block__iterator_ae172ebede460597574078b85ae820a4c}} 
+Sets the position of this iterator to the position of {\ttfamily other}. Both lists should have the same length and block size, but this is not checked at runtime! \mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_afc0c06615fcd46d243bccd2a6a77ffeb}\label{classirk_1_1index_1_1block__iterator_afc0c06615fcd46d243bccd2a6a77ffeb}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!block@{block}}
 \index{block@{block}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{block()}{block()}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-long \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+int \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Returns the current block number. 
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a1809157e963a0ec3569c5abc50467810}\label{classirk_1_1index_1_1block__iterator_a1809157e963a0ec3569c5abc50467810}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a7fd567ed2c5ece1ad02cf21957396c88}\label{classirk_1_1index_1_1block__iterator_a7fd567ed2c5ece1ad02cf21957396c88}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!moveto@{moveto}}
 \index{moveto@{moveto}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{moveto()}{moveto()}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$delta\+\_\+encoded$>$$>$ \\
 \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}}\& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::moveto (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}}}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -172,20 +184,33 @@ Move to the next position greater or equal {\ttfamily val}.
 \begin{DoxyReturn}{Returns}
 {\ttfamily $\ast$this} after finding position
 \end{DoxyReturn}
-The lookup starts from the current position. If the next value {\ttfamily $>$= val} exists in a still encoded block, it will be decoded and cached. If all values from the current position forward are {\ttfamily $<$ val}, then the resulting iterator will point after the last element (equivalent to calling {\ttfamily end()} on the list view). \mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_aae123dcccac278876262bf6514669e43}\label{classirk_1_1index_1_1block__iterator_aae123dcccac278876262bf6514669e43}} 
+The lookup starts from the current position. If the next value {\ttfamily $>$= val} exists in a still encoded block, it will be decoded and cached. If all values from the current position forward are {\ttfamily $<$ val}, then the resulting iterator will point after the last element (equivalent to calling {\ttfamily end()} on the list view). \mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_aff7b154913783f7984e50c11efa10cb1}\label{classirk_1_1index_1_1block__iterator_aff7b154913783f7984e50c11efa10cb1}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!nextgeq@{nextgeq}}
 \index{nextgeq@{nextgeq}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{nextgeq()}{nextgeq()}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-template$<$class  = std\+::enable\+\_\+if\+\_\+t$<$delta\+\_\+encoded$>$$>$ \\
 \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::nextgeq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a4d6c5b58cedd871e8a8f235e425e8587}{value\+\_\+type}}}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a36dd1b7e5b2b3d3b8865030c239d4ac9}\label{classirk_1_1index_1_1block__iterator_a36dd1b7e5b2b3d3b8865030c239d4ac9}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_afc88fc6cd2cd2a148b821e5e89b6649a}\label{classirk_1_1index_1_1block__iterator_afc88fc6cd2cd2a148b821e5e89b6649a}} 
+\index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}\& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a6696d285fe4899cb9aec7ac50fb09ad6}\label{classirk_1_1index_1_1block__iterator_a6696d285fe4899cb9aec7ac50fb09ad6}} 
+\index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}\& \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__iterator_a338ee8fee726492e9f8bbad4b4d75766}{self\+\_\+type}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__iterator_a145b1a3e5f50d3eb0fc1135cda5f1253}\label{classirk_1_1index_1_1block__iterator_a145b1a3e5f50d3eb0fc1135cda5f1253}} 
 \index{irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}!pos@{pos}}
 \index{pos@{pos}!irk\+::index\+::block\+\_\+iterator@{irk\+::index\+::block\+\_\+iterator}}
 \subsubsection{\texorpdfstring{pos()}{pos()}}
 {\footnotesize\ttfamily template$<$class List\+View , bool delta\+\_\+encoded$>$ \\
-long \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+int \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator}}$<$ List\+View, delta\+\_\+encoded $>$\+::pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

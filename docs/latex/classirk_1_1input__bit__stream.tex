@@ -15,20 +15,22 @@ An input stream reading bits.
 \mbox{\hyperlink{classirk_1_1input__bit__stream_a9265f80a24bee081fdade3d7950f4c12}{input\+\_\+bit\+\_\+stream}} (std\+::istream \&in)
 \item 
 std\+::int8\+\_\+t \mbox{\hyperlink{classirk_1_1input__bit__stream_a5d0df3f69ce0887e5f93fc15a59f9b96}{read}} ()
-\begin{DoxyCompactList}\small\item\em Returns bit\+: 0 or 1, or -\/1 if no bit could be read. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns bit\+: 0 or 1, or -\/1 if no bit could be read. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classirk_1_1input__bit__stream_a470b904afe60107c49105a5d15bd86e2}{clear\+\_\+buffer}} ()
+\end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::int8\+\_\+t \mbox{\hyperlink{classirk_1_1input__bit__stream_a5a318b047d8ba7046dc69c5d608f7343}{get\+\_\+bit}} (int n)
+std\+::int8\+\_\+t \mbox{\hyperlink{classirk_1_1input__bit__stream_a8e85aa977d3b47cdb8adc96c688795f3}{get\+\_\+bit}} (unsigned int n)
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
+unsigned char \mbox{\hyperlink{classirk_1_1input__bit__stream_a18d1743fba8de3f3ff758f991790f3d3}{byte\+\_\+}} = 0
+\item 
+std\+::uint8\+\_\+t \mbox{\hyperlink{classirk_1_1input__bit__stream_a1d7126f65850a4f4e7775d8880fe0609}{buffered\+\_\+pos\+\_\+}} = 8
+\item 
 std\+::istream \& \mbox{\hyperlink{classirk_1_1input__bit__stream_a3513799a1ea6025e9e6fc2c83a530b6a}{in\+\_\+}}
-\item 
-char \mbox{\hyperlink{classirk_1_1input__bit__stream_ac150fc2255ded1f76ddd5a25f5c4f5ba}{byte\+\_\+}}
-\item 
-std\+::uint8\+\_\+t \mbox{\hyperlink{classirk_1_1input__bit__stream_a591955c1b7182333b87e9e41b8d7cad7}{buffered\+\_\+bits\+\_\+}}
 \end{DoxyCompactItemize}
 
 
@@ -40,16 +42,22 @@ An input stream reading bits.
 \index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!input\+\_\+bit\+\_\+stream@{input\+\_\+bit\+\_\+stream}}
 \index{input\+\_\+bit\+\_\+stream@{input\+\_\+bit\+\_\+stream}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{input\+\_\+bit\+\_\+stream()}{input\_bit\_stream()}}
-{\footnotesize\ttfamily irk\+::input\+\_\+bit\+\_\+stream\+::input\+\_\+bit\+\_\+stream (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily irk\+::input\+\_\+bit\+\_\+stream\+::input\+\_\+bit\+\_\+stream (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classirk_1_1input__bit__stream_a5a318b047d8ba7046dc69c5d608f7343}\label{classirk_1_1input__bit__stream_a5a318b047d8ba7046dc69c5d608f7343}} 
+\mbox{\Hypertarget{classirk_1_1input__bit__stream_a470b904afe60107c49105a5d15bd86e2}\label{classirk_1_1input__bit__stream_a470b904afe60107c49105a5d15bd86e2}} 
+\index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!clear\+\_\+buffer@{clear\+\_\+buffer}}
+\index{clear\+\_\+buffer@{clear\+\_\+buffer}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
+\subsubsection{\texorpdfstring{clear\+\_\+buffer()}{clear\_buffer()}}
+{\footnotesize\ttfamily void irk\+::input\+\_\+bit\+\_\+stream\+::clear\+\_\+buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1input__bit__stream_a8e85aa977d3b47cdb8adc96c688795f3}\label{classirk_1_1input__bit__stream_a8e85aa977d3b47cdb8adc96c688795f3}} 
 \index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!get\+\_\+bit@{get\+\_\+bit}}
 \index{get\+\_\+bit@{get\+\_\+bit}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{get\+\_\+bit()}{get\_bit()}}
-{\footnotesize\ttfamily std\+::int8\+\_\+t irk\+::input\+\_\+bit\+\_\+stream\+::get\+\_\+bit (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily std\+::int8\+\_\+t irk\+::input\+\_\+bit\+\_\+stream\+::get\+\_\+bit (\begin{DoxyParamCaption}\item[{unsigned int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1input__bit__stream_a5d0df3f69ce0887e5f93fc15a59f9b96}\label{classirk_1_1input__bit__stream_a5d0df3f69ce0887e5f93fc15a59f9b96}} 
 \index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!read@{read}}
@@ -64,17 +72,17 @@ Returns bit\+: 0 or 1, or -\/1 if no bit could be read.
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{classirk_1_1input__bit__stream_a591955c1b7182333b87e9e41b8d7cad7}\label{classirk_1_1input__bit__stream_a591955c1b7182333b87e9e41b8d7cad7}} 
-\index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!buffered\+\_\+bits\+\_\+@{buffered\+\_\+bits\+\_\+}}
-\index{buffered\+\_\+bits\+\_\+@{buffered\+\_\+bits\+\_\+}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
-\subsubsection{\texorpdfstring{buffered\+\_\+bits\+\_\+}{buffered\_bits\_}}
-{\footnotesize\ttfamily std\+::uint8\+\_\+t irk\+::input\+\_\+bit\+\_\+stream\+::buffered\+\_\+bits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{classirk_1_1input__bit__stream_a1d7126f65850a4f4e7775d8880fe0609}\label{classirk_1_1input__bit__stream_a1d7126f65850a4f4e7775d8880fe0609}} 
+\index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!buffered\+\_\+pos\+\_\+@{buffered\+\_\+pos\+\_\+}}
+\index{buffered\+\_\+pos\+\_\+@{buffered\+\_\+pos\+\_\+}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
+\subsubsection{\texorpdfstring{buffered\+\_\+pos\+\_\+}{buffered\_pos\_}}
+{\footnotesize\ttfamily std\+::uint8\+\_\+t irk\+::input\+\_\+bit\+\_\+stream\+::buffered\+\_\+pos\+\_\+ = 8\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classirk_1_1input__bit__stream_ac150fc2255ded1f76ddd5a25f5c4f5ba}\label{classirk_1_1input__bit__stream_ac150fc2255ded1f76ddd5a25f5c4f5ba}} 
+\mbox{\Hypertarget{classirk_1_1input__bit__stream_a18d1743fba8de3f3ff758f991790f3d3}\label{classirk_1_1input__bit__stream_a18d1743fba8de3f3ff758f991790f3d3}} 
 \index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!byte\+\_\+@{byte\+\_\+}}
 \index{byte\+\_\+@{byte\+\_\+}!irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{byte\+\_\+}{byte\_}}
-{\footnotesize\ttfamily char irk\+::input\+\_\+bit\+\_\+stream\+::byte\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily unsigned char irk\+::input\+\_\+bit\+\_\+stream\+::byte\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1input__bit__stream_a3513799a1ea6025e9e6fc2c83a530b6a}\label{classirk_1_1input__bit__stream_a3513799a1ea6025e9e6fc2c83a530b6a}} 
 \index{irk\+::input\+\_\+bit\+\_\+stream@{irk\+::input\+\_\+bit\+\_\+stream}!in\+\_\+@{in\+\_\+}}

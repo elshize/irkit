@@ -14,39 +14,55 @@ A base class for all types of memory views.
 \item 
 struct \mbox{\hyperlink{structirk_1_1memory__view_1_1concept}{concept}}
 \item 
-class \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{iterator}}
-\begin{DoxyCompactList}\small\item\em Character iterator. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1memory__view_1_1model}{model}}
 \end{DoxyCompactItemize}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{slice\+\_\+end}} = std\+::optional$<$ int $>$
+using \mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{slice\+\_\+end}} = std\+::optional$<$ std\+::ptrdiff\+\_\+t $>$
 \item 
-using \mbox{\hyperlink{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}{slice\+\_\+type}} = std\+::pair$<$ \mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{slice\+\_\+end}}, \mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{slice\+\_\+end}} $>$
+using \mbox{\hyperlink{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}{slice\+\_\+type}} = std\+::pair$<$ \mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{slice\+\_\+end}}, \mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{slice\+\_\+end}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{iterator}} = const char $\ast$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class source\+\_\+type $>$ }\\\mbox{\hyperlink{classirk_1_1memory__view_a25918933f1b7944199c65654517d2a72}{memory\+\_\+view}} (source\+\_\+type source)
+{\footnotesize template$<$class source\+\_\+type $>$ }\\\mbox{\hyperlink{classirk_1_1memory__view_a25918933f1b7944199c65654517d2a72}{memory\+\_\+view}} (\mbox{\hyperlink{irk-score_8cpp_a73f57f67fb1e33bdbfd80bfba2fc9ffe}{source\+\_\+type}} source)
 \begin{DoxyCompactList}\small\item\em Creates a memory view. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classirk_1_1memory__view_a10acf8933d8a6e57295c27c73adce179}{memory\+\_\+view}} (const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&other)=default
+\mbox{\hyperlink{classirk_1_1memory__view_a8530b1378e96dd8f82416b56248cf9b1}{memory\+\_\+view}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view_ac1160e860abc324f74e19fdb4eb7b6f1}{memory\+\_\+view}} (const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view_ac057f2cd40190acb964acd24e1fdeac1}{memory\+\_\+view}} (\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&\&other)=default
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \& \mbox{\hyperlink{classirk_1_1memory__view_a3e72e258a7d53b02e292b3875cd5add3}{operator=}} (const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \& \mbox{\hyperlink{classirk_1_1memory__view_ab9e565bd6ca92f5e16b5741f6ef8a708}{operator=}} (\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view_a06b0a6d7117a0edd95323c423ef5c34c}{$\sim$memory\+\_\+view}} ()=default
 \item 
 const char $\ast$ \mbox{\hyperlink{classirk_1_1memory__view_ab55150c13cf7e380aaaeda8d70d24bed}{data}} () const
 \begin{DoxyCompactList}\small\item\em Returns a pointer to the underlying data. \end{DoxyCompactList}\item 
-gsl\+::index \mbox{\hyperlink{classirk_1_1memory__view_ac059705d698fc494739ac4245c6ed29f}{size}} () const
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1memory__view_af9ae4528f4f33cf24ab65115f96b7e18}{size}} () const
 \begin{DoxyCompactList}\small\item\em Returns the number of characters in the memory area. \end{DoxyCompactList}\item 
-const char \& \mbox{\hyperlink{classirk_1_1memory__view_a944d6187b25fdf17347959362c55a9da}{operator\mbox{[}$\,$\mbox{]}}} (int n) const
-\begin{DoxyCompactList}\small\item\em Returns a a character at offset {\ttfamily n} in the memory. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view_ae5f29465eeab2b4b8bdff14139ec138d}{range}} (int first, int \mbox{\hyperlink{classirk_1_1memory__view_ac059705d698fc494739ac4245c6ed29f}{size}}) const
+const char \& \mbox{\hyperlink{classirk_1_1memory__view_a21ac618a1eaddf6665148d186f3f67a4}{operator\mbox{[}$\,$\mbox{]}}} (std\+::ptrdiff\+\_\+t n) const
+\begin{DoxyCompactList}\small\item\em Returns a character at offset {\ttfamily n} in the memory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view_a5edb4d5f580fdcc20f131e8980d1f7aa}{range}} (std\+::ptrdiff\+\_\+t first, std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1memory__view_af9ae4528f4f33cf24ab65115f96b7e18}{size}}) const
 \begin{DoxyCompactList}\small\item\em Returns a new memory view defined by the given range. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view_ae16ba32b9419a8918762132186a00463}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}{slice\+\_\+type}} slice) const
 \begin{DoxyCompactList}\small\item\em Returns a new memory view defined by the given slice. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view_a3512cd124a9e37db75e295e1ff9fcf96}{operator()}} (std\+::ptrdiff\+\_\+t lo, std\+::ptrdiff\+\_\+t hi) const
+\begin{DoxyCompactList}\small\item\em Returns a new memory view defined by a half-\/open range \mbox{[}lo, hi). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1memory__view_a08de0b791c9f50ad1b646e85fb67e734}{operator()}} (std\+::ptrdiff\+\_\+t cut) const
+\begin{DoxyCompactList}\small\item\em Returns a new memory view defined by the given cut. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class T , class Cast\+Fn  = reinterpret\+\_\+cast\+\_\+fn$<$\+T$>$$>$ }\\T \mbox{\hyperlink{classirk_1_1memory__view_ae9d042dabe259ef35ac2fec319c40b57}{as}} (Cast\+Fn cast\+\_\+fn=\mbox{\hyperlink{structirk_1_1reinterpret__cast__fn}{reinterpret\+\_\+cast\+\_\+fn}}$<$ T $>$\{\}) const
 \item 
-\mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1memory__view_a41d2227984ac0284ec52588a57bd297c}{begin}} () const
+\mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{iterator}} \mbox{\hyperlink{classirk_1_1memory__view_a41d2227984ac0284ec52588a57bd297c}{begin}} () const
 \item 
-\mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}{end}} () const
+\mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{iterator}} \mbox{\hyperlink{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}{end}} () const
+\item 
+auto \mbox{\hyperlink{classirk_1_1memory__view_a4e324d9edda27a3125d2ab364d1e5552}{stream}} () const
 \end{DoxyCompactItemize}
 
 
@@ -56,17 +72,23 @@ A base class for all types of memory views.
 A memory view is an abstraction for accessing any memory area, be it in main memory, or on disk, or via a memory mapped file. The constructor accepts different types of memory sources that implement memory access details. These types are hidden with type erasure\+: only the constructor is a template, and {\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}} type can be used polymorphically. 
 
 \subsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classirk_1_1memory__view_a061864050dba61b052062ec459822885}\label{classirk_1_1memory__view_a061864050dba61b052062ec459822885}} 
+\mbox{\Hypertarget{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}\label{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!iterator@{iterator}}
+\index{iterator@{iterator}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{iterator}{iterator}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{irk\+::memory\+\_\+view\+::iterator}} =  const char$\ast$}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}\label{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!slice\+\_\+end@{slice\+\_\+end}}
 \index{slice\+\_\+end@{slice\+\_\+end}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{slice\+\_\+end}{slice\_end}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{irk\+::memory\+\_\+view\+::slice\+\_\+end}} =  std\+::optional$<$int$>$}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{irk\+::memory\+\_\+view\+::slice\+\_\+end}} =  std\+::optional$<$std\+::ptrdiff\+\_\+t$>$}
 
 \mbox{\Hypertarget{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}\label{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!slice\+\_\+type@{slice\+\_\+type}}
 \index{slice\+\_\+type@{slice\+\_\+type}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{slice\+\_\+type}{slice\_type}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}{irk\+::memory\+\_\+view\+::slice\+\_\+type}} =  std\+::pair$<$\mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{slice\+\_\+end}}, \mbox{\hyperlink{classirk_1_1memory__view_a061864050dba61b052062ec459822885}{slice\+\_\+end}}$>$}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classirk_1_1memory__view_ac0c1d9600bf81e8cb861a89ab104a43c}{irk\+::memory\+\_\+view\+::slice\+\_\+type}} =  std\+::pair$<$\mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{slice\+\_\+end}}, \mbox{\hyperlink{classirk_1_1memory__view_afbb67d0d922dfae3ea53d41706bd8eea}{slice\+\_\+end}}$>$}
 
 
 
@@ -74,9 +96,9 @@ A memory view is an abstraction for accessing any memory area, be it in main mem
 \mbox{\Hypertarget{classirk_1_1memory__view_a25918933f1b7944199c65654517d2a72}\label{classirk_1_1memory__view_a25918933f1b7944199c65654517d2a72}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!memory\+\_\+view@{memory\+\_\+view}}
 \index{memory\+\_\+view@{memory\+\_\+view}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
-\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily template$<$class source\+\_\+type $>$ \\
-irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}\item[{source\+\_\+type}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{irk-score_8cpp_a73f57f67fb1e33bdbfd80bfba2fc9ffe}{source\+\_\+type}}}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -92,11 +114,29 @@ Creates a memory view.
 {\em source} & a copy of this will be created on heap to support polymorphic usage with value semantic. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classirk_1_1memory__view_a10acf8933d8a6e57295c27c73adce179}\label{classirk_1_1memory__view_a10acf8933d8a6e57295c27c73adce179}} 
+\mbox{\Hypertarget{classirk_1_1memory__view_a8530b1378e96dd8f82416b56248cf9b1}\label{classirk_1_1memory__view_a8530b1378e96dd8f82416b56248cf9b1}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!memory\+\_\+view@{memory\+\_\+view}}
 \index{memory\+\_\+view@{memory\+\_\+view}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
-\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_ac1160e860abc324f74e19fdb4eb7b6f1}\label{classirk_1_1memory__view_ac1160e860abc324f74e19fdb4eb7b6f1}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!memory\+\_\+view@{memory\+\_\+view}}
+\index{memory\+\_\+view@{memory\+\_\+view}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_ac057f2cd40190acb964acd24e1fdeac1}\label{classirk_1_1memory__view_ac057f2cd40190acb964acd24e1fdeac1}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!memory\+\_\+view@{memory\+\_\+view}}
+\index{memory\+\_\+view@{memory\+\_\+view}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{memory\+\_\+view()}{memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily irk\+::memory\+\_\+view\+::memory\+\_\+view (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_a06b0a6d7117a0edd95323c423ef5c34c}\label{classirk_1_1memory__view_a06b0a6d7117a0edd95323c423ef5c34c}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!````~memory\+\_\+view@{$\sim$memory\+\_\+view}}
+\index{````~memory\+\_\+view@{$\sim$memory\+\_\+view}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{$\sim$memory\+\_\+view()}{~memory\_view()}}
+{\footnotesize\ttfamily irk\+::memory\+\_\+view\+::$\sim$memory\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
@@ -112,7 +152,7 @@ T irk\+::memory\+\_\+view\+::as (\begin{DoxyParamCaption}\item[{Cast\+Fn}]{cast\
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!begin@{begin}}
 \index{begin@{begin}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{begin()}{begin()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{iterator}} irk\+::memory\+\_\+view\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{iterator}} irk\+::memory\+\_\+view\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1memory__view_ab55150c13cf7e380aaaeda8d70d24bed}\label{classirk_1_1memory__view_ab55150c13cf7e380aaaeda8d70d24bed}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!data@{data}}
@@ -124,21 +164,53 @@ T irk\+::memory\+\_\+view\+::as (\begin{DoxyParamCaption}\item[{Cast\+Fn}]{cast\
 
 Returns a pointer to the underlying data. 
 
-The source is expected to return a pointer of contiguous data in memory (or memory mapped file). Thus, if a source loads data lazily, it must first load the entire data and return its pointer. To avoid such inefficiency, e.\+g., if data is meant to be accessed sequentially, use \mbox{\hyperlink{classirk_1_1memory__view_a41d2227984ac0284ec52588a57bd297c}{begin()}} and \mbox{\hyperlink{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}{end()}}, or \mbox{\hyperlink{classirk_1_1memory__view_a944d6187b25fdf17347959362c55a9da}{operator\mbox{[}\mbox{]}}} instead. \mbox{\Hypertarget{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}\label{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}} 
+The source is expected to return a pointer of contiguous data in memory (or memory mapped file). Thus, if a source loads data lazily, it must first load the entire data and return its pointer. To avoid such inefficiency, e.\+g., if data is meant to be accessed sequentially, use \mbox{\hyperlink{classirk_1_1memory__view_a41d2227984ac0284ec52588a57bd297c}{begin()}} and \mbox{\hyperlink{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}{end()}}, or \mbox{\hyperlink{classirk_1_1memory__view_a21ac618a1eaddf6665148d186f3f67a4}{operator\mbox{[}\mbox{]}}} instead. \mbox{\Hypertarget{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}\label{classirk_1_1memory__view_a393e04a837ff706e408fbea11219d7ed}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!end@{end}}
 \index{end@{end}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{end()}{end()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view_1_1iterator}{iterator}} irk\+::memory\+\_\+view\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view_a425bdc98ffa1c1c6cb018b3b4ad64317}{iterator}} irk\+::memory\+\_\+view\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1memory__view_a944d6187b25fdf17347959362c55a9da}\label{classirk_1_1memory__view_a944d6187b25fdf17347959362c55a9da}} 
+\mbox{\Hypertarget{classirk_1_1memory__view_a3512cd124a9e37db75e295e1ff9fcf96}\label{classirk_1_1memory__view_a3512cd124a9e37db75e295e1ff9fcf96}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator()@{operator()}}
+\index{operator()@{operator()}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} irk\+::memory\+\_\+view\+::operator() (\begin{DoxyParamCaption}\item[{std\+::ptrdiff\+\_\+t}]{lo,  }\item[{std\+::ptrdiff\+\_\+t}]{hi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a new memory view defined by a half-\/open range \mbox{[}lo, hi). 
+
+\mbox{\Hypertarget{classirk_1_1memory__view_a08de0b791c9f50ad1b646e85fb67e734}\label{classirk_1_1memory__view_a08de0b791c9f50ad1b646e85fb67e734}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator()@{operator()}}
+\index{operator()@{operator()}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} irk\+::memory\+\_\+view\+::operator() (\begin{DoxyParamCaption}\item[{std\+::ptrdiff\+\_\+t}]{cut }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a new memory view defined by the given cut. 
+
+\mbox{\Hypertarget{classirk_1_1memory__view_a3e72e258a7d53b02e292b3875cd5add3}\label{classirk_1_1memory__view_a3e72e258a7d53b02e292b3875cd5add3}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}\& irk\+::memory\+\_\+view\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_ab9e565bd6ca92f5e16b5741f6ef8a708}\label{classirk_1_1memory__view_ab9e565bd6ca92f5e16b5741f6ef8a708}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}\& irk\+::memory\+\_\+view\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1memory__view_a21ac618a1eaddf6665148d186f3f67a4}\label{classirk_1_1memory__view_a21ac618a1eaddf6665148d186f3f67a4}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const char\& irk\+::memory\+\_\+view\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const char\& irk\+::memory\+\_\+view\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::ptrdiff\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Returns a a character at offset {\ttfamily n} in the memory. 
+Returns a character at offset {\ttfamily n} in the memory. 
 
 \mbox{\Hypertarget{classirk_1_1memory__view_ae16ba32b9419a8918762132186a00463}\label{classirk_1_1memory__view_ae16ba32b9419a8918762132186a00463}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -150,25 +222,31 @@ Returns a a character at offset {\ttfamily n} in the memory.
 
 Returns a new memory view defined by the given slice. 
 
-\mbox{\Hypertarget{classirk_1_1memory__view_ae5f29465eeab2b4b8bdff14139ec138d}\label{classirk_1_1memory__view_ae5f29465eeab2b4b8bdff14139ec138d}} 
+\mbox{\Hypertarget{classirk_1_1memory__view_a5edb4d5f580fdcc20f131e8980d1f7aa}\label{classirk_1_1memory__view_a5edb4d5f580fdcc20f131e8980d1f7aa}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!range@{range}}
 \index{range@{range}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{range()}{range()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} irk\+::memory\+\_\+view\+::range (\begin{DoxyParamCaption}\item[{int}]{first,  }\item[{int}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} irk\+::memory\+\_\+view\+::range (\begin{DoxyParamCaption}\item[{std\+::ptrdiff\+\_\+t}]{first,  }\item[{std\+::ptrdiff\+\_\+t}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Returns a new memory view defined by the given range. 
 
-\mbox{\Hypertarget{classirk_1_1memory__view_ac059705d698fc494739ac4245c6ed29f}\label{classirk_1_1memory__view_ac059705d698fc494739ac4245c6ed29f}} 
+\mbox{\Hypertarget{classirk_1_1memory__view_af9ae4528f4f33cf24ab65115f96b7e18}\label{classirk_1_1memory__view_af9ae4528f4f33cf24ab65115f96b7e18}} 
 \index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!size@{size}}
 \index{size@{size}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
 \subsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily gsl\+::index irk\+::memory\+\_\+view\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::ptrdiff\+\_\+t irk\+::memory\+\_\+view\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Returns the number of characters in the memory area. 
+
+\mbox{\Hypertarget{classirk_1_1memory__view_a4e324d9edda27a3125d2ab364d1e5552}\label{classirk_1_1memory__view_a4e324d9edda27a3125d2ab364d1e5552}} 
+\index{irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}!stream@{stream}}
+\index{stream@{stream}!irk\+::memory\+\_\+view@{irk\+::memory\+\_\+view}}
+\subsubsection{\texorpdfstring{stream()}{stream()}}
+{\footnotesize\ttfamily auto irk\+::memory\+\_\+view\+::stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

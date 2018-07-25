@@ -51,10 +51,14 @@ sudo cmake --build . --target install  # or: sudo make install
 ## Conan Package
 
 If you want to use `irkit` as a dependency in your project,
-you can use the `conan` package. First, must add the remote repository:
+you can use the `conan` package. First, must add the remote repositories:
 
 ```sh
 conan remote add irkit https://api.bintray.com/conan/elshize/irkit
+conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
+conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
 ```
 
 Then install locally:

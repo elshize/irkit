@@ -21,8 +21,14 @@ struct \mbox{\hyperlink{structirk_1_1bitptr_1_1reader}{reader}}
 \begin{DoxyCompactList}\small\item\em Creates a pointer to the bit in position {\ttfamily shift} in {\ttfamily block\+\_\+ptr}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}{bitptr}} (const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&other)
 \begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}{operator=}} (const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&other)
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \& \mbox{\hyperlink{classirk_1_1bitptr_a0ace0c6a50c1a71ef5cb54f0d5cdcf99}{operator=}} (const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \&other)
 \begin{DoxyCompactList}\small\item\em Assignment operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classirk_1_1bitptr_a731008f6aafd2f7c2cc94f61adfa4b0a}{bitptr}} (\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \& \mbox{\hyperlink{classirk_1_1bitptr_aed35f1722e462574dfd8409fac0d31b7}{operator=}} (\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1bitptr_aea23dcd9c00281ff5442d52c506afd1a}{$\sim$bitptr}} ()=default
+\item 
 void \mbox{\hyperlink{classirk_1_1bitptr_ab690150f670134eb879fceb83d892073}{set}} (bool bit)
 \begin{DoxyCompactList}\small\item\em Sets the bit to the chosen value. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classirk_1_1bitptr_a11089c343ac361d3ca5d86f8109c2d42}{set}} ()
@@ -70,9 +76,9 @@ Note$\ast$$\ast$\+: no decrement or minus operator are defined as of now; theref
 \mbox{\Hypertarget{classirk_1_1bitptr_acd28cbb88a0840befdd9bc7a7260f036}\label{classirk_1_1bitptr_acd28cbb88a0840befdd9bc7a7260f036}} 
 \index{irk\+::bitptr@{irk\+::bitptr}!bitptr@{bitptr}}
 \index{bitptr@{bitptr}!irk\+::bitptr@{irk\+::bitptr}}
-\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$class Block$>$ \\
-\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{Block $\ast$}]{block\+\_\+ptr,  }\item[{std\+::uint8\+\_\+t}]{shift = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{Block $\ast$}]{block\+\_\+ptr,  }\item[{std\+::uint8\+\_\+t}]{shift = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -90,13 +96,27 @@ It is prefectly legal to set {\ttfamily shift $>$ sizeof(\+Block)}; then, it wil
 \mbox{\Hypertarget{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}\label{classirk_1_1bitptr_aa1c908a8d26c9286270ccb73ca5a3d85}} 
 \index{irk\+::bitptr@{irk\+::bitptr}!bitptr@{bitptr}}
 \index{bitptr@{bitptr}!irk\+::bitptr@{irk\+::bitptr}}
-\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$class Block$>$ \\
 \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Copy constructor. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_a731008f6aafd2f7c2cc94f61adfa4b0a}\label{classirk_1_1bitptr_a731008f6aafd2f7c2cc94f61adfa4b0a}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!bitptr@{bitptr}}
+\index{bitptr@{bitptr}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{bitptr()}{bitptr()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1bitptr_aea23dcd9c00281ff5442d52c506afd1a}\label{classirk_1_1bitptr_aea23dcd9c00281ff5442d52c506afd1a}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!````~bitptr@{$\sim$bitptr}}
+\index{````~bitptr@{$\sim$bitptr}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{$\sim$bitptr()}{~bitptr()}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::$\sim$\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
@@ -167,16 +187,23 @@ Increments the pointer to the next bit.
 
 Increments the pointer by {\ttfamily n} bits. 
 
-\mbox{\Hypertarget{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}\label{classirk_1_1bitptr_a60b3f1dcb2d6c9f8102c0e077937dcc5}} 
+\mbox{\Hypertarget{classirk_1_1bitptr_a0ace0c6a50c1a71ef5cb54f0d5cdcf99}\label{classirk_1_1bitptr_a0ace0c6a50c1a71ef5cb54f0d5cdcf99}} 
 \index{irk\+::bitptr@{irk\+::bitptr}!operator=@{operator=}}
 \index{operator=@{operator=}!irk\+::bitptr@{irk\+::bitptr}}
-\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class Block$>$ \\
-void \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}\& \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Assignment operator. 
+
+\mbox{\Hypertarget{classirk_1_1bitptr_aed35f1722e462574dfd8409fac0d31b7}\label{classirk_1_1bitptr_aed35f1722e462574dfd8409fac0d31b7}} 
+\index{irk\+::bitptr@{irk\+::bitptr}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::bitptr@{irk\+::bitptr}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Block$>$ \\
+\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}\& \mbox{\hyperlink{classirk_1_1bitptr}{irk\+::bitptr}}$<$ Block $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
 \mbox{\Hypertarget{classirk_1_1bitptr_a1df6b87e20b41de54fd6d582263a905d}\label{classirk_1_1bitptr_a1df6b87e20b41de54fd6d582263a905d}} 
 \index{irk\+::bitptr@{irk\+::bitptr}!operator\mbox{[}\mbox{]}@{operator[]}}

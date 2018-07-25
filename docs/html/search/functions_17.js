@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7econcept',['~concept',['../structirk_1_1memory__view_1_1concept.html#a970a71a31247472092552d2358968116',1,'irk::memory_view::concept']]],
-  ['_7eradix_5ftree',['~radix_tree',['../classirk_1_1radix__tree.html#a32491327f9b61b14c88f38ef6fd09a9f',1,'irk::radix_tree']]]
+  ['zip',['zip',['../namespaceirk_1_1view.html#a1375ca93181b0bcbc509d6b0bf6c5be9',1,'irk::view']]],
+  ['zipview',['ZipView',['../classirk_1_1view_1_1ZipView.html#a538eabe5e10f14e89bbe394bf601af41',1,'irk::view::ZipView']]]
 ];

@@ -1,14 +1,29 @@
 \hypertarget{irk-postings_8cpp}{}\section{src/irk-\/postings.cpp File Reference}
 \label{irk-postings_8cpp}\index{src/irk-\/postings.\+cpp@{src/irk-\/postings.\+cpp}}
-{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include \char`\"{}cmd.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/index.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/vbyte.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/source.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/types.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/parsing/stemmer.\+hpp$>$}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$class Posting\+ListT $>$ }\\void \mbox{\hyperlink{irk-postings_8cpp_a8fd168baf0349318b98384a15e1ed018}{print\+\_\+postings}} (const Posting\+ListT \&postings, bool use\+\_\+titles, const \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{irk\+::inverted\+\_\+index\+\_\+view}} \&index)
+\item 
 int \mbox{\hyperlink{irk-postings_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}
 
 
 \subsection{Function Documentation}
@@ -17,4 +32,11 @@ int \mbox{\hyperlink{irk-postings_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}
 \index{main@{main}!irk-\/postings.\+cpp@{irk-\/postings.\+cpp}}
 \subsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{irk-postings_8cpp_a8fd168baf0349318b98384a15e1ed018}\label{irk-postings_8cpp_a8fd168baf0349318b98384a15e1ed018}} 
+\index{irk-\/postings.\+cpp@{irk-\/postings.\+cpp}!print\+\_\+postings@{print\+\_\+postings}}
+\index{print\+\_\+postings@{print\+\_\+postings}!irk-\/postings.\+cpp@{irk-\/postings.\+cpp}}
+\subsubsection{\texorpdfstring{print\+\_\+postings()}{print\_postings()}}
+{\footnotesize\ttfamily template$<$class Posting\+ListT $>$ \\
+void print\+\_\+postings (\begin{DoxyParamCaption}\item[{const Posting\+ListT \&}]{postings,  }\item[{bool}]{use\+\_\+titles,  }\item[{const \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{irk\+::inverted\+\_\+index\+\_\+view}} \&}]{index }\end{DoxyParamCaption})}
 

@@ -1,14 +1,15 @@
 \hypertarget{compacttable_8hpp}{}\section{include/irkit/compacttable.hpp File Reference}
 \label{compacttable_8hpp}\index{include/irkit/compacttable.\+hpp@{include/irkit/compacttable.\+hpp}}
-{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/device/mapped\+\_\+file.\+hpp$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/coding.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/coding/varbyte.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/io.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/io/memorybuffer.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/iostreams/device/mapped\+\_\+file.\+hpp$>$}\newline
+{\ttfamily \#include $<$type\+\_\+safe/index.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/assert.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/vbyte.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/io.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,42 +27,42 @@ class \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table$<$ 
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+\item 
  \mbox{\hyperlink{namespaceirk_1_1io}{irk\+::io}}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a34b2e9b780a3b5d4532d7975d6c1a8bf}{irk\+::vector\+\_\+compact\+\_\+table}} = compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a34b2e9b780a3b5d4532d7975d6c1a8bf}{irk\+::vector\+\_\+compact\+\_\+table}} = compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$
 \item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{irk\+::mapped\+\_\+compact\+\_\+table}} = compact\+\_\+table$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{irk\+::mapped\+\_\+compact\+\_\+table}} = compact\+\_\+table$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{irk\+::offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, Memory\+Buffer $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{irk\+::offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, Memory\+Buffer $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}{irk\+::vector\+\_\+offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}{irk\+::vector\+\_\+offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{irk\+::mapped\+\_\+offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{irk\+::mapped\+\_\+offset\+\_\+table}} = compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Mem , class Codec $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{namespaceirk_a5a2bb996aa2fce0aa00ae9aafd500bba}{irk\+::read\+\_\+compact\+\_\+value}} (Mem mem, std\+::uint32\+\_\+t key, Codec codec)
+{\footnotesize template$<$class Mem , class Codec $>$ }\\auto \mbox{\hyperlink{namespaceirk_a98ebfab64f6f91c847caacbac527e9dd}{irk\+::read\+\_\+compact\+\_\+value}} (Mem mem, std\+::uint32\+\_\+t key, Codec codec)
 \item 
 {\footnotesize template$<$class T , class Codec , class Memory\+Buffer $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a2bc6394c2673a19ce5bf0ca74641c41d}{irk\+::operator$<$$<$}} (std\+::ostream \&out, const compact\+\_\+table$<$ T, Codec, Memory\+Buffer $>$ \&offset\+\_\+table)
 \item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_aa5a47c5f38246e32ece50c109e1edaaf}{irk\+::load\+\_\+compact\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af5d69d1a8b720ed220cac2ba35bf704f}{irk\+::load\+\_\+compact\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Load a compact table to main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a72297d13b3e41cd8dafdcc28ff3c4528}{irk\+::map\+\_\+compact\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a2404dd8fd003ee848e563f3538972979}{irk\+::map\+\_\+compact\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Set up a compact table with a mapped file. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}{irk\+::build\+\_\+compact\+\_\+table}} (const std\+::vector$<$ T $>$ \&values, bool delta\+\_\+encoded=false, std\+::uint32\+\_\+t block\+\_\+size=256)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\compact\+\_\+table$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}{irk\+::build\+\_\+compact\+\_\+table}} (const std\+::vector$<$ T $>$ \&values, bool delta\+\_\+encoded=false, std\+::uint32\+\_\+t block\+\_\+size=256)
 \begin{DoxyCompactList}\small\item\em Build a compact table in main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad0428139c5d98f138321b9a2b1bff3d5}{irk\+::load\+\_\+offset\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ac8015c27262d287ddb9092a9b4278750}{irk\+::load\+\_\+offset\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Load an offset table to main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a647b6c35c655d88bb5fb522a4d77ef49}{irk\+::map\+\_\+offset\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a43eccbe6cba8b0a3168b9bc5065d05b6}{irk\+::map\+\_\+offset\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Set up an offset table with a mapped file. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}{irk\+::build\+\_\+offset\+\_\+table}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&values, std\+::uint32\+\_\+t block\+\_\+size=256)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\compact\+\_\+table$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}{irk\+::build\+\_\+offset\+\_\+table}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&values, std\+::uint32\+\_\+t block\+\_\+size=256)
 \begin{DoxyCompactList}\small\item\em Build an offset table in main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}{irk\+::io\+::dump}} (const compact\+\_\+table$<$ T, Codec $>$ \&offset\+\_\+table, fs\+::path file)
+{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b755deadffffcc321eccc3c1a537555}{irk\+::io\+::dump}} (const compact\+\_\+table$<$ T, Codec $>$ \&offset\+\_\+table, const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Write a {\ttfamily \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}} to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

@@ -1,42 +1,37 @@
 \hypertarget{block__inverted__list_8hpp}{}\section{include/irkit/index/block\+\_\+inverted\+\_\+list.hpp File Reference}
 \label{block__inverted__list_8hpp}\index{include/irkit/index/block\+\_\+inverted\+\_\+list.\+hpp@{include/irkit/index/block\+\_\+inverted\+\_\+list.\+hpp}}
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/device/array.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/device/back\+\_\+inserter.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/filtering\+\_\+stream.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/iostreams/stream.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/mpl/vector.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+erasure/any.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+erasure/builtin.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+erasure/concept\+\_\+interface.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/type\+\_\+erasure/rebind\+\_\+any.\+hpp$>$}\newline
-{\ttfamily \#include $<$gsl/span$>$}\newline
+{\ttfamily \#include $<$boost/iterator.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/coding.\+hpp$>$}\newline
-{\ttfamily \#include $<$irkit/coding/copy.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/stream\+\_\+vbyte.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding/vbyte.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/index/block.\+hpp$>$}\newline
-{\ttfamily \#include $<$irkit/index/skiplist.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/types.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/memoryview.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{irk\+::index\+::block\+\_\+iterator$<$ List\+View, delta\+\_\+encoded $>$}}
 \begin{DoxyCompactList}\small\item\em Block iterator. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1block__list__builder}{irk\+::index\+::block\+\_\+list\+\_\+builder$<$ Value, delta\+\_\+encoded $>$}}
+class \mbox{\hyperlink{classirk_1_1index_1_1block__list__builder}{irk\+::index\+::block\+\_\+list\+\_\+builder$<$ Value, Codec, delta\+\_\+encoded $>$}}
 \item 
-class \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Doc $>$}}
+class \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Codec $>$}}
 \begin{DoxyCompactList}\small\item\em A view of a block document list. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{irk\+::index\+::block\+\_\+payload\+\_\+list\+\_\+view$<$ Payload $>$}}
-\begin{DoxyCompactList}\small\item\em A view of a block payload list. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1zipped__payload__list__view}{irk\+::index\+::zipped\+\_\+payload\+\_\+list\+\_\+view$<$ Payload $>$}}
-\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1zipped__payload__list__view_1_1iterator}{irk\+::index\+::zipped\+\_\+payload\+\_\+list\+\_\+view$<$ Payload $>$\+::iterator}}
-\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$}}
-\begin{DoxyCompactList}\small\item\em A view of a block posting list (ID, payload). \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1index_1_1block__posting__list__view_1_1iterator}{irk\+::index\+::block\+\_\+posting\+\_\+list\+\_\+view$<$ Doc, Payload $>$\+::iterator$<$ payload\+\_\+type $>$}}
-\begin{DoxyCompactList}\small\item\em Document iterator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{classirk_1_1index_1_1block__payload__list__view}{irk\+::index\+::block\+\_\+payload\+\_\+list\+\_\+view$<$ Payload, Codec $>$}}
+\begin{DoxyCompactList}\small\item\em A view of a block payload list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk_1_1index}{irk\+::index}}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

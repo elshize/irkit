@@ -1,22 +1,27 @@
 \hypertarget{namespaceirk_1_1io}{}\section{irk\+:\+:io Namespace Reference}
 \label{namespaceirk_1_1io}\index{irk\+::io@{irk\+::io}}
-\subsection*{Classes}
+\subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classirk_1_1io_1_1base__memory__buffer}{base\+\_\+memory\+\_\+buffer}}
-\begin{DoxyCompactList}\small\item\em A base class for all types of memory buffers. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1io_1_1mapped__memory__buffer}{mapped\+\_\+memory\+\_\+buffer}}
+ \mbox{\hyperlink{namespaceirk_1_1io_1_1detail}{detail}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classirk_1_1io_1_1vector__memory__buffer}{vector\+\_\+memory\+\_\+buffer}}
+using \mbox{\hyperlink{namespaceirk_1_1io_aca7c3fe4077d1c97e51700fbf746d2e5}{line\+\_\+iterator}} = std\+::istream\+\_\+iterator$<$ \mbox{\hyperlink{classirk_1_1io_1_1detail_1_1line}{detail\+::line}} $>$
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}{dump}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&\mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{offset\+\_\+table}}, fs\+::path file)
+{\footnotesize template$<$class T , class Codec $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b755deadffffcc321eccc3c1a537555}{dump}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&\mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{offset\+\_\+table}}, const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Write a {\ttfamily \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}} to a file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespaceirk_1_1io_aa9967d537be4185e88420785431fb63b}{enforce\+\_\+exist}} (const fs\+::path \&file)
 \item 
-void \mbox{\hyperlink{namespaceirk_1_1io_aa680509002f530048131492dea584724}{load\+\_\+data}} (fs\+::path data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+void \mbox{\hyperlink{namespaceirk_1_1io_a2ec8cb8d9886450819cc9ee7ff2049ce}{load\+\_\+data}} (const fs\+::path \&data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_af4c16c7d4b0a5323130f2b8dd2be8462}{load\+\_\+lines}} (const fs\+::path \&data\+\_\+file, std\+::vector$<$ std\+::string $>$ \&lines)
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespaceirk_1_1io_af11c57444a8b26150af8c6cbaa8ef093}{load\+\_\+lines}} (const fs\+::path \&data\+\_\+file)
 \item 
 {\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}{append\+\_\+object}} (const T \&object, std\+::vector$<$ char $>$ \&buffer)
 \begin{DoxyCompactList}\small\item\em Appends the underlying bytes of an object to a byte buffer. \end{DoxyCompactList}\item 
@@ -24,6 +29,15 @@ void \mbox{\hyperlink{namespaceirk_1_1io_aa680509002f530048131492dea584724}{load
 \begin{DoxyCompactList}\small\item\em Appends the underlying bytes of a collection to a byte buffer. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Index , class Memory\+Buffer , class Counter $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a4b74cc5a440f69992ce2302aebfc0b4d}{dump}} (const \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$ Index, Memory\+Buffer, Counter $>$ \&map, fs\+::path file)
 \end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceirk_1_1io_aca7c3fe4077d1c97e51700fbf746d2e5}\label{namespaceirk_1_1io_aca7c3fe4077d1c97e51700fbf746d2e5}} 
+\index{irk\+::io@{irk\+::io}!line\+\_\+iterator@{line\+\_\+iterator}}
+\index{line\+\_\+iterator@{line\+\_\+iterator}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{line\+\_\+iterator}{line\_iterator}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_1_1io_aca7c3fe4077d1c97e51700fbf746d2e5}{irk\+::io\+::line\+\_\+iterator}} = typedef std\+::istream\+\_\+iterator$<$\mbox{\hyperlink{classirk_1_1io_1_1detail_1_1line}{detail\+::line}}$>$}
+
 
 
 \subsection{Function Documentation}
@@ -49,12 +63,12 @@ void irk\+::io\+::append\+\_\+object (\begin{DoxyParamCaption}\item[{const T \&}
 
 Appends the underlying bytes of an object to a byte buffer. 
 
-\mbox{\Hypertarget{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}\label{namespaceirk_1_1io_a7eb5e1bc8d97d131311b0054a1b79b94}} 
+\mbox{\Hypertarget{namespaceirk_1_1io_a6b755deadffffcc321eccc3c1a537555}\label{namespaceirk_1_1io_a6b755deadffffcc321eccc3c1a537555}} 
 \index{irk\+::io@{irk\+::io}!dump@{dump}}
 \index{dump@{dump}!irk\+::io@{irk\+::io}}
 \subsubsection{\texorpdfstring{dump()}{dump()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$class T , class Codec $>$ \\
-void irk\+::io\+::dump (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{offset\+\_\+table,  }\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+void irk\+::io\+::dump (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{offset\+\_\+table,  }\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
 
 
 
@@ -71,11 +85,23 @@ void irk\+::io\+::dump (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{cl
 \index{irk\+::io@{irk\+::io}!enforce\+\_\+exist@{enforce\+\_\+exist}}
 \index{enforce\+\_\+exist@{enforce\+\_\+exist}!irk\+::io@{irk\+::io}}
 \subsubsection{\texorpdfstring{enforce\+\_\+exist()}{enforce\_exist()}}
-{\footnotesize\ttfamily void irk\+::io\+::enforce\+\_\+exist (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void irk\+::io\+::enforce\+\_\+exist (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespaceirk_1_1io_aa680509002f530048131492dea584724}\label{namespaceirk_1_1io_aa680509002f530048131492dea584724}} 
+\mbox{\Hypertarget{namespaceirk_1_1io_a2ec8cb8d9886450819cc9ee7ff2049ce}\label{namespaceirk_1_1io_a2ec8cb8d9886450819cc9ee7ff2049ce}} 
 \index{irk\+::io@{irk\+::io}!load\+\_\+data@{load\+\_\+data}}
 \index{load\+\_\+data@{load\+\_\+data}!irk\+::io@{irk\+::io}}
 \subsubsection{\texorpdfstring{load\+\_\+data()}{load\_data()}}
-{\footnotesize\ttfamily void irk\+::io\+::load\+\_\+data (\begin{DoxyParamCaption}\item[{fs\+::path}]{data\+\_\+file,  }\item[{std\+::vector$<$ char $>$ \&}]{data\+\_\+container }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void irk\+::io\+::load\+\_\+data (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{data\+\_\+file,  }\item[{std\+::vector$<$ char $>$ \&}]{data\+\_\+container }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_1_1io_af4c16c7d4b0a5323130f2b8dd2be8462}\label{namespaceirk_1_1io_af4c16c7d4b0a5323130f2b8dd2be8462}} 
+\index{irk\+::io@{irk\+::io}!load\+\_\+lines@{load\+\_\+lines}}
+\index{load\+\_\+lines@{load\+\_\+lines}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{load\+\_\+lines()}{load\_lines()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void irk\+::io\+::load\+\_\+lines (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{data\+\_\+file,  }\item[{std\+::vector$<$ std\+::string $>$ \&}]{lines }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_1_1io_af11c57444a8b26150af8c6cbaa8ef093}\label{namespaceirk_1_1io_af11c57444a8b26150af8c6cbaa8ef093}} 
+\index{irk\+::io@{irk\+::io}!load\+\_\+lines@{load\+\_\+lines}}
+\index{load\+\_\+lines@{load\+\_\+lines}!irk\+::io@{irk\+::io}}
+\subsubsection{\texorpdfstring{load\+\_\+lines()}{load\_lines()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ irk\+::io\+::load\+\_\+lines (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{data\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 

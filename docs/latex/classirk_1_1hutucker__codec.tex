@@ -15,9 +15,21 @@ Hu-\/\+Tucker codec.
 using \mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}} = Symbol
 \item 
 using \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} = Memory\+Container
+\item 
+using \mbox{\hyperlink{classirk_1_1hutucker__codec_a507a089f939f5fd77a38245598e5a9a2}{self\+\_\+type}} = \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} $>$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1hutucker__codec_af44e54c9f8257df294e4c879d610281b}{hutucker\+\_\+codec}} (const \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \&)=default
+\item 
+\mbox{\hyperlink{classirk_1_1hutucker__codec_a352279b1fadd10bf1cb6e5424cc7e340}{hutucker\+\_\+codec}} (\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \& \mbox{\hyperlink{classirk_1_1hutucker__codec_accb71e2dbf391b20a82d6d7d03f12e7b}{operator=}} (const \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \&)=delete
+\item 
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \& \mbox{\hyperlink{classirk_1_1hutucker__codec_a7d7253db1a48617db0176effd4f3fe0c}{operator=}} (\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} \&\&) noexcept=delete
+\item 
+\mbox{\hyperlink{classirk_1_1hutucker__codec_ae028bba786a7f242d0ef617ec87fb581}{$\sim$hutucker\+\_\+codec}} ()=default
 \item 
 \mbox{\hyperlink{classirk_1_1hutucker__codec_a07f7f1c0f6fa0162dcafe5848fdfbb73}{hutucker\+\_\+codec}} (\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, uint16\+\_\+t, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} $>$ abst)
 \begin{DoxyCompactList}\small\item\em Constructs a codec from an existing A\+B\+ST. \end{DoxyCompactList}\item 
@@ -29,6 +41,10 @@ using \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762ee
 \begin{DoxyCompactList}\small\item\em Returns a dynamic bitset representing the encoded string. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Symbol\+Input\+Stream , class Bit\+Output\+Stream $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a3f0df69a4d865e5f1e89e90b4f250dae}{encode}} (Symbol\+Input\+Stream \&source, Bit\+Output\+Stream \&sink) const
 \begin{DoxyCompactList}\small\item\em Encodes the entire input stream to the sink. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Symbol\+Iterator , class Bit\+Output\+Stream $>$ }\\std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_aea36ea147fe323bcdcf4c82686c75abd}{encode}} (Symbol\+Iterator first, Symbol\+Iterator last, Bit\+Output\+Stream \&sink) const
+\item 
+{\footnotesize template$<$class Symbol\+Iterator , class Bit\+Output\+Stream $>$ }\\std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a4a2870c7684fab90126b45d7b5caaba9}{encode}} (const std\+::string \&word, Bit\+Output\+Stream \&sink) const
+\item 
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a4c5bc826a54ecf8cc9ce94b61396370f}{decode}} (const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&source, std\+::ostream \&sink, std\+::size\+\_\+t n) const
 \begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from a bitset and writes to an output stream. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Bit\+Input\+Stream $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a49ca7c3ce227aada3ed65afb3a8444ec}{decode}} (Bit\+Input\+Stream \&source, std\+::ostream \&sink, std\+::size\+\_\+t n) const
@@ -38,7 +54,7 @@ const \mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a4b583dcfd72280bb0178cd8cf2845e34}{symbol\+\_\+count}} = 1 $<$$<$ (sizeof(\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}) $\ast$ 8)
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec_a4b583dcfd72280bb0178cd8cf2845e34}{symbol\+\_\+count}}
 \end{DoxyCompactItemize}
 
 
@@ -62,25 +78,53 @@ See \href{http://www-math.mit.edu/~shor/PAM/hu-tucker_algorithm.html}{\tt http\+
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!buffer\+\_\+type@{buffer\+\_\+type}}
 \index{buffer\+\_\+type@{buffer\+\_\+type}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{buffer\+\_\+type}{buffer\_type}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 using \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} =  Memory\+Container}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_a507a089f939f5fd77a38245598e5a9a2}\label{classirk_1_1hutucker__codec_a507a089f939f5fd77a38245598e5a9a2}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!self\+\_\+type@{self\+\_\+type}}
+\index{self\+\_\+type@{self\+\_\+type}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{self\+\_\+type}{self\_type}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec_a507a089f939f5fd77a38245598e5a9a2}{self\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}}$>$}
 
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}\label{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!symbol\+\_\+type@{symbol\+\_\+type}}
 \index{symbol\+\_\+type@{symbol\+\_\+type}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{symbol\+\_\+type}{symbol\_type}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 using \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}} =  Symbol}
 
 
 
 \subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_af44e54c9f8257df294e4c879d610281b}\label{classirk_1_1hutucker__codec_af44e54c9f8257df294e4c879d610281b}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!hutucker\+\_\+codec@{hutucker\+\_\+codec}}
+\index{hutucker\+\_\+codec@{hutucker\+\_\+codec}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_a352279b1fadd10bf1cb6e5424cc7e340}\label{classirk_1_1hutucker__codec_a352279b1fadd10bf1cb6e5424cc7e340}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!hutucker\+\_\+codec@{hutucker\+\_\+codec}}
+\index{hutucker\+\_\+codec@{hutucker\+\_\+codec}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_ae028bba786a7f242d0ef617ec87fb581}\label{classirk_1_1hutucker__codec_ae028bba786a7f242d0ef617ec87fb581}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!````~hutucker\+\_\+codec@{$\sim$hutucker\+\_\+codec}}
+\index{````~hutucker\+\_\+codec@{$\sim$hutucker\+\_\+codec}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{$\sim$hutucker\+\_\+codec()}{~hutucker\_codec()}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::$\sim$\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_a07f7f1c0f6fa0162dcafe5848fdfbb73}\label{classirk_1_1hutucker__codec_a07f7f1c0f6fa0162dcafe5848fdfbb73}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!hutucker\+\_\+codec@{hutucker\+\_\+codec}}
 \index{hutucker\+\_\+codec@{hutucker\+\_\+codec}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
-\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, uint16\+\_\+t, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} $>$}]{abst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, uint16\+\_\+t, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}} $>$}]{abst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -89,10 +133,10 @@ Constructs a codec from an existing A\+B\+ST.
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_a41e575e3badde26ab126e10f15ce8315}\label{classirk_1_1hutucker__codec_a41e575e3badde26ab126e10f15ce8315}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!hutucker\+\_\+codec@{hutucker\+\_\+codec}}
 \index{hutucker\+\_\+codec@{hutucker\+\_\+codec}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
-\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\subsubsection{\texorpdfstring{hutucker\+\_\+codec()}{hutucker\_codec()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 template$<$class  = enable\+\_\+if\+\_\+equal$<$buffer\+\_\+type, std\+::vector$<$char$>$$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{frequencies }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{frequencies }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -105,7 +149,7 @@ Note that this constructor is only available whenever {\ttfamily buffer\+\_\+typ
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!decode@{decode}}
 \index{decode@{decode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{const boost\+::dynamic\+\_\+bitset$<$ unsigned char $>$ \&}]{source,  }\item[{std\+::ostream \&}]{sink,  }\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -125,7 +169,7 @@ Decodes {\ttfamily n} symbols from a bitset and writes to an output stream.
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!decode@{decode}}
 \index{decode@{decode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 template$<$class Bit\+Input\+Stream $>$ \\
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::decode (\begin{DoxyParamCaption}\item[{Bit\+Input\+Stream \&}]{source,  }\item[{std\+::ostream \&}]{sink,  }\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -144,8 +188,8 @@ Decodes {\ttfamily n} symbols from a bit input stream and writes them to an outp
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_a86c90c76d29d5badfd89b74efe7f1afd}\label{classirk_1_1hutucker__codec_a86c90c76d29d5badfd89b74efe7f1afd}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!encode@{encode}}
 \index{encode@{encode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 template$<$class Symbol\+Iterator $>$ \\
 boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol\+Iterator}]{first,  }\item[{Symbol\+Iterator}]{last }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -168,8 +212,8 @@ Returns a dynamic bitset representing the encoded word.
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_a9f69f70ca8a04d326b6828e523500777}\label{classirk_1_1hutucker__codec_a9f69f70ca8a04d326b6828e523500777}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!encode@{encode}}
 \index{encode@{encode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 template$<$class  = enable\+\_\+if\+\_\+equal$<$symbol\+\_\+type, char$>$$>$ \\
 boost\+::dynamic\+\_\+bitset$<$unsigned char$>$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{word }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -180,8 +224,8 @@ Returns a dynamic bitset representing the encoded string.
 Available only when {\ttfamily symbol\+\_\+type = char}. Then, equivalent to {\ttfamily encode(word.\+begin(), word.\+end())}. \mbox{\Hypertarget{classirk_1_1hutucker__codec_a3f0df69a4d865e5f1e89e90b4f250dae}\label{classirk_1_1hutucker__codec_a3f0df69a4d865e5f1e89e90b4f250dae}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!encode@{encode}}
 \index{encode@{encode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
-\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 template$<$class Symbol\+Input\+Stream , class Bit\+Output\+Stream $>$ \\
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol\+Input\+Stream \&}]{source,  }\item[{Bit\+Output\+Stream \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -196,11 +240,41 @@ Encodes the entire input stream to the sink.
 {\em sink} & output stream writing encoded bits \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_aea36ea147fe323bcdcf4c82686c75abd}\label{classirk_1_1hutucker__codec_aea36ea147fe323bcdcf4c82686c75abd}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!encode@{encode}}
+\index{encode@{encode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+template$<$class Symbol\+Iterator , class Bit\+Output\+Stream $>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{Symbol\+Iterator}]{first,  }\item[{Symbol\+Iterator}]{last,  }\item[{Bit\+Output\+Stream \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_a4a2870c7684fab90126b45d7b5caaba9}\label{classirk_1_1hutucker__codec_a4a2870c7684fab90126b45d7b5caaba9}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!encode@{encode}}
+\index{encode@{encode}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+template$<$class Symbol\+Iterator , class Bit\+Output\+Stream $>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::encode (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{word,  }\item[{Bit\+Output\+Stream \&}]{sink }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_accb71e2dbf391b20a82d6d7d03f12e7b}\label{classirk_1_1hutucker__codec_accb71e2dbf391b20a82d6d7d03f12e7b}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}\& \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classirk_1_1hutucker__codec_a7d7253db1a48617db0176effd4f3fe0c}\label{classirk_1_1hutucker__codec_a7d7253db1a48617db0176effd4f3fe0c}} 
+\index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}\& \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}, {\ttfamily [noexcept]}}
+
 \mbox{\Hypertarget{classirk_1_1hutucker__codec_a68886f66b539effd689bd54ccf591db1}\label{classirk_1_1hutucker__codec_a68886f66b539effd689bd54ccf591db1}} 
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!tree@{tree}}
 \index{tree@{tree}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{tree()}{tree()}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
 const \mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}, uint16\+\_\+t, \mbox{\hyperlink{classirk_1_1hutucker__codec_a995378c8c253dae9867a4b1762eeaf95}{buffer\+\_\+type}}$>$\& \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -214,9 +288,14 @@ Returns the tree used to encode and decode symbols.
 \index{irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}!symbol\+\_\+count@{symbol\+\_\+count}}
 \index{symbol\+\_\+count@{symbol\+\_\+count}!irk\+::hutucker\+\_\+codec@{irk\+::hutucker\+\_\+codec}}
 \subsubsection{\texorpdfstring{symbol\+\_\+count}{symbol\_count}}
-{\footnotesize\ttfamily template$<$class Symbol  = char, class Memory\+Container  = std\+::vector$<$char$>$$>$ \\
-constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::symbol\+\_\+count = 1 $<$$<$ (sizeof(\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\+\_\+type}}) $\ast$ 8)\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily template$<$class Symbol = char, class Memory\+Container = std\+::vector$<$char$>$$>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec}}$<$ Symbol, Memory\+Container $>$\+::symbol\+\_\+count\hspace{0.3cm}{\ttfamily [static]}}
 
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= 1u
+        << (\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classirk_1_1hutucker__codec_af23dee5959ae2a69eea0ab324cf6ecb6}{symbol\_type}}) * 8u)
+\end{DoxyCode}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -15,4 +15,67 @@ These goals should be achieved iteratively.
 
 \section*{Documentation}
 
-\href{https://elshize.github.io/irkit/docs/html/}{\tt https\+://elshize.\+github.\+io/irkit/docs/html/} 
+\href{https://elshize.github.io/irkit/docs/html/}{\tt https\+://elshize.\+github.\+io/irkit/docs/html/}
+
+\section*{Installation}
+
+We recommend using {\ttfamily conan} package manager. You can install it using {\ttfamily pip}\+:
+
+
+\begin{DoxyCode}
+export PATH=$HOME/.local/bin:$PATH
+pip install --user conan
+\end{DoxyCode}
+
+
+With {\ttfamily conan} installed, use it to install dependencies, and compile the project\+:
+
+
+\begin{DoxyCode}
+mkdir build && cd build
+conan install .. --build=missing
+\end{DoxyCode}
+
+
+You can also choose to use system installation of Boost\+:
+
+
+\begin{DoxyCode}
+mkdir build && cd build
+conan install .. --build=missing -o irkit:use\_system\_boost=True
+\end{DoxyCode}
+
+
+Once this is done, you can use {\ttfamily cmake} to build and install.
+
+
+\begin{DoxyCode}
+cmake ..
+cmake --build .  # or: make
+sudo cmake --build . --target install  # or: sudo make install
+\end{DoxyCode}
+
+
+\subsection*{Conan Package}
+
+If you want to use {\ttfamily irkit} as a dependency in your project, you can use the {\ttfamily conan} package. First, must add the remote repositories\+:
+
+
+\begin{DoxyCode}
+conan remote add irkit https://api.bintray.com/conan/elshize/irkit
+conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
+conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
+\end{DoxyCode}
+
+
+Then install locally\+:
+
+
+\begin{DoxyCode}
+conan install irkit/0.1@elshize/develop
+\end{DoxyCode}
+
+
+or use in your {\ttfamily conanfile.\+py}. 

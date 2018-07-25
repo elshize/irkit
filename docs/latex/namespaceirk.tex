@@ -1,10 +1,5 @@
 \hypertarget{namespaceirk}{}\section{irk Namespace Reference}
 \label{namespaceirk}\index{irk@{irk}}
-
-
-Codecs and coding utilities.  
-
-
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,12 +11,14 @@ Codecs and coding utilities.
 \item 
  \mbox{\hyperlink{namespaceirk_1_1io}{io}}
 \item 
+ \mbox{\hyperlink{namespaceirk_1_1literals}{literals}}
+\item 
  \mbox{\hyperlink{namespaceirk_1_1parsing}{parsing}}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1porter2}{porter2}}
 \item 
  \mbox{\hyperlink{namespaceirk_1_1score}{score}}
 \begin{DoxyCompactList}\small\item\em Scoring functions and utilities. \end{DoxyCompactList}\item 
- \mbox{\hyperlink{namespaceirk_1_1v2}{v2}}
-\item 
  \mbox{\hyperlink{namespaceirk_1_1view}{view}}
 \end{DoxyCompactItemize}
 \subsection*{Classes}
@@ -31,8 +28,16 @@ struct \mbox{\hyperlink{structirk_1_1__posting}{\+\_\+posting}}
 \item 
 class \mbox{\hyperlink{classirk_1_1alphabetical__bst}{alphabetical\+\_\+bst}}
 \begin{DoxyCompactList}\small\item\em Read-\/only array-\/based representation of an Alphabetic Binary Search Tree. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1basic__index__builder}{basic\+\_\+index\+\_\+builder}}
+\item 
+class \mbox{\hyperlink{classirk_1_1basic__index__merger}{basic\+\_\+index\+\_\+merger}}
+\item 
+class \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}
+\item 
 class \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}
 \begin{DoxyCompactList}\small\item\em A bit pointer class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1block__accumulator__vector}{block\+\_\+accumulator\+\_\+vector}}
+\item 
 class \mbox{\hyperlink{classirk_1_1columnar__reader}{columnar\+\_\+reader}}
 \item 
 class \mbox{\hyperlink{classirk_1_1columnar__row}{columnar\+\_\+row}}
@@ -47,25 +52,21 @@ struct \mbox{\hyperlink{structirk_1_1CompactTableHeaderFlags}{Compact\+Table\+He
 \item 
 struct \mbox{\hyperlink{structirk_1_1copy__codec}{copy\+\_\+codec}}
 \item 
+class \mbox{\hyperlink{classirk_1_1disk__memory__source}{disk\+\_\+memory\+\_\+source}}
+\begin{DoxyCompactList}\small\item\em A memory source that loads data from disk. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{dynamically\+\_\+scored\+\_\+posting\+\_\+range}}
 \begin{DoxyCompactList}\small\item\em A posting range with scores calculated on the fly. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structirk_1_1has__decode}{has\+\_\+decode}}
-\begin{DoxyCompactList}\small\item\em Decoder concept for type erasure. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structirk_1_1has__encode}{has\+\_\+encode}}
-\begin{DoxyCompactList}\small\item\em Encoder concept for type erasure. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}
 \begin{DoxyCompactList}\small\item\em Hu-\/\+Tucker codec. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1immutable__bit__trie}{immutable\+\_\+bit\+\_\+trie}}
-\begin{DoxyCompactList}\small\item\em In-\/memory or disk-\/based, immutable implementation of Bitwise Trie. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1index__builder}{index\+\_\+builder}}
-\item 
-struct \mbox{\hyperlink{structirk_1_1index__load__exception}{index\+\_\+load\+\_\+exception}}
-\item 
-class \mbox{\hyperlink{classirk_1_1index__merger}{index\+\_\+merger}}
-\item 
 class \mbox{\hyperlink{classirk_1_1input__bit__stream}{input\+\_\+bit\+\_\+stream}}
 \begin{DoxyCompactList}\small\item\em An input stream reading bits. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1inverted__index}{inverted\+\_\+index}}
+class \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source}{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\item 
+class \mbox{\hyperlink{classirk_1_1inverted__index__inmemory__data__source}{inverted\+\_\+index\+\_\+inmemory\+\_\+data\+\_\+source}}
+\item 
+class \mbox{\hyperlink{classirk_1_1inverted__index__mapped__data__source}{inverted\+\_\+index\+\_\+mapped\+\_\+data\+\_\+source}}
+\item 
+class \mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}
 \item 
 class \mbox{\hyperlink{classirk_1_1mapped__file__memory__source}{mapped\+\_\+file\+\_\+memory\+\_\+source}}
 \begin{DoxyCompactList}\small\item\em A memory source for mapped files. \end{DoxyCompactList}\item 
@@ -73,15 +74,15 @@ class \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}
 \begin{DoxyCompactList}\small\item\em A base class for all types of memory views. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structirk_1_1moving__range}{moving\+\_\+range}}
 \begin{DoxyCompactList}\small\item\em A container for two ends of iterators. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}
-\begin{DoxyCompactList}\small\item\em In-\/memory, mutable implementation of Bitwise Trie. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}}
-\begin{DoxyCompactList}\small\item\em A dummy weight type that does not change the score when multiplied. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1output__bit__stream}{output\+\_\+bit\+\_\+stream}}
 \begin{DoxyCompactList}\small\item\em An output stream writing bits. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1pointer__memory__source}{pointer\+\_\+memory\+\_\+source}}
 \begin{DoxyCompactList}\small\item\em A pointer memory source. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classirk_1_1porter2__stemmer}{porter2\+\_\+stemmer}}
+\item 
 class \mbox{\hyperlink{classirk_1_1posting__list__view}{posting\+\_\+list\+\_\+view}}
+\item 
+class \mbox{\hyperlink{classirk_1_1prefix__codec}{prefix\+\_\+codec}}
 \item 
 class \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}
 \begin{DoxyCompactList}\small\item\em A string-\/based prefix map implementation. \end{DoxyCompactList}\item 
@@ -89,16 +90,16 @@ class \mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}
 \item 
 struct \mbox{\hyperlink{structirk_1_1reinterpret__cast__fn}{reinterpret\+\_\+cast\+\_\+fn}}
 \item 
-class \mbox{\hyperlink{classirk_1_1simple__accumulator}{simple\+\_\+accumulator}}
-\begin{DoxyCompactList}\small\item\em A simple score accumulator that adds all scores. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1span__memory__source}{span\+\_\+memory\+\_\+source}}
 \begin{DoxyCompactList}\small\item\em A gsl\+::span$<$\+T$>$ memory source. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1stream__vbyte__codec}{stream\+\_\+vbyte\+\_\+codec}}
+\item 
 class \mbox{\hyperlink{classirk_1_1top__k__accumulator}{top\+\_\+k\+\_\+accumulator}}
 \begin{DoxyCompactList}\small\item\em An container accumulating top-\/k postings (or results). \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1union__range}{union\+\_\+range}}
 \begin{DoxyCompactList}\small\item\em Represents a union of sorted ranges (e.\+g., posting lists). \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structirk_1_1varbyte__codec}{varbyte\+\_\+codec}}
-\begin{DoxyCompactList}\small\item\em Variable-\/\+Byte codec. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structirk_1_1vbyte__codec}{vbyte\+\_\+codec}}
+\item 
 class \mbox{\hyperlink{classirk_1_1vector__block__iterator}{vector\+\_\+block\+\_\+iterator}}
 \item 
 class \mbox{\hyperlink{classirk_1_1vector__document__list}{vector\+\_\+document\+\_\+list}}
@@ -108,25 +109,23 @@ class \mbox{\hyperlink{classirk_1_1vector__payload__list}{vector\+\_\+payload\+\
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class T , class S  = boost\+::type\+\_\+erasure\+::\+\_\+self$>$ }\\using \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}} = boost\+::type\+\_\+erasure\+::any$<$ boost\+::mpl\+::vector$<$ \mbox{\hyperlink{structirk_1_1has__encode}{has\+\_\+encode}}$<$ S, T $>$, \mbox{\hyperlink{structirk_1_1has__decode}{has\+\_\+decode}}$<$ S, T $>$, boost\+::type\+\_\+erasure\+::copy\+\_\+constructible$<$ S $>$, boost\+::type\+\_\+erasure\+::assignable$<$ S $>$ $>$$>$
-\begin{DoxyCompactList}\small\item\em Type for any codec, i.\+e., an object able to encode and decode type {\ttfamily T}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a34b2e9b780a3b5d4532d7975d6c1a8bf}{vector\+\_\+compact\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a34b2e9b780a3b5d4532d7975d6c1a8bf}{vector\+\_\+compact\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$
 \item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{mapped\+\_\+compact\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{mapped\+\_\+compact\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, Memory\+Buffer $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, Memory\+Buffer $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}{vector\+\_\+offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}{vector\+\_\+offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$
 \item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\using \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{mapped\+\_\+offset\+\_\+table}} = \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$
 \item 
-using \mbox{\hyperlink{namespaceirk_af1d86af53878a68d661f3e8ea2dc06b9}{default\+\_\+index\+\_\+builder}} = \mbox{\hyperlink{classirk_1_1index__builder}{index\+\_\+builder}}$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+using \mbox{\hyperlink{namespaceirk_a5d414f06e9be9b0e06236aa7fd41130b}{index\+\_\+builder}} = \mbox{\hyperlink{classirk_1_1basic__index__builder}{basic\+\_\+index\+\_\+builder}}$<$$>$
 \item 
-using \mbox{\hyperlink{namespaceirk_a227068f98c83d33da43fab6a15633fb5}{default\+\_\+index\+\_\+merger}} = \mbox{\hyperlink{classirk_1_1index__merger}{index\+\_\+merger}}$<$ long, std\+::string, long, long $>$
+using \mbox{\hyperlink{namespaceirk_abf02801860e10848db8a39845005f0c4}{index\+\_\+merger}} = \mbox{\hyperlink{classirk_1_1basic__index__merger}{basic\+\_\+index\+\_\+merger}}$<$$>$
 \item 
-{\footnotesize template$<$class Posting , class Freq , class Scorer $>$ }\\using \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{dspr}} = \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$ Posting, Freq, Scorer $>$
+using \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{inverted\+\_\+index\+\_\+view}} = \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$$>$
 \item 
-using \mbox{\hyperlink{namespaceirk_af6ee69596c3b148bdec81164443f37f8}{default\+\_\+index}} = \mbox{\hyperlink{classirk_1_1inverted__index}{inverted\+\_\+index}}$<$ std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t $>$
+{\footnotesize template$<$class C $>$ }\\using \mbox{\hyperlink{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}{lexicon\+\_\+view}} = \mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$ C, \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} $>$
 \item 
 using \mbox{\hyperlink{namespaceirk_a332c28497c23c3702c56f3c1c100d028}{byte}} = unsigned char
 \item 
@@ -134,7 +133,7 @@ using \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}}
 \item 
 {\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a57b757ac14c20845b38f720c2ad8e822}{enable\+\_\+if\+\_\+equal}} = typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
 \item 
-{\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}{enable\+\_\+if\+\_\+not\+\_\+equal}} = typename std\+::enable\+\_\+if$<$!std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
+{\footnotesize template$<$class T , class U $>$ }\\using \mbox{\hyperlink{namespaceirk_a4a138aaf92a8812dae06fe222084c969}{enable\+\_\+if\+\_\+not\+\_\+equal}} = typename std\+::enable\+\_\+if$<$ not std\+::is\+\_\+same$<$ T, U $>$\+::value $>$
 \item 
 {\footnotesize template$<$class Range $>$ }\\using \mbox{\hyperlink{namespaceirk_a44ec708d671914dae1d40355ac05c280}{element\+\_\+t}} = decltype($\ast$std\+::declval$<$ Range $>$().begin())
 \begin{DoxyCompactList}\small\item\em The type of the element of Range. \end{DoxyCompactList}\item 
@@ -155,75 +154,59 @@ using \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}}
 \item 
 {\footnotesize template$<$class Block $>$ }\\void \mbox{\hyperlink{namespaceirk_a339a0543200e91f59773f625063c959c}{bitcpy}} (\mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ target, \mbox{\hyperlink{classirk_1_1bitptr}{bitptr}}$<$ Block $>$ source, std\+::size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Copies bits between bit pointers. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_ae6ff93ae9ba08469e917652442a288b2}{encode}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Encodes a range of integer values to an output stream. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a5ff7324ee83ee713f6184883642c2713}{encode}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Encodes a range of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_ad1f30da1af48df56b32a99c59af8412a}{encode}} (std\+::initializer\+\_\+list$<$ typename Codec\+::value\+\_\+type $>$ integers, const Codec \&codec=Codec\{\})
-\begin{DoxyCompactList}\small\item\em Encodes an initializer list of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a1f1961138bf0a1851597756639a3bee5}{encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, std\+::ostream \&sink, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Encodes a range of values, mapped to integers, to an output stream. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_ae02f4d520c0e53d21a65398bbb4f3637}{encode\+\_\+fn}} (const Input\+Range \&range, Transform\+Fn fn, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Encodes a range of values, mapped to integers, to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a76d26e66fd2b02cada45345b5ca3e995}{encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, std\+::ostream \&sink, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Encodes a range of integers to an output stream, applying delta encoding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a0e851f5c1edd1e639c8c5132f3027ac0}{encode\+\_\+delta}} (const Input\+Range \&int\+\_\+range, const Codec \&codec=Codec\{\}, typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Encodes a range of integer values to a byte vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_acce34441889b1a20715396eb4e4cb6b3}{decode}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Decodes an entire input stream to an output iterator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a54aebb88cf4cd63c2d724bfbfee53435}{decode}} (const Source\+Range \&source, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Decodes a range of encoded bytes to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a939f0cf6fd86def4ef2d1035d61ff789}{decode}} (std\+::initializer\+\_\+list$<$ char $>$ bytes, const Codec \&codec=Codec\{\})
-\begin{DoxyCompactList}\small\item\em Decodes an initializer list of bytes to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_a9df7297fc361e7db737ef2f5d452b234}{decode\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from an input stream to an output iterator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a37493e1aca6b08f1d85998653343e7a6}{decode\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from an input stream to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a6fb4092edc448640f1d37c4822ced00a}{decode\+\_\+n}} (const Source\+Range \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec())
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} encoded symbols from a range to a vector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_ab01706e2b10ac8d4cd7bfe5d37f307f7}{decode\+\_\+delta}} (Output\+Iterator output, std\+::istream \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes an entire input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_ac3c3f0b74d845f8d3313689ff709e191}{decode\+\_\+delta}} (const Source\+Range \&source, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes a range of bytes, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Output\+Iterator $>$ }\\std\+::istream \& \mbox{\hyperlink{namespaceirk_a9dbe259f7a22df7f96241e95331c9305}{decode\+\_\+delta\+\_\+n}} (Output\+Iterator output, std\+::istream \&source, std\+::size\+\_\+t num=0, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_a0081bb3a1c56da342a22305aab6e0805}{decode\+\_\+delta\+\_\+n}} (std\+::istream \&source, std\+::size\+\_\+t num, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec , class Source\+Range $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_ac12ab4662c42689bfed43ea00cca4aa7}{decode\+\_\+delta\+\_\+n}} (const Source\+Range \&source, std\+::size\+\_\+t n, const Codec \&codec=Codec(), typename Codec\+::value\+\_\+type initial\+\_\+value=typename Codec\+::value\+\_\+type(0))
-\begin{DoxyCompactList}\small\item\em Decodes {\ttfamily n} symbols from an input stream, applying delta coding. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Size\+Codec $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_ad5beaa760e39ac6f6b3c001030388a6f}{encode\+\_\+bits}} (const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&bits, std\+::ostream \&out, const Size\+Codec \&size\+\_\+codec=Size\+Codec())
+{\footnotesize template$<$class Codec , class Input\+Iterator $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_abb9d919900c25d5bd3ffc5c25343fc96}{encode}} (const Codec \&codec, Input\+Iterator lo, Input\+Iterator hi)
 \item 
-{\footnotesize template$<$class Size\+Codec $>$ }\\\mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \mbox{\hyperlink{namespaceirk_a9e83666a824362c954771e5fc6a4e0df}{decode\+\_\+bits}} (std\+::istream \&in, const Size\+Codec \&size\+\_\+codec=Size\+Codec())
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a59d242b9679dbc0d8fe61f1b72a7d5a2}{encode}} (const Codec \&codec, Input\+Range in)
 \item 
-{\footnotesize template$<$class Mem , class Codec $>$ }\\std\+::size\+\_\+t \mbox{\hyperlink{namespaceirk_a5a2bb996aa2fce0aa00ae9aafd500bba}{read\+\_\+compact\+\_\+value}} (Mem mem, std\+::uint32\+\_\+t key, Codec codec)
+{\footnotesize template$<$class Codec , class T $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a22868b0491ea12fc4716da3970addc14}{encode}} (const Codec \&codec, std\+::initializer\+\_\+list$<$ T $>$ in)
+\item 
+{\footnotesize template$<$class Codec , class Input\+Iterator $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a896bdd772f368d7c786993c1fce4c189}{delta\+\_\+encode}} (const Codec \&codec, Input\+Iterator lo, Input\+Iterator hi)
+\item 
+{\footnotesize template$<$class Codec , class Input\+Iterator , class T $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_a8cf4a588f3d7bb35497c272e13e11cc8}{delta\+\_\+encode}} (const Codec \&codec, Input\+Iterator lo, Input\+Iterator hi, T initial)
+\item 
+{\footnotesize template$<$class Codec , class Input\+Range $>$ }\\std\+::vector$<$ char $>$ \mbox{\hyperlink{namespaceirk_ab11cd6640f103b27c78573d29c8ff423}{delta\+\_\+encode}} (const Codec \&codec, Input\+Range in)
+\item 
+{\footnotesize template$<$class Codec , class Input\+Iterator $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_ac678e4f1c19b59023c14a6deb7fe801e}{decode}} (const Codec \&codec, Input\+Iterator in, int count)
+\item 
+{\footnotesize template$<$class Codec , class Input\+Iterator $>$ }\\std\+::vector$<$ typename Codec\+::value\+\_\+type $>$ \mbox{\hyperlink{namespaceirk_aed126d81c1570fca4222c3d51a8f4ba2}{delta\+\_\+decode}} (const Codec \&codec, Input\+Iterator in, int count, typename Codec\+::value\+\_\+type initial=typename Codec\+::value\+\_\+type())
+\item 
+{\footnotesize template$<$class Mem , class Codec $>$ }\\auto \mbox{\hyperlink{namespaceirk_a98ebfab64f6f91c847caacbac527e9dd}{read\+\_\+compact\+\_\+value}} (Mem mem, std\+::uint32\+\_\+t key, Codec codec)
 \item 
 {\footnotesize template$<$class T , class Codec , class Memory\+Buffer $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a2bc6394c2673a19ce5bf0ca74641c41d}{operator$<$$<$}} (std\+::ostream \&out, const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&\mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{offset\+\_\+table}})
 \item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_aa5a47c5f38246e32ece50c109e1edaaf}{load\+\_\+compact\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af5d69d1a8b720ed220cac2ba35bf704f}{load\+\_\+compact\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Load a compact table to main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a72297d13b3e41cd8dafdcc28ff3c4528}{map\+\_\+compact\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a2404dd8fd003ee848e563f3538972979}{map\+\_\+compact\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Set up a compact table with a mapped file. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}{build\+\_\+compact\+\_\+table}} (const std\+::vector$<$ T $>$ \&values, bool delta\+\_\+encoded=false, std\+::uint32\+\_\+t block\+\_\+size=256)
+{\footnotesize template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}{build\+\_\+compact\+\_\+table}} (const std\+::vector$<$ T $>$ \&values, bool delta\+\_\+encoded=false, std\+::uint32\+\_\+t block\+\_\+size=256)
 \begin{DoxyCompactList}\small\item\em Build a compact table in main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ad0428139c5d98f138321b9a2b1bff3d5}{load\+\_\+offset\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_ac8015c27262d287ddb9092a9b4278750}{load\+\_\+offset\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Load an offset table to main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a647b6c35c655d88bb5fb522a4d77ef49}{map\+\_\+offset\+\_\+table}} (fs\+::path file)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source $>$ \mbox{\hyperlink{namespaceirk_a43eccbe6cba8b0a3168b9bc5065d05b6}{map\+\_\+offset\+\_\+table}} (const fs\+::path \&file)
 \begin{DoxyCompactList}\small\item\em Set up an offset table with a mapped file. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}{build\+\_\+offset\+\_\+table}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&values, std\+::uint32\+\_\+t block\+\_\+size=256)
+{\footnotesize template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ }\\\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ std\+::size\+\_\+t, Codec, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}{build\+\_\+offset\+\_\+table}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&values, std\+::uint32\+\_\+t block\+\_\+size=256)
 \begin{DoxyCompactList}\small\item\em Build an offset table in main memory. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_ab92f82aeeb765f3464ca61f190d8f919}{daat\+\_\+or}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
-\begin{DoxyCompactList}\small\item\em Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Range , class Score $>$ }\\std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_a8f6987f583ef7a5eff4291ccea6d7170}{wand}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ Score $>$ \&weights)
-\begin{DoxyCompactList}\small\item\em Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class V1 , class V2 $>$ }\\constexpr bool \mbox{\hyperlink{namespaceirk_abce08dade53e33dcfa31946305eee6ce}{both\+\_\+or\+\_\+none}} ()
+auto \mbox{\hyperlink{namespaceirk_af66b19416653b16808a23d66c715635a}{query\+\_\+postings}} (const \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{irk\+::inverted\+\_\+index\+\_\+view}} \&index, const std\+::vector$<$ std\+::string $>$ \&query)
+\item 
+{\footnotesize template$<$class Scorer , class Data\+SourceT $>$ }\\void \mbox{\hyperlink{namespaceirk_a9bc1b53d67a7c1215efb3e348d00489a}{score\+\_\+index}} (fs\+::path dir\+\_\+path, unsigned int bits, std\+::optional$<$ double $>$ max=std\+::nullopt)
+\item 
+\mbox{\hyperlink{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}{lexicon\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_a34aaa6d3890f73c7d082ddbd78340875}{load\+\_\+lexicon}} (const \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \&memory)
+\item 
+{\footnotesize template$<$class Key\+Iterator $>$ }\\\mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_a7f10e6248e9c76245e3af6a7725869b1}{build\+\_\+lexicon}} (Key\+Iterator keys\+\_\+begin, Key\+Iterator keys\+\_\+end, Key\+Iterator corpus\+\_\+begin, Key\+Iterator corpus\+\_\+end, int keys\+\_\+per\+\_\+block)
+\item 
+\mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_a01e4a2c7fcbafb8cc06081dd4b668fa2}{build\+\_\+lexicon}} (const std\+::vector$<$ std\+::string $>$ \&keys, int keys\+\_\+per\+\_\+block)
+\item 
+\mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_a7b84ee82bc35f81ca02abceb807c2372}{build\+\_\+lexicon}} (const boost\+::filesystem\+::path \&file, int keys\+\_\+per\+\_\+block)
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespaceirk_af318ecad298eb6ae661381e646c04e80}{operator$<$$<$}} (std\+::ostream \&out, const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&mv)
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{namespaceirk_a7065a12b7b7c5dd5aad84394da95871b}{make\+\_\+memory\+\_\+view}} (const std\+::vector$<$ char $>$ \&mem)
 \item 
 \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{namespaceirk_ac123106f771ea0ef0ee855f8ee98bc2b}{make\+\_\+memory\+\_\+view}} (gsl\+::span$<$ const char $>$ mem)
 \item 
-\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{namespaceirk_ab21cb1ed22fd54ee08ae5d4e93485857}{make\+\_\+memory\+\_\+view}} (const char $\ast$data, int size)
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{namespaceirk_a18d9d6db7e3598a806378b697fabb802}{make\+\_\+memory\+\_\+view}} (const char $\ast$data, std\+::ptrdiff\+\_\+t size)
 \item 
-{\footnotesize template$<$class Value $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_aac8001645bff72cf73bf0f87512c5ed4}{operator$<$$<$}} (std\+::ostream \&out, const \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$ \&mbt)
-\item 
-{\footnotesize template$<$class Value $>$ }\\\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$ \mbox{\hyperlink{namespaceirk_ae9440cb1246aeaa9376e8d9b678f64ba}{load\+\_\+mutable\+\_\+bit\+\_\+trie}} (std\+::istream \&in)
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{namespaceirk_af0a614c4c802be8ef7136278c00c1377}{make\+\_\+memory\+\_\+view}} (const boost\+::filesystem\+::path \&file\+\_\+path)
 \item 
 {\footnotesize template$<$class Index $>$ }\\\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$ Index, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_aae903af083f9e6a98e9d5f232322a2f2}{build\+\_\+prefix\+\_\+map\+\_\+from\+\_\+file}} (fs\+::path file, std\+::size\+\_\+t buffer\+\_\+size=1024)
 \item 
@@ -237,48 +220,27 @@ using \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}}
 \item 
 {\footnotesize template$<$class Index $>$ }\\\mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$ Index, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_a42d3931cb977799b449703e53b5b893f}{load\+\_\+prefix\+\_\+map}} (const std\+::string \&file)
 \item 
-{\footnotesize template$<$class Score $>$ }\\Score \mbox{\hyperlink{namespaceirk_ab8e6b6b40ddf91037ece69b4c14d091f}{operator$\ast$=}} (Score \&lhs, const \mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}} \&rhs)
+void $\ast$ \mbox{\hyperlink{namespaceirk_ab35dab94f51174d7559fb8e0ff201f55}{rax\+Get\+Data}} (rax\+Node $\ast$n)
 \item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_aa97b41a8c849bf1c0710f5297997a6c4}{traverse\+\_\+list\+\_\+postings}} (const Posting\+Range \&postings, Accumulator\+Array \&acc, Weight weight=\mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}}\{\}, Accumulator\+Policy accumulator\+\_\+policy=\mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}})
-\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a02334cad2fa8f38feab94fe6c1c57d8e}{traverse\+\_\+list}} (const Doc\+Range \&docs, const Score\+Range \&scores, Accumulator\+Array \&acc, Weight weight=\mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}}\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=\mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}})
-\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a338c8931f92a0d5db3023a2ee7a76db8}{traverse}} (const std\+::vector$<$ Doc\+Range $>$ \&doc\+\_\+ranges, const std\+::vector$<$ Score\+Range $>$ \&score\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Score\+Range $>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=\mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}})
-\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a8dbdf5c2b9eef7379aae57b72861978a}{traverse\+\_\+postings}} (const std\+::vector$<$ Posting\+Range $>$ \&posting\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Posting\+Range $>$$>$$>$ \&term\+\_\+weights, Accumulator\+Policy accumulator\+\_\+policy=\mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}})
-\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Result , class Accumulator\+Array $>$ }\\std\+::vector$<$ Result $>$ \mbox{\hyperlink{namespaceirk_a068256b1f4dd5e0025e793d6d93b6896}{aggregate\+\_\+top}} (std\+::size\+\_\+t k, const Accumulator\+Array \&acc)
+{\footnotesize template$<$class Document\+List , class Payload\+List , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_a900198dc6bc592a13980c42e25f7757b}{accumulate}} (const Document\+List \&documents, const Payload\+List \&payloads, Accumulator\+Vec \&accumulators)
 \item 
-{\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_a9bbfe619867ce962c69054e3417b4b11}{taat}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
+{\footnotesize template$<$class Posting\+List , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_ae640de6acba59596ef10cdc51b79103c}{accumulate}} (const Posting\+List \&postings, Accumulator\+Vec \&accumulators)
+\item 
+{\footnotesize template$<$class Posting\+Lists , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_a936dfbb74aa4684439c364e4b7b62067}{taat}} (const Posting\+Lists \&posting\+\_\+lists, Accumulator\+Vec \&accumulators)
+\item 
+{\footnotesize template$<$class Key , class Value , class Accumulator\+Vec $>$ }\\std\+::vector$<$ std\+::pair$<$ Key, Value $>$ $>$ \mbox{\hyperlink{namespaceirk_af5d9aefa4c5e398f324cde7c81d5e765}{aggregate\+\_\+top\+\_\+k}} (const Accumulator\+Vec \&accumulators, int k)
+\item 
+{\footnotesize template$<$class Key , class Value $>$ }\\std\+::vector$<$ std\+::pair$<$ Key, Value $>$ $>$ \mbox{\hyperlink{namespaceirk_af0421bdf64d67fbad118cec711711791}{aggregate\+\_\+top\+\_\+k}} (const \mbox{\hyperlink{structirk_1_1block__accumulator__vector}{block\+\_\+accumulator\+\_\+vector}}$<$ Value $>$ \&accumulators, int k)
 \item 
 {\footnotesize template$<$class Doc , class Score $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceirk_a94643c4295628e30b30002810c4a2327}{operator$<$$<$}} (std\+::ostream \&o, \mbox{\hyperlink{structirk_1_1__posting}{\+\_\+posting}}$<$ Doc, Score $>$ posting)
 \item 
-{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \mbox{\hyperlink{namespaceirk_a42f50afae2f0061834dba164c1456908}{nbits}} (T n)
+{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr int16\+\_\+t \mbox{\hyperlink{namespaceirk_a31c9646eabcf838e134496617adcde5e}{nbits}} (T n)
 \begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \mbox{\hyperlink{namespaceirk_ac58a8542fe93e44f62867d97613007ae}{nbytes}} (T n)
+{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr int16\+\_\+t \mbox{\hyperlink{namespaceirk_a655971fe9a3706528f14c395f938d416}{nbytes}} (T n)
 \begin{DoxyCompactList}\small\item\em Computes the number of full bytes required to store an integer n. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{classirk_1_1simple__accumulator}{simple\+\_\+accumulator}} \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}}
-\end{DoxyCompactItemize}
 
-
-\subsection{Detailed Description}
-Codecs and coding utilities. 
 
 \subsection{Typedef Documentation}
-\mbox{\Hypertarget{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}\label{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}} 
-\index{irk@{irk}!any\+\_\+codec@{any\+\_\+codec}}
-\index{any\+\_\+codec@{any\+\_\+codec}!irk@{irk}}
-\subsubsection{\texorpdfstring{any\+\_\+codec}{any\_codec}}
-{\footnotesize\ttfamily template$<$class T , class S  = boost\+::type\+\_\+erasure\+::\+\_\+self$>$ \\
-using \mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{irk\+::any\+\_\+codec}} = typedef boost\+::type\+\_\+erasure\+::any$<$boost\+::mpl\+::vector$<$\mbox{\hyperlink{structirk_1_1has__encode}{has\+\_\+encode}}$<$S, T$>$, \mbox{\hyperlink{structirk_1_1has__decode}{has\+\_\+decode}}$<$S, T$>$, boost\+::type\+\_\+erasure\+::copy\+\_\+constructible$<$S$>$, boost\+::type\+\_\+erasure\+::assignable$<$S$>$ $>$$>$}
-
-
-
-Type for any codec, i.\+e., an object able to encode and decode type {\ttfamily T}. 
-
 \mbox{\Hypertarget{namespaceirk_a5d1a67079cf6423ecaededebe848f083}\label{namespaceirk_a5d1a67079cf6423ecaededebe848f083}} 
 \index{irk@{irk}!bitword@{bitword}}
 \index{bitword@{bitword}!irk@{irk}}
@@ -298,37 +260,12 @@ Type for any codec, i.\+e., an object able to encode and decode type {\ttfamily 
 {\footnotesize\ttfamily template$<$class Range $>$ \\
 using \mbox{\hyperlink{namespaceirk_a90f7893fdbf95c6dcc2302148eb0bddb}{irk\+::const\+\_\+iterator\+\_\+t}} = typedef decltype(std\+::declval$<$Range$>$().cbegin())}
 
-\mbox{\Hypertarget{namespaceirk_af6ee69596c3b148bdec81164443f37f8}\label{namespaceirk_af6ee69596c3b148bdec81164443f37f8}} 
-\index{irk@{irk}!default\+\_\+index@{default\+\_\+index}}
-\index{default\+\_\+index@{default\+\_\+index}!irk@{irk}}
-\subsubsection{\texorpdfstring{default\+\_\+index}{default\_index}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_af6ee69596c3b148bdec81164443f37f8}{irk\+::default\+\_\+index}} = typedef \mbox{\hyperlink{classirk_1_1inverted__index}{inverted\+\_\+index}}$<$std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t$>$}
-
-\mbox{\Hypertarget{namespaceirk_af1d86af53878a68d661f3e8ea2dc06b9}\label{namespaceirk_af1d86af53878a68d661f3e8ea2dc06b9}} 
-\index{irk@{irk}!default\+\_\+index\+\_\+builder@{default\+\_\+index\+\_\+builder}}
-\index{default\+\_\+index\+\_\+builder@{default\+\_\+index\+\_\+builder}!irk@{irk}}
-\subsubsection{\texorpdfstring{default\+\_\+index\+\_\+builder}{default\_index\_builder}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_af1d86af53878a68d661f3e8ea2dc06b9}{irk\+::default\+\_\+index\+\_\+builder}} = typedef \mbox{\hyperlink{classirk_1_1index__builder}{index\+\_\+builder}}$<$std\+::uint32\+\_\+t, std\+::string, std\+::uint32\+\_\+t, std\+::uint32\+\_\+t$>$}
-
-\mbox{\Hypertarget{namespaceirk_a227068f98c83d33da43fab6a15633fb5}\label{namespaceirk_a227068f98c83d33da43fab6a15633fb5}} 
-\index{irk@{irk}!default\+\_\+index\+\_\+merger@{default\+\_\+index\+\_\+merger}}
-\index{default\+\_\+index\+\_\+merger@{default\+\_\+index\+\_\+merger}!irk@{irk}}
-\subsubsection{\texorpdfstring{default\+\_\+index\+\_\+merger}{default\_index\_merger}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_a227068f98c83d33da43fab6a15633fb5}{irk\+::default\+\_\+index\+\_\+merger}} = typedef \mbox{\hyperlink{classirk_1_1index__merger}{index\+\_\+merger}}$<$long, std\+::string, long, long$>$}
-
 \mbox{\Hypertarget{namespaceirk_af5d95ec091f3bd711790e71ccb533903}\label{namespaceirk_af5d95ec091f3bd711790e71ccb533903}} 
 \index{irk@{irk}!doc\+\_\+t@{doc\+\_\+t}}
 \index{doc\+\_\+t@{doc\+\_\+t}!irk@{irk}}
 \subsubsection{\texorpdfstring{doc\+\_\+t}{doc\_t}}
 {\footnotesize\ttfamily template$<$class Posting $>$ \\
 using \mbox{\hyperlink{namespaceirk_af5d95ec091f3bd711790e71ccb533903}{irk\+::doc\+\_\+t}} = typedef decltype(std\+::declval$<$Posting$>$().doc)}
-
-\mbox{\Hypertarget{namespaceirk_af92c7aae439f59ccae252f027f851c24}\label{namespaceirk_af92c7aae439f59ccae252f027f851c24}} 
-\index{irk@{irk}!dspr@{dspr}}
-\index{dspr@{dspr}!irk@{irk}}
-\subsubsection{\texorpdfstring{dspr}{dspr}}
-{\footnotesize\ttfamily template$<$class Posting , class Freq , class Scorer $>$ \\
-using \mbox{\hyperlink{namespaceirk_af92c7aae439f59ccae252f027f851c24}{irk\+::dspr}} = typedef \mbox{\hyperlink{classirk_1_1dynamically__scored__posting__range}{dynamically\+\_\+scored\+\_\+posting\+\_\+range}}$<$Posting, Freq, Scorer$>$}
 
 \mbox{\Hypertarget{namespaceirk_a44ec708d671914dae1d40355ac05c280}\label{namespaceirk_a44ec708d671914dae1d40355ac05c280}} 
 \index{irk@{irk}!element\+\_\+t@{element\+\_\+t}}
@@ -348,12 +285,30 @@ The type of the element of Range.
 {\footnotesize\ttfamily template$<$class T , class U $>$ \\
 using \mbox{\hyperlink{namespaceirk_a57b757ac14c20845b38f720c2ad8e822}{irk\+::enable\+\_\+if\+\_\+equal}} = typedef typename std\+::enable\+\_\+if$<$std\+::is\+\_\+same$<$T, U$>$\+::value$>$}
 
-\mbox{\Hypertarget{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}\label{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}} 
+\mbox{\Hypertarget{namespaceirk_a4a138aaf92a8812dae06fe222084c969}\label{namespaceirk_a4a138aaf92a8812dae06fe222084c969}} 
 \index{irk@{irk}!enable\+\_\+if\+\_\+not\+\_\+equal@{enable\+\_\+if\+\_\+not\+\_\+equal}}
 \index{enable\+\_\+if\+\_\+not\+\_\+equal@{enable\+\_\+if\+\_\+not\+\_\+equal}!irk@{irk}}
 \subsubsection{\texorpdfstring{enable\+\_\+if\+\_\+not\+\_\+equal}{enable\_if\_not\_equal}}
 {\footnotesize\ttfamily template$<$class T , class U $>$ \\
-using \mbox{\hyperlink{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}{irk\+::enable\+\_\+if\+\_\+not\+\_\+equal}} = typedef typename std\+::enable\+\_\+if$<$!std\+::is\+\_\+same$<$T, U$>$\+::value$>$}
+using \mbox{\hyperlink{namespaceirk_a4a138aaf92a8812dae06fe222084c969}{irk\+::enable\+\_\+if\+\_\+not\+\_\+equal}} = typedef typename std\+::enable\+\_\+if$<$not std\+::is\+\_\+same$<$T, U$>$\+::value$>$}
+
+\mbox{\Hypertarget{namespaceirk_a5d414f06e9be9b0e06236aa7fd41130b}\label{namespaceirk_a5d414f06e9be9b0e06236aa7fd41130b}} 
+\index{irk@{irk}!index\+\_\+builder@{index\+\_\+builder}}
+\index{index\+\_\+builder@{index\+\_\+builder}!irk@{irk}}
+\subsubsection{\texorpdfstring{index\+\_\+builder}{index\_builder}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_a5d414f06e9be9b0e06236aa7fd41130b}{irk\+::index\+\_\+builder}} = typedef \mbox{\hyperlink{classirk_1_1basic__index__builder}{basic\+\_\+index\+\_\+builder}}$<$$>$}
+
+\mbox{\Hypertarget{namespaceirk_abf02801860e10848db8a39845005f0c4}\label{namespaceirk_abf02801860e10848db8a39845005f0c4}} 
+\index{irk@{irk}!index\+\_\+merger@{index\+\_\+merger}}
+\index{index\+\_\+merger@{index\+\_\+merger}!irk@{irk}}
+\subsubsection{\texorpdfstring{index\+\_\+merger}{index\_merger}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_abf02801860e10848db8a39845005f0c4}{irk\+::index\+\_\+merger}} = typedef \mbox{\hyperlink{classirk_1_1basic__index__merger}{basic\+\_\+index\+\_\+merger}}$<$$>$}
+
+\mbox{\Hypertarget{namespaceirk_a137711df98ba695c3526ba4004853a47}\label{namespaceirk_a137711df98ba695c3526ba4004853a47}} 
+\index{irk@{irk}!inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}}
+\index{inverted\+\_\+index\+\_\+view@{inverted\+\_\+index\+\_\+view}!irk@{irk}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+view}{inverted\_index\_view}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{irk\+::inverted\+\_\+index\+\_\+view}} = typedef \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$$>$}
 
 \mbox{\Hypertarget{namespaceirk_a333e3104afd57c79fb0c18b90081520a}\label{namespaceirk_a333e3104afd57c79fb0c18b90081520a}} 
 \index{irk@{irk}!iterator\+\_\+t@{iterator\+\_\+t}}
@@ -362,25 +317,32 @@ using \mbox{\hyperlink{namespaceirk_a9226be1b1d7748d4212d39b9513a2555}{irk\+::en
 {\footnotesize\ttfamily template$<$class Range $>$ \\
 using \mbox{\hyperlink{namespaceirk_a333e3104afd57c79fb0c18b90081520a}{irk\+::iterator\+\_\+t}} = typedef decltype(std\+::declval$<$Range$>$().begin())}
 
+\mbox{\Hypertarget{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}\label{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}} 
+\index{irk@{irk}!lexicon\+\_\+view@{lexicon\+\_\+view}}
+\index{lexicon\+\_\+view@{lexicon\+\_\+view}!irk@{irk}}
+\subsubsection{\texorpdfstring{lexicon\+\_\+view}{lexicon\_view}}
+{\footnotesize\ttfamily template$<$class C $>$ \\
+using \mbox{\hyperlink{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}{irk\+::lexicon\+\_\+view}} = typedef \mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$C, \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}$>$}
+
 \mbox{\Hypertarget{namespaceirk_a355b82a658f8685da29eca82444fed3c}\label{namespaceirk_a355b82a658f8685da29eca82444fed3c}} 
 \index{irk@{irk}!mapped\+\_\+compact\+\_\+table@{mapped\+\_\+compact\+\_\+table}}
 \index{mapped\+\_\+compact\+\_\+table@{mapped\+\_\+compact\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{mapped\+\_\+compact\+\_\+table}{mapped\_compact\_table}}
-{\footnotesize\ttfamily template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ \\
 using \mbox{\hyperlink{namespaceirk_a355b82a658f8685da29eca82444fed3c}{irk\+::mapped\+\_\+compact\+\_\+table}} = typedef \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$}
 
 \mbox{\Hypertarget{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}\label{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}} 
 \index{irk@{irk}!mapped\+\_\+offset\+\_\+table@{mapped\+\_\+offset\+\_\+table}}
 \index{mapped\+\_\+offset\+\_\+table@{mapped\+\_\+offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{mapped\+\_\+offset\+\_\+table}{mapped\_offset\_table}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
 using \mbox{\hyperlink{namespaceirk_ab3084e78181e92fe4bea7332e0a77e98}{irk\+::mapped\+\_\+offset\+\_\+table}} = typedef \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$}
 
 \mbox{\Hypertarget{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}\label{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}} 
 \index{irk@{irk}!offset\+\_\+table@{offset\+\_\+table}}
 \index{offset\+\_\+table@{offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{offset\+\_\+table}{offset\_table}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$, class Memory\+Buffer  = std\+::vector$<$char$>$$>$ \\
 using \mbox{\hyperlink{namespaceirk_a3d7b00f359d122e0bf0f709d21f00098}{irk\+::offset\+\_\+table}} = typedef \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, Memory\+Buffer$>$}
 
 \mbox{\Hypertarget{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}\label{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}} 
@@ -405,25 +367,46 @@ using \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{irk\+::sc
 \index{irk@{irk}!vector\+\_\+compact\+\_\+table@{vector\+\_\+compact\+\_\+table}}
 \index{vector\+\_\+compact\+\_\+table@{vector\+\_\+compact\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{vector\+\_\+compact\+\_\+table}{vector\_compact\_table}}
-{\footnotesize\ttfamily template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ \\
 using \mbox{\hyperlink{namespaceirk_a34b2e9b780a3b5d4532d7975d6c1a8bf}{irk\+::vector\+\_\+compact\+\_\+table}} = typedef \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, std\+::vector$<$char$>$ $>$}
 
 \mbox{\Hypertarget{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}\label{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}} 
 \index{irk@{irk}!vector\+\_\+offset\+\_\+table@{vector\+\_\+offset\+\_\+table}}
 \index{vector\+\_\+offset\+\_\+table@{vector\+\_\+offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{vector\+\_\+offset\+\_\+table}{vector\_offset\_table}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
 using \mbox{\hyperlink{namespaceirk_a6d042444ebc87e3036291ec5656b0c51}{irk\+::vector\+\_\+offset\+\_\+table}} = typedef \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, std\+::vector$<$char$>$ $>$}
 
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{namespaceirk_a068256b1f4dd5e0025e793d6d93b6896}\label{namespaceirk_a068256b1f4dd5e0025e793d6d93b6896}} 
-\index{irk@{irk}!aggregate\+\_\+top@{aggregate\+\_\+top}}
-\index{aggregate\+\_\+top@{aggregate\+\_\+top}!irk@{irk}}
-\subsubsection{\texorpdfstring{aggregate\+\_\+top()}{aggregate\_top()}}
-{\footnotesize\ttfamily template$<$class Result , class Accumulator\+Array $>$ \\
-std\+::vector$<$Result$>$ irk\+::aggregate\+\_\+top (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k,  }\item[{const Accumulator\+Array \&}]{acc }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespaceirk_a900198dc6bc592a13980c42e25f7757b}\label{namespaceirk_a900198dc6bc592a13980c42e25f7757b}} 
+\index{irk@{irk}!accumulate@{accumulate}}
+\index{accumulate@{accumulate}!irk@{irk}}
+\subsubsection{\texorpdfstring{accumulate()}{accumulate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Document\+List , class Payload\+List , class Accumulator\+Vec $>$ \\
+void irk\+::accumulate (\begin{DoxyParamCaption}\item[{const Document\+List \&}]{documents,  }\item[{const Payload\+List \&}]{payloads,  }\item[{Accumulator\+Vec \&}]{accumulators }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_ae640de6acba59596ef10cdc51b79103c}\label{namespaceirk_ae640de6acba59596ef10cdc51b79103c}} 
+\index{irk@{irk}!accumulate@{accumulate}}
+\index{accumulate@{accumulate}!irk@{irk}}
+\subsubsection{\texorpdfstring{accumulate()}{accumulate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Posting\+List , class Accumulator\+Vec $>$ \\
+void irk\+::accumulate (\begin{DoxyParamCaption}\item[{const Posting\+List \&}]{postings,  }\item[{Accumulator\+Vec \&}]{accumulators }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_af5d9aefa4c5e398f324cde7c81d5e765}\label{namespaceirk_af5d9aefa4c5e398f324cde7c81d5e765}} 
+\index{irk@{irk}!aggregate\+\_\+top\+\_\+k@{aggregate\+\_\+top\+\_\+k}}
+\index{aggregate\+\_\+top\+\_\+k@{aggregate\+\_\+top\+\_\+k}!irk@{irk}}
+\subsubsection{\texorpdfstring{aggregate\+\_\+top\+\_\+k()}{aggregate\_top\_k()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Key , class Value , class Accumulator\+Vec $>$ \\
+std\+::vector$<$std\+::pair$<$Key, Value$>$ $>$ irk\+::aggregate\+\_\+top\+\_\+k (\begin{DoxyParamCaption}\item[{const Accumulator\+Vec \&}]{accumulators,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_af0421bdf64d67fbad118cec711711791}\label{namespaceirk_af0421bdf64d67fbad118cec711711791}} 
+\index{irk@{irk}!aggregate\+\_\+top\+\_\+k@{aggregate\+\_\+top\+\_\+k}}
+\index{aggregate\+\_\+top\+\_\+k@{aggregate\+\_\+top\+\_\+k}!irk@{irk}}
+\subsubsection{\texorpdfstring{aggregate\+\_\+top\+\_\+k()}{aggregate\_top\_k()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Key , class Value $>$ \\
+std\+::vector$<$std\+::pair$<$Key, Value$>$ $>$ irk\+::aggregate\+\_\+top\+\_\+k (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structirk_1_1block__accumulator__vector}{block\+\_\+accumulator\+\_\+vector}}$<$ Value $>$ \&}]{accumulators,  }\item[{int}]{k }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespaceirk_ae79f958d4bca4bb9e05628261f2fb725}\label{namespaceirk_ae79f958d4bca4bb9e05628261f2fb725}} 
 \index{irk@{irk}!bitcpy@{bitcpy}}
@@ -474,29 +457,56 @@ Copies bits between bit pointers.
 {\em length} & how many bits will be copied \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespaceirk_abce08dade53e33dcfa31946305eee6ce}\label{namespaceirk_abce08dade53e33dcfa31946305eee6ce}} 
-\index{irk@{irk}!both\+\_\+or\+\_\+none@{both\+\_\+or\+\_\+none}}
-\index{both\+\_\+or\+\_\+none@{both\+\_\+or\+\_\+none}!irk@{irk}}
-\subsubsection{\texorpdfstring{both\+\_\+or\+\_\+none()}{both\_or\_none()}}
-{\footnotesize\ttfamily template$<$class V1 , class V2 $>$ \\
-constexpr bool irk\+::both\+\_\+or\+\_\+none (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}\label{namespaceirk_ad911a2a5cd8986d97fd92eec33683377}} 
 \index{irk@{irk}!build\+\_\+compact\+\_\+table@{build\+\_\+compact\+\_\+table}}
 \index{build\+\_\+compact\+\_\+table@{build\+\_\+compact\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{build\+\_\+compact\+\_\+table()}{build\_compact\_table()}}
-{\footnotesize\ttfamily template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ \\
 \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+compact\+\_\+table (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{values,  }\item[{bool}]{delta\+\_\+encoded = {\ttfamily false},  }\item[{std\+::uint32\+\_\+t}]{block\+\_\+size = {\ttfamily 256} }\end{DoxyParamCaption})}
 
 
 
 Build a compact table in main memory. 
 
+\mbox{\Hypertarget{namespaceirk_a7f10e6248e9c76245e3af6a7725869b1}\label{namespaceirk_a7f10e6248e9c76245e3af6a7725869b1}} 
+\index{irk@{irk}!build\+\_\+lexicon@{build\+\_\+lexicon}}
+\index{build\+\_\+lexicon@{build\+\_\+lexicon}!irk@{irk}}
+\subsubsection{\texorpdfstring{build\+\_\+lexicon()}{build\_lexicon()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Key\+Iterator $>$ \\
+\mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$char$>$, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+lexicon (\begin{DoxyParamCaption}\item[{Key\+Iterator}]{keys\+\_\+begin,  }\item[{Key\+Iterator}]{keys\+\_\+end,  }\item[{Key\+Iterator}]{corpus\+\_\+begin,  }\item[{Key\+Iterator}]{corpus\+\_\+end,  }\item[{int}]{keys\+\_\+per\+\_\+block }\end{DoxyParamCaption})}
+
+Build a lexicon in memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em keys\+\_\+begin} & begin iterator of keys to insert \\
+\hline
+{\em keys\+\_\+end} & end iterator of keys to insert \\
+\hline
+{\em corpus\+\_\+begin} & begin iterator of keys to calculate symbol frequencies \\
+\hline
+{\em corpus\+\_\+end} & end iterator of keys to calculate symbol frequencies \\
+\hline
+{\em keys\+\_\+per\+\_\+block} & how many keys to store in a single block\\
+\hline
+\end{DoxyParams}
+Typically, both keys and corpus will be the same collection. They are separated mainly for situations when these are single-\/pass iterators. See overloads for a more convenient interface. \mbox{\Hypertarget{namespaceirk_a01e4a2c7fcbafb8cc06081dd4b668fa2}\label{namespaceirk_a01e4a2c7fcbafb8cc06081dd4b668fa2}} 
+\index{irk@{irk}!build\+\_\+lexicon@{build\+\_\+lexicon}}
+\index{build\+\_\+lexicon@{build\+\_\+lexicon}!irk@{irk}}
+\subsubsection{\texorpdfstring{build\+\_\+lexicon()}{build\_lexicon()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$char$>$, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+lexicon (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{keys,  }\item[{int}]{keys\+\_\+per\+\_\+block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_a7b84ee82bc35f81ca02abceb807c2372}\label{namespaceirk_a7b84ee82bc35f81ca02abceb807c2372}} 
+\index{irk@{irk}!build\+\_\+lexicon@{build\+\_\+lexicon}}
+\index{build\+\_\+lexicon@{build\+\_\+lexicon}!irk@{irk}}
+\subsubsection{\texorpdfstring{build\+\_\+lexicon()}{build\_lexicon()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1lexicon}{lexicon}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$char$>$, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+lexicon (\begin{DoxyParamCaption}\item[{const boost\+::filesystem\+::path \&}]{file,  }\item[{int}]{keys\+\_\+per\+\_\+block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}\label{namespaceirk_af80eeaf7666165b73f3c5787bb51e407}} 
 \index{irk@{irk}!build\+\_\+offset\+\_\+table@{build\+\_\+offset\+\_\+table}}
 \index{build\+\_\+offset\+\_\+table@{build\+\_\+offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{build\+\_\+offset\+\_\+table()}{build\_offset\_table()}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
 \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+offset\+\_\+table (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{values,  }\item[{std\+::uint32\+\_\+t}]{block\+\_\+size = {\ttfamily 256} }\end{DoxyParamCaption})}
 
 
@@ -517,475 +527,85 @@ Build an offset table in main memory.
 {\footnotesize\ttfamily template$<$class Index $>$ \\
 \mbox{\hyperlink{classirk_1_1prefix__map}{prefix\+\_\+map}}$<$Index, std\+::vector$<$char$>$ $>$ irk\+::build\+\_\+prefix\+\_\+map\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{fs\+::path}]{file,  }\item[{std\+::size\+\_\+t}]{buffer\+\_\+size = {\ttfamily 1024} }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespaceirk_ab92f82aeeb765f3464ca61f190d8f919}\label{namespaceirk_ab92f82aeeb765f3464ca61f190d8f919}} 
-\index{irk@{irk}!daat\+\_\+or@{daat\+\_\+or}}
-\index{daat\+\_\+or@{daat\+\_\+or}!irk@{irk}}
-\subsubsection{\texorpdfstring{daat\+\_\+or()}{daat\_or()}}
-{\footnotesize\ttfamily template$<$class Range , class Score $>$ \\
-std\+::vector$<$\mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$Range$>$ $>$ irk\+::daat\+\_\+or (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{std\+::size\+\_\+t}]{k,  }\item[{const std\+::vector$<$ Score $>$ \&}]{weights }\end{DoxyParamCaption})}
-
-
-
-Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. 
-
-\mbox{\Hypertarget{namespaceirk_acce34441889b1a20715396eb4e4cb6b3}\label{namespaceirk_acce34441889b1a20715396eb4e4cb6b3}} 
+\mbox{\Hypertarget{namespaceirk_ac678e4f1c19b59023c14a6deb7fe801e}\label{namespaceirk_ac678e4f1c19b59023c14a6deb7fe801e}} 
 \index{irk@{irk}!decode@{decode}}
 \index{decode@{decode}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Output\+Iterator $>$ \\
-std\+::istream\& irk\+::decode (\begin{DoxyParamCaption}\item[{Output\+Iterator}]{output,  }\item[{std\+::istream \&}]{source,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Iterator $>$ \\
+std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Iterator}]{in,  }\item[{int}]{count }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespaceirk_aed126d81c1570fca4222c3d51a8f4ba2}\label{namespaceirk_aed126d81c1570fca4222c3d51a8f4ba2}} 
+\index{irk@{irk}!delta\+\_\+decode@{delta\+\_\+decode}}
+\index{delta\+\_\+decode@{delta\+\_\+decode}!irk@{irk}}
+\subsubsection{\texorpdfstring{delta\+\_\+decode()}{delta\_decode()}}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Iterator $>$ \\
+std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::delta\+\_\+decode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Iterator}]{in,  }\item[{int}]{count,  }\item[{typename Codec\+::value\+\_\+type}]{initial = {\ttfamily typename~Codec\+:\+:value\+\_\+type()} }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespaceirk_a896bdd772f368d7c786993c1fce4c189}\label{namespaceirk_a896bdd772f368d7c786993c1fce4c189}} 
+\index{irk@{irk}!delta\+\_\+encode@{delta\+\_\+encode}}
+\index{delta\+\_\+encode@{delta\+\_\+encode}!irk@{irk}}
+\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Iterator $>$ \\
+std\+::vector$<$char$>$ irk\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Iterator}]{lo,  }\item[{Input\+Iterator}]{hi }\end{DoxyParamCaption})}
 
-Decodes an entire input stream to an output iterator. 
+\mbox{\Hypertarget{namespaceirk_a8cf4a588f3d7bb35497c272e13e11cc8}\label{namespaceirk_a8cf4a588f3d7bb35497c272e13e11cc8}} 
+\index{irk@{irk}!delta\+\_\+encode@{delta\+\_\+encode}}
+\index{delta\+\_\+encode@{delta\+\_\+encode}!irk@{irk}}
+\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Iterator , class T $>$ \\
+std\+::vector$<$char$>$ irk\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Iterator}]{lo,  }\item[{Input\+Iterator}]{hi,  }\item[{T}]{initial }\end{DoxyParamCaption})}
 
-! Prefix-\/encodes a range of strings values to a byte vector. $\ast$!
+\mbox{\Hypertarget{namespaceirk_ab11cd6640f103b27c78573d29c8ff423}\label{namespaceirk_ab11cd6640f103b27c78573d29c8ff423}} 
+\index{irk@{irk}!delta\+\_\+encode@{delta\+\_\+encode}}
+\index{delta\+\_\+encode@{delta\+\_\+encode}!irk@{irk}}
+\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Range $>$ \\
+std\+::vector$<$char$>$ irk\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Range}]{in }\end{DoxyParamCaption})}
 
-
-\begin{DoxyParams}{Parameters}
-{\em output} & an output iterator, such as {\ttfamily std\+::back\+\_\+inserter} \\
-\hline
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily source} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a54aebb88cf4cd63c2d724bfbfee53435}\label{namespaceirk_a54aebb88cf4cd63c2d724bfbfee53435}} 
-\index{irk@{irk}!decode@{decode}}
-\index{decode@{decode}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Source\+Range $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode (\begin{DoxyParamCaption}\item[{const Source\+Range \&}]{source,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Decodes a range of encoded bytes to a vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & a range of encoded bytes \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a939f0cf6fd86def4ef2d1035d61ff789}\label{namespaceirk_a939f0cf6fd86def4ef2d1035d61ff789}} 
-\index{irk@{irk}!decode@{decode}}
-\index{decode@{decode}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Codec $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ char $>$}]{bytes,  }\item[{const Codec \&}]{codec = {\ttfamily Codec\{\}} }\end{DoxyParamCaption})}
-
-
-
-Decodes an initializer list of bytes to a vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em bytes} & an initializer list of bytes \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a9e83666a824362c954771e5fc6a4e0df}\label{namespaceirk_a9e83666a824362c954771e5fc6a4e0df}} 
-\index{irk@{irk}!decode\+\_\+bits@{decode\+\_\+bits}}
-\index{decode\+\_\+bits@{decode\+\_\+bits}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+bits()}{decode\_bits()}}
-{\footnotesize\ttfamily template$<$class Size\+Codec $>$ \\
-\mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} irk\+::decode\+\_\+bits (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in,  }\item[{const Size\+Codec \&}]{size\+\_\+codec = {\ttfamily SizeCodec()} }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespaceirk_ab01706e2b10ac8d4cd7bfe5d37f307f7}\label{namespaceirk_ab01706e2b10ac8d4cd7bfe5d37f307f7}} 
-\index{irk@{irk}!decode\+\_\+delta@{decode\+\_\+delta}}
-\index{decode\+\_\+delta@{decode\+\_\+delta}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+delta()}{decode\_delta()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Output\+Iterator $>$ \\
-std\+::istream\& irk\+::decode\+\_\+delta (\begin{DoxyParamCaption}\item[{Output\+Iterator}]{output,  }\item[{std\+::istream \&}]{source,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Decodes an entire input stream, applying delta coding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em output} & an output iterator, such as {\ttfamily std\+::back\+\_\+inserter} \\
-\hline
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily source} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ac3c3f0b74d845f8d3313689ff709e191}\label{namespaceirk_ac3c3f0b74d845f8d3313689ff709e191}} 
-\index{irk@{irk}!decode\+\_\+delta@{decode\+\_\+delta}}
-\index{decode\+\_\+delta@{decode\+\_\+delta}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+delta()}{decode\_delta()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Source\+Range $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode\+\_\+delta (\begin{DoxyParamCaption}\item[{const Source\+Range \&}]{source,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Decodes a range of bytes, applying delta coding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & a range of bytes with the encoded elements \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-{\em initial\+\_\+value} & a value to add to the first element \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a9dbe259f7a22df7f96241e95331c9305}\label{namespaceirk_a9dbe259f7a22df7f96241e95331c9305}} 
-\index{irk@{irk}!decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}}
-\index{decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+delta\+\_\+n()}{decode\_delta\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Output\+Iterator $>$ \\
-std\+::istream\& irk\+::decode\+\_\+delta\+\_\+n (\begin{DoxyParamCaption}\item[{Output\+Iterator}]{output,  }\item[{std\+::istream \&}]{source,  }\item[{std\+::size\+\_\+t}]{num = {\ttfamily 0},  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} symbols from an input stream, applying delta coding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em output} & an output iterator, such as {\ttfamily std\+::back\+\_\+inserter} \\
-\hline
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-{\em initial\+\_\+value} & a value to add to the first element \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily source} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a0081bb3a1c56da342a22305aab6e0805}\label{namespaceirk_a0081bb3a1c56da342a22305aab6e0805}} 
-\index{irk@{irk}!decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}}
-\index{decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+delta\+\_\+n()}{decode\_delta\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class Codec $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode\+\_\+delta\+\_\+n (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{source,  }\item[{std\+::size\+\_\+t}]{num,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} symbols from an input stream, applying delta coding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-{\em initial\+\_\+value} & a value to add to the first element \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily source} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ac12ab4662c42689bfed43ea00cca4aa7}\label{namespaceirk_ac12ab4662c42689bfed43ea00cca4aa7}} 
-\index{irk@{irk}!decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}}
-\index{decode\+\_\+delta\+\_\+n@{decode\+\_\+delta\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+delta\+\_\+n()}{decode\_delta\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Source\+Range $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode\+\_\+delta\+\_\+n (\begin{DoxyParamCaption}\item[{const Source\+Range \&}]{source,  }\item[{std\+::size\+\_\+t}]{n,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} symbols from an input stream, applying delta coding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a9df7297fc361e7db737ef2f5d452b234}\label{namespaceirk_a9df7297fc361e7db737ef2f5d452b234}} 
-\index{irk@{irk}!decode\+\_\+n@{decode\+\_\+n}}
-\index{decode\+\_\+n@{decode\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+n()}{decode\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Output\+Iterator $>$ \\
-std\+::istream\& irk\+::decode\+\_\+n (\begin{DoxyParamCaption}\item[{Output\+Iterator}]{output,  }\item[{std\+::istream \&}]{source,  }\item[{std\+::size\+\_\+t}]{n,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} encoded symbols from an input stream to an output iterator. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em output} & an output iterator, such as {\ttfamily std\+::back\+\_\+inserter} \\
-\hline
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily source} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a37493e1aca6b08f1d85998653343e7a6}\label{namespaceirk_a37493e1aca6b08f1d85998653343e7a6}} 
-\index{irk@{irk}!decode\+\_\+n@{decode\+\_\+n}}
-\index{decode\+\_\+n@{decode\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+n()}{decode\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class Codec $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode\+\_\+n (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{source,  }\item[{std\+::size\+\_\+t}]{n,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} encoded symbols from an input stream to a vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a6fb4092edc448640f1d37c4822ced00a}\label{namespaceirk_a6fb4092edc448640f1d37c4822ced00a}} 
-\index{irk@{irk}!decode\+\_\+n@{decode\+\_\+n}}
-\index{decode\+\_\+n@{decode\+\_\+n}!irk@{irk}}
-\subsubsection{\texorpdfstring{decode\+\_\+n()}{decode\_n()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Source\+Range $>$ \\
-std\+::vector$<$typename Codec\+::value\+\_\+type$>$ irk\+::decode\+\_\+n (\begin{DoxyParamCaption}\item[{const Source\+Range \&}]{source,  }\item[{std\+::size\+\_\+t}]{n,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Decodes {\ttfamily n} encoded symbols from a range to a vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & an input stream with the encoded elements \\
-\hline
-{\em n} & how many symbols to decode \\
-\hline
-{\em codec} & a codec to use for decoding \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of decoded values 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ae6ff93ae9ba08469e917652442a288b2}\label{namespaceirk_ae6ff93ae9ba08469e917652442a288b2}} 
+\mbox{\Hypertarget{namespaceirk_abb9d919900c25d5bd3ffc5c25343fc96}\label{namespaceirk_abb9d919900c25d5bd3ffc5c25343fc96}} 
 \index{irk@{irk}!encode@{encode}}
 \index{encode@{encode}!irk@{irk}}
 \subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Codec , class Input\+Range $>$ \\
-std\+::ostream\& irk\+::encode (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{int\+\_\+range,  }\item[{std\+::ostream \&}]{sink,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class Codec , class Input\+Iterator $>$ \\
+std\+::vector$<$char$>$ irk\+::encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Iterator}]{lo,  }\item[{Input\+Iterator}]{hi }\end{DoxyParamCaption})}
 
-
-
-Encodes a range of integer values to an output stream. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em int\+\_\+range} & a range of integers to encode \\
-\hline
-{\em sink} & an output stream to write to \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily sink} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a5ff7324ee83ee713f6184883642c2713}\label{namespaceirk_a5ff7324ee83ee713f6184883642c2713}} 
+\mbox{\Hypertarget{namespaceirk_a59d242b9679dbc0d8fe61f1b72a7d5a2}\label{namespaceirk_a59d242b9679dbc0d8fe61f1b72a7d5a2}} 
 \index{irk@{irk}!encode@{encode}}
 \index{encode@{encode}!irk@{irk}}
 \subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$class Codec , class Input\+Range $>$ \\
-std\+::vector$<$char$>$ irk\+::encode (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{int\+\_\+range,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
+std\+::vector$<$char$>$ irk\+::encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{Input\+Range}]{in }\end{DoxyParamCaption})}
 
-
-
-Encodes a range of integer values to a byte vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em int\+\_\+range} & a range of integers to encode \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of encoded bytes 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ad1f30da1af48df56b32a99c59af8412a}\label{namespaceirk_ad1f30da1af48df56b32a99c59af8412a}} 
+\mbox{\Hypertarget{namespaceirk_a22868b0491ea12fc4716da3970addc14}\label{namespaceirk_a22868b0491ea12fc4716da3970addc14}} 
 \index{irk@{irk}!encode@{encode}}
 \index{encode@{encode}!irk@{irk}}
 \subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Codec $>$ \\
-std\+::vector$<$char$>$ irk\+::encode (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ typename Codec\+::value\+\_\+type $>$}]{integers,  }\item[{const Codec \&}]{codec = {\ttfamily Codec\{\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class Codec , class T $>$ \\
+std\+::vector$<$char$>$ irk\+::encode (\begin{DoxyParamCaption}\item[{const Codec \&}]{codec,  }\item[{std\+::initializer\+\_\+list$<$ T $>$}]{in }\end{DoxyParamCaption})}
 
-
-
-Encodes an initializer list of integer values to a byte vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em integers} & an initializer list of integers to encode \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of encoded bytes 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ad5beaa760e39ac6f6b3c001030388a6f}\label{namespaceirk_ad5beaa760e39ac6f6b3c001030388a6f}} 
-\index{irk@{irk}!encode\+\_\+bits@{encode\+\_\+bits}}
-\index{encode\+\_\+bits@{encode\+\_\+bits}!irk@{irk}}
-\subsubsection{\texorpdfstring{encode\+\_\+bits()}{encode\_bits()}}
-{\footnotesize\ttfamily template$<$class Size\+Codec $>$ \\
-std\+::ostream\& irk\+::encode\+\_\+bits (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a5d1a67079cf6423ecaededebe848f083}{bitword}} \&}]{bits,  }\item[{std\+::ostream \&}]{out,  }\item[{const Size\+Codec \&}]{size\+\_\+codec = {\ttfamily SizeCodec()} }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespaceirk_a76d26e66fd2b02cada45345b5ca3e995}\label{namespaceirk_a76d26e66fd2b02cada45345b5ca3e995}} 
-\index{irk@{irk}!encode\+\_\+delta@{encode\+\_\+delta}}
-\index{encode\+\_\+delta@{encode\+\_\+delta}!irk@{irk}}
-\subsubsection{\texorpdfstring{encode\+\_\+delta()}{encode\_delta()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Input\+Range $>$ \\
-std\+::ostream\& irk\+::encode\+\_\+delta (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{int\+\_\+range,  }\item[{std\+::ostream \&}]{sink,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Encodes a range of integers to an output stream, applying delta encoding. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em int\+\_\+range} & a range of integers to encode \\
-\hline
-{\em sink} & an output stream to write to \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-{\em initial\+\_\+value} & the initial value to subtract from the first encoded integer (0 by default) \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily sink} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a0e851f5c1edd1e639c8c5132f3027ac0}\label{namespaceirk_a0e851f5c1edd1e639c8c5132f3027ac0}} 
-\index{irk@{irk}!encode\+\_\+delta@{encode\+\_\+delta}}
-\index{encode\+\_\+delta@{encode\+\_\+delta}!irk@{irk}}
-\subsubsection{\texorpdfstring{encode\+\_\+delta()}{encode\_delta()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Input\+Range $>$ \\
-std\+::vector$<$char$>$ irk\+::encode\+\_\+delta (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{int\+\_\+range,  }\item[{const Codec \&}]{codec = {\ttfamily Codec\{\}},  }\item[{typename Codec\+::value\+\_\+type}]{initial\+\_\+value = {\ttfamily typename~Codec\+:\+:value\+\_\+type(0)} }\end{DoxyParamCaption})}
-
-
-
-Encodes a range of integer values to a byte vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em int\+\_\+range} & a range of integers to encode \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-{\em initial\+\_\+value} & the initial value to subtract from the first encoded integer (0 by default) \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of encoded bytes 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_a1f1961138bf0a1851597756639a3bee5}\label{namespaceirk_a1f1961138bf0a1851597756639a3bee5}} 
-\index{irk@{irk}!encode\+\_\+fn@{encode\+\_\+fn}}
-\index{encode\+\_\+fn@{encode\+\_\+fn}!irk@{irk}}
-\subsubsection{\texorpdfstring{encode\+\_\+fn()}{encode\_fn()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ \\
-std\+::ostream\& irk\+::encode\+\_\+fn (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{range,  }\item[{Transform\+Fn}]{fn,  }\item[{std\+::ostream \&}]{sink,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Encodes a range of values, mapped to integers, to an output stream. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em range} & a range of values to map to integers and encode \\
-\hline
-{\em fn} & a function mapping elements of {\ttfamily range} to integers \\
-\hline
-{\em sink} & an output stream to write to \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-{\ttfamily sink} stream 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_ae02f4d520c0e53d21a65398bbb4f3637}\label{namespaceirk_ae02f4d520c0e53d21a65398bbb4f3637}} 
-\index{irk@{irk}!encode\+\_\+fn@{encode\+\_\+fn}}
-\index{encode\+\_\+fn@{encode\+\_\+fn}!irk@{irk}}
-\subsubsection{\texorpdfstring{encode\+\_\+fn()}{encode\_fn()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Codec , class Input\+Range , class Transform\+Fn $>$ \\
-std\+::vector$<$char$>$ irk\+::encode\+\_\+fn (\begin{DoxyParamCaption}\item[{const Input\+Range \&}]{range,  }\item[{Transform\+Fn}]{fn,  }\item[{const Codec \&}]{codec = {\ttfamily Codec()} }\end{DoxyParamCaption})}
-
-
-
-Encodes a range of values, mapped to integers, to a byte vector. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em range} & a range of values to map to integers and encode \\
-\hline
-{\em fn} & a function mapping elements of {\ttfamily range} to integers \\
-\hline
-{\em codec} & a codec used to encode integers \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a vector of encoded bytes 
-\end{DoxyReturn}
-\mbox{\Hypertarget{namespaceirk_aa5a47c5f38246e32ece50c109e1edaaf}\label{namespaceirk_aa5a47c5f38246e32ece50c109e1edaaf}} 
+\mbox{\Hypertarget{namespaceirk_af5d69d1a8b720ed220cac2ba35bf704f}\label{namespaceirk_af5d69d1a8b720ed220cac2ba35bf704f}} 
 \index{irk@{irk}!load\+\_\+compact\+\_\+table@{load\+\_\+compact\+\_\+table}}
 \index{load\+\_\+compact\+\_\+table@{load\+\_\+compact\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{load\+\_\+compact\+\_\+table()}{load\_compact\_table()}}
-{\footnotesize\ttfamily template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, std\+::vector$<$char$>$ $>$ irk\+::load\+\_\+compact\+\_\+table (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, std\+::vector$<$char$>$ $>$ irk\+::load\+\_\+compact\+\_\+table (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
 
 
 
 Load a compact table to main memory. 
 
-\mbox{\Hypertarget{namespaceirk_ae9440cb1246aeaa9376e8d9b678f64ba}\label{namespaceirk_ae9440cb1246aeaa9376e8d9b678f64ba}} 
-\index{irk@{irk}!load\+\_\+mutable\+\_\+bit\+\_\+trie@{load\+\_\+mutable\+\_\+bit\+\_\+trie}}
-\index{load\+\_\+mutable\+\_\+bit\+\_\+trie@{load\+\_\+mutable\+\_\+bit\+\_\+trie}!irk@{irk}}
-\subsubsection{\texorpdfstring{load\+\_\+mutable\+\_\+bit\+\_\+trie()}{load\_mutable\_bit\_trie()}}
-{\footnotesize\ttfamily template$<$class Value $>$ \\
-\mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$Value$>$ irk\+::load\+\_\+mutable\+\_\+bit\+\_\+trie (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{namespaceirk_a34aaa6d3890f73c7d082ddbd78340875}\label{namespaceirk_a34aaa6d3890f73c7d082ddbd78340875}} 
+\index{irk@{irk}!load\+\_\+lexicon@{load\+\_\+lexicon}}
+\index{load\+\_\+lexicon@{load\+\_\+lexicon}!irk@{irk}}
+\subsubsection{\texorpdfstring{load\+\_\+lexicon()}{load\_lexicon()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceirk_ab1814afdb97c1b326d1d549beedf9be8}{lexicon\+\_\+view}}$<$\mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$char$>$ $>$ irk\+::load\+\_\+lexicon (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} \&}]{memory }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespaceirk_ad0428139c5d98f138321b9a2b1bff3d5}\label{namespaceirk_ad0428139c5d98f138321b9a2b1bff3d5}} 
+\mbox{\Hypertarget{namespaceirk_ac8015c27262d287ddb9092a9b4278750}\label{namespaceirk_ac8015c27262d287ddb9092a9b4278750}} 
 \index{irk@{irk}!load\+\_\+offset\+\_\+table@{load\+\_\+offset\+\_\+table}}
 \index{load\+\_\+offset\+\_\+table@{load\+\_\+offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{load\+\_\+offset\+\_\+table()}{load\_offset\_table()}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, std\+::vector$<$char$>$ $>$ irk\+::load\+\_\+offset\+\_\+table (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, std\+::vector$<$char$>$ $>$ irk\+::load\+\_\+offset\+\_\+table (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
 
 
 
@@ -1019,46 +639,58 @@ Load an offset table to main memory.
 {\footnotesize\ttfamily template$<$class Index $>$ \\
 std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}$<$Index$>$ $>$ irk\+::load\+\_\+radix\+\_\+tree (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in,  }\item[{std\+::size\+\_\+t}]{block\+\_\+size,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classirk_1_1hutucker__codec}{hutucker\+\_\+codec}}$<$ char $>$$>$}]{codec }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespaceirk_a7065a12b7b7c5dd5aad84394da95871b}\label{namespaceirk_a7065a12b7b7c5dd5aad84394da95871b}} 
+\index{irk@{irk}!make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}}
+\index{make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}!irk@{irk}}
+\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ char $>$ \&}]{mem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{namespaceirk_ac123106f771ea0ef0ee855f8ee98bc2b}\label{namespaceirk_ac123106f771ea0ef0ee855f8ee98bc2b}} 
 \index{irk@{irk}!make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}}
 \index{make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}!irk@{irk}}
-\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ const char $>$}]{mem }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{gsl\+::span$<$ const char $>$}]{mem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespaceirk_ab21cb1ed22fd54ee08ae5d4e93485857}\label{namespaceirk_ab21cb1ed22fd54ee08ae5d4e93485857}} 
+\mbox{\Hypertarget{namespaceirk_a18d9d6db7e3598a806378b697fabb802}\label{namespaceirk_a18d9d6db7e3598a806378b697fabb802}} 
 \index{irk@{irk}!make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}}
 \index{make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}!irk@{irk}}
-\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{const char $\ast$}]{data,  }\item[{int}]{size }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{const char $\ast$}]{data,  }\item[{std\+::ptrdiff\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespaceirk_a72297d13b3e41cd8dafdcc28ff3c4528}\label{namespaceirk_a72297d13b3e41cd8dafdcc28ff3c4528}} 
+\mbox{\Hypertarget{namespaceirk_af0a614c4c802be8ef7136278c00c1377}\label{namespaceirk_af0a614c4c802be8ef7136278c00c1377}} 
+\index{irk@{irk}!make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}}
+\index{make\+\_\+memory\+\_\+view@{make\+\_\+memory\+\_\+view}!irk@{irk}}
+\subsubsection{\texorpdfstring{make\+\_\+memory\+\_\+view()}{make\_memory\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::make\+\_\+memory\+\_\+view (\begin{DoxyParamCaption}\item[{const boost\+::filesystem\+::path \&}]{file\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_a2404dd8fd003ee848e563f3538972979}\label{namespaceirk_a2404dd8fd003ee848e563f3538972979}} 
 \index{irk@{irk}!map\+\_\+compact\+\_\+table@{map\+\_\+compact\+\_\+table}}
 \index{map\+\_\+compact\+\_\+table@{map\+\_\+compact\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{map\+\_\+compact\+\_\+table()}{map\_compact\_table()}}
-{\footnotesize\ttfamily template$<$class T , class Codec  = varbyte\+\_\+codec$<$\+T$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$ irk\+::map\+\_\+compact\+\_\+table (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class T , class Codec  = vbyte\+\_\+codec$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$ irk\+::map\+\_\+compact\+\_\+table (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
 
 
 
 Set up a compact table with a mapped file. 
 
-\mbox{\Hypertarget{namespaceirk_a647b6c35c655d88bb5fb522a4d77ef49}\label{namespaceirk_a647b6c35c655d88bb5fb522a4d77ef49}} 
+\mbox{\Hypertarget{namespaceirk_a43eccbe6cba8b0a3168b9bc5065d05b6}\label{namespaceirk_a43eccbe6cba8b0a3168b9bc5065d05b6}} 
 \index{irk@{irk}!map\+\_\+offset\+\_\+table@{map\+\_\+offset\+\_\+table}}
 \index{map\+\_\+offset\+\_\+table@{map\+\_\+offset\+\_\+table}!irk@{irk}}
 \subsubsection{\texorpdfstring{map\+\_\+offset\+\_\+table()}{map\_offset\_table()}}
-{\footnotesize\ttfamily template$<$class Codec  = varbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$ irk\+::map\+\_\+offset\+\_\+table (\begin{DoxyParamCaption}\item[{fs\+::path}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$class Codec  = vbyte\+\_\+codec$<$std\+::size\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$std\+::size\+\_\+t, Codec, boost\+::iostreams\+::mapped\+\_\+file\+\_\+source$>$ irk\+::map\+\_\+offset\+\_\+table (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{file }\end{DoxyParamCaption})}
 
 
 
 Set up an offset table with a mapped file. 
 
-\mbox{\Hypertarget{namespaceirk_a42f50afae2f0061834dba164c1456908}\label{namespaceirk_a42f50afae2f0061834dba164c1456908}} 
+\mbox{\Hypertarget{namespaceirk_a31c9646eabcf838e134496617adcde5e}\label{namespaceirk_a31c9646eabcf838e134496617adcde5e}} 
 \index{irk@{irk}!nbits@{nbits}}
 \index{nbits@{nbits}!irk@{irk}}
 \subsubsection{\texorpdfstring{nbits()}{nbits()}}
 {\footnotesize\ttfamily template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-constexpr unsigned short irk\+::nbits (\begin{DoxyParamCaption}\item[{T}]{n }\end{DoxyParamCaption})}
+constexpr int16\+\_\+t irk\+::nbits (\begin{DoxyParamCaption}\item[{T}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -1074,12 +706,12 @@ Computes the number of bits required to store an integer n.
 {\em n} & The integer of which to return the size in bits. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespaceirk_ac58a8542fe93e44f62867d97613007ae}\label{namespaceirk_ac58a8542fe93e44f62867d97613007ae}} 
+\mbox{\Hypertarget{namespaceirk_a655971fe9a3706528f14c395f938d416}\label{namespaceirk_a655971fe9a3706528f14c395f938d416}} 
 \index{irk@{irk}!nbytes@{nbytes}}
 \index{nbytes@{nbytes}!irk@{irk}}
 \subsubsection{\texorpdfstring{nbytes()}{nbytes()}}
 {\footnotesize\ttfamily template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ \\
-constexpr unsigned short irk\+::nbytes (\begin{DoxyParamCaption}\item[{T}]{n }\end{DoxyParamCaption})}
+constexpr int16\+\_\+t irk\+::nbytes (\begin{DoxyParamCaption}\item[{T}]{n }\end{DoxyParamCaption})}
 
 
 
@@ -1095,13 +727,6 @@ Computes the number of full bytes required to store an integer n.
 {\em n} & The integer of which to return the size in bytes. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{namespaceirk_ab8e6b6b40ddf91037ece69b4c14d091f}\label{namespaceirk_ab8e6b6b40ddf91037ece69b4c14d091f}} 
-\index{irk@{irk}!operator$\ast$=@{operator$\ast$=}}
-\index{operator$\ast$=@{operator$\ast$=}!irk@{irk}}
-\subsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
-{\footnotesize\ttfamily template$<$class Score $>$ \\
-Score irk\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{Score \&}]{lhs,  }\item[{const \mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}} \&}]{rhs }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{namespaceirk_a94643c4295628e30b30002810c4a2327}\label{namespaceirk_a94643c4295628e30b30002810c4a2327}} 
 \index{irk@{irk}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!irk@{irk}}
@@ -1116,92 +741,42 @@ std\+::ostream\& irk\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::os
 {\footnotesize\ttfamily template$<$class T , class Codec , class Memory\+Buffer $>$ \\
 std\+::ostream\& irk\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&}]{offset\+\_\+table }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespaceirk_aac8001645bff72cf73bf0f87512c5ed4}\label{namespaceirk_aac8001645bff72cf73bf0f87512c5ed4}} 
+\mbox{\Hypertarget{namespaceirk_af318ecad298eb6ae661381e646c04e80}\label{namespaceirk_af318ecad298eb6ae661381e646c04e80}} 
 \index{irk@{irk}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!irk@{irk}}
 \subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Value $>$ \\
-std\+::ostream\& irk\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const \mbox{\hyperlink{classirk_1_1mutable__bit__trie}{mutable\+\_\+bit\+\_\+trie}}$<$ Value $>$ \&}]{mbt }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::ostream\& irk\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \&}]{mv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespaceirk_a5a2bb996aa2fce0aa00ae9aafd500bba}\label{namespaceirk_a5a2bb996aa2fce0aa00ae9aafd500bba}} 
+\mbox{\Hypertarget{namespaceirk_af66b19416653b16808a23d66c715635a}\label{namespaceirk_af66b19416653b16808a23d66c715635a}} 
+\index{irk@{irk}!query\+\_\+postings@{query\+\_\+postings}}
+\index{query\+\_\+postings@{query\+\_\+postings}!irk@{irk}}
+\subsubsection{\texorpdfstring{query\+\_\+postings()}{query\_postings()}}
+{\footnotesize\ttfamily auto irk\+::query\+\_\+postings (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespaceirk_a137711df98ba695c3526ba4004853a47}{irk\+::inverted\+\_\+index\+\_\+view}} \&}]{index,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{query }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_ab35dab94f51174d7559fb8e0ff201f55}\label{namespaceirk_ab35dab94f51174d7559fb8e0ff201f55}} 
+\index{irk@{irk}!rax\+Get\+Data@{rax\+Get\+Data}}
+\index{rax\+Get\+Data@{rax\+Get\+Data}!irk@{irk}}
+\subsubsection{\texorpdfstring{rax\+Get\+Data()}{raxGetData()}}
+{\footnotesize\ttfamily void$\ast$ irk\+::rax\+Get\+Data (\begin{DoxyParamCaption}\item[{rax\+Node $\ast$}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespaceirk_a98ebfab64f6f91c847caacbac527e9dd}\label{namespaceirk_a98ebfab64f6f91c847caacbac527e9dd}} 
 \index{irk@{irk}!read\+\_\+compact\+\_\+value@{read\+\_\+compact\+\_\+value}}
 \index{read\+\_\+compact\+\_\+value@{read\+\_\+compact\+\_\+value}!irk@{irk}}
 \subsubsection{\texorpdfstring{read\+\_\+compact\+\_\+value()}{read\_compact\_value()}}
 {\footnotesize\ttfamily template$<$class Mem , class Codec $>$ \\
-std\+::size\+\_\+t irk\+::read\+\_\+compact\+\_\+value (\begin{DoxyParamCaption}\item[{Mem}]{mem,  }\item[{std\+::uint32\+\_\+t}]{key,  }\item[{Codec}]{codec }\end{DoxyParamCaption})}
+auto irk\+::read\+\_\+compact\+\_\+value (\begin{DoxyParamCaption}\item[{Mem}]{mem,  }\item[{std\+::uint32\+\_\+t}]{key,  }\item[{Codec}]{codec }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespaceirk_a9bbfe619867ce962c69054e3417b4b11}\label{namespaceirk_a9bbfe619867ce962c69054e3417b4b11}} 
+\mbox{\Hypertarget{namespaceirk_a9bc1b53d67a7c1215efb3e348d00489a}\label{namespaceirk_a9bc1b53d67a7c1215efb3e348d00489a}} 
+\index{irk@{irk}!score\+\_\+index@{score\+\_\+index}}
+\index{score\+\_\+index@{score\+\_\+index}!irk@{irk}}
+\subsubsection{\texorpdfstring{score\+\_\+index()}{score\_index()}}
+{\footnotesize\ttfamily template$<$class Scorer , class Data\+SourceT $>$ \\
+void irk\+::score\+\_\+index (\begin{DoxyParamCaption}\item[{fs\+::path}]{dir\+\_\+path,  }\item[{unsigned int}]{bits,  }\item[{std\+::optional$<$ double $>$}]{max = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceirk_a936dfbb74aa4684439c364e4b7b62067}\label{namespaceirk_a936dfbb74aa4684439c364e4b7b62067}} 
 \index{irk@{irk}!taat@{taat}}
 \index{taat@{taat}!irk@{irk}}
 \subsubsection{\texorpdfstring{taat()}{taat()}}
-{\footnotesize\ttfamily template$<$class Range $>$ \\
-std\+::vector$<$\mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$Range$>$ $>$ irk\+::taat (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{std\+::size\+\_\+t}]{k,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Range $>$$>$$>$ \&}]{weights,  }\item[{std\+::size\+\_\+t}]{collection\+\_\+size }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{namespaceirk_a338c8931f92a0d5db3023a2ee7a76db8}\label{namespaceirk_a338c8931f92a0d5db3023a2ee7a76db8}} 
-\index{irk@{irk}!traverse@{traverse}}
-\index{traverse@{traverse}!irk@{irk}}
-\subsubsection{\texorpdfstring{traverse()}{traverse()}}
-{\footnotesize\ttfamily template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = simple\+\_\+accumulator$>$ \\
-void irk\+::traverse (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Doc\+Range $>$ \&}]{doc\+\_\+ranges,  }\item[{const std\+::vector$<$ Score\+Range $>$ \&}]{score\+\_\+ranges,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Score\+Range $>$$>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}}} }\end{DoxyParamCaption})}
-
-
-
-Traverses postings and accumulates scores. 
-
-\mbox{\Hypertarget{namespaceirk_a02334cad2fa8f38feab94fe6c1c57d8e}\label{namespaceirk_a02334cad2fa8f38feab94fe6c1c57d8e}} 
-\index{irk@{irk}!traverse\+\_\+list@{traverse\+\_\+list}}
-\index{traverse\+\_\+list@{traverse\+\_\+list}!irk@{irk}}
-\subsubsection{\texorpdfstring{traverse\+\_\+list()}{traverse\_list()}}
-{\footnotesize\ttfamily template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ \\
-void irk\+::traverse\+\_\+list (\begin{DoxyParamCaption}\item[{const Doc\+Range \&}]{docs,  }\item[{const Score\+Range \&}]{scores,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Weight}]{weight = {\ttfamily \mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}}\{\}},  }\item[{Accumulator\+Policy \&}]{accumulator\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}}} }\end{DoxyParamCaption})}
-
-
-
-Traverses and accumulates scores in a single posting list. 
-
-\mbox{\Hypertarget{namespaceirk_aa97b41a8c849bf1c0710f5297997a6c4}\label{namespaceirk_aa97b41a8c849bf1c0710f5297997a6c4}} 
-\index{irk@{irk}!traverse\+\_\+list\+\_\+postings@{traverse\+\_\+list\+\_\+postings}}
-\index{traverse\+\_\+list\+\_\+postings@{traverse\+\_\+list\+\_\+postings}!irk@{irk}}
-\subsubsection{\texorpdfstring{traverse\+\_\+list\+\_\+postings()}{traverse\_list\_postings()}}
-{\footnotesize\ttfamily template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ \\
-void irk\+::traverse\+\_\+list\+\_\+postings (\begin{DoxyParamCaption}\item[{const Posting\+Range \&}]{postings,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{Weight}]{weight = {\ttfamily \mbox{\hyperlink{structirk_1_1no__weight}{no\+\_\+weight}}\{\}},  }\item[{Accumulator\+Policy}]{accumulator\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}}} }\end{DoxyParamCaption})}
-
-
-
-Traverses and accumulates scores in a single posting list. 
-
-T\+O\+DO\+:
-\begin{DoxyItemize}
-\item Document
-\item Define the rest of the concepts 
-\end{DoxyItemize}\mbox{\Hypertarget{namespaceirk_a8dbdf5c2b9eef7379aae57b72861978a}\label{namespaceirk_a8dbdf5c2b9eef7379aae57b72861978a}} 
-\index{irk@{irk}!traverse\+\_\+postings@{traverse\+\_\+postings}}
-\index{traverse\+\_\+postings@{traverse\+\_\+postings}!irk@{irk}}
-\subsubsection{\texorpdfstring{traverse\+\_\+postings()}{traverse\_postings()}}
-{\footnotesize\ttfamily template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ \\
-void irk\+::traverse\+\_\+postings (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Posting\+Range $>$ \&}]{posting\+\_\+ranges,  }\item[{Accumulator\+Array \&}]{acc,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$ Posting\+Range $>$$>$$>$ \&}]{term\+\_\+weights,  }\item[{Accumulator\+Policy}]{accumulator\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{default\+\_\+accumulator}}} }\end{DoxyParamCaption})}
-
-
-
-Traverses postings and accumulates scores. 
-
-\mbox{\Hypertarget{namespaceirk_a8f6987f583ef7a5eff4291ccea6d7170}\label{namespaceirk_a8f6987f583ef7a5eff4291ccea6d7170}} 
-\index{irk@{irk}!wand@{wand}}
-\index{wand@{wand}!irk@{irk}}
-\subsubsection{\texorpdfstring{wand()}{wand()}}
-{\footnotesize\ttfamily template$<$class Range , class Score $>$ \\
-std\+::vector$<$\mbox{\hyperlink{namespaceirk_a1e48b43a3f40d553264380da5e7263c1}{pure\+\_\+element\+\_\+t}}$<$Range$>$ $>$ irk\+::wand (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Range $>$ \&}]{query\+\_\+postings,  }\item[{std\+::size\+\_\+t}]{k,  }\item[{const std\+::vector$<$ Score $>$ \&}]{weights }\end{DoxyParamCaption})}
-
-
-
-Returns top-\/$\ast$k$\ast$ results, given vectors of posting lists and term weights. 
-
-
-
-\subsection{Variable Documentation}
-\mbox{\Hypertarget{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}\label{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}} 
-\index{irk@{irk}!default\+\_\+accumulator@{default\+\_\+accumulator}}
-\index{default\+\_\+accumulator@{default\+\_\+accumulator}!irk@{irk}}
-\subsubsection{\texorpdfstring{default\+\_\+accumulator}{default\_accumulator}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1simple__accumulator}{simple\+\_\+accumulator}} irk\+::default\+\_\+accumulator}
+{\footnotesize\ttfamily template$<$class Posting\+Lists , class Accumulator\+Vec $>$ \\
+void irk\+::taat (\begin{DoxyParamCaption}\item[{const Posting\+Lists \&}]{posting\+\_\+lists,  }\item[{Accumulator\+Vec \&}]{accumulators }\end{DoxyParamCaption})}
 

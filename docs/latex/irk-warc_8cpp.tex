@@ -1,16 +1,16 @@
 \hypertarget{irk-warc_8cpp}{}\section{src/irk-\/warc.cpp File Reference}
 \label{irk-warc_8cpp}\index{src/irk-\/warc.\+cpp@{src/irk-\/warc.\+cpp}}
 {\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$regex$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/filter/gzip.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/iostreams/filtering\+\_\+stream.\+hpp$>$}\newline
-{\ttfamily \#include $<$gumbo.\+h$>$}\newline
 {\ttfamily \#include $<$gsl/gsl$>$}\newline
+{\ttfamily \#include $<$gumbo.\+h$>$}\newline
 {\ttfamily \#include $<$irkit/io/warc.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/parsing/html.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/parsing/snowball/porter2.\+hpp$>$}\newline
@@ -24,7 +24,7 @@ struct \mbox{\hyperlink{structbody__writer}{body\+\_\+writer}}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}{write\+\_\+term}} (std\+::string \&\&term, \mbox{\hyperlink{structSN__env}{S\+N\+\_\+env}} $\ast$z, bool lowercase)
+void \mbox{\hyperlink{irk-warc_8cpp_af7d34b3e12bc004e9cc0041e2053ac42}{write\+\_\+term}} (std\+::string \&\&term, \mbox{\hyperlink{structirk_1_1porter2_1_1SN__env}{irk\+::porter2\+::\+S\+N\+\_\+env}} $\ast$z, bool lowercase)
 \item 
 std\+::set$<$ char $>$ \mbox{\hyperlink{irk-warc_8cpp_a540445d56c199741b8ec16c28c40f5e0}{parse\+\_\+field\+\_\+selection}} ()
 \item 
@@ -32,6 +32,15 @@ void \mbox{\hyperlink{irk-warc_8cpp_aeaa9afcbcca6c9cac8dfed13f3ec5b3d}{print\+\_
 \item 
 int \mbox{\hyperlink{irk-warc_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}
 
 
 \subsection{Function Documentation}
@@ -53,9 +62,9 @@ int \mbox{\hyperlink{irk-warc_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (in
 \subsubsection{\texorpdfstring{print\+\_\+field()}{print\_field()}}
 {\footnotesize\ttfamily void print\+\_\+field (\begin{DoxyParamCaption}\item[{char}]{f,  }\item[{const \mbox{\hyperlink{classirkit_1_1io_1_1warc__record}{irkit\+::io\+::warc\+\_\+record}} \&}]{record,  }\item[{\mbox{\hyperlink{structbody__writer}{body\+\_\+writer}}}]{write\+\_\+body }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}\label{irk-warc_8cpp_a44adaf0886fa4ffc57f8ea4447218597}} 
+\mbox{\Hypertarget{irk-warc_8cpp_af7d34b3e12bc004e9cc0041e2053ac42}\label{irk-warc_8cpp_af7d34b3e12bc004e9cc0041e2053ac42}} 
 \index{irk-\/warc.\+cpp@{irk-\/warc.\+cpp}!write\+\_\+term@{write\+\_\+term}}
 \index{write\+\_\+term@{write\+\_\+term}!irk-\/warc.\+cpp@{irk-\/warc.\+cpp}}
 \subsubsection{\texorpdfstring{write\+\_\+term()}{write\_term()}}
-{\footnotesize\ttfamily void write\+\_\+term (\begin{DoxyParamCaption}\item[{std\+::string \&\&}]{term,  }\item[{\mbox{\hyperlink{structSN__env}{S\+N\+\_\+env}} $\ast$}]{z,  }\item[{bool}]{lowercase }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void write\+\_\+term (\begin{DoxyParamCaption}\item[{std\+::string \&\&}]{term,  }\item[{\mbox{\hyperlink{structirk_1_1porter2_1_1SN__env}{irk\+::porter2\+::\+S\+N\+\_\+env}} $\ast$}]{z,  }\item[{bool}]{lowercase }\end{DoxyParamCaption})}
 

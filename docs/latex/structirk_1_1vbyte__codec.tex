@@ -1,0 +1,116 @@
+\hypertarget{structirk_1_1vbyte__codec}{}\section{irk\+:\+:vbyte\+\_\+codec$<$ T $>$ Struct Template Reference}
+\label{structirk_1_1vbyte__codec}\index{irk\+::vbyte\+\_\+codec$<$ T $>$@{irk\+::vbyte\+\_\+codec$<$ T $>$}}
+
+
+{\ttfamily \#include $<$vbyte.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structirk_1_1vbyte__codec_aa59c947ce3a8b15f476295fe4b944f99}{value\+\_\+type}} = T
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec_aaccf33b7ad6ed3b848550d18e9f4b4fd}{max\+\_\+encoded\+\_\+size}} (int count, std\+::optional$<$ T $>$=std\+::nullopt) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec_a5025310850ce7856699773f082f71c3a}{encode}} (Input\+Iterator in, Output\+Iterator out) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec_a8d8f0f48198257165cbfe17bb8e0a7f1}{encode}} (Input\+Iterator lo, Input\+Iterator hi, Output\+Iterator out) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec_a233660cc818ce569c0a0118ce74d46f2}{delta\+\_\+encode}} (Input\+Iterator lo, Input\+Iterator hi, Output\+Iterator out, T initial=T()) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec_a5de271838b06bde6458d12d417d570c9}{decode}} (Input\+Iterator in, Output\+Iterator out) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec_ac294eeea42950c214f56dc03953a3420}{decode}} (Input\+Iterator in, Output\+Iterator out, int n) const
+\item 
+{\footnotesize template$<$class Input\+Iterator , class Output\+Iterator $>$ }\\Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec_ad0773adf36a31bc8ad7cf98baf6f7721}{delta\+\_\+decode}} (Input\+Iterator in, Output\+Iterator out, int n, T initial=T()) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::uint8\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec_ae5d8ab43b690ec1925bf1e59593fd66f}{maxv}} = 128
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_aa59c947ce3a8b15f476295fe4b944f99}\label{structirk_1_1vbyte__codec_aa59c947ce3a8b15f476295fe4b944f99}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+using \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::\mbox{\hyperlink{structirk_1_1vbyte__codec_aa59c947ce3a8b15f476295fe4b944f99}{value\+\_\+type}} =  T}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_a5de271838b06bde6458d12d417d570c9}\label{structirk_1_1vbyte__codec_a5de271838b06bde6458d12d417d570c9}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!decode@{decode}}
+\index{decode@{decode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::decode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{in,  }\item[{Output\+Iterator}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_ac294eeea42950c214f56dc03953a3420}\label{structirk_1_1vbyte__codec_ac294eeea42950c214f56dc03953a3420}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!decode@{decode}}
+\index{decode@{decode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::decode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{in,  }\item[{Output\+Iterator}]{out,  }\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_ad0773adf36a31bc8ad7cf98baf6f7721}\label{structirk_1_1vbyte__codec_ad0773adf36a31bc8ad7cf98baf6f7721}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!delta\+\_\+decode@{delta\+\_\+decode}}
+\index{delta\+\_\+decode@{delta\+\_\+decode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{delta\+\_\+decode()}{delta\_decode()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+Input\+Iterator \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::delta\+\_\+decode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{in,  }\item[{Output\+Iterator}]{out,  }\item[{int}]{n,  }\item[{T}]{initial = {\ttfamily T()} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_a233660cc818ce569c0a0118ce74d46f2}\label{structirk_1_1vbyte__codec_a233660cc818ce569c0a0118ce74d46f2}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!delta\+\_\+encode@{delta\+\_\+encode}}
+\index{delta\+\_\+encode@{delta\+\_\+encode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{delta\+\_\+encode()}{delta\_encode()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::delta\+\_\+encode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{lo,  }\item[{Input\+Iterator}]{hi,  }\item[{Output\+Iterator}]{out,  }\item[{T}]{initial = {\ttfamily T()} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_a5025310850ce7856699773f082f71c3a}\label{structirk_1_1vbyte__codec_a5025310850ce7856699773f082f71c3a}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!encode@{encode}}
+\index{encode@{encode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::encode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{in,  }\item[{Output\+Iterator}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_a8d8f0f48198257165cbfe17bb8e0a7f1}\label{structirk_1_1vbyte__codec_a8d8f0f48198257165cbfe17bb8e0a7f1}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!encode@{encode}}
+\index{encode@{encode}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+template$<$class Input\+Iterator , class Output\+Iterator $>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::encode (\begin{DoxyParamCaption}\item[{Input\+Iterator}]{lo,  }\item[{Input\+Iterator}]{hi,  }\item[{Output\+Iterator}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_aaccf33b7ad6ed3b848550d18e9f4b4fd}\label{structirk_1_1vbyte__codec_aaccf33b7ad6ed3b848550d18e9f4b4fd}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!max\+\_\+encoded\+\_\+size@{max\+\_\+encoded\+\_\+size}}
+\index{max\+\_\+encoded\+\_\+size@{max\+\_\+encoded\+\_\+size}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{max\+\_\+encoded\+\_\+size()}{max\_encoded\_size()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+std\+::ptrdiff\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::max\+\_\+encoded\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{count,  }\item[{std\+::optional$<$ T $>$}]{ = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structirk_1_1vbyte__codec_ae5d8ab43b690ec1925bf1e59593fd66f}\label{structirk_1_1vbyte__codec_ae5d8ab43b690ec1925bf1e59593fd66f}} 
+\index{irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}!maxv@{maxv}}
+\index{maxv@{maxv}!irk\+::vbyte\+\_\+codec@{irk\+::vbyte\+\_\+codec}}
+\subsubsection{\texorpdfstring{maxv}{maxv}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+constexpr std\+::uint8\+\_\+t \mbox{\hyperlink{structirk_1_1vbyte__codec}{irk\+::vbyte\+\_\+codec}}$<$ T $>$\+::maxv = 128\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/coding/\mbox{\hyperlink{vbyte_8hpp}{vbyte.\+hpp}}\end{DoxyCompactItemize}

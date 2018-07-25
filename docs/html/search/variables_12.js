@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['weights_5f',['weights_',['../classirk_1_1union__range.html#ad593ed1dc96a2caf524511cb3833910c',1,'irk::union_range']]]
+  ['x',['x',['../structirk_1_1score_1_1bm25__scorer.html#ae9c6a79715c86d4fbd91651b36f0b2a3',1,'irk::score::bm25_scorer']]]
 ];

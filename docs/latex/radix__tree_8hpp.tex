@@ -1,9 +1,11 @@
 \hypertarget{radix__tree_8hpp}{}\section{include/irkit/radix\+\_\+tree.hpp File Reference}
 \label{radix__tree_8hpp}\index{include/irkit/radix\+\_\+tree.\+hpp@{include/irkit/radix\+\_\+tree.\+hpp}}
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
 {\ttfamily \#include $<$optional$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}rax.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$rax.\+h$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,7 +15,17 @@ class \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree$<$ T $>$}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{radix__tree_8hpp_a93300b0f45c900ba0bdb80f3f7a83f5e}{rax\+Node\+Current\+Length}}(n)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{namespaceirk_ab35dab94f51174d7559fb8e0ff201f55}{irk\+::rax\+Get\+Data}} (rax\+Node $\ast$n)
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -23,3 +35,18 @@ Michal Siedlaczek
 \begin{DoxyCopyright}{Copyright}
 M\+IT License 
 \end{DoxyCopyright}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{radix__tree_8hpp_a93300b0f45c900ba0bdb80f3f7a83f5e}\label{radix__tree_8hpp_a93300b0f45c900ba0bdb80f3f7a83f5e}} 
+\index{radix\+\_\+tree.\+hpp@{radix\+\_\+tree.\+hpp}!rax\+Node\+Current\+Length@{rax\+Node\+Current\+Length}}
+\index{rax\+Node\+Current\+Length@{rax\+Node\+Current\+Length}!radix\+\_\+tree.\+hpp@{radix\+\_\+tree.\+hpp}}
+\subsubsection{\texorpdfstring{rax\+Node\+Current\+Length}{raxNodeCurrentLength}}
+{\footnotesize\ttfamily \#define rax\+Node\+Current\+Length(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\textcolor{keyword}{sizeof}(raxNode) + (n)->size                                               \(\backslash\)
+        + ((n)->iscompr ? \textcolor{keyword}{sizeof}(raxNode*) : \textcolor{keyword}{sizeof}(raxNode*) * (n)->size)     \(\backslash\)
+        + (((n)->iskey && not(n)->isnull) * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void}*)))
+\end{DoxyCode}

@@ -19,15 +19,19 @@ using \mbox{\hyperlink{classirk_1_1compact__table_accd2a370a48a5873af0625d56d732
 \item 
 \mbox{\hyperlink{classirk_1_1compact__table_a7837dc73daa2b72450bca208a4a315bb}{compact\+\_\+table}} (Memory\+Buffer \mbox{\hyperlink{classirk_1_1compact__table_a6e52197052d12372b72d568ce9df384f}{data}})
 \item 
-\mbox{\hyperlink{classirk_1_1compact__table_acdd943c6ec8da8017909598b2e6a4032}{compact\+\_\+table}} (\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&\&other)
+\mbox{\hyperlink{classirk_1_1compact__table_ad80e786ec31ff54df435b3910c6c77e1}{compact\+\_\+table}} (\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&\&other) noexcept=default
 \item 
-\mbox{\hyperlink{classirk_1_1compact__table_ac598641b6433f4912de02fd830dcdaa6}{compact\+\_\+table}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&other)
+\mbox{\hyperlink{classirk_1_1compact__table_a2f9719d8fda6a5db0aa3ea089a2b1274}{compact\+\_\+table}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&other)=default
 \item 
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \& \mbox{\hyperlink{classirk_1_1compact__table_a8a83916106db809f8b93acb1e90104a2}{operator=}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&other)
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \& \mbox{\hyperlink{classirk_1_1compact__table_a94d21b314eaaeb1e874b652aab4e3c57}{operator=}} (\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&\&other) noexcept=default
 \item 
-std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table_a3233b841db79f2d8fdba81c880b05d88}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id)
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \& \mbox{\hyperlink{classirk_1_1compact__table_a932785c03aaa201464a86435f8f8d23f}{operator=}} (const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} \&other)=default
 \item 
-std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table_a0078a7510ab8cb5ace71e69c1bc24afa}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id) const
+\mbox{\hyperlink{classirk_1_1compact__table_afd085e91ac574633aaba9e3f606fbe59}{$\sim$compact\+\_\+table}} ()=default
+\item 
+T \mbox{\hyperlink{classirk_1_1compact__table_acdcdce1447487c4ab98dbe370b6e394f}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id)
+\item 
+T \mbox{\hyperlink{classirk_1_1compact__table_a9ecc7e062cbf50ef02db7740c166fb94}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t term\+\_\+id) const
 \item 
 const char $\ast$ \mbox{\hyperlink{classirk_1_1compact__table_a6e52197052d12372b72d568ce9df384f}{data}} ()
 \item 
@@ -40,7 +44,7 @@ bool \mbox{\hyperlink{classirk_1_1compact__table_ab0fbc092d98001d97e8ec78e24f404
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-Codec \mbox{\hyperlink{classirk_1_1compact__table_aeac5fcd509fae2f16e455fc6a37eb1d3}{codec\+\_\+}}
+Codec \mbox{\hyperlink{classirk_1_1compact__table_aeac5fcd509fae2f16e455fc6a37eb1d3}{codec\+\_\+}} \{\}
 \item 
 Memory\+Buffer \mbox{\hyperlink{classirk_1_1compact__table_a8a8f2eccb0ccc0258c158c51dfbfdbaa}{data\+\_\+}}
 \end{DoxyCompactItemize}
@@ -52,7 +56,7 @@ std\+::ostream \& \mbox{\hyperlink{classirk_1_1compact__table_aabbde77b5cb5faeef
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$\newline
+\subsubsection*{template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$\newline
 class irk\+::compact\+\_\+table$<$ T, Codec, Memory\+Buffer $>$}
 
 Fast-\/access compressed array. 
@@ -78,7 +82,7 @@ Michal Siedlaczek
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!value\+\_\+type@{value\+\_\+type}}
 \index{value\+\_\+type@{value\+\_\+type}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 using \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table_accd2a370a48a5873af0625d56d732d71}{value\+\_\+type}} =  typename Codec\+::value\+\_\+type}
 
 
@@ -88,22 +92,29 @@ using \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!compact\+\_\+table@{compact\+\_\+table}}
 \index{compact\+\_\+table@{compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{compact\+\_\+table()}{compact\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{Memory\+Buffer}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
-\mbox{\Hypertarget{classirk_1_1compact__table_acdd943c6ec8da8017909598b2e6a4032}\label{classirk_1_1compact__table_acdd943c6ec8da8017909598b2e6a4032}} 
+\mbox{\Hypertarget{classirk_1_1compact__table_ad80e786ec31ff54df435b3910c6c77e1}\label{classirk_1_1compact__table_ad80e786ec31ff54df435b3910c6c77e1}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!compact\+\_\+table@{compact\+\_\+table}}
 \index{compact\+\_\+table@{compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{compact\+\_\+table()}{compact\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
 
-\mbox{\Hypertarget{classirk_1_1compact__table_ac598641b6433f4912de02fd830dcdaa6}\label{classirk_1_1compact__table_ac598641b6433f4912de02fd830dcdaa6}} 
+\mbox{\Hypertarget{classirk_1_1compact__table_a2f9719d8fda6a5db0aa3ea089a2b1274}\label{classirk_1_1compact__table_a2f9719d8fda6a5db0aa3ea089a2b1274}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!compact\+\_\+table@{compact\+\_\+table}}
 \index{compact\+\_\+table@{compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{compact\+\_\+table()}{compact\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_afd085e91ac574633aaba9e3f606fbe59}\label{classirk_1_1compact__table_afd085e91ac574633aaba9e3f606fbe59}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!````~compact\+\_\+table@{$\sim$compact\+\_\+table}}
+\index{````~compact\+\_\+table@{$\sim$compact\+\_\+table}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{$\sim$compact\+\_\+table()}{~compact\_table()}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::$\sim$\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 
 
@@ -112,49 +123,56 @@ using \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!data@{data}}
 \index{data@{data}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{data()}{data()}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 const char$\ast$ \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1compact__table_a71a7a452bf75a037e9bf22e231124a5e}\label{classirk_1_1compact__table_a71a7a452bf75a037e9bf22e231124a5e}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!header@{header}}
 \index{header@{header}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{header()}{header()}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 const \mbox{\hyperlink{structirk_1_1compact__table__header}{compact\+\_\+table\+\_\+header}}$\ast$ \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1compact__table_a8a83916106db809f8b93acb1e90104a2}\label{classirk_1_1compact__table_a8a83916106db809f8b93acb1e90104a2}} 
+\mbox{\Hypertarget{classirk_1_1compact__table_a94d21b314eaaeb1e874b652aab4e3c57}\label{classirk_1_1compact__table_a94d21b314eaaeb1e874b652aab4e3c57}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator=@{operator=}}
 \index{operator=@{operator=}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
-\subsubsection{\texorpdfstring{operator=()}{operator=()}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$T, Codec, Memory\+Buffer$>$\& \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}\& \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classirk_1_1compact__table_a932785c03aaa201464a86435f8f8d23f}\label{classirk_1_1compact__table_a932785c03aaa201464a86435f8f8d23f}} 
+\index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}\& \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 \mbox{\Hypertarget{classirk_1_1compact__table_ab0fbc092d98001d97e8ec78e24f4040d}\label{classirk_1_1compact__table_ab0fbc092d98001d97e8ec78e24f4040d}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator==@{operator==}}
 \index{operator==@{operator==}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{operator==()}{operator==()}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 bool \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1compact__table_a3233b841db79f2d8fdba81c880b05d88}\label{classirk_1_1compact__table_a3233b841db79f2d8fdba81c880b05d88}} 
+\mbox{\Hypertarget{classirk_1_1compact__table_acdcdce1447487c4ab98dbe370b6e394f}\label{classirk_1_1compact__table_acdcdce1447487c4ab98dbe370b6e394f}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+T \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1compact__table_a0078a7510ab8cb5ace71e69c1bc24afa}\label{classirk_1_1compact__table_a0078a7510ab8cb5ace71e69c1bc24afa}} 
+\mbox{\Hypertarget{classirk_1_1compact__table_a9ecc7e062cbf50ef02db7740c166fb94}\label{classirk_1_1compact__table_a9ecc7e062cbf50ef02db7740c166fb94}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+T \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{term\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1compact__table_a868e5c254b459b6ab831681d5e9f34c1}\label{classirk_1_1compact__table_a868e5c254b459b6ab831681d5e9f34c1}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!size@{size}}
 \index{size@{size}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -164,7 +182,7 @@ std\+::size\+\_\+t \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!operator$<$$<$@{operator$<$$<$}}
 \index{operator$<$$<$@{operator$<$$<$}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{,  }\item[{const \mbox{\hyperlink{classirk_1_1compact__table}{compact\+\_\+table}}$<$ T, Codec $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
 
 
@@ -174,14 +192,14 @@ std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!codec\+\_\+@{codec\+\_\+}}
 \index{codec\+\_\+@{codec\+\_\+}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{codec\+\_\+}{codec\_}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
-Codec \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::codec\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+Codec \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::codec\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1compact__table_a8a8f2eccb0ccc0258c158c51dfbfdbaa}\label{classirk_1_1compact__table_a8a8f2eccb0ccc0258c158c51dfbfdbaa}} 
 \index{irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}!data\+\_\+@{data\+\_\+}}
 \index{data\+\_\+@{data\+\_\+}!irk\+::compact\+\_\+table@{irk\+::compact\+\_\+table}}
 \subsubsection{\texorpdfstring{data\+\_\+}{data\_}}
-{\footnotesize\ttfamily template$<$class T, class Codec = varbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
+{\footnotesize\ttfamily template$<$class T, class Codec = vbyte\+\_\+codec$<$\+T$>$, class Memory\+Buffer = std\+::vector$<$char$>$$>$ \\
 Memory\+Buffer \mbox{\hyperlink{classirk_1_1compact__table}{irk\+::compact\+\_\+table}}$<$ T, Codec, Memory\+Buffer $>$\+::data\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
