@@ -28,6 +28,7 @@
 #include <iostream>
 
 #include <CLI/CLI.hpp>
+#include <CLI/Option.hpp>
 #include <boost/filesystem.hpp>
 
 #include <irkit/compacttable.hpp>
@@ -155,12 +156,12 @@ int main(int argc, char** argv)
         app.add_option("--frac-cutoff",
                frac_cutoff,
                "Early termination cutoff (top fraction of collection)")
-            ->requires(remap)
+            ->needs(remap)
             ->check(CLI::Range(0.0, 1.0));
     auto idcut = app.add_option("--doc-cutoff",
                         doc_cutoff,
                         "Early termination docID cutoff")
-                     ->requires(remap)
+                     ->needs(remap)
                      ->excludes(fraccut);
     fraccut->excludes(idcut);
     app.add_option("query", query, "Query (or query file with -f)", false)
