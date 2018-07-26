@@ -1,9 +1,12 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake
 
 
 class HelloConan(ConanFile):
     name = "irkit"
     version = "0.1"
+    url = "https://github.com/elshize/irkit"
+    license = "MIT"
+    description = "Information Retrieval tools intended for academic research."
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
     options = {"use_system_boost": [True, False]}

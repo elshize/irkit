@@ -11,7 +11,7 @@ function(add_irk TOOL_NAME)
     target_link_libraries(irk-${TOOL_NAME} PUBLIC ${COMMON_LIBRARIES})
     target_compile_features(irk-${TOOL_NAME} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
     target_compile_options(irk-${TOOL_NAME}
-        PRIVATE -Wall -Wno-unused-local-typedefs -Wno-parentheses)
+        PRIVATE -Wall -Wno-unused-local-typedefs -Wno-sign-compare -Wno-parentheses)
 endfunction()
 
 add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
@@ -25,6 +25,7 @@ add_irk(query)
 add_irk(lookup)
 add_irk(disect)
 add_irk(hits)
+add_irk(docidmap)
 
 install(
     TARGETS
@@ -40,4 +41,5 @@ install(
         irk-table
         irk-lexicon
         irk-hits
+        irk-docidmap
     DESTINATION bin)
