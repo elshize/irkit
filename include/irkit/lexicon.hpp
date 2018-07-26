@@ -106,7 +106,8 @@ public:
         std::string k;
         codec_.reset();
         codec_.decode(bin, k);
-        while (k < key) {
+        int idx = 1;
+        while (k < key && idx++ < keys_per_block_) {
             codec_.decode(bin, k);
             ++value;
         }
