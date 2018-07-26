@@ -21,18 +21,18 @@ void \mbox{\hyperlink{classirk_1_1output__bit__stream_a9ab44726c22d696cf68171440
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classirk_1_1output__bit__stream_a918d5479ad1ff09e881a90408da50307}{set\+\_\+bit}} (int n, bool bit)
+void \mbox{\hyperlink{classirk_1_1output__bit__stream_a0ce598603c6cbdaba17877e298d31102}{set\+\_\+bit}} (unsigned int n, bool bit)
 \item 
 void \mbox{\hyperlink{classirk_1_1output__bit__stream_a9fb465b2bb42cd5621139ee629900f27}{do\+\_\+flush}} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
+char \mbox{\hyperlink{classirk_1_1output__bit__stream_a7ed815d7ac6b8248374cee46ab28cd5b}{byte\+\_\+}} = 0
+\item 
+std\+::uint8\+\_\+t \mbox{\hyperlink{classirk_1_1output__bit__stream_a7b594ff3d7777cf948cb40f4c89a32d0}{buffered\+\_\+bits\+\_\+}} = 0
+\item 
 std\+::ostream \& \mbox{\hyperlink{classirk_1_1output__bit__stream_ac8e6feb2595f3e6517d90abbe60c587e}{out\+\_\+}}
-\item 
-char \mbox{\hyperlink{classirk_1_1output__bit__stream_a7ed815d7ac6b8248374cee46ab28cd5b}{byte\+\_\+}}
-\item 
-std\+::uint8\+\_\+t \mbox{\hyperlink{classirk_1_1output__bit__stream_ab89e5dcaca9a946970ae9e743c0d132e}{available\+\_\+bits\+\_\+}}
 \end{DoxyCompactItemize}
 
 
@@ -44,7 +44,7 @@ An output stream writing bits.
 \index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!output\+\_\+bit\+\_\+stream@{output\+\_\+bit\+\_\+stream}}
 \index{output\+\_\+bit\+\_\+stream@{output\+\_\+bit\+\_\+stream}!irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{output\+\_\+bit\+\_\+stream()}{output\_bit\_stream()}}
-{\footnotesize\ttfamily irk\+::output\+\_\+bit\+\_\+stream\+::output\+\_\+bit\+\_\+stream (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily irk\+::output\+\_\+bit\+\_\+stream\+::output\+\_\+bit\+\_\+stream (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -61,11 +61,11 @@ An output stream writing bits.
 \subsubsection{\texorpdfstring{flush()}{flush()}}
 {\footnotesize\ttfamily void irk\+::output\+\_\+bit\+\_\+stream\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1output__bit__stream_a918d5479ad1ff09e881a90408da50307}\label{classirk_1_1output__bit__stream_a918d5479ad1ff09e881a90408da50307}} 
+\mbox{\Hypertarget{classirk_1_1output__bit__stream_a0ce598603c6cbdaba17877e298d31102}\label{classirk_1_1output__bit__stream_a0ce598603c6cbdaba17877e298d31102}} 
 \index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!set\+\_\+bit@{set\+\_\+bit}}
 \index{set\+\_\+bit@{set\+\_\+bit}!irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{set\+\_\+bit()}{set\_bit()}}
-{\footnotesize\ttfamily void irk\+::output\+\_\+bit\+\_\+stream\+::set\+\_\+bit (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{bool}]{bit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+{\footnotesize\ttfamily void irk\+::output\+\_\+bit\+\_\+stream\+::set\+\_\+bit (\begin{DoxyParamCaption}\item[{unsigned int}]{n,  }\item[{bool}]{bit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1output__bit__stream_a23f0ccc327c453a5fc24dba747cd4ea4}\label{classirk_1_1output__bit__stream_a23f0ccc327c453a5fc24dba747cd4ea4}} 
 \index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!write@{write}}
@@ -76,17 +76,17 @@ An output stream writing bits.
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{classirk_1_1output__bit__stream_ab89e5dcaca9a946970ae9e743c0d132e}\label{classirk_1_1output__bit__stream_ab89e5dcaca9a946970ae9e743c0d132e}} 
-\index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!available\+\_\+bits\+\_\+@{available\+\_\+bits\+\_\+}}
-\index{available\+\_\+bits\+\_\+@{available\+\_\+bits\+\_\+}!irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}}
-\subsubsection{\texorpdfstring{available\+\_\+bits\+\_\+}{available\_bits\_}}
-{\footnotesize\ttfamily std\+::uint8\+\_\+t irk\+::output\+\_\+bit\+\_\+stream\+::available\+\_\+bits\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{classirk_1_1output__bit__stream_a7b594ff3d7777cf948cb40f4c89a32d0}\label{classirk_1_1output__bit__stream_a7b594ff3d7777cf948cb40f4c89a32d0}} 
+\index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!buffered\+\_\+bits\+\_\+@{buffered\+\_\+bits\+\_\+}}
+\index{buffered\+\_\+bits\+\_\+@{buffered\+\_\+bits\+\_\+}!irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}}
+\subsubsection{\texorpdfstring{buffered\+\_\+bits\+\_\+}{buffered\_bits\_}}
+{\footnotesize\ttfamily std\+::uint8\+\_\+t irk\+::output\+\_\+bit\+\_\+stream\+::buffered\+\_\+bits\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1output__bit__stream_a7ed815d7ac6b8248374cee46ab28cd5b}\label{classirk_1_1output__bit__stream_a7ed815d7ac6b8248374cee46ab28cd5b}} 
 \index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!byte\+\_\+@{byte\+\_\+}}
 \index{byte\+\_\+@{byte\+\_\+}!irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}}
 \subsubsection{\texorpdfstring{byte\+\_\+}{byte\_}}
-{\footnotesize\ttfamily char irk\+::output\+\_\+bit\+\_\+stream\+::byte\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily char irk\+::output\+\_\+bit\+\_\+stream\+::byte\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{classirk_1_1output__bit__stream_ac8e6feb2595f3e6517d90abbe60c587e}\label{classirk_1_1output__bit__stream_ac8e6feb2595f3e6517d90abbe60c587e}} 
 \index{irk\+::output\+\_\+bit\+\_\+stream@{irk\+::output\+\_\+bit\+\_\+stream}!out\+\_\+@{out\+\_\+}}

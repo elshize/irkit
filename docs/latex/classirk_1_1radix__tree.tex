@@ -13,6 +13,10 @@
 \item 
 \mbox{\hyperlink{classirk_1_1radix__tree_a83abd054182dee10a2a0f36c3974d420}{radix\+\_\+tree}} (\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}} \&\&other)=delete
 \item 
+\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}} \& \mbox{\hyperlink{classirk_1_1radix__tree_af052f00aa9f6f7ec58648365e28e30c8}{operator=}} (const \mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}} \&)=delete
+\item 
+\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}} \& \mbox{\hyperlink{classirk_1_1radix__tree_a1b4f69f1e02478fe7b8a7dd590fef350}{operator=}} (\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}} \&\&)=delete
+\item 
 \mbox{\hyperlink{classirk_1_1radix__tree_a32491327f9b61b14c88f38ef6fd09a9f}{$\sim$radix\+\_\+tree}} ()
 \item 
 int \mbox{\hyperlink{classirk_1_1radix__tree_ad65f1ba2c32c59c3b6fd2ca220a9fc7f}{insert}} (const std\+::string \&key, T value)
@@ -21,7 +25,7 @@ int \mbox{\hyperlink{classirk_1_1radix__tree_ad65f1ba2c32c59c3b6fd2ca220a9fc7f}{
 \item 
 {\footnotesize template$<$class  = enable\+\_\+if\+\_\+not\+\_\+equal$<$\+T, void$>$$>$ }\\std\+::optional$<$ T $>$ \mbox{\hyperlink{classirk_1_1radix__tree_a7a8f4484dd52244e712e204288e00b15}{find}} (const std\+::string \&key)
 \item 
-bool \mbox{\hyperlink{classirk_1_1radix__tree_aaedca67d183c9b0b4f64c1b6ae240d7b}{exists}} (const std\+::string key)
+bool \mbox{\hyperlink{classirk_1_1radix__tree_a3b9cecf1586c0e96b3ea55224db7c389}{exists}} (const std\+::string \&key)
 \item 
 std\+::optional$<$ T $>$ \mbox{\hyperlink{classirk_1_1radix__tree_aec3e27fbf3cd3f0e2d75183d392b0946}{seek\+\_\+le}} (std\+::string key) const
 \item 
@@ -68,12 +72,12 @@ rax $\ast$ \mbox{\hyperlink{classirk_1_1radix__tree_aed4255775e1f9f2a4647e80a408
 {\footnotesize\ttfamily template$<$class T $>$ \\
 rax$\ast$ \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::c\+\_\+rax (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1radix__tree_aaedca67d183c9b0b4f64c1b6ae240d7b}\label{classirk_1_1radix__tree_aaedca67d183c9b0b4f64c1b6ae240d7b}} 
+\mbox{\Hypertarget{classirk_1_1radix__tree_a3b9cecf1586c0e96b3ea55224db7c389}\label{classirk_1_1radix__tree_a3b9cecf1586c0e96b3ea55224db7c389}} 
 \index{irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}!exists@{exists}}
 \index{exists@{exists}!irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}}
 \subsubsection{\texorpdfstring{exists()}{exists()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
-bool \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::exists (\begin{DoxyParamCaption}\item[{const std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+bool \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{classirk_1_1radix__tree_a7a8f4484dd52244e712e204288e00b15}\label{classirk_1_1radix__tree_a7a8f4484dd52244e712e204288e00b15}} 
 \index{irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}!find@{find}}
@@ -89,6 +93,20 @@ std\+::optional$<$T$>$ \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\
 \subsubsection{\texorpdfstring{insert()}{insert()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 int \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{T}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1radix__tree_af052f00aa9f6f7ec58648365e28e30c8}\label{classirk_1_1radix__tree_af052f00aa9f6f7ec58648365e28e30c8}} 
+\index{irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}\& \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}$<$ T $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classirk_1_1radix__tree_a1b4f69f1e02478fe7b8a7dd590fef350}\label{classirk_1_1radix__tree_a1b4f69f1e02478fe7b8a7dd590fef350}} 
+\index{irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}!operator=@{operator=}}
+\index{operator=@{operator=}!irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}\& \mbox{\hyperlink{classirk_1_1radix__tree}{irk\+::radix\+\_\+tree}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1radix__tree}{radix\+\_\+tree}}$<$ T $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classirk_1_1radix__tree_af46c8d034084c54b33bb761ec96588d4}\label{classirk_1_1radix__tree_af46c8d034084c54b33bb761ec96588d4}} 
 \index{irk\+::radix\+\_\+tree@{irk\+::radix\+\_\+tree}!operator\mbox{[}\mbox{]}@{operator[]}}

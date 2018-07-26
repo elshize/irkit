@@ -1,5 +1,5 @@
-\hypertarget{classirk_1_1index_1_1block__document__list__view}{}\section{irk\+:\+:index\+:\+:block\+\_\+document\+\_\+list\+\_\+view$<$ Doc $>$ Class Template Reference}
-\label{classirk_1_1index_1_1block__document__list__view}\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Doc $>$@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Doc $>$}}
+\hypertarget{classirk_1_1index_1_1block__document__list__view}{}\section{irk\+:\+:index\+:\+:block\+\_\+document\+\_\+list\+\_\+view$<$ Codec $>$ Class Template Reference}
+\label{classirk_1_1index_1_1block__document__list__view}\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Codec $>$@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Codec $>$}}
 
 
 A view of a block document list.  
@@ -12,26 +12,36 @@ A view of a block document list.
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a29bf3e73748a771ec7f5c1e542d8bdb1}{size\+\_\+type}} = long
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_abc1e76d262386112c4591362fc660dda}{size\+\_\+type}} = int32\+\_\+t
 \item 
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} = Doc
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}{value\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{document\+\_\+t}}
 \item 
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}{self\+\_\+type}} = \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} $>$
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}{self\+\_\+type}} = \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}
 \item 
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} = \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}{self\+\_\+type}}, true $>$
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} = \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}{self\+\_\+type}}, true $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac08980dc0eeb9fea5528fb110a2ce734}{codec\+\_\+type}} = Codec
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a62b936d45acb50d30f95120370e5457b}{block\+\_\+document\+\_\+list\+\_\+view}} (\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} $>$ doc\+\_\+codec, \mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} mem, long length, int offset=0)
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a9664030e51525833bbe188c0ffaf763e}{block\+\_\+document\+\_\+list\+\_\+view}} ()=default
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a7618502e688a818d719a9bc939753390}{block\+\_\+document\+\_\+list\+\_\+view}} (\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}} mem, int32\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Constructs the view. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a6c320fd31232ebba37be70c0c9f682c4}{begin}} () const
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a940c6d0b71559861f737e4cf83967d89}{begin}} () const
 \item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a1edd00780b264af57cadf53fadf2ced3}{end}} () const
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a436a88ad1c67c712c6b0aee63d28d1e4}{end}} () const
 \item 
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a550147f841ed69dc287660b996dc6a1f}{lookup}} (\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} id) const
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a5b34a202589c619eb9e2aec9043dfd02}{lookup}} (\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}{value\+\_\+type}} id) const
 \begin{DoxyCompactList}\small\item\em Finds the position of {\ttfamily id} or the next greater. \end{DoxyCompactList}\item 
-long \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac531dcc96c79705a76cbe2f0bf5a0d99}{size}} () const
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ad54848af1d979186618564f0cb7dd598}{size}} () const
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a5d2794987db8ca0a090ffdf1cc6c235f}{memory\+\_\+size}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a05d9aaf476ec8dc2a5077e5d549b8915}{memory}} () const
+\item 
+std\+::ostream \& \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a2e535fb377bac8f0332add83017eec01}{write}} (std\+::ostream \&out) const
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -41,8 +51,8 @@ class \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a9e9d706
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$class Doc$>$\newline
-class irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Doc $>$}
+\subsubsection*{template$<$class Codec$>$\newline
+class irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view$<$ Codec $>$}
 
 A view of a block document list. 
 
@@ -54,43 +64,57 @@ A view of a block document list.
 
 
 \subsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}\label{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_ac08980dc0eeb9fea5528fb110a2ce734}\label{classirk_1_1index_1_1block__document__list__view_ac08980dc0eeb9fea5528fb110a2ce734}} 
+\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!codec\+\_\+type@{codec\+\_\+type}}
+\index{codec\+\_\+type@{codec\+\_\+type}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{codec\+\_\+type}{codec\_type}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac08980dc0eeb9fea5528fb110a2ce734}{codec\+\_\+type}} =  Codec}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}\label{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!iterator@{iterator}}
 \index{iterator@{iterator}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{iterator}{iterator}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} =  \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}{self\+\_\+type}}, true$>$}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} =  \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}{self\+\_\+type}}, true$>$}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}\label{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}\label{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!self\+\_\+type@{self\+\_\+type}}
 \index{self\+\_\+type@{self\+\_\+type}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{self\+\_\+type}{self\_type}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}{self\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}$<$\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}}$>$}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}{self\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a29bf3e73748a771ec7f5c1e542d8bdb1}\label{classirk_1_1index_1_1block__document__list__view_a29bf3e73748a771ec7f5c1e542d8bdb1}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_abc1e76d262386112c4591362fc660dda}\label{classirk_1_1index_1_1block__document__list__view_abc1e76d262386112c4591362fc660dda}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!size\+\_\+type@{size\+\_\+type}}
 \index{size\+\_\+type@{size\+\_\+type}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{size\+\_\+type}{size\_type}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a29bf3e73748a771ec7f5c1e542d8bdb1}{size\+\_\+type}} =  long}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_abc1e76d262386112c4591362fc660dda}{size\+\_\+type}} =  int32\+\_\+t}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}\label{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}\label{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!value\+\_\+type@{value\+\_\+type}}
 \index{value\+\_\+type@{value\+\_\+type}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} =  Doc}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}{value\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{document\+\_\+t}}}
 
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a62b936d45acb50d30f95120370e5457b}\label{classirk_1_1index_1_1block__document__list__view_a62b936d45acb50d30f95120370e5457b}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a9664030e51525833bbe188c0ffaf763e}\label{classirk_1_1index_1_1block__document__list__view_a9664030e51525833bbe188c0ffaf763e}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!block\+\_\+document\+\_\+list\+\_\+view@{block\+\_\+document\+\_\+list\+\_\+view}}
 \index{block\+\_\+document\+\_\+list\+\_\+view@{block\+\_\+document\+\_\+list\+\_\+view}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
-\subsubsection{\texorpdfstring{block\+\_\+document\+\_\+list\+\_\+view()}{block\_document\_list\_view()}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceirk_a831a3a869cf19601dbfb5c41765a2e87}{any\+\_\+codec}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}} $>$}]{doc\+\_\+codec,  }\item[{\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}}]{mem,  }\item[{long}]{length,  }\item[{int}]{offset = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\subsubsection{\texorpdfstring{block\+\_\+document\+\_\+list\+\_\+view()}{block\_document\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a7618502e688a818d719a9bc939753390}\label{classirk_1_1index_1_1block__document__list__view_a7618502e688a818d719a9bc939753390}} 
+\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!block\+\_\+document\+\_\+list\+\_\+view@{block\+\_\+document\+\_\+list\+\_\+view}}
+\index{block\+\_\+document\+\_\+list\+\_\+view@{block\+\_\+document\+\_\+list\+\_\+view}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{block\+\_\+document\+\_\+list\+\_\+view()}{block\_document\_list\_view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{block\+\_\+document\+\_\+list\+\_\+view}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1memory__view}{irk\+::memory\+\_\+view}}}]{mem,  }\item[{int32\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -110,37 +134,58 @@ Constructs the view.
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a6c320fd31232ebba37be70c0c9f682c4}\label{classirk_1_1index_1_1block__document__list__view_a6c320fd31232ebba37be70c0c9f682c4}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a940c6d0b71559861f737e4cf83967d89}\label{classirk_1_1index_1_1block__document__list__view_a940c6d0b71559861f737e4cf83967d89}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!begin@{begin}}
 \index{begin@{begin}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{begin()}{begin()}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a1edd00780b264af57cadf53fadf2ced3}\label{classirk_1_1index_1_1block__document__list__view_a1edd00780b264af57cadf53fadf2ced3}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a436a88ad1c67c712c6b0aee63d28d1e4}\label{classirk_1_1index_1_1block__document__list__view_a436a88ad1c67c712c6b0aee63d28d1e4}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!end@{end}}
 \index{end@{end}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{end()}{end()}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a550147f841ed69dc287660b996dc6a1f}\label{classirk_1_1index_1_1block__document__list__view_a550147f841ed69dc287660b996dc6a1f}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a5b34a202589c619eb9e2aec9043dfd02}\label{classirk_1_1index_1_1block__document__list__view_a5b34a202589c619eb9e2aec9043dfd02}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!lookup@{lookup}}
 \index{lookup@{lookup}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{lookup()}{lookup()}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_ac9190c4c0eb1b9cc20a1b6a5fbea1d80}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a0741459717c42674c1cfe069ee876344}{value\+\_\+type}}}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_afc4738502c6c0b43f8487be16136feec}{iterator}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a06e2f36c5850de123fefa071ae56da92}{value\+\_\+type}}}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Finds the position of {\ttfamily id} or the next greater. 
 
-\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_ac531dcc96c79705a76cbe2f0bf5a0d99}\label{classirk_1_1index_1_1block__document__list__view_ac531dcc96c79705a76cbe2f0bf5a0d99}} 
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a05d9aaf476ec8dc2a5077e5d549b8915}\label{classirk_1_1index_1_1block__document__list__view_a05d9aaf476ec8dc2a5077e5d549b8915}} 
+\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!memory@{memory}}
+\index{memory@{memory}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{memory()}{memory()}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a5d2794987db8ca0a090ffdf1cc6c235f}\label{classirk_1_1index_1_1block__document__list__view_a5d2794987db8ca0a090ffdf1cc6c235f}} 
+\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!memory\+\_\+size@{memory\+\_\+size}}
+\index{memory\+\_\+size@{memory\+\_\+size}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{memory\+\_\+size()}{memory\_size()}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::memory\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_ad54848af1d979186618564f0cb7dd598}\label{classirk_1_1index_1_1block__document__list__view_ad54848af1d979186618564f0cb7dd598}} 
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!size@{size}}
 \index{size@{size}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{size()}{size()}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-long \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Doc $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+int32\+\_\+t \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1block__document__list__view_a2e535fb377bac8f0332add83017eec01}\label{classirk_1_1index_1_1block__document__list__view_a2e535fb377bac8f0332add83017eec01}} 
+\index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!write@{write}}
+\index{write@{write}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+std\+::ostream\& \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}$<$ Codec $>$\+::write (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -149,8 +194,8 @@ long \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view}{irk\+::i
 \index{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}!block\+\_\+iterator$<$ self\+\_\+type, true $>$@{block\+\_\+iterator$<$ self\+\_\+type, true $>$}}
 \index{block\+\_\+iterator$<$ self\+\_\+type, true $>$@{block\+\_\+iterator$<$ self\+\_\+type, true $>$}!irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view@{irk\+::index\+::block\+\_\+document\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{block\+\_\+iterator$<$ self\+\_\+type, true $>$}{block\_iterator< self\_type, true >}}
-{\footnotesize\ttfamily template$<$class Doc$>$ \\
-friend class \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_a006662b07e3f2cd8f0c9709584e4f7f3}{self\+\_\+type}}, true $>$\hspace{0.3cm}{\ttfamily [friend]}}
+{\footnotesize\ttfamily template$<$class Codec$>$ \\
+friend class \mbox{\hyperlink{classirk_1_1index_1_1block__iterator}{block\+\_\+iterator}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1block__document__list__view_aaf5438363796f98a08a115e2a6316659}{self\+\_\+type}}, true $>$\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

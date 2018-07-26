@@ -1,17 +1,16 @@
 \hypertarget{irk-part_8cpp}{}\section{src/irk-\/part.cpp File Reference}
 \label{irk-part_8cpp}\index{src/irk-\/part.\+cpp@{src/irk-\/part.\+cpp}}
-{\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
-{\ttfamily \#include $<$gumbo.\+h$>$}\newline
 {\ttfamily \#include $<$iomanip$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$regex$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::ofstream \& \mbox{\hyperlink{irk-part_8cpp_ac847d7f963015a5fe6bcc99b24a2f5b4}{new\+\_\+file}} (std\+::ofstream \&out, std\+::string prefix, std\+::size\+\_\+t num, std\+::size\+\_\+t padding)
+std\+::ofstream \& \mbox{\hyperlink{irk-part_8cpp_a2af07694fa5e0af7134d2a71053b7519}{new\+\_\+file}} (std\+::ofstream \&out, const std\+::string \&prefix, std\+::size\+\_\+t num, std\+::size\+\_\+t padding)
 \item 
 int \mbox{\hyperlink{irk-part_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -33,9 +32,9 @@ M\+IT License
 \subsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{irk-part_8cpp_ac847d7f963015a5fe6bcc99b24a2f5b4}\label{irk-part_8cpp_ac847d7f963015a5fe6bcc99b24a2f5b4}} 
+\mbox{\Hypertarget{irk-part_8cpp_a2af07694fa5e0af7134d2a71053b7519}\label{irk-part_8cpp_a2af07694fa5e0af7134d2a71053b7519}} 
 \index{irk-\/part.\+cpp@{irk-\/part.\+cpp}!new\+\_\+file@{new\+\_\+file}}
 \index{new\+\_\+file@{new\+\_\+file}!irk-\/part.\+cpp@{irk-\/part.\+cpp}}
 \subsubsection{\texorpdfstring{new\+\_\+file()}{new\_file()}}
-{\footnotesize\ttfamily std\+::ofstream\& new\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::ofstream \&}]{out,  }\item[{std\+::string}]{prefix,  }\item[{std\+::size\+\_\+t}]{num,  }\item[{std\+::size\+\_\+t}]{padding }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::ofstream\& new\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::ofstream \&}]{out,  }\item[{const std\+::string \&}]{prefix,  }\item[{std\+::size\+\_\+t}]{num,  }\item[{std\+::size\+\_\+t}]{padding }\end{DoxyParamCaption})}
 

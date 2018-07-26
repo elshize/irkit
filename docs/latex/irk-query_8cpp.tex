@@ -1,31 +1,41 @@
 \hypertarget{irk-query_8cpp}{}\section{src/irk-\/query.cpp File Reference}
 \label{irk-query_8cpp}\index{src/irk-\/query.\+cpp@{src/irk-\/query.\+cpp}}
-{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
 {\ttfamily \#include $<$chrono$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include \char`\"{}cmd.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/index.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/taat.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$C\+L\+I/\+C\+L\+I.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/index/source.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/parsing/stemmer.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/taat.\+hpp$>$}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Score $>$ }\\std\+::pair$<$ std\+::vector$<$ std\+::string $>$, std\+::vector$<$ Score $>$ $>$ \mbox{\hyperlink{irk-query_8cpp_a72a7accc4aac02043b4942649bd3fe88}{parse}} (std\+::string query)
+std\+::string \mbox{\hyperlink{irk-query_8cpp_afd82ae1865bcd245c4e6918a4d991b9e}{Existing\+Directory}} (const std\+::string \&filename)
 \item 
 int \mbox{\hyperlink{irk-query_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}
+
+
 \subsection{Function Documentation}
+\mbox{\Hypertarget{irk-query_8cpp_afd82ae1865bcd245c4e6918a4d991b9e}\label{irk-query_8cpp_afd82ae1865bcd245c4e6918a4d991b9e}} 
+\index{irk-\/query.\+cpp@{irk-\/query.\+cpp}!Existing\+Directory@{Existing\+Directory}}
+\index{Existing\+Directory@{Existing\+Directory}!irk-\/query.\+cpp@{irk-\/query.\+cpp}}
+\subsubsection{\texorpdfstring{Existing\+Directory()}{ExistingDirectory()}}
+{\footnotesize\ttfamily std\+::string Existing\+Directory (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{irk-query_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{irk-query_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
 \index{irk-\/query.\+cpp@{irk-\/query.\+cpp}!main@{main}}
 \index{main@{main}!irk-\/query.\+cpp@{irk-\/query.\+cpp}}
 \subsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{irk-query_8cpp_a72a7accc4aac02043b4942649bd3fe88}\label{irk-query_8cpp_a72a7accc4aac02043b4942649bd3fe88}} 
-\index{irk-\/query.\+cpp@{irk-\/query.\+cpp}!parse@{parse}}
-\index{parse@{parse}!irk-\/query.\+cpp@{irk-\/query.\+cpp}}
-\subsubsection{\texorpdfstring{parse()}{parse()}}
-{\footnotesize\ttfamily template$<$class Score $>$ \\
-std\+::pair$<$std\+::vector$<$std\+::string$>$, std\+::vector$<$Score$>$ $>$ parse (\begin{DoxyParamCaption}\item[{std\+::string}]{query }\end{DoxyParamCaption})}
 

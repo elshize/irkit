@@ -1,0 +1,132 @@
+\hypertarget{classirk_1_1inverted__index__disk__data__source}{}\section{irk\+:\+:inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source Class Reference}
+\label{classirk_1_1inverted__index__disk__data__source}\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+
+
+{\ttfamily \#include $<$source.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a78792caa259afbae7e95dc0565530388}{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}} (const path \&\mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_afb9f4d12a7141c44d7a9d0a4f94b2d36}{dir}}, std\+::optional$<$ std\+::string $>$ score\+\_\+name=std\+::nullopt)
+\item 
+path \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_afb9f4d12a7141c44d7a9d0a4f94b2d36}{dir}} ()
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_ae3bcd94eb76e6f255f2435c7d461447a}{documents\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_ab2667f134c752dbed402d764479232ed}{counts\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a0a94db441eaa00c86b1b209fd9c0106d}{document\+\_\+offsets\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_ac375c66656c0072e233253b765790c80}{count\+\_\+offsets\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a5b70c1f7fe9a770cf3a757cc8a9bda0c}{term\+\_\+collection\+\_\+frequencies\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a4ea4ade68e023565cf52cce44398580b}{term\+\_\+collection\+\_\+occurrences\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a1a9d3122413524297a5b0edd00b6ff10}{term\+\_\+map\+\_\+source}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a2419fb42c8335fa30f50fc2f96ca4535}{title\+\_\+map\+\_\+source}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_ab87e6829d67f545dd729a21f9213419b}{document\+\_\+sizes\+\_\+view}} () const
+\item 
+\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a2812bd6f3cb29f0be03c47bf375e1313}{properties\+\_\+view}} () const
+\item 
+std\+::optional$<$ \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$ \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a8929b87c2ac5540d19c4615f3a0f5017}{scores\+\_\+source}} () const
+\item 
+std\+::optional$<$ \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} $>$ \mbox{\hyperlink{classirk_1_1inverted__index__disk__data__source_a127ca3aa6d47319f76f32d38fcd8881d}{score\+\_\+offset\+\_\+source}} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a78792caa259afbae7e95dc0565530388}\label{classirk_1_1inverted__index__disk__data__source_a78792caa259afbae7e95dc0565530388}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\index{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source()}{inverted\_index\_disk\_data\_source()}}
+{\footnotesize\ttfamily irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source (\begin{DoxyParamCaption}\item[{const path \&}]{dir,  }\item[{std\+::optional$<$ std\+::string $>$}]{score\+\_\+name = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_ac375c66656c0072e233253b765790c80}\label{classirk_1_1inverted__index__disk__data__source_ac375c66656c0072e233253b765790c80}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!count\+\_\+offsets\+\_\+view@{count\+\_\+offsets\+\_\+view}}
+\index{count\+\_\+offsets\+\_\+view@{count\+\_\+offsets\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{count\+\_\+offsets\+\_\+view()}{count\_offsets\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::count\+\_\+offsets\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_ab2667f134c752dbed402d764479232ed}\label{classirk_1_1inverted__index__disk__data__source_ab2667f134c752dbed402d764479232ed}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!counts\+\_\+view@{counts\+\_\+view}}
+\index{counts\+\_\+view@{counts\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{counts\+\_\+view()}{counts\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::counts\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_afb9f4d12a7141c44d7a9d0a4f94b2d36}\label{classirk_1_1inverted__index__disk__data__source_afb9f4d12a7141c44d7a9d0a4f94b2d36}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!dir@{dir}}
+\index{dir@{dir}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{dir()}{dir()}}
+{\footnotesize\ttfamily path irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::dir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a0a94db441eaa00c86b1b209fd9c0106d}\label{classirk_1_1inverted__index__disk__data__source_a0a94db441eaa00c86b1b209fd9c0106d}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!document\+\_\+offsets\+\_\+view@{document\+\_\+offsets\+\_\+view}}
+\index{document\+\_\+offsets\+\_\+view@{document\+\_\+offsets\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{document\+\_\+offsets\+\_\+view()}{document\_offsets\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::document\+\_\+offsets\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_ab87e6829d67f545dd729a21f9213419b}\label{classirk_1_1inverted__index__disk__data__source_ab87e6829d67f545dd729a21f9213419b}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!document\+\_\+sizes\+\_\+view@{document\+\_\+sizes\+\_\+view}}
+\index{document\+\_\+sizes\+\_\+view@{document\+\_\+sizes\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{document\+\_\+sizes\+\_\+view()}{document\_sizes\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::document\+\_\+sizes\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_ae3bcd94eb76e6f255f2435c7d461447a}\label{classirk_1_1inverted__index__disk__data__source_ae3bcd94eb76e6f255f2435c7d461447a}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!documents\+\_\+view@{documents\+\_\+view}}
+\index{documents\+\_\+view@{documents\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{documents\+\_\+view()}{documents\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::documents\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a2812bd6f3cb29f0be03c47bf375e1313}\label{classirk_1_1inverted__index__disk__data__source_a2812bd6f3cb29f0be03c47bf375e1313}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!properties\+\_\+view@{properties\+\_\+view}}
+\index{properties\+\_\+view@{properties\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{properties\+\_\+view()}{properties\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::properties\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a127ca3aa6d47319f76f32d38fcd8881d}\label{classirk_1_1inverted__index__disk__data__source_a127ca3aa6d47319f76f32d38fcd8881d}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!score\+\_\+offset\+\_\+source@{score\+\_\+offset\+\_\+source}}
+\index{score\+\_\+offset\+\_\+source@{score\+\_\+offset\+\_\+source}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{score\+\_\+offset\+\_\+source()}{score\_offset\_source()}}
+{\footnotesize\ttfamily std\+::optional$<$\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$ irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::score\+\_\+offset\+\_\+source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a8929b87c2ac5540d19c4615f3a0f5017}\label{classirk_1_1inverted__index__disk__data__source_a8929b87c2ac5540d19c4615f3a0f5017}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!scores\+\_\+source@{scores\+\_\+source}}
+\index{scores\+\_\+source@{scores\+\_\+source}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{scores\+\_\+source()}{scores\_source()}}
+{\footnotesize\ttfamily std\+::optional$<$\mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}}$>$ irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::scores\+\_\+source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a5b70c1f7fe9a770cf3a757cc8a9bda0c}\label{classirk_1_1inverted__index__disk__data__source_a5b70c1f7fe9a770cf3a757cc8a9bda0c}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!term\+\_\+collection\+\_\+frequencies\+\_\+view@{term\+\_\+collection\+\_\+frequencies\+\_\+view}}
+\index{term\+\_\+collection\+\_\+frequencies\+\_\+view@{term\+\_\+collection\+\_\+frequencies\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{term\+\_\+collection\+\_\+frequencies\+\_\+view()}{term\_collection\_frequencies\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::term\+\_\+collection\+\_\+frequencies\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a4ea4ade68e023565cf52cce44398580b}\label{classirk_1_1inverted__index__disk__data__source_a4ea4ade68e023565cf52cce44398580b}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!term\+\_\+collection\+\_\+occurrences\+\_\+view@{term\+\_\+collection\+\_\+occurrences\+\_\+view}}
+\index{term\+\_\+collection\+\_\+occurrences\+\_\+view@{term\+\_\+collection\+\_\+occurrences\+\_\+view}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{term\+\_\+collection\+\_\+occurrences\+\_\+view()}{term\_collection\_occurrences\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::term\+\_\+collection\+\_\+occurrences\+\_\+view (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a1a9d3122413524297a5b0edd00b6ff10}\label{classirk_1_1inverted__index__disk__data__source_a1a9d3122413524297a5b0edd00b6ff10}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!term\+\_\+map\+\_\+source@{term\+\_\+map\+\_\+source}}
+\index{term\+\_\+map\+\_\+source@{term\+\_\+map\+\_\+source}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{term\+\_\+map\+\_\+source()}{term\_map\_source()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::term\+\_\+map\+\_\+source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1inverted__index__disk__data__source_a2419fb42c8335fa30f50fc2f96ca4535}\label{classirk_1_1inverted__index__disk__data__source_a2419fb42c8335fa30f50fc2f96ca4535}} 
+\index{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}!title\+\_\+map\+\_\+source@{title\+\_\+map\+\_\+source}}
+\index{title\+\_\+map\+\_\+source@{title\+\_\+map\+\_\+source}!irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source@{irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source}}
+\subsubsection{\texorpdfstring{title\+\_\+map\+\_\+source()}{title\_map\_source()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classirk_1_1memory__view}{memory\+\_\+view}} irk\+::inverted\+\_\+index\+\_\+disk\+\_\+data\+\_\+source\+::title\+\_\+map\+\_\+source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{source_8hpp}{source.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,168 @@
+\hypertarget{classirk_1_1index_1_1basic__index__assembler}{}\section{irk\+:\+:index\+:\+:basic\+\_\+index\+\_\+assembler$<$ Document\+Codec, Frequency\+Codec $>$ Class Template Reference}
+\label{classirk_1_1index_1_1basic__index__assembler}\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler$<$ Document\+Codec, Frequency\+Codec $>$@{irk\+::index\+::basic\+\_\+index\+\_\+assembler$<$ Document\+Codec, Frequency\+Codec $>$}}
+
+
+{\ttfamily \#include $<$assembler.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}{document\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{irk\+::index\+::document\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad748f84f622d5a988c5bf02478ab4686}{term\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{irk\+::index\+::term\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad14cbad92a385bd06c0d16b38ab771ec}{term\+\_\+id\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{irk\+::index\+::term\+\_\+id\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a5e340ecba42926be7121502bdcaec26e}{frequency\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{irk\+::index\+::frequency\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}} = Document\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}} = Frequency\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2487a04584addbc8e6809cffae653176}{builder\+\_\+type}} = \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}} $>$
+\item 
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ade53519f2f70e2c1d66a2451a76259b0}{merger\+\_\+type}} = \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}} $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a36359e7becf0176d17c24b7b9c8d59bb}{basic\+\_\+index\+\_\+assembler}} (fs\+::path output\+\_\+dir, int batch\+\_\+size, int block\+\_\+size, int lexicon\+\_\+block\+\_\+size) noexcept
+\item 
+void \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad5d719c185d511614fd008757bfc27e3}{assemble}} (std\+::istream \&input)
+\begin{DoxyCompactList}\small\item\em Builds all batches and assembles the final index. \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a192d5783c1b7a836f9e96e04ef317b22}{build\+\_\+batch}} (std\+::istream \&input, \mbox{\hyperlink{structirk_1_1index_1_1metadata}{metadata}} batch\+\_\+metadata, \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}{document\+\_\+type}} first\+\_\+id) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Document\+Codec = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$\newline
+class irk\+::index\+::basic\+\_\+index\+\_\+assembler$<$ Document\+Codec, Frequency\+Codec $>$}
+
+Builds an index in batches and merges them together on disk.
+
+See \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad5d719c185d511614fd008757bfc27e3}{assemble()}} function documentation for the format of the input file. Note that neither the assembler nor the builder stem terms. It must be done beforehand. 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_a2487a04584addbc8e6809cffae653176}\label{classirk_1_1index_1_1basic__index__assembler_a2487a04584addbc8e6809cffae653176}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!builder\+\_\+type@{builder\+\_\+type}}
+\index{builder\+\_\+type@{builder\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{builder\+\_\+type}{builder\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2487a04584addbc8e6809cffae653176}{builder\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1basic__index__builder}{irk\+::basic\+\_\+index\+\_\+builder}}$<$\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}\label{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}}
+\index{document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{document\+\_\+codec\+\_\+type}{document\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}} =  Document\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}\label{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}{document\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{irk\+::index\+::document\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}\label{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}}
+\index{frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec\+\_\+type}{frequency\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}} =  Frequency\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_a5e340ecba42926be7121502bdcaec26e}\label{classirk_1_1index_1_1basic__index__assembler_a5e340ecba42926be7121502bdcaec26e}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a5e340ecba42926be7121502bdcaec26e}{frequency\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{irk\+::index\+::frequency\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ade53519f2f70e2c1d66a2451a76259b0}\label{classirk_1_1index_1_1basic__index__assembler_ade53519f2f70e2c1d66a2451a76259b0}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!merger\+\_\+type@{merger\+\_\+type}}
+\index{merger\+\_\+type@{merger\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{merger\+\_\+type}{merger\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ade53519f2f70e2c1d66a2451a76259b0}{merger\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ac64a6ddbef809f5c8b6eafffa9c8130d}{document\+\_\+codec\+\_\+type}}, \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_a2a415182287d7c48e7c6bf8d0c70a06f}{frequency\+\_\+codec\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ad14cbad92a385bd06c0d16b38ab771ec}\label{classirk_1_1index_1_1basic__index__assembler_ad14cbad92a385bd06c0d16b38ab771ec}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}}
+\index{term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{term\+\_\+id\+\_\+type}{term\_id\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad14cbad92a385bd06c0d16b38ab771ec}{term\+\_\+id\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{irk\+::index\+::term\+\_\+id\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ad748f84f622d5a988c5bf02478ab4686}\label{classirk_1_1index_1_1basic__index__assembler_ad748f84f622d5a988c5bf02478ab4686}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!term\+\_\+type@{term\+\_\+type}}
+\index{term\+\_\+type@{term\+\_\+type}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{term\+\_\+type}{term\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad748f84f622d5a988c5bf02478ab4686}{term\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{irk\+::index\+::term\+\_\+t}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_a36359e7becf0176d17c24b7b9c8d59bb}\label{classirk_1_1index_1_1basic__index__assembler_a36359e7becf0176d17c24b7b9c8d59bb}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!basic\+\_\+index\+\_\+assembler@{basic\+\_\+index\+\_\+assembler}}
+\index{basic\+\_\+index\+\_\+assembler@{basic\+\_\+index\+\_\+assembler}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{basic\+\_\+index\+\_\+assembler()}{basic\_index\_assembler()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{basic\+\_\+index\+\_\+assembler}} (\begin{DoxyParamCaption}\item[{fs\+::path}]{output\+\_\+dir,  }\item[{int}]{batch\+\_\+size,  }\item[{int}]{block\+\_\+size,  }\item[{int}]{lexicon\+\_\+block\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+dir} & final directory of the index \\
+\hline
+{\em batch\+\_\+size} & number of documents built at once in memory \\
+\hline
+{\em block\+\_\+size} & size of inverted list block (and skip length) \\
+\hline
+{\em document\+\_\+codec} & codec for document I\+Ds \\
+\hline
+{\em frequency\+\_\+codec} & codec for frequencies \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_ad5d719c185d511614fd008757bfc27e3}\label{classirk_1_1index_1_1basic__index__assembler_ad5d719c185d511614fd008757bfc27e3}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!assemble@{assemble}}
+\index{assemble@{assemble}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{assemble()}{assemble()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::assemble (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Builds all batches and assembles the final index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\mbox{[}in\mbox{]}} & collection input stream\\
+\hline
+\end{DoxyParams}
+The input file contains a single document in the following format\+: 
+\begin{DoxyCode}
+document\_title   term0 term1 term2 term3 ...
+\end{DoxyCode}
+ \mbox{\Hypertarget{classirk_1_1index_1_1basic__index__assembler_a192d5783c1b7a836f9e96e04ef317b22}\label{classirk_1_1index_1_1basic__index__assembler_a192d5783c1b7a836f9e96e04ef317b22}} 
+\index{irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}!build\+\_\+batch@{build\+\_\+batch}}
+\index{build\+\_\+batch@{build\+\_\+batch}!irk\+::index\+::basic\+\_\+index\+\_\+assembler@{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}
+\subsubsection{\texorpdfstring{build\+\_\+batch()}{build\_batch()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+std\+::istream\& \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler}{irk\+::index\+::basic\+\_\+index\+\_\+assembler}}$<$ Document\+Codec, Frequency\+Codec $>$\+::build\+\_\+batch (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{input,  }\item[{\mbox{\hyperlink{structirk_1_1index_1_1metadata}{metadata}}}]{batch\+\_\+metadata,  }\item[{\mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ae4f97ba949d5359dc425b034f6fc319d}{document\+\_\+type}}}]{first\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Builds a single batch.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em input} & collection stream; see \mbox{\hyperlink{classirk_1_1index_1_1basic__index__assembler_ad5d719c185d511614fd008757bfc27e3}{assemble()}} for more details \\
+\hline
+\mbox{\tt in}  & {\em batch\+\_\+metadata} & information about file paths \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{assembler_8hpp}{assembler.\+hpp}}\end{DoxyCompactItemize}

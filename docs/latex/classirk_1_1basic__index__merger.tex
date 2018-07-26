@@ -1,0 +1,161 @@
+\hypertarget{classirk_1_1basic__index__merger}{}\section{irk\+:\+:basic\+\_\+index\+\_\+merger$<$ Document\+Codec, Frequency\+Codec $>$ Class Template Reference}
+\label{classirk_1_1basic__index__merger}\index{irk\+::basic\+\_\+index\+\_\+merger$<$ Document\+Codec, Frequency\+Codec $>$@{irk\+::basic\+\_\+index\+\_\+merger$<$ Document\+Codec, Frequency\+Codec $>$}}
+
+
+{\ttfamily \#include $<$merger.\+hpp$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_a53640294a8d9edd9030e8900f5520716}{document\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{index\+::document\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_af5d70e8a911f2b291337d008358fd15e}{term\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{index\+::term\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_ab264f391caf7e164305b87ede0ac0182}{term\+\_\+id\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_add1c7a6efe038b37d14899012dadf01a}{frequency\+\_\+type}} = \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}{document\+\_\+codec\+\_\+type}} = Document\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_aafab06bb9812cd99b8cf1ed9ac575074}{frequency\+\_\+codec\+\_\+type}} = Frequency\+Codec
+\item 
+using \mbox{\hyperlink{classirk_1_1basic__index__merger_a76f8b8ca41e8fa63480a0d2421578259}{index\+\_\+type}} = \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$ \mbox{\hyperlink{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}{document\+\_\+codec\+\_\+type}} $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classirk_1_1basic__index__merger_ade68b591a43b8e56e32fed169205c33a}{basic\+\_\+index\+\_\+merger}} (const fs\+::path \&target\+\_\+dir, std\+::vector$<$ fs\+::path $>$ indices, int block\+\_\+size, bool skip\+\_\+unique=false)
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger_a1c6c4c5bb3b25bd4a843343d96d54b92}{copy\+\_\+term}} (const entry \&index\+\_\+entry)
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger_ade56595ec2e771cf4b5a6e6942d4187a}{merge\+\_\+term}} (std\+::vector$<$ entry $>$ \&indices)
+\item 
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger_ab2f4a0b26b16dc7d63673814003bda4b}{merge\+\_\+terms}} ()
+\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__merger_ab9772e2454466544841c08b245964736}{merge\+\_\+titles}} ()
+\item 
+std\+::pair$<$ int32\+\_\+t, double $>$ \mbox{\hyperlink{classirk_1_1basic__index__merger_a243264cb144d805392d61266254925ee}{merge\+\_\+sizes}} ()
+\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__merger_a4264e90f9176de1b6afa731e670df8af}{write\+\_\+properties}} (int32\+\_\+t documents, int64\+\_\+t occurrences, double avg\+\_\+doc\+\_\+size)
+\item 
+void \mbox{\hyperlink{classirk_1_1basic__index__merger_a56e0dfd5c2381fd2fbcd5dd8beaa22d9}{merge}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}\label{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}}
+\index{document\+\_\+codec\+\_\+type@{document\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{document\+\_\+codec\+\_\+type}{document\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}{document\+\_\+codec\+\_\+type}} =  Document\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a53640294a8d9edd9030e8900f5520716}\label{classirk_1_1basic__index__merger_a53640294a8d9edd9030e8900f5520716}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!document\+\_\+type@{document\+\_\+type}}
+\index{document\+\_\+type@{document\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{document\+\_\+type}{document\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_a53640294a8d9edd9030e8900f5520716}{document\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_af829dedea20da89f9b51b49d78f57006}{index\+::document\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_aafab06bb9812cd99b8cf1ed9ac575074}\label{classirk_1_1basic__index__merger_aafab06bb9812cd99b8cf1ed9ac575074}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}}
+\index{frequency\+\_\+codec\+\_\+type@{frequency\+\_\+codec\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{frequency\+\_\+codec\+\_\+type}{frequency\_codec\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_aafab06bb9812cd99b8cf1ed9ac575074}{frequency\+\_\+codec\+\_\+type}} =  Frequency\+Codec}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_add1c7a6efe038b37d14899012dadf01a}\label{classirk_1_1basic__index__merger_add1c7a6efe038b37d14899012dadf01a}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!frequency\+\_\+type@{frequency\+\_\+type}}
+\index{frequency\+\_\+type@{frequency\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{frequency\+\_\+type}{frequency\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_add1c7a6efe038b37d14899012dadf01a}{frequency\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_aa2cb48e79abd95deb25bbdf36c0ea70f}{index\+::frequency\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a76f8b8ca41e8fa63480a0d2421578259}\label{classirk_1_1basic__index__merger_a76f8b8ca41e8fa63480a0d2421578259}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!index\+\_\+type@{index\+\_\+type}}
+\index{index\+\_\+type@{index\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{index\+\_\+type}{index\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_a76f8b8ca41e8fa63480a0d2421578259}{index\+\_\+type}} =  \mbox{\hyperlink{classirk_1_1basic__inverted__index__view}{basic\+\_\+inverted\+\_\+index\+\_\+view}}$<$\mbox{\hyperlink{classirk_1_1basic__index__merger_af331ba6d7dd6d96484c6608f4236d8f1}{document\+\_\+codec\+\_\+type}}$>$}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_ab264f391caf7e164305b87ede0ac0182}\label{classirk_1_1basic__index__merger_ab264f391caf7e164305b87ede0ac0182}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}}
+\index{term\+\_\+id\+\_\+type@{term\+\_\+id\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{term\+\_\+id\+\_\+type}{term\_id\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_ab264f391caf7e164305b87ede0ac0182}{term\+\_\+id\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_ae2ce3a02969196fe6dab4443ed2007d5}{index\+::term\+\_\+id\+\_\+t}}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_af5d70e8a911f2b291337d008358fd15e}\label{classirk_1_1basic__index__merger_af5d70e8a911f2b291337d008358fd15e}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!term\+\_\+type@{term\+\_\+type}}
+\index{term\+\_\+type@{term\+\_\+type}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{term\+\_\+type}{term\_type}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+using \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger_af5d70e8a911f2b291337d008358fd15e}{term\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_1_1index_a7c2517c1f98e5b5f30ba3ab2f837caf6}{index\+::term\+\_\+t}}}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_ade68b591a43b8e56e32fed169205c33a}\label{classirk_1_1basic__index__merger_ade68b591a43b8e56e32fed169205c33a}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!basic\+\_\+index\+\_\+merger@{basic\+\_\+index\+\_\+merger}}
+\index{basic\+\_\+index\+\_\+merger@{basic\+\_\+index\+\_\+merger}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{basic\+\_\+index\+\_\+merger()}{basic\_index\_merger()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+\mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::\mbox{\hyperlink{classirk_1_1basic__index__merger}{basic\+\_\+index\+\_\+merger}} (\begin{DoxyParamCaption}\item[{const fs\+::path \&}]{target\+\_\+dir,  }\item[{std\+::vector$<$ fs\+::path $>$}]{indices,  }\item[{int}]{block\+\_\+size,  }\item[{bool}]{skip\+\_\+unique = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a1c6c4c5bb3b25bd4a843343d96d54b92}\label{classirk_1_1basic__index__merger_a1c6c4c5bb3b25bd4a843343d96d54b92}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!copy\+\_\+term@{copy\+\_\+term}}
+\index{copy\+\_\+term@{copy\+\_\+term}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{copy\+\_\+term()}{copy\_term()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::copy\+\_\+term (\begin{DoxyParamCaption}\item[{const entry \&}]{index\+\_\+entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a56e0dfd5c2381fd2fbcd5dd8beaa22d9}\label{classirk_1_1basic__index__merger_a56e0dfd5c2381fd2fbcd5dd8beaa22d9}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!merge@{merge}}
+\index{merge@{merge}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{merge()}{merge()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a243264cb144d805392d61266254925ee}\label{classirk_1_1basic__index__merger_a243264cb144d805392d61266254925ee}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!merge\+\_\+sizes@{merge\+\_\+sizes}}
+\index{merge\+\_\+sizes@{merge\+\_\+sizes}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{merge\+\_\+sizes()}{merge\_sizes()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+std\+::pair$<$int32\+\_\+t, double$>$ \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::merge\+\_\+sizes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_ade56595ec2e771cf4b5a6e6942d4187a}\label{classirk_1_1basic__index__merger_ade56595ec2e771cf4b5a6e6942d4187a}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!merge\+\_\+term@{merge\+\_\+term}}
+\index{merge\+\_\+term@{merge\+\_\+term}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{merge\+\_\+term()}{merge\_term()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::merge\+\_\+term (\begin{DoxyParamCaption}\item[{std\+::vector$<$ entry $>$ \&}]{indices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_ab2f4a0b26b16dc7d63673814003bda4b}\label{classirk_1_1basic__index__merger_ab2f4a0b26b16dc7d63673814003bda4b}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!merge\+\_\+terms@{merge\+\_\+terms}}
+\index{merge\+\_\+terms@{merge\+\_\+terms}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{merge\+\_\+terms()}{merge\_terms()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+int64\+\_\+t \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::merge\+\_\+terms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_ab9772e2454466544841c08b245964736}\label{classirk_1_1basic__index__merger_ab9772e2454466544841c08b245964736}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!merge\+\_\+titles@{merge\+\_\+titles}}
+\index{merge\+\_\+titles@{merge\+\_\+titles}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{merge\+\_\+titles()}{merge\_titles()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::merge\+\_\+titles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classirk_1_1basic__index__merger_a4264e90f9176de1b6afa731e670df8af}\label{classirk_1_1basic__index__merger_a4264e90f9176de1b6afa731e670df8af}} 
+\index{irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}!write\+\_\+properties@{write\+\_\+properties}}
+\index{write\+\_\+properties@{write\+\_\+properties}!irk\+::basic\+\_\+index\+\_\+merger@{irk\+::basic\+\_\+index\+\_\+merger}}
+\subsubsection{\texorpdfstring{write\+\_\+properties()}{write\_properties()}}
+{\footnotesize\ttfamily template$<$class Document\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::document\+\_\+t$>$, class Frequency\+Codec  = irk\+::stream\+\_\+vbyte\+\_\+codec$<$index\+::frequency\+\_\+t$>$$>$ \\
+void \mbox{\hyperlink{classirk_1_1basic__index__merger}{irk\+::basic\+\_\+index\+\_\+merger}}$<$ Document\+Codec, Frequency\+Codec $>$\+::write\+\_\+properties (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{documents,  }\item[{int64\+\_\+t}]{occurrences,  }\item[{double}]{avg\+\_\+doc\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/irkit/index/\mbox{\hyperlink{merger_8hpp}{merger.\+hpp}}\end{DoxyCompactItemize}

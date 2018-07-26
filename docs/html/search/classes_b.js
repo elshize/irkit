@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['no_5fweight',['no_weight',['../structirk_1_1no__weight.html',1,'irk']]],
-  ['node',['node',['../structirk_1_1mutable__bit__trie_1_1node.html',1,'irk::mutable_bit_trie&lt; Value &gt;::node'],['../structirk_1_1coding_1_1huffman_1_1node.html',1,'irk::coding::huffman::node&lt; Symbol &gt;'],['../structirk_1_1alphabetical__bst_1_1node.html',1,'irk::alphabetical_bst&lt; Symbol, Ptr, MemoryContainer &gt;::node']]],
-  ['node_5fptr',['node_ptr',['../structirk_1_1alphabetical__bst_1_1node__ptr.html',1,'irk::alphabetical_bst']]]
+  ['pointer_5fmemory_5fsource',['pointer_memory_source',['../classirk_1_1pointer__memory__source.html',1,'irk']]],
+  ['porter2_5fstemmer',['porter2_stemmer',['../classirk_1_1porter2__stemmer.html',1,'irk']]],
+  ['posting_5flist_5fview',['posting_list_view',['../classirk_1_1posting__list__view.html',1,'irk']]],
+  ['posting_5fview',['posting_view',['../classirk_1_1posting__list__view_1_1posting__view.html',1,'irk::posting_list_view']]],
+  ['prefix_5fcodec',['prefix_codec',['../classirk_1_1prefix__codec.html',1,'irk']]],
+  ['prefix_5fcodec_3c_20codec_5ftype_20_3e',['prefix_codec&lt; codec_type &gt;',['../classirk_1_1prefix__codec.html',1,'irk']]],
+  ['prefix_5fmap',['prefix_map',['../classirk_1_1prefix__map.html',1,'irk']]]
 ];

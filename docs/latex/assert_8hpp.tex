@@ -1,0 +1,63 @@
+\hypertarget{assert_8hpp}{}\section{include/irkit/assert.hpp File Reference}
+\label{assert_8hpp}\index{include/irkit/assert.\+hpp@{include/irkit/assert.\+hpp}}
+{\ttfamily \#include $<$debug\+\_\+assert.\+hpp$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structassert__handler}{assert\+\_\+handler}}
+\item 
+struct \mbox{\hyperlink{structcontract__handler}{contract\+\_\+handler}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{assert_8hpp_a1e796cb2fcc5a549c40e4170f3628645}{A\+S\+S\+E\+RT}}(Expr, ...)~D\+E\+B\+U\+G\+\_\+\+A\+S\+S\+E\+RT(Expr, \mbox{\hyperlink{structassert__handler}{assert\+\_\+handler}}\{\}, debug\+\_\+assert\+::level$<$1$>$\{\})
+\item 
+\#define \mbox{\hyperlink{assert_8hpp_a6031f8eaaa70a38109064126ba49c9d9}{E\+X\+P\+E\+C\+TS}}(Expr, ...)
+\item 
+\#define \mbox{\hyperlink{assert_8hpp_a5f5b3ddadcb356a858cbebcd735f7c61}{E\+N\+S\+U\+R\+ES}}(Expr, ...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{assert_8hpp_a1e796cb2fcc5a549c40e4170f3628645}\label{assert_8hpp_a1e796cb2fcc5a549c40e4170f3628645}} 
+\index{assert.\+hpp@{assert.\+hpp}!A\+S\+S\+E\+RT@{A\+S\+S\+E\+RT}}
+\index{A\+S\+S\+E\+RT@{A\+S\+S\+E\+RT}!assert.\+hpp@{assert.\+hpp}}
+\subsubsection{\texorpdfstring{A\+S\+S\+E\+RT}{ASSERT}}
+{\footnotesize\ttfamily \#define A\+S\+S\+E\+RT(\begin{DoxyParamCaption}\item[{}]{Expr,  }\item[{}]{... }\end{DoxyParamCaption})~D\+E\+B\+U\+G\+\_\+\+A\+S\+S\+E\+RT(Expr, \mbox{\hyperlink{structassert__handler}{assert\+\_\+handler}}\{\}, debug\+\_\+assert\+::level$<$1$>$\{\})}
+
+\mbox{\Hypertarget{assert_8hpp_a5f5b3ddadcb356a858cbebcd735f7c61}\label{assert_8hpp_a5f5b3ddadcb356a858cbebcd735f7c61}} 
+\index{assert.\+hpp@{assert.\+hpp}!E\+N\+S\+U\+R\+ES@{E\+N\+S\+U\+R\+ES}}
+\index{E\+N\+S\+U\+R\+ES@{E\+N\+S\+U\+R\+ES}!assert.\+hpp@{assert.\+hpp}}
+\subsubsection{\texorpdfstring{E\+N\+S\+U\+R\+ES}{ENSURES}}
+{\footnotesize\ttfamily \#define E\+N\+S\+U\+R\+ES(\begin{DoxyParamCaption}\item[{}]{Expr,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+DEBUG\_ASSERT(Expr,                                                         \(\backslash\)
+        \mbox{\hyperlink{structcontract__handler}{contract\_handler}}\{\},                                                    \(\backslash\)
+        debug\_assert::level<1>\{\},                                              \(\backslash\)
+        \textcolor{stringliteral}{"function output contract violated"})
+\end{DoxyCode}
+\mbox{\Hypertarget{assert_8hpp_a6031f8eaaa70a38109064126ba49c9d9}\label{assert_8hpp_a6031f8eaaa70a38109064126ba49c9d9}} 
+\index{assert.\+hpp@{assert.\+hpp}!E\+X\+P\+E\+C\+TS@{E\+X\+P\+E\+C\+TS}}
+\index{E\+X\+P\+E\+C\+TS@{E\+X\+P\+E\+C\+TS}!assert.\+hpp@{assert.\+hpp}}
+\subsubsection{\texorpdfstring{E\+X\+P\+E\+C\+TS}{EXPECTS}}
+{\footnotesize\ttfamily \#define E\+X\+P\+E\+C\+TS(\begin{DoxyParamCaption}\item[{}]{Expr,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+DEBUG\_ASSERT(Expr,                                                         \(\backslash\)
+        \mbox{\hyperlink{structcontract__handler}{contract\_handler}}\{\},                                                    \(\backslash\)
+        debug\_assert::level<1>\{\},                                              \(\backslash\)
+        \textcolor{stringliteral}{"function input contract violated"})
+\end{DoxyCode}

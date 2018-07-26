@@ -1,14 +1,17 @@
 SUITE=$1
 
 if [ "$SUITE" == "unit" ]; then
-    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_BUILD_INTEGRATION_TEST:BOOL=OFF -D IRKit_BUILD_BENCHMARKS:BOOL=OFF .
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_USE_SYSTEM_BOOST=ON -D IRKit_BUILD_INTEGRATION_TEST=OFF -D IRKit_BUILD_BENCHMARKS=OFF ..
     make VERBOSE=1
     ctest -V
 elif [ "$SUITE" == "integration" ]; then
-    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_BUILD_INTEGRATION_TEST:BOOL=ON -D IRKit_BUILD_BENCHMARKS:BOOL=OFF .
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_USE_SYSTEM_BOOST=ON -D IRKit_BUILD_INTEGRATION_TEST=ON -D IRKit_BUILD_BENCHMARKS=OFF ..
     make VERBOSE=1
     ctest -V -R integration*
 elif [ "$SUITE" == "benchmarks" ]; then
-    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_BUILD_INTEGRATION_TEST:BOOL=OFF -D IRKit_BUILD_BENCHMARKS:BOOL=ON .
+    cd build
+    cmake -D CMAKE_BUILD_TYPE=Release -D IRKit_USE_SYSTEM_BOOST=ON -D IRKit_BUILD_INTEGRATION_TEST=OFF -D IRKit_BUILD_BENCHMARKS=ON ..
     make VERBOSE=1
 fi

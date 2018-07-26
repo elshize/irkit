@@ -32,7 +32,6 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <gumbo.h>
 
 std::ofstream& new_file(std::ofstream& out,
     const std::string& prefix,

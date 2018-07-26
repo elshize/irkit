@@ -1,5 +1,5 @@
-\hypertarget{classirk_1_1top__k__accumulator}{}\section{irk\+:\+:top\+\_\+k\+\_\+accumulator$<$ Posting $>$ Class Template Reference}
-\label{classirk_1_1top__k__accumulator}\index{irk\+::top\+\_\+k\+\_\+accumulator$<$ Posting $>$@{irk\+::top\+\_\+k\+\_\+accumulator$<$ Posting $>$}}
+\hypertarget{classirk_1_1top__k__accumulator}{}\section{irk\+:\+:top\+\_\+k\+\_\+accumulator$<$ Key, Value $>$ Class Template Reference}
+\label{classirk_1_1top__k__accumulator}\index{irk\+::top\+\_\+k\+\_\+accumulator$<$ Key, Value $>$@{irk\+::top\+\_\+k\+\_\+accumulator$<$ Key, Value $>$}}
 
 
 An container accumulating top-\/k postings (or results).  
@@ -12,53 +12,62 @@ An container accumulating top-\/k postings (or results).
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}{posting\+\_\+type}} = Posting
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}} = Key
 \item 
-using \mbox{\hyperlink{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}{score\+\_\+type}} = \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$ \mbox{\hyperlink{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}{posting\+\_\+type}} $>$
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} = Value
+\item 
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}{entry\+\_\+type}} = std\+::pair$<$ \mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}}, \mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} $>$
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classirk_1_1top__k__accumulator_a7baec3d81c3e2e2d33cd4eb1212f951c}{top\+\_\+k\+\_\+accumulator}} (std\+::size\+\_\+t k)
+\mbox{\hyperlink{classirk_1_1top__k__accumulator_a729944f89ec6c2085be96ad23ae9a727}{top\+\_\+k\+\_\+accumulator}} (std\+::size\+\_\+t k)
 \begin{DoxyCompactList}\small\item\em Initilizes an empty accumulator. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classirk_1_1top__k__accumulator_a81e919a61cc0fd05dcb77c8fad56fd82}{accumulate}} (Posting posting)
+void \mbox{\hyperlink{classirk_1_1top__k__accumulator_ae02e391e9bab8ce26fb9f5c7473a26d5}{accumulate}} (\mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}} key, \mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} value)
 \begin{DoxyCompactList}\small\item\em Accumulates the given posting. \end{DoxyCompactList}\item 
-std\+::vector$<$ Posting $>$ \mbox{\hyperlink{classirk_1_1top__k__accumulator_ae89ee96c6485fb5369930e5a2c706aaa}{sorted}} ()
+std\+::vector$<$ \mbox{\hyperlink{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}{entry\+\_\+type}} $>$ \mbox{\hyperlink{classirk_1_1top__k__accumulator_a8655daf7599408d45f9ee1be82d0c0a5}{sorted}} ()
 \begin{DoxyCompactList}\small\item\em Produces the sorted list of the accumulated postings. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}{score\+\_\+type}} \mbox{\hyperlink{classirk_1_1top__k__accumulator_a97ec26c362ccb2f9c929be221eb382d6}{threshold}} ()
+\mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} \mbox{\hyperlink{classirk_1_1top__k__accumulator_a70f24ee6364940d0ea95cb6aa9eca510}{threshold}} ()
 \begin{DoxyCompactList}\small\item\em Returns the current top-\/k threshold. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$class Posting$>$\newline
-class irk\+::top\+\_\+k\+\_\+accumulator$<$ Posting $>$}
+\subsubsection*{template$<$class Key, class Value$>$\newline
+class irk\+::top\+\_\+k\+\_\+accumulator$<$ Key, Value $>$}
 
 An container accumulating top-\/k postings (or results). 
 
 \subsection{Member Typedef Documentation}
-\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}\label{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}} 
-\index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!posting\+\_\+type@{posting\+\_\+type}}
-\index{posting\+\_\+type@{posting\+\_\+type}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
-\subsubsection{\texorpdfstring{posting\+\_\+type}{posting\_type}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-using \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}{posting\+\_\+type}} =  Posting}
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}\label{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}} 
+\index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!entry\+\_\+type@{entry\+\_\+type}}
+\index{entry\+\_\+type@{entry\+\_\+type}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
+\subsubsection{\texorpdfstring{entry\+\_\+type}{entry\_type}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}{entry\+\_\+type}} =  std\+::pair$<$\mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}}, \mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}}$>$}
 
-\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}\label{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}} 
-\index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!score\+\_\+type@{score\+\_\+type}}
-\index{score\+\_\+type@{score\+\_\+type}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
-\subsubsection{\texorpdfstring{score\+\_\+type}{score\_type}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-using \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}{score\+\_\+type}} =  \mbox{\hyperlink{namespaceirk_a87bce44d1e3fdff0b1b3bb78f2a5f924}{score\+\_\+t}}$<$\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0ffb312a1991ec1d640d436caa657ee5}{posting\+\_\+type}}$>$}
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}\label{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}} 
+\index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!key\+\_\+type@{key\+\_\+type}}
+\index{key\+\_\+type@{key\+\_\+type}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
+\subsubsection{\texorpdfstring{key\+\_\+type}{key\_type}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}} =  Key}
+
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}\label{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}} 
+\index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!value\+\_\+type@{value\+\_\+type}}
+\index{value\+\_\+type@{value\+\_\+type}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
+\subsubsection{\texorpdfstring{value\+\_\+type}{value\_type}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+using \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} =  Value}
 
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a7baec3d81c3e2e2d33cd4eb1212f951c}\label{classirk_1_1top__k__accumulator_a7baec3d81c3e2e2d33cd4eb1212f951c}} 
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a729944f89ec6c2085be96ad23ae9a727}\label{classirk_1_1top__k__accumulator_a729944f89ec6c2085be96ad23ae9a727}} 
 \index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!top\+\_\+k\+\_\+accumulator@{top\+\_\+k\+\_\+accumulator}}
 \index{top\+\_\+k\+\_\+accumulator@{top\+\_\+k\+\_\+accumulator}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
 \subsubsection{\texorpdfstring{top\+\_\+k\+\_\+accumulator()}{top\_k\_accumulator()}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-\mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator}{top\+\_\+k\+\_\+accumulator}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+\mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::\mbox{\hyperlink{classirk_1_1top__k__accumulator}{top\+\_\+k\+\_\+accumulator}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 
@@ -72,23 +81,23 @@ Initilizes an empty accumulator.
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a81e919a61cc0fd05dcb77c8fad56fd82}\label{classirk_1_1top__k__accumulator_a81e919a61cc0fd05dcb77c8fad56fd82}} 
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_ae02e391e9bab8ce26fb9f5c7473a26d5}\label{classirk_1_1top__k__accumulator_ae02e391e9bab8ce26fb9f5c7473a26d5}} 
 \index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!accumulate@{accumulate}}
 \index{accumulate@{accumulate}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
 \subsubsection{\texorpdfstring{accumulate()}{accumulate()}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-void \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::accumulate (\begin{DoxyParamCaption}\item[{Posting}]{posting }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+void \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::accumulate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1top__k__accumulator_a2476f5b995fe252f092590c05f48e61f}{key\+\_\+type}}}]{key,  }\item[{\mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Accumulates the given posting. 
 
-If {\ttfamily posting.\+score} is higher than \mbox{\hyperlink{classirk_1_1top__k__accumulator_a97ec26c362ccb2f9c929be221eb382d6}{threshold()}}, {\ttfamily posting} is accumulated. Furthermore, if the container grows beyond {\ttfamily k}, the lowest scoring posting is discarded. \mbox{\Hypertarget{classirk_1_1top__k__accumulator_ae89ee96c6485fb5369930e5a2c706aaa}\label{classirk_1_1top__k__accumulator_ae89ee96c6485fb5369930e5a2c706aaa}} 
+If {\ttfamily posting.\+score} is higher than \mbox{\hyperlink{classirk_1_1top__k__accumulator_a70f24ee6364940d0ea95cb6aa9eca510}{threshold()}}, {\ttfamily posting} is accumulated. Furthermore, if the container grows beyond {\ttfamily k}, the lowest scoring posting is discarded. \mbox{\Hypertarget{classirk_1_1top__k__accumulator_a8655daf7599408d45f9ee1be82d0c0a5}\label{classirk_1_1top__k__accumulator_a8655daf7599408d45f9ee1be82d0c0a5}} 
 \index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!sorted@{sorted}}
 \index{sorted@{sorted}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
 \subsubsection{\texorpdfstring{sorted()}{sorted()}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-std\+::vector$<$Posting$>$ \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::sorted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+std\+::vector$<$\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0eacc4cbf280b54983e25b9d34bd91c0}{entry\+\_\+type}}$>$ \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::sorted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -97,12 +106,12 @@ Produces the sorted list of the accumulated postings.
 \begin{DoxyReturn}{Returns}
 The list of postings that have been accumulated so far, in order of decreasing scores. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a97ec26c362ccb2f9c929be221eb382d6}\label{classirk_1_1top__k__accumulator_a97ec26c362ccb2f9c929be221eb382d6}} 
+\mbox{\Hypertarget{classirk_1_1top__k__accumulator_a70f24ee6364940d0ea95cb6aa9eca510}\label{classirk_1_1top__k__accumulator_a70f24ee6364940d0ea95cb6aa9eca510}} 
 \index{irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}!threshold@{threshold}}
 \index{threshold@{threshold}!irk\+::top\+\_\+k\+\_\+accumulator@{irk\+::top\+\_\+k\+\_\+accumulator}}
 \subsubsection{\texorpdfstring{threshold()}{threshold()}}
-{\footnotesize\ttfamily template$<$class Posting$>$ \\
-\mbox{\hyperlink{classirk_1_1top__k__accumulator_a0f5b0bb5549996794b2a06fe17c694d9}{score\+\_\+type}} \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Posting $>$\+::threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily template$<$class Key, class Value$>$ \\
+\mbox{\hyperlink{classirk_1_1top__k__accumulator_ad96657e9478dcbab995f3bf38954b5bd}{value\+\_\+type}} \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator}}$<$ Key, Value $>$\+::threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

@@ -22,7 +22,7 @@ using \mbox{\hyperlink{classirk_1_1posting__list__view_ac4615e6e3d8ee1eb9a847b7a
 \item 
 using \mbox{\hyperlink{classirk_1_1posting__list__view_a1c394061061a8eeeab98cb228f6cdde9}{payload\+\_\+type}} = typename payload\+\_\+list\+\_\+type\+::value\+\_\+type
 \item 
-using \mbox{\hyperlink{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}{difference\+\_\+type}} = long
+using \mbox{\hyperlink{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}{difference\+\_\+type}} = std\+::int32\+\_\+t
 \item 
 using \mbox{\hyperlink{classirk_1_1posting__list__view_abaca622760e6da2c67d55cf35207250f}{document\+\_\+iterator\+\_\+t}} = typename document\+\_\+list\+\_\+type\+::iterator
 \item 
@@ -41,7 +41,11 @@ using \mbox{\hyperlink{classirk_1_1posting__list__view_ae21b790c3e482f513bb41d4f
 \item 
 \mbox{\hyperlink{classirk_1_1posting__list__view_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1posting__list__view_a2078e1a0c33d66cb0aa609fb8937911c}{lookup}} (\mbox{\hyperlink{classirk_1_1posting__list__view_ac4615e6e3d8ee1eb9a847b7a34919977}{document\+\_\+type}} id) const
 \item 
-\mbox{\hyperlink{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1posting__list__view_aad71ebe547caf256c8aab055c904ff19}{size}} () const
+\mbox{\hyperlink{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1posting__list__view_aad71ebe547caf256c8aab055c904ff19}{size}} () const
+\item 
+const \mbox{\hyperlink{classirk_1_1posting__list__view_ae024545dbbb464926a2024d956b7b7af}{document\+\_\+list\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1posting__list__view_a786901ec3fe9ccf2ce0b9aafd90dd289}{document\+\_\+list}} () const
+\item 
+const \mbox{\hyperlink{classirk_1_1posting__list__view_aabf1afcb3a994971f30879354301e1fe}{payload\+\_\+list\+\_\+type}} \& \mbox{\hyperlink{classirk_1_1posting__list__view_ade6e30ce4668d92223f1cebcb28d6bea}{payload\+\_\+list}} () const
 \end{DoxyCompactItemize}
 
 
@@ -53,12 +57,12 @@ using \mbox{\hyperlink{classirk_1_1posting__list__view_ae21b790c3e482f513bb41d4f
 {\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
 using \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::\mbox{\hyperlink{classirk_1_1posting__list__view_ae21b790c3e482f513bb41d4f8e7ae0c9}{const\+\_\+iterator}} =  \mbox{\hyperlink{classirk_1_1posting__list__view_1_1iterator}{iterator}}}
 
-\mbox{\Hypertarget{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}\label{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}} 
+\mbox{\Hypertarget{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}\label{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}} 
 \index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!difference\+\_\+type@{difference\+\_\+type}}
 \index{difference\+\_\+type@{difference\+\_\+type}!irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{difference\+\_\+type}{difference\_type}}
 {\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
-using \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::\mbox{\hyperlink{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}{difference\+\_\+type}} =  long}
+using \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::\mbox{\hyperlink{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}{difference\+\_\+type}} =  std\+::int32\+\_\+t}
 
 \mbox{\Hypertarget{classirk_1_1posting__list__view_abaca622760e6da2c67d55cf35207250f}\label{classirk_1_1posting__list__view_abaca622760e6da2c67d55cf35207250f}} 
 \index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!document\+\_\+iterator\+\_\+t@{document\+\_\+iterator\+\_\+t}}
@@ -122,6 +126,13 @@ using \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list
 {\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
 \mbox{\hyperlink{classirk_1_1posting__list__view_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+\mbox{\Hypertarget{classirk_1_1posting__list__view_a786901ec3fe9ccf2ce0b9aafd90dd289}\label{classirk_1_1posting__list__view_a786901ec3fe9ccf2ce0b9aafd90dd289}} 
+\index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!document\+\_\+list@{document\+\_\+list}}
+\index{document\+\_\+list@{document\+\_\+list}!irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{document\+\_\+list()}{document\_list()}}
+{\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
+const \mbox{\hyperlink{classirk_1_1posting__list__view_ae024545dbbb464926a2024d956b7b7af}{document\+\_\+list\+\_\+type}}\& \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::document\+\_\+list (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{classirk_1_1posting__list__view_a57999e9c9b9347a86b242147fbd930b7}\label{classirk_1_1posting__list__view_a57999e9c9b9347a86b242147fbd930b7}} 
 \index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!end@{end}}
 \index{end@{end}!irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}}
@@ -136,12 +147,19 @@ using \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list
 {\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
 \mbox{\hyperlink{classirk_1_1posting__list__view_1_1iterator}{iterator}} \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classirk_1_1posting__list__view_ac4615e6e3d8ee1eb9a847b7a34919977}{document\+\_\+type}}}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+\mbox{\Hypertarget{classirk_1_1posting__list__view_ade6e30ce4668d92223f1cebcb28d6bea}\label{classirk_1_1posting__list__view_ade6e30ce4668d92223f1cebcb28d6bea}} 
+\index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!payload\+\_\+list@{payload\+\_\+list}}
+\index{payload\+\_\+list@{payload\+\_\+list}!irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}}
+\subsubsection{\texorpdfstring{payload\+\_\+list()}{payload\_list()}}
+{\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
+const \mbox{\hyperlink{classirk_1_1posting__list__view_aabf1afcb3a994971f30879354301e1fe}{payload\+\_\+list\+\_\+type}}\& \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::payload\+\_\+list (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{classirk_1_1posting__list__view_aad71ebe547caf256c8aab055c904ff19}\label{classirk_1_1posting__list__view_aad71ebe547caf256c8aab055c904ff19}} 
 \index{irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}!size@{size}}
 \index{size@{size}!irk\+::posting\+\_\+list\+\_\+view@{irk\+::posting\+\_\+list\+\_\+view}}
 \subsubsection{\texorpdfstring{size()}{size()}}
 {\footnotesize\ttfamily template$<$class Document\+ListT , class Payload\+ListT $>$ \\
-\mbox{\hyperlink{classirk_1_1posting__list__view_aeae778b6aa26eadf11e1b799bb46547d}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classirk_1_1posting__list__view_af57ab26b3de14b52ca2150cd90288567}{difference\+\_\+type}} \mbox{\hyperlink{classirk_1_1posting__list__view}{irk\+::posting\+\_\+list\+\_\+view}}$<$ Document\+ListT, Payload\+ListT $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 

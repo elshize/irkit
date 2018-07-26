@@ -1,45 +1,32 @@
 \hypertarget{taat_8hpp}{}\section{include/irkit/taat.hpp File Reference}
 \label{taat_8hpp}\index{include/irkit/taat.\+hpp@{include/irkit/taat.\+hpp}}
-{\ttfamily \#include $<$boost/concept/assert.\+hpp$>$}\newline
-{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/concepts.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/utils.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$irkit/index/types.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/utils.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classirk_1_1simple__accumulator}{irk\+::simple\+\_\+accumulator}}
-\begin{DoxyCompactList}\small\item\em A simple score accumulator that adds all scores. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structirk_1_1no__weight}{irk\+::no\+\_\+weight}}
-\begin{DoxyCompactList}\small\item\em A dummy weight type that does not change the score when multiplied. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{structirk_1_1block__accumulator__vector}{irk\+::block\+\_\+accumulator\+\_\+vector$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structirk_1_1block__accumulator__vector_1_1reference}{irk\+::block\+\_\+accumulator\+\_\+vector$<$ T $>$\+::reference}}
+\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Score $>$ }\\Score \mbox{\hyperlink{namespaceirk_ab8e6b6b40ddf91037ece69b4c14d091f}{irk\+::operator$\ast$=}} (Score \&lhs, const no\+\_\+weight \&rhs)
+{\footnotesize template$<$class Document\+List , class Payload\+List , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_a900198dc6bc592a13980c42e25f7757b}{irk\+::accumulate}} (const Document\+List \&documents, const Payload\+List \&payloads, Accumulator\+Vec \&accumulators)
 \item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_aa97b41a8c849bf1c0710f5297997a6c4}{irk\+::traverse\+\_\+list\+\_\+postings}} (const Posting\+Range \&postings, Accumulator\+Array \&acc, Weight weight=no\+\_\+weight\{\}, Accumulator\+Policy accumulator\+\_\+policy=default\+\_\+accumulator)
-\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a02334cad2fa8f38feab94fe6c1c57d8e}{irk\+::traverse\+\_\+list}} (const Doc\+Range \&docs, const Score\+Range \&scores, Accumulator\+Array \&acc, Weight weight=no\+\_\+weight\{\}, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
-\begin{DoxyCompactList}\small\item\em Traverses and accumulates scores in a single posting list. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Doc\+Range , class Score\+Range , class Accumulator\+Array , class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a338c8931f92a0d5db3023a2ee7a76db8}{irk\+::traverse}} (const std\+::vector$<$ Doc\+Range $>$ \&doc\+\_\+ranges, const std\+::vector$<$ Score\+Range $>$ \&score\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Score\+Range $>$$>$ \&term\+\_\+weights, Accumulator\+Policy \&accumulator\+\_\+policy=default\+\_\+accumulator)
-\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Posting\+Range , class Accumulator\+Array , class Weight  = no\+\_\+weight, class Accumulator\+Policy  = simple\+\_\+accumulator$>$ }\\void \mbox{\hyperlink{namespaceirk_a8dbdf5c2b9eef7379aae57b72861978a}{irk\+::traverse\+\_\+postings}} (const std\+::vector$<$ Posting\+Range $>$ \&posting\+\_\+ranges, Accumulator\+Array \&acc, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Posting\+Range $>$$>$$>$ \&term\+\_\+weights, Accumulator\+Policy accumulator\+\_\+policy=default\+\_\+accumulator)
-\begin{DoxyCompactList}\small\item\em Traverses postings and accumulates scores. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Result , class Accumulator\+Array $>$ }\\std\+::vector$<$ Result $>$ \mbox{\hyperlink{namespaceirk_a068256b1f4dd5e0025e793d6d93b6896}{irk\+::aggregate\+\_\+top}} (std\+::size\+\_\+t k, const Accumulator\+Array \&acc)
+{\footnotesize template$<$class Posting\+List , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_ae640de6acba59596ef10cdc51b79103c}{irk\+::accumulate}} (const Posting\+List \&postings, Accumulator\+Vec \&accumulators)
 \item 
-{\footnotesize template$<$class Range $>$ }\\std\+::vector$<$ pure\+\_\+element\+\_\+t$<$ Range $>$ $>$ \mbox{\hyperlink{namespaceirk_a9bbfe619867ce962c69054e3417b4b11}{irk\+::taat}} (const std\+::vector$<$ Range $>$ \&query\+\_\+postings, std\+::size\+\_\+t k, const std\+::vector$<$ score\+\_\+t$<$ pure\+\_\+element\+\_\+t$<$ Range $>$$>$$>$ \&weights, std\+::size\+\_\+t collection\+\_\+size)
-\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
+{\footnotesize template$<$class Posting\+Lists , class Accumulator\+Vec $>$ }\\void \mbox{\hyperlink{namespaceirk_a936dfbb74aa4684439c364e4b7b62067}{irk\+::taat}} (const Posting\+Lists \&posting\+\_\+lists, Accumulator\+Vec \&accumulators)
 \item 
-simple\+\_\+accumulator \mbox{\hyperlink{namespaceirk_ab2909e62b829f7926f8d47d3146d9939}{irk\+::default\+\_\+accumulator}}
+{\footnotesize template$<$class Key , class Value , class Accumulator\+Vec $>$ }\\std\+::vector$<$ std\+::pair$<$ Key, Value $>$ $>$ \mbox{\hyperlink{namespaceirk_af5d9aefa4c5e398f324cde7c81d5e765}{irk\+::aggregate\+\_\+top\+\_\+k}} (const Accumulator\+Vec \&accumulators, int k)
+\item 
+{\footnotesize template$<$class Key , class Value $>$ }\\std\+::vector$<$ std\+::pair$<$ Key, Value $>$ $>$ \mbox{\hyperlink{namespaceirk_af0421bdf64d67fbad118cec711711791}{irk\+::aggregate\+\_\+top\+\_\+k}} (const block\+\_\+accumulator\+\_\+vector$<$ Value $>$ \&accumulators, int k)
 \end{DoxyCompactItemize}
 
 

@@ -1,7 +1,9 @@
 \hypertarget{hutucker_8hpp}{}\section{include/irkit/coding/hutucker.hpp File Reference}
 \label{hutucker_8hpp}\index{include/irkit/coding/hutucker.\+hpp@{include/irkit/coding/hutucker.\+hpp}}
+{\ttfamily \#include $<$debug\+\_\+assert.\+hpp$>$}\newline
 {\ttfamily \#include $<$gsl/gsl\+\_\+assert$>$}\newline
 {\ttfamily \#include $<$irkit/alphabetical\+\_\+bst.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/assert.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/coding/huffman.\+hpp$>$}\newline
 {\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
@@ -15,7 +17,7 @@ class \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec$<
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+\item 
  \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker}{irk\+::coding\+::hutucker}}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
@@ -36,7 +38,7 @@ class \mbox{\hyperlink{classirk_1_1hutucker__codec}{irk\+::hutucker\+\_\+codec$<
 \item 
 {\footnotesize template$<$class Symbol  = char$>$ }\\node\+\_\+ptr$<$ Symbol $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_adf2fb7ba2277edb34df80da2766493f8}{irk\+::coding\+::hutucker\+::reconstruct}} (std\+::list$<$ level\+\_\+node$<$ Symbol $>$$>$ \&nodes)
 \begin{DoxyCompactList}\small\item\em Reconstructs the final Hu-\/\+Tucker tree based on the level-\/tagged nodes. \end{DoxyCompactList}\item 
-alphabetical\+\_\+bst$<$ char, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_a92ab334d2417de57e7ac803d32e751d5}{irk\+::coding\+::hutucker\+::compact}} (node\+\_\+ptr$<$ char $>$ root)
+alphabetical\+\_\+bst$<$ char, uint16\+\_\+t, std\+::vector$<$ char $>$ $>$ \mbox{\hyperlink{namespaceirk_1_1coding_1_1hutucker_ae322fefb34195e8581517ef1044be234}{irk\+::coding\+::hutucker\+::compact}} (const node\+\_\+ptr$<$ char $>$ \&root)
 \begin{DoxyCompactList}\small\item\em Returns an immutable compact version of the same tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

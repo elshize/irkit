@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fast_5funion_5fmerge_5fview',['fast_union_merge_view',['../classirk_1_1view_1_1fast__union__merge__view.html',1,'irk::view']]]
+  ['hutucker_5fcodec',['hutucker_codec',['../classirk_1_1hutucker__codec.html',1,'irk']]]
 ];

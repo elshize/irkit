@@ -1,4 +1,10 @@
 language: cpp
+env:
+  global:
+    - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+cache:
+  directories:
+    - ${DEPS_DIR}/llvm
 matrix:
   include:
     - os: linux
@@ -10,6 +16,18 @@ matrix:
     - os: linux
       env:
         - MATRIX_EVAL="SUITE=benchmarks && CC=gcc-7 && CXX=g++-7"
+    #- os: linux
+    #  addons:
+    #    apt:
+    #      sources:
+    #        - ubuntu-toolchain-r-test
+    #        - llvm-toolchain-trusty-6.0
+    #      packages:
+    #        - clang-6.0
+    #        - libboost-all-dev
+    #        - g++-7
+    #  env:
+    #    - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
       addons:
         apt:
@@ -17,26 +35,16 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-6.0
           packages:
-            - clang-6.0
-      env:
-        - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
-          packages:
-            - g++-7
-            - libboost-all-dev
             - clang-6.0
             - clang-tidy-6.0
+            - libboost-all-dev
       env:
-        - MATRIX_EVAL="SUITE=clang-tidy && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
       script:
+        - cd ${TRAVIS_BUILD_DIR}
         - git clone https://github.com/llvm-mirror/clang-tools-extra/
         - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
-        - mkdir tidy && cd tidy
+        - cd build
         - cp ../.clang-tidy ./
         - ../scripts/clang-tidy.sh
     - os: linux
@@ -65,7 +73,54 @@ matrix:
       script:
         - scripts/vera.sh
 before_install:
-    - eval "${MATRIX_EVAL}"
+  - eval "${MATRIX_EVAL}"
+  - |
+    # Install libc++ (if clang)
+    if [[ $CXX = *"clang"* ]]; then
+      LLVM_VERSION=6.0.1
+      LLVM_DIR=${DEPS_DIR}/llvm/llvm-${LLVM_VERSION}
+      if [ ! -f ${LLVM_DIR}/cached ]; then
+        LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
+        LIBCXX_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxx-${LLVM_VERSION}.src.tar.xz"
+        LIBCXXABI_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxxabi-${LLVM_VERSION}.src.tar.xz"
+        mkdir -p ${LLVM_DIR} ${LLVM_DIR}/build ${LLVM_DIR}/projects/libcxx ${LLVM_DIR}/projects/libcxxabi
+        travis_retry wget --quiet -O - ${LLVM_URL}      | tar --strip-components=1 -xJ -C ${LLVM_DIR}
+        travis_retry wget --quiet -O - ${LIBCXX_URL}    | tar --strip-components=1 -xJ -C ${LLVM_DIR}/projects/libcxx
+        travis_retry wget --quiet -O - ${LIBCXXABI_URL} | tar --strip-components=1 -xJ -C ${LLVM_DIR}/projects/libcxxabi
+        (cd ${LLVM_DIR}/build && cmake .. -DCMAKE_INSTALL_PREFIX=${LLVM_DIR}/install -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_BUILD_TYPE=Release)
+        (cd ${LLVM_DIR}/build/projects/libcxx && make install -j2)
+        (cd ${LLVM_DIR}/build/projects/libcxxabi && make install -j2)
+        touch ${LLVM_DIR}/cached
+      fi
+      export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -nostdinc++ -I${LLVM_DIR}/install/include/c++/v1 -Wno-unused-command-line-argument"
+      export LDFLAGS="${LDFLAGS} -L${LLVM_DIR}/install/lib -Wl,-rpath,${LLVM_DIR}/install/lib"
+      export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LLVM_DIR}/install/lib"
+    fi
+  - |
+    # Install conan
+    export PATH=$HOME/.local/bin:$PATH
+    pip install --user conan
+    conan profile new default --detect
+    conan profile update settings.compiler.libcxx=libstdc++11 default
+    if [[ $CXX = *"clang"* ]]; then
+        conan profile update env.CC=clang-6.0 default
+        conan profile update env.CXX=clang++-6.0 default
+        conan profile update settings.compiler.libcxx=libc++ default
+    fi
+    conan remote add irkit https://api.bintray.com/conan/elshize/irkit
+    conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+    conan remote add cliutils https://api.bintray.com/conan/cliutils/CLI11
+    conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+    conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
+  - |
+    # Print environment
+    which $CXX
+    which $CC
+    $CXX --version
+    which cmake
+    cmake --version
+    conan --version
+    conan profile show default
 addons:
   apt:
     sources:
@@ -74,12 +129,11 @@ addons:
       - g++-7
       - libboost-all-dev
 install:
-  - git clone https://github.com/google/gumbo-parser.git
-  - cd gumbo-parser
-  - ./autogen.sh
-  - ./configure
-  - make
-  - sudo make install
-  - cd ../
+  - |
+    # Configure project
+    cd ${TRAVIS_BUILD_DIR}
+    mkdir build && cd build
+    conan install .. --build=missing -o irkit:use_system_boost=True
 script:
+  - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"

@@ -2,30 +2,54 @@
 \label{io_8hpp}\index{include/irkit/io.\+hpp@{include/irkit/io.\+hpp}}
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$bitset$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$boost/concept/assert.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/dynamic\+\_\+bitset.\+hpp$>$}\newline
 {\ttfamily \#include $<$boost/filesystem.\+hpp$>$}\newline
-{\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$gsl/span$>$}\newline
-{\ttfamily \#include $<$vector$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/bitptr.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/bitstream.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/coding.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}irkit/coding/varbyte.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$irkit/bitptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/bitstream.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/coding.\+hpp$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classirk_1_1io_1_1detail_1_1line}{irk\+::io\+::detail\+::line}}
+\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk_1_1io}{irk\+::io}}
+\item 
+ \mbox{\hyperlink{namespaceirk_1_1io_1_1detail}{irk\+::io\+::detail}}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceirk_1_1io_aca7c3fe4077d1c97e51700fbf746d2e5}{irk\+::io\+::line\+\_\+iterator}} = std\+::istream\+\_\+iterator$<$ detail\+::line $>$
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{namespaceirk_1_1io_aa9967d537be4185e88420785431fb63b}{irk\+::io\+::enforce\+\_\+exist}} (const fs\+::path \&file)
 \item 
-void \mbox{\hyperlink{namespaceirk_1_1io_aa680509002f530048131492dea584724}{irk\+::io\+::load\+\_\+data}} (fs\+::path data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+void \mbox{\hyperlink{namespaceirk_1_1io_a2ec8cb8d9886450819cc9ee7ff2049ce}{irk\+::io\+::load\+\_\+data}} (const fs\+::path \&data\+\_\+file, std\+::vector$<$ char $>$ \&data\+\_\+container)
+\item 
+void \mbox{\hyperlink{namespaceirk_1_1io_af4c16c7d4b0a5323130f2b8dd2be8462}{irk\+::io\+::load\+\_\+lines}} (const fs\+::path \&data\+\_\+file, std\+::vector$<$ std\+::string $>$ \&lines)
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{namespaceirk_1_1io_af11c57444a8b26150af8c6cbaa8ef093}{irk\+::io\+::load\+\_\+lines}} (const fs\+::path \&data\+\_\+file)
 \item 
 {\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_a6b56c2c88f08eba5647f662fe701be3c}{irk\+::io\+::append\+\_\+object}} (const T \&object, std\+::vector$<$ char $>$ \&buffer)
 \begin{DoxyCompactList}\small\item\em Appends the underlying bytes of an object to a byte buffer. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Collection $>$ }\\void \mbox{\hyperlink{namespaceirk_1_1io_ae89e77960d5da14cd0068835eaa3a442}{irk\+::io\+::append\+\_\+collection}} (const Collection \&collection, std\+::vector$<$ char $>$ \&buffer)
 \begin{DoxyCompactList}\small\item\em Appends the underlying bytes of a collection to a byte buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Michal Siedlaczek 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+M\+IT License 
+\end{DoxyCopyright}

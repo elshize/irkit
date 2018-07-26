@@ -2,13 +2,13 @@
 \label{utils_8hpp}\index{include/irkit/utils.\+hpp@{include/irkit/utils.\+hpp}}
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$ostream$>$}\newline
-{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
-{\ttfamily \#include \char`\"{}irkit/types.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$range/v3/utility/concepts.\+hpp$>$}\newline
+{\ttfamily \#include $<$irkit/types.\+hpp$>$}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator$<$ Posting $>$}}
+class \mbox{\hyperlink{classirk_1_1top__k__accumulator}{irk\+::top\+\_\+k\+\_\+accumulator$<$ Key, Value $>$}}
 \begin{DoxyCompactList}\small\item\em An container accumulating top-\/k postings (or results). \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classirk_1_1view_1_1ZipView}{irk\+::view\+::\+Zip\+View$<$ Zip\+Fn, Left\+Range, Right\+Range $>$}}
 \begin{DoxyCompactList}\small\item\em A zip view of two ranges. \end{DoxyCompactList}\item 
@@ -18,15 +18,15 @@ class \mbox{\hyperlink{classirk_1_1view_1_1ZipView_1_1const__iterator}{irk\+::vi
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespaceirk}{irk}}
-\begin{DoxyCompactList}\small\item\em Codecs and coding utilities. \end{DoxyCompactList}\item 
+\item 
  \mbox{\hyperlink{namespaceirk_1_1view}{irk\+::view}}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \mbox{\hyperlink{namespaceirk_a42f50afae2f0061834dba164c1456908}{irk\+::nbits}} (T n)
+{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr int16\+\_\+t \mbox{\hyperlink{namespaceirk_a31c9646eabcf838e134496617adcde5e}{irk\+::nbits}} (T n)
 \begin{DoxyCompactList}\small\item\em Computes the number of bits required to store an integer n. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr unsigned short \mbox{\hyperlink{namespaceirk_ac58a8542fe93e44f62867d97613007ae}{irk\+::nbytes}} (T n)
+{\footnotesize template$<$typename T , C\+O\+N\+C\+E\+P\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+S\+\_\+(ranges\+::\+Integral$<$ T $>$()) $>$ }\\constexpr int16\+\_\+t \mbox{\hyperlink{namespaceirk_a655971fe9a3706528f14c395f938d416}{irk\+::nbytes}} (T n)
 \begin{DoxyCompactList}\small\item\em Computes the number of full bytes required to store an integer n. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Zip\+Fn , class Left\+Range , class Right\+Range $>$ }\\auto \mbox{\hyperlink{namespaceirk_1_1view_a1375ca93181b0bcbc509d6b0bf6c5be9}{irk\+::view\+::zip}} (Left\+Range left, Right\+Range right, Zip\+Fn zip\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Constructs a zip view. \end{DoxyCompactList}\item 
