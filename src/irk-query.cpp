@@ -65,7 +65,7 @@ inline void run_query(const Index& index,
     std::vector<std::string>& query,
     int k,
     bool stem,
-    std::string remap_name,
+    const std::string& remap_name,
     std::optional<document_t> cutoff,
     std::optional<int> trecid)
 {

@@ -271,7 +271,7 @@ public:
         auto block = pos_in_block == 0 ? block_count : block_count - 1;
         return iterator(*this,
             blocks_,
-            block_offsets_.size() - 1,
+            block,
             pos_in_block,
             keys_per_block_,
             codec_);

@@ -30,9 +30,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/log/trivial.hpp>
 
+#include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
-#include <irkit/compacttable.hpp>
 
 using boost::filesystem::path;
 using irk::index::document_t;

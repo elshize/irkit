@@ -139,8 +139,8 @@ public:
         int block_size,
         bool skip_unique = false)
         : target_dir_(target_dir),
-          block_size_(block_size),
-          skip_unique_(skip_unique)
+          skip_unique_(skip_unique),
+          block_size_(block_size)
     {
         for (fs::path index_dir : indices) {
             sources_.emplace_back(index_dir);
