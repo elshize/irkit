@@ -218,10 +218,10 @@ private:
             % block_size_;
     }
 
-    int block_size_;
     const view_type& view_;
     int block_;
     int pos_;
+    int block_size_;
     const std::size_t block_count_;
     mutable int decoded_block_num_;
     mutable std::vector<value_type> decoded_block_;

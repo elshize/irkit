@@ -139,8 +139,8 @@ public:
         int block_size,
         bool skip_unique = false)
         : target_dir_(target_dir),
-          block_size_(block_size),
-          skip_unique_(skip_unique)
+          skip_unique_(skip_unique),
+          block_size_(block_size)
     {
         for (fs::path index_dir : indices) {
             sources_.emplace_back(index_dir);
@@ -276,12 +276,15 @@ public:
 
     void merge_titles()
     {
+        std::cout << "xxxxx" << std::endl;
         std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
+            std::cout << "I" << std::endl;
             for (const std::string& title : index.titles())
-            { tout << title << std::endl; }
+            {
+                tout << title << std::endl;
+            }
         }
-        tout.close();
     }
 
     std::pair<int32_t, double> merge_sizes()

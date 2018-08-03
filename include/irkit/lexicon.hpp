@@ -106,7 +106,8 @@ public:
         std::string k;
         codec_.reset();
         codec_.decode(bin, k);
-        while (k < key) {
+        int idx = 1;
+        while (k < key && idx++ < keys_per_block_) {
             codec_.decode(bin, k);
             ++value;
         }
@@ -218,9 +219,6 @@ public:
             }
         }
 
-        //void advance(long n)
-        //{ for (int idx = 0; idx < n; idx++) { increment(); } }
-
         bool equal(const iterator& other) const
         {
             return block_num_ == other.block_num_
@@ -234,6 +232,7 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
+            if (block >= lex_.block_offsets_.size()) { return; }
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());
@@ -270,7 +269,7 @@ public:
         auto block = pos_in_block == 0 ? block_count : block_count - 1;
         return iterator(*this,
             blocks_,
-            block_offsets_.size() - 1,
+            block,
             pos_in_block,
             keys_per_block_,
             codec_);
