@@ -219,9 +219,6 @@ public:
             }
         }
 
-        //void advance(long n)
-        //{ for (int idx = 0; idx < n; idx++) { increment(); } }
-
         bool equal(const iterator& other) const
         {
             return block_num_ == other.block_num_
@@ -235,6 +232,7 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
+            if (block >= lex_.block_offsets_.size()) return;
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());

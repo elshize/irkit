@@ -276,12 +276,15 @@ public:
 
     void merge_titles()
     {
+        std::cout << "xxxxx" << std::endl;
         std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
+            std::cout << "I" << std::endl;
             for (const std::string& title : index.titles())
-            { tout << title << std::endl; }
+            {
+                tout << title << std::endl;
+            }
         }
-        tout.close();
     }
 
     std::pair<int32_t, double> merge_sizes()
