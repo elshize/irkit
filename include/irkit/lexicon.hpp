@@ -232,7 +232,7 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
-            if (block >= lex_.block_offsets_.size()) return;
+            if (block >= lex_.block_offsets_.size()) { return; }
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());

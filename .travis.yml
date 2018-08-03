@@ -28,25 +28,25 @@ matrix:
     #        - g++-7
     #  env:
     #    - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
-          packages:
-            - clang-6.0
-            - clang-tidy-6.0
-            - libboost-all-dev
-      env:
-        - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
-      script:
-        - cd ${TRAVIS_BUILD_DIR}
-        - git clone https://github.com/llvm-mirror/clang-tools-extra/
-        - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
-        - cd build
-        - cp ../.clang-tidy ./
-        - ../scripts/clang-tidy.sh
+    #- os: linux
+    #  addons:
+    #    apt:
+    #      sources:
+    #        - ubuntu-toolchain-r-test
+    #        - llvm-toolchain-trusty-6.0
+    #      packages:
+    #        - clang-6.0
+    #        - clang-tidy-6.0
+    #        - libboost-all-dev
+    #  env:
+    #    - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
+    #  script:
+    #    - cd ${TRAVIS_BUILD_DIR}
+    #    - git clone https://github.com/llvm-mirror/clang-tools-extra/
+    #    - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
+    #    - cd build
+    #    - cp ../.clang-tidy ./
+    #    - ../scripts/clang-tidy.sh
     - os: linux
       env:
         - vera++
