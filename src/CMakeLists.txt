@@ -26,6 +26,7 @@ add_irk(lookup)
 add_irk(disect)
 add_irk(hits)
 add_irk(docidmap)
+add_irk(server)
 
 install(
     TARGETS
@@ -42,4 +43,5 @@ install(
         irk-lexicon
         irk-hits
         irk-docidmap
+        irk-server
     DESTINATION bin)

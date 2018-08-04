@@ -45,9 +45,9 @@ if (IRKit_USE_SYSTEM_BOOST)
         CONAN_PKG::gsl_microsoft
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
+        CONAN_PKG::cpprestsdk
         pthread)
 else()
-    #add_definitions(-DBOOST_LOG_DYN_LINK)
     target_link_libraries(irkit INTERFACE
         CONAN_PKG::boost
         CONAN_PKG::rangev3
@@ -57,6 +57,7 @@ else()
         CONAN_PKG::gsl_microsoft
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
+        CONAN_PKG::cpprestsdk
         pthread)
 endif()
 install(DIRECTORY include/irkit DESTINATION include)

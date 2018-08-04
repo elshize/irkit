@@ -18,14 +18,14 @@
 #define MAXINT INT_MAX
 #define MININT INT_MIN
 
-#define HEAD 2*sizeof(int)
-
 #define SIZE(p)        ((int *)(p))[-1]
 #define SET_SIZE(p, n) ((int *)(p))[-1] = n
 #define CAPACITY(p)    ((int *)(p))[-2]
 
 namespace irk::porter2 {
 typedef unsigned char symbol;
+
+const static int HEAD = 2 * sizeof(int);
 
 /* Or replace 'char' above with 'short' for 16 bit characters.
 
