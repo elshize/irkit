@@ -39,6 +39,7 @@ flags = [
     '-I/home/elshize/dev/irkit/include',
     '-I/usr/local/include',
     '-I/home/elshize/.conan/data/boost/1.66.0/conan/stable/package/164633f2edd487034efdba84f3c488a4b1d123e1/include',
+    '-I/home/elshize/.conan/data/CLI11/1.6.0/cliutils/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include',
     '-Wall',
     '-std=c++17',
 ]

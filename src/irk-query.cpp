@@ -50,13 +50,12 @@ inline std::string ExistingDirectory(const std::string &filename)
     return std::string();
 }
 
-template<class Iter, class Table>
+template<class Table>
 inline void
-prune(Iter begin, Iter end, const Table& doc2rank, document_t doc_cutoff)
+prune(std::vector<uint32_t>& acc, const Table& rank2doc, document_t doc_cutoff)
 {
-    document_t doc = 0;
-    for (Iter it = begin; it != end; ++it) {
-        if (doc2rank[doc++] > doc_cutoff) { *it = 0; }
+    for (document_t id = 0; id < doc_cutoff; ++id) {
+        acc[rank2doc[id]] = 0;
     }
 }
 
@@ -89,9 +88,9 @@ inline void run_query(const Index& index,
     auto after_acc = std::chrono::steady_clock::now();
 
     if (cutoff.has_value()) {
-        auto doc2rank = irk::load_compact_table<document_t>(
-            dir / (remap_name + ".doc2rank"));
-        prune(std::begin(acc), std::end(acc), doc2rank, cutoff.value());
+        auto rank2doc = irk::load_compact_table<document_t>(
+            dir / (remap_name + ".rank2doc"));
+        prune(acc, rank2doc, cutoff.value());
     }
 
     auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);

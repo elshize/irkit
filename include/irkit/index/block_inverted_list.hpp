@@ -152,6 +152,9 @@ public:
     //! Returns the current position within the current block.
     int pos() const { return pos_; }
 
+    //! Returns the index of the current posting.
+    int idx() const { return block_size_ * block_ + pos_; }
+
 private:
     friend class boost::iterator_core_access;
     void increment()
