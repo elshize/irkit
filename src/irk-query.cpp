@@ -84,16 +84,24 @@ inline void run_query(const Index& index,
     std::vector<uint32_t> acc(index.collection_size(), 0);
     auto after_init = std::chrono::steady_clock::now();
 
-    irk::taat(postings, acc);
+    if (not cutoff.has_value()) {
+        irk::taat(postings, acc);
+    }
+    else {
+        auto mem = irk::make_memory_view(dir / (remap_name + ".doc2rank"));
+        irk::compact_table<document_t,
+            irk::vbyte_codec<document_t>,
+            irk::memory_view>
+            doc2rank(mem);
+        irk::taat(postings, acc, doc2rank);
+    }
     auto after_acc = std::chrono::steady_clock::now();
 
-    if (cutoff.has_value()) {
-        auto rank2doc = irk::load_compact_table<document_t>(
-            dir / (remap_name + ".rank2doc"));
-        prune(acc, rank2doc, cutoff.value());
-    }
-
-    auto results = irk::aggregate_top_k<document_t, uint32_t>(acc, k);
+    auto results = cutoff.has_value()
+        ? irk::aggregate_top_k<document_t, uint32_t>(
+              std::begin(acc), std::next(std::begin(acc), *cutoff), k)
+        : irk::aggregate_top_k<document_t, uint32_t>(
+              std::begin(acc), std::end(acc), k);
     auto end_time = std::chrono::steady_clock::now();
 
     auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -107,20 +115,31 @@ inline void run_query(const Index& index,
     auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_time - after_acc);
 
+    std::optional<irk::compact_table<document_t,
+        irk::vbyte_codec<document_t>,
+        irk::memory_view>>
+        rank2doc = std::nullopt;
+    if (cutoff.has_value()) {
+        auto mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
+        rank2doc = irk::compact_table<document_t,
+            irk::vbyte_codec<document_t>,
+            irk::memory_view>(mem);
+    }
     const auto& titles = index.titles();
     int rank = 0;
     for (auto& result : results)
     {
+        std::string title = titles.key_at(
+            cutoff.has_value() ? rank2doc.value()[result.first] : result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
                       << "Q0\t"
-                      << titles.key_at(result.first) << "\t"
+                      << title << "\t"
                       << rank++ << "\t"
                       << result.second << "\tnull\n";
         }
         else {
-            std::cout << titles.key_at(result.first) << "\t" << result.second
-                      << '\n';
+            std::cout << title << "\t" << result.second << '\n';
         }
     }
     std::cerr << "Time: " << total.count() << " ms [ ";

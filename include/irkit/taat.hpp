@@ -86,11 +86,29 @@ void accumulate(const PostingList& postings, AccumulatorVec& accumulators)
     { accumulators[posting.document()] += posting.payload(); }
 }
 
+template<class PostingList, class AccumulatorVec, class DocMapping>
+void map_accumulate(const PostingList& postings,
+    AccumulatorVec& accumulators,
+    const DocMapping& mapping)
+{
+    for (const auto posting : postings)
+    { accumulators[mapping[posting.document()]] += posting.payload(); }
+}
+
 template<class PostingLists, class AccumulatorVec>
 void taat(const PostingLists& posting_lists, AccumulatorVec& accumulators)
 {
     for (const auto& posting_list : posting_lists)
     { accumulate(posting_list, accumulators); }
+}
+
+template<class PostingLists, class AccumulatorVec, class DocMapping>
+void taat(const PostingLists& posting_lists,
+    AccumulatorVec& accumulators,
+    const DocMapping& mapping)
+{
+    for (const auto& posting_list : posting_lists)
+    { map_accumulate(posting_list, accumulators, mapping); }
 }
 
 template<class Key, class Value, class AccumulatorVec>
@@ -101,6 +119,18 @@ aggregate_top_k(const AccumulatorVec& accumulators, int k)
     Key key = 0;
     for (const auto& value : accumulators) {
         top.accumulate(key++, value);
+    }
+    return top.sorted();
+}
+
+template<class Key, class Value, class AccumulatorIter>
+std::vector<std::pair<Key, Value>>
+aggregate_top_k(AccumulatorIter first, AccumulatorIter last, int k)
+{
+    irk::top_k_accumulator<Key, Value> top(k);
+    Key key = 0;
+    for (; first != last; ++first) {
+        top.accumulate(key++, *first);
     }
     return top.sorted();
 }
