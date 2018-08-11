@@ -132,8 +132,12 @@ public:
     };
     using const_iterator = iterator;
 
-    posting_list_view(document_list_type documents, payload_list_type payloads)
-        : documents_(std::move(documents)), payloads_(std::move(payloads))
+    posting_list_view(document_list_type documents,
+        payload_list_type payloads,
+        payload_type max_payload = std::numeric_limits<payload_type>::max())
+        : documents_(std::move(documents)),
+          payloads_(std::move(payloads)),
+          max_payload_(max_payload)
     { EXPECTS(documents_.size() == payloads_.size()); }
 
     iterator begin() const
@@ -149,6 +153,7 @@ public:
 private:
     document_list_type documents_;
     payload_list_type payloads_;
+    payload_type max_payload_;
 };
 
 }  // namespace irk
