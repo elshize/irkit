@@ -71,10 +71,10 @@ public:
     using difference_type = int;
     using value_type = typename ListView::value_type;
 
-    block_iterator(const self_type&) = default;
-    block_iterator(self_type&&) noexcept = default;
-    block_iterator& operator=(const self_type&) = delete;
-    block_iterator& operator=(self_type&&) noexcept = delete;
+    block_iterator(const block_iterator&) = default;
+    block_iterator(block_iterator&&) noexcept = default;
+    block_iterator& operator=(const block_iterator&) = delete;
+    block_iterator& operator=(block_iterator&&) noexcept = delete;
     ~block_iterator() = default;
 
     /*!
@@ -88,12 +88,11 @@ public:
         difference_type pos,
         int block_size)
         : view_(view),
-          block_(block),
-          pos_(pos),
+          pos_(block, pos),
           block_size_(block_size),
-          block_count_(view_.blocks_.size()),
-          decoded_block_num_(-1),
-          decoded_block_(block_size_)
+          block_count_(view_.blocks_.size())  //,
+          //decoded_block_num_(-1),
+          //decoded_block_(block_size_)
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -111,16 +110,18 @@ public:
     self_type& moveto(value_type val)
     {
         static_assert(delta_encoded, "must be delta encoded to call moveto");
-        int block = nextgeq_block(block_, val);
+        int block = nextgeq_block(pos_.block, val);
         if (block >= block_count_)
         {
             finish();
             return *this;
         }
-        pos_ = block == block_ ? pos_ : 0;
-        block_ = block;
+        pos_.off = block == pos_.block ? pos_.off : 0;
+        pos_.block = block;
         ensure_decoded();
-        while (decoded_block_[pos_] < val) { pos_++; }
+        const auto& decoded_block = view_.decoded_blocks_[block];
+        std::cout << decoded_block.size() << std::endl;
+        while (decoded_block[pos_.off] < val) { pos_.off++; }
         return *this;
     };
 
@@ -141,66 +142,94 @@ public:
     template<class BlockIterator>
     self_type& align(const BlockIterator& other)
     {
-        block_ = other.block();
-        pos_ = other.pos();
+        pos_.block = other.block();
+        pos_.off = other.pos();
         return *this;
     }
 
     //! Returns the current block number.
-    int block() const { return block_; }
+    int block() const { return pos_.block; }
 
     //! Returns the current position within the current block.
-    int pos() const { return pos_; }
+    int pos() const { return pos_.off; }
 
     //! Returns the index of the current posting.
-    int idx() const { return block_size_ * block_ + pos_; }
+    int idx() const { return block_size_ * pos_.block + pos_.off; }
 
 private:
+    struct position_t {
+        int32_t block;
+        int32_t off;
+        position_t() = default;
+        position_t(int32_t block, int32_t off) : block(block), off(off) {}
+        position_t(const position_t& other) = default;
+        position_t(position_t&& other) = default;
+        position_t& operator=(const position_t& other) = default;
+        position_t& operator=(position_t&& other) = default;
+        ~position_t() = default;
+
+        bool operator==(const position_t& other) const
+        {
+            const int64_t* p1 = reinterpret_cast<const int64_t*>(&block);
+            const int64_t* p2 = reinterpret_cast<const int64_t*>(&other.block);
+            return *p1 == *p2;
+        }
+
+        bool operator!=(const position_t& other) const
+        {
+            const int64_t* p1 = reinterpret_cast<int64_t*>(&block);
+            const int64_t* p2 = reinterpret_cast<int64_t*>(&other.block);
+            return *p1 != *p2;
+        }
+    };
+
     friend class boost::iterator_core_access;
     void increment()
     {
-        block_ += (pos_ + 1) / view_.block_size_;
-        pos_ = (pos_ + 1) % view_.block_size_;
+        pos_.off++;
+        pos_.block += pos_.off / view_.block_size_;
+        pos_.off %= view_.block_size_;
     }
     void advance(difference_type n)
     {
-        block_ += (pos_ + n) / view_.block_size_;
-        pos_ = (pos_ + n) % view_.block_size_;
+        pos_.off += n;
+        pos_.block += pos_.off / view_.block_size_;
+        pos_.off %= view_.block_size_;
     }
-    bool equal(const self_type& other) const
-    {
-        return pos_ == other.pos_ && block_ == other.block_;
-    }
+    bool equal(const self_type& other) const { return pos_ == other.pos_; }
     const value_type& dereference() const
     {
         ensure_decoded();
-        return decoded_block_[pos_];
+        return view_.decoded_blocks_[pos_.block][pos_.off];
     }
 
     //! Decodes and caches the current block if not decoded.
     void ensure_decoded() const
     {
-        if (block_ != decoded_block_num_)
+        auto& decoded_block = view_.decoded_blocks_[pos_.block];
+        if (decoded_block.empty())
         {
-            auto count = block_ < block_count_ - 1
+            auto count = pos_.block < block_count_ - 1
                 ? block_size_
                 : view_.length_ - ((block_count_ - 1) * block_size_);
             if constexpr (delta_encoded) {  // NOLINT
-                auto preceding = block_ > 0 ? view_.blocks_[block_ - 1].back()
-                                            : 0_id;
+                auto preceding = pos_.block > 0
+                    ? view_.blocks_[pos_.block - 1].back()
+                    : 0_id;
+                decoded_block.resize(block_size_);
                 view_.codec_.delta_decode(
-                    std::begin(view_.blocks_[block_].data()),
-                    std::begin(decoded_block_),
+                    std::begin(view_.blocks_[pos_.block].data()),
+                    std::begin(decoded_block),
                     count,
                     preceding);
             }
             else {
-                decoded_block_.resize(block_size_);
-                view_.codec_.decode(std::begin(view_.blocks_[block_].data()),
-                    std::begin(decoded_block_),
+                decoded_block.resize(block_size_);
+                view_.codec_.decode(
+                    std::begin(view_.blocks_[pos_.block].data()),
+                    std::begin(decoded_block),
                     count);
             }
-            decoded_block_num_ = block_;
         }
     }
 
@@ -216,18 +245,18 @@ private:
     //! Emulates `end()` call on the view.
     void finish()
     {
-        block_ = view_.length_ / view_.block_size_;
-        pos_ = (view_.length_ - ((block_count_ - 1) * block_size_))
+        pos_.block = view_.length_ / view_.block_size_;
+        pos_.off = (view_.length_ - ((block_count_ - 1) * block_size_))
             % block_size_;
     }
 
     const view_type& view_;
-    int block_;
-    int pos_;
-    int block_size_;
+    position_t pos_;
+    int32_t block_size_;
     const std::size_t block_count_;
-    mutable int decoded_block_num_;
-    mutable std::vector<value_type> decoded_block_;
+    //const value_type* const ptr_;
+    //mutable int decoded_block_num_;
+    //mutable std::vector<value_type> decoded_block_;
 };
 
 template<class Value, class Codec, bool delta_encoded = false>
@@ -319,28 +348,19 @@ private:
     irk::vbyte_codec<int32_t> int_codec_;
 };
 
-//! A view of a block document list.
-/*!
- * \tparam Doc  type of document ID, must be integer.
- */
-template<class Codec>
-class block_document_list_view {
+template<class T, class Codec, class L = std::nullopt_t>
+class block_list_view {
+    bool constexpr static delta_encoded = not std::is_same_v<L, std::nullopt_t>;
+
 public:
     using size_type = int32_t;
-    using value_type = document_t;
-    using self_type = block_document_list_view;
-    using iterator = block_iterator<self_type, true>;
+    using value_type = T;
+    using self_type = block_list_view;
+    using iterator = block_iterator<self_type, delta_encoded>;
     using codec_type = Codec;
 
-    block_document_list_view() = default;
-    //! Constructs the view.
-    /*!
-     * \param doc_codec     a codec for document IDs
-     * \param mem           a memory view containing the list
-     * \param length        the number of elements in the list
-     * \param offset        offset from the beginning of `mem`
-     */
-    block_document_list_view(irk::memory_view mem, int32_t length)
+    block_list_view() = default;
+    block_list_view(irk::memory_view mem, int32_t length)
         : length_(length), memory_(std::move(mem))
     {
         auto pos = memory_.begin();
@@ -356,20 +376,36 @@ public:
                 << " does not match memory view size " << memory_.size();
             throw std::runtime_error(str.str());
         }
+        decoded_blocks_.resize(num_blocks);
 
         std::vector<int64_t> skips(num_blocks);
         pos = vb.decode(pos, &skips[0], num_blocks);
-        std::vector<value_type> last_documents(num_blocks);
-        pos = codec_.delta_decode(pos, &last_documents[0], num_blocks);
 
-        for (int block = 0; block < num_blocks - 1; block++) {
-            std::advance(pos, skips[block]);
-            blocks_.emplace_back(last_documents[block],
-                irk::make_memory_view(pos, skips[block + 1]));
+        if constexpr (delta_encoded) {
+            std::vector<value_type> last_documents(num_blocks);
+            pos = codec_.delta_decode(pos, &last_documents[0], num_blocks);
+
+            blocks_.reserve(num_blocks);
+            for (int block = 0; block < num_blocks - 1; block++) {
+                std::advance(pos, skips[block]);
+                blocks_.emplace_back(last_documents[block],
+                    irk::make_memory_view(pos, skips[block + 1]));
+            }
+            std::advance(pos, skips.back());
+            blocks_.emplace_back(last_documents.back(),
+                irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
         }
-        std::advance(pos, skips.back());
-        blocks_.emplace_back(last_documents.back(),
-            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
+        else {
+            blocks_.reserve(num_blocks);
+            for (int block = 0; block < num_blocks - 1; block++) {
+                std::advance(pos, skips[block]);
+                blocks_.emplace_back(
+                    irk::make_memory_view(pos, skips[block + 1]));
+            }
+            std::advance(pos, skips.back());
+            blocks_.emplace_back(irk::make_memory_view(
+                pos, std::distance(pos, std::end(memory_))));
+        }
     }
 
     iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
@@ -395,90 +431,182 @@ public:
     }
 
 private:
-    friend class block_iterator<self_type, true>;
     int32_t length_ = 0;
-    codec_type codec_;
-    std::vector<irk::index::block_view<value_type>> blocks_;
     int32_t block_size_ = 0;
-    irk::memory_view memory_;
+    irk::memory_view memory_{};
+    codec_type codec_{};
+    std::vector<irk::index::block_view<L>> blocks_{};
+    mutable std::vector<std::vector<value_type>> decoded_blocks_{};
+
+    friend class block_iterator<self_type, delta_encoded>;
 };
 
-//! A view of a block payload list.
-/*!
- * \tparam Payload  type of the payload, must be primitive type
- */
+template<class Codec>
+using block_document_list_view = block_list_view<document_t, Codec, document_t>;
+
 template<class Payload, class Codec>
-class block_payload_list_view {
-public:
-    using size_type = int;
-    using value_type = Payload;
-    using codec_type = Codec;
-    using self_type = block_payload_list_view<value_type, codec_type>;
-    using iterator = block_iterator<self_type, false>;
+using block_payload_list_view = block_list_view<Payload, Codec, std::nullopt_t>;
 
-    block_payload_list_view() = default;
-
-    //! Constructs the view.
-    /*!
-     * \param doc_codec     a codec for document IDs
-     * \param mem           a memory view containing the list
-     * \param length        the number of elements in the list
-     * \param offset        offset from the beginning of `mem`
-     */
-    block_payload_list_view(irk::memory_view mem, int32_t length)
-        : length_(length), memory_(std::move(mem))
-    {
-        auto pos = memory_.begin();
-        irk::vbyte_codec<int64_t> vb;
-
-        int64_t list_byte_size, num_blocks;
-        pos = vb.decode(pos, &list_byte_size);
-        pos = vb.decode(pos, &block_size_);
-        pos = vb.decode(pos, &num_blocks);
-        if (list_byte_size != memory_.size()) {
-            std::ostringstream str;
-            str << "list size " << list_byte_size
-                << " does not match memory view size " << memory_.size();
-            throw std::runtime_error(str.str());
-        }
-
-        std::vector<int64_t> skips(num_blocks);
-        pos = vb.decode(pos, &skips[0], num_blocks);
-
-        for (int block = 0; block < num_blocks - 1; block++)
-        {
-            std::advance(pos, skips[block]);
-            blocks_.emplace_back(irk::make_memory_view(pos, skips[block + 1]));
-        }
-        std::advance(pos, skips.back());
-        blocks_.emplace_back(
-            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
-    }
-
-    iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
-    iterator end() const
-    {
-        if (length_ == 0) { return begin(); };
-        auto end_pos =
-            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
-            % block_size_;
-        return iterator{*this, length_ / block_size_, end_pos, block_size_};
-    };
-    int32_t size() const { return length_; }
-    int64_t memory_size() const { return memory_.size(); }
-
-    std::ostream write(std::ostream& out) const
-    {
-        return out.write(memory_.data(), memory_.size());
-    }
-
-private:
-    friend class block_iterator<self_type, false>;
-    int32_t length_ = 0;
-    codec_type codec_;
-    std::vector<irk::index::block_view<>> blocks_;
-    int32_t block_size_ = 0;
-    irk::memory_view memory_;
-};
+////! A view of a block document list.
+///*!
+// * \tparam Doc  type of document ID, must be integer.
+// */
+//template<class Codec>
+//class block_document_list_view {
+//public:
+//    using size_type = int32_t;
+//    using value_type = document_t;
+//    using self_type = block_document_list_view;
+//    using iterator = block_iterator<self_type, true>;
+//    using codec_type = Codec;
+//
+//    block_document_list_view() = default;
+//    //! Constructs the view.
+//    /*!
+//     * \param doc_codec     a codec for document IDs
+//     * \param mem           a memory view containing the list
+//     * \param length        the number of elements in the list
+//     * \param offset        offset from the beginning of `mem`
+//     */
+//    block_document_list_view(irk::memory_view mem, int32_t length)
+//        : length_(length), memory_(std::move(mem))
+//    {
+//        auto pos = memory_.begin();
+//        irk::vbyte_codec<int64_t> vb;
+//
+//        int64_t list_byte_size, num_blocks;
+//        pos = vb.decode(pos, &list_byte_size);
+//        pos = vb.decode(pos, &block_size_);
+//        pos = vb.decode(pos, &num_blocks);
+//        if (list_byte_size != memory_.size()) {
+//            std::ostringstream str;
+//            str << "list size " << list_byte_size
+//                << " does not match memory view size " << memory_.size();
+//            throw std::runtime_error(str.str());
+//        }
+//
+//        std::vector<int64_t> skips(num_blocks);
+//        pos = vb.decode(pos, &skips[0], num_blocks);
+//        std::vector<value_type> last_documents(num_blocks);
+//        pos = codec_.delta_decode(pos, &last_documents[0], num_blocks);
+//
+//        for (int block = 0; block < num_blocks - 1; block++) {
+//            std::advance(pos, skips[block]);
+//            blocks_.emplace_back(last_documents[block],
+//                irk::make_memory_view(pos, skips[block + 1]));
+//        }
+//        std::advance(pos, skips.back());
+//        blocks_.emplace_back(last_documents.back(),
+//            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
+//    }
+//
+//    iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
+//    iterator end() const
+//    {
+//        if (length_ == 0) { return begin(); };
+//        auto end_pos =
+//            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+//            % block_size_;
+//        return iterator{*this, length_ / block_size_, end_pos, block_size_};
+//    };
+//
+//    //! Finds the position of `id` or the next greater.
+//    iterator lookup(value_type id) const { return begin().nextgeq(id); };
+//
+//    int32_t size() const { return length_; }
+//    int64_t memory_size() const { return memory_.size(); }
+//    memory_view memory() const { return memory_; }
+//
+//    std::ostream& write(std::ostream& out) const
+//    {
+//        return out.write(memory_.data(), memory_.size());
+//    }
+//
+//private:
+//    friend class block_iterator<self_type, true>;
+//    int32_t length_ = 0;
+//    codec_type codec_;
+//    std::vector<irk::index::block_view<value_type>> blocks_;
+//    int32_t block_size_ = 0;
+//    irk::memory_view memory_;
+//};
+//
+////! A view of a block payload list.
+///*!
+// * \tparam Payload  type of the payload, must be primitive type
+// */
+//template<class Payload, class Codec>
+//class block_payload_list_view {
+//public:
+//    using size_type = int;
+//    using value_type = Payload;
+//    using codec_type = Codec;
+//    using self_type = block_payload_list_view<value_type, codec_type>;
+//    using iterator = block_iterator<self_type, false>;
+//
+//    block_payload_list_view() = default;
+//
+//    //! Constructs the view.
+//    /*!
+//     * \param doc_codec     a codec for document IDs
+//     * \param mem           a memory view containing the list
+//     * \param length        the number of elements in the list
+//     * \param offset        offset from the beginning of `mem`
+//     */
+//    block_payload_list_view(irk::memory_view mem, int32_t length)
+//        : length_(length), memory_(std::move(mem))
+//    {
+//        auto pos = memory_.begin();
+//        irk::vbyte_codec<int64_t> vb;
+//
+//        int64_t list_byte_size, num_blocks;
+//        pos = vb.decode(pos, &list_byte_size);
+//        pos = vb.decode(pos, &block_size_);
+//        pos = vb.decode(pos, &num_blocks);
+//        if (list_byte_size != memory_.size()) {
+//            std::ostringstream str;
+//            str << "list size " << list_byte_size
+//                << " does not match memory view size " << memory_.size();
+//            throw std::runtime_error(str.str());
+//        }
+//
+//        std::vector<int64_t> skips(num_blocks);
+//        pos = vb.decode(pos, &skips[0], num_blocks);
+//
+//        for (int block = 0; block < num_blocks - 1; block++)
+//        {
+//            std::advance(pos, skips[block]);
+//            blocks_.emplace_back(irk::make_memory_view(pos, skips[block + 1]));
+//        }
+//        std::advance(pos, skips.back());
+//        blocks_.emplace_back(
+//            irk::make_memory_view(pos, std::distance(pos, std::end(memory_))));
+//    }
+//
+//    iterator begin() const { return iterator{*this, 0, 0, block_size_}; };
+//    iterator end() const
+//    {
+//        if (length_ == 0) { return begin(); };
+//        auto end_pos =
+//            (length_ - ((static_cast<int>(blocks_.size()) - 1) * block_size_))
+//            % block_size_;
+//        return iterator{*this, length_ / block_size_, end_pos, block_size_};
+//    };
+//    int32_t size() const { return length_; }
+//    int64_t memory_size() const { return memory_.size(); }
+//
+//    std::ostream write(std::ostream& out) const
+//    {
+//        return out.write(memory_.data(), memory_.size());
+//    }
+//
+//private:
+//    friend class block_iterator<self_type, false>;
+//    int32_t length_ = 0;
+//    codec_type codec_;
+//    std::vector<irk::index::block_view<>> blocks_;
+//    int32_t block_size_ = 0;
+//    irk::memory_view memory_;
+//};
 
 };  // namespace irk::index
