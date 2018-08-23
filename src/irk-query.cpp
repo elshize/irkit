@@ -39,8 +39,10 @@
 
 using std::uint32_t;
 using irk::index::document_t;
+using mapping_t = irk::
+    compact_table<document_t, irk::vbyte_codec<document_t>, irk::memory_view>;
 
-inline std::string ExistingDirectory(const std::string &filename)
+inline std::string ExistingDirectory(const std::string& filename)
 {
     struct stat buffer{};
     bool exist = stat(filename.c_str(), &buffer) == 0;
@@ -65,7 +67,8 @@ inline void run_query(const Index& index,
     std::vector<std::string>& query,
     int k,
     bool stem,
-    const std::string& remap_name,
+    const std::unique_ptr<mapping_t>& doc2rank,
+    const std::unique_ptr<mapping_t>& rank2doc,
     std::optional<document_t> cutoff,
     std::optional<int> trecid)
 {
@@ -84,17 +87,9 @@ inline void run_query(const Index& index,
     std::vector<uint32_t> acc(index.collection_size(), 0);
     auto after_init = std::chrono::steady_clock::now();
 
-    if (remap_name.empty()) {
-        irk::taat(postings, acc);
-    }
-    else {
-        auto mem = irk::make_memory_view(dir / (remap_name + ".doc2rank"));
-        irk::compact_table<document_t,
-            irk::vbyte_codec<document_t>,
-            irk::memory_view>
-            doc2rank(mem);
-        irk::taat(postings, acc, doc2rank);
-    }
+    if (doc2rank == nullptr) { irk::taat(postings, acc); }
+    else { irk::taat(postings, acc, *doc2rank); }
+
     auto after_acc = std::chrono::steady_clock::now();
 
     auto results = cutoff.has_value()
@@ -115,22 +110,12 @@ inline void run_query(const Index& index,
     auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
         end_time - after_acc);
 
-    std::optional<irk::compact_table<document_t,
-        irk::vbyte_codec<document_t>,
-        irk::memory_view>>
-        rank2doc = std::nullopt;
-    if (not remap_name.empty()) {
-        auto mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
-        rank2doc = irk::compact_table<document_t,
-            irk::vbyte_codec<document_t>,
-            irk::memory_view>(mem);
-    }
     const auto& titles = index.titles();
     int rank = 0;
     for (auto& result : results)
     {
-        std::string title = titles.key_at(not remap_name.empty()
-                ? rank2doc.value()[result.first]
+        std::string title = titles.key_at(rank2doc != nullptr
+                ? (*rank2doc)[result.first]
                 : result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
@@ -190,6 +175,19 @@ int main(int argc, char** argv)
     irk::inverted_index_view index(&data);
     std::cerr << " done." << std::endl;
 
+    std::unique_ptr<mapping_t> doc2rank = nullptr;
+    std::unique_ptr<mapping_t> rank2doc = nullptr;
+    if (not remap_name.empty()) {
+        auto d2r_mem = irk::make_memory_view(dir / (remap_name + ".doc2rank"));
+        doc2rank = std::make_unique<irk::compact_table<document_t,
+            irk::vbyte_codec<document_t>,
+            irk::memory_view>>(d2r_mem);
+        auto r2d_mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
+        rank2doc = std::make_unique<irk::compact_table<document_t,
+            irk::vbyte_codec<document_t>,
+            irk::memory_view>>(r2d_mem);
+    }
+
     if (fraccut->count() > 0u) {
         doc_cutoff = static_cast<document_t>(
             frac_cutoff * index.titles().size());
@@ -201,7 +199,8 @@ int main(int argc, char** argv)
             query,
             k,
             stem,
-            remap_name,
+            doc2rank,
+            rank2doc,
             fraccut->count() + idcut->count() > 0u
                 ? std::make_optional(doc_cutoff)
                 : std::nullopt,
@@ -226,7 +225,8 @@ int main(int argc, char** argv)
                     terms,
                     k,
                     stem,
-                    remap_name,
+                    doc2rank,
+                    rank2doc,
                     fraccut->count() + idcut->count() > 0u
                         ? std::make_optional(doc_cutoff)
                         : std::nullopt,
