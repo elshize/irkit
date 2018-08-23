@@ -97,7 +97,6 @@ inline void run_query(const Index& index,
     }
     auto after_acc = std::chrono::steady_clock::now();
 
-    std::cout << *cutoff << std::endl;
     auto results = cutoff.has_value()
         ? irk::aggregate_top_k<document_t, uint32_t>(
               std::begin(acc), std::next(std::begin(acc), *cutoff), k)
