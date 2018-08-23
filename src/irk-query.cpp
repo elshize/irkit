@@ -84,7 +84,7 @@ inline void run_query(const Index& index,
     std::vector<uint32_t> acc(index.collection_size(), 0);
     auto after_init = std::chrono::steady_clock::now();
 
-    if (not cutoff.has_value()) {
+    if (remap_name.empty()) {
         irk::taat(postings, acc);
     }
     else {
@@ -97,6 +97,7 @@ inline void run_query(const Index& index,
     }
     auto after_acc = std::chrono::steady_clock::now();
 
+    std::cout << *cutoff << std::endl;
     auto results = cutoff.has_value()
         ? irk::aggregate_top_k<document_t, uint32_t>(
               std::begin(acc), std::next(std::begin(acc), *cutoff), k)
@@ -119,7 +120,7 @@ inline void run_query(const Index& index,
         irk::vbyte_codec<document_t>,
         irk::memory_view>>
         rank2doc = std::nullopt;
-    if (cutoff.has_value()) {
+    if (not remap_name.empty()) {
         auto mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
         rank2doc = irk::compact_table<document_t,
             irk::vbyte_codec<document_t>,
@@ -129,8 +130,9 @@ inline void run_query(const Index& index,
     int rank = 0;
     for (auto& result : results)
     {
-        std::string title = titles.key_at(
-            cutoff.has_value() ? rank2doc.value()[result.first] : result.first);
+        std::string title = titles.key_at(not remap_name.empty()
+                ? rank2doc.value()[result.first]
+                : result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
                       << "Q0\t"
@@ -168,18 +170,15 @@ int main(int argc, char** argv)
     app.add_flag("-f,--file", stem, "Read queries from file(s)");
     app.add_option(
         "--trecid", trecid, "Print in trec_eval format with this QID");
-    auto remap = app.add_option(
-        "--remap", remap_name, "Name of remapping used for cutoff");
+    app.add_option("--remap", remap_name, "Name of remapping used for cutoff");
     auto fraccut =
         app.add_option("--frac-cutoff",
                frac_cutoff,
                "Early termination cutoff (top fraction of collection)")
-            ->needs(remap)
             ->check(CLI::Range(0.0, 1.0));
     auto idcut = app.add_option("--doc-cutoff",
                         doc_cutoff,
                         "Early termination docID cutoff")
-                     ->needs(remap)
                      ->excludes(fraccut);
     fraccut->excludes(idcut);
     app.add_option("query", query, "Query (or query file with -f)", false)
