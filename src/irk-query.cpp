@@ -40,7 +40,6 @@
 using std::uint32_t;
 using irk::index::document_t;
 using mapping_t = std::vector<document_t>;
-//irk::compact_table<document_t, irk::vbyte_codec<document_t>, irk::memory_view>;
 
 inline std::string ExistingDirectory(const std::string& filename)
 {
@@ -70,7 +69,8 @@ inline void run_query(const Index& index,
     const std::unique_ptr<mapping_t>& doc2rank,
     const std::unique_ptr<mapping_t>& rank2doc,
     std::optional<document_t> cutoff,
-    std::optional<int> trecid)
+    std::optional<int> trecid,
+    std::string_view run_id)
 {
     if (stem) {
         irk::porter2_stemmer stemmer;
@@ -122,7 +122,8 @@ inline void run_query(const Index& index,
                       << "Q0\t"
                       << title << "\t"
                       << rank++ << "\t"
-                      << result.second << "\tnull\n";
+                      << result.second << "\t"
+                      << run_id << "\n";
         }
         else {
             std::cout << title << "\t" << result.second << '\n';
@@ -145,6 +146,7 @@ int main(int argc, char** argv)
     std::string remap_name;
     double frac_cutoff;
     document_t doc_cutoff;
+    std::string run_id = "null";
 
     CLI::App app{"Query inverted index"};
     app.add_option("-d,--index-dir", index_dir, "index directory", true)
@@ -154,6 +156,7 @@ int main(int argc, char** argv)
     app.add_flag("-f,--file", stem, "Read queries from file(s)");
     app.add_option(
         "--trecid", trecid, "Print in trec_eval format with this QID");
+    app.add_option("--run", run_id, "TREC run ID");
     app.add_option("--remap", remap_name, "Name of remapping used for cutoff");
     auto fraccut =
         app.add_option("--frac-cutoff",
@@ -211,7 +214,8 @@ int main(int argc, char** argv)
                 ? std::make_optional(doc_cutoff)
                 : std::nullopt,
             app.count("--trecid") > 0u ? std::make_optional(trecid)
-                                       : std::nullopt);
+                                       : std::nullopt,
+            run_id);
     }
     else {
         std::optional<int> current_trecid = app.count("--trecid") > 0u
@@ -236,7 +240,8 @@ int main(int argc, char** argv)
                     fraccut->count() + idcut->count() > 0u
                         ? std::make_optional(doc_cutoff)
                         : std::nullopt,
-                    current_trecid);
+                    current_trecid,
+                    run_id);
                 if (current_trecid.has_value()) { current_trecid.value()++; }
             }
         }
