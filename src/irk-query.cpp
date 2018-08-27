@@ -186,14 +186,14 @@ int main(int argc, char** argv)
             irk::vbyte_codec<document_t>,
             irk::memory_view>
             doc2rank_table(d2r_mem);
-        auto doc2rank = std::make_unique<mapping_t>();
+        doc2rank = std::make_unique<mapping_t>();
         *doc2rank = doc2rank_table.to_vector();
         auto r2d_mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
         irk::compact_table<document_t,
             irk::vbyte_codec<document_t>,
             irk::memory_view>
             rank2doc_table(r2d_mem);
-        auto rank2doc = std::make_unique<mapping_t>();
+        rank2doc = std::make_unique<mapping_t>();
         *rank2doc = rank2doc_table.to_vector();
     }
 
