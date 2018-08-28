@@ -24,6 +24,8 @@
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
+#pragma once
+
 #include <memory>
 #include <string>
 

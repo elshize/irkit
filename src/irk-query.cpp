@@ -31,6 +31,7 @@
 #include <CLI/Option.hpp>
 #include <boost/filesystem.hpp>
 
+#include <cli.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -41,33 +42,13 @@ using std::uint32_t;
 using irk::index::document_t;
 using mapping_t = std::vector<document_t>;
 
-inline std::string ExistingDirectory(const std::string& filename)
-{
-    struct stat buffer{};
-    bool exist = stat(filename.c_str(), &buffer) == 0;
-    bool is_dir = (buffer.st_mode & S_IFDIR) != 0;  // NOLINT
-    if (not exist) { return "Directory does not exist: " + filename; }
-    if (not is_dir) { return "Directory is actually a file: " + filename; }
-    return std::string();
-}
-
-template<class Table>
-inline void
-prune(std::vector<uint32_t>& acc, const Table& rank2doc, document_t doc_cutoff)
-{
-    for (document_t id = 0; id < doc_cutoff; ++id) {
-        acc[rank2doc[id]] = 0;
-    }
-}
-
 template<class Index>
 inline void run_query(const Index& index,
     const boost::filesystem::path& dir,
     std::vector<std::string>& query,
     int k,
     bool stem,
-    const std::unique_ptr<mapping_t>& doc2rank,
-    const std::unique_ptr<mapping_t>& rank2doc,
+    irk::cli::docmap* reordering,
     std::optional<document_t> cutoff,
     std::optional<int> trecid,
     std::string_view run_id)
@@ -87,8 +68,8 @@ inline void run_query(const Index& index,
     std::vector<uint32_t> acc(index.collection_size(), 0);
     auto after_init = std::chrono::steady_clock::now();
 
-    if (doc2rank == nullptr) { irk::taat(postings, acc); }
-    else { irk::taat(postings, acc, *doc2rank); }
+    if (reordering == nullptr) { irk::taat(postings, acc); }
+    else { irk::taat(postings, acc, reordering->doc2rank()); }
 
     auto after_acc = std::chrono::steady_clock::now();
 
@@ -114,8 +95,8 @@ inline void run_query(const Index& index,
     int rank = 0;
     for (auto& result : results)
     {
-        std::string title = titles.key_at(rank2doc != nullptr
-                ? (*rank2doc)[result.first]
+        std::string title = titles.key_at(reordering != nullptr
+                ? reordering->doc(result.first)
                 : result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
@@ -138,90 +119,47 @@ inline void run_query(const Index& index,
 
 int main(int argc, char** argv)
 {
-    std::string index_dir = ".";
-    std::vector<std::string> query;
-    int k = 1000;
-    bool stem = false;
-    int trecid = -1;
-    std::string remap_name;
-    double frac_cutoff;
-    document_t doc_cutoff;
-    std::string run_id = "null";
+    auto [app, args] = irk::cli::app("Query inverted index",
+        irk::cli::index_dir_opt{},
+        irk::cli::query_opt{},
+        irk::cli::reordering_opt{},
+        irk::cli::metric_opt{},
+        irk::cli::etcutoff_opt{});
+    CLI11_PARSE(*app, argc, argv);
 
-    CLI::App app{"Query inverted index"};
-    app.add_option("-d,--index-dir", index_dir, "index directory", true)
-        ->check(CLI::ExistingDirectory);
-    app.add_option("-k", k, "as in top-k", true);
-    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
-    app.add_flag("-f,--file", stem, "Read queries from file(s)");
-    app.add_option(
-        "--trecid", trecid, "Print in trec_eval format with this QID");
-    app.add_option("--run", run_id, "TREC run ID");
-    app.add_option("--remap", remap_name, "Name of remapping used for cutoff");
-    auto fraccut =
-        app.add_option("--frac-cutoff",
-               frac_cutoff,
-               "Early termination cutoff (top fraction of collection)")
-            ->check(CLI::Range(0.0, 1.0));
-    auto idcut = app.add_option("--doc-cutoff",
-                        doc_cutoff,
-                        "Early termination docID cutoff")
-                     ->excludes(fraccut);
-    fraccut->excludes(idcut);
-    app.add_option("query", query, "Query (or query file with -f)", false)
-        ->required();
-    CLI11_PARSE(app, argc, argv);
-
-    std::cerr << "Loading index..." << std::flush;
-    boost::filesystem::path dir(index_dir);
+    boost::filesystem::path dir(args->index_dir);
     irk::inverted_index_mapped_data_source data(dir, "bm25");
     irk::inverted_index_view index(&data);
-    std::cerr << " done." << std::endl;
 
-    std::unique_ptr<mapping_t> doc2rank = nullptr;
-    std::unique_ptr<mapping_t> rank2doc = nullptr;
-    if (not remap_name.empty()) {
-        auto d2r_mem = irk::make_memory_view(dir / (remap_name + ".doc2rank"));
-        irk::compact_table<document_t,
-            irk::vbyte_codec<document_t>,
-            irk::memory_view>
-            doc2rank_table(d2r_mem);
-        doc2rank = std::make_unique<mapping_t>();
-        *doc2rank = doc2rank_table.to_vector();
-        auto r2d_mem = irk::make_memory_view(dir / (remap_name + ".rank2doc"));
-        irk::compact_table<document_t,
-            irk::vbyte_codec<document_t>,
-            irk::memory_view>
-            rank2doc_table(r2d_mem);
-        rank2doc = std::make_unique<mapping_t>();
-        *rank2doc = rank2doc_table.to_vector();
+    std::unique_ptr<irk::cli::docmap> reordering = nullptr;
+    if (not args->reordering.empty()) {
+        *reordering = irk::cli::docmap::from_files(args->reordering);
     }
 
-    if (fraccut->count() > 0u) {
-        doc_cutoff = static_cast<document_t>(
-            frac_cutoff * index.titles().size());
+    if (app->count("--frac-cutoff") > 0u) {
+        args->doc_cutoff = static_cast<document_t>(
+            args->frac_cutoff * index.titles().size());
     }
 
-    if (app.count("--file") == 0u) {
+    if (not args->read_files) {
         run_query(index,
-            dir,
-            query,
-            k,
-            stem,
-            doc2rank,
-            rank2doc,
-            fraccut->count() + idcut->count() > 0u
-                ? std::make_optional(doc_cutoff)
+            args->index_dir,
+            args->terms_or_files,
+            args->k,
+            not args->nostem,
+            reordering.get(),
+            app->count("--frac-cutoff") + app->count("--doc-cutoff") > 0u
+                ? std::make_optional(args->doc_cutoff)
                 : std::nullopt,
-            app.count("--trecid") > 0u ? std::make_optional(trecid)
-                                       : std::nullopt,
-            run_id);
+            args->trecid != -1 ? std::make_optional(args->trecid)
+                               : std::nullopt,
+            args->trecrun);
     }
     else {
-        std::optional<int> current_trecid = app.count("--trecid") > 0u
-            ? std::make_optional(trecid)
+        std::optional<int> current_trecid = app->count("--trecid") > 0u
+            ? std::make_optional(args->trecid)
             : std::nullopt;
-        for (const auto& file : query) {
+        for (const auto& file : args->terms_or_files) {
             std::ifstream in(file);
             std::string q;
             while(std::getline(in, q))
@@ -231,17 +169,17 @@ int main(int argc, char** argv)
                 std::vector<std::string> terms;
                 while (qin >> term) { terms.push_back(std::move(term)); }
                 run_query(index,
-                    dir,
-                    terms,
-                    k,
-                    stem,
-                    doc2rank,
-                    rank2doc,
-                    fraccut->count() + idcut->count() > 0u
-                        ? std::make_optional(doc_cutoff)
+                    args->index_dir,
+                    args->terms_or_files,
+                    args->k,
+                    not args->nostem,
+                    reordering.get(),
+                    app->count("--frac-cutoff") + app->count("--doc-cutoff")
+                            > 0u
+                        ? std::make_optional(args->doc_cutoff)
                         : std::nullopt,
                     current_trecid,
-                    run_id);
+                    args->trecrun);
                 if (current_trecid.has_value()) { current_trecid.value()++; }
             }
         }

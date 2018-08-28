@@ -73,7 +73,7 @@ public:
     using entry_type = std::pair<key_type, value_type>;
 private:
     std::size_t k_;
-    key_type threshold_ = 0;
+    value_type threshold_ = 0;
     std::vector<entry_type> top_;
 
     static bool result_order(const entry_type& lhs, const entry_type& rhs)
@@ -94,8 +94,10 @@ public:
      * If `posting.score` is higher than threshold(), `posting` is accumulated.
      * Furthermore, if the container grows beyond `k`, the lowest scoring
      * posting is discarded.
+     *
+     * \return  `true` if accumulated
      */
-    void accumulate(key_type key, value_type value)
+    bool accumulate(key_type key, value_type value)
     {
         if (value > threshold_) {
             top_.emplace_back(key, value);
@@ -106,7 +108,9 @@ public:
                 top_.pop_back();
             }
             threshold_ = top_.size() == k_ ? top_[0].second : threshold_;
+            return true;
         }
+        return false;
     }
 
     //! Produces the sorted list of the accumulated postings.
@@ -120,6 +124,8 @@ public:
         std::sort(sorted.begin(), sorted.end(), result_order);
         return sorted;
     }
+
+    const std::vector<entry_type>& unsorted() const { return top_; }
 
     //! Returns the current top-k threshold.
     /*!

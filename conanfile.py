@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake
 
 
-class HelloConan(ConanFile):
+class IRKConan(ConanFile):
     name = "irkit"
     version = "0.1"
     url = "https://github.com/elshize/irkit"
@@ -46,6 +46,7 @@ class HelloConan(ConanFile):
         self.requires("gumbo-parser/1.0@elshize/stable")
         self.requires("rangev3/master@elshize/testing")
         self.requires("rax/master@elshize/testing")
+        self.requires("irm/0.1@elshize/develop")
 
         if not self.options.use_system_boost:
             self.requires("boost/1.66.0@conan/stable")
