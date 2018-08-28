@@ -59,6 +59,7 @@ class IRKConan(ConanFile):
         self.requires("type_safe/0.1@Manu343726/testing")
         self.requires("gsl_microsoft/1.0.0@bincrafters/stable")
         self.requires("jsonformoderncpp/3.1.2@vthiery/stable")
+        self.requires("spdlog/1.1.0@bincrafters/stable")
 
     def configure(self):
         self.options["boost"].shared = False

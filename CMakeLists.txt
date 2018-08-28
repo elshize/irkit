@@ -8,9 +8,12 @@ option(IRKit_BUILD_BENCHMARKS "whether or not to build the benchmarks" OFF)
 option(IRKit_USE_SYSTEM_BOOST "use system boost instead of conan dependency" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
+    set(CMAKE_BUILD_TYPE "Release")
 endif()
 MESSAGE(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
+if(CMAKE_BUILD_TYPE EQUAL "Debug")
+    add_compile_definitions("SPDLOG_DEBUG_ON")
+endif()
 
 set(IRKit_CXX_PRIVATE_FEATURES cxx_std_17)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99 -fno-strict-aliasing -march=native")
@@ -45,6 +48,7 @@ if (IRKit_USE_SYSTEM_BOOST)
         CONAN_PKG::gsl_microsoft
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
+        CONAN_PKG::spdlog
         pthread)
 else()
     #add_definitions(-DBOOST_LOG_DYN_LINK)
@@ -57,6 +61,7 @@ else()
         CONAN_PKG::gsl_microsoft
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
+        CONAN_PKG::spdlog
         pthread)
 endif()
 install(DIRECTORY include/irkit DESTINATION include)

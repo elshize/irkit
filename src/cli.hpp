@@ -38,7 +38,6 @@
 namespace irk::cli {
 
 using document_t = index::document_t;
-using namespace std::literals;
 
 class docmap {
 public:
@@ -224,115 +223,5 @@ inline void stem_if(bool stem, std::vector<std::string>& terms)
         for (auto& term : terms) { term = stemmer.stem(term); }
     }
 }
-
-//template<class... OptionConstructors>
-//inline std::unique_ptr<CLI::App>
-//app(const std::string& description, OptionConstructors... constructors)
-//{
-//    auto app = std::make_unique<CLI::App>(description);
-//    (constructors(*app), ...);
-//    return std::move(app);
-//}
-
-//inline auto index_dir(std::string& dir)
-//{
-//    return [&dir](CLI::App& app) {
-//        app.add_option("-d,--index-dir", dir, "index directory", true)
-//            ->check(CLI::ExistingDirectory);
-//    };
-//}
-//
-//inline auto query(std::vector<std::string>& terms_or_files,
-//    int& k,
-//    bool& nostem,
-//    bool& read_files)
-//{
-//    return [&](CLI::App& app) {
-//        app.add_option("query (files)",
-//               terms_or_files,
-//               "Query terms, or query files if -f defined",
-//               false)
-//            ->required();
-//        app.add_option("-k", k, "number of documents to retrieve", true);
-//        app.add_flag("--nostem", nostem, "Skip stemming terms (Porter2)");
-//        app.add_flag("-f,--file", read_files, "Read queries from file(s)");
-//    };
-//}
-
-//template<class Index, class Args>
-//inline void run_query(const Index& index,
-//    const boost::filesystem::path& dir,
-//    std::vector<std::string>& query,
-//    int k,
-//    bool stem,
-//    const std::unique_ptr<mapping_t>& doc2rank,
-//    const std::unique_ptr<mapping_t>& rank2doc,
-//    std::optional<document_t> cutoff,
-//    std::optional<int> trecid,
-//    std::string_view run_id)
-//{
-//    if (stem) {
-//        irk::porter2_stemmer stemmer;
-//        for (auto& term : query) {
-//            term = stemmer.stem(term);
-//        }
-//    }
-//
-//    auto start_time = std::chrono::steady_clock::now();
-//
-//    auto postings = irk::query_postings(index, query);
-//    auto after_fetch = std::chrono::steady_clock::now();
-//
-//    std::vector<uint32_t> acc(index.collection_size(), 0);
-//    auto after_init = std::chrono::steady_clock::now();
-//
-//    if (doc2rank == nullptr) { irk::taat(postings, acc); }
-//    else { irk::taat(postings, acc, *doc2rank); }
-//
-//    auto after_acc = std::chrono::steady_clock::now();
-//
-//    auto results = cutoff.has_value()
-//        ? irk::aggregate_top_k<document_t, uint32_t>(
-//              std::begin(acc), std::next(std::begin(acc), *cutoff), k)
-//        : irk::aggregate_top_k<document_t, uint32_t>(
-//              std::begin(acc), std::end(acc), k);
-//    auto end_time = std::chrono::steady_clock::now();
-//
-//    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
-//        end_time - start_time);
-//    auto fetch = std::chrono::duration_cast<std::chrono::milliseconds>(
-//        after_fetch - start_time);
-//    auto init = std::chrono::duration_cast<std::chrono::milliseconds>(
-//        after_init - after_fetch);
-//    auto accum = std::chrono::duration_cast<std::chrono::milliseconds>(
-//        after_acc - after_init);
-//    auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
-//        end_time - after_acc);
-//
-//    const auto& titles = index.titles();
-//    int rank = 0;
-//    for (auto& result : results)
-//    {
-//        std::string title = titles.key_at(rank2doc != nullptr
-//                ? (*rank2doc)[result.first]
-//                : result.first);
-//        if (trecid.has_value()) {
-//            std::cout << *trecid << '\t'
-//                      << "Q0\t"
-//                      << title << "\t"
-//                      << rank++ << "\t"
-//                      << result.second << "\t"
-//                      << run_id << "\n";
-//        }
-//        else {
-//            std::cout << title << "\t" << result.second << '\n';
-//        }
-//    }
-//    std::cerr << "Time: " << total.count() << " ms [ ";
-//    std::cerr << "Fetch: " << fetch.count() << " / ";
-//    std::cerr << "Init: " << init.count() << " / ";
-//    std::cerr << "Acc: " << accum.count() << " / ";
-//    std::cerr << "Agg: " << agg.count() << " ]\n";
-//}
 
 }  // namespace irk::cli

@@ -33,6 +33,8 @@
 #include <boost/log/trivial.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <irm.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 
 #include <cli.hpp>
 #include <irkit/compacttable.hpp>
@@ -55,11 +57,17 @@ inline void run_query(const Index& index,
     bool nostem,
     const irk::cli::docmap& reordering,
     const metric_t& metric,
-    const std::string& trecid)
+    const std::string& trecid,
+    int eval_step)
 {
+    auto log = spdlog::get("stderr");
     irk::cli::stem_if(not nostem, query);
 
-    //BOOST_LOG_TRIVIAL(debug) << "Calculating actual accuracy" << std::flush;
+    log->info("Processing query {} ({})",
+        trecid,
+        fmt::join(query.begin(), query.end(), ", "));
+    log->info("Running exhaustive");
+
     auto postings = irk::query_postings(index, query);
     std::vector<uint32_t> acc(index.collection_size(), 0);
     irk::taat(postings, acc);
@@ -80,21 +88,20 @@ inline void run_query(const Index& index,
         std::back_inserter(relevances),
         [](const auto& r) -> int { return r.relevance; });
     double actual = metric(relevances);
-    //BOOST_LOG_TRIVIAL(debug) << "Actual: " << actual << std::flush;
+    log->info("Exhaustive score: {}", actual);
 
     std::unordered_map<std::string, int> relmap;
     for (const auto& rel : qrels) { relmap[rel.document_id] = rel.relevance; }
 
     /* Optimize */
+    log->info("Running early termination");
     std::fill(std::begin(acc), std::end(acc), 0);
-    //BOOST_LOG_TRIVIAL(debug) << "Accumulating with reordering" << std::flush;
     irk::taat(postings, acc, reordering.doc2rank());
-    //BOOST_LOG_TRIVIAL(debug) << "Aggregating" << std::flush;
     irk::top_k_accumulator<document_t, uint32_t> top(k);
     document_t doc = 0;
     for (const auto& score : acc) {
         top.accumulate(reordering.doc(doc++), score);
-        if (doc % 500'000 == 0) {
+        if (doc % eval_step == 0) {
             rank = 0;
             trec_results.clear();
             relevances.clear();
@@ -124,12 +131,11 @@ inline void run_query(const Index& index,
                 [](const auto& r) -> int { return r.relevance; });
             double m = metric(relevances);
             if (m > actual - 0.01) { break; }
-            //BOOST_LOG_TRIVIAL(debug) << "Accumulated " << doc << " documents ["
-            //                         << m << "]" << std::flush;
+            log->info("Accumulated {:n} documents (score: {}; goal: {})",
+                      doc, m, actual);
         }
     }
-    //BOOST_LOG_TRIVIAL(debug)
-    //    << "Converged after " << doc << " documents" << std::flush;
+    log->info("Converged after {} documents", doc);
     std::cout << static_cast<double>(doc) / index.collection_size() << std::endl;
 }
 
@@ -142,6 +148,8 @@ int main(int argc, char** argv)
         irk::cli::reordering_opt{},
         irk::cli::metric_opt{});
     std::string qrels_file;
+    int eval_step = 100'000;
+    app->add_option("--step", eval_step, "Evaluation step", true);
     app->add_option(
            "-q,--qrels", qrels_file, "Query relevance file in TREC format")
         ->required();
@@ -160,6 +168,7 @@ int main(int argc, char** argv)
     auto qrels = irm::read_trec_rels(qrels_file);
     auto grouped_rels = group_by_query(qrels);
 
+    auto console = spdlog::stderr_color_mt("stderr");
     if (args->read_files) {
         int current_trecid = args->trecid;
         for (const auto& file : args->terms_or_files)
@@ -181,7 +190,8 @@ int main(int argc, char** argv)
                     args->nostem,
                     reordering.value(),
                     irm::parse_metric(args->metric),
-                    trecid);
+                    trecid,
+                    eval_step);
             }
         }
     }
@@ -195,7 +205,8 @@ int main(int argc, char** argv)
             args->nostem,
             reordering.value(),
             irm::parse_metric(args->metric),
-            trecid);
+            trecid,
+            eval_step);
     }
 
     //if (app->count("--file") == 0u) {
