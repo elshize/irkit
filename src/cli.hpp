@@ -151,8 +151,8 @@ struct metric_opt {
     template<class Args>
     void set(CLI::App& app, Args& args)
     {
-        auto opt = app.add_option(
-            "-m,--metric", args->metric, "Metric name", false);
+        auto opt =
+            app.add_option("-m,--metric", args->metric, "Metric name", false);
         if (required) { opt->required(); }
     }
 };
@@ -165,14 +165,15 @@ struct etcutoff_opt {
     void set(CLI::App& app, Args& args)
     {
         auto frac_cutoff_ptr =
-            app.add_option("--frac-cutoff",
+            app.add_option(
+                   "--frac-cutoff",
                    frac_cutoff,
                    "Early termination cutoff (top fraction of collection)")
                 ->check(CLI::Range(0.0, 1.0));
-        auto doc_cutoff_ptr = app.add_option("--doc-cutoff",
-                                     doc_cutoff,
-                                     "Early termination docID cutoff")
-                                  ->excludes(frac_cutoff_ptr);
+        auto doc_cutoff_ptr =
+            app.add_option(
+                   "--doc-cutoff", doc_cutoff, "Early termination docID cutoff")
+                ->excludes(frac_cutoff_ptr);
         frac_cutoff_ptr->excludes(doc_cutoff_ptr);
     }
 };
@@ -190,7 +191,8 @@ struct query_opt {
     template<class Args>
     void set(CLI::App& app, Args& args)
     {
-        app.add_option("query (files)",
+        app.add_option(
+               "query (files)",
                args->terms_or_files,
                "Query terms, or query files if -f defined",
                false)
@@ -199,7 +201,8 @@ struct query_opt {
         app.add_flag("--nostem", args->nostem, "Skip stemming terms (Porter2)");
         app.add_flag(
             "-f,--file", args->read_files, "Read queries from file(s)");
-        app.add_option("--trecid",
+        app.add_option(
+            "--trecid",
             args->trecid,
             "Print in trec_eval format with this QID");
         app.add_option("--run", args->trecrun, "TREC run ID");

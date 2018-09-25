@@ -8,7 +8,7 @@ class IRKConan(ConanFile):
     license = "MIT"
     description = "Information Retrieval tools intended for academic research."
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "cmake", "ycm"
     options = {"use_system_boost": [True, False]}
     default_options = ("use_system_boost=False",
                        "zlib:shared=True",

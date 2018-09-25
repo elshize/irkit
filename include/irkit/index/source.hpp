@@ -240,21 +240,22 @@ public:
     std::optional<memory_view> scores_source() const
     {
         if (not scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(scores_.value().data(), scores_.value().size());
+        return std::make_optional(
+            make_memory_view(scores_.value().data(), scores_.value().size()));
     }
 
     std::optional<memory_view> score_offset_source() const
     {
         if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            score_offsets_.value().data(), score_offsets_.value().size());
+        return std::make_optional(make_memory_view(
+            score_offsets_.value().data(), score_offsets_.value().size()));
     }
 
     std::optional<memory_view> max_scores_source() const
     {
         if (not max_scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            max_scores_.value().data(), max_scores_.value().size());
+        return std::make_optional(make_memory_view(
+            max_scores_.value().data(), max_scores_.value().size()));
     }
 
 private:
@@ -377,21 +378,22 @@ public:
     std::optional<memory_view> scores_source() const
     {
         if (not scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(scores_.value().data(), scores_.value().size());
+        return std::make_optional(
+            make_memory_view(scores_.value().data(), scores_.value().size()));
     }
 
     std::optional<memory_view> score_offset_source() const
     {
         if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            score_offsets_.value().data(), score_offsets_.value().size());
+        return std::make_optional(make_memory_view(
+            score_offsets_.value().data(), score_offsets_.value().size()));
     }
 
     std::optional<memory_view> max_scores_source() const
     {
         if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            max_scores_.value().data(), max_scores_.value().size());
+        return std::make_optional(make_memory_view(
+            max_scores_.value().data(), max_scores_.value().size()));
     }
 
 private:

@@ -56,6 +56,16 @@ namespace detail {
 
 using line_iterator = std::istream_iterator<detail::line>;
 
+class lines {
+public:
+    lines(const std::string& filename) : in_(filename) {}
+    line_iterator begin() { return line_iterator(in_); }
+    line_iterator end() { return line_iterator(); }
+
+private:
+    std::ifstream in_;
+};
+
 inline void enforce_exist(const fs::path& file)
 {
     if (not fs::exists(file)) {
