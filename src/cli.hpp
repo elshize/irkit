@@ -113,6 +113,17 @@ public:
     args(Options... opts) : Options(opts)... {}
 };
 
+struct required_tag {
+} required;
+
+struct optional_tag {
+} optional;
+
+template<typename T>
+struct with_default {
+    T value;
+};
+
 struct index_dir_opt {
     std::string index_dir;
 
@@ -217,6 +228,37 @@ struct sep_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option("--sep", args->separator, "Field separator", true);
+    }
+};
+
+struct score_function_opt {
+    std::string score_function;
+
+    score_function_opt(with_default<std::string> default_val = {""})
+        : score_function(default_val.value)
+    {}
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--score", args->score_function, "Score function", false);
+    }
+
+    bool score_function_defined() const { return not score_function.empty(); }
+};
+
+struct terms_pos {
+    const bool required;
+    std::vector<std::string> terms;
+
+    terms_pos(required_tag) : required(true) {}
+    terms_pos(optional_tag) : required(false) {}
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        auto opt = app.add_option("terms", args->terms, "Terms", false);
+        if (required) { opt->required(); }
     }
 };
 
