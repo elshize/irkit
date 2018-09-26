@@ -241,7 +241,8 @@ struct score_function_opt {
     template<class Args>
     void set(CLI::App& app, Args& args)
     {
-        app.add_option("--score", args->score_function, "Score function", false);
+        app.add_option(
+            "--score", args->score_function, "Score function", false);
     }
 
     bool score_function_defined() const { return not score_function.empty(); }
