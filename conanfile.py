@@ -1,14 +1,14 @@
 from conans import ConanFile, CMake
 
 
-class HelloConan(ConanFile):
+class IRKConan(ConanFile):
     name = "irkit"
     version = "0.1"
     url = "https://github.com/elshize/irkit"
     license = "MIT"
     description = "Information Retrieval tools intended for academic research."
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "cmake", "ycm"
     options = {"use_system_boost": [True, False]}
     default_options = ("use_system_boost=False",
                        "zlib:shared=True",
@@ -46,6 +46,7 @@ class HelloConan(ConanFile):
         self.requires("gumbo-parser/1.0@elshize/stable")
         self.requires("rangev3/master@elshize/testing")
         self.requires("rax/master@elshize/testing")
+        self.requires("irm/0.1@elshize/develop")
 
         if not self.options.use_system_boost:
             self.requires("boost/1.66.0@conan/stable")
@@ -58,6 +59,7 @@ class HelloConan(ConanFile):
         self.requires("type_safe/0.1@Manu343726/testing")
         self.requires("gsl_microsoft/1.0.0@bincrafters/stable")
         self.requires("jsonformoderncpp/3.1.2@vthiery/stable")
+        self.requires("spdlog/1.1.0@bincrafters/stable")
 
     def configure(self):
         self.options["boost"].shared = False

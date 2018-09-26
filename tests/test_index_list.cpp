@@ -216,7 +216,9 @@ TEST_F(block_document_list_view, copy)
 
 TEST_F(block_document_list_view, move)
 {
-    irk::index::block_document_list_view copy(std::move(data.view));
+    irk::index::block_document_list_view<
+        irk::vbyte_codec<irk::index::document_t>>
+        copy(std::move(data.view));
     std::vector<document_t> documents(copy.begin(), copy.end());
     EXPECT_THAT(documents, ::testing::ElementsAreArray(data.documents));
 }
@@ -239,10 +241,8 @@ TEST(move_equals_end, vbyte)
         irk::make_memory_view(data), 4);
     auto i = view.end();
     auto j = view.begin().nextgeq(100);
-    std::cout << i.block_ << " " << i.pos_ << std::endl;
-    std::cout << j.block_ << " " << j.pos_ << std::endl;
-    ASSERT_EQ(i.block_, j.block_);
-    ASSERT_EQ(i.pos_, j.pos_);
+    ASSERT_EQ(i.pos_.block, j.pos_.block);
+    ASSERT_EQ(i.pos_.off, j.pos_.off);
     ASSERT_EQ(view.end(), view.begin().nextgeq(100));
 }
 

@@ -25,8 +25,10 @@
 //! \copyright  MIT License
 
 #include <iostream>
+#include <numeric>
 
 #include <CLI/CLI.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
 #include <irkit/coding/vbyte.hpp>
@@ -34,17 +36,21 @@
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include "cli.hpp"
 
-namespace fs = boost::filesystem;
+using boost::filesystem::path;
+using irk::inverted_index_mapped_data_source;
+using irk::inverted_index_view;
+using irk::cli::optional;
 using irk::index::term_id_t;
 
 template<class PostingListT>
-void print_postings(const PostingListT& postings,
+void print_postings(
+    const PostingListT& postings,
     bool use_titles,
     const irk::inverted_index_view& index)
 {
-    for (const auto& posting : postings)
-    {
+    for (const auto& posting : postings) {
         std::cout << posting.document() << "\t";
         if (use_titles) {
             std::cout << index.titles().key_at(posting.document()) << "\t";
@@ -53,49 +59,82 @@ void print_postings(const PostingListT& postings,
     }
 }
 
+template<class Range>
+int64_t
+count_postings(const Range& terms, const irk::inverted_index_view& index)
+{
+    return std::accumulate(
+        std::begin(terms),
+        std::end(terms),
+        int64_t(0),
+        [&index](int64_t acc, const std::string& term) {
+            return acc + index.postings(term).size();
+        });
+}
+
+template<class Range, class Args>
+void process_query(
+    Range& terms,
+    const irk::inverted_index_view& index,
+    const Args& args,
+    bool count)
+{
+    if (not args.nostem) {
+        irk::porter2_stemmer stemmer;
+        for (std::string& term : terms) {
+            term = stemmer.stem(term);
+        }
+    }
+    if (count) {
+        std::cout << count_postings(terms, index) << '\n';
+    } else {
+        assert(terms.size() == 1u);
+        if (args.score_function_defined()) {
+            print_postings(index.scored_postings(terms[0]), false, index);
+        } else {
+            print_postings(index.postings(terms[0]), false, index);
+        }
+    }
+}
+
 int main(int argc, char** argv)
 {
-    std::string dir = ".";
-    std::string term;
-    std::string scoring;
-    bool use_id = false;
-    bool use_titles = false;
-    bool stem = false;
+    auto [app, args] = irk::cli::app(
+        "Print information about term and its posting list",
+        irk::cli::index_dir_opt{},
+        irk::cli::nostem_opt{},
+        // irk::cli::noheader_opt{},
+        // irk::cli::sep_opt{},
+        irk::cli::score_function_opt{},
+        irk::cli::id_range_opt{},
+        irk::cli::terms_pos{optional});
+    app->add_flag("-c,--count", "Count postings");
+    CLI11_PARSE(*app, argc, argv);
 
-    CLI::App app{"Prints postings."
-                 "Fist column: document IDs. Second column: payload."};
-    app.add_option("-d,--index-dir", dir, "index directory", true)
-        ->check(CLI::ExistingDirectory);
-    app.add_flag("-i,--use-id", use_id, "use a term ID");
-    app.add_flag("-t,--titles", use_titles, "print document titles");
-    app.add_flag("--stem", stem, "Stem terems (Porter2)");
-    app.add_option(
-        "--scores", scoring, "print given scores instead of frequencies", true);
-    app.add_option("term", term, "term to look up", false)->required();
-    CLI11_PARSE(app, argc, argv);
-
-    if (not use_id && stem)
-    {
-        irk::porter2_stemmer stemmer;
-        term = stemmer.stem(term);
+    bool count = app->count("--count") == 1u;
+    if (not count && args->terms.size() != 1u) {
+        std::cerr << "Multiple terms are only supported with --count.\n";
+        return 1;
     }
 
-    bool scores_defined = app.count("--scores") > 0;
+    irk::inverted_index_mapped_data_source data(
+        path(args->index_dir),
+        args->score_function_defined()
+            ? std::make_optional(args->score_function)
+            : std::nullopt);
+    irk::inverted_index_view index(&data);
 
-    try {
-        irk::inverted_index_mapped_data_source data(fs::path{dir},
-            scores_defined ? std::make_optional(scoring) : std::nullopt);
-        irk::inverted_index_view index(&data);
-
-        term_id_t term_id = use_id ? std::stoi(term)
-                                   : index.term_id(term).value();
-        if (app.count("--scores") > 0) {
-            print_postings(index.scored_postings(term_id), use_titles, index);
-        } else {
-            print_postings(index.postings(term_id), use_titles, index);
-        }
-    } catch (const std::bad_optional_access& e) {
-        std::cerr << "Term " << term << " not found." << std::endl;
+    if (not args->terms.empty()) {
+        process_query(args->terms, index, *args, count);
+        return 0;
     }
 
+    std::string line;
+    while (std::getline(std::cin, line)) {
+        std::vector<std::string> terms;
+        boost::split(
+            terms, line, boost::is_any_of("\t "), boost::token_compress_on);
+        process_query(terms, index, *args, true);
+    }
+    return 0;
 }

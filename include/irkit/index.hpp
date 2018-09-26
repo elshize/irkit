@@ -116,6 +116,8 @@ public:
     using frequency_table_type = compact_table<frequency_type,
         irk::vbyte_codec<frequency_type>,
         memory_view>;
+    using score_table_type =
+        compact_table<score_type, irk::vbyte_codec<score_type>, memory_view>;
     using size_table_type =
         compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>;
     using array_stream = boost::iostreams::stream_buffer<
@@ -139,6 +141,7 @@ public:
           count_offsets_(data->count_offsets_view()),
           document_sizes_(data->document_sizes_view()),
           score_offsets_(std::nullopt),
+          term_max_scores_(std::nullopt),
           term_collection_frequencies_(
               data->term_collection_frequencies_view()),
           term_collection_occurrences_(
@@ -154,6 +157,8 @@ public:
         {
             score_offsets_ = std::make_optional<offset_table_type>(
                 data->score_offset_source().value());
+            term_max_scores_ = std::make_optional<score_table_type>(
+                data->max_scores_source().value());
         }
         std::string buffer(
             data->properties_view().data(), data->properties_view().size());
@@ -322,6 +327,7 @@ private:
     offset_table_type count_offsets_;
     size_table_type document_sizes_;
     std::optional<offset_table_type> score_offsets_;
+    std::optional<score_table_type> term_max_scores_;
     frequency_table_type term_collection_frequencies_;
     frequency_table_type term_collection_occurrences_;
     lexicon<hutucker_codec<char>, memory_view> term_map_;
@@ -382,13 +388,9 @@ void score_index(fs::path dir_path,
     std::string name(typename Scorer::tag_type{});
     fs::path scores_path = dir_path / (name + ".scores");
     fs::path score_offsets_path = dir_path / (name + ".offsets");
+    fs::path score_max_path = dir_path / (name + ".maxscore");
     DataSourceT source(dir_path);
     inverted_index_view index(&source);
-
-    int64_t offset = 0;
-    std::vector<std::size_t> offsets;
-    std::ofstream sout(scores_path.c_str());
-    std::ofstream offout(score_offsets_path.c_str());
 
     double max_score;
     if (max.has_value()) {
@@ -413,6 +415,15 @@ void score_index(fs::path dir_path,
         BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
     }
 
+    int64_t offset = 0;
+    std::ofstream sout(scores_path.c_str());
+    std::ofstream offout(score_offsets_path.c_str());
+    std::ofstream maxout(score_max_path.c_str());
+    std::vector<std::size_t> offsets;
+    std::vector<std::uint32_t> max_scores;
+    offsets.reserve(index.term_count());
+    max_scores.reserve(index.term_count());
+
     BOOST_LOG_TRIVIAL(info) << "Scoring..." << std::flush;
     int64_t max_int = (1u << bits) - 1u;
     for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
@@ -435,8 +446,10 @@ void score_index(fs::path dir_path,
         }
         offset += list_builder.write(sout);
     }
-    irk::offset_table<> offset_table = irk::build_offset_table<>(offsets);
+    auto offset_table = irk::build_offset_table<>(offsets);
     offout << offset_table;
+    auto maxscore_table = irk::build_compact_table<uint32_t>(max_scores);
+    maxout << maxscore_table;
 };
 
 };  // namespace irk

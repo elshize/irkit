@@ -104,6 +104,7 @@ public:
 
         document_type document() const { return *document_iterator_; }
         payload_type payload() const { return *payload_iterator_; }
+        int idx() const { return document_iterator_.idx(); }
 
     private:
         friend class boost::iterator_core_access;

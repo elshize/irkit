@@ -159,6 +159,35 @@ public:
 
     friend std::ostream&
     operator<<<>(std::ostream&, const compact_table<T, Codec>&);
+
+    std::vector<T> to_vector() const
+    {
+        auto header = reinterpret_cast<const compact_table_header*>(
+            data_.data());
+        bool delta_encoded = header->flags
+            & CompactTableHeaderFlags::DeltaEncoding;
+        auto count = header->count;
+        auto block_size = header->block_size;
+        auto leader_count = (count + block_size - 1) / block_size;
+        gsl::span<const compact_table_leader> leaders(
+            reinterpret_cast<const compact_table_leader*>(
+                data_.data() + sizeof(*header)),
+            leader_count);
+        int leader_idx = 0;
+        std::vector<T> vec(count);
+        auto out = std::begin(vec);
+        for (const auto& leader : leaders)
+        {
+            const char* block_beg = data_.data() + leader.ptr;
+            auto len = leader_idx++ < leader_count - 1 ? block_size
+                                                     : count % block_size;
+            auto decoded = delta_encoded ? delta_decode(codec_, block_beg, len)
+                                         : decode(codec_, block_beg, len);
+            for (const auto& v : decoded) { *out++ = v; }
+        }
+
+        return vec;
+}
 };
 
 //! Load a compact table to main memory.

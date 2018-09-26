@@ -59,7 +59,7 @@ int main(int argc, char** argv)
     int bits = 24;
     std::string dir;
     std::string scorer("bm25");
-    std::unordered_set<std::string> available_scorers = {"bm24", "ql"};
+    std::unordered_set<std::string> available_scorers = {"bm25", "ql"};
     double max;
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};

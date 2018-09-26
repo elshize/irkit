@@ -20,46 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file
+//! \file taat.hpp
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
 #pragma once
 
-#include <memory>
-#include <string>
+#include <vector>
 
-#include <irkit/parsing/snowball/porter2.hpp>
+#include <irkit/index/types.hpp>
 
-namespace irk {
+namespace irk::algorithm {
 
-class porter2_stemmer {
-public:
-    porter2_stemmer() = default;
-    porter2_stemmer(const porter2_stemmer& /* other */)
-        : env_(porter2::create_env())
-    {}
-    porter2_stemmer& operator=(const porter2_stemmer& /* other */)
-    {
-        env_ = porter2::create_env();
-        return *this;
-    }
-    porter2_stemmer(porter2_stemmer&&) noexcept = default;
-    porter2_stemmer& operator=(porter2_stemmer&&) noexcept = default;
-    ~porter2_stemmer() { porter2::close_env(env_); }
-
-    std::string stem(const std::string& word) const
-    {
-        porter2::SN_set_current(env_,
-            word.size(),
-            reinterpret_cast<const unsigned char*>(word.c_str()));
-        porter2::stem(env_);
-        auto length = env_->l;  // NOLINT
-        return std::string(env_->p, std::next(env_->p, length));
-    }
-
-private:
-    porter2::SN_env* env_ = porter2::create_env();
-};
+template<class PostingLists, class ScoreT>
+void daat_max_score(const PostingLists& posting_lists,
+    int k)
+{
+    //
+}
 
 };  // namespace irk

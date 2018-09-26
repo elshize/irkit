@@ -61,6 +61,7 @@ public:
             scores_ = std::make_optional(dir / (*score_name + ".scores"));
             score_offsets_ = std::make_optional(
                 dir / (*score_name + ".offsets"));
+            max_scores_ = std::make_optional(dir / (*score_name + ".maxscore"));
         }
     }
 
@@ -109,14 +110,23 @@ public:
 
     std::optional<memory_view> scores_source() const
     {
-        if (not scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(*scores_);
+        return scores_.has_value()
+            ? std::make_optional<memory_view>(make_memory_view(*scores_))
+            : std::nullopt;
     }
 
     std::optional<memory_view> score_offset_source() const
     {
-        if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(*score_offsets_);
+        return score_offsets_.has_value()
+            ? std::make_optional<memory_view>(make_memory_view(*score_offsets_))
+            : std::nullopt;
+    }
+
+    std::optional<memory_view> max_scores_source() const
+    {
+        return max_scores_.has_value()
+            ? std::make_optional<memory_view>(make_memory_view(*max_scores_))
+            : std::nullopt;
     }
 
 private:
@@ -133,6 +143,7 @@ private:
     path properties_;
     std::optional<path> scores_;
     std::optional<path> score_offsets_;
+    std::optional<path> max_scores_;
 };
 
 class inverted_index_inmemory_data_source {
@@ -158,12 +169,15 @@ public:
         {
             auto scores_path = dir / (*score_name + ".scores");
             auto score_offsets_path = dir / (*score_name + ".offsets");
-            if (exists(scores_path) && exists(score_offsets_path))
+            auto max_scores_path = dir / (*score_name + ".maxscore");
+            if (exists(scores_path) && exists(score_offsets_path)
+                && exists(max_scores_path))
             {
                 scores_ = std::make_optional<std::vector<char>>();
                 score_offsets_ = std::make_optional<std::vector<char>>();
                 io::load_data(scores_path, *scores_);
                 io::load_data(score_offsets_path, *score_offsets_);
+                io::load_data(max_scores_path, *max_scores_);
             }
         }
     }
@@ -226,14 +240,22 @@ public:
     std::optional<memory_view> scores_source() const
     {
         if (not scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(scores_.value().data(), scores_.value().size());
+        return std::make_optional(
+            make_memory_view(scores_.value().data(), scores_.value().size()));
     }
 
     std::optional<memory_view> score_offset_source() const
     {
         if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            score_offsets_.value().data(), score_offsets_.value().size());
+        return std::make_optional(make_memory_view(
+            score_offsets_.value().data(), score_offsets_.value().size()));
+    }
+
+    std::optional<memory_view> max_scores_source() const
+    {
+        if (not max_scores_.has_value()) { return std::nullopt; }
+        return std::make_optional(make_memory_view(
+            max_scores_.value().data(), max_scores_.value().size()));
     }
 
 private:
@@ -250,6 +272,7 @@ private:
     std::vector<char> properties_;
     std::optional<std::vector<char>> scores_;
     std::optional<std::vector<char>> score_offsets_;
+    std::optional<std::vector<char>> max_scores_;
 };
 
 class inverted_index_mapped_data_source {
@@ -285,11 +308,14 @@ public:
         {
             auto scores_path = dir / (*score_name + ".scores");
             auto score_offsets_path = dir / (*score_name + ".offsets");
+            auto max_scores_path = dir / (*score_name + ".maxscore");
             if (exists(scores_path) && exists(score_offsets_path))
             {
                 scores_ = std::make_optional<mapped_file_source>(scores_path);
                 score_offsets_ = std::make_optional<mapped_file_source>(
                     score_offsets_path);
+                max_scores_ = std::make_optional<mapped_file_source>(
+                    max_scores_path);
             }
         }
     }
@@ -352,14 +378,22 @@ public:
     std::optional<memory_view> scores_source() const
     {
         if (not scores_.has_value()) { return std::nullopt; }
-        return make_memory_view(scores_.value().data(), scores_.value().size());
+        return std::make_optional(
+            make_memory_view(scores_.value().data(), scores_.value().size()));
     }
 
     std::optional<memory_view> score_offset_source() const
     {
         if (not score_offsets_.has_value()) { return std::nullopt; }
-        return make_memory_view(
-            score_offsets_.value().data(), score_offsets_.value().size());
+        return std::make_optional(make_memory_view(
+            score_offsets_.value().data(), score_offsets_.value().size()));
+    }
+
+    std::optional<memory_view> max_scores_source() const
+    {
+        if (not score_offsets_.has_value()) { return std::nullopt; }
+        return std::make_optional(make_memory_view(
+            max_scores_.value().data(), max_scores_.value().size()));
     }
 
 private:
@@ -376,6 +410,7 @@ private:
     mapped_file_source properties_;
     std::optional<mapped_file_source> scores_;
     std::optional<mapped_file_source> score_offsets_;
+    std::optional<mapped_file_source> max_scores_;
 };
 
 };  // namespace irk

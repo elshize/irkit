@@ -9,6 +9,7 @@ function(add_irk TOOL_NAME)
     endforeach()
     add_executable(irk-${TOOL_NAME} irk-${TOOL_NAME}.cpp)
     target_link_libraries(irk-${TOOL_NAME} PUBLIC ${COMMON_LIBRARIES})
+    target_include_directories(irk-${TOOL_NAME} PRIVATE ./)
     target_compile_features(irk-${TOOL_NAME} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
     target_compile_options(irk-${TOOL_NAME}
         PRIVATE -Wall -Wno-unused-local-typedefs -Wno-sign-compare -Wno-parentheses)
@@ -26,6 +27,9 @@ add_irk(lookup)
 add_irk(disect)
 add_irk(hits)
 add_irk(docidmap)
+add_irk(terminfo)
+add_irk(optet CONAN_PKG::irm)
+add_irk(shardmap)
 
 install(
     TARGETS
@@ -42,4 +46,7 @@ install(
         irk-lexicon
         irk-hits
         irk-docidmap
+        irk-terminfo
+        irk-optet
+        irk-shardmap
     DESTINATION bin)
