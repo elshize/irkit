@@ -28,8 +28,6 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <range/v3/view/iota.hpp>
-#include <range/v3/view/zip.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
@@ -45,8 +43,6 @@
 using boost::filesystem::path;
 using irk::index::document_t;
 using std::uint32_t;
-using ranges::view::zip;
-using ranges::view::ints;
 
 void build_shard_map(
     const std::vector<std::string>& shards,
@@ -59,7 +55,8 @@ void build_shard_map(
     std::vector<uint32_t> map(titles.size(), last_shard);
     int mapped_documents(0);
     int missing_documents(0);
-    for (const auto& [shard_id, shard_file] : zip(ints(0), shards)) {
+    int shard_id(0);
+    for (const auto& shard_file : shards) {
         log->info("Mapping shard {0}", shard_id);
         for (const std::string& title : irk::io::lines(shard_file)) {
             if (auto id = titles.index_at(title); id.has_value()) {
@@ -69,6 +66,7 @@ void build_shard_map(
                 missing_documents += 1;
             }
         }
+        shard_id += 1;
     }
     log->info(
         "Mapped {}; missing in index: {}; defaulted to last: {}",
