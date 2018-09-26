@@ -31,7 +31,7 @@
 #include <CLI/Option.hpp>
 #include <boost/filesystem.hpp>
 
-#include <cli.hpp>
+#include "cli.hpp"
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>

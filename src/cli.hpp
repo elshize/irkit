@@ -178,6 +178,48 @@ struct etcutoff_opt {
     }
 };
 
+struct id_range_opt {
+    std::vector<double> id_range = {0.0, 1.0};
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--id-range", id_range, "ID range [0.0, 1.0)");
+        //->check(CLI::Range(0.0, 1.0));
+    }
+};
+
+struct nostem_opt {
+    bool nostem = false;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--nostem", args->nostem, "Do not stem terms", true);
+    }
+};
+
+struct noheader_opt {
+    bool noheader = false;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option(
+            "--noheader", args->noheader, "Do not print header", true);
+    }
+};
+
+struct sep_opt {
+    std::string separator = "\t";
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--sep", args->separator, "Field separator", true);
+    }
+};
+
 struct query_opt {
     std::vector<std::string> terms_or_files;
     int k;

@@ -36,7 +36,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
-#include <cli.hpp>
+#include "cli.hpp"
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -130,13 +130,14 @@ inline void run_query(const Index& index,
                 std::back_inserter(relevances),
                 [](const auto& r) -> int { return r.relevance; });
             double m = metric(relevances);
-            if (m > actual - 0.01) { break; }
+            if (m > actual - 0.0001) { break; }
             log->info("Accumulated {:n} documents (score: {}; goal: {})",
                       doc, m, actual);
         }
     }
     log->info("Converged after {} documents", doc);
-    std::cout << static_cast<double>(doc) / index.collection_size() << std::endl;
+    std::cout << static_cast<double>(doc) / index.collection_size()
+              << std::endl;
 }
 
 int main(int argc, char** argv)
@@ -208,49 +209,4 @@ int main(int argc, char** argv)
             trecid,
             eval_step);
     }
-
-    //if (app->count("--file") == 0u) {
-    //    run_query(index,
-    //        dir,
-    //        query,
-    //        k,
-    //        stem,
-    //        doc2rank,
-    //        rank2doc,
-    //        fraccut->count() + idcut->count() > 0u
-    //            ? std::make_optional(doc_cutoff)
-    //            : std::nullopt,
-    //        app.count("--trecid") > 0u ? std::make_optional(trecid)
-    //                                   : std::nullopt,
-    //        run_id);
-    //}
-    //else {
-    //    std::optional<int> current_trecid = app.count("--trecid") > 0u
-    //        ? std::make_optional(trecid)
-    //        : std::nullopt;
-    //    for (const auto& file : query) {
-    //        std::ifstream in(file);
-    //        std::string q;
-    //        while(std::getline(in, q))
-    //        {
-    //            std::istringstream qin(q);
-    //            std::string term;
-    //            std::vector<std::string> terms;
-    //            while (qin >> term) { terms.push_back(std::move(term)); }
-    //            run_query(index,
-    //                dir,
-    //                terms,
-    //                k,
-    //                stem,
-    //                doc2rank,
-    //                rank2doc,
-    //                fraccut->count() + idcut->count() > 0u
-    //                    ? std::make_optional(doc_cutoff)
-    //                    : std::nullopt,
-    //                current_trecid,
-    //                run_id);
-    //            if (current_trecid.has_value()) { current_trecid.value()++; }
-    //        }
-    //    }
-    //}
 }

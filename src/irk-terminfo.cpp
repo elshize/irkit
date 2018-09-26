@@ -36,6 +36,7 @@
 #include <irkit/index/source.hpp>
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/taat.hpp>
+#include "cli.hpp"
 
 using std::uint32_t;
 using irk::index::document_t;
@@ -51,81 +52,61 @@ inline std::string ExistingDirectory(const std::string &filename)
     return std::string();
 }
 
-inline int32_t frequency(const irk::inverted_index_view& index,
-    term_id_t id,
-    std::optional<document_t> cutoff)
+std::pair<document_t, document_t> to_ids(
+    const std::vector<double>& range,
+    const irk::inverted_index_view& index)
 {
-    if (cutoff.has_value()) {
-        auto postings = index.postings(id);
-        auto end = postings.lookup(cutoff.value());
-        return end.idx();
-    }
-    return index.tdf(id);
+    auto size = index.collection_size();
+    return std::make_pair(
+        static_cast<document_t>(range[0] * size),
+        static_cast<document_t>(range[1] * size));
 }
 
-inline int64_t occurrences(const irk::inverted_index_view& index,
+inline int32_t frequency(
+    const irk::inverted_index_view& index,
     term_id_t id,
-    std::optional<document_t> cutoff)
+    std::vector<double> id_range)
 {
-    if (cutoff.has_value()) {
-        int32_t freq(0);
-        auto postings = index.postings(id);
-        auto it = postings.begin();
-        auto end = postings.lookup(cutoff.value());
-        for (; it != end; ++it) { freq += it->payload(); }
-        return freq;
-    }
-    return index.tdf(id);
+    if (id_range == std::vector{0.0, 1.0}) { return index.tdf(id); }
+    auto [first_id, last_id] = to_ids(id_range, index);
+    auto postings = index.postings(id);
+    auto begin = postings.lookup(first_id);
+    auto end = begin.nextgeq(last_id);
+    return end.idx() - begin.idx();
+}
+
+inline int64_t occurrences(
+    const irk::inverted_index_view& index,
+    term_id_t id,
+    std::vector<double> id_range)
+{
+    int32_t freq(0);
+    auto postings = index.postings(id);
+    auto [first_id, last_id] = to_ids(id_range, index);
+    auto it = postings.lookup(first_id);
+    auto end = it.nextgeq(last_id);
+    for (; it != end; ++it) { freq += it->payload(); }
+    return freq;
 }
 
 int main(int argc, char** argv)
 {
-    std::string index_dir(".");
     std::vector<std::string> terms;
-    std::string sep("\t");
-    bool stem = false;
-    bool nohead = false;
-    std::string remap_name;
-    double frac_cutoff;
-    document_t doc_cutoff = std::numeric_limits<document_t>::max();
-
-    CLI::App app{"Print information about term and its posting list"};
-    app.add_option("-d,--index-dir", index_dir, "index directory", true)
-        ->check(CLI::ExistingDirectory);
-    app.add_flag("-s,--stem", stem, "Stem terems (Porter2)");
-    app.add_flag("--no-header", nohead, "Do not print header");
-    app.add_option("--sep", sep, "Field separator", true);
-    auto remap = app.add_option(
-        "--remap", remap_name, "Name of remapping used for cutoff");
-    auto fraccut =
-        app.add_option("--frac-cutoff",
-               frac_cutoff,
-               "Early termination cutoff (top fraction of collection)")
-            ->needs(remap)
-            ->check(CLI::Range(0.0, 1.0));
-    auto idcut = app.add_option("--doc-cutoff",
-                        doc_cutoff,
-                        "Early termination docID cutoff")
-                     ->needs(remap)
-                     ->excludes(fraccut);
-    fraccut->excludes(idcut);
-    app.add_option("terms", terms, "Term or terms", false)->required();
-    CLI11_PARSE(app, argc, argv);
-
-    boost::filesystem::path dir(index_dir);
-    irk::inverted_index_mapped_data_source data(dir, "bm25");
+    auto [app, args] = irk::cli::app(
+        "Print information about term and its posting list",
+        irk::cli::index_dir_opt{},
+        irk::cli::nostem_opt{},
+        irk::cli::noheader_opt{},
+        irk::cli::sep_opt{},
+        irk::cli::id_range_opt{});
+    app->add_option("terms", terms, "Term(s)", false)->required();
+    CLI11_PARSE(*app, argc, argv);
+    boost::filesystem::path dir(args->index_dir);
+    irk::inverted_index_mapped_data_source data(dir);
     irk::inverted_index_view index(&data);
 
-    if (fraccut->count() > 0u) {
-        doc_cutoff = static_cast<document_t>(
-            frac_cutoff * index.titles().size());
-    }
-
-    auto cutoff = doc_cutoff == std::numeric_limits<document_t>::max()
-        ? std::nullopt
-        : std::make_optional(doc_cutoff);
-
-    if (not nohead) {
+    const std::string sep = args->separator;
+    if (not args->noheader) {
         std::cout
             << "term" << sep
             << "id" << sep
@@ -138,8 +119,8 @@ int main(int argc, char** argv)
         if (term_id.has_value()) {
             auto id = term_id.value();
             std::cout << term << sep << id << sep
-                      << frequency(index, id, cutoff) << sep
-                      << occurrences(index, id, cutoff) << std::endl;
+                      << frequency(index, id, args->id_range) << sep
+                      << occurrences(index, id, args->id_range) << std::endl;
         }
         else {
             std::cout << term << sep << -1 << sep << 0 << sep << 0 << std::endl;
