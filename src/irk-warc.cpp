@@ -94,15 +94,13 @@ struct body_writer {
 
     void operator()(const std::string& content)
     {
-        std::regex term_pattern("(\\S+)");
-        auto term_iter = std::sregex_iterator(
-            content.begin(), content.end(), term_pattern);
-        if (term_iter != std::sregex_iterator())
-        {
+        std::regex term_pattern("(\\w+)");
+        auto term_iter =
+            std::sregex_iterator(content.begin(), content.end(), term_pattern);
+        if (term_iter != std::sregex_iterator()) {
             write_term(term_iter->str(), z, lowercase);
             term_iter++;
-            for (; term_iter != std::sregex_iterator(); term_iter++)
-            {
+            for (; term_iter != std::sregex_iterator(); term_iter++) {
                 std::cout << " ";
                 write_term(term_iter->str(), z, lowercase);
             }
