@@ -242,16 +242,20 @@ void index(
     const path& output_dir,
     const std::vector<int>& permutation)
 {
-    std::ofstream term_freq_os(irk::index::term_doc_freq_path(output_dir));
-    std::ofstream term_occ_os(irk::index::term_occurrences_path(output_dir));
-    std::ofstream document_os(irk::index::doc_ids_path(output_dir));
-    std::ofstream document_offsets_os(irk::index::doc_ids_off_path(output_dir));
-    std::ofstream frequency_os(irk::index::doc_counts_path(output_dir));
+    std::ofstream term_freq_os(
+        irk::index::term_doc_freq_path(output_dir).string());
+    std::ofstream term_occ_os(
+        irk::index::term_occurrences_path(output_dir).string());
+    std::ofstream document_os(irk::index::doc_ids_path(output_dir).string());
+    std::ofstream document_offsets_os(
+        irk::index::doc_ids_off_path(output_dir).string());
+    std::ofstream frequency_os(
+        irk::index::doc_counts_path(output_dir).string());
     std::ofstream frequency_offsets_os(
-        irk::index::doc_counts_off_path(output_dir));
-    std::ofstream titles_os(irk::index::titles_path(output_dir));
-    std::ofstream title_map_os(irk::index::title_map_path(output_dir));
-    std::ofstream sizes_os(irk::index::doc_sizes_path(output_dir));
+        irk::index::doc_counts_off_path(output_dir).string());
+    std::ofstream titles_os(irk::index::titles_path(output_dir).string());
+    std::ofstream title_map_os(irk::index::title_map_path(output_dir).string());
+    std::ofstream sizes_os(irk::index::doc_sizes_path(output_dir).string());
 
     std::vector<std::ofstream> scp;
     std::vector<std::ofstream> sco;
