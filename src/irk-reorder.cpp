@@ -77,8 +77,10 @@ int main(int argc, char** argv)
         ->check(cli::ExistingDirectory);
     CLI11_PARSE(*app, argc, argv);
 
+    auto log = spdlog::stderr_color_mt("stderr");
     path dir(args->index_dir);
     std::vector<document_t> permutation;
+    log->info("Computing permutation...");
     if (ordering_file.empty()) {
         permutation = compute_permutation(std::cin, dir);
     } else {
@@ -86,5 +88,6 @@ int main(int argc, char** argv)
         permutation = compute_permutation(in, dir);
     }
     irk::reorder::index(dir, path(output_dir), permutation);
+    log->info("Finished.");
     return 0;
 }

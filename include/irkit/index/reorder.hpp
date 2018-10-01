@@ -30,6 +30,7 @@
 
 #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <spdlog/spdlog.h>
 
 #include <irkit/assert.hpp>
 #include <irkit/index.hpp>
@@ -278,18 +279,15 @@ void index(
         inverted_index_disk_data_source::from(input_dir, score_functions)
             .value();
     inverted_index_view index(&source);
+
+    auto log = spdlog::get("stderr");
+    if (log) { log->info("Reordering titles..."); }
     auto rtitles = irk::reorder::titles(index.titles(), permutation);
     rtitles.serialize(title_map_os);
     irk::io::write_lines(rtitles, titles_os);
-    boost::filesystem::copy(
-        irk::index::terms_path(input_dir), irk::index::terms_path(output_dir));
-    boost::filesystem::copy(
-        irk::index::term_map_path(input_dir),
-        irk::index::term_map_path(output_dir));
-    boost::filesystem::copy(
-        irk::index::properties_path(input_dir),
-        irk::index::properties_path(output_dir));
+    if (log) { log->info("Reordering sizes..."); }
     irk::reorder::sizes(index.document_sizes(), permutation).serialize(sizes_os);
+    if (log) { log->info("Reordering postings..."); }
     irk::reorder::postings(
         index,
         irk::reorder::docmap(permutation, index.collection_size()),
@@ -302,6 +300,15 @@ void index(
         score_functions,
         ref_scp,
         ref_sco);
+    if (log) { log->info("Copying files..."); }
+    boost::filesystem::copy(
+        irk::index::terms_path(input_dir), irk::index::terms_path(output_dir));
+    boost::filesystem::copy(
+        irk::index::term_map_path(input_dir),
+        irk::index::term_map_path(output_dir));
+    boost::filesystem::copy(
+        irk::index::properties_path(input_dir),
+        irk::index::properties_path(output_dir));
 }
 
 };
