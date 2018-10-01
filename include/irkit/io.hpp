@@ -129,4 +129,20 @@ void append_collection(const Collection& collection, std::vector<char>& buffer)
     }
 }
 
+template<class T>
+void write_vector(const std::vector<T>& vec, std::ostream& out)
+{
+    size_t nbytes = vec.size() * sizeof(T);
+    out.write(reinterpret_cast<char*>(&nbytes), sizeof(size_t));
+    out.write(reinterpret_cast<char*>(vec.data()), nbytes);
+}
+
+template<class Range>
+void write_lines(const Range& lines, std::ostream& out)
+{
+    for (const auto& line : lines) {
+        out << line << '\n';
+    }
+}
+
 };  // namespace irk::io

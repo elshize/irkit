@@ -121,7 +121,7 @@ public:
     //! Returns a new memory view defined by a half-open range [lo, hi).
     irk::memory_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
-        EXPECTS(lo < hi);
+        EXPECTS(lo <= hi);
         return range(lo, hi - lo);
     }
 

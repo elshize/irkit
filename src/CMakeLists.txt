@@ -30,6 +30,7 @@ add_irk(docidmap)
 add_irk(terminfo)
 add_irk(optet CONAN_PKG::irm)
 add_irk(shardmap)
+add_irk(reorder)
 
 install(
     TARGETS
@@ -49,4 +50,5 @@ install(
         irk-terminfo
         irk-optet
         irk-shardmap
+        irk-reorder
     DESTINATION bin)

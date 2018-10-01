@@ -281,6 +281,11 @@ public:
         boost::iostreams::back_insert_device<std::vector<char>>;
 
     explicit block_list_builder(int block_size) : block_size_(block_size) {}
+    block_list_builder(const block_list_builder&) = default;
+    block_list_builder(block_list_builder&&) = default;
+    block_list_builder& operator=(const block_list_builder&) = default;
+    block_list_builder& operator=(block_list_builder&&) = default;
+    virtual ~block_list_builder() = default;
 
     void add(value_type id) { values_.push_back(id); }
 
@@ -436,6 +441,7 @@ public:
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
     int32_t size() const { return length_; }
+    int32_t block_size() const { return block_size_; }
     int64_t memory_size() const { return memory_.size(); }
     memory_view memory() const { return memory_; }
 

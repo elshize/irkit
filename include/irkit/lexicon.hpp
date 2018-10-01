@@ -275,6 +275,8 @@ public:
             codec_);
     }
 
+    int keys_per_block() const { return keys_per_block_; }
+
 private:
     std::vector<std::ptrdiff_t> block_offsets_;
     std::vector<value_type> leading_indices_;
@@ -402,12 +404,12 @@ load_lexicon(const irk::memory_view& memory)
 //! Typically, both keys and corpus will be the same collection.
 //! They are separated mainly for situations when these are single-pass
 //! iterators. See overloads for a more convenient interface.
-template<class KeyIterator>
+template<class KeyIterator, class CorpusIterator>
 lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
     KeyIterator keys_begin,
     KeyIterator keys_end,
-    KeyIterator corpus_begin,
-    KeyIterator corpus_end,
+    CorpusIterator corpus_begin,
+    CorpusIterator corpus_end,
     int keys_per_block)
 {
     EXPECTS(keys_begin != keys_end);

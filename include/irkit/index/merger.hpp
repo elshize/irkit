@@ -53,6 +53,7 @@ public:
     using document_codec_type = DocumentCodec;
     using frequency_codec_type = FrequencyCodec;
     using index_type = basic_inverted_index_view<document_codec_type>;
+    using source_type = inverted_index_mapped_data_source;
 
 private:
     class entry {
@@ -106,7 +107,7 @@ private:
     fs::path target_dir_;
     bool skip_unique_;
     std::vector<index_type> indices_;
-    std::vector<irk::inverted_index_mapped_data_source> sources_;
+    std::vector<source_type> sources_;
     std::vector<entry> heap_;
     std::ofstream terms_out_;
     std::ofstream doc_ids_;
@@ -143,7 +144,7 @@ public:
           block_size_(block_size)
     {
         for (fs::path index_dir : indices) {
-            sources_.emplace_back(index_dir);
+            sources_.emplace_back(source_type::from(index_dir).value());
             indices_.emplace_back(&sources_.back());
         }
         terms_out_.open(index::terms_path(target_dir).c_str());

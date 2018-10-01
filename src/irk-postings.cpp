@@ -117,11 +117,13 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    irk::inverted_index_mapped_data_source data(
-        path(args->index_dir),
-        args->score_function_defined()
-            ? std::make_optional(args->score_function)
-            : std::nullopt);
+    std::vector<std::string> scores;
+    if (args->score_function_defined()) {
+        scores.push_back(args->score_function);
+    }
+    auto data = irk::inverted_index_mapped_data_source::from(
+                    fs::path{args->index_dir}, scores)
+                    .value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {

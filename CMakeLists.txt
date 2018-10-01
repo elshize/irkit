@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 project(IRKit VERSION 0.1 LANGUAGES CXX C)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG_ASSERT")
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 option(IRKit_BUILD_INTEGRATION_TEST "whether or not to build the integration test" OFF)
@@ -21,6 +22,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -march=native")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 add_definitions(-DBOOST_NO_AUTO_PTR)
+add_definitions(-Dnsel_CONFIG_CONFIRMS_COMPILATION_ERRORS=1)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)

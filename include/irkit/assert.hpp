@@ -43,8 +43,22 @@
         debug_assert::level<1>{},                                              \
         "function output contract violated")
 
+namespace irk {
+
 struct assert_handler : debug_assert::default_handler,
                         debug_assert::set_level<1> {};
 
 struct contract_handler : debug_assert::default_handler,
                           debug_assert::set_level<1> {};
+
+struct debug_handler : debug_assert::default_handler,
+                       debug_assert::set_level<
+#ifdef DEBUG_ASSERT
+                           1
+#else
+                           0
+#endif
+                           > {
+        };
+
+}  // namespace irk
