@@ -347,7 +347,7 @@ public:
     {
         std::unordered_map<std::string, score_tuple<memory_view>> view_map;
         for (const auto& entry : scores_) {
-            const auto& [key, sources] = entry;
+            const auto& key = entry.first;
             view_map[key] = *scores_source(key);
         };
         return view_map;
@@ -529,7 +529,7 @@ public:
     {
         std::unordered_map<std::string, score_tuple<memory_view>> view_map;
         for (const auto& entry : scores_) {
-            const auto& [key, sources] = entry;
+            const auto& key = entry.first;
             view_map[key] = *scores_source(key);
         };
         return view_map;

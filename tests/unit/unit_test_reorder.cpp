@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <random>
 #include <sstream>
+#include <unordered_set>
 #include <vector>
 
 #include <gmock/gmock.h>
@@ -36,6 +37,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/block_inverted_list.hpp>
+#include <irkit/index/reorder.hpp>
 
 namespace {
 
