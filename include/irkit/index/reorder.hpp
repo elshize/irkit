@@ -286,7 +286,8 @@ void index(
     rtitles.serialize(title_map_os);
     irk::io::write_lines(rtitles, titles_os);
     if (log) { log->info("Reordering sizes..."); }
-    irk::reorder::sizes(index.document_sizes(), permutation).serialize(sizes_os);
+    irk::reorder::sizes(index.document_sizes(), permutation)
+        .serialize(sizes_os);
     if (log) { log->info("Reordering postings..."); }
     irk::reorder::postings(
         index,

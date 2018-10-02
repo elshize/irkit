@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_disk_data_source data(dir, "bm25");
+    auto data = irk::inverted_index_disk_data_source::from(dir, {"bm25"});
     irk::inverted_index_view index(&data);
 
     nanoseconds total(0);

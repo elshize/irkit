@@ -203,22 +203,21 @@ public:
         from(const path& dir, std::vector<std::string> score_names = {})
     {
         using io::load_data;
-        using namespace index;
         inverted_index_inmemory_data_source source(dir);
-        load_data(doc_ids_path(dir), source.documents_);
-        load_data(doc_counts_path(dir), source.counts_);
-        load_data(doc_ids_off_path(dir), source.document_offsets_);
-        load_data(doc_counts_off_path(dir), source.count_offsets_);
+        load_data(index::doc_ids_path(dir), source.documents_);
+        load_data(index::doc_counts_path(dir), source.counts_);
+        load_data(index::doc_ids_off_path(dir), source.document_offsets_);
+        load_data(index::doc_counts_off_path(dir), source.count_offsets_);
         load_data(
-            term_doc_freq_path(dir),
+            index::term_doc_freq_path(dir),
             source.term_collection_frequencies_);
-        load_data(term_map_path(dir), source.term_map_);
-        load_data(title_map_path(dir), source.title_map_);
-        load_data(doc_sizes_path(dir), source.document_sizes_);
+        load_data(index::term_map_path(dir), source.term_map_);
+        load_data(index::title_map_path(dir), source.title_map_);
+        load_data(index::doc_sizes_path(dir), source.document_sizes_);
         load_data(
-        term_occurrences_path(dir),
-        source.term_collection_occurrences_);
-        load_data(properties_path(dir), source.properties_);
+            index::term_occurrences_path(dir),
+            source.term_collection_occurrences_);
+        load_data(index::properties_path(dir), source.properties_);
 
         std::vector<std::string> invalid_scores;
         for (const std::string& score_name : score_names)
@@ -529,7 +528,7 @@ public:
     {
         std::unordered_map<std::string, score_tuple<memory_view>> view_map;
         for (const auto& entry : scores_) {
-            const auto& key = entry.first;
+            const auto& [key, sources] = entry;
             view_map[key] = *scores_source(key);
         };
         return view_map;
