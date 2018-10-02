@@ -131,11 +131,13 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    std::string line;
-    while (std::getline(std::cin, line)) {
+    for (const std::string& query_line : irk::io::lines_from_stream(std::cin)) {
         std::vector<std::string> terms;
         boost::split(
-            terms, line, boost::is_any_of("\t "), boost::token_compress_on);
+            terms,
+            query_line,
+            boost::is_any_of("\t "),
+            boost::token_compress_on);
         process_query(terms, index, *args, true);
     }
     return 0;

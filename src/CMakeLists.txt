@@ -28,7 +28,6 @@ add_irk(disect)
 add_irk(hits)
 add_irk(docidmap)
 add_irk(terminfo)
-add_irk(optet CONAN_PKG::irm)
 add_irk(shardmap)
 add_irk(reorder)
 
@@ -48,7 +47,6 @@ install(
         irk-hits
         irk-docidmap
         irk-terminfo
-        irk-optet
         irk-shardmap
         irk-reorder
     DESTINATION bin)

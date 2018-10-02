@@ -29,6 +29,7 @@
 
 #include <CLI/CLI.hpp>
 #include <CLI/Option.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
 #include "cli.hpp"
@@ -48,8 +49,6 @@ inline void run_query(const Index& index,
     std::vector<std::string>& query,
     int k,
     bool stem,
-    irk::cli::docmap* reordering,
-    std::optional<document_t> cutoff,
     std::optional<int> trecid,
     std::string_view run_id)
 {
@@ -68,16 +67,12 @@ inline void run_query(const Index& index,
     std::vector<uint32_t> acc(index.collection_size(), 0);
     auto after_init = std::chrono::steady_clock::now();
 
-    if (reordering == nullptr) { irk::taat(postings, acc); }
-    else { irk::taat(postings, acc, reordering->doc2rank()); }
+    irk::taat(postings, acc);
 
     auto after_acc = std::chrono::steady_clock::now();
 
-    auto results = cutoff.has_value()
-        ? irk::aggregate_top_k<document_t, uint32_t>(
-              std::begin(acc), std::next(std::begin(acc), *cutoff), k)
-        : irk::aggregate_top_k<document_t, uint32_t>(
-              std::begin(acc), std::end(acc), k);
+    auto results = irk::aggregate_top_k<document_t, uint32_t>(
+        std::begin(acc), std::end(acc), k);
     auto end_time = std::chrono::steady_clock::now();
 
     auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -95,9 +90,7 @@ inline void run_query(const Index& index,
     int rank = 0;
     for (auto& result : results)
     {
-        std::string title = titles.key_at(reordering != nullptr
-                ? reordering->doc(result.first)
-                : result.first);
+        std::string title = titles.key_at(result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
                       << "Q0\t"
@@ -119,12 +112,15 @@ inline void run_query(const Index& index,
 
 int main(int argc, char** argv)
 {
-    auto [app, args] = irk::cli::app("Query inverted index",
+    auto [app, args] = irk::cli::app(
+        "Query inverted index",
         irk::cli::index_dir_opt{},
-        irk::cli::query_opt{},
-        irk::cli::reordering_opt{},
-        irk::cli::metric_opt{},
-        irk::cli::etcutoff_opt{});
+        irk::cli::nostem_opt{},
+        irk::cli::id_range_opt{},
+        irk::cli::k_opt{},
+        irk::cli::trec_run_opt{},
+        irk::cli::trec_id_opt{},
+        irk::cli::terms_pos{irk::cli::optional});
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
@@ -132,56 +128,38 @@ int main(int argc, char** argv)
         irk::inverted_index_mapped_data_source::from(dir, {"bm25"}).value();
     irk::inverted_index_view index(&data);
 
-    std::unique_ptr<irk::cli::docmap> reordering = nullptr;
-    if (not args->reordering.empty()) {
-        *reordering = irk::cli::docmap::from_files(args->reordering);
-    }
-
-    if (app->count("--frac-cutoff") > 0u) {
-        args->doc_cutoff = static_cast<document_t>(
-            args->frac_cutoff * index.titles().size());
-    }
-
-    if (not args->read_files) {
-        run_query(index,
+    if (not args->terms.empty()) {
+        run_query(
+            index,
             args->index_dir,
-            args->terms_or_files,
+            args->terms,
             args->k,
             not args->nostem,
-            reordering.get(),
-            app->count("--frac-cutoff") + app->count("--doc-cutoff") > 0u
-                ? std::make_optional(args->doc_cutoff)
-                : std::nullopt,
-            args->trecid != -1 ? std::make_optional(args->trecid)
-                               : std::nullopt,
-            args->trecrun);
+            args->trec_id != -1 ? std::make_optional(args->trec_id)
+                                : std::nullopt,
+            args->trec_run);
     }
     else {
-        std::optional<int> current_trecid = app->count("--trecid") > 0u
-            ? std::make_optional(args->trecid)
+        std::optional<int> current_trecid = app->count("--trec-id") > 0u
+            ? std::make_optional(args->trec_id)
             : std::nullopt;
-        for (const auto& file : args->terms_or_files) {
-            std::ifstream in(file);
-            std::string q;
-            while(std::getline(in, q))
-            {
-                std::istringstream qin(q);
-                std::string term;
-                std::vector<std::string> terms;
-                while (qin >> term) { terms.push_back(std::move(term)); }
-                run_query(index,
-                    args->index_dir,
-                    args->terms_or_files,
-                    args->k,
-                    not args->nostem,
-                    reordering.get(),
-                    app->count("--frac-cutoff") + app->count("--doc-cutoff")
-                            > 0u
-                        ? std::make_optional(args->doc_cutoff)
-                        : std::nullopt,
-                    current_trecid,
-                    args->trecrun);
-                if (current_trecid.has_value()) { current_trecid.value()++; }
+        for (const auto& query_line : irk::io::lines_from_stream(std::cin)) {
+            std::vector<std::string> terms;
+            boost::split(
+                terms,
+                query_line,
+                boost::is_any_of("\t "),
+                boost::token_compress_on);
+            run_query(
+                index,
+                args->index_dir,
+                terms,
+                args->k,
+                not args->nostem,
+                current_trecid,
+                args->trec_run);
+            if (current_trecid.has_value()) {
+                current_trecid.value()++;
             }
         }
     }

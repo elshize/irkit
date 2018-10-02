@@ -231,6 +231,40 @@ struct sep_opt {
     }
 };
 
+struct trec_run_opt {
+    std::string trec_run = "null";
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--run", args->trec_run, "Trec run ID", true);
+    }
+};
+
+struct trec_id_opt {
+    int trec_id;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option(
+            "--trec-id",
+            args->trec_id,
+            "Print in trec_eval format with this QID",
+            false);
+    }
+};
+
+struct k_opt {
+    int k = 1000;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("-k", args->k, "Number of documents to retrieve", true);
+    }
+};
+
 struct score_function_opt {
     std::string score_function;
 
@@ -266,7 +300,6 @@ struct terms_pos {
 struct query_opt {
     std::vector<std::string> terms_or_files;
     int k;
-    bool nostem;
     bool read_files;
     int trecid = -1;
     std::string trecrun = "null";
@@ -277,15 +310,12 @@ struct query_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option(
-               "query (files)",
+               "query",
                args->terms_or_files,
                "Query terms, or query files if -f defined",
                false)
             ->required();
         app.add_option("-k", args->k, "Number of documents to retrieve", true);
-        app.add_flag("--nostem", args->nostem, "Skip stemming terms (Porter2)");
-        app.add_flag(
-            "-f,--file", args->read_files, "Read queries from file(s)");
         app.add_option(
             "--trecid",
             args->trecid,

@@ -66,6 +66,16 @@ private:
     std::ifstream in_;
 };
 
+class lines_from_stream {
+public:
+    lines_from_stream(std::istream& in) : in_(in) {}
+    line_iterator begin() { return line_iterator(in_); }
+    line_iterator end() { return line_iterator(); }
+
+private:
+    std::istream& in_;
+};
+
 inline void enforce_exist(const fs::path& file)
 {
     if (not fs::exists(file)) {
