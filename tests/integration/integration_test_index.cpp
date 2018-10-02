@@ -173,10 +173,9 @@ void test(const irk::basic_inverted_index_view<D, F, S>& index_view,
 TEST_F(inverted_index, mapped_file)
 {
     // when
-    auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
-        index_dir,
-        static_cast<std::string>(irk::score::query_likelihood_tag{}));
-    irk::inverted_index_view index_view(data.get());
+    auto data =
+        irk::inverted_index_mapped_data_source::from(index_dir, {"ql"}).value();
+    irk::inverted_index_view index_view(&data);
     // then
     test(index_view, expected_index);
 }
@@ -184,10 +183,9 @@ TEST_F(inverted_index, mapped_file)
 TEST_F(inverted_index, disk)
 {
     // when
-    auto data = std::make_shared<irk::inverted_index_disk_data_source>(
-        index_dir,
-        static_cast<std::string>(irk::score::query_likelihood_tag{}));
-    irk::inverted_index_view index_view(data.get());
+    auto data =
+        irk::inverted_index_disk_data_source::from(index_dir, {"ql"}).value();
+    irk::inverted_index_view index_view(&data);
     // then
     test(index_view, expected_index);
 }
