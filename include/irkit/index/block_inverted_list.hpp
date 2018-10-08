@@ -181,6 +181,9 @@ public:
     //! Returns the index of the current posting.
     int idx() const { return block_size_ * pos_.block + pos_.off; }
 
+    //! Returns block size.
+    auto block_size() const { return block_size_; }
+
 private:
     friend class boost::iterator_core_access;
     void increment()
@@ -349,6 +352,9 @@ public:
 
         return list_byte_size;
     }
+
+    auto size() const { return values_.size(); }
+    auto values() const { return values_; }
 
 private:
     int expanded_size(int list_byte_size) const

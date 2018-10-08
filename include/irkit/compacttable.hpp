@@ -166,6 +166,12 @@ public:
         return out.write(data_.data(), data_.size());
     }
 
+    void serialize(const boost::filesystem::path& file) const
+    {
+        std::ofstream os(file.string());
+        serialize(os);
+    }
+
     std::vector<T> to_vector() const { return std::vector<T>(begin(), end()); }
 
     class iterator : public boost::iterator_facade<

@@ -37,6 +37,11 @@ class IRKConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
+        if self.settings.compiler == 'gcc':
+            cmake.definitions["CMAKE_C_COMPILER"] = "gcc-{}".format(
+                self.settings.compiler.version)
+            cmake.definitions["CMAKE_CXX_COMPILER"] = "g++-{}".format(
+                self.settings.compiler.version)
         cmake.configure()
         cmake.build()
         cmake.test()
@@ -47,6 +52,7 @@ class IRKConan(ConanFile):
         self.requires("rangev3/master@elshize/testing")
         self.requires("rax/master@elshize/testing")
         self.requires("irm/0.1@elshize/develop")
+        self.requires("cppitertools/1.0@elshize/stable")
 
         if not self.options.use_system_boost:
             self.requires("boost/1.66.0@conan/stable")

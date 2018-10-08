@@ -28,8 +28,101 @@
 
 #include <string>
 
+#include <cppitertools/itertools.hpp>
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
+
+namespace irk {
+
+namespace ts = type_safe;
+
+namespace details {
+    using shard_base_type = std::int32_t;
+};  // namespace details
+
+struct ShardId
+    : ts::strong_typedef<ShardId, details::shard_base_type>,
+      ts::strong_typedef_op::equality_comparison<ShardId, bool>,
+      ts::strong_typedef_op::relational_comparison<ShardId, bool>,
+      ts::strong_typedef_op::addition<ShardId>,
+      ts::strong_typedef_op::subtraction<ShardId>,
+      ts::strong_typedef_op::mixed_addition<ShardId, details::shard_base_type>,
+      ts::strong_typedef_op::
+          mixed_subtraction<ShardId, details::shard_base_type> {
+    using strong_typedef::strong_typedef;
+    explicit constexpr ShardId() noexcept : strong_typedef(0) {}
+    template<
+        typename T,
+        typename =
+            typename std::enable_if<ts::detail::is_safe_integer_conversion<
+                details::shard_base_type,
+                T>::value>::type>
+    constexpr ShardId(T d) noexcept : strong_typedef(d)
+    {}
+    explicit operator size_t() const noexcept { return ts::get(*this); }
+    details::shard_base_type as_int() const noexcept { return ts::get(*this); }
+
+    auto static range(details::shard_base_type count)
+    {
+        return iter::imap(
+            [](auto shard) { return ShardId(shard); }, iter::range(count));
+    }
+};
+
+std::ostream& operator<<(std::ostream& os, const ShardId& shard)
+{
+    return os << static_cast<details::shard_base_type>(shard);
+}
+
+template<typename K, typename V>
+class vmap : protected std::vector<V> {
+public:
+    using reference = V&;
+    using const_reference = const V&;
+    using size_type = typename std::vector<V>::size_type;
+    using std::vector<V>::push_back;
+    using std::vector<V>::size;
+    using std::vector<V>::empty;
+    using std::vector<V>::begin;
+    using std::vector<V>::cbegin;
+    using std::vector<V>::end;
+    using std::vector<V>::cend;
+
+    vmap() : std::vector<V>(){};
+    vmap(size_type count) : std::vector<V>(count){};
+    vmap(size_type count, const V& value) : std::vector<V>(count, value){};
+    vmap(std::initializer_list<V> init) : std::vector<V>(init) {}
+    vmap(const vmap& other) : std::vector<V>(other){};
+    vmap(vmap&& other) noexcept : std::vector<V>(other){};
+    vmap& operator=(const vmap& other) {
+        std::vector<V>::operator=(other);
+        return *this;
+    };
+    vmap& operator=(vmap&& other) noexcept {
+        std::vector<V>::operator=(other);
+        return *this;
+    };
+    reference operator[](K id)
+    {
+        return std::vector<V>::operator[](static_cast<size_type>(id));
+    }
+    const_reference operator[](K id) const
+    {
+        return std::vector<V>::operator[](static_cast<size_type>(id));
+    }
+
+    auto entries()
+    {
+        return iter::zip(iter::range(ShardId(size())), *this);
+    }
+
+    auto entries() const
+    {
+        return iter::zip(iter::range(ShardId(size())), *this);
+    }
+};
+
+}  // namespace irk
 
 namespace irk::index {
 
@@ -38,15 +131,15 @@ namespace irk::index {
         using term_id_base_type = std::int32_t;
         using term_base_type = std::string;
         using frequency_base_type = std::int32_t;
+        using shard_base_type = std::int32_t;
     };
-
-namespace ts = type_safe;
 
 using term_id_t = details::term_id_base_type;
 using term_t = details::term_base_type;
 using offset_t = std::size_t;
 using frequency_t = details::frequency_base_type;
 using document_t = details::document_base_type;
+};
 
 // struct document_t : ts::strong_typedef<document_t,
 // details::document_base_type>,
@@ -111,7 +204,7 @@ using document_t = details::document_base_type;
 //    return out << ts::get(d);
 //}
 
-}  // namespace irk::index
+//}  // namespace irk::index
 
 //namespace std {
 //

@@ -35,6 +35,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
+#include <cppitertools/itertools.hpp>
 #include <gsl/span>
 
 #include <irkit/bitptr.hpp>
@@ -44,6 +45,7 @@
 namespace irk::io {
 
 namespace fs = boost::filesystem;
+using boost::filesystem::path;
 
 namespace detail {
     class line : public std::string {
@@ -75,6 +77,29 @@ public:
 private:
     std::istream& in_;
 };
+
+template<typename IntRange>
+inline void filter_lines(
+    std::istream& input, std::ostream& output, const IntRange& line_numbers)
+{
+    auto line_enum = iter::enumerate(irk::io::lines_from_stream(input));
+    auto iter = std::begin(line_enum);
+    auto end = std::end(line_enum);
+    for (auto n : line_numbers) {
+        iter = std::find_if(
+            iter, end, [&n](const auto& entry) { return entry.index == n; });
+        output << iter->element << '\n';
+    }
+}
+
+template<typename IntRange>
+inline void filter_lines(
+    const path& input, const path& output, const IntRange& line_numbers)
+{
+    std::ifstream is(input.string());
+    std::ofstream os(output.string());
+    filter_lines(is, os, line_numbers);
+}
 
 inline void enforce_exist(const fs::path& file)
 {
