@@ -150,7 +150,7 @@ TEST_F(disk_memory_source, move_constructor)
     test_iterator(mv, container);
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

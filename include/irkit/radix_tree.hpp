@@ -147,4 +147,4 @@ public:
     rax* c_rax() const { return c_rax_; }
 };
 
-};  // namespace irk
+}  // namespace irk

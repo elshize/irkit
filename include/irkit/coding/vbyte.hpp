@@ -123,7 +123,7 @@ struct vbyte_codec {
             b = static_cast<unsigned char>(*in);
             ++in;
         }
-        *out = static_cast<typename iterator_type::value_type>(n);
+        *out = static_cast<value_type>(n);
         return in;
     }
 
@@ -150,4 +150,4 @@ struct vbyte_codec {
     }
 };
 
-};  // namespace irk
+}  // namespace irk

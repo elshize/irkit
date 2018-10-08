@@ -259,6 +259,6 @@ namespace view {
         });
     }
 
-};  // namespace view
+}  // namespace view
 
 }  // namespace irk

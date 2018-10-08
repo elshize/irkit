@@ -276,7 +276,7 @@ TEST_F(reorder_test, reorder)
     }
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

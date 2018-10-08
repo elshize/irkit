@@ -61,7 +61,7 @@ public:
     {
         static_assert(
             sorted == true, "moveto not supported for unsorted lists");
-        int block = nextgeq_block(id);
+        auto block = nextgeq_block(id);
         if (block >= view_.get().num_blocks()) {
             finish();
             return *this;
@@ -99,8 +99,8 @@ public:
         return al;
     }
 
-    int block() const { return block_; }
-    int pos() const { return pos_; }
+    auto block() const { return block_; }
+    auto pos() const { return pos_; }
 
 private:
     friend class boost::iterator_core_access;
@@ -137,7 +137,7 @@ private:
 
     int nextgeq_block(value_type id) const
     {
-        int block = block_;
+        auto block = block_;
         while (block < view_.get().num_blocks() && last_in_block(block) < id) {
             block++;
         }
@@ -159,8 +159,8 @@ private:
     }
 
     std::reference_wrapper<const view_type> view_;
-    std::size_t block_;
-    std::size_t pos_;
+    std::ptrdiff_t block_;
+    std::ptrdiff_t pos_;
 };
 
 template<class TDoc = long>
@@ -249,4 +249,4 @@ private:
     size_type block_size_ = 0;
 };
 
-};  // namespace irk
+}  // namespace irk

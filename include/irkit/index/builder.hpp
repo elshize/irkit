@@ -239,4 +239,4 @@ public:
 
 using index_builder = basic_index_builder<>;
 
-};  // namespace irk
+}  // namespace irk

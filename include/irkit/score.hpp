@@ -126,4 +126,4 @@ struct query_likelihood_scorer {
     }
 };
 
-};  // namespace irk::score
+}  // namespace irk::score

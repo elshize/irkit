@@ -72,7 +72,7 @@ public:
     lexicon& operator=(lexicon&&) noexcept = delete;
     ~lexicon() = default;
 
-    irk::memory_view block_memory_view(int block) const
+    irk::memory_view block_memory_view(std::size_t block) const
     {
         EXPECTS(block >= 0);
         EXPECTS(block < block_offsets_.size());
@@ -82,7 +82,7 @@ public:
             : blocks_.size();
         std::ptrdiff_t size = next_block_offset - block_offset;
         ENSURES(size > 0);
-        ENSURES(size <= blocks_.size());
+        ENSURES(size <= static_cast<std::ptrdiff_t>(blocks_.size()));
         if constexpr (std::is_same<memory_container,
                                    irk::memory_view>::value)  // NOLINT
         {
@@ -232,7 +232,10 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
-            if (block >= lex_.block_offsets_.size()) { return; }
+            if (block
+                >= static_cast<std::ptrdiff_t>(lex_.block_offsets_.size())) {
+                return;
+            }
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());
@@ -442,10 +445,9 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         leading_keys->insert(leading_key, block_idx);
         pcodec.reset();
         pcodec.encode(leading_key, bout);
-        for (std::size_t idx_in_block = 1;
+        for (int idx_in_block = 1;
              idx_in_block < keys_per_block && keys_begin != keys_end;
-             ++idx_in_block, ++index, ++keys_begin)
-        {
+             ++idx_in_block, ++index, ++keys_begin) {
             pcodec.encode(*keys_begin, bout);
         }
         ++block_idx;
@@ -482,4 +484,4 @@ build_lexicon(const boost::filesystem::path& file, int keys_per_block)
         keys_per_block);
 }
 
-};  // namespace irk
+}  // namespace irk

@@ -101,4 +101,4 @@ std::vector<typename Codec::value_type> delta_decode(const Codec& codec,
     return data;
 }
 
-};  // namespace irk
+}  // namespace irk

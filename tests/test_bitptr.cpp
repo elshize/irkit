@@ -98,7 +98,7 @@ TEST_F(bitcpy, bitset)
     ASSERT_EQ(target, expected);
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

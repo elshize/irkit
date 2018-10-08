@@ -65,7 +65,7 @@ TEST(block_view, no_skips)
     EXPECT_THAT(decoded, ::testing::ElementsAreArray(items));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

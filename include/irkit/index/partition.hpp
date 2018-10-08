@@ -220,8 +220,8 @@ inline void postings_batch(
                 out.write(
                     term_id,
                     document_builder,
-                    frequency_builders[term_id - term_batch.front()][shard],
-                    score_builders[term_id - term_batch.front()][shard]);
+                    frequency_builders[idx][shard],
+                    score_builders[idx][shard]);
             }
         }
     }
@@ -328,4 +328,4 @@ void index(
         total_occurrences);
 }
 
-};  // namespace irk::partition
+}  // namespace irk::partition

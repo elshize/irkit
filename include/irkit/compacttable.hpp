@@ -224,7 +224,9 @@ public:
         bool equal(const iterator& other) const { return pos_ == other.pos_; }
         const T& dereference() const
         {
-            DEBUG_ASSERT(pos_ % block_size_ < buffer_.size(), debug_handler{});
+            DEBUG_ASSERT(
+                pos_ % block_size_ < static_cast<int32_t>(buffer_.size()),
+                debug_handler{});
             return buffer_[pos_ % block_size_];
         }
 
@@ -375,6 +377,6 @@ namespace io {
         out.close();
     }
 
-};  // namespace io
+}  // namespace io
 
-};  // namespace irk
+}  // namespace irk

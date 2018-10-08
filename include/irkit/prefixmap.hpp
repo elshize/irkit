@@ -45,6 +45,7 @@
 #include <irkit/coding/hutucker.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/radix_tree.hpp>
+#include <irkit/sgn.hpp>
 #include <irkit/utils.hpp>
 
 namespace irk {
@@ -66,7 +67,7 @@ namespace fs = boost::filesystem;
 
       \author Michal Siedlaczek
  */
-template<class Index, class MemoryBuffer, class Counter = std::uint32_t>
+template<class Index, class MemoryBuffer, class Counter = std::int32_t>
 class prefix_map {
     static constexpr std::size_t block_data_offset =
         sizeof(Index) + sizeof(Counter);
@@ -225,8 +226,8 @@ public:
             int pos_in_block,
             const std::shared_ptr<hutucker_codec<char>> codec)
             : blocks_(blocks),
-              block_size_(block_size),
               block_(block),
+              block_size_(block_size),
               block_num_(block_num),
               pos_in_block_(pos_in_block),
               codec_(codec)
@@ -260,8 +261,8 @@ public:
         int block_size_;
         int block_num_;
         int pos_in_block_;
-        mutable std::string val_;
         const std::shared_ptr<hutucker_codec<char>> codec_;
+        mutable std::string val_{};
     };
     using const_iterator = iterator;
 
@@ -344,7 +345,7 @@ private:
 
     void init_reverse_lookup() const
     {
-        for (long block_num = 0; block_num < block_count_; block_num++)
+        for (size_t block_num = 0; block_num < block_count_; block_num++)
         {
             auto block = block_ptr(
                 blocks_.data() + block_num * block_size_, codec_);
@@ -456,7 +457,7 @@ public:
         block_ptr block{blocks_.data() + block_number * block_size_, codec_};
         Index idx = block.first_index();
         std::string v = block.next();
-        std::uint32_t c = 1;
+        std::int32_t c = 1;
         while (c < block.count() && v < key) {
             v = block.next();
             ++idx;
@@ -467,7 +468,7 @@ public:
 
     std::string operator[](const Index& val) const
     {
-        assert(val < size_);
+        assert(val < sgn(size_));
         if (reverse_lookup_.empty()) { init_reverse_lookup(); }
         auto block_pos = std::prev(std::upper_bound(
             reverse_lookup_.begin(), reverse_lookup_.end(), val));
@@ -475,7 +476,7 @@ public:
         block_ptr block{blocks_.data() + block_number * block_size_, codec_};
         Index idx = block.first_index();
         std::string v = block.next();
-        std::uint32_t c = 1;
+        std::int32_t c = 1;
         while (c < block.count() && idx < val) {
             v = block.next();
             ++idx;
@@ -630,6 +631,7 @@ namespace io {
         map.dump(out);
         out.close();
     }
-};
 
-};  // namespace irk
+}  // namespace io
+
+}  // namespace irk

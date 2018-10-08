@@ -20,34 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file metadata.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
-#include <boost/filesystem.hpp>
-#include <irkit/index.hpp>
+#include <type_traits>
 
-namespace irk::index {
+namespace irk {
 
-namespace fs = boost::filesystem;
+template<typename Int>
+inline auto sgn(Int value)
+{
+    return static_cast<std::make_signed_t<Int>>(value);
+}
 
-//! Container for index-related metadata.
-struct metadata {
-    fs::path dir;
-    fs::path doc_ids = irk::index::doc_ids_path(dir);
-    fs::path doc_ids_off = irk::index::doc_ids_off_path(dir);
-    fs::path doc_counts = irk::index::doc_counts_path(dir);
-    fs::path doc_counts_off = irk::index::doc_counts_off_path(dir);
-    fs::path terms = irk::index::terms_path(dir);
-    fs::path term_doc_freq = irk::index::term_doc_freq_path(dir);
-    fs::path doc_titles = irk::index::titles_path(dir);
-    fs::path doc_sizes = dir / "doc.sizes";
-    fs::path term_occurrences = irk::index::term_occurrences_path(dir);
-    fs::path properties = irk::index::properties_path(dir);
-
-    explicit metadata(fs::path dir) : dir(std::move(dir)) {}
-};
-
-}  // namespace irk::index
+}  // namespace irk

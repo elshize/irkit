@@ -28,17 +28,19 @@
 
 #include <debug_assert.hpp>
 
-#define ASSERT(Expr, ...)                                                      \
+#define ASSERT(Expr)                                                           \
     DEBUG_ASSERT(Expr, assert_handler{}, debug_assert::level<1>{})
 
-#define EXPECTS(Expr, ...)                                                     \
-    DEBUG_ASSERT(Expr,                                                         \
+#define EXPECTS(Expr)                                                          \
+    DEBUG_ASSERT(                                                              \
+        Expr,                                                                  \
         contract_handler{},                                                    \
         debug_assert::level<1>{},                                              \
         "function input contract violated")
 
-#define ENSURES(Expr, ...)                                                     \
-    DEBUG_ASSERT(Expr,                                                         \
+#define ENSURES(Expr)                                                          \
+    DEBUG_ASSERT(                                                              \
+        Expr,                                                                  \
         contract_handler{},                                                    \
         debug_assert::level<1>{},                                              \
         "function output contract violated")

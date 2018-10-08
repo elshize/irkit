@@ -336,4 +336,4 @@ public:
 
 using index_merger = basic_index_merger<>;
 
-};  // namespace irk
+}  // namespace irk

@@ -83,4 +83,4 @@ private:
     irk::memory_view memory_view_;
 };
 
-};  // namespace irk::index
+}  // namespace irk::index

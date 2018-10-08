@@ -172,6 +172,6 @@ namespace huffman {
         return terminal_list;
     }
 
-};  // namespace huffman
+}  // namespace huffman
 
-};  // namespace irk::coding
+}  // namespace irk::coding

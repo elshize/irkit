@@ -38,6 +38,7 @@
 #include <irkit/index/block.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
+#include <irkit/sgn.hpp>
 
 namespace irk::index
 {
@@ -238,9 +239,10 @@ private:
     //! Returns the block of the next greater of equal element.
     int nextgeq_block(int block, value_type id) const
     {
-        while (block < view_.blocks_.size()
-            && view_.blocks_[block].back() < id)
-        { block++; }
+        while (block < sgn(view_.blocks_.size())
+               && view_.blocks_[block].back() < id) {
+            block++;
+        }
         return block;
     }
 
@@ -255,7 +257,7 @@ private:
     const view_type& view_;
     block_position_t pos_;
     int32_t block_size_;
-    const std::size_t block_count_;
+    const int32_t block_count_;
 };
 
 //class decoded_block_iterator : public boost::iterator_facade<
@@ -300,6 +302,8 @@ public:
 
         gsl::index pos = 0;
         value_type previous_doc(0);
+        (void)previous_doc;  // To remove -Wunused-but-set-variable warning due
+                             // to `if constexpr` block later on.
         const int32_t num_blocks = (values_.size() + block_size_ - 1)
             / block_size_;
         for (gsl::index block = 0; block < num_blocks; ++block)
@@ -473,4 +477,4 @@ using block_document_list_view = block_list_view<document_t, Codec, document_t>;
 template<class Payload, class Codec>
 using block_payload_list_view = block_list_view<Payload, Codec, std::nullopt_t>;
 
-};  // namespace irk::index
+}  // namespace irk::index

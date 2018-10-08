@@ -62,4 +62,4 @@ private:
     porter2::SN_env* env_ = porter2::create_env();
 };
 
-};  // namespace irk
+}  // namespace irk

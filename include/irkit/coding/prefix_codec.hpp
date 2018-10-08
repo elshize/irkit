@@ -48,7 +48,7 @@ public:
     output_bit_stream&
     encode(const std::string& value, output_bit_stream& out) const
     {
-        int pos = 0;
+        std::size_t pos = 0;
         for (; pos < prev_.size() && pos < value.size(); ++pos)
         { if (prev_[pos] != value[pos]) { break; } }
 
@@ -98,4 +98,4 @@ private:
     }
 };
 
-};
+}  // namespace irk

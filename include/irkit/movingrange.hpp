@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file movingrange.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
@@ -31,14 +31,14 @@
 
 namespace irk {
 
-//! A container for two ends of iterators.
-/*!
-    \author Michal Siedlaczek <http://github.com/elshize>
-
-    TODO:
-        - Needs to be generalized, for containers as well?
-        - Implement iterator methods.
- */
+/// A container for two ends of iterators.
+///
+/// \author Michal Siedlaczek <http://github.com/elshize>
+///
+/// TODO:
+///     - Needs to be generalized, for containers as well?
+///     - Implement iterator methods.
+///
 template<class Iter>
 struct moving_range {
     using iterator_type = Iter;
@@ -73,4 +73,4 @@ struct moving_range {
     const auto& front() const { return *left; }
 };
 
-};  // namespace irk
+}  // namespace irk

@@ -91,7 +91,7 @@ TEST(offset_table, to_vector)
     ASSERT_THAT(vec, ::testing::ElementsAreArray(values));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

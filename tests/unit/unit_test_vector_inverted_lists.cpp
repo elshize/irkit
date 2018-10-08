@@ -152,7 +152,7 @@ TEST(vector_payload_list, alignment)
     ASSERT_EQ( vpl.at(vdl.lookup(31)), vpl.end());
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

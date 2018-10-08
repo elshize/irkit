@@ -190,4 +190,4 @@ public:
 
 using index_assembler = basic_index_assembler<>;
 
-};  // namespace irk::index
+}  // namespace irk::index

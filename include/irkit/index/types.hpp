@@ -37,8 +37,10 @@ namespace irk {
 namespace ts = type_safe;
 
 namespace details {
+
     using shard_base_type = std::int32_t;
-};  // namespace details
+
+}  // namespace details
 
 struct ShardId
     : ts::strong_typedef<ShardId, details::shard_base_type>,
@@ -127,19 +129,22 @@ public:
 namespace irk::index {
 
     namespace details {
+
         using document_base_type = std::int32_t;
         using term_id_base_type = std::int32_t;
         using term_base_type = std::string;
         using frequency_base_type = std::int32_t;
         using shard_base_type = std::int32_t;
-    };
+
+    }  // namespace details
 
 using term_id_t = details::term_id_base_type;
 using term_t = details::term_base_type;
 using offset_t = std::size_t;
 using frequency_t = details::frequency_base_type;
 using document_t = details::document_base_type;
-};
+
+}  // namespace irk::index
 
 // struct document_t : ts::strong_typedef<document_t,
 // details::document_base_type>,
@@ -232,4 +237,4 @@ inline irk::index::document_t operator"" _id(unsigned long long n)  // NOLINT
     return irk::index::document_t(n);
 }
 
-}  // namespace irk::literal
+}  // namespace irk::literals

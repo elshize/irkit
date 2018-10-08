@@ -219,7 +219,7 @@ void postings(
             index.frequencies(term), mask, frequency_os, block_size);
         foff += fsize;
         occurrences[term] = occ;
-        for (size_t idx = 0; idx < score_functions; ++idx) {
+        for (int idx = 0; idx < score_functions; ++idx) {
             scores_offsets[idx].push_back(soff[idx]);
             soff[idx] += write_score_list<typename Index::score_type, false>(
                 index.scores(term, score_names[idx]),
@@ -233,7 +233,7 @@ void postings(
     frequency_offsets_os << irk::build_offset_table(frequency_offsets);
     term_freq_os << irk::build_compact_table(frequencies);
     term_occ_os << irk::build_compact_table(occurrences);
-    for (size_t idx = 0; idx < score_functions; ++idx) {
+    for (int idx = 0; idx < score_functions; ++idx) {
         scores_offset_os[idx] << irk::build_offset_table(scores_offsets[idx]);
     }
 }
@@ -312,4 +312,4 @@ void index(
         irk::index::properties_path(output_dir));
 }
 
-};
+}  // namespace irk::reorder

@@ -345,12 +345,10 @@ TEST_F(HuTucker, with_frequencies_signed)
     EXPECT_THAT(decode_sink.str(), ::testing::ElementsAreArray(content));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-
-

@@ -278,7 +278,7 @@ TEST(prefix_map, reverse_lookup)
     { ASSERT_EQ(lmap[lmap[idx]].value_or(-1), idx) << lmap[idx]; }
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

@@ -142,7 +142,7 @@ TEST(posting_list_view, union_view)
 //    ASSERT_THAT(pairs, ::testing::ElementsAreArray(expected));
 //}
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

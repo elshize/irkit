@@ -266,12 +266,12 @@ void test_postings(
         shard_sources.end(),
         std::back_inserter(shards),
         [](const auto& source) { return irk::inverted_index_view(&source); });
-    for (const auto& [global_id, term] : iter::enumerate(index.terms())) {
-        auto all_documents = index.documents(term);
-        for (const auto& shard : shards) {
+    //for (const auto& [global_id, term] : iter::enumerate(index.terms())) {
+    //    auto all_documents = index.documents(term);
+    //    for (const auto& shard : shards) {
 
-        }
-    }
+    //    }
+    //}
 }
 
 TEST_F(partition_test, index)
@@ -283,7 +283,7 @@ TEST_F(partition_test, index)
     test_postings(input_dir, shard_paths);
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

@@ -107,7 +107,7 @@ TEST(vbyte, document)
     ASSERT_THAT(actual, ::testing::ElementsAreArray(values));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

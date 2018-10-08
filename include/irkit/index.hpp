@@ -36,10 +36,12 @@
 #include <utility>
 #include <vector>
 
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/range/adaptors.hpp>
+#include <cppitertools/itertools.hpp>
 #include <fmt/format.h>
 #include <gsl/span>
 #include <nlohmann/json.hpp>
@@ -48,7 +50,6 @@
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
 #include <type_safe/types.hpp>
-#include <cppitertools/itertools.hpp>
 
 #include <irkit/assert.hpp>
 #include <irkit/coding.hpp>
@@ -133,15 +134,25 @@ namespace index {
     inline std::vector<std::string> all_score_names(const path& dir)
     {
         std::vector<std::string> names;
-        for (auto& file : wildcard(dir, ".*\\.scores")) {
-            std::string filename = file.path().filename().string();
-            std::string name(
-                filename.begin(),
-                std::find(filename.begin(), filename.end(), '.'));
-            names.push_back(name);
+        auto matches = [&](const path& p) {
+            return boost::algorithm::ends_with(
+                p.filename().string(), ".scores");
+        };
+        for (auto& file :
+             boost::make_iterator_range(directory_iterator(dir), {}))
+        {
+            std::cout << file.path().string() << std::endl;
+            if (is_regular_file(file.path()) && matches(file.path())) {
+                std::string filename = file.path().filename().string();
+                std::string name(
+                    filename.begin(),
+                    std::find(filename.begin(), filename.end(), '.'));
+                std::cout << "Name: " << name << std::endl;
+                names.push_back(name);
+            }
         }
         return names;
-    };
+    }
 
     struct posting_vectors {
         std::vector<term_id_t> term_ids;
@@ -281,7 +292,7 @@ namespace index {
         }
     };
 
-};  // namespace index
+}  // namespace index
 
 template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
     class FrequencyCodec = irk::stream_vbyte_codec<index::frequency_t>,
@@ -335,8 +346,9 @@ public:
           title_map_(std::move(load_lexicon(data->title_map_source()))),
           term_count_(term_collection_frequencies_.size())
     {
-        EXPECTS(document_offsets_.size() == term_count_);
-        EXPECTS(count_offsets_.size() == term_count_);
+        EXPECTS(
+            static_cast<ptrdiff_t>(document_offsets_.size()) == term_count_);
+        EXPECTS(static_cast<ptrdiff_t>(count_offsets_.size()) == term_count_);
 
         for (const auto& [name, tuple] : data->scores_sources()) {
             score_tuple_type t{tuple.postings,
@@ -701,6 +713,6 @@ void score_index(
     offout << offset_table;
     auto maxscore_table = irk::build_compact_table<uint32_t>(max_scores);
     maxout << maxscore_table;
-};
+}
 
-};  // namespace irk
+}  // namespace irk

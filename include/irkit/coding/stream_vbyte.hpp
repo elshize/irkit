@@ -133,4 +133,4 @@ struct stream_vbyte_codec {
     }
 };
 
-};  // namespace irk
+}  // namespace irk

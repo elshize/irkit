@@ -362,4 +362,4 @@ inline memory_view make_memory_view(const boost::filesystem::path& file_path)
     return memory_view(disk_memory_source(file_path));
 }
 
-};  // namespace irk
+}  // namespace irk

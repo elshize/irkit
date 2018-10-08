@@ -69,4 +69,4 @@ inline std::string cleantext(const std::string& html)
     return content;
 }
 
-};  // namespace irk::parsing::html
+}  // namespace irk::parsing::html

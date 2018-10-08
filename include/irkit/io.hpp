@@ -86,8 +86,9 @@ inline void filter_lines(
     auto iter = std::begin(line_enum);
     auto end = std::end(line_enum);
     for (auto n : line_numbers) {
-        iter = std::find_if(
-            iter, end, [&n](const auto& entry) { return entry.index == n; });
+        iter = std::find_if(iter, end, [&n](const auto& entry) {
+            return entry.index == static_cast<size_t>(n);
+        });
         output << iter->element << '\n';
     }
 }
@@ -180,4 +181,4 @@ void write_lines(const Range& lines, std::ostream& out)
     }
 }
 
-};  // namespace irk::io
+}  // namespace irk::io

@@ -200,4 +200,4 @@ public:
     }
 };
 
-};  // namespace irk
+}  // namespace irk

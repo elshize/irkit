@@ -75,7 +75,6 @@ void accumulate(const DocumentList& documents,
     auto dit = std::begin(documents);
     auto dend = std::end(documents);
     auto pit = std::begin(payloads);
-    auto pend = std::end(payloads);
     for (; dit != dend; ++dit, ++pit) { accumulators[*dit] += *pit; }
 }
 
@@ -143,9 +142,10 @@ aggregate_top_k(const block_accumulator_vector<Value>& accumulators, int k)
     for (std::size_t block = 0; block < accumulators.max_values.size(); ++block)
     {
         if (accumulators.max_values[block] < top.threshold()) { continue; }
-        std::size_t begin = block * accumulators.block_size;
-        std::size_t end = std::min((block + 1) * accumulators.block_size,
-            accumulators.accumulators.size());
+        Key begin = static_cast<Key>(block * accumulators.block_size);
+        Key end = static_cast<Key>(std::min(
+            (block + 1) * accumulators.block_size,
+            accumulators.accumulators.size()));
         for (Key idx = begin; idx < end; ++idx) {
             top.accumulate(idx, accumulators.accumulators[idx]);
         }
@@ -153,4 +153,4 @@ aggregate_top_k(const block_accumulator_vector<Value>& accumulators, int k)
     return top.sorted();
 }
 
-};  // namespace irk
+}  // namespace irk

@@ -184,39 +184,39 @@ protected:
 TEST_F(FilterLines, empty)
 {
     std::ostringstream output;
-    irk::io::filter_lines(input, output, std::vector<int>());
+    irk::io::filter_lines(input, output, std::vector<size_t>());
     ASSERT_THAT(output.str(), ::testing::StrEq(""));
 }
 
 TEST_F(FilterLines, all)
 {
     std::ostringstream output;
-    irk::io::filter_lines(input, output, std::vector<int>{0, 1, 2, 3, 4, 5});
+    irk::io::filter_lines(input, output, std::vector<size_t>{0, 1, 2, 3, 4, 5});
     ASSERT_THAT(output.str(), ::testing::StrEq("0\n1\n2\n3\n4\n5\n"));
 }
 
 TEST_F(FilterLines, edges)
 {
     std::ostringstream output;
-    irk::io::filter_lines(input, output, std::vector<int>{0, 1, 4, 5});
+    irk::io::filter_lines(input, output, std::vector<size_t>{0, 1, 4, 5});
     ASSERT_THAT(output.str(), ::testing::StrEq("0\n1\n4\n5\n"));
 }
 
 TEST_F(FilterLines, middle)
 {
     std::ostringstream output;
-    irk::io::filter_lines(input, output, std::vector<int>{2, 3});
+    irk::io::filter_lines(input, output, std::vector<size_t>{2, 3});
     ASSERT_THAT(output.str(), ::testing::StrEq("2\n3\n"));
 }
 
 TEST_F(FilterLines, every_other)
 {
     std::ostringstream output;
-    irk::io::filter_lines(input, output, std::vector<int>{0, 2, 4});
+    irk::io::filter_lines(input, output, std::vector<size_t>{0, 2, 4});
     ASSERT_THAT(output.str(), ::testing::StrEq("0\n2\n4\n"));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

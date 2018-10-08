@@ -30,6 +30,7 @@ add_irk(docidmap)
 add_irk(terminfo)
 add_irk(shardmap)
 add_irk(reorder)
+#add_irk(partidx)
 
 install(
     TARGETS
@@ -49,4 +50,5 @@ install(
         irk-terminfo
         irk-shardmap
         irk-reorder
+        #irk-partidx
     DESTINATION bin)

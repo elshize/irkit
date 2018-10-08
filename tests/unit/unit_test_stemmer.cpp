@@ -41,7 +41,7 @@ TEST(porter2_stemmer, stem)
     ASSERT_EQ(stemmer.stem("getting"), "get");
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {
