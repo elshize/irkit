@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.9)
 project(IRKit VERSION 0.1 LANGUAGES CXX C)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG_ASSERT")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fsanitize=undefined")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined")
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 option(IRKit_BUILD_INTEGRATION_TEST "whether or not to build the integration test" OFF)
@@ -18,7 +20,7 @@ endif()
 
 set(IRKit_CXX_PRIVATE_FEATURES cxx_std_17)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99 -fno-strict-aliasing -march=native")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-strict-aliasing -march=native")
 set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 add_definitions(-DBOOST_NO_AUTO_PTR)
@@ -51,6 +53,7 @@ if (IRKit_USE_SYSTEM_BOOST)
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
         CONAN_PKG::spdlog
+        CONAN_PKG::cppitertools
         pthread)
 else()
     #add_definitions(-DBOOST_LOG_DYN_LINK)
@@ -64,6 +67,7 @@ else()
         CONAN_PKG::streamvbyte
         CONAN_PKG::rax
         CONAN_PKG::spdlog
+        CONAN_PKG::cppitertools
         pthread)
 endif()
 install(DIRECTORY include/irkit DESTINATION include)
