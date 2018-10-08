@@ -47,25 +47,30 @@ public:
     using value_type = typename ListT::value_type;
 
     vector_block_iterator() = default;
-    vector_block_iterator(const self_type&) = default;
     vector_block_iterator(
         const view_type& view, difference_type block, difference_type pos)
-        : view_(view), block_(block), pos_(pos)
+        : view_(std::cref(view)), block_(block), pos_(pos)
     {}
+    vector_block_iterator(const vector_block_iterator&) = default;
+    vector_block_iterator(vector_block_iterator&& other) noexcept = default;
+    vector_block_iterator& operator=(const vector_block_iterator&) = default;
+    vector_block_iterator&
+    operator=(vector_block_iterator&&) noexcept = default;
 
     self_type& moveto(value_type id)
     {
         static_assert(
             sorted == true, "moveto not supported for unsorted lists");
         int block = nextgeq_block(id);
-        if (block >= view_.num_blocks())
-        {
+        if (block >= view_.get().num_blocks()) {
             finish();
             return *this;
         }
         pos_ = block == block_ ? pos_ : 0;
         block_ = block;
-        while (view_[absolute_position()] < id) { pos_++; }
+        while (view_.get()[absolute_position()] < id) {
+            pos_++;
+        }
         return *this;
     };
 
@@ -102,50 +107,58 @@ private:
 
     void increment()
     {
-        block_ += (pos_ + 1) / view_.block_size();
-        pos_ = (pos_ + 1) % view_.block_size();
+        block_ += (pos_ + 1) / view_.get().block_size();
+        pos_ = (pos_ + 1) % view_.get().block_size();
     }
 
     void advance(difference_type n)
     {
-        block_ += (pos_ + n) / view_.block_size();
-        pos_ = (pos_ + n) % view_.block_size();
+        block_ += (pos_ + n) / view_.get().block_size();
+        pos_ = (pos_ + n) % view_.get().block_size();
     }
 
     bool equal(const self_type& other) const
     { return pos_ == other.pos_ && block_ == other.block_; }
 
-    const value_type& dereference() const { return view_[absolute_position()]; }
+    const value_type& dereference() const
+    {
+        return view_.get()[absolute_position()];
+    }
 
     difference_type absolute_position() const
-    { return view_.block_size() * block_ + pos_; }
+    {
+        return view_.get().block_size() * block_ + pos_;
+    }
 
     difference_type absolute_position(int block, difference_type pos) const
-    { return view_.block_size() * block + pos; }
+    {
+        return view_.get().block_size() * block + pos;
+    }
 
     int nextgeq_block(value_type id) const
     {
         int block = block_;
-        while (block < view_.num_blocks() && last_in_block(block) < id)
-        { block++; }
+        while (block < view_.get().num_blocks() && last_in_block(block) < id) {
+            block++;
+        }
         return block;
     }
 
     difference_type last_in_block(int block) const
     {
-        auto idx = block < view_.num_blocks() - 1
-            ? view_.block_size() - 1
-            : (view_.size() - 1) % view_.block_size();
-        return view_[absolute_position(block, idx)];
+        auto idx = block < view_.get().num_blocks() - 1
+            ? view_.get().block_size() - 1
+            : (view_.get().size() - 1) % view_.get().block_size();
+        return view_.get()[absolute_position(block, idx)];
     }
 
     void finish()
     {
-        block_ = view_.num_blocks() - 1;
-        pos_ = view_.size() % view_.block_size();
+        block_ = view_.get().num_blocks() - 1;
+        pos_ = view_.get().size() % view_.get().block_size();
     }
 
-    const view_type& view_;
+    std::reference_wrapper<const view_type> view_;
     std::size_t block_;
     std::size_t pos_;
 };
@@ -204,6 +217,10 @@ public:
     vector_payload_list(std::vector<value_type> vec)
         : ids_(std::move(vec)), block_size_(ids_.size())
     {}
+    vector_payload_list(const vector_payload_list&) = default;
+    vector_payload_list(vector_payload_list&&) noexcept = default;
+    vector_payload_list& operator=(const vector_payload_list&) = default;
+    vector_payload_list& operator=(vector_payload_list&&) noexcept = default;
 
     size_type size() const { return ids_.size(); }
     size_type block_size() const { return block_size_; }

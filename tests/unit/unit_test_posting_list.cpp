@@ -28,6 +28,7 @@
 #include <sstream>
 #include <vector>
 
+#include <cppitertools/itertools.hpp>
 #include <gmock/gmock.h>
 #include <gsl/span>
 #include <gtest/gtest.h>
@@ -36,6 +37,7 @@
 #define protected public
 #include <irkit/index/vector_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
+#include <irkit/movingrange.hpp>
 
 namespace {
 
@@ -95,6 +97,32 @@ TEST(posting_list_view, lookup)
     ASSERT_THAT(pair_of(postings.lookup(15)), ::testing::Pair(30, 30.1));
     ASSERT_THAT(pair_of(postings.lookup(30)), ::testing::Pair(30, 30.1));
     ASSERT_EQ(postings.lookup(31), postings.end());
+}
+
+TEST(posting_list_view, union_view)
+{
+    std::vector<irk::posting_list_view<
+        irk::vector_document_list<int>,
+        irk::vector_payload_list<int>>>
+        posting_lists;
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{0, 1, 4}),
+        irk::vector_payload_list(std::vector<int>{0, 0, 0}));
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{0, 2, 4}),
+        irk::vector_payload_list(std::vector<int>{1, 1, 1}));
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{1, 2, 4}),
+        irk::vector_payload_list(std::vector<int>{2, 2, 2}));
+
+    auto postings = irk::merge(posting_lists);
+    std::vector<int> docs_only(postings.size());
+    std::transform(
+        postings.begin(),
+        postings.end(),
+        docs_only.begin(),
+        [](const auto& posting) { return posting.document(); });
+    ASSERT_THAT(docs_only, ::testing::ElementsAre(0, 0, 1, 1, 2, 2, 4, 4, 4));
 }
 
 //TEST(posting_list_view, pair_conversion)

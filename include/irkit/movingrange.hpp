@@ -26,6 +26,7 @@
 
 #pragma once
 
+#include <iterator>
 #include <utility>
 
 namespace irk {
@@ -53,6 +54,11 @@ struct moving_range {
     moving_range(iterator_type first, iterator_type last)
         : left(first), right(last)
     {}
+    moving_range(const moving_range&) = default;
+    moving_range(moving_range&& other) noexcept = default;
+    moving_range& operator=(const moving_range&) = default;
+    moving_range& operator=(moving_range&&) noexcept = default;
+    ~moving_range() = default;
 
     bool empty() const { return left == right; }
 
@@ -60,11 +66,11 @@ struct moving_range {
     void advance() { ++left; };
 
     //! Advances the left end of the range by `n`.
-    void advance(unsigned int n) { left += n; };
+    void advance(unsigned int n) { std::advance(left, n); };
 
     iterator_type begin() const { return left; }
     iterator_type end() const { return right; }
-    auto front() const { return *left; }
+    const auto& front() const { return *left; }
 };
 
 };  // namespace irk
