@@ -190,11 +190,10 @@ TEST_F(inverted_index, disk)
     test(index_view, expected_index);
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-

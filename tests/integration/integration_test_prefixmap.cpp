@@ -95,7 +95,7 @@ TEST(prefix_map, build_load_verify)
     //}
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {
