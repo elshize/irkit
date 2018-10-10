@@ -34,8 +34,6 @@
 #include <gmock/gmock.h>
 #include <gsl/span>
 #include <gtest/gtest.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
@@ -58,7 +56,9 @@ class partition_test : public ::testing::Test {
 protected:
     path input_dir;
     path output_dir;
+    irk::vmap<ShardId, path> shard_dirs;
     irk::vmap<irk::index::document_t, ShardId> shard_map;
+    std::vector<document_t> document_mapping;
     partition_test()
     {
         input_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test";
@@ -90,6 +90,15 @@ protected:
         auto s = [](int s) { return ShardId(s); };
         shard_map = {
             s(0), s(1), s(2), s(2), s(1), s(0), s(1), s(1), s(2), s(0)};
+        shard_dirs = irk::detail::partition::resolve_paths(output_dir, 3);
+        document_mapping =
+            irk::detail::partition::compute_document_mapping(shard_map, 3);
+    }
+
+    irk::detail::partition::Partition partition()
+    {
+        return irk::detail::partition::Partition(
+            3, 10, input_dir, shard_dirs, shard_map, document_mapping);
     }
 };
 
@@ -97,7 +106,7 @@ using size_type = irk::inverted_index_view::size_type;
 
 TEST_F(partition_test, resolve_paths)
 {
-    auto shard_paths = irk::partition::resolve_paths(output_dir, 3);
+    auto shard_paths = irk::detail::partition::resolve_paths(output_dir, 3);
     ASSERT_EQ(shard_paths.size(), 3);
     ASSERT_THAT(
         shard_paths[0].string(),
@@ -112,26 +121,23 @@ TEST_F(partition_test, resolve_paths)
 
 TEST_F(partition_test, sizes)
 {
-    auto shard_paths = irk::partition::resolve_paths(output_dir, 3);
-    for (const auto& path : shard_paths) {
-        boost::filesystem::create_directory(path);
-    }
-    irk::partition::sizes(input_dir, shard_paths, shard_map);
+    auto part = partition();
+    part.sizes();
     {
         auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(shard_paths[0]))
+                         irk::index::doc_sizes_path(part.shard_dirs_[0]))
                          .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(8, 10, 7));
     }
     {
         auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(shard_paths[1]))
+                         irk::index::doc_sizes_path(part.shard_dirs_[1]))
                          .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(10, 7, 10, 7));
     }
     {
         auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(shard_paths[2]))
+                         irk::index::doc_sizes_path(part.shard_dirs_[2]))
                          .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(9, 9, 11));
     }
@@ -139,17 +145,14 @@ TEST_F(partition_test, sizes)
 
 TEST_F(partition_test, titles)
 {
-    auto shard_paths = irk::partition::resolve_paths(output_dir, 3);
-    for (const auto& path : shard_paths) {
-        boost::filesystem::create_directory(path);
-    }
-    irk::partition::titles(input_dir, shard_paths, shard_map);
+    auto part = partition();
+    part.titles();
     {
-        auto titles_lex = irk::load_lexicon(
-            irk::make_memory_view(irk::index::title_map_path(shard_paths[0])));
+        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
+            irk::index::title_map_path(part.shard_dirs_[0])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(shard_paths[0]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[0]).string(), titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 3);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc00"));
@@ -160,11 +163,11 @@ TEST_F(partition_test, titles)
         ASSERT_THAT(titles_lex.key_at(2), ::testing::StrEq("Doc09"));
     }
     {
-        auto titles_lex = irk::load_lexicon(
-            irk::make_memory_view(irk::index::title_map_path(shard_paths[1])));
+        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
+            irk::index::title_map_path(part.shard_dirs_[1])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(shard_paths[1]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[1]).string(), titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 4);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc01"));
@@ -177,11 +180,11 @@ TEST_F(partition_test, titles)
         ASSERT_THAT(titles_lex.key_at(3), ::testing::StrEq("Doc07"));
     }
     {
-        auto titles_lex = irk::load_lexicon(
-            irk::make_memory_view(irk::index::title_map_path(shard_paths[2])));
+        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
+            irk::index::title_map_path(part.shard_dirs_[2])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(shard_paths[2]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[2]).string(), titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 3);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc02"));
@@ -191,6 +194,13 @@ TEST_F(partition_test, titles)
         ASSERT_THAT(titles[2], ::testing::StrEq("Doc08"));
         ASSERT_THAT(titles_lex.key_at(2), ::testing::StrEq("Doc08"));
     }
+}
+
+TEST_F(partition_test, compute_document_mapping)
+{
+    std::vector<document_t> docmap =
+        irk::detail::partition::compute_document_mapping(shard_map, 3);
+    ASSERT_THAT(docmap, ::testing::ElementsAre(0, 0, 0, 1, 1, 1, 2, 3, 2, 2));
 }
 
 void test_props(
@@ -250,7 +260,8 @@ void test_postings(
     const path& input_dir, const irk::vmap<ShardId, path>& shard_dirs)
 {
     auto source =
-        irk::inverted_index_mapped_data_source::from(input_dir).value();
+        irk::inverted_index_mapped_data_source::from(input_dir, {"bm25"})
+            .value();
     irk::inverted_index_view index(&source);
     std::vector<irk::inverted_index_mapped_data_source> shard_sources;
     std::vector<irk::inverted_index_view> shards;
@@ -259,25 +270,83 @@ void test_postings(
         shard_dirs.end(),
         std::back_inserter(shard_sources),
         [](const path& dir) {
-            return irk::inverted_index_mapped_data_source::from(dir).value();
+            return irk::inverted_index_mapped_data_source::from(dir, {"bm25"})
+                .value();
         });
+    int sh = 0;
     std::transform(
         shard_sources.begin(),
         shard_sources.end(),
         std::back_inserter(shards),
-        [](const auto& source) { return irk::inverted_index_view(&source); });
-    //for (const auto& [global_id, term] : iter::enumerate(index.terms())) {
-    //    auto all_documents = index.documents(term);
-    //    for (const auto& shard : shards) {
-
-    //    }
-    //}
+        [&sh](const auto& source) {
+            return irk::inverted_index_view(&source);
+        });
+    std::vector<std::vector<uint32_t>> max_scores;
+    std::transform(
+        shards.begin(),
+        shards.end(),
+        std::back_inserter(max_scores),
+        [](const auto& shard) {
+            return shard.score_data("bm25").max_scores.to_vector();
+        });
+    for (const auto& term : index.terms()) {
+        auto original_documents = irk::collect(index.documents(term));
+        auto original_frequencies = irk::collect(index.frequencies(term));
+        auto original_scores = irk::collect(index.scores(term));
+        std::vector<std::tuple<uint32_t, uint32_t, uint32_t>> merged;
+        int shard_id = 0;
+        for (const auto& shard : shards) {
+            if (not shard.term_id(term).has_value()) {
+                shard_id++;
+                continue;
+            }
+            auto term_id = shard.term_id(term).value();
+            auto posting_list = shard.postings(term);
+            auto scored_list = shard.scored_postings(term);
+            auto shard_postings = irk::collect(iter::imap(
+                [&index, &shard](const auto& pair) {
+                    const auto& [fp, sp] = pair;
+                    assert(fp.document() == sp.document());
+                    std::string title = shard.titles().key_at(fp.document());
+                    auto global_id = index.titles().index_at(title).value();
+                    return std::make_tuple(
+                        global_id, fp.payload(), sp.payload());
+                },
+                zip(posting_list, scored_list)));
+            auto max_tup = *std::max_element(
+                shard_postings.begin(),
+                shard_postings.end(),
+                [](const auto& lhs, const auto& rhs) {
+                    return std::get<2>(lhs) < std::get<2>(rhs);
+                });
+            merged.insert(
+                merged.end(), shard_postings.begin(), shard_postings.end());
+            EXPECT_EQ(std::get<2>(max_tup), max_scores[shard_id++][term_id]);
+        }
+        std::sort(
+            merged.begin(), merged.end(), [](const auto& lhs, const auto& rhs) {
+                return std::get<0>(lhs) < std::get<0>(rhs);
+            });
+        auto get_first = [](const auto& tup) { return std::get<0>(tup); };
+        auto get_second = [](const auto& tup) { return std::get<1>(tup); };
+        auto get_third = [](const auto& tup) { return std::get<2>(tup); };
+        auto merged_documents = irk::collect(iter::imap(get_first, merged));
+        auto merged_frequencies = irk::collect(iter::imap(get_second, merged));
+        auto merged_scores = irk::collect(iter::imap(get_third, merged));
+        ASSERT_THAT(
+            merged_documents, ::testing::ElementsAreArray(original_documents));
+        ASSERT_THAT(
+            merged_frequencies,
+            ::testing::ElementsAreArray(original_frequencies));
+        ASSERT_THAT(
+            merged_scores, ::testing::ElementsAreArray(original_scores));
+    }
 }
 
 TEST_F(partition_test, index)
 {
-    auto shard_paths = irk::partition::resolve_paths(output_dir, 3);
-    irk::partition::index(input_dir, output_dir, shard_map, 100, 3);
+    irk::partition_index(input_dir, output_dir, shard_map, 3, 10);
+    auto shard_paths = irk::detail::partition::resolve_paths(output_dir, 3);
     test_props(input_dir, shard_paths);
     test_term_frequencies(input_dir, shard_paths);
     test_postings(input_dir, shard_paths);
@@ -290,4 +359,3 @@ int main(int argc, char** argv)
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-

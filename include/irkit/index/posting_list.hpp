@@ -64,7 +64,10 @@ public:
         {
             return *(document_iterator_.get());
         }
-        const payload_type& payload() const { return *(payload_iterator_.get()); }
+        const payload_type& payload() const
+        {
+            return *(payload_iterator_.get());
+        }
         explicit operator std::pair<document_type, payload_type>() const
         {
             return std::pair(document(), payload());
@@ -213,7 +216,7 @@ private:
     friend class boost::iterator_core_access;
     void increment()
     {
-        if (pos_ == length_) return;
+        if (pos_ == length_) { return; }
         ranges_.front().advance();
         for (auto it = std::next(ranges_.begin()); it != ranges_.end(); ++it) {
             auto prev = std::prev(it);
@@ -255,9 +258,10 @@ public:
         : lists_(std::move(lists)), order_(std::move(order))
     {
         length_ = std::accumulate(
-            lists_.begin(), lists_.end(), 0, [](const auto acc, const auto& list) {
-                return acc + list.size();
-            });
+            lists_.begin(),
+            lists_.end(),
+            0,
+            [](const auto acc, const auto& list) { return acc + list.size(); });
     }
     auto begin() const
     {
@@ -287,14 +291,16 @@ private:
     size_t length_;
 };
 
-template<typename PostingList>
-auto merge(const std::vector<PostingList>& posting_lists)
+template<typename Range>
+auto merge(const Range& posting_lists)
 {
-    using iterator = typename PostingList::iterator;
-    return Union<typename PostingList::posting_view, PostingList>(
-        posting_lists,
-        [](const moving_range<iterator>& lhs,
-           const moving_range<iterator>& rhs) {
+    using list_type = std::remove_const_t<
+        std::remove_reference_t<decltype(*posting_lists.begin())>>;
+    using iterator_type = typename list_type::iterator;
+    return Union<typename list_type::posting_view, list_type>(
+        std::vector<list_type>(posting_lists.begin(), posting_lists.end()),
+        [](const moving_range<iterator_type>& lhs,
+           const moving_range<iterator_type>& rhs) {
             if (rhs.empty()) {
                 return true;
             }

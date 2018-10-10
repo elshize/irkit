@@ -358,7 +358,7 @@ public:
     }
 
     auto size() const { return values_.size(); }
-    auto values() const { return values_; }
+    const auto& values() const { return values_; }
 
 private:
     int expanded_size(int list_byte_size) const

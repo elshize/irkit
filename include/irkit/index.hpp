@@ -69,8 +69,9 @@ namespace ts = type_safe;
 
 namespace irk {
 
-using index::term_id_t;
+using index::frequency_t;
 using index::offset_t;
+using index::term_id_t;
 
 template<typename P, typename O = P, typename M = P>
 struct score_tuple {
@@ -130,6 +131,8 @@ namespace index {
     { return dir / "term.occurrences"; }
     inline path score_offset_path(const path& dir, const std::string& name)
     { return dir / fmt::format("{}.offsets", name); }
+    inline path max_scores_path(const path& dir, const std::string& name)
+    { return dir / fmt::format("{}.maxscore", name); }
 
     inline std::vector<std::string> all_score_names(const path& dir)
     {
@@ -141,156 +144,16 @@ namespace index {
         for (auto& file :
              boost::make_iterator_range(directory_iterator(dir), {}))
         {
-            std::cout << file.path().string() << std::endl;
             if (is_regular_file(file.path()) && matches(file.path())) {
                 std::string filename = file.path().filename().string();
                 std::string name(
                     filename.begin(),
                     std::find(filename.begin(), filename.end(), '.'));
-                std::cout << "Name: " << name << std::endl;
                 names.push_back(name);
             }
         }
         return names;
     }
-
-    struct posting_vectors {
-        std::vector<term_id_t> term_ids;
-        std::vector<offset_t> document_offsets;
-        std::vector<offset_t> frequency_offsets;
-        std::vector<std::vector<offset_t>> score_offsets;
-        std::vector<frequency_t> term_frequencies;
-        std::vector<frequency_t> term_occurrences;
-
-        frequency_t total_occurrences = 0;
-
-        offset_t cur_document_offset;
-        offset_t cur_frequency_offset;
-        std::vector<offset_t> cur_score_offsets;
-        std::vector<std::string> score_names;
-
-        posting_vectors(std::vector<std::string> score_names = {})
-            : score_offsets(score_names.size()),
-              cur_score_offsets(score_names.size()),
-              score_names(std::move(score_names))
-        {}
-
-        template<typename Range>
-        void write(
-            const boost::filesystem::path& input_dir,
-            const boost::filesystem::path& output_dir,
-            int lex_keys_per_block,
-            const Range& score_names)
-        {
-            write_terms(input_dir, output_dir, lex_keys_per_block);
-            build_offset_table(document_offsets)
-                .serialize(doc_ids_off_path(output_dir));
-            build_offset_table(frequency_offsets)
-                .serialize(doc_counts_off_path(output_dir));
-            for (const auto& [offset_table, name] :
-                 iter::zip(score_offsets, score_names)) {
-                build_offset_table(offset_table)
-                    .serialize(score_offset_path(output_dir, name));
-            }
-            build_compact_table<frequency_t>(term_frequencies)
-                .serialize(term_doc_freq_path(output_dir));
-            build_compact_table<frequency_t>(term_occurrences)
-                .serialize(term_occurrences_path(output_dir));
-        }
-
-        template<typename ScoreRange>
-        void push(
-            term_id_t term_id,
-            offset_t document_size,
-            offset_t frequency_size,
-            ScoreRange&& score_sizes,
-            frequency_t frequency,
-            frequency_t occurrences)
-        {
-            term_ids.push_back(term_id);
-            cur_document_offset += document_size;
-            cur_frequency_offset += frequency_size;
-            document_offsets.push_back(cur_document_offset);
-            frequency_offsets.push_back(cur_frequency_offset);
-            for (auto&& [idx, size] : iter::enumerate(score_sizes)) {
-                cur_score_offsets[idx] += size;
-                score_offsets[idx].push_back(cur_score_offsets[idx]);
-            }
-            term_frequencies.push_back(frequency);
-            term_occurrences.push_back(occurrences);
-            total_occurrences += occurrences;
-        }
-
-    private:
-        void write_terms(
-            const boost::filesystem::path& input_dir,
-            const boost::filesystem::path& output_dir,
-            int keys_per_block)
-        {
-            io::filter_lines(
-                terms_path(input_dir), terms_path(output_dir), term_ids);
-            build_lexicon(terms_path(output_dir), keys_per_block)
-                .serialize(term_map_path(output_dir));
-            build_compact_table(term_frequencies)
-                .serialize(term_doc_freq_path(output_dir));
-        }
-    };
-
-    /// All streams for posting-like data.
-    template<typename Stream>
-    struct posting_streams {
-        Stream documents;
-        Stream frequencies;
-        std::vector<Stream> scores;
-        posting_vectors& vectors;
-
-        posting_streams(
-            const boost::filesystem::path& dir,
-            const std::vector<std::string>& score_names,
-            posting_vectors& vectors,
-            std::ios_base::openmode mode = std::ios_base::binary)
-            : documents(doc_ids_path(dir).string()),
-              frequencies(doc_counts_path(dir).string()),
-              vectors(vectors)
-        {
-            for (const std::string& score : score_names) {
-                auto score_path = dir / fmt::format("{}.scores", score);
-                auto score_offsets_path =
-                    dir / fmt::format("{}.offsets", score);
-                scores.emplace_back(score_path.string());
-            }
-        }
-
-        template<
-            typename DocBuilder,
-            typename FreqBuilder,
-            typename ScoreBuilder>
-        void write(
-            term_id_t term_id,
-            DocBuilder& document_builder,
-            FreqBuilder& frequency_builder,
-            std::vector<ScoreBuilder>& score_builders)
-        {
-            const auto& frequency_vector = frequency_builder.values();
-            frequency_t occurrences = std::accumulate(
-                frequency_vector.begin(),
-                frequency_vector.end(),
-                frequency_t(0),
-                std::plus<frequency_t>());
-            vectors.push(
-                term_id,
-                document_builder.write(documents),
-                frequency_builder.write(frequencies),
-                iter::imap(
-                    [](auto& builder, auto& stream) -> size_t {
-                        return builder.write(stream);
-                    },
-                    score_builders,
-                    scores),
-                document_builder.size(),
-                occurrences);
-        }
-    };
 
 }  // namespace index
 
@@ -400,6 +263,15 @@ public:
             select(term_id, count_offsets_, counts_view_), length);
     }
 
+    auto frequencies(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return frequencies(id.value());
+        }
+        return index::
+            block_payload_list_view<frequency_t, frequency_codec_type>();
+    }
+
     auto scores(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
@@ -410,6 +282,14 @@ public:
                 scores_.at(default_score_).offsets,
                 scores_.at(default_score_).postings),
             length);
+    }
+
+    auto scores(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return scores(id.value());
+        }
+        return index::block_payload_list_view<score_type, score_codec_type>();
     }
 
     auto scores(term_id_type term_id, const std::string& score_fun_name) const
@@ -555,6 +435,10 @@ public:
     const auto& titles() const
     {
         return title_map_;
+    }
+    const auto& score_data(const std::string& name) const
+    {
+        return scores_.at(name);
     }
     document_codec_type document_codec() { return document_codec_; }
     frequency_codec_type frequency_codec() { return frequency_codec_; }

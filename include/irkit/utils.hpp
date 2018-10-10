@@ -64,6 +64,14 @@ constexpr int16_t nbytes(T n)
     return (bits + 7) / 8;
 }
 
+template<typename Range>
+auto collect(const Range& range)
+{
+    using value_type =
+        std::remove_const_t<std::remove_reference_t<decltype(*range.begin())>>;
+    return std::vector<value_type>(range.begin(), range.end());
+}
+
 //! An container accumulating top-k postings (or results).
 template<class Key, class Value>
 class top_k_accumulator {

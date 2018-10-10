@@ -145,6 +145,7 @@ public:
     }
 
     const char* data() { return data_.data(); }
+    const auto& buffer() { return data_; }
 
     const compact_table_header* header() const
     {

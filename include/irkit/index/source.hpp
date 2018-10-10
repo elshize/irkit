@@ -41,13 +41,24 @@ using boost::filesystem::exists;
 using boost::filesystem::path;
 using boost::iostreams::mapped_file_source;
 
+namespace detail {
+    std::string invalid_scores_message(const std::vector<std::string>& names)
+    {
+        std::ostringstream os;
+        os << "Invalid score names:";
+        for (const std::string& name : names) {
+            os << " " << name;
+        }
+        return os.str();
+    }
+}
+
 class inverted_index_disk_data_source {
 public:
     explicit inverted_index_disk_data_source(path dir) : dir_(std::move(dir)) {}
 
-    static nonstd::
-        expected<inverted_index_disk_data_source, std::vector<std::string>>
-        from(const path& dir, std::vector<std::string> score_names = {})
+    static nonstd::expected<inverted_index_disk_data_source, std::string>
+    from(const path& dir, std::vector<std::string> score_names = {})
     {
         inverted_index_disk_data_source source(dir);
         source.documents_ = index::doc_ids_path(dir);
@@ -77,7 +88,8 @@ public:
             }
         }
         if (not invalid_scores.empty()) {
-            return nonstd::make_unexpected(invalid_scores);
+            return nonstd::make_unexpected(
+                detail::invalid_scores_message(invalid_scores));
         }
         if (not score_names.empty()) {
             source.default_score_ = score_names[0];
@@ -198,9 +210,8 @@ public:
         : dir_(dir)
     {}
 
-    static nonstd::
-        expected<inverted_index_inmemory_data_source, std::vector<std::string>>
-        from(const path& dir, std::vector<std::string> score_names = {})
+    static nonstd::expected<inverted_index_inmemory_data_source, std::string>
+    from(const path& dir, std::vector<std::string> score_names = {})
     {
         using io::load_data;
         inverted_index_inmemory_data_source source(dir);
@@ -242,7 +253,8 @@ public:
             }
         }
         if (not invalid_scores.empty()) {
-            return nonstd::make_unexpected(invalid_scores);
+            return nonstd::make_unexpected(
+                detail::invalid_scores_message(invalid_scores));
         }
         if (not score_names.empty()) {
             source.default_score_ = score_names[0];
@@ -374,9 +386,8 @@ class inverted_index_mapped_data_source {
 public:
     explicit inverted_index_mapped_data_source(path dir) : dir_(std::move(dir))
     {}
-    static nonstd::
-        expected<inverted_index_mapped_data_source, std::vector<std::string>>
-        from(const path& dir, std::vector<std::string> score_names = {})
+    static nonstd::expected<inverted_index_mapped_data_source, std::string>
+    from(const path& dir, std::vector<std::string> score_names = {})
     {
         inverted_index_mapped_data_source source(dir);
         io::enforce_exist(index::doc_ids_path(dir));
@@ -420,7 +431,8 @@ public:
             }
         }
         if (not invalid_scores.empty()) {
-            return nonstd::make_unexpected(invalid_scores);
+            return nonstd::make_unexpected(
+                detail::invalid_scores_message(invalid_scores));
         }
         if (not score_names.empty()) {
             source.default_score_ = score_names[0];
