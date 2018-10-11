@@ -27,6 +27,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdint>
 #include <ostream>
 #include <vector>
 

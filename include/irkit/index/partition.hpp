@@ -51,6 +51,8 @@ using iter::zip;
 
 namespace index {
 
+    /// A writer for posting-related vectors, such as offsets, max scores,
+    /// collection term frequencies, etc.
     struct posting_vectors {
         std::vector<term_id_t> term_ids;
         std::vector<offset_t> document_offsets;
@@ -100,6 +102,10 @@ namespace index {
                 .serialize(term_occurrences_path(output_dir));
         }
 
+        /// Accumulates data for a term.
+        ///
+        /// This function needs **not** to be called with consecutive term IDs,
+        /// but the IDs must be in increasing order.
         void push(
             term_id_t term_id,
             offset_t document_size,
@@ -166,6 +172,7 @@ namespace index {
             }
         }
 
+        /// Writes out the builders to files.
         template<
             typename DocBuilder,
             typename FreqBuilder,
@@ -382,10 +389,9 @@ namespace detail::partition {
             auto nterms = index.term_count();
             auto batches = iter::chunked(iter::range(nterms), terms_in_batch);
             auto nbatches = (nterms + terms_in_batch) / terms_in_batch;
-            if (log) {
-                log->info("{}", index.term_count());
-            }
             auto first_batch = *batches.begin();
+            int batch(0);
+            if (log) { log->info("Batch {}/{}", batch++, nbatches); }
             postings_batch(
                 index,
                 std::vector<size_t>(first_batch.begin(), first_batch.end()),
@@ -394,6 +400,7 @@ namespace detail::partition {
                 std::ios_base::binary);
             for (auto&& term_batch :
                  iter::slice(batches, size_t(1), nbatches)) {
+                if (log) { log->info("Batch {}/{}", batch++, nbatches); }
                 postings_batch(
                     index,
                     std::vector<size_t>(term_batch.begin(), term_batch.end()),
@@ -402,6 +409,7 @@ namespace detail::partition {
                     std::ios_base::app);
             }
             vmap<ShardId, frequency_t> total_occurrences;
+            if (log) { log->info("Writing..."); }
             for (auto&& [shard, shard_vectors] : vectors.entries()) {
                 total_occurrences.push_back(shard_vectors.total_occurrences);
                 shard_vectors.write(
@@ -444,15 +452,19 @@ namespace detail::partition {
             std::ios_base::openmode mode)
         {
             auto log = spdlog::get("partition");
+            if (log) {
+                log->info(
+                    "Processing terms [{}, {}]",
+                    term_batch.front(),
+                    term_batch.back());
+                log->info("Building...");
+            }
             std::vector<vmap<ShardId, document_builder_type>> document_builders;
             std::vector<vmap<ShardId, frequency_builder_type>>
                 frequency_builders;
             std::vector<vmap<ShardId, std::vector<score_builder_type>>>
                 score_builders;
             for (const auto& term_id : term_batch) {
-                if (log) {
-                    log->info("Processing term {}", term_id);
-                }
                 document_builders.push_back(
                     build_document_lists(index.documents(term_id)));
                 frequency_builders.push_back(
@@ -460,18 +472,13 @@ namespace detail::partition {
                 score_builders.push_back(
                     build_score_lists(index, term_id, score_names));
             }
+            if (log) { log->info("Writing..."); }
             for (const auto& [shard, shard_dir] :
                  iter::zip(ShardId::range(shard_count_), shard_dirs_))
             {
                 index::posting_streams<std::ofstream> out(
                     shard_dir, index.score_names(), vectors[shard], mode);
-                if (log) {
-                    log->info("Writing shard {}", shard.as_int());
-                }
                 for (auto&& [idx, term_id] : iter::enumerate(term_batch)) {
-                    if (log) {
-                        log->info("- Term {}", term_id);
-                    }
                     auto& document_builder = document_builders[idx][shard];
                     if (document_builder.size() > 0u) {
                         out.write(
