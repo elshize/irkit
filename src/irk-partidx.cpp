@@ -28,12 +28,14 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
+#include <cppitertools/itertools.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
-#include <irkit/index/source.hpp>
 #include <irkit/index/partition.hpp>
+#include <irkit/index/source.hpp>
+#include <irkit/utils.hpp>
 #include "cli.hpp"
 
 using boost::filesystem::path;
@@ -41,17 +43,19 @@ using irk::index::document_t;
 using std::uint32_t;
 using namespace irk;
 
-template<typename Lexicon>
-std::vector<int>
-build_shard_map(const std::vector<std::string>& shards, const Lexicon& titles)
+vmap<document_t, ShardId>
+build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
 {
-    auto log = spdlog::stderr_color_mt("stderr");
+    auto data = inverted_index_mapped_data_source::from(index_dir).value();
+    inverted_index_view index(&data);
+    auto titles = index.titles();
+    auto log = spdlog::get("partition");
     log->info("Building shard map");
-    auto last_shard = shards.size() - 1;
-    std::vector<int> map(titles.size(), last_shard);
+    ShardId last_shard(shards.size() - 1);
+    vmap<document_t, ShardId> map(titles.size(), last_shard);
     int mapped_documents(0);
     int missing_documents(0);
-    int shard_id(0);
+    ShardId shard_id(0);
     for (const auto& shard_file : shards) {
         log->info("Mapping shard {0}", shard_id);
         for (const std::string& title : irk::io::lines(shard_file)) {
@@ -76,6 +80,8 @@ build_shard_map(const std::vector<std::string>& shards, const Lexicon& titles)
 int main(int argc, char** argv)
 {
     std::vector<std::string> shard_files;
+    std::string output_dir;
+    int batch_size = 100000;
     auto [app, args] = irk::cli::app(
         "Build mapping from document to shard",
         cli::index_dir_opt{});
@@ -92,11 +98,20 @@ int main(int argc, char** argv)
            "appended to the last shard.",
            false)
         ->required();
+    app->add_option("-o,--output", output_dir, "Output directory", false)
+        ->required();
+    app->add_option(
+        "-b,--batch-size",
+        batch_size,
+        "Number of terms to process in memory at a time",
+        true);
     CLI11_PARSE(*app, argc, argv);
 
+    auto log = spdlog::stderr_color_mt("partition");
     path dir(args->index_dir);
-    auto data = inverted_index_mapped_data_source::from(dir).value();
-    inverted_index_view index(&data);
-    auto shard_map = build_shard_map(shard_files, index.titles());
+    auto shard_map = build_shard_map(dir, shard_files);
+    int shard_count = shard_files.size();
+    irk::partition_index(
+        dir, path(output_dir), shard_map, shard_count, batch_size);
     return 0;
 }
