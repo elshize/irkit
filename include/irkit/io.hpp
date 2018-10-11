@@ -60,7 +60,7 @@ using line_iterator = std::istream_iterator<detail::line>;
 
 class lines {
 public:
-    lines(const std::string& filename) : in_(filename) {}
+    explicit lines(const std::string& filename) : in_(filename) {}
     line_iterator begin() { return line_iterator(in_); }
     line_iterator end() { return line_iterator(); }
 
@@ -70,7 +70,7 @@ private:
 
 class lines_from_stream {
 public:
-    lines_from_stream(std::istream& in) : in_(in) {}
+    explicit lines_from_stream(std::istream& in) : in_(in) {}
     line_iterator begin() { return line_iterator(in_); }
     line_iterator end() { return line_iterator(); }
 

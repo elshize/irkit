@@ -109,13 +109,13 @@ TEST_F(partition_test, resolve_paths)
     auto shard_paths = irk::detail::partition::resolve_paths(output_dir, 3);
     ASSERT_EQ(shard_paths.size(), 3);
     ASSERT_THAT(
-        shard_paths[0].string(),
+        shard_paths[ShardId(0)].string(),
         ::testing::StrEq(fmt::format("{}/000", output_dir.string())));
     ASSERT_THAT(
-        shard_paths[1].string(),
+        shard_paths[ShardId(1)].string(),
         ::testing::StrEq(fmt::format("{}/001", output_dir.string())));
     ASSERT_THAT(
-        shard_paths[2].string(),
+        shard_paths[ShardId(2)].string(),
         ::testing::StrEq(fmt::format("{}/002", output_dir.string())));
 }
 
@@ -124,21 +124,24 @@ TEST_F(partition_test, sizes)
     auto part = partition();
     part.sizes();
     {
-        auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(part.shard_dirs_[0]))
-                         .to_vector();
+        auto sizes =
+            irk::load_compact_table<size_type>(
+                irk::index::doc_sizes_path(part.shard_dirs_[ShardId(0)]))
+                .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(8, 10, 7));
     }
     {
-        auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(part.shard_dirs_[1]))
-                         .to_vector();
+        auto sizes =
+            irk::load_compact_table<size_type>(
+                irk::index::doc_sizes_path(part.shard_dirs_[ShardId(1)]))
+                .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(10, 7, 10, 7));
     }
     {
-        auto sizes = irk::load_compact_table<size_type>(
-                         irk::index::doc_sizes_path(part.shard_dirs_[2]))
-                         .to_vector();
+        auto sizes =
+            irk::load_compact_table<size_type>(
+                irk::index::doc_sizes_path(part.shard_dirs_[ShardId(2)]))
+                .to_vector();
         ASSERT_THAT(sizes, ::testing::ElementsAre(9, 9, 11));
     }
 }
@@ -149,10 +152,11 @@ TEST_F(partition_test, titles)
     part.titles();
     {
         auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[0])));
+            irk::index::title_map_path(part.shard_dirs_[ShardId(0)])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(part.shard_dirs_[0]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[ShardId(0)]).string(),
+            titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 3);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc00"));
@@ -164,10 +168,11 @@ TEST_F(partition_test, titles)
     }
     {
         auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[1])));
+            irk::index::title_map_path(part.shard_dirs_[ShardId(1)])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(part.shard_dirs_[1]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[ShardId(1)]).string(),
+            titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 4);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc01"));
@@ -181,10 +186,11 @@ TEST_F(partition_test, titles)
     }
     {
         auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[2])));
+            irk::index::title_map_path(part.shard_dirs_[ShardId(2)])));
         std::vector<std::string> titles;
         irk::io::load_lines(
-            irk::index::titles_path(part.shard_dirs_[2]).string(), titles);
+            irk::index::titles_path(part.shard_dirs_[ShardId(2)]).string(),
+            titles);
         ASSERT_EQ(titles_lex.size(), titles.size());
         ASSERT_EQ(titles_lex.size(), 3);
         ASSERT_THAT(titles[0], ::testing::StrEq("Doc02"));

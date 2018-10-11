@@ -36,6 +36,7 @@
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/parsing/stemmer.hpp>
+
 #include "cli.hpp"
 
 using boost::filesystem::path;
@@ -122,9 +123,12 @@ int main(int argc, char** argv)
         scores.push_back(args->score_function);
     }
     auto data = irk::inverted_index_mapped_data_source::from(
-                    fs::path{args->index_dir}, scores)
-                    .value();
-    irk::inverted_index_view index(&data);
+        fs::path{args->index_dir}, scores);
+    if (not data) {
+        std::cerr << data.error() << std::endl;
+        return 1;
+    }
+    irk::inverted_index_view index(&data.value());
 
     if (not args->terms.empty()) {
         process_query(args->terms, index, *args, count);

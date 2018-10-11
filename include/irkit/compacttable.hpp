@@ -186,7 +186,7 @@ public:
             : ref_(ref),
               pos_(pos),
               leader_idx_(leader_idx),
-              leaders_(std::move(leaders)),
+              leaders_(leaders),
               block_size_(ref.header()->block_size),
               count_(ref.header()->count),
               delta_encoded_(

@@ -42,7 +42,8 @@ using boost::filesystem::path;
 using boost::iostreams::mapped_file_source;
 
 namespace detail {
-    std::string invalid_scores_message(const std::vector<std::string>& names)
+    inline std::string
+    invalid_scores_message(const std::vector<std::string>& names)
     {
         std::ostringstream os;
         os << "Invalid score names:";
@@ -207,7 +208,7 @@ private:
 class inverted_index_inmemory_data_source {
 public:
     explicit inverted_index_inmemory_data_source(path dir)
-        : dir_(dir)
+        : dir_(std::move(dir))
     {}
 
     static nonstd::expected<inverted_index_inmemory_data_source, std::string>

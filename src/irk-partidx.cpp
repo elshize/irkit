@@ -57,7 +57,7 @@ build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
     int missing_documents(0);
     ShardId shard_id(0);
     for (const auto& shard_file : shards) {
-        log->info("Mapping shard {0}", shard_id);
+        log->info("Mapping shard {0}", static_cast<size_t>(shard_id));
         for (const std::string& title : irk::io::lines(shard_file)) {
             if (auto id = titles.index_at(title); id.has_value()) {
                 map[id.value()] = shard_id;

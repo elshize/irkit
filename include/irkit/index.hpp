@@ -93,18 +93,6 @@ namespace index {
         path max_scores;
     };
 
-    auto wildcard(const path& dir, const std::string& pattern)
-    {
-        return boost::make_iterator_range(directory_iterator(dir), {})
-            | filtered([](const path& p) { return is_regular_file(p); })
-            | filtered([&](const path& p) {
-                   boost::smatch what;
-                   const boost::regex filter(pattern);
-                   std::string n = p.filename().string();
-                   return boost::regex_match(n, what, filter);
-               });
-    }
-
     inline path properties_path(const path& dir)
     { return dir / "properties.json"; }
     inline path doc_ids_path(const path& dir)
@@ -299,8 +287,8 @@ public:
         return index::block_payload_list_view<score_type, score_codec_type>(
             select(
                 term_id,
-                scores_.at(default_score_).offsets,
-                scores_.at(default_score_).postings),
+                scores_.at(score_fun_name).offsets,
+                scores_.at(score_fun_name).postings),
             length);
     }
 
@@ -478,11 +466,11 @@ private:
     frequency_table_type term_collection_occurrences_;
     lexicon<hutucker_codec<char>, memory_view> term_map_;
     lexicon<hutucker_codec<char>, memory_view> title_map_;
-    std::ptrdiff_t term_count_;
-    std::ptrdiff_t document_count_;
-    std::ptrdiff_t occurrences_count_;
-    int block_size_;
-    double avg_document_size_;
+    std::ptrdiff_t term_count_ = 0;
+    std::ptrdiff_t document_count_ = 0;
+    std::ptrdiff_t occurrences_count_ = 0;
+    int block_size_ = 0;
+    double avg_document_size_ = 0;
 
     static const constexpr auto document_codec_ = document_codec_type{};
     static const constexpr auto frequency_codec_ = frequency_codec_type{};

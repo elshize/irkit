@@ -59,7 +59,7 @@ struct ShardId
             typename std::enable_if<ts::detail::is_safe_integer_conversion<
                 details::shard_base_type,
                 T>::value>::type>
-    constexpr ShardId(T d) noexcept : strong_typedef(d)
+    explicit constexpr ShardId(T d) noexcept : strong_typedef(d)
     {}
     explicit operator size_t() const noexcept { return ts::get(*this); }
     details::shard_base_type as_int() const noexcept { return ts::get(*this); }
@@ -91,7 +91,8 @@ public:
     using std::vector<V>::cend;
 
     vmap() : std::vector<V>(){};
-    vmap(size_type count) : std::vector<V>(count){};
+    ~vmap() = default;
+    explicit vmap(size_type count) : std::vector<V>(count){};
     vmap(size_type count, const V& value) : std::vector<V>(count, value){};
     vmap(std::initializer_list<V> init) : std::vector<V>(init) {}
     vmap(const vmap& other) : std::vector<V>(other){};
@@ -115,12 +116,19 @@ public:
 
     auto entries()
     {
-        return iter::zip(iter::range(ShardId(size())), *this);
+        return iter::zip(
+            iter::imap(
+                [](const auto& idx) { return static_cast<K>(idx); },
+                iter::range(size())),
+            *this);
     }
-
     auto entries() const
     {
-        return iter::zip(iter::range(ShardId(size())), *this);
+        return iter::zip(
+            iter::imap(
+                [](const auto& idx) { return static_cast<K>(idx); },
+                iter::range(size())),
+            *this);
     }
 };
 

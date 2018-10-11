@@ -65,8 +65,8 @@ struct block_position_t {
 
     bool operator!=(const block_position_t& other) const
     {
-        const int64_t* p1 = reinterpret_cast<const int64_t*>(&block);
-        const int64_t* p2 = reinterpret_cast<const int64_t*>(&other.block);
+        auto p1 = reinterpret_cast<const int64_t*>(&block);
+        auto p2 = reinterpret_cast<const int64_t*>(&other.block);
         return *p1 != *p2;
     }
 };
@@ -287,9 +287,9 @@ public:
 
     explicit block_list_builder(int block_size) : block_size_(block_size) {}
     block_list_builder(const block_list_builder&) = default;
-    block_list_builder(block_list_builder&&) = default;
+    block_list_builder(block_list_builder&&) noexcept = default;
     block_list_builder& operator=(const block_list_builder&) = default;
-    block_list_builder& operator=(block_list_builder&&) = default;
+    block_list_builder& operator=(block_list_builder&&) noexcept = default;
     virtual ~block_list_builder() = default;
 
     void add(value_type id) { values_.push_back(id); }
