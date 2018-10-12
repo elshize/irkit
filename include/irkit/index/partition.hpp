@@ -544,6 +544,15 @@ nonstd::expected<void, std::string> partition_index(
     auto shard_dirs = detail::partition::resolve_paths(output_dir, shard_count);
     auto document_mapping =
         detail::partition::compute_document_mapping(shard_mapping, shard_count);
+    auto log = spdlog::get("partition");
+    if (log) {
+        log->info(
+            "Partitioning index {} into {} shards in {} [batch size = {}]",
+            input_dir.string(),
+            shard_count,
+            output_dir.string(),
+            terms_in_batch);
+    }
     auto partition = detail::partition::Partition(
         shard_count,
         document_count,

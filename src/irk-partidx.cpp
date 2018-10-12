@@ -77,10 +77,20 @@ build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
     return map;
 }
 
+vmap<document_t, ShardId>
+load_shard_map(const std::string& map_in)
+{
+    auto tab = load_compact_table<ShardId, vbyte_codec<ShardId>>(map_in);
+    return vmap<document_t, ShardId>(tab.begin(), tab.end());
+}
+
 int main(int argc, char** argv)
 {
     std::vector<std::string> shard_files;
     std::string output_dir;
+    std::string map_out;
+    std::string map_in;
+    int shard_count;
     int batch_size = 100000;
     auto [app, args] = irk::cli::app(
         "Build mapping from document to shard",
@@ -100,17 +110,46 @@ int main(int argc, char** argv)
         ->required();
     app->add_option("-o,--output", output_dir, "Output directory", false)
         ->required();
+    auto map_in_option = app->add_option(
+        "--map-in",
+        map_in,
+        "Use this mapping instead of computing from files",
+        false);
+    auto shard_count_option = app->add_option(
+        "--shard-count", shard_count, "Number of shards", false);
+    auto map_out_option = app->add_option(
+        "--map-out", map_out, "Store mapping in this file", false);
     app->add_option(
         "-b,--batch-size",
         batch_size,
         "Number of terms to process in memory at a time",
         true);
+    map_in_option->excludes(map_out_option);
+    map_in_option->needs(shard_count_option);
+    shard_count_option->needs(map_in_option);
+    shard_count_option->excludes(map_out_option);
+    map_out_option->excludes(map_in_option);
+    map_out_option->excludes(shard_count_option);
     CLI11_PARSE(*app, argc, argv);
 
     auto log = spdlog::stderr_color_mt("partition");
     path dir(args->index_dir);
-    auto shard_map = build_shard_map(dir, shard_files);
-    int shard_count = shard_files.size();
+    auto shard_map = map_in.empty() ? build_shard_map(dir, shard_files)
+                                    : load_shard_map(map_in);
+    if (map_in.empty()) {
+        shard_count = shard_files.size();
+    }
+    if (not map_out.empty()) {
+        try {
+            auto tab = build_compact_table<ShardId, vbyte_codec<ShardId>>(
+                shard_map.as_vector());
+            std::ofstream os(map_out);
+            tab.serialize(os);
+            log->info("Mapping written to: {}", map_out);
+        } catch (std::exception& e) {
+            log->error("Error while saving the map: {}", e.what());
+        }
+    }
     irk::partition_index(
         dir, path(output_dir), shard_map, shard_count, batch_size);
     return 0;

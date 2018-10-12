@@ -57,9 +57,9 @@ struct vbyte_codec {
     template<class InputIterator, class OutputIterator>
     std::ptrdiff_t encode(InputIterator in, OutputIterator out) const
     {
-        using iterator_type = std::iterator_traits<InputIterator>;
-        using value_type =
-            std::make_unsigned_t<typename iterator_type::value_type>;
+        //using iterator_type = std::iterator_traits<InputIterator>;
+        using value_type = size_t;
+            //std::make_unsigned_t<typename iterator_type::value_type>;
         auto v = static_cast<value_type>(*in);
         std::ptrdiff_t size = 0;
         while (true)
@@ -103,8 +103,7 @@ struct vbyte_codec {
     InputIterator decode(InputIterator in, OutputIterator out) const
     {
         using iterator_type = std::iterator_traits<OutputIterator>;
-        using value_type =
-            std::make_unsigned_t<typename iterator_type::value_type>;
+        using value_type = typename iterator_type::value_type;
         unsigned char b;
         std::size_t n = 0;
         unsigned int shift = 0;
@@ -123,7 +122,7 @@ struct vbyte_codec {
             b = static_cast<unsigned char>(*in);
             ++in;
         }
-        *out = static_cast<value_type>(n);
+        *out = value_type(n);
         return in;
     }
 

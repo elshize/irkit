@@ -97,6 +97,11 @@ public:
     vmap(std::initializer_list<V> init) : std::vector<V>(init) {}
     vmap(const vmap& other) : std::vector<V>(other){};
     vmap(vmap&& other) noexcept : std::vector<V>(other){};
+
+    template<class InputIt>
+    vmap(InputIt first, InputIt last) : std::vector<V>(first, last)
+    {}
+
     vmap& operator=(const vmap& other) {
         std::vector<V>::operator=(other);
         return *this;
@@ -113,6 +118,7 @@ public:
     {
         return std::vector<V>::operator[](static_cast<size_type>(id));
     }
+    const std::vector<V>& as_vector() const { return *this; }
 
     auto entries()
     {
