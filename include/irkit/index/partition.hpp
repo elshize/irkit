@@ -272,7 +272,7 @@ namespace detail::partition {
             auto size_table = irk::load_compact_table<size_type>(
                 index::doc_sizes_path(input_dir_));
             vmap<ShardId, std::vector<size_type>> shard_sizes(shard_count_);
-            vmap<ShardId, size_type> avg_shard_sizes(shard_count_, 0);
+            vmap<ShardId, size_t> avg_shard_sizes(shard_count_, 0);
 
             for (const auto& [shard_assignment, size] :
                  zip(shard_mapping_, size_table))
@@ -493,8 +493,7 @@ namespace detail::partition {
 
         inline void write_properties(
             const vmap<ShardId, size_t>& document_counts,
-            const vmap<ShardId, inverted_index_view::size_type>&
-                avg_document_sizes,
+            const vmap<ShardId, size_t>& avg_document_sizes,
             const vmap<ShardId, frequency_t>& total_occurrences)
         {
             std::ifstream prop_stream(
