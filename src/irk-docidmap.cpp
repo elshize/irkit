@@ -28,7 +28,8 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/log/trivial.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
@@ -66,13 +67,13 @@ int main(int argc, char** argv)
 
     if (app.count("--name") == 0u) { mapping_name = ordering_file; }
 
-    BOOST_LOG_TRIVIAL(info) << "Loading index...";
+    auto log = spdlog::get("partition");
     boost::filesystem::path dir(index_dir);
     irk::inverted_index_mapped_data_source data(dir);
     irk::inverted_index_view index(&data);
     const auto& title_map = index.titles();
 
-    BOOST_LOG_TRIVIAL(info) << "Computing mappings...";
+    log->info("Computing mappings");
     std::vector<document_t> doc2rank(
         title_map.size(), static_cast<document_t>(title_map.size()));
     std::vector<document_t> rank2doc(title_map.size());
@@ -96,14 +97,14 @@ int main(int argc, char** argv)
         }
     }
 
-    BOOST_LOG_TRIVIAL(info) << "Compacting...";
+    log->info("Compacting");
     auto doc2rank_table = irk::build_compact_table(doc2rank);
     auto rank2doc_table = irk::build_compact_table(rank2doc);
 
-    BOOST_LOG_TRIVIAL(info) << "Writing...";
+    log->info("Writing");
     irk::io::dump(
         doc2rank_table, path(index_dir) / (mapping_name + ".doc2rank"));
     irk::io::dump(
         rank2doc_table, path(index_dir) / (mapping_name + ".rank2doc"));
-    BOOST_LOG_TRIVIAL(info) << "Done.";
+    log->info("Done");
 }

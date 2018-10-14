@@ -39,13 +39,14 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
-#include <boost/log/trivial.hpp>
 #include <boost/range/adaptors.hpp>
 #include <cppitertools/itertools.hpp>
 #include <fmt/format.h>
 #include <gsl/span>
 #include <nlohmann/json.hpp>
 #include <range/v3/utility/concepts.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 #include <type_safe/config.hpp>
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
@@ -527,14 +528,15 @@ void score_index(
     auto source = DataSourceT::from(dir_path).value();
     inverted_index_view index(&source);
 
+    auto log = spdlog::get("score");
+
     double max_score;
     if (max.has_value()) {
         max_score = max.value();
-        BOOST_LOG_TRIVIAL(info)
-            << "Max score provided: " << max_score << std::flush;
+        if (log) { log->info("Max score provided: {}", max_score); }
     }
     else {
-        BOOST_LOG_TRIVIAL(info) << "Calculating max score." << std::flush;
+        if (log) { log->info("Calculating max score"); }
         max_score = 0;
         for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
         {
@@ -547,7 +549,7 @@ void score_index(
                 ASSERT(score >= 0.0);
             }
         }
-        BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
+        if (log) { log->info("Max score: {}", max_score); }
     }
 
     int64_t offset = 0;
@@ -559,7 +561,7 @@ void score_index(
     offsets.reserve(index.term_count());
     max_scores.reserve(index.term_count());
 
-    BOOST_LOG_TRIVIAL(info) << "Scoring..." << std::flush;
+    if (log) { log->info("Scoring"); }
     int64_t max_int = (1u << bits) - 1u;
     for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
     {

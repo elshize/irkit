@@ -29,6 +29,7 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
@@ -68,6 +69,7 @@ int main(int argc, char** argv)
         ->required();
     CLI11_PARSE(app, argc, argv);
 
+    auto log = spdlog::stderr_color_mt("buildindex");
     if (merge_only)
     {
         fs::path dir(output_dir);
@@ -86,7 +88,7 @@ int main(int argc, char** argv)
     else
     {
         if (not spam_titles.empty()) {
-            
+            // TODO
         }
         irk::index::index_assembler assembler(
             fs::path(output_dir),

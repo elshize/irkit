@@ -29,7 +29,7 @@
 #include <memory>
 #include <string>
 
-#include <boost/log/trivial.hpp>
+#include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -220,7 +220,6 @@ public:
         std::vector<std::unique_ptr<std::ifstream>> term_streams;
         document_type shift(0);
         int index_num = 0;
-        BOOST_LOG_TRIVIAL(debug) << "Initializing heap..." << std::flush;
         for (const index_type& index : indices_) {
             term_streams.push_back(std::make_unique<std::ifstream>(
                 (sources_[index_num].dir() / "terms.txt").c_str()));
@@ -231,16 +230,20 @@ public:
             index_num++;
         }
 
-        BOOST_LOG_TRIVIAL(debug) << "Initialized.";
+        auto log = spdlog::get("buildindex");
+
         int64_t all_occurrences = 0;
         std::vector<int64_t> occurrences;
         term_id_type term_id = 0;
         while (not heap_.empty())
         {
             std::vector<entry> indices_to_merge = indices_with_next_term();
-            BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
-                                     << " from " << indices_to_merge.size()
-                                     << " indices" << std::flush;
+            if (log) {
+                log->info(
+                    "Merging term #{} from {} indices",
+                    term_id++,
+                    indices_to_merge.size());
+            }
             occurrences.push_back(merge_term(indices_to_merge));
             all_occurrences += occurrences.back();
             for (entry& e : indices_to_merge) {
@@ -323,13 +326,14 @@ public:
 
     void merge()
     {
-        BOOST_LOG_TRIVIAL(info) << "Merging titles...";
+        auto log = spdlog::get("buildindex");
+        if (log) { log->info("Merging titles"); }
         merge_titles();
-        BOOST_LOG_TRIVIAL(info) << "Merging terms...";
+        if (log) { log->info("Merging terms"); }
         int64_t occurrences = merge_terms();
-        BOOST_LOG_TRIVIAL(info) << "Merging sizes...";
+        if (log) { log->info("Merging sizes"); }
         auto [documents, avg_doc_size] = merge_sizes();
-        BOOST_LOG_TRIVIAL(info) << "Writing properties...";
+        if (log) { log->info("Writing properties"); }
         write_properties(documents, occurrences, avg_doc_size);
     }
 };

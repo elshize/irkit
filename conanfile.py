@@ -18,6 +18,7 @@ class IRKConan(ConanFile):
                        "boost:without_exception=True",
                        "boost:without_graph=True",
                        "boost:without_locale=True",
+                       "boost:without_log=True",
                        "boost:without_program_options=True",
                        "boost:without_random=True",
                        "boost:without_mpi=True",

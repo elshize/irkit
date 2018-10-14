@@ -32,7 +32,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <boost/log/trivial.hpp>
+#include <spdlog/spdlog.h>
 
 #include <irkit/index/builder.hpp>
 #include <irkit/index/merger.hpp>
@@ -103,11 +103,13 @@ public:
         fs::path work_dir = output_dir_ / ".batches";
         if (not fs::exists(work_dir)) { fs::create_directory(work_dir); }
 
+        auto log = spdlog::get("buildindex");
+
         int batch_number = 0;
         std::vector<fs::path> batch_dirs;
         while (input && input.peek() != EOF)
         {
-            BOOST_LOG_TRIVIAL(info) << "Building batch " << batch_number;
+            if (log) { log->info("Building batch {}", batch_number); }
             fs::path batch_dir = work_dir / std::to_string(batch_number);
             metadata batch_metadata(batch_dir);
             build_batch(input,
@@ -116,7 +118,7 @@ public:
             batch_dirs.push_back(std::move(batch_dir));
             ++batch_number;
         }
-        BOOST_LOG_TRIVIAL(info) << "Merging " << batch_number << " batches";
+        if (log) { log->info("Merging {} batches", batch_number); }
         merger_type merger(output_dir_, batch_dirs, block_size_);
         merger.merge();
         auto term_map = build_lexicon(

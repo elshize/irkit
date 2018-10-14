@@ -29,20 +29,20 @@
 #include <string>
 
 #include <CLI/CLI.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/utility/setup/console.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 
 //using boost::log::keywords::format;
 
 int run(const std::string& input_file, std::size_t document_count, int k)
 {
-    boost::log::add_console_log(std::cerr);
-    BOOST_LOG_TRIVIAL(info) << "Allocating memory...";
+    auto log = spdlog::get("hits");
+    if (log) { log->info("Allocating memory"); }
     std::vector<int> hits(document_count, 0);
     std::ifstream in(input_file);
     std::string line;
     int line_num = 0;
-    BOOST_LOG_TRIVIAL(info) << "Starting aggregation...";
+    if (log) { log->info("Starting aggregation"); }
     try {
         while (std::getline(in, line))
         {
@@ -57,10 +57,9 @@ int run(const std::string& input_file, std::size_t document_count, int k)
             ++line_num;
         }
     } catch (...) {
-        BOOST_LOG_TRIVIAL(error)
-            << "Error processing line " << line_num << ": " << line;
+        if (log) { log->info("Error processing line {}", line_num); }
     }
-    BOOST_LOG_TRIVIAL(info) << "Printing results...";
+    if (log) { log->info("Printing results"); }
     for (int h : hits) { std::cout << h << "\n"; }
     return 0;
 }
@@ -86,5 +85,6 @@ int main(int argc, char** argv)
     app.add_option("-k", k, "As in top-k", true);
 
     CLI11_PARSE(app, argc, argv);
+    auto log = spdlog::stderr_color_mt("hits");
     return run(input, document_count, k);
 }

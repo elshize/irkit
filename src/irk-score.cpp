@@ -30,6 +30,8 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -61,6 +63,7 @@ int main(int argc, char** argv)
     std::string scorer("bm25");
     std::unordered_set<std::string> available_scorers = {"bm25", "ql"};
     double max;
+    auto log = spdlog::get("score");
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};
     app.add_option("-d,--index-dir", dir, "index directory", true)

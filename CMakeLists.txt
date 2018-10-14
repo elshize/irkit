@@ -43,7 +43,6 @@ if (IRKit_USE_SYSTEM_BOOST)
         Boost::iostreams
         Boost::filesystem
         Boost::system
-        Boost::log
         Boost::thread
         CONAN_PKG::rangev3
         CONAN_PKG::jsonformoderncpp
