@@ -42,6 +42,7 @@ int main(int argc, char** argv)
     int skip_block_size = 64;
     int lexicon_block_size = 256;
     bool merge_only = false;
+    std::string spam_titles;
 
     CLI::App app{"Build an inverted index."};
     app.add_flag("--merge-only", merge_only, "Merge already existing batches.");
@@ -49,7 +50,8 @@ int main(int argc, char** argv)
         batch_size,
         "Max number of documents to build in memory.",
         true);
-    app.add_option("--skip-block-size,-s",
+    app.add_option(
+        "--skip-block-size,-s",
         skip_block_size,
         "Size of skip blocks for inverted lists.",
         true);
@@ -57,9 +59,13 @@ int main(int argc, char** argv)
         skip_block_size,
         "Size of skip blocks for inverted lists.",
         true);
+    app.add_option(
+        "--spam",
+        spam_titles,
+        "A file with a list of documents to ignore",
+        false);
     app.add_option("output_dir", output_dir, "Index output directory", false)
         ->required();
-
     CLI11_PARSE(app, argc, argv);
 
     if (merge_only)
@@ -79,7 +85,11 @@ int main(int argc, char** argv)
     }
     else
     {
-        irk::index::index_assembler assembler(fs::path(output_dir),
+        if (not spam_titles.empty()) {
+            
+        }
+        irk::index::index_assembler assembler(
+            fs::path(output_dir),
             batch_size,
             skip_block_size,
             lexicon_block_size);

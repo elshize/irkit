@@ -67,6 +67,7 @@ private:
     int batch_size_;
     int block_size_;
     int lexicon_block_size_;
+    std::optional<std::unordered_set<std::string>> spam_;
 
 public:
     //! \param output_dir       final directory of the index
@@ -74,14 +75,18 @@ public:
     //! \param block_size       size of inverted list block (and skip length)
     //! \param document_codec   codec for document IDs
     //! \param frequency_codec  codec for frequencies
-    basic_index_assembler(fs::path output_dir,
+    basic_index_assembler(
+        fs::path output_dir,
         int batch_size,
         int block_size,
-        int lexicon_block_size) noexcept
+        int lexicon_block_size,
+        std::optional<std::unordered_set<std::string>> spam =
+            std::nullopt) noexcept
         : output_dir_(std::move(output_dir)),
           batch_size_(batch_size),
           block_size_(block_size),
-          lexicon_block_size_(lexicon_block_size)
+          lexicon_block_size_(lexicon_block_size),
+          spam_(spam)
     {}
 
     //! \brief Builds all batches and assembles the final index.
@@ -162,6 +167,9 @@ public:
             std::istringstream linestream(line);
             std::string title;
             linestream >> title;
+            if (spam_.has_value() && spam_->find(title) != spam_->end()) {
+                continue;
+            }
             of_titles << title << '\n';
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
