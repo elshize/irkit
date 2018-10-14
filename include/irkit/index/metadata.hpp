@@ -27,6 +27,7 @@
 #pragma once
 
 #include <boost/filesystem.hpp>
+
 #include <irkit/index.hpp>
 
 namespace irk::index {

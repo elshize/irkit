@@ -24,8 +24,10 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
-#include <boost/filesystem.hpp>
 #include <iostream>
+
+#include <boost/filesystem.hpp>
+
 #include "irkit/index.hpp"
 #include "irkit/index/merger.hpp"
 

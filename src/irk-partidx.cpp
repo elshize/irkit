@@ -81,7 +81,7 @@ vmap<document_t, ShardId>
 load_shard_map(const std::string& map_in)
 {
     auto log = spdlog::get("partition");
-    if (log) { log->info("Loading shard mapping from {map_in}"); }
+    if (log) { log->info("Loading shard mapping from {}", map_in); }
     auto tab = load_compact_table<ShardId, vbyte_codec<ShardId>>(map_in);
     return vmap<document_t, ShardId>(tab.begin(), tab.end());
 }

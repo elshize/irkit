@@ -30,7 +30,9 @@ class IRKConan(ConanFile):
                        "boost:without_graph_parallel=True",
                        "boost:without_python=True",
                        "boost:without_stacktrace=True",
+                       "boost:without_system=True",
                        "boost:without_test=True",
+                       "boost:without_thread=True",
                        "boost:without_type_erasure=True")
     exports_sources = ("LICENSE", "README.md", "include/*", "src/*",
                        "cmake/*", "CMakeLists.txt", "tests/*", "benchmarks/*",

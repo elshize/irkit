@@ -30,8 +30,6 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>

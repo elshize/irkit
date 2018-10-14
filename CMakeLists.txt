@@ -36,14 +36,11 @@ target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 if (IRKit_USE_SYSTEM_BOOST)
-    find_package(Boost COMPONENTS
-        iostreams filesystem system log thread REQUIRED)
+    find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
     target_link_libraries(irkit INTERFACE
         Boost::boost
         Boost::iostreams
         Boost::filesystem
-        Boost::system
-        Boost::thread
         CONAN_PKG::rangev3
         CONAN_PKG::jsonformoderncpp
         CONAN_PKG::type_safe

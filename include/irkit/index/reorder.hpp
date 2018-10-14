@@ -28,6 +28,7 @@
 
 #include <algorithm>
 
+#include <boost/filesystem.hpp>
 #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <spdlog/spdlog.h>

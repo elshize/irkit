@@ -29,7 +29,6 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
