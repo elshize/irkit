@@ -32,6 +32,7 @@
 
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/io.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -86,14 +87,19 @@ int main(int argc, char** argv)
     }
     else
     {
+        std::optional<std::unordered_set<std::string>> spamlist = std::nullopt;
         if (not spam_titles.empty()) {
-            // TODO
+            spamlist = std::make_optional<std::unordered_set<std::string>>();
+            for (const std::string& line : irk::io::lines(spam_titles)) {
+                spamlist->insert(line);
+            }
         }
         irk::index::index_assembler assembler(
             fs::path(output_dir),
             batch_size,
             skip_block_size,
-            lexicon_block_size);
+            lexicon_block_size,
+            spamlist);
         assembler.assemble(std::cin);
     }
     return 0;
