@@ -280,12 +280,9 @@ public:
 
     void merge_titles()
     {
-        std::cout << "xxxxx" << std::endl;
         std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
-            std::cout << "I" << std::endl;
-            for (const std::string& title : index.titles())
-            {
+            for (const std::string& title : index.titles()) {
                 tout << title << std::endl;
             }
         }

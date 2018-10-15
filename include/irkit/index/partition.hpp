@@ -322,6 +322,62 @@ namespace detail::partition {
         }
 
         template<typename DocumentList>
+        document_builder_type
+        filter_document_lists(const DocumentList& documents, ShardId shard)
+        {
+            const auto& block_size = documents.block_size();
+            document_builder_type builder(block_size);
+            for (auto&& id : documents) {
+                if (shard != shard_mapping_[id]) {
+                    continue;
+                }
+                auto local_doc_id = document_mapping_[id];
+                builder.add(local_doc_id);
+            }
+            return builder;
+        }
+
+        template<typename PostingList>
+        frequency_builder_type
+        filter_freq_lists(const PostingList& postings, ShardId shard)
+        {
+            const auto& block_size = postings.block_size();
+            frequency_builder_type builder(block_size);
+            for (auto&& posting : postings) {
+                if (shard != shard_mapping_[posting.document()]) {
+                    continue;
+                }
+                builder.add(posting.payload());
+            }
+            return builder;
+        }
+
+        template<typename Index>
+        std::vector<score_builder_type> filter_score_lists(
+            const Index& index,
+            term_id_t term_id,
+            const std::vector<std::string>& score_names,
+            ShardId shard)
+        {
+            size_t block_size = index.documents(0).block_size();
+            std::vector<score_builder_type> builders;
+            for (const auto& _ : score_names) {
+                (void)_;
+                builders.emplace_back(block_size);
+            }
+            for (const auto& [idx, name] : iter::enumerate(score_names)) {
+                auto postings = index.scored_postings(term_id, name);
+                for (auto&& posting : postings) {
+                    if (shard != shard_mapping_[posting.document()]) {
+                        continue;
+                    }
+                    builders[idx].add(posting.payload());
+                }
+            }
+            return builders;
+        }
+
+        template<typename DocumentList>
         vmap<ShardId, document_builder_type>
         build_document_lists(const DocumentList& documents)
         {
@@ -378,6 +434,54 @@ namespace detail::partition {
 
         /// Partitions all posting-like data.
         inline auto postings(size_t terms_in_batch)
+        {
+            auto log = spdlog::get("partition");
+            auto source = inverted_index_disk_data_source::from(
+                              input_dir_, index::all_score_names(input_dir_))
+                              .value();
+            inverted_index_view index(&source);
+            vmap<ShardId, frequency_t> total_occurrences;
+            for (const auto& [shard, shard_dir] :
+                 iter::zip(ShardId::range(shard_count_), shard_dirs_))
+            {
+                if (log) {
+                    log->info(
+                        "Partitioning postings for shard {}",
+                        static_cast<size_t>(shard));
+                }
+                index::posting_vectors vectors(index.score_names());
+                index::posting_streams<std::ofstream> out(
+                    shard_dir,
+                    index.score_names(),
+                    vectors,
+                    std::ios_base::binary);
+                for (auto term_id : iter::range(index.term_count())) {
+                    auto document_builder =
+                        filter_document_lists(index.documents(term_id), shard);
+                    if (document_builder.size() > 0u) {
+                        auto freq_builder =
+                            filter_freq_lists(index.postings(term_id), shard);
+                        auto score_builders = filter_score_lists(
+                            index, term_id, index.score_names(), shard);
+                        out.write(
+                            term_id,
+                            document_builder,
+                            freq_builder,
+                            score_builders);
+                    }
+                }
+                total_occurrences.push_back(vectors.total_occurrences);
+                vectors.write(
+                    input_dir_,
+                    shard_dirs_[shard],
+                    index.terms().keys_per_block(),
+                    index.score_names());
+            }
+            return total_occurrences;
+        }
+
+        /// Partitions all posting-like data.
+        inline auto postings_(size_t terms_in_batch)
         {
             auto log = spdlog::get("partition");
             auto source = inverted_index_disk_data_source::from(
