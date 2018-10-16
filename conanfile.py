@@ -56,6 +56,7 @@ class IRKConan(ConanFile):
         self.requires("rax/master@elshize/testing")
         self.requires("irm/0.1@elshize/develop")
         self.requires("cppitertools/1.0@elshize/stable")
+        self.requires("taily/0.1@elshize/testing")
 
         if not self.options.use_system_boost:
             self.requires("boost/1.66.0@conan/stable")

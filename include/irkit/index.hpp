@@ -47,6 +47,7 @@
 #include <range/v3/utility/concepts.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
+#include <taily.hpp>
 #include <type_safe/config.hpp>
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
@@ -74,11 +75,18 @@ using index::frequency_t;
 using index::offset_t;
 using index::term_id_t;
 
-template<typename P, typename O = P, typename M = P>
+template<
+    typename P,
+    typename O = P,
+    typename M = O,
+    typename E = M,
+    typename V = E>
 struct score_tuple {
     P postings;
     O offsets;
     M max_scores;
+    //E exp_values;
+    //V variances;
 };
 
 namespace index {
@@ -525,6 +533,8 @@ void score_index(
     fs::path scores_path = dir_path / (name + ".scores");
     fs::path score_offsets_path = dir_path / (name + ".offsets");
     fs::path score_max_path = dir_path / (name + ".maxscore");
+    fs::path score_exp_path = dir_path / (name + ".expscore");
+    fs::path score_var_path = dir_path / (name + ".varscore");
     auto source = DataSourceT::from(dir_path).value();
     inverted_index_view index(&source);
 
@@ -556,10 +566,16 @@ void score_index(
     std::ofstream sout(scores_path.c_str());
     std::ofstream offout(score_offsets_path.c_str());
     std::ofstream maxout(score_max_path.c_str());
+    std::ofstream expout(score_exp_path.c_str());
+    std::ofstream varout(score_var_path.c_str());
     std::vector<std::size_t> offsets;
     std::vector<std::uint32_t> max_scores;
+    std::vector<std::uint32_t> exp_scores;
+    std::vector<std::uint32_t> var_scores;
     offsets.reserve(index.term_count());
     max_scores.reserve(index.term_count());
+    exp_scores.reserve(index.term_count());
+    var_scores.reserve(index.term_count());
 
     if (log) { log->info("Scoring"); }
     int64_t max_int = (1u << bits) - 1u;
@@ -581,12 +597,20 @@ void score_index(
             ASSERT(quantized_score <= max_int);
             list_builder.add(quantized_score);
         }
+        auto stats =
+            taily::FeatureStatistics::from_features(list_builder.values());
+        exp_scores.push_back(stats.expected_value);
+        var_scores.push_back(stats.variance);
         offset += list_builder.write(sout);
     }
     auto offset_table = irk::build_offset_table<>(offsets);
     offout << offset_table;
     auto maxscore_table = irk::build_compact_table<uint32_t>(max_scores);
     maxout << maxscore_table;
+    auto expscore_table = irk::build_compact_table<uint32_t>(exp_scores);
+    expout << expscore_table;
+    auto varscore_table = irk::build_compact_table<uint32_t>(var_scores);
+    varout << varscore_table;
 }
 
 }  // namespace irk

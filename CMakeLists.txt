@@ -50,6 +50,7 @@ if (IRKit_USE_SYSTEM_BOOST)
         CONAN_PKG::rax
         CONAN_PKG::spdlog
         CONAN_PKG::cppitertools
+        CONAN_PKG::taily
         pthread)
 else()
     #add_definitions(-DBOOST_LOG_DYN_LINK)
@@ -64,6 +65,7 @@ else()
         CONAN_PKG::rax
         CONAN_PKG::spdlog
         CONAN_PKG::cppitertools
+        CONAN_PKG::taily
         pthread)
 endif()
 install(DIRECTORY include/irkit DESTINATION include)
