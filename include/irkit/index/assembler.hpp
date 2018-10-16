@@ -158,20 +158,20 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        for (auto processed_documents_ = static_cast<int32_t>(first_id);
-             processed_documents_
-                < batch_size_ + static_cast<int32_t>(first_id);
-             processed_documents_++)
+        auto processed_documents_ = static_cast<int32_t>(first_id);
+        while (processed_documents_
+               < batch_size_ + static_cast<int32_t>(first_id))
         {
             if (not std::getline(input, line)) { break; }
-            auto doc = static_cast<document_type>(processed_documents_);
-            builder.add_document(doc);
             std::istringstream linestream(line);
             std::string title;
             linestream >> title;
             if (spam_.has_value() && spam_->find(title) != spam_->end()) {
                 continue;
             }
+            auto doc = static_cast<document_type>(processed_documents_);
+            processed_documents_ += 1;
+            builder.add_document(doc);
             of_titles << title << '\n';
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
