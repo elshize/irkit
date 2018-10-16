@@ -76,14 +76,14 @@ public:
         std::vector<std::string> invalid_scores;
         for (const auto& score_name : score_names)
         {
-            auto scores_path = dir / (score_name + ".scores");
-            auto score_offsets_path = dir / (score_name + ".offsets");
-            auto max_scores_path = dir / (score_name + ".maxscore");
-            if (exists(scores_path) && exists(score_offsets_path)
-                && exists(max_scores_path)) {
-                source.scores_[score_name] = {dir / (score_name + ".scores"),
-                                              dir / (score_name + ".offsets"),
-                                              dir / (score_name + ".maxscore")};
+            auto score_paths = index::score_paths(dir, score_name);
+            if (exists(score_paths.postings) && exists(score_paths.offsets)
+                && exists(score_paths.max_scores)
+                && exists(score_paths.exp_values)
+                && exists(score_paths.variances))
+            {
+                source.scores_[score_name] =
+                    index::score_paths(dir, score_name);
             } else {
                 invalid_scores.push_back(score_name);
             }
@@ -172,7 +172,9 @@ public:
             return score_tuple<memory_view>{
                 make_memory_view(pos->second.postings),
                 make_memory_view(pos->second.offsets),
-                make_memory_view(pos->second.max_scores)};
+                make_memory_view(pos->second.max_scores),
+                make_memory_view(pos->second.exp_values),
+                make_memory_view(pos->second.variances)};
         }
         return nonstd::make_unexpected("requested score function not found");
     }
@@ -234,21 +236,27 @@ public:
         std::vector<std::string> invalid_scores;
         for (const std::string& score_name : score_names)
         {
-            auto scores_path = dir / (score_name + ".scores");
-            auto score_offsets_path = dir / (score_name + ".offsets");
-            auto max_scores_path = dir / (score_name + ".maxscore");
-            if (exists(scores_path) && exists(score_offsets_path)
-                && exists(max_scores_path))
+            auto score_paths = index::score_paths(dir, score_name);
+            if (exists(score_paths.postings) && exists(score_paths.offsets)
+                && exists(score_paths.max_scores)
+                && exists(score_paths.exp_values)
+                && exists(score_paths.variances))
             {
                 std::vector<char> scores;
                 std::vector<char> score_offsets;
                 std::vector<char> max_scores;
-                load_data(scores_path, scores);
-                load_data(score_offsets_path, score_offsets);
-                load_data(max_scores_path, max_scores);
+                std::vector<char> exp_values;
+                std::vector<char> variances;
+                load_data(score_paths.postings, scores);
+                load_data(score_paths.offsets, score_offsets);
+                load_data(score_paths.max_scores, max_scores);
+                load_data(score_paths.exp_values, exp_values);
+                load_data(score_paths.variances, variances);
                 source.scores_[score_name] = {std::move(scores),
                                               std::move(score_offsets),
-                                              std::move(max_scores)};
+                                              std::move(max_scores),
+                                              std::move(exp_values),
+                                              std::move(variances)};
             } else {
                 invalid_scores.push_back(score_name);
             }
@@ -349,7 +357,9 @@ public:
             return score_tuple<memory_view>{
                 make_memory_view(pos->second.postings),
                 make_memory_view(pos->second.offsets),
-                make_memory_view(pos->second.max_scores)};
+                make_memory_view(pos->second.max_scores),
+                make_memory_view(pos->second.exp_values),
+                make_memory_view(pos->second.variances)};
         }
         return nonstd::make_unexpected("requested score function not found");
     }
@@ -417,16 +427,18 @@ public:
 
         std::vector<std::string> invalid_scores;
         for (const std::string& score_name : score_names) {
-            auto scores_path = dir / (score_name + ".scores");
-            auto score_offsets_path = dir / (score_name + ".offsets");
-            auto max_scores_path = dir / (score_name + ".maxscore");
-            if (exists(scores_path) && exists(score_offsets_path)
-                && exists(max_scores_path))
+            auto score_paths = index::score_paths(dir, score_name);
+            if (exists(score_paths.postings) && exists(score_paths.offsets)
+                && exists(score_paths.max_scores)
+                && exists(score_paths.exp_values)
+                && exists(score_paths.variances))
             {
                 source.scores_[score_name] = {
-                    mapped_file_source(scores_path),
-                    mapped_file_source(score_offsets_path),
-                    mapped_file_source(max_scores_path)};
+                    mapped_file_source(score_paths.postings),
+                    mapped_file_source(score_paths.offsets),
+                    mapped_file_source(score_paths.max_scores),
+                    mapped_file_source(score_paths.exp_values),
+                    mapped_file_source(score_paths.variances)};
             } else {
                 invalid_scores.push_back(score_name);
             }
@@ -531,7 +543,13 @@ public:
                     pos->second.offsets.data(), pos->second.offsets.size()),
                 make_memory_view(
                     pos->second.max_scores.data(),
-                    pos->second.max_scores.size())};
+                    pos->second.max_scores.size()),
+                make_memory_view(
+                    pos->second.exp_values.data(),
+                    pos->second.exp_values.size()),
+                make_memory_view(
+                    pos->second.variances.data(),
+                    pos->second.variances.size())};
         }
         return nonstd::make_unexpected("requested score function not found");
     }

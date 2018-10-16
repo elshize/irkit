@@ -85,8 +85,8 @@ struct score_tuple {
     P postings;
     O offsets;
     M max_scores;
-    //E exp_values;
-    //V variances;
+    E exp_values;
+    V variances;
 };
 
 namespace index {
@@ -130,6 +130,16 @@ namespace index {
     { return dir / fmt::format("{}.offsets", name); }
     inline path max_scores_path(const path& dir, const std::string& name)
     { return dir / fmt::format("{}.maxscore", name); }
+
+    inline score_tuple<path>
+    score_paths(const path& dir, const std::string& name)
+    {
+        return {dir / fmt::format("{}.scores", name),
+                dir / fmt::format("{}.offsets", name),
+                dir / fmt::format("{}.maxscore", name),
+                dir / fmt::format("{}.expscore", name),
+                dir / fmt::format("{}.varscore", name)};
+    }
 
     inline std::vector<std::string> all_score_names(const path& dir)
     {
@@ -179,8 +189,12 @@ public:
         compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>;
     using array_stream = boost::iostreams::stream_buffer<
         boost::iostreams::basic_array_source<char>>;
-    using score_tuple_type =
-        score_tuple<memory_view, offset_table_type, score_table_type>;
+    using score_tuple_type = score_tuple<
+        memory_view,
+        offset_table_type,
+        score_table_type,
+        score_table_type,
+        score_table_type>;
 
     basic_inverted_index_view() = default;
     basic_inverted_index_view(const basic_inverted_index_view&) = default;
@@ -213,7 +227,9 @@ public:
         for (const auto& [name, tuple] : data->scores_sources()) {
             score_tuple_type t{tuple.postings,
                                offset_table_type(tuple.offsets),
-                               score_table_type(tuple.max_scores)};
+                               score_table_type(tuple.max_scores),
+                               score_table_type(tuple.exp_values),
+                               score_table_type(tuple.variances)};
             scores_.emplace(std::make_pair(name, t));
         }
         default_score_ = data->default_score();

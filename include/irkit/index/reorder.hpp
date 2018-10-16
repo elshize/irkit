@@ -265,15 +265,18 @@ void index(
     std::vector<std::reference_wrapper<std::ostream>> ref_sco;
     auto score_functions = index::all_score_names(input_dir);
     for (const auto& score : score_functions) {
-        scp.emplace_back(
-            (output_dir / fmt::format("{}.scores", score)).c_str());
-        sco.emplace_back(
-            (output_dir / fmt::format("{}.offsets", score)).c_str());
+        auto output_score_paths = index::score_paths(output_dir, score);
+        scp.emplace_back(output_score_paths.postings.c_str());
+        sco.emplace_back(output_score_paths.offsets.c_str());
         ref_scp.emplace_back(scp.back());
         ref_sco.emplace_back(sco.back());
+        auto input_score_paths = index::score_paths(input_dir, score);
         boost::filesystem::copy(
-            input_dir / fmt::format("{}.maxscore", score),
-            output_dir / fmt::format("{}.maxscore", score));
+            input_score_paths.max_scores, output_score_paths.max_scores);
+        boost::filesystem::copy(
+            input_score_paths.exp_values, output_score_paths.exp_values);
+        boost::filesystem::copy(
+            input_score_paths.variances, output_score_paths.variances);
     }
 
     auto source =

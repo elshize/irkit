@@ -59,6 +59,8 @@ namespace index {
         std::vector<offset_t> frequency_offsets;
         std::vector<std::vector<offset_t>> score_offsets;
         std::vector<std::vector<inverted_index_view::score_type>> max_scores;
+        std::vector<std::vector<inverted_index_view::score_type>> exp_scores;
+        std::vector<std::vector<inverted_index_view::score_type>> var_scores;
         std::vector<frequency_t> term_frequencies;
         std::vector<frequency_t> term_occurrences;
 
@@ -72,6 +74,8 @@ namespace index {
         posting_vectors(std::vector<std::string> score_names = {})
             : score_offsets(score_names.size()),
               max_scores(score_names.size()),
+              exp_scores(score_names.size()),
+              var_scores(score_names.size()),
               cur_score_offsets(score_names.size(), 0),
               score_names(std::move(score_names))
         {}
@@ -88,13 +92,16 @@ namespace index {
                 .serialize(doc_ids_off_path(output_dir));
             build_offset_table(frequency_offsets)
                 .serialize(doc_counts_off_path(output_dir));
-            for (const auto& [offset_table, maxscore_table, name] :
-                 iter::zip(score_offsets, max_scores, score_names)) {
-                build_offset_table(offset_table)
-                    .serialize(score_offset_path(output_dir, name));
-                build_compact_table<inverted_index_view::score_type>(
-                    maxscore_table)
-                    .serialize(max_scores_path(output_dir, name));
+            for (const auto& [idx, name] : iter::enumerate(score_names)) {
+                auto paths = index::score_paths(output_dir, name);
+                build_offset_table(score_offsets[idx]).serialize(paths.offsets);
+                using score_type = inverted_index_view::score_type;
+                build_compact_table<score_type>(max_scores[idx])
+                    .serialize(paths.max_scores);
+                build_compact_table<score_type>(exp_scores[idx])
+                    .serialize(paths.exp_values);
+                build_compact_table<score_type>(var_scores[idx])
+                    .serialize(paths.variances);
             }
             build_compact_table<frequency_t>(term_frequencies)
                 .serialize(term_doc_freq_path(output_dir));
