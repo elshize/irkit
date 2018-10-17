@@ -86,6 +86,8 @@ public:
         document_sizes_.push_back(0);
     }
 
+    auto size() const { return document_sizes_.size(); }
+
     //! Adds a term to the current document.
     void add_term(const term_type& term)
     {
