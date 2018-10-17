@@ -143,6 +143,8 @@ public:
      *          been accumulated.
      */
     value_type threshold() { return threshold_; }
+
+    auto size() const { return top_.size(); }
 };
 
 namespace view {

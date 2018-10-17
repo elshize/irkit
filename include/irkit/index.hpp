@@ -53,6 +53,7 @@
 #include <type_safe/strong_typedef.hpp>
 #include <type_safe/types.hpp>
 
+#include <irkit/algorithm.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/coding.hpp>
 #include <irkit/coding/stream_vbyte.hpp>
@@ -527,7 +528,53 @@ private:
 
 using inverted_index_view = basic_inverted_index_view<>;
 
-inline auto query_postings(const irk::inverted_index_view& index,
+/// \returns All document lists for query terms in the preserved order.
+inline auto query_documents(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.documents(std::declval<std::string>()));
+    std::vector<list_type> documents;
+    documents.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(documents), [&index](const auto& term) {
+            return index.documents(term);
+        });
+    return documents;
+}
+
+/// \returns All frequency lists for query terms in the preserved order.
+inline auto query_frequencies(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.frequencies(std::declval<std::string>()));
+    std::vector<list_type> frequencies;
+    frequencies.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(frequencies), [&index](const auto& term) {
+            return index.frequencies(term);
+        });
+    return frequencies;
+}
+
+/// \returns All score lists for query terms in the preserved order.
+inline auto query_scores(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.scores(std::declval<std::string>()));
+    std::vector<list_type> scores;
+    scores.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(scores), [&index](const auto& term) {
+            return index.scores(term);
+        });
+    return scores;
+}
+
+inline auto query_postings(
+    const irk::inverted_index_view& index,
     const std::vector<std::string>& query)
 {
     using posting_list_type = decltype(
@@ -615,6 +662,8 @@ void score_index(
         }
         auto stats =
             taily::FeatureStatistics::from_features(list_builder.values());
+        max_scores.push_back(*std::max_element(
+            list_builder.values().begin(), list_builder.values().end()));
         exp_scores.push_back(stats.expected_value);
         var_scores.push_back(stats.variance);
         offset += list_builder.write(sout);

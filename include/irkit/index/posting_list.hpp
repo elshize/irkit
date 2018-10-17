@@ -46,8 +46,10 @@ public:
     using document_type = typename document_list_type::value_type;
     using payload_type = typename payload_list_type::value_type;
     using difference_type = std::int32_t;
-    using document_iterator_t = typename document_list_type::iterator;
-    using payload_iterator_t = typename payload_list_type::iterator;
+    using document_iterator_t =
+        decltype(std::declval<const document_list_type>().begin());
+    using payload_iterator_t =
+        decltype(std::declval<const payload_list_type>().begin());
 
     class posting_view {
     public:
@@ -291,16 +293,16 @@ private:
     size_t length_;
 };
 
-template<typename Range>
-auto merge(const Range& posting_lists)
+template<typename Iter>
+auto merge(Iter first_posting_list, Iter last_posting_list)
 {
     using list_type = std::remove_const_t<
-        std::remove_reference_t<decltype(*posting_lists.begin())>>;
-    using iterator_type = typename list_type::iterator;
+        std::remove_reference_t<decltype(*first_posting_list)>>;
+    using list_iterator = typename list_type::iterator;
     return Union<typename list_type::posting_view, list_type>(
-        std::vector<list_type>(posting_lists.begin(), posting_lists.end()),
-        [](const moving_range<iterator_type>& lhs,
-           const moving_range<iterator_type>& rhs) {
+        std::vector<list_type>(first_posting_list, last_posting_list),
+        [](const moving_range<list_iterator>& lhs,
+           const moving_range<list_iterator>& rhs) {
             if (rhs.empty()) {
                 return true;
             }
@@ -309,6 +311,12 @@ auto merge(const Range& posting_lists)
             }
             return lhs.front().document() < rhs.front().document();
         });
+}
+
+template<typename Range>
+auto merge(const Range& posting_lists)
+{
+    return merge(posting_lists.begin(), posting_lists.end());
 }
 
 }  // namespace irk

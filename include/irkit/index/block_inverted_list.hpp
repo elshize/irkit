@@ -100,8 +100,8 @@ public:
 
     block_iterator(const block_iterator&) = default;
     block_iterator(block_iterator&&) noexcept = default;
-    block_iterator& operator=(const block_iterator&) = delete;
-    block_iterator& operator=(block_iterator&&) noexcept = delete;
+    block_iterator& operator=(const block_iterator&) = default;
+    block_iterator& operator=(block_iterator&&) noexcept = default;
     ~block_iterator() = default;
 
     /*!
@@ -110,16 +110,17 @@ public:
      * comparing iterators, it is not checked whether they belong to the same
      * list: this check must be performed by the user if required.
      */
-    block_iterator(const view_type& view,
+    block_iterator(
+        const view_type& view,
         difference_type block,
         difference_type pos,
         int block_size)
-        : view_(view),
+        : view_(std::cref(view)),
           pos_(block, pos),
           block_size_(block_size),
-          block_count_(view_.blocks_.size())  //,
-          //decoded_block_num_(-1),
-          //decoded_block_(block_size_)
+          block_count_(view_.get().blocks_.size())  //,
+    // decoded_block_num_(-1),
+    // decoded_block_(block_size_)
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -146,7 +147,7 @@ public:
         pos_.off = block == pos_.block ? pos_.off : 0;
         pos_.block = block;
         ensure_decoded();
-        const auto& decoded_block = view_.decoded_blocks_[block];
+        const auto& decoded_block = view_.get().decoded_blocks_[block];
         while (decoded_block[pos_.off] < val) { pos_.off++; }
         return *this;
     };
@@ -190,46 +191,46 @@ private:
     void increment()
     {
         pos_.off++;
-        pos_.block += pos_.off / view_.block_size_;
-        pos_.off %= view_.block_size_;
+        pos_.block += pos_.off / view_.get().block_size_;
+        pos_.off %= view_.get().block_size_;
     }
     void advance(difference_type n)
     {
         pos_.off += n;
-        pos_.block += pos_.off / view_.block_size_;
-        pos_.off %= view_.block_size_;
+        pos_.block += pos_.off / view_.get().block_size_;
+        pos_.off %= view_.get().block_size_;
     }
     bool equal(const self_type& other) const { return pos_ == other.pos_; }
     const value_type& dereference() const
     {
         ensure_decoded();
-        return view_.decoded_blocks_[pos_.block][pos_.off];
+        return view_.get().decoded_blocks_[pos_.block][pos_.off];
     }
 
     //! Decodes and caches the current block if not decoded.
     void ensure_decoded() const
     {
-        auto& decoded_block = view_.decoded_blocks_[pos_.block];
+        auto& decoded_block = view_.get().decoded_blocks_[pos_.block];
         if (decoded_block.empty())
         {
             auto count = pos_.block < block_count_ - 1
                 ? block_size_
-                : view_.length_ - ((block_count_ - 1) * block_size_);
+                : view_.get().length_ - ((block_count_ - 1) * block_size_);
             if constexpr (delta_encoded) {  // NOLINT
                 auto preceding = pos_.block > 0
-                    ? view_.blocks_[pos_.block - 1].back()
+                    ? view_.get().blocks_[pos_.block - 1].back()
                     : 0_id;
                 decoded_block.resize(block_size_);
-                view_.codec_.delta_decode(
-                    std::begin(view_.blocks_[pos_.block].data()),
+                view_.get().codec_.delta_decode(
+                    std::begin(view_.get().blocks_[pos_.block].data()),
                     std::begin(decoded_block),
                     count,
                     preceding);
             }
             else {
                 decoded_block.resize(block_size_);
-                view_.codec_.decode(
-                    std::begin(view_.blocks_[pos_.block].data()),
+                view_.get().codec_.decode(
+                    std::begin(view_.get().blocks_[pos_.block].data()),
                     std::begin(decoded_block),
                     count);
             }
@@ -239,8 +240,8 @@ private:
     //! Returns the block of the next greater of equal element.
     int nextgeq_block(int block, value_type id) const
     {
-        while (block < sgn(view_.blocks_.size())
-               && view_.blocks_[block].back() < id) {
+        while (block < sgn(view_.get().blocks_.size())
+               && view_.get().blocks_[block].back() < id) {
             block++;
         }
         return block;
@@ -249,15 +250,16 @@ private:
     //! Emulates `end()` call on the view.
     void finish()
     {
-        pos_.block = view_.length_ / view_.block_size_;
-        pos_.off = (view_.length_ - ((block_count_ - 1) * block_size_))
+        pos_.block = view_.get().length_ / view_.get().block_size_;
+        pos_.off = (view_.get().length_ - ((block_count_ - 1) * block_size_))
             % block_size_;
     }
 
-    const view_type& view_;
+    //const view_type& view_;
+    std::reference_wrapper<const view_type> view_;
     block_position_t pos_;
     int32_t block_size_;
-    const int32_t block_count_;
+    int32_t block_count_;
 };
 
 //class decoded_block_iterator : public boost::iterator_facade<
