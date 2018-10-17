@@ -39,6 +39,7 @@
 #include <irkit/index/metadata.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/lexicon.hpp>
+#include <irkit/sgn.hpp>
 
 namespace irk::index {
 
@@ -107,14 +108,13 @@ public:
 
         int batch_number = 0;
         std::vector<fs::path> batch_dirs;
+        document_type next_id(0);
         while (input && input.peek() != EOF)
         {
             if (log) { log->info("Building batch {}", batch_number); }
             fs::path batch_dir = work_dir / std::to_string(batch_number);
             metadata batch_metadata(batch_dir);
-            build_batch(input,
-                batch_metadata,
-                static_cast<document_type>(batch_number * batch_size_));
+            next_id = build_batch(input, batch_metadata, next_id);
             batch_dirs.push_back(std::move(batch_dir));
             ++batch_number;
         }
@@ -135,9 +135,10 @@ public:
     //! \param[in] input            collection stream; see assemble() for
     //!                             more details
     //! \param[in] batch_metadata   information about file paths
-    std::istream& build_batch(std::istream& input,
+    std::ptrdiff_t build_batch(
+        std::istream& input,
         metadata batch_metadata,
-        document_type first_id) const
+        document_type next_id) const
     {
         if (not fs::exists(batch_metadata.dir))
         {
@@ -158,9 +159,7 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        auto processed_documents_ = static_cast<int32_t>(first_id);
-        while (processed_documents_
-               < batch_size_ + static_cast<int32_t>(first_id))
+        while (irk::sgn(builder.size()) < batch_size_)
         {
             if (not std::getline(input, line)) { break; }
             std::istringstream linestream(line);
@@ -169,9 +168,7 @@ public:
             if (spam_.has_value() && spam_->find(title) != spam_->end()) {
                 continue;
             }
-            auto doc = static_cast<document_type>(processed_documents_);
-            processed_documents_ += 1;
-            builder.add_document(doc);
+            builder.add_document(next_id++);
             of_titles << title << '\n';
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
@@ -194,7 +191,7 @@ public:
             irk::index::titles_path(batch_metadata.dir), lexicon_block_size_);
         title_map.serialize(irk::index::title_map_path(batch_metadata.dir));
 
-        return input;
+        return next_id;
     }
 };
 
