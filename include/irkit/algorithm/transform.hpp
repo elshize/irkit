@@ -80,4 +80,26 @@ constexpr OutputIt transform_range(
         unary_op);
 }
 
+/// A shorthand for `std::transform` that takes an entire range and transforms
+/// in place.
+template<class InputRange, class UnaryOperation>
+constexpr UnaryOperation
+inplace_transform_range(const InputRange& input_range, UnaryOperation unary_op)
+{
+    return inplace_transform(
+        std::begin(input_range), std::end(input_range), unary_op);
+}
+
+/// A shorthand for `std::transform` that takes an entire range and transforms
+/// in place.
+template<class ExecutionPolicy, class InputRange, class UnaryOperation>
+constexpr UnaryOperation inplace_transform_range(
+    ExecutionPolicy&& policy,
+    const InputRange& input_range,
+    UnaryOperation unary_op)
+{
+    return inplace_transform(
+        policy, std::begin(input_range), std::end(input_range), unary_op);
+}
+
 }  // namespace irk

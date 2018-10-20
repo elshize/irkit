@@ -26,6 +26,7 @@
 
 #pragma once
 
+#include <irkit/algorithm/accumulate.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/utils.hpp>
@@ -42,8 +43,6 @@ auto compute_threshold(
     ScoreIterator last_score_list,
     int topk)
 {
-    using score_type =
-        std::decay_t<decltype(*std::declval<ScoreIterator>()->begin())>;
     auto numlists = std::distance(first_document_list, last_document_list);
     EXPECTS(numlists == std::distance(first_score_list, last_score_list));
     using posting_list = posting_list_view<
@@ -58,12 +57,38 @@ auto compute_threshold(
         [](const auto& doclist, const auto& scorelist) {
             return posting_list(doclist, scorelist);
         });
-    return compute_threshold<score_type>(
-        posting_lists.begin(), posting_lists.end(), topk);
+    return compute_threshold(posting_lists.begin(), posting_lists.end(), topk);
 }
 
-template<typename ScoreType, typename Iter>
+template<typename DocumentType, typename ScoreType, typename Iter>
 ScoreType compute_threshold(
+    Iter first_posting_list,
+    Iter last_posting_list,
+    top_k_accumulator<DocumentType, ScoreType>& acc)
+{
+    ScoreType score(0);
+    auto postings = merge(first_posting_list, last_posting_list);
+    auto pos = postings.begin();
+    auto end = postings.end();
+    while (pos != end) {
+        auto current_id = pos->document();
+        std::tie(score, pos) = accumulate_while(
+            pos,
+            end,
+            ScoreType(0),
+            [current_id](const auto& posting) {
+                return posting.document() == current_id;
+            },
+            [](const auto& acc, const auto& posting) {
+                return acc + posting.payload();
+            });
+        acc.accumulate(current_id, score);
+    }
+    return acc.threshold();
+}
+
+template<typename Iter>
+auto compute_threshold(
     Iter first_posting_list, Iter last_posting_list, int topk)
 {
     using document_type =
@@ -71,11 +96,8 @@ ScoreType compute_threshold(
     using score_type =
         std::decay_t<decltype(first_posting_list->begin()->payload())>;
     top_k_accumulator<document_type, score_type> acc(topk);
-    for (const auto& posting : merge(first_posting_list, last_posting_list)) {
-        acc.accumulate(posting.document(), posting.payload());
-    }
-    return static_cast<std::ptrdiff_t>(acc.size()) < topk ? ScoreType(0)
-                                                          : acc.threshold();
+    return compute_threshold<document_type, score_type, Iter>(
+        first_posting_list, last_posting_list, acc);
 }
 
-}
+}  // namespace irk

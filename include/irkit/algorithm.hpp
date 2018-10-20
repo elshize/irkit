@@ -26,4 +26,5 @@
 
 #pragma once
 
+#include "algorithm/accumulate.hpp"
 #include "algorithm/transform.hpp"

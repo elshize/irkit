@@ -24,9 +24,15 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <random>
+
+#include <cppitertools/itertools.hpp>
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <irkit/algorithm/transform.hpp>
+#include <irkit/taat.hpp>
 #include <irkit/threshold.hpp>
 
 namespace {
@@ -43,6 +49,42 @@ TEST(threshold, compute_threshold)
             scores.end(),
             3),
         2);
+}
+
+TEST(threshold, same_as_taat)
+{
+    // given
+    int length = 10000;
+    int ndoc = 50000;
+    int k = 10;
+    std::mt19937 gen(17);
+    std::uniform_int_distribution<> score_dis(0, 8);
+    std::vector<std::vector<int>> documents(5);
+    std::vector<std::vector<int>> scores(5);
+    for (auto&& [docs, scos] : iter::zip(documents, scores)) {
+        docs.resize(ndoc);
+        std::iota(docs.begin(), docs.end(), 0);
+        std::shuffle(docs.begin(), docs.end(), gen);
+        docs.resize(length);
+        std::sort(docs.begin(), docs.end());
+        scos.resize(length);
+        irk::transform_range(
+            scos, scos.begin(), [&](int) { return score_dis(gen); });
+    }
+
+    // when
+    std::vector<int> acc(ndoc, 0);
+    for (auto&& [docs, scos] : iter::zip(documents, scores)) {
+        for (auto&& [doc, score] : iter::zip(docs, scos)) {
+            acc[doc] += score;
+        }
+    }
+    auto x = irk::aggregate_top_k<int, int>(acc, k);
+    auto taat_threshold = x.back().second;
+    auto threshold = irk::compute_threshold(
+        documents.begin(), documents.end(), scores.begin(), scores.end(), k);
+
+    ASSERT_EQ(threshold, taat_threshold);
 }
 
 }  // namespace
