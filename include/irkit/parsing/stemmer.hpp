@@ -44,8 +44,15 @@ public:
         env_ = porter2::create_env();
         return *this;
     }
-    porter2_stemmer(porter2_stemmer&&) noexcept = default;
-    porter2_stemmer& operator=(porter2_stemmer&&) noexcept = default;
+    porter2_stemmer(porter2_stemmer&&) noexcept
+    {
+        env_ = porter2::create_env();
+    }
+    porter2_stemmer& operator=(porter2_stemmer&&) noexcept
+    {
+        env_ = porter2::create_env();
+        return *this;
+    }
     ~porter2_stemmer() { porter2::close_env(env_); }
 
     std::string stem(const std::string& word) const
