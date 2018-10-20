@@ -35,7 +35,7 @@ namespace irk {
 
 class porter2_stemmer {
 public:
-    porter2_stemmer() = default;
+    porter2_stemmer() : env_(porter2::create_env()) {}
     porter2_stemmer(const porter2_stemmer& /* other */)
         : env_(porter2::create_env())
     {}
@@ -68,7 +68,7 @@ public:
     std::string operator()(const std::string& word) const { return stem(word); }
 
 private:
-    porter2::SN_env* env_ = porter2::create_env();
+    porter2::SN_env* env_;
 };
 
 }  // namespace irk

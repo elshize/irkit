@@ -58,7 +58,7 @@ void threshold(
     }
 
     auto documents = irk::query_documents(index, terms);
-    auto scores = irk::query_documents(index, terms);
+    auto scores = irk::query_scores(index, terms);
     auto threshold = irk::compute_threshold(
         documents.begin(), documents.end(), scores.begin(), scores.end(), topk);
     std::cout << threshold << '\n';
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
         "Compute or estimate top-k threshold",
         irk::cli::index_dir_opt{},
         irk::cli::nostem_opt{},
-        //irk::cli::id_range_opt{},
+        // irk::cli::id_range_opt{},
         irk::cli::k_opt{},
         irk::cli::terms_pos{irk::cli::optional});
     app->add_option(
