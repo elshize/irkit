@@ -164,7 +164,7 @@ int main(int argc, char** argv)
             if (estimate_method.has_value()) {
                 estimate(
                     index,
-                    args->terms,
+                    terms,
                     args->k,
                     args->nostem,
                     estimate_method.value());
