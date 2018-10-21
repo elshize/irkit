@@ -32,6 +32,7 @@
 #include <cppitertools/itertools.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
+#include <taily.hpp>
 
 #include <irkit/algorithm.hpp>
 #include <irkit/index.hpp>
@@ -64,9 +65,61 @@ void threshold(
     std::cout << threshold << '\n';
 }
 
+auto estimate_taily(
+    const irk::inverted_index_view& index,
+    std::vector<std::string>& terms,
+    int topk)
+{
+    std::vector<taily::FeatureStatistics> feature_stats(terms.size());
+    irk::transform_range(
+        terms, std::begin(feature_stats), [&](const auto& term) {
+            if (auto id = index.term_id(term); id.has_value()) {
+                return taily::FeatureStatistics{
+                    static_cast<double>(index.score_expected_value(*id)),
+                    static_cast<double>(index.score_variance(*id)),
+                    index.term_collection_frequency(*id)};
+            }
+            return taily::FeatureStatistics{0, 0, 0};
+        });
+    taily::CollectionStatistics stats{
+        std::move(feature_stats), index.collection_size()};
+    return taily::estimate_cutoff(stats, topk);
+}
+
+void estimate(
+    const irk::inverted_index_view& index,
+    std::vector<std::string>& terms,
+    int topk,
+    bool nostem,
+    cli::ThresholdEstimator estimate_method)
+{
+    if (not nostem) {
+        irk::inplace_transform(
+            terms.begin(), terms.end(), irk::porter2_stemmer{});
+    }
+    inverted_index_view::score_type threshold;
+    switch (estimate_method) {
+        case cli::ThresholdEstimator::taily:
+            threshold = estimate_taily(index, terms, topk);
+            break;
+        default:
+            throw std::domain_error(
+                "ThresholdEstimator: non-exhaustive switch");
+    }
+    auto documents = irk::query_documents(index, terms);
+    auto scores = irk::query_scores(index, terms);
+    auto k = irk::compute_topk(
+        documents.begin(),
+        documents.end(),
+        scores.begin(),
+        scores.end(),
+        threshold);
+    std::cout << threshold << '\t' << k << '\n';
+}
+
 int main(int argc, char** argv)
 {
-    std::string estimate_method;
+    std::optional<cli::ThresholdEstimator> estimate_method;
     auto [app, args] = irk::cli::app(
         "Compute or estimate top-k threshold",
         irk::cli::index_dir_opt{},
@@ -74,7 +127,8 @@ int main(int argc, char** argv)
         // irk::cli::id_range_opt{},
         irk::cli::k_opt{},
         irk::cli::terms_pos{irk::cli::optional});
-    app->add_option(
+    cli::add_threshold_estimator(
+        *app,
         "-e,--estimate",
         estimate_method,
         "Method to estimate threshold. By default, it will be computed "
@@ -88,6 +142,15 @@ int main(int argc, char** argv)
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
+        if (estimate_method.has_value()) {
+            estimate(
+                index,
+                args->terms,
+                args->k,
+                args->nostem,
+                estimate_method.value());
+            return 0;
+        }
         threshold(index, args->terms, args->k, args->nostem);
     }
     else {
@@ -98,6 +161,15 @@ int main(int argc, char** argv)
                 query_line,
                 boost::is_any_of("\t "),
                 boost::token_compress_on);
+            if (estimate_method.has_value()) {
+                estimate(
+                    index,
+                    args->terms,
+                    args->k,
+                    args->nostem,
+                    estimate_method.value());
+                continue;
+            }
             threshold(index, terms, args->k, args->nostem);
         }
     }

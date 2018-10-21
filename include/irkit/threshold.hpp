@@ -27,6 +27,7 @@
 #pragma once
 
 #include <irkit/algorithm/accumulate.hpp>
+#include <irkit/algorithm/group_by.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/utils.hpp>
@@ -34,6 +35,54 @@
 #include <vector>
 
 namespace irk {
+
+template<typename DocumentIterator, typename ScoreIterator, typename Score>
+auto compute_topk(
+    DocumentIterator first_document_list,
+    DocumentIterator last_document_list,
+    ScoreIterator first_score_list,
+    ScoreIterator last_score_list,
+    Score threshold)
+{
+    auto numlists = std::distance(first_document_list, last_document_list);
+    EXPECTS(numlists == std::distance(first_score_list, last_score_list));
+    using posting_list = posting_list_view<
+        std::decay_t<decltype(*first_document_list)>,
+        std::decay_t<decltype(*first_score_list)>>;
+    std::vector<posting_list> posting_lists;
+    std::transform(
+        first_document_list,
+        last_document_list,
+        first_score_list,
+        std::back_inserter(posting_lists),
+        [](const auto& doclist, const auto& scorelist) {
+            return posting_list(doclist, scorelist);
+        });
+    return compute_topk(posting_lists.begin(), posting_lists.end(), threshold);
+}
+
+template<typename Iter, typename Score>
+auto compute_topk(
+    Iter first_posting_list, Iter last_posting_list, Score threshold)
+{
+    auto postings = merge(first_posting_list, last_posting_list);
+    int count(0);
+    group_by(
+        postings.begin(),
+        postings.end(),
+        [](const auto& p) { return p.document(); })
+        .aggregate_groups(
+            [](const auto& acc, const auto& posting) {
+                return acc + posting.payload();
+            },
+            Score(0))
+        .for_each([threshold, &count](const auto& /* id */, const auto& score) {
+            if (score >= threshold) {
+                count += 1;
+            }
+        });
+    return count;
+}
 
 template<typename DocumentIterator, typename ScoreIterator>
 auto compute_threshold(

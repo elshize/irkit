@@ -29,6 +29,7 @@
 #include <vector>
 
 #include <CLI/CLI.hpp>
+#include <fmt/format.h>
 
 #include <irkit/compacttable.hpp>
 #include <irkit/index/types.hpp>
@@ -105,6 +106,45 @@ inline std::string ExistingDirectory(const std::string& filename)
     if (not exist) { return "Directory does not exist: " + filename; }
     if (not is_dir) { return "Directory is actually a file: " + filename; }
     return std::string();
+}
+
+enum class ThresholdEstimator { taily };
+inline std::ostream& operator<<(std::ostream& os, ThresholdEstimator estimator)
+{
+    switch (estimator) {
+        case ThresholdEstimator::taily:
+            os << "taily";
+            break;
+        default:
+            throw std::domain_error(
+                "ThresholdEstimator: non-exhaustive switch");
+    }
+    return os;
+}
+
+CLI::Option* add_threshold_estimator(
+    CLI::App& app,
+    std::string name,
+    std::optional<ThresholdEstimator>& variable,
+    std::string description = "",
+    bool defaulted = false)
+{
+    CLI::callback_t fun = [&variable](CLI::results_t res) {
+        if (res[0] == "taily") {
+            variable = ThresholdEstimator::taily;
+            return true;
+        }
+        return false;
+    };
+
+    CLI::Option *opt = app.add_option(name, fun, description, defaulted);
+    opt->type_name("ThresholdEstimator")->type_size(1);
+    if (defaulted) {
+        std::stringstream out;
+        out << *variable;
+        opt->default_str(out.str());
+    }
+    return opt;
 }
 
 template<class... Options>

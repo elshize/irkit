@@ -318,6 +318,32 @@ public:
             length);
     }
 
+    auto score_expected_value(
+        term_id_type term_id, const std::string& score_fun_name) const
+    {
+        EXPECTS(term_id < term_count_);
+        return scores_.at(score_fun_name).exp_values[term_id];
+    }
+
+    auto score_expected_value(term_id_type term_id) const
+    {
+        EXPECTS(term_id < term_count_);
+        return scores_.at(default_score_).exp_values[term_id];
+    }
+
+    auto score_variance(
+        term_id_type term_id, const std::string& score_fun_name) const
+    {
+        EXPECTS(term_id < term_count_);
+        return scores_.at(score_fun_name).variances[term_id];
+    }
+
+    auto score_variance(term_id_type term_id) const
+    {
+        EXPECTS(term_id < term_count_);
+        return scores_.at(default_score_).variances[term_id];
+    }
+
     auto postings(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
@@ -427,7 +453,13 @@ public:
         return term_collection_occurrences_;
     }
 
+    /// Deprecated
     int32_t tdf(term_id_type term_id) const
+    {
+        return term_collection_frequencies_[term_id];
+    }
+
+    int32_t term_collection_frequency(term_id_type term_id) const
     {
         return term_collection_frequencies_[term_id];
     }
