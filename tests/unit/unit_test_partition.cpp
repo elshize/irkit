@@ -39,6 +39,7 @@
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/partition.hpp>
+#include <irkit/index/score.hpp>
 #include <irkit/index/types.hpp>
 
 namespace {
@@ -81,7 +82,7 @@ protected:
             "dignissim felis gravida.\n"
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
-        irk::score_index<
+        irk::index::score_index<
             irk::score::bm25_scorer,
             irk::inverted_index_disk_data_source>(input_dir, 8);
         output_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test_shards";

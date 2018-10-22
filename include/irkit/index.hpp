@@ -469,7 +469,7 @@ public:
         return term_collection_frequencies_[term_id];
     }
 
-    int64_t term_occurrences(term_id_type term_id) const
+    int32_t term_occurrences(term_id_type term_id) const
     {
         return term_collection_occurrences_[term_id];
     }
@@ -621,103 +621,6 @@ inline auto query_postings(
     for (const auto& term : query)
     { postings.push_back(index.scored_postings(term)); }
     return postings;
-}
-
-template<class Scorer, class DataSourceT>
-void score_index(
-    fs::path dir_path,
-    unsigned int bits,
-    std::optional<double> max = std::nullopt)
-{
-    namespace ba = boost::accumulators;
-    using stat_accumulator = ba::
-        accumulator_set<double, ba::stats<ba::tag::mean, ba::tag::variance>>;
-    std::string name(typename Scorer::tag_type{});
-    fs::path scores_path = dir_path / (name + ".scores");
-    fs::path score_offsets_path = dir_path / (name + ".offsets");
-    fs::path score_max_path = dir_path / (name + ".maxscore");
-    fs::path score_exp_path = dir_path / (name + ".expscore");
-    fs::path score_var_path = dir_path / (name + ".varscore");
-    auto source = DataSourceT::from(dir_path).value();
-    inverted_index_view index(&source);
-
-    auto log = spdlog::get("score");
-
-    double max_score;
-    double min_score = 0;
-    if (max.has_value()) {
-        max_score = max.value();
-        if (log) { log->info("Max score provided: {}", max_score); }
-    }
-    else {
-        if (log) { log->info("Calculating max score"); }
-        max_score = 0;
-        for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
-        {
-            auto scorer = index.term_scorer<Scorer>(term_id);
-            for (const auto& posting : index.postings(term_id))
-            {
-                double score = scorer(
-                    posting.payload(), index.document_size(posting.document()));
-                min_score = std::min(min_score, score);
-                max_score = std::max(max_score, score);
-            }
-        }
-        if (log) {
-            log->info("Max score: {}; Min score: {}", max_score, min_score);
-        }
-    }
-
-    int64_t offset = 0;
-    std::ofstream sout(scores_path.c_str());
-    std::ofstream offout(score_offsets_path.c_str());
-    std::ofstream maxout(score_max_path.c_str());
-    std::ofstream expout(score_exp_path.c_str());
-    std::ofstream varout(score_var_path.c_str());
-    std::vector<std::size_t> offsets;
-    std::vector<std::uint32_t> max_scores;
-    std::vector<std::uint32_t> exp_scores;
-    std::vector<std::uint32_t> var_scores;
-    offsets.reserve(index.term_count());
-    max_scores.reserve(index.term_count());
-    exp_scores.reserve(index.term_count());
-    var_scores.reserve(index.term_count());
-
-    if (log) { log->info("Scoring"); }
-
-    LinearQuantizer quantize(
-        IntegralRange(0, (1u << bits) - 1u), RealRange(min_score, max_score));
-
-    for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
-    {
-        offsets.push_back(offset);
-        irk::index::block_list_builder<std::uint32_t,
-            stream_vbyte_codec<std::uint32_t>,
-            false>
-            list_builder(index.skip_block_size());
-        stat_accumulator acc;
-        auto scorer = index.term_scorer<Scorer>(term_id);
-        for (const auto& posting : index.postings(term_id))
-        {
-            double score = scorer(
-                posting.payload(), index.document_size(posting.document()));
-            list_builder.add(quantize(score));
-            acc(score);
-        }
-        max_scores.push_back(*std::max_element(
-            list_builder.values().begin(), list_builder.values().end()));
-        exp_scores.push_back(quantize(ba::mean(acc)));
-        var_scores.push_back(quantize(ba::variance(acc)));
-        offset += list_builder.write(sout);
-    }
-    auto offset_table = irk::build_offset_table<>(offsets);
-    offout << offset_table;
-    auto maxscore_table = irk::build_compact_table<uint32_t>(max_scores);
-    maxout << maxscore_table;
-    auto expscore_table = irk::build_compact_table<uint32_t>(exp_scores);
-    expout << expscore_table;
-    auto varscore_table = irk::build_compact_table<uint32_t>(var_scores);
-    varout << varscore_table;
 }
 
 }  // namespace irk

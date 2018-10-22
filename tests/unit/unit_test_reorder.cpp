@@ -38,6 +38,7 @@
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/reorder.hpp>
+#include <irkit/index/score.hpp>
 
 namespace {
 
@@ -71,7 +72,7 @@ protected:
             "felis gravida.\n"
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
-        irk::score_index<
+        irk::index::score_index<
             irk::score::bm25_scorer,
             irk::inverted_index_disk_data_source>(dir, 8);
     }

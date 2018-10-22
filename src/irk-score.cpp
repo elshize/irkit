@@ -33,10 +33,11 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 #include <irkit/index.hpp>
+#include <irkit/index/score.hpp>
 #include <irkit/index/source.hpp>
 
 namespace fs = boost::filesystem;
-using source_type = irk::inverted_index_disk_data_source;
+using source_type = irk::inverted_index_mapped_data_source;
 
 struct valid_scoring_function {
     std::unordered_set<std::string> available_scorers;
@@ -61,29 +62,24 @@ int main(int argc, char** argv)
     std::string dir;
     std::string scorer("bm25");
     std::unordered_set<std::string> available_scorers = {"bm25", "ql"};
-    double max;
     auto log = spdlog::stderr_color_mt("score");
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_option("-b,--bits", bits, "number of bits for a score", true);
-    app.add_option("-m,--max-score", max, "maximum score (if known)", false);
     app.add_option("scorer", scorer, "scoring function", true)
         ->check(valid_scoring_function{available_scorers});
-
     CLI11_PARSE(app, argc, argv);
 
-    std::optional<double> max_score = app.count("--max-score") > 0
-        ? std::make_optional(max)
-        : std::nullopt;
     fs::path dir_path(dir);
     if (scorer == "bm25") {
-        irk::score_index<irk::score::bm25_scorer, source_type>(
-            dir, bits, max_score);
+        irk::index::score_index<irk::score::bm25_scorer, source_type>(
+            dir, bits);
     } else if (scorer == "ql") {
-        irk::score_index<irk::score::query_likelihood_scorer, source_type>(
-            dir, bits, max_score);
+        irk::index::
+            score_index<irk::score::query_likelihood_scorer, source_type>(
+                dir, bits);
     }
 
     return 0;

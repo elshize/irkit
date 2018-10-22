@@ -62,6 +62,7 @@ class IRKConan(ConanFile):
             self.requires("boost/1.66.0@conan/stable")
         self.requires("zlib/1.2.11@conan/stable")
         self.requires("gtest/1.8.0@conan/stable")
+        self.requires("TBB/2018_U5@conan/stable")
 
         self.requires("CLI11/1.6.0@cliutils/stable")
         self.requires("gsl_microsoft/1.0.0@bincrafters/stable")

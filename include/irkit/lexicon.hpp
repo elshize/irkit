@@ -46,13 +46,17 @@ namespace irk {
 template<class C, class M>
 class lexicon {
 public:
-    using value_type = std::ptrdiff_t;
+    using value_type = std::string;
+    using reference = value_type&;
+    using const_reference = const value_type&;
+    using difference_type = std::ptrdiff_t;
+    using index_type = std::ptrdiff_t;
     using codec_type = C;
     using memory_container = M;
 
     lexicon() = delete;
     lexicon(std::vector<std::ptrdiff_t> block_offsets,
-        std::vector<value_type> leading_indices,
+        std::vector<index_type> leading_indices,
         memory_container blocks,
         std::ptrdiff_t count,
         int keys_per_block,
@@ -93,7 +97,7 @@ public:
         }
     }
 
-    std::optional<value_type> index_at(const std::string& key) const
+    std::optional<index_type> index_at(const std::string& key) const
     {
         auto block = leading_keys_->seek_le(key);
         if (not block.has_value()) { return std::nullopt; }
@@ -102,7 +106,7 @@ public:
             buffer(block_memory.data(), block_memory.size());
         irk::input_bit_stream bin(buffer);
 
-        value_type value = leading_indices_[*block];
+        index_type value = leading_indices_[*block];
         std::string k;
         codec_.reset();
         codec_.decode(bin, k);
@@ -125,7 +129,7 @@ public:
             buffer(block_memory.data(), block_memory.size());
         irk::input_bit_stream bin(buffer);
 
-        value_type value = *block_pos;
+        index_type value = *block_pos;
         std::string key;
         codec_.reset();
         codec_.decode(bin, key);
@@ -180,6 +184,7 @@ public:
     }
 
     std::ptrdiff_t size() const { return count_; }
+    bool empty() const { return count_ > 0; }
 
     class iterator : public boost::iterator_facade<
         iterator, const std::string, boost::single_pass_traversal_tag> {
@@ -242,7 +247,7 @@ public:
             irk::input_bit_stream bin(buffer);
 
             codec_.reset();
-            for (value_type idx = 0; idx < keys_per_block_; ++idx)
+            for (index_type idx = 0; idx < keys_per_block_; ++idx)
             {
                 std::string key;
                 codec_.decode(bin, key);
@@ -282,7 +287,7 @@ public:
 
 private:
     std::vector<std::ptrdiff_t> block_offsets_;
-    std::vector<value_type> leading_indices_;
+    std::vector<index_type> leading_indices_;
     memory_container blocks_;
     std::ptrdiff_t count_;
     int keys_per_block_;
