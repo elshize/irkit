@@ -36,6 +36,10 @@
 #include <utility>
 #include <vector>
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
@@ -65,6 +69,7 @@
 #include <irkit/io.hpp>
 #include <irkit/lexicon.hpp>
 #include <irkit/memoryview.hpp>
+#include <irkit/quantize.hpp>
 #include <irkit/score.hpp>
 #include <irkit/types.hpp>
 
@@ -419,15 +424,15 @@ public:
     template<class Scorer>
     Scorer term_scorer(term_id_type term_id) const
     {
-        if constexpr (std::is_same<Scorer,
-                          score::bm25_scorer>::value) {  // NOLINT
+        if constexpr (std::is_same_v<  // NOLINT
+                          Scorer,
+                          score::bm25_scorer>) {
             return score::bm25_scorer(term_collection_frequencies_[term_id],
                 document_count_,
                 avg_document_size_);
-        }
-        else if constexpr (std::is_same<Scorer,  // NOLINT
-                                 score::query_likelihood_scorer>::value)
-        {
+        } else if constexpr (std::is_same_v<  // NOLINT
+                                 Scorer,
+                                 score::query_likelihood_scorer>) {
             return score::query_likelihood_scorer(
                 term_occurrences(term_id), occurrences_count());
         }
@@ -624,6 +629,9 @@ void score_index(
     unsigned int bits,
     std::optional<double> max = std::nullopt)
 {
+    namespace ba = boost::accumulators;
+    using stat_accumulator = ba::
+        accumulator_set<double, ba::stats<ba::tag::mean, ba::tag::variance>>;
     std::string name(typename Scorer::tag_type{});
     fs::path scores_path = dir_path / (name + ".scores");
     fs::path score_offsets_path = dir_path / (name + ".offsets");
@@ -636,6 +644,7 @@ void score_index(
     auto log = spdlog::get("score");
 
     double max_score;
+    double min_score = 0;
     if (max.has_value()) {
         max_score = max.value();
         if (log) { log->info("Max score provided: {}", max_score); }
@@ -650,11 +659,13 @@ void score_index(
             {
                 double score = scorer(
                     posting.payload(), index.document_size(posting.document()));
+                min_score = std::min(min_score, score);
                 max_score = std::max(max_score, score);
-                ASSERT(score >= 0.0);
             }
         }
-        if (log) { log->info("Max score: {}", max_score); }
+        if (log) {
+            log->info("Max score: {}; Min score: {}", max_score, min_score);
+        }
     }
 
     int64_t offset = 0;
@@ -673,7 +684,10 @@ void score_index(
     var_scores.reserve(index.term_count());
 
     if (log) { log->info("Scoring"); }
-    int64_t max_int = (1u << bits) - 1u;
+
+    LinearQuantizer quantize(
+        IntegralRange(0, (1u << bits) - 1u), RealRange(min_score, max_score));
+
     for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
     {
         offsets.push_back(offset);
@@ -681,23 +695,19 @@ void score_index(
             stream_vbyte_codec<std::uint32_t>,
             false>
             list_builder(index.skip_block_size());
+        stat_accumulator acc;
         auto scorer = index.term_scorer<Scorer>(term_id);
         for (const auto& posting : index.postings(term_id))
         {
             double score = scorer(
                 posting.payload(), index.document_size(posting.document()));
-            auto quantized_score = static_cast<int64_t>(
-                (static_cast<double>(max_int) / max_score) * score);
-            ASSERT(quantized_score >= 0);
-            ASSERT(quantized_score <= max_int);
-            list_builder.add(quantized_score);
+            list_builder.add(quantize(score));
+            acc(score);
         }
-        auto stats =
-            taily::FeatureStatistics::from_features(list_builder.values());
         max_scores.push_back(*std::max_element(
             list_builder.values().begin(), list_builder.values().end()));
-        exp_scores.push_back(stats.expected_value);
-        var_scores.push_back(stats.variance);
+        exp_scores.push_back(quantize(ba::mean(acc)));
+        var_scores.push_back(quantize(ba::variance(acc)));
         offset += list_builder.write(sout);
     }
     auto offset_table = irk::build_offset_table<>(offsets);

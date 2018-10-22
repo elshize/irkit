@@ -117,7 +117,7 @@ struct query_likelihood_scorer {
 
     query_likelihood_scorer(
         int32_t term_occurrences, int32_t all_occurrences, double mu = 2500)
-        : mu(mu), global_component(mu * term_occurrences * all_occurrences)
+        : mu(mu), global_component(mu * term_occurrences / all_occurrences)
     {}
 
     double operator()(int32_t tf, int32_t document_size) const

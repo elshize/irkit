@@ -124,7 +124,8 @@ int main(int argc, char** argv)
         "Compute or estimate top-k threshold",
         irk::cli::index_dir_opt{},
         irk::cli::nostem_opt{},
-        // irk::cli::id_range_opt{},
+        irk::cli::score_function_opt(
+            irk::cli::with_default<std::string>{"bm25"}),
         irk::cli::k_opt{},
         irk::cli::terms_pos{irk::cli::optional});
     cli::add_threshold_estimator(
@@ -137,8 +138,9 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    auto data =
-        irk::inverted_index_mapped_data_source::from(dir, {"bm25"}).value();
+    auto data = irk::inverted_index_mapped_data_source::from(
+                    dir, {args->score_function})
+                    .value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
