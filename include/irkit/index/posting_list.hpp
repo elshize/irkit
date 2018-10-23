@@ -37,6 +37,9 @@
 
 namespace irk {
 
+template<class DocumentListT, class PayloadListT, class ScoreFn>
+class scored_posting_list_view;
+
 // TODO(michal): Make variable numbers of payloads
 template<class DocumentListT, class PayloadListT>
 class posting_list_view {
@@ -140,6 +143,7 @@ public:
         document_type document() const { return *document_iterator_; }
         payload_type payload() const { return *payload_iterator_; }
         int idx() const { return document_iterator_.idx(); }
+        const posting_view& current_posting() const { return current_posting_; }
 
     private:
         friend class boost::iterator_core_access;
@@ -169,26 +173,200 @@ public:
 
     posting_list_view(document_list_type documents, payload_list_type payloads)
         : documents_(std::move(documents)), payloads_(std::move(payloads))
-    { EXPECTS(documents_.size() == payloads_.size()); }
+    {
+        EXPECTS(documents_.size() == payloads_.size());
+    }
     posting_list_view(const posting_list_view&) = default;
     posting_list_view(posting_list_view&&) noexcept = default;
     posting_list_view& operator=(const posting_list_view&) = default;
     posting_list_view& operator=(posting_list_view&&) noexcept = default;
 
     iterator begin() const
-    { return iterator(documents_.begin(), payloads_.begin()); };
+    {
+        return iterator(documents_.begin(), payloads_.begin());
+    };
     iterator end() const
-    { return iterator(documents_.end(), payloads_.end()); };
+    {
+        return iterator(documents_.end(), payloads_.end());
+    };
     iterator lookup(document_type id) const { return begin().nextgeq(id); };
     difference_type size() const { return documents_.size(); }
 
     const document_list_type& document_list() const { return documents_; }
     const payload_list_type& payload_list() const { return payloads_; }
     auto block_size() const { return documents_.block_size(); }
+    auto
+    scored(std::function<double(document_type, payload_type)> score_fn) const
+    {
+        return scored_posting_list_view(*this, std::move(score_fn));
+    }
 
 private:
     document_list_type documents_;
     payload_list_type payloads_;
+};
+
+template<class DocumentListT, class PayloadListT, class ScoreFn>
+class scored_posting_list_view {
+public:
+    using document_list_type = DocumentListT;
+    using payload_list_type = PayloadListT;
+    using unscored_type =
+        posting_list_view<document_list_type, payload_list_type>;
+    using unscored_iterator_type =
+        typename posting_list_view<document_list_type, payload_list_type>::
+            iterator;
+    using document_type = typename document_list_type::value_type;
+    using payload_type = typename payload_list_type::value_type;
+    using difference_type = std::int32_t;
+    using document_iterator_t =
+        decltype(std::declval<const document_list_type>().begin());
+    using payload_iterator_t =
+        decltype(std::declval<const payload_list_type>().begin());
+
+    class posting_view {
+    public:
+        posting_view(
+            const typename unscored_type::posting_view& posting,
+            const ScoreFn& score_fn)
+            : posting_(std::cref(posting)), score_fn_(std::cref(score_fn))
+        {}
+        posting_view(const posting_view&) = default;
+        posting_view(posting_view&&) noexcept = default;
+        posting_view& operator=(const posting_view&) = default;
+        posting_view& operator=(posting_view&&) noexcept = default;
+        const document_type& document() const
+        {
+            return posting_.get().document();
+        }
+        const payload_type& unscored_payload() const
+        {
+            return posting_.get().payload();
+        }
+        double score() const { return payload(); }
+        double payload() const
+        {
+            return score_fn_(document(), unscored_payload());
+        }
+        explicit operator std::pair<document_type, payload_type>() const
+        {
+            return std::pair(document(), payload());
+        }
+        explicit operator std::tuple<document_type, payload_type>() const
+        {
+            return std::pair(document(), payload());
+        }
+
+    private:
+        std::reference_wrapper<const typename unscored_type::posting_view>
+            posting_;
+        std::reference_wrapper<const ScoreFn> score_fn_;
+    };
+
+    class iterator : public boost::iterator_facade<
+                         iterator,
+                         const posting_view,
+                         boost::forward_traversal_tag> {
+    public:
+        iterator(unscored_iterator_type unscored, ScoreFn score_fn)
+            : score_fn_(score_fn),
+              unscored_(std::move(unscored)),
+              current_posting_(unscored_.current_posting(), score_fn_)
+        {}
+        iterator(const iterator& other)
+            : score_fn_(other.score_fn_),
+              unscored_(other.unscored_),
+              current_posting_(unscored_.current_posting(), score_fn_)
+        {}
+        iterator(iterator&& other) noexcept
+            : score_fn_(other.score_fn_),
+              unscored_(other.unscored_),
+              current_posting_(unscored_.current_posting(), score_fn_)
+        {}
+        iterator& operator=(const iterator& other)
+        {
+            unscored_ = other.unscored_;
+            score_fn_ = other.score_fn_;
+            current_posting_ =
+                posting_view(unscored_.current_posting(), score_fn_);
+            return *this;
+        }
+        iterator& operator=(iterator&& other) noexcept
+        {
+            unscored_ = other.unscored_;
+            score_fn_ = other.score_fn_;
+            current_posting_ =
+                posting_view(unscored_.current_posting(), score_fn_);
+            return *this;
+        }
+        ~iterator() = default;
+
+        iterator& moveto(document_type doc)
+        {
+            unscored_.moveto(doc);
+            return *this;
+        }
+
+        iterator nextgeq(document_type doc) const
+        {
+            iterator iter(*this);
+            iter.moveto(doc);
+            return iter;
+        }
+
+        document_type document() const { return *unscored_.document(); }
+        payload_type payload() const { return *unscored_.payload(); }
+        int idx() const { return unscored_.idx(); }
+
+    private:
+        friend class boost::iterator_core_access;
+        void increment() { ++unscored_; }
+        void advance(difference_type n) { unscored_ += n; }
+        bool equal(const iterator& other) const
+        {
+            return unscored_ == other.unscored_;
+        }
+        const posting_view& dereference() const { return current_posting_; }
+
+    public:
+        ScoreFn score_fn_;
+        unscored_iterator_type unscored_;
+        posting_view current_posting_;
+    };
+    using const_iterator = iterator;
+
+    scored_posting_list_view(unscored_type posting_list, ScoreFn score_fn)
+        : unscored_list_(std::move(posting_list)),
+          score_fn_(std::move(score_fn))
+    {}
+    scored_posting_list_view(const scored_posting_list_view&) = default;
+    scored_posting_list_view(scored_posting_list_view&&) noexcept = default;
+    scored_posting_list_view&
+    operator=(const scored_posting_list_view&) = default;
+    scored_posting_list_view&
+    operator=(scored_posting_list_view&&) noexcept = default;
+
+    iterator begin() const
+    {
+        return iterator(unscored_list_.begin(), score_fn_);
+    };
+    iterator end() const { return iterator(unscored_list_.end(), score_fn_); };
+    iterator lookup(document_type id) const { return begin().nextgeq(id); };
+    difference_type size() const { return unscored_list_.size(); }
+
+    const document_list_type& document_list() const
+    {
+        return unscored_list_.document_list();
+    }
+    const payload_list_type& payload_list() const
+    {
+        return unscored_list_.payload_list();
+    }
+    auto block_size() const { return unscored_list_.block_size(); }
+
+private:
+    unscored_type unscored_list_;
+    ScoreFn score_fn_;
 };
 
 template<typename T>

@@ -58,12 +58,6 @@ struct IntegralRange {
 
 class LinearQuantizer {
 public:
-    constexpr LinearQuantizer()
-        : real_shift_(0.0),
-          real_length_(std::numeric_limits<double>::max()),
-          integral_shift_(0),
-          integral_length_(std::numeric_limits<std::int64_t>::max())
-    {}
     constexpr LinearQuantizer(
         RealRange real_range, IntegralRange integral_range)
         : real_shift_(real_range.left),

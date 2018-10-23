@@ -87,6 +87,6 @@ int main(int argc, char** argv)
             score_index<irk::score::query_likelihood_scorer, source_type>(
                 dir, bits);
     }
-
+    log->info("Done.");
     return 0;
 }

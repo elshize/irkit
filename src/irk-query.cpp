@@ -61,7 +61,7 @@ inline void run_query(const Index& index,
 
     auto start_time = std::chrono::steady_clock::now();
 
-    auto postings = irk::query_postings(index, query);
+    auto postings = irk::query_scored_postings(index, query);
     auto after_fetch = std::chrono::steady_clock::now();
 
     std::vector<uint32_t> acc(index.collection_size(), 0);

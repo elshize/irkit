@@ -31,7 +31,8 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
-
+#include <irkit/algorithm/accumulate.hpp>
+#include <irkit/algorithm/group_by.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -59,6 +60,33 @@ void print_postings(
         }
         std::cout << posting.payload() << "\n";
     }
+}
+
+template<typename Iter>
+void print_postings_multiple(
+    Iter first_posting_list,
+    Iter last_posting_list,
+    bool use_titles,
+    const irk::inverted_index_view& index)
+{
+    auto postings = merge(first_posting_list, last_posting_list);
+    using payload_type = decltype(postings.begin()->payload());
+    group_by(
+        postings.begin(),
+        postings.end(),
+        [](const auto& p) { return p.document(); })
+        .aggregate_groups(
+            [](const auto& acc, const auto& posting) {
+                return acc + posting.payload();
+            },
+            payload_type(0))
+        .for_each([use_titles, &index](const auto& id, const auto& payload) {
+            std::cout << id << "\t";
+            if (use_titles) {
+                std::cout << index.titles().key_at(id) << "\t";
+            }
+            std::cout << payload << "\n";
+        });
 }
 
 template<class Range>
@@ -90,11 +118,14 @@ void process_query(
     if (count) {
         std::cout << count_postings(terms, index) << '\n';
     } else {
-        assert(terms.size() == 1u);
         if (args.score_function_defined()) {
-            print_postings(index.scored_postings(terms[0]), false, index);
+            auto postings = query_scored_postings(index, terms);
+            print_postings_multiple(
+                postings.begin(), postings.end(), false, index);
         } else {
-            print_postings(index.postings(terms[0]), false, index);
+            auto postings = query_postings(index, terms);
+            print_postings_multiple(
+                postings.begin(), postings.end(), false, index);
         }
     }
 }
@@ -114,11 +145,6 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     bool count = app->count("--count") == 1u;
-    if (not count && args->terms.size() != 1u) {
-        std::cerr << "Multiple terms are only supported with --count.\n";
-        return 1;
-    }
-
     std::vector<std::string> scores;
     if (args->score_function_defined()) {
         scores.push_back(args->score_function);

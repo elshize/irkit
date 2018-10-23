@@ -614,12 +614,27 @@ inline auto query_postings(
     const irk::inverted_index_view& index,
     const std::vector<std::string>& query)
 {
+    using posting_list_type =
+        decltype(index.postings(std::declval<std::string>()));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query) {
+        postings.push_back(index.postings(term));
+    }
+    return postings;
+}
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
     using posting_list_type = decltype(
         index.scored_postings(std::declval<std::string>()));
     std::vector<posting_list_type> postings;
     postings.reserve(query.size());
-    for (const auto& term : query)
-    { postings.push_back(index.scored_postings(term)); }
+    for (const auto& term : query) {
+        postings.push_back(index.scored_postings(term));
+    }
     return postings;
 }
 
