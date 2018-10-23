@@ -118,14 +118,17 @@ int main(int argc, char** argv)
         irk::cli::nostem_opt{},
         irk::cli::id_range_opt{},
         irk::cli::k_opt{},
+        irk::cli::score_function_opt{
+            irk::cli::with_default<std::string>{"bm25"}},
         irk::cli::trec_run_opt{},
         irk::cli::trec_id_opt{},
         irk::cli::terms_pos{irk::cli::optional});
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    auto data =
-        irk::inverted_index_mapped_data_source::from(dir, {"bm25"}).value();
+    auto data = irk::inverted_index_mapped_data_source::from(
+                    dir, {args->score_function})
+                    .value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
