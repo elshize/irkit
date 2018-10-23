@@ -59,32 +59,32 @@ struct IntegralRange {
 class LinearQuantizer {
 public:
     constexpr LinearQuantizer()
-        : integral_range_(),
-          real_shift_(0.0),
-          real_upper_limit_(std::numeric_limits<double>::max())
+        : real_shift_(0.0),
+          real_length_(std::numeric_limits<double>::max()),
+          integral_shift_(0),
+          integral_length_(std::numeric_limits<std::int64_t>::max())
     {}
     constexpr LinearQuantizer(
-        IntegralRange integral_range, RealRange real_range)
-        : integral_range_(std::move(integral_range)),
-          real_shift_(real_range.left),
-          real_upper_limit_(real_range.right - real_shift_)
-    {
-        if (integral_range_.left != 0) {
-            throw std::domain_error("lower integral bound must be 0");
-        }
-    }
+        RealRange real_range, IntegralRange integral_range)
+        : real_shift_(real_range.left),
+          real_length_(real_range.right - real_shift_),
+          integral_shift_(integral_range.left),
+          integral_length_(integral_range.right - integral_shift_)
+    {}
 
     std::int64_t operator()(double value)
     {
         return static_cast<int64_t>(
-            (static_cast<double>(integral_range_.right) / real_upper_limit_)
-            * (value - real_shift_));
+                   (static_cast<double>(integral_length_) / real_length_)
+                   * (value - real_shift_))
+            + integral_shift_;
     }
 
 protected:
-    const IntegralRange integral_range_;
     const double real_shift_;
-    const double real_upper_limit_;
+    const double real_length_;
+    const std::int64_t integral_shift_;
+    const std::int64_t integral_length_;
 };
 
 }

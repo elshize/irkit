@@ -124,8 +124,8 @@ namespace detail {
             }
 
             LinearQuantizer quantize(
-                IntegralRange(0, (1u << bits) - 1u),
-                RealRange(min_score, max_score));
+                RealRange(min_score, max_score),
+                IntegralRange(1, (1u << bits) - 1u));
 
             for (term_id_t term_id = 0; term_id < index.terms().size();
                  term_id++) {

@@ -43,7 +43,7 @@ TEST(LinearQuantizer, default)
 TEST(LinearQuantizer, nonnegative)
 {
     irk::LinearQuantizer quantize(
-        irk::IntegralRange(0, 10), irk::RealRange(0.0, 100.0));
+        irk::RealRange(0.0, 100.0), irk::IntegralRange(0, 10));
     ASSERT_THAT(quantize(0.0), 0);
     ASSERT_THAT(quantize(10.0), 1);
     ASSERT_THAT(quantize(70.0), 7);
@@ -53,11 +53,21 @@ TEST(LinearQuantizer, nonnegative)
 TEST(LinearQuantizer, negative)
 {
     irk::LinearQuantizer quantize(
-        irk::IntegralRange(0, 10), irk::RealRange(-10.0, 90.0));
+        irk::RealRange(-10.0, 90.0), irk::IntegralRange(0, 10));
     ASSERT_THAT(quantize(-10.0), 0);
     ASSERT_THAT(quantize(0.0), 1);
     ASSERT_THAT(quantize(60.0), 7);
     ASSERT_THAT(quantize(90.0), 10);
+}
+
+TEST(LinearQuantizer, both_shifted)
+{
+    irk::LinearQuantizer quantize(
+        irk::RealRange(-10.0, 90.0), irk::IntegralRange(1, 11));
+    ASSERT_THAT(quantize(-10.0), 1);
+    ASSERT_THAT(quantize(0.0), 2);
+    ASSERT_THAT(quantize(60.0), 8);
+    ASSERT_THAT(quantize(90.0), 11);
 }
 
 }  // namespace

@@ -31,6 +31,7 @@
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <tbb/task_scheduler_init.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/score.hpp>
@@ -63,14 +64,19 @@ int main(int argc, char** argv)
     std::string scorer("bm25");
     std::unordered_set<std::string> available_scorers = {"bm25", "ql"};
     auto log = spdlog::stderr_color_mt("score");
+    int threads = tbb::task_scheduler_init::default_num_threads();
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};
     app.add_option("-d,--index-dir", dir, "index directory", true)
         ->check(CLI::ExistingDirectory);
     app.add_option("-b,--bits", bits, "number of bits for a score", true);
+    app.add_option("-j,--threads", threads, "number of threads", true);
     app.add_option("scorer", scorer, "scoring function", true)
         ->check(valid_scoring_function{available_scorers});
     CLI11_PARSE(app, argc, argv);
+
+    tbb::task_scheduler_init init(threads);
+    log->info("Initiating scoring using {} threads", threads);
 
     fs::path dir_path(dir);
     if (scorer == "bm25") {
