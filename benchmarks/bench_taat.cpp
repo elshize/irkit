@@ -96,7 +96,7 @@ int main(int argc, char** argv)
     CLI11_PARSE(app, argc, argv);
     boost::filesystem::path dir(index_dir);
     auto data =
-        irk::inverted_index_disk_data_source::from(dir, {"bm25"}).value();
+        irk::inverted_index_mapped_data_source::from(dir, {"bm25"}).value();
     irk::inverted_index_view index(&data);
 
     nanoseconds total(0);
@@ -122,14 +122,14 @@ int main(int argc, char** argv)
             }
             else { terms.push_back(std::move(term)); }
         }
-        auto query_postings = irk::query_postings(index, terms);
+        auto query_postings = irk::query_scored_postings(index, terms);
         for (const auto& posting_list : query_postings) {
             posting_count += posting_list.size();
         }
 
         auto start_time = std::chrono::high_resolution_clock::now();
 
-        auto postings = irk::query_postings(index, terms);
+        auto postings = irk::query_scored_postings(index, terms);
         auto after_fetch = std::chrono::high_resolution_clock::now();
 
         time_point<high_resolution_clock> after_init;

@@ -106,49 +106,49 @@ TEST_F(span_memory_source, slice)
     test_slices(view, container);
 }
 
-class disk_memory_source : public ::testing::Test {
-protected:
-    std::vector<char> container = {4, 2, 1, 4, 6};
-    boost::filesystem::path path;
-    irk::memory_view view;
-
-    disk_memory_source() {
-        auto tmpdir = boost::filesystem::temp_directory_path();
-        auto dir = tmpdir / "irkit-disk_memory_source";
-        if (boost::filesystem::exists(dir)) {
-            boost::filesystem::remove_all(dir);
-        }
-        boost::filesystem::create_directory(dir);
-        path = dir / "source_file";
-        std::ofstream out(path.c_str());
-        out.write(&container[0], container.size());
-        out.flush();
-        view = irk::make_memory_view(path);
-    }
-};
-
-TEST_F(disk_memory_source, size)
-{
-    test_size(view, container);
-}
-
-TEST_F(disk_memory_source, iterator)
-{
-    test_iterator(view, container);
-}
-
-TEST_F(disk_memory_source, slice)
-{
-    test_slices(view, container);
-}
-
-TEST_F(disk_memory_source, move_constructor)
-{
-    irk::disk_memory_source v(path);
-    irk::disk_memory_source w(std::move(v));
-    irk::memory_view mv(w);
-    test_iterator(mv, container);
-}
+//class disk_memory_source : public ::testing::Test {
+//protected:
+//    std::vector<char> container = {4, 2, 1, 4, 6};
+//    boost::filesystem::path path;
+//    irk::memory_view view;
+//
+//    disk_memory_source() {
+//        auto tmpdir = boost::filesystem::temp_directory_path();
+//        auto dir = tmpdir / "irkit-disk_memory_source";
+//        if (boost::filesystem::exists(dir)) {
+//            boost::filesystem::remove_all(dir);
+//        }
+//        boost::filesystem::create_directory(dir);
+//        path = dir / "source_file";
+//        std::ofstream out(path.c_str());
+//        out.write(&container[0], container.size());
+//        out.flush();
+//        view = irk::make_memory_view(path);
+//    }
+//};
+//
+//TEST_F(disk_memory_source, size)
+//{
+//    test_size(view, container);
+//}
+//
+//TEST_F(disk_memory_source, iterator)
+//{
+//    test_iterator(view, container);
+//}
+//
+//TEST_F(disk_memory_source, slice)
+//{
+//    test_slices(view, container);
+//}
+//
+//TEST_F(disk_memory_source, move_constructor)
+//{
+//    irk::disk_memory_source v(path);
+//    irk::disk_memory_source w(std::move(v));
+//    irk::memory_view mv(w);
+//    test_iterator(mv, container);
+//}
 
 }  // namespace
 

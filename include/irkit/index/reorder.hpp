@@ -280,7 +280,7 @@ void index(
     }
 
     auto source =
-        inverted_index_disk_data_source::from(input_dir, score_functions)
+        inverted_index_mapped_data_source::from(input_dir, score_functions)
             .value();
     inverted_index_view index(&source);
 

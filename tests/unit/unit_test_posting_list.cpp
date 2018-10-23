@@ -142,6 +142,29 @@ TEST(posting_list_view, union_view)
 //    ASSERT_THAT(pairs, ::testing::ElementsAreArray(expected));
 //}
 
+TEST(scored_posting_list_view, forward_iterator)
+{
+    std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
+    std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
+    irk::vector_document_list vdl(documents);
+    irk::vector_payload_list vpl(payloads);
+    vdl.block_size(3);
+    vpl.block_size(3);
+
+    auto plus_one = [](auto doc, auto tf){
+        return tf + 1;
+    };
+
+    irk::posting_list_view postings(vdl, vpl);
+    int idx = 0;
+    auto scored_postings = postings.scored(plus_one);
+    for (auto posting : scored_postings) {
+        ASSERT_EQ(posting.document(), documents[idx]);
+        ASSERT_EQ(posting.payload(), payloads[idx] + 1);
+        idx++;
+    }
+}
+
 }  // namespace
 
 int main(int argc, char** argv)

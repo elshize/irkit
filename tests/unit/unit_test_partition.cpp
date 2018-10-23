@@ -30,6 +30,7 @@
 #include <unordered_set>
 #include <vector>
 
+#include <boost/iostreams/device/mapped_file.hpp>
 #include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gsl/span>
@@ -84,7 +85,7 @@ protected:
         assembler.assemble(input);
         irk::index::score_index<
             irk::score::bm25_scorer,
-            irk::inverted_index_disk_data_source>(input_dir, 8);
+            irk::inverted_index_mapped_data_source>(input_dir, 8);
         output_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test_shards";
         if (exists(output_dir)) remove_all(output_dir);
         boost::filesystem::create_directory(output_dir);
@@ -152,8 +153,10 @@ TEST_F(partition_test, titles)
     auto part = partition();
     part.titles();
     {
-        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[ShardId(0)])));
+        boost::iostreams::mapped_file_source m(
+            irk::index::title_map_path(part.shard_dirs_[ShardId(0)]).string());
+        auto titles_lex =
+            irk::load_lexicon(irk::make_memory_view(m.data(), m.size()));
         std::vector<std::string> titles;
         irk::io::load_lines(
             irk::index::titles_path(part.shard_dirs_[ShardId(0)]).string(),
@@ -168,8 +171,10 @@ TEST_F(partition_test, titles)
         ASSERT_THAT(titles_lex.key_at(2), ::testing::StrEq("Doc09"));
     }
     {
-        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[ShardId(1)])));
+        boost::iostreams::mapped_file_source m(
+            irk::index::title_map_path(part.shard_dirs_[ShardId(1)]).string());
+        auto titles_lex =
+            irk::load_lexicon(irk::make_memory_view(m.data(), m.size()));
         std::vector<std::string> titles;
         irk::io::load_lines(
             irk::index::titles_path(part.shard_dirs_[ShardId(1)]).string(),
@@ -186,8 +191,10 @@ TEST_F(partition_test, titles)
         ASSERT_THAT(titles_lex.key_at(3), ::testing::StrEq("Doc07"));
     }
     {
-        auto titles_lex = irk::load_lexicon(irk::make_memory_view(
-            irk::index::title_map_path(part.shard_dirs_[ShardId(2)])));
+        boost::iostreams::mapped_file_source m(
+            irk::index::title_map_path(part.shard_dirs_[ShardId(2)]).string());
+        auto titles_lex =
+            irk::load_lexicon(irk::make_memory_view(m.data(), m.size()));
         std::vector<std::string> titles;
         irk::io::load_lines(
             irk::index::titles_path(part.shard_dirs_[ShardId(2)]).string(),

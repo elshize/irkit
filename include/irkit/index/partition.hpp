@@ -305,8 +305,9 @@ namespace detail::partition {
         /// Partitions document titles and title map.
         auto titles()
         {
-            auto titles = load_lexicon(
-                make_memory_view(index::title_map_path(input_dir_)));
+            auto [buf, lex_view] = make_memory_view(index::title_map_path(input_dir_));
+            (void)buf;
+            auto titles = load_lexicon(lex_view);
             auto keys_per_block = titles.keys_per_block();
             vmap<ShardId, std::vector<std::string>> shard_titles(shard_count_);
             for (const auto& [shard, title] : zip(shard_mapping_, titles)) {
@@ -443,7 +444,7 @@ namespace detail::partition {
         inline auto postings(size_t terms_in_batch)
         {
             auto log = spdlog::get("partition");
-            auto source = inverted_index_disk_data_source::from(
+            auto source = inverted_index_mapped_data_source::from(
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);
@@ -491,7 +492,7 @@ namespace detail::partition {
         inline auto postings_(size_t terms_in_batch)
         {
             auto log = spdlog::get("partition");
-            auto source = inverted_index_disk_data_source::from(
+            auto source = inverted_index_mapped_data_source::from(
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);

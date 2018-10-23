@@ -33,6 +33,7 @@
 #include <gmock/gmock.h>
 #include <gsl/span>
 #include <gtest/gtest.h>
+#include <tbb/task_scheduler_init.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
@@ -74,7 +75,7 @@ protected:
         assembler.assemble(input);
         irk::index::score_index<
             irk::score::bm25_scorer,
-            irk::inverted_index_disk_data_source>(dir, 8);
+            irk::inverted_index_mapped_data_source>(dir, 8);
     }
 };
 
@@ -281,6 +282,7 @@ TEST_F(reorder_test, reorder)
 
 int main(int argc, char** argv)
 {
+    tbb::task_scheduler_init init(4);
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

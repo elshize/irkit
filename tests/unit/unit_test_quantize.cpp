@@ -31,15 +31,6 @@
 
 namespace {
 
-TEST(LinearQuantizer, default)
-{
-    irk::LinearQuantizer quantize;
-    ASSERT_THAT(quantize(0.0), 0);
-    ASSERT_THAT(
-        quantize(std::numeric_limits<double>::max()),
-        std::numeric_limits<std::int64_t>::max());
-}
-
 TEST(LinearQuantizer, nonnegative)
 {
     irk::LinearQuantizer quantize(

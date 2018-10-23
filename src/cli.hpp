@@ -89,12 +89,14 @@ inline docmap docmap::from_files(const std::string& files_prefix)
 {
     using document_table_type =
         irk::compact_table<document_t, vbyte_codec<document_t>, memory_view>;
-    auto d2r_mem = irk::make_memory_view(
+    auto [d2r_mem, d2r_view] = irk::make_memory_view(
         boost::filesystem::path(files_prefix + ".doc2rank"));
-    document_table_type doc2rank_table(d2r_mem);
-    auto r2d_mem = irk::make_memory_view(
+    (void)d2r_mem;
+    document_table_type doc2rank_table(d2r_view);
+    auto [r2d_mem, r2d_view] = irk::make_memory_view(
         boost::filesystem::path(files_prefix + ".rank2doc"));
-    document_table_type rank2doc_table(r2d_mem);
+    (void)r2d_mem;
+    document_table_type rank2doc_table(r2d_view);
     return docmap(doc2rank_table.to_vector(), rank2doc_table.to_vector());
 }
 
