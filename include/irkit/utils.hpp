@@ -82,7 +82,7 @@ public:
     using entry_type = std::pair<key_type, value_type>;
 private:
     std::size_t k_;
-    value_type threshold_ = 0;
+    value_type threshold_ = std::numeric_limits<value_type>::lowest();
     std::vector<entry_type> top_;
 
     static bool result_order(const entry_type& lhs, const entry_type& rhs)

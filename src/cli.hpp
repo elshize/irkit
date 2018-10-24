@@ -35,6 +35,7 @@
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/score.hpp>
 
 namespace irk::cli {
 
@@ -381,6 +382,50 @@ inline void stem_if(bool stem, std::vector<std::string>& terms)
     if (stem) {
         irk::porter2_stemmer stemmer;
         for (auto& term : terms) { term = stemmer.stem(term); }
+    }
+}
+
+inline bool on_fly(const std::string& scorer)
+{
+    return scorer[0] == '*';
+}
+
+template<class Index>
+inline auto
+postings_on_fly(const std::string& term, const Index& index, const std::string& name)
+{
+    if (name == "*bm25") {
+        score::bm25_scorer scorer(
+            index.term_collection_frequency(term),
+            index.collection_size(),
+            index.avg_document_size());
+        return index.postings(term).scored(
+            score::BM25ScoreFn{index, std::move(scorer)});
+    } else if (name == "*ql") {
+        score::query_likelihood_scorer scorer(
+            index.term_occurrences(term), index.occurrences_count());
+        return index.postings(term).scored(
+            score::QueryLikelihoodScoreFn{index, std::move(scorer)});
+    }
+    else {
+        throw std::domain_error(
+            fmt::format("unknown score function: {}", name));
+    }
+}
+
+template<class Index, class Range>
+inline auto
+postings_on_fly(Range& terms, const Index& index, const std::string& name)
+{
+    if (name == "*bm25") {
+        return query_scored_postings(index, terms, irk::score::bm25);
+    } else if (name == "*ql") {
+        return query_scored_postings(
+            index, terms, irk::score::query_likelihood);
+    }
+    else {
+        throw std::domain_error(
+            fmt::format("unknown score function: {}", name));
     }
 }
 

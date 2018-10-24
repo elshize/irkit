@@ -51,13 +51,18 @@ void threshold(
     const irk::inverted_index_view& index,
     std::vector<std::string>& terms,
     int topk,
-    bool nostem)
+    bool nostem,
+    const std::string& scorer)
 {
-    if (not nostem) {
-        irk::inplace_transform(
-            terms.begin(), terms.end(), irk::porter2_stemmer{});
-    }
+    irk::cli::stem_if(not nostem, terms);
 
+    if (scorer[0] == '*') {
+        auto postings = irk::cli::postings_on_fly(terms, index, scorer);
+        auto threshold =
+            irk::compute_threshold(postings.begin(), postings.end(), topk);
+        std::cout << threshold << '\n';
+        return;
+    }
     auto documents = irk::query_documents(index, terms);
     auto scores = irk::query_scores(index, terms);
     auto threshold = irk::compute_threshold(
@@ -68,12 +73,22 @@ void threshold(
 auto estimate_taily(
     const irk::inverted_index_view& index,
     std::vector<std::string>& terms,
-    int topk)
+    int topk,
+    const std::string& scorer)
 {
     std::vector<taily::FeatureStatistics> feature_stats(terms.size());
     irk::transform_range(
         terms, std::begin(feature_stats), [&](const auto& term) {
             if (auto id = index.term_id(term); id.has_value()) {
+                if (irk::cli::on_fly(scorer)) {
+                    auto scores = iter::imap(
+                        [](const auto& posting) {
+                            double score = posting.score();
+                            return score + 30.0;
+                        },
+                        irk::cli::postings_on_fly(term, index, scorer));
+                    return taily::FeatureStatistics::from_features(scores);
+                }
                 return taily::FeatureStatistics{
                     static_cast<double>(index.score_expected_value(*id)),
                     static_cast<double>(index.score_variance(*id)),
@@ -83,7 +98,7 @@ auto estimate_taily(
         });
     taily::CollectionStatistics stats{
         std::move(feature_stats), index.collection_size()};
-    return taily::estimate_cutoff(stats, topk);
+    return taily::estimate_cutoff(stats, topk) - 30.0;
 }
 
 void estimate(
@@ -91,20 +106,32 @@ void estimate(
     std::vector<std::string>& terms,
     int topk,
     bool nostem,
-    cli::ThresholdEstimator estimate_method)
+    cli::ThresholdEstimator estimate_method,
+    const std::string& scorer)
 {
-    if (not nostem) {
-        irk::inplace_transform(
-            terms.begin(), terms.end(), irk::porter2_stemmer{});
-    }
-    inverted_index_view::score_type threshold;
-    switch (estimate_method) {
+    irk::cli::stem_if(not nostem, terms);
+    if (irk::cli::on_fly(scorer)) {
+        double threshold;
+        switch (estimate_method) {
         case cli::ThresholdEstimator::taily:
-            threshold = estimate_taily(index, terms, topk);
+            threshold = estimate_taily(index, terms, topk, scorer);
             break;
         default:
             throw std::domain_error(
                 "ThresholdEstimator: non-exhaustive switch");
+        }
+        auto postings = irk::cli::postings_on_fly(terms, index, scorer);
+        auto k = irk::compute_topk(postings.begin(), postings.end(), threshold);
+        std::cout << threshold << '\t' << k << '\n';
+        return;
+    }
+    inverted_index_view::score_type threshold;
+    switch (estimate_method) {
+    case cli::ThresholdEstimator::taily:
+        threshold = estimate_taily(index, terms, topk, scorer);
+        break;
+    default:
+        throw std::domain_error("ThresholdEstimator: non-exhaustive switch");
     }
     auto documents = irk::query_documents(index, terms);
     auto scores = irk::query_scores(index, terms);
@@ -138,9 +165,12 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    auto data = irk::inverted_index_mapped_data_source::from(
-                    dir, {args->score_function})
-                    .value();
+    std::vector<std::string> scores;
+    if (args->score_function[0] != '*') {
+        scores.push_back(args->score_function);
+    }
+    auto data =
+        irk::inverted_index_mapped_data_source::from(dir, scores).value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
@@ -150,10 +180,12 @@ int main(int argc, char** argv)
                 args->terms,
                 args->k,
                 args->nostem,
-                estimate_method.value());
+                estimate_method.value(),
+                args->score_function);
             return 0;
         }
-        threshold(index, args->terms, args->k, args->nostem);
+        threshold(
+            index, args->terms, args->k, args->nostem, args->score_function);
     }
     else {
         for (const auto& query_line : irk::io::lines_from_stream(std::cin)) {
@@ -169,10 +201,12 @@ int main(int argc, char** argv)
                     terms,
                     args->k,
                     args->nostem,
-                    estimate_method.value());
+                    estimate_method.value(),
+                    args->score_function);
                 continue;
             }
-            threshold(index, terms, args->k, args->nostem);
+            threshold(
+                index, terms, args->k, args->nostem, args->score_function);
         }
     }
     return 0;

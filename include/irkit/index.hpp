@@ -469,9 +469,25 @@ public:
         return term_collection_frequencies_[term_id];
     }
 
+    int32_t term_collection_frequency(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return term_collection_frequencies_[*id];
+        }
+        return 0;
+    }
+
     int32_t term_occurrences(term_id_type term_id) const
     {
         return term_collection_occurrences_[term_id];
+    }
+
+    int32_t term_occurrences(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return term_collection_occurrences_[*id];
+        }
+        return 0;
     }
 
     int32_t term_count() const { return term_map_.size(); }
@@ -634,6 +650,69 @@ inline auto query_scored_postings(
     postings.reserve(query.size());
     for (const auto& term : query) {
         postings.push_back(index.scored_postings(term));
+    }
+    return postings;
+}
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    const std::vector<std::function<double(
+        irk::inverted_index_view::document_type,
+        irk::inverted_index_view::frequency_type)>> score_fns)
+{
+    using posting_list_type =
+        decltype(index.scored_postings(std::declval<std::string>())
+                     .scored(score_fns[0]));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    auto score_iter = score_fns.begin();
+    for (const auto& term : query) {
+        postings.push_back(index.scored_postings(term).scored(*score_iter++));
+    }
+    return postings;
+}
+
+using score_fn_type = std::function<double(
+    irk::inverted_index_view::document_type,
+    irk::inverted_index_view::frequency_type)>;
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    score::bm25_tag)
+{
+    auto unscored = query_postings(index, query);
+    using scored_list_type =
+        decltype(unscored[0].scored(std::declval<score_fn_type>()));
+    std::vector<scored_list_type> postings;
+    postings.reserve(query.size());
+    for (term_id_t term_id = 0; term_id < irk::sgn(query.size()); ++term_id) {
+        score::bm25_scorer scorer(
+            index.term_collection_frequency(term_id),
+            index.collection_size(),
+            index.avg_document_size());
+        postings.push_back(
+            unscored[0].scored(score::BM25ScoreFn{index, std::move(scorer)}));
+    }
+    return postings;
+}
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    score::query_likelihood_tag)
+{
+    auto unscored = query_postings(index, query);
+    using scored_list_type =
+        decltype(unscored[0].scored(std::declval<score_fn_type>()));
+    std::vector<scored_list_type> postings;
+    postings.reserve(query.size());
+    for (term_id_t term_id = 0; term_id < irk::sgn(query.size()); ++term_id) {
+        score::query_likelihood_scorer scorer(
+            index.term_occurrences(term_id), index.occurrences_count());
+        postings.push_back(unscored[0].scored(
+            score::QueryLikelihoodScoreFn{index, std::move(scorer)}));
     }
     return postings;
 }

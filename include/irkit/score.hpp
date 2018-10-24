@@ -30,6 +30,7 @@
 #include <optional>
 #include <range/v3/utility/concepts.hpp>
 
+#include <irkit/index/types.hpp>
 #include <irkit/types.hpp>
 
 //! Scoring functions and utilities.
@@ -41,11 +42,11 @@ struct scoring_function_tag {
 
 struct bm25_tag : public scoring_function_tag {
     explicit operator std::string() override { return "bm25"; }
-};
+} bm25;
 
 struct query_likelihood_tag : public scoring_function_tag {
     explicit operator std::string() override { return "ql"; }
-};
+} query_likelihood;
 
 template<class ScoreFn, class Doc, class Freq>
 using score_result_t = decltype(std::declval<ScoreFn>()(
@@ -108,6 +109,23 @@ struct bm25_scorer {
     }
 };
 
+//! A BM25 scorer.
+template<class Index>
+struct BM25ScoreFn {
+    const Index& index;
+    bm25_scorer scorer;
+
+    BM25ScoreFn(const Index& index, bm25_scorer scorer)
+        : index(index), scorer(scorer)
+    {}
+
+    //! Returns the BM25 score.
+    double operator()(index::document_t doc, index::frequency_t freq) const
+    {
+        return scorer(freq, index.document_size(doc));
+    }
+};
+
 //! A query likelihood scorer.
 struct query_likelihood_scorer {
     using tag_type = query_likelihood_tag;
@@ -123,6 +141,22 @@ struct query_likelihood_scorer {
     double operator()(int32_t tf, int32_t document_size) const
     {
         return std::log(tf + global_component) - std::log(document_size + mu);
+    }
+};
+
+template<class Index>
+struct QueryLikelihoodScoreFn {
+    const Index& index;
+    query_likelihood_scorer scorer;
+
+    QueryLikelihoodScoreFn(const Index& index, query_likelihood_scorer scorer)
+        : index(index), scorer(scorer)
+    {}
+
+    //! Returns the BM25 score.
+    double operator()(index::document_t doc, index::frequency_t freq) const
+    {
+        return scorer(freq, index.document_size(doc));
     }
 };
 

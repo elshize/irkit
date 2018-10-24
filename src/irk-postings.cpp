@@ -119,9 +119,16 @@ void process_query(
         std::cout << count_postings(terms, index) << '\n';
     } else {
         if (args.score_function_defined()) {
-            auto postings = query_scored_postings(index, terms);
-            print_postings_multiple(
-                postings.begin(), postings.end(), false, index);
+            if (args.score_function[0] == '*') {
+                auto postings = irk::cli::postings_on_fly(
+                    terms, index, args.score_function);
+                print_postings_multiple(
+                    postings.begin(), postings.end(), false, index);
+            } else {
+                auto postings = query_scored_postings(index, terms);
+                print_postings_multiple(
+                    postings.begin(), postings.end(), false, index);
+            }
         } else {
             auto postings = query_postings(index, terms);
             print_postings_multiple(
@@ -136,8 +143,6 @@ int main(int argc, char** argv)
         "Print information about term and its posting list",
         irk::cli::index_dir_opt{},
         irk::cli::nostem_opt{},
-        // irk::cli::noheader_opt{},
-        // irk::cli::sep_opt{},
         irk::cli::score_function_opt{},
         irk::cli::id_range_opt{},
         irk::cli::terms_pos{optional});
@@ -146,7 +151,7 @@ int main(int argc, char** argv)
 
     bool count = app->count("--count") == 1u;
     std::vector<std::string> scores;
-    if (args->score_function_defined()) {
+    if (args->score_function_defined() && args->score_function[0] != '*') {
         scores.push_back(args->score_function);
     }
     auto data = irk::inverted_index_mapped_data_source::from(

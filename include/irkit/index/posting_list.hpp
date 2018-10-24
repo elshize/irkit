@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file documentlist.hpp
-//! \author Michal Siedlaczek
-//! \copyright MIT License
+//! \file
+//! \author     Michal Siedlaczek
+//! \copyright  MIT License
 
 #pragma once
 
@@ -195,6 +195,7 @@ public:
     const document_list_type& document_list() const { return documents_; }
     const payload_list_type& payload_list() const { return payloads_; }
     auto block_size() const { return documents_.block_size(); }
+
     auto
     scored(std::function<double(document_type, payload_type)> score_fn) const
     {
