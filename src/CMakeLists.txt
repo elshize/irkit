@@ -32,6 +32,7 @@ add_irk(shardmap)
 add_irk(reorder)
 add_irk(partidx)
 add_irk(threshold)
+add_irk(stem)
 
 install(
     TARGETS
@@ -53,4 +54,5 @@ install(
         irk-reorder
         irk-partidx
         irk-threshold
+        irk-stem
     DESTINATION bin)
