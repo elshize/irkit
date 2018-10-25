@@ -157,17 +157,19 @@ int main(int argc, char** argv)
         irk::cli::trec_run_opt{},
         irk::cli::trec_id_opt{},
         irk::cli::terms_pos{irk::cli::optional});
-    app->add_flag("--compute-scores", "Compute scores on the fly.");
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    auto data = irk::inverted_index_mapped_data_source::from(
-                    dir, {args->score_function})
-                    .value();
+    std::vector<std::string> scores;
+    if (args->score_function[0] != '*') {
+        scores.push_back(args->score_function);
+    }
+    auto data =
+        irk::inverted_index_mapped_data_source::from(dir, {scores}).value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
-        if (app->count("--compute-scores") > 0u) {
+        if (irk::cli::on_fly(args->score_function)) {
             run_and_score(
                 index,
                 args->index_dir,
@@ -200,7 +202,7 @@ int main(int argc, char** argv)
                 query_line,
                 boost::is_any_of("\t "),
                 boost::token_compress_on);
-            if (app->count("--compute-scores") > 0u) {
+            if (irk::cli::on_fly(args->score_function)) {
                 run_and_score(
                     index,
                     args->index_dir,
