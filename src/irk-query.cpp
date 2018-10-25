@@ -88,10 +88,12 @@ inline void run_and_score(
     int k,
     bool stem,
     std::optional<int> trecid,
-    std::string_view run_id)
+    std::string_view run_id,
+    const std::string scorer)
 {
     stem_if(query, stem);
-    auto postings = irk::query_scored_postings(index, query, irk::score::bm25);
+    auto postings = irk::cli::postings_on_fly(query, index, scorer);
+    //auto postings = irk::query_scored_postings(index, query, irk::score::bm25);
     std::vector<double> acc(index.collection_size(), 0);
     irk::taat(postings, acc);
     auto results = irk::aggregate_top_k<document_t, double>(
@@ -178,7 +180,8 @@ int main(int argc, char** argv)
                 not args->nostem,
                 args->trec_id != -1 ? std::make_optional(args->trec_id)
                                     : std::nullopt,
-                args->trec_run);
+                args->trec_run,
+                args->score_function);
             return 0;
         }
         run_query(
@@ -211,7 +214,8 @@ int main(int argc, char** argv)
                     not args->nostem,
                     args->trec_id != -1 ? std::make_optional(args->trec_id)
                                         : std::nullopt,
-                    args->trec_run);
+                    args->trec_run,
+                    args->score_function);
                 continue;
             }
             run_query(
