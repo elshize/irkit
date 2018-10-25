@@ -80,6 +80,51 @@ constexpr OutputIt transform_range(
         unary_op);
 }
 
+/// A shorthand for `std::transform` that takes an entire range.
+template<
+    class InputRange1,
+    class InputRange2,
+    class OutputIt,
+    class BinaryOperation>
+constexpr OutputIt transform_ranges(
+    const InputRange1& input_range1,
+    const InputRange2& input_range2,
+    OutputIt d_first,
+    BinaryOperation binary_op)
+{
+    return std::transform(
+        std::begin(input_range1),
+        std::end(input_range1),
+        std::begin(input_range2),
+        std::end(input_range2),
+        d_first,
+        binary_op);
+}
+
+/// A shorthand for `std::transform` that takes an entire range.
+template<
+    class ExecutionPolicy,
+    class InputRange1,
+    class InputRange2,
+    class OutputIt,
+    class BinaryOperation>
+constexpr OutputIt transform_ranges(
+    ExecutionPolicy&& policy,
+    const InputRange1& input_range1,
+    const InputRange2& input_range2,
+    OutputIt d_first,
+    BinaryOperation binary_op)
+{
+    return std::transform(
+        policy,
+        std::begin(input_range1),
+        std::end(input_range1),
+        std::begin(input_range2),
+        std::end(input_range2),
+        d_first,
+        binary_op);
+}
+
 /// A shorthand for `std::transform` that takes an entire range and transforms
 /// in place.
 template<class InputRange, class UnaryOperation>
