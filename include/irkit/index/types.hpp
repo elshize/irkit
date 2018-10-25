@@ -83,6 +83,7 @@ public:
     using const_reference = const V&;
     using size_type = typename std::vector<V>::size_type;
     using std::vector<V>::push_back;
+    using std::vector<V>::emplace_back;
     using std::vector<V>::size;
     using std::vector<V>::empty;
     using std::vector<V>::begin;

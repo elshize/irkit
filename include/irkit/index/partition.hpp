@@ -33,6 +33,7 @@
 #include <spdlog/spdlog.h>
 #include <cppitertools/itertools.hpp>
 
+#include <irkit/algorithm/transform.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/block_inverted_list.hpp>
@@ -441,6 +442,53 @@ namespace detail::partition {
         }
 
         /// Partitions all posting-like data.
+        inline auto postings_once()
+        {
+            auto log = spdlog::get("partition");
+
+            vmap<ShardId, frequency_t> total_occurrences;
+            auto source = inverted_index_mapped_data_source::from(
+                              input_dir_, index::all_score_names(input_dir_))
+                              .value();
+            inverted_index_view index(&source);
+
+            vmap<ShardId, index::posting_vectors> vectors(
+                shard_count_, index::posting_vectors(index.score_names()));
+            vmap<ShardId, index::posting_streams<std::ofstream>> outputs;
+            for (ShardId shard : ShardId::range(shard_dirs_.size())) {
+                outputs.emplace_back(
+                    shard_dirs_[shard], index.score_names(), vectors[shard]);
+            }
+            for (auto term_id : iter::range(index.term_count())) {
+                auto document_builders =
+                    build_document_lists(index.documents(term_id));
+                auto frequency_builders =
+                    build_payload_lists(index.postings(term_id));
+                auto score_builders =
+                    build_score_lists(index, term_id, index.score_names());
+                for (ShardId shard : ShardId::range(shard_count_)) {
+                    auto& document_builder = document_builders[shard];
+                    if (document_builder.size() > 0u) {
+                        outputs[shard].write(
+                            term_id,
+                            document_builder,
+                            frequency_builders[shard],
+                            score_builders[shard]);
+                    }
+                }
+            }
+            for (ShardId shard : ShardId::range(shard_count_)) {
+                total_occurrences.push_back(vectors[shard].total_occurrences);
+                vectors[shard].write(
+                    input_dir_,
+                    shard_dirs_[shard],
+                    index.terms().keys_per_block(),
+                    index.score_names());
+            }
+            return total_occurrences;
+        }
+
+        /// Partitions all posting-like data.
         inline auto postings(size_t terms_in_batch)
         {
             auto log = spdlog::get("partition");
@@ -542,7 +590,8 @@ namespace detail::partition {
                 }
                 titles();
                 auto avg_sizes = sizes();
-                auto total_occurrences = postings(terms_in_batch);
+                //auto total_occurrences = postings(terms_in_batch);
+                auto total_occurrences = postings_once();
                 vmap<ShardId, size_t> document_counts(shard_count_, 0);
                 for (const auto& shard : shard_mapping_) {
                     document_counts[shard] += 1;
