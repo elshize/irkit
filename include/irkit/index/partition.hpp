@@ -441,6 +441,36 @@ namespace detail::partition {
             return builders;
         }
 
+        template<typename DocumentList>
+        std::vector<document_t> document_vector(const DocumentList& documents)
+        {
+            return std::vector<document_t>(documents.begin(), documents.end());
+        }
+
+        template<typename FreqList>
+        std::vector<frequency_t> frequency_vector(const FreqList& frequencies)
+        {
+            return std::vector<frequency_t>(
+                frequencies.begin(), frequencies.end());
+        }
+
+        template<typename Index>
+        std::vector<std::vector<inverted_index_view::score_type>> score_vectors(
+            const Index& index,
+            term_id_t term_id,
+            const std::vector<std::string>& score_names)
+        {
+            std::vector<std::vector<inverted_index_view::score_type>>
+                score_vectors(score_names.size());
+            for (const auto& [idx, name] : iter::enumerate(score_names)) {
+                auto scores = index.scores(term_id, name);
+                score_vectors[idx] =
+                    std::vector<inverted_index_view::score_type>(
+                        scores.begin(), scores.end());
+            }
+            return score_vectors;
+        }
+
         /// Partitions all posting-like data.
         inline auto postings_once()
         {
@@ -450,24 +480,46 @@ namespace detail::partition {
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);
+            auto score_names = index.score_names();
 
             vmap<ShardId, index::posting_vectors> vectors(
-                shard_count_, index::posting_vectors(index.score_names()));
+                shard_count_, index::posting_vectors(score_names));
             vmap<ShardId, index::posting_streams<std::ofstream>> outputs;
             for (ShardId shard : ShardId::range(shard_dirs_.size())) {
                 outputs.emplace_back(
-                    shard_dirs_[shard], index.score_names(), vectors[shard]);
+                    shard_dirs_[shard], score_names, vectors[shard]);
             }
-            for (auto term_id : iter::range(index.term_count())) {
+            auto term_count = index.term_count();
+            for (auto term_id : iter::range(term_count)) {
                 if (log) {
-                    log->info("Partitioning postings for term ", term_id);
+                    log->info(
+                        "Partitioning postings for term {}/{}",
+                        term_id,
+                        term_count);
                 }
-                auto document_builders =
-                    build_document_lists(index.documents(term_id));
-                auto frequency_builders =
-                    build_payload_lists(index.postings(term_id));
-                auto score_builders =
-                    build_score_lists(index, term_id, index.score_names());
+                auto documents = document_vector(index.documents(term_id));
+                auto frequencies = frequency_vector(index.frequencies(term_id));
+                auto scores = score_vectors(index, term_id, score_names);
+
+                const auto& block_size = index.skip_block_size();
+                vmap<ShardId, document_builder_type> document_builders(
+                    shard_count_, document_builder_type(block_size));
+                vmap<ShardId, frequency_builder_type> frequency_builders(
+                    shard_count_, frequency_builder_type(block_size));
+                vmap<ShardId, std::vector<score_builder_type>> score_builders(
+                    shard_count_,
+                    std::vector<score_builder_type>(
+                        score_names.size(), score_builder_type(block_size)));
+                for (auto idx : iter::range(documents.size())) {
+                    auto id = documents[idx];
+                    auto shard = shard_mapping_[id];
+                    auto local_doc_id = document_mapping_[id];
+                    document_builders[shard].add(local_doc_id);
+                    frequency_builders[shard].add(frequencies[idx]);
+                    for (auto i : iter::range(score_names.size())) {
+                        score_builders[shard][i].add(scores[i][idx]);
+                    }
+                }
                 for (ShardId shard : ShardId::range(shard_count_)) {
                     auto& document_builder = document_builders[shard];
                     if (document_builder.size() > 0u) {
@@ -488,7 +540,7 @@ namespace detail::partition {
                     input_dir_,
                     shard_dirs_[shard],
                     index.terms().keys_per_block(),
-                    index.score_names());
+                    score_names);
             }
             return total_occurrences;
         }
