@@ -445,7 +445,6 @@ namespace detail::partition {
         inline auto postings_once()
         {
             auto log = spdlog::get("partition");
-
             vmap<ShardId, frequency_t> total_occurrences;
             auto source = inverted_index_mapped_data_source::from(
                               input_dir_, index::all_score_names(input_dir_))
@@ -460,6 +459,9 @@ namespace detail::partition {
                     shard_dirs_[shard], index.score_names(), vectors[shard]);
             }
             for (auto term_id : iter::range(index.term_count())) {
+                if (log) {
+                    log->info("Partitioning postings for term ", term_id);
+                }
                 auto document_builders =
                     build_document_lists(index.documents(term_id));
                 auto frequency_builders =
@@ -476,6 +478,9 @@ namespace detail::partition {
                             score_builders[shard]);
                     }
                 }
+            }
+            if (log) {
+                log->info("Writing vectors");
             }
             for (ShardId shard : ShardId::range(shard_count_)) {
                 total_occurrences.push_back(vectors[shard].total_occurrences);
