@@ -93,7 +93,6 @@ inline void run_and_score(
 {
     stem_if(query, stem);
     auto postings = irk::cli::postings_on_fly(query, index, scorer);
-    //auto postings = irk::query_scored_postings(index, query, irk::score::bm25);
     std::vector<double> acc(index.collection_size(), 0);
     irk::taat(postings, acc);
     auto results = irk::aggregate_top_k<document_t, double>(

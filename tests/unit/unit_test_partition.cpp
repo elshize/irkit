@@ -35,6 +35,7 @@
 #include <gmock/gmock.h>
 #include <gsl/span>
 #include <gtest/gtest.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
@@ -270,6 +271,21 @@ void test_term_frequencies(
         ::testing::ElementsAreArray(original_occ.begin(), original_occ.end()));
 }
 
+MATCHER_P2(
+    IsBetween,
+    a,
+    b,
+    std::string(negation ? "isn't" : "is") + " between "
+        + ::testing::PrintToString(a) + " and " + ::testing::PrintToString(b))
+{
+    return a <= arg && arg <= b;
+}
+
+namespace a = boost::accumulators;
+using accumulator = a::accumulator_set<
+    irk::inverted_index_view::score_type,
+    a::stats<a::tag::mean, a::tag::variance, a::tag::max>>;
+
 void test_postings(
     const path& input_dir, const irk::vmap<ShardId, path>& shard_dirs)
 {
@@ -296,17 +312,27 @@ void test_postings(
             return irk::inverted_index_view(&source);
         });
     std::vector<std::vector<uint32_t>> max_scores;
-    std::transform(
-        shards.begin(),
-        shards.end(),
-        std::back_inserter(max_scores),
-        [](const auto& shard) {
+    irk::transform_range(
+        shards, std::back_inserter(max_scores), [](const auto& shard) {
             return shard.score_data("bm25").max_scores.to_vector();
         });
+    auto exp_values =
+        iter::imap(
+            [](const auto& shard) {
+                return shard.score_data("bm25").exp_values.to_vector();
+            },
+            shards)
+        | irk::collect();
+    auto vars = iter::imap(
+                    [](const auto& shard) {
+                        return shard.score_data("bm25").variances.to_vector();
+                    },
+                    shards)
+        | irk::collect();
     for (const auto& term : index.terms()) {
-        auto original_documents = irk::collect(index.documents(term));
-        auto original_frequencies = irk::collect(index.frequencies(term));
-        auto original_scores = irk::collect(index.scores(term));
+        auto original_documents = index.documents(term) | irk::collect();
+        auto original_frequencies = index.frequencies(term) | irk::collect();
+        auto original_scores = index.scores(term) | irk::collect();
         std::vector<std::tuple<uint32_t, uint32_t, uint32_t>> merged;
         int shard_id = 0;
         for (const auto& shard : shards) {
@@ -318,7 +344,7 @@ void test_postings(
             auto posting_list = shard.postings(term);
             auto scored_list = shard.scored_postings(term);
             auto shard_postings = irk::collect(iter::imap(
-                [&index, &shard](const auto& pair) {
+                [&index, &shard, term](const auto& pair) {
                     const auto& [fp, sp] = pair;
                     assert(fp.document() == sp.document());
                     std::string title = shard.titles().key_at(fp.document());
@@ -327,15 +353,23 @@ void test_postings(
                         global_id, fp.payload(), sp.payload());
                 },
                 zip(posting_list, scored_list)));
-            auto max_tup = *std::max_element(
-                shard_postings.begin(),
-                shard_postings.end(),
-                [](const auto& lhs, const auto& rhs) {
-                    return std::get<2>(lhs) < std::get<2>(rhs);
-                });
+            accumulator acc;
+            auto scores = iter::imap(
+                [](const auto& tup) { return std::get<2>(tup); },
+                shard_postings);
+            std::for_each(scores.begin(), scores.end(), [&acc](auto score) {
+                acc(score);
+            });
+            auto max = a::max(acc);
+            auto exp = a::mean(acc);
+            auto var = a::variance(acc);
             merged.insert(
                 merged.end(), shard_postings.begin(), shard_postings.end());
-            EXPECT_EQ(std::get<2>(max_tup), max_scores[shard_id++][term_id]);
+            EXPECT_EQ(max_scores[shard_id][term_id], max);
+            EXPECT_THAT(
+                exp_values[shard_id][term_id], IsBetween(exp - 1, exp + 1));
+            EXPECT_THAT(vars[shard_id][term_id], IsBetween(var - 1, var + 1));
+            ++shard_id;
         }
         std::sort(
             merged.begin(), merged.end(), [](const auto& lhs, const auto& rhs) {

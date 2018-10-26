@@ -78,11 +78,12 @@ namespace detail {
                 }
                 return std::pair(min, max);
             };
-            return tbb::parallel_reduce(
+            auto [min, max] = tbb::parallel_reduce(
                 tbb::blocked_range<term_id_t>(0, index.term_count()),
                 initial,
                 reduce_range,
                 reduce_pair);
+            return {min < 0 ? min: 0, max > 0 ? max : 0};
         }
 
         nonstd::expected<void, std::string> operator()()
@@ -120,7 +121,6 @@ namespace detail {
             auto [min_score, max_score] = min_max(index);
             if (log) {
                 log->info("Max score: {}; Min score: {}", max_score, min_score);
-                log->info("Scoring");
             }
 
             LinearQuantizer quantize(

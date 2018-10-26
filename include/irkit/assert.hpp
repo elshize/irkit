@@ -63,4 +63,10 @@ struct debug_handler : debug_assert::default_handler,
                            > {
         };
 
+#ifdef DEBUG_ASSERT
+        constexpr bool Debug = true;
+#else
+        constexpr bool Debug = false;
+#endif
+
 }  // namespace irk

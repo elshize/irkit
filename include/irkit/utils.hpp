@@ -65,6 +65,21 @@ constexpr int16_t nbytes(T n)
     return (bits + 7) / 8;
 }
 
+struct collect_type {};
+
+inline collect_type collect()
+{
+    return collect_type{};
+}
+
+template<typename Range>
+auto operator|(const Range& range, collect_type)
+{
+    using value_type =
+        std::remove_const_t<std::remove_reference_t<decltype(*range.begin())>>;
+    return std::vector<value_type>(range.begin(), range.end());
+}
+
 template<typename Range>
 auto collect(const Range& range)
 {

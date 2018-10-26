@@ -27,9 +27,12 @@
 #pragma once
 
 #include <cstdint>
+#include <iostream>
 #include <limits>
 #include <stdexcept>
 #include <utility>
+
+#include <fmt/format.h>
 
 #include <irkit/assert.hpp>
 
@@ -68,10 +71,33 @@ public:
 
     std::int64_t operator()(double value)
     {
-        return static_cast<int64_t>(
-                   (static_cast<double>(integral_length_) / real_length_)
-                   * (value - real_shift_))
+        DEBUG_ASSERT(
+            value >= real_shift_,
+            debug_handler{},
+            fmt::format("{} < {}", value, real_shift_).c_str());
+        DEBUG_ASSERT(
+            value <= real_shift_ + real_length_,
+            debug_handler{},
+            fmt::format("{} < {}", value, real_shift_ + real_length_).c_str());
+        auto val = static_cast<int64_t>(
+                       (static_cast<double>(integral_length_) / real_length_)
+                       * (value - real_shift_))
             + integral_shift_;
+        DEBUG_ASSERT(
+            val >= integral_shift_,
+            debug_handler{},
+            fmt::format("{} < {} (for {})", val, integral_shift_, value)
+                .c_str());
+        DEBUG_ASSERT(
+            val <= integral_shift_ + integral_length_,
+            debug_handler{},
+            fmt::format(
+                "{} > {} (for {})",
+                val,
+                integral_shift_ + integral_length_,
+                value)
+                .c_str());
+        return val;
     }
 
 protected:

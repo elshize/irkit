@@ -28,10 +28,15 @@
 
 #include <algorithm>
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/max.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
 #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <spdlog/spdlog.h>
 #include <cppitertools/itertools.hpp>
+#include <spdlog/spdlog.h>
 
 #include <irkit/algorithm/transform.hpp>
 #include <irkit/assert.hpp>
@@ -120,6 +125,8 @@ namespace index {
             offset_t frequency_size,
             std::vector<offset_t> score_sizes,
             std::vector<inverted_index_view::score_type> max_score_vec,
+            std::vector<inverted_index_view::score_type> score_exp_vec,
+            std::vector<inverted_index_view::score_type> score_var_vec,
             frequency_t frequency,
             frequency_t occurrences)
         {
@@ -134,8 +141,14 @@ namespace index {
             }
             term_frequencies.push_back(frequency);
             term_occurrences.push_back(occurrences);
-            for (auto&& [max, mscores] : zip(max_score_vec, max_scores)) {
-                mscores.push_back(max);
+            for (auto&& [max, vec] : zip(max_score_vec, max_scores)) {
+                vec.push_back(max);
+            }
+            for (auto&& [exp, vec] : zip(score_exp_vec, exp_scores)) {
+                vec.push_back(exp);
+            }
+            for (auto&& [var, vec] : zip(score_var_vec, var_scores)) {
+                vec.push_back(var);
             }
             total_occurrences += occurrences;
         }
@@ -192,6 +205,10 @@ namespace index {
             std::vector<ScoreBuilder>& score_builders)
         {
             using score_type = inverted_index_view::score_type;
+            namespace a = boost::accumulators;
+            using accumulator = a::accumulator_set<
+                score_type,
+                a::stats<a::tag::mean, a::tag::variance, a::tag::max>>;
             EXPECTS(score_builders.size() == scores.size());
             const auto& frequency_vector = frequency_builder.values();
             frequency_t occurrences = std::accumulate(
@@ -199,12 +216,17 @@ namespace index {
                 frequency_vector.end(),
                 frequency_t(0),
                 std::plus<frequency_t>());
-            std::vector<score_type> max_scores;
+            std::vector<score_type> max_scores, exps, vars;
             std::vector<offset_t> score_sizes;
             for (auto&& [builder, stream] : iter::zip(score_builders, scores)) {
-                auto max = *std::max_element(
-                    builder.values().begin(), builder.values().end());
-                max_scores.push_back(max);
+                accumulator acc;
+                std::for_each(
+                    builder.values().begin(),
+                    builder.values().end(),
+                    [&acc](auto score) { acc(score); });
+                max_scores.push_back(a::max(acc));
+                exps.push_back(a::mean(acc));
+                vars.push_back(a::variance(acc));
                 score_sizes.push_back(builder.write(stream));
             }
             vectors.push(
@@ -213,6 +235,8 @@ namespace index {
                 frequency_builder.write(frequencies),
                 score_sizes,
                 max_scores,
+                exps,
+                vars,
                 document_builder.size(),
                 occurrences);
         }
