@@ -208,11 +208,10 @@ int main(int argc, char** argv)
                 run_and_score(
                     index,
                     args->index_dir,
-                    args->terms,
+                    terms,
                     args->k,
                     not args->nostem,
-                    args->trec_id != -1 ? std::make_optional(args->trec_id)
-                                        : std::nullopt,
+                    current_trecid,
                     args->trec_run,
                     args->score_function);
                 continue;

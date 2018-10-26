@@ -692,8 +692,8 @@ inline auto query_scored_postings(
             index.term_collection_frequency(term_id),
             index.collection_size(),
             index.avg_document_size());
-        postings.push_back(
-            unscored[0].scored(score::BM25ScoreFn{index, std::move(scorer)}));
+        postings.push_back(unscored[term_id].scored(
+            score::BM25ScoreFn{index, std::move(scorer)}));
     }
     return postings;
 }
@@ -711,7 +711,7 @@ inline auto query_scored_postings(
     for (term_id_t term_id = 0; term_id < irk::sgn(query.size()); ++term_id) {
         score::query_likelihood_scorer scorer(
             index.term_occurrences(term_id), index.occurrences_count());
-        postings.push_back(unscored[0].scored(
+        postings.push_back(unscored[term_id].scored(
             score::QueryLikelihoodScoreFn{index, std::move(scorer)}));
     }
     return postings;
