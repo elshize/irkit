@@ -28,33 +28,30 @@
 
 #include <algorithm>
 
-#include <irkit/algorithm/group_by.hpp>
-#include <irkit/utils.hpp>
-
 namespace irk {
 
-template<typename RngRng>
-auto daat(const RngRng& postings, int k)
+template<class T>
+constexpr T min_val(const T& a, const T& b)
 {
-    using document_type =
-        std::decay_t<decltype(postings.begin()->begin()->document())>;
-    using score_type =
-        std::decay_t<decltype(postings.begin()->begin()->payload())>;
-    irk::top_k_accumulator<document_type, score_type> acc(k);
-    auto merged = merge(postings);
-    group_by(
-        merged.begin(),
-        merged.end(),
-        [](const auto& p) { return p.document(); })
-        .aggregate_groups(
-            [](const auto& acc, const auto& posting) {
-                return acc + posting.payload();
-            },
-            score_type(0))
-        .for_each([&acc](const auto& id, const auto& score) {
-            acc.accumulate(id, score);
-        });
-    return acc.sorted();
+    return (b < a) ? b : a;
+}
+
+template<class T, class Compare>
+constexpr T min_val(const T& a, const T& b, Compare comp)
+{
+    return (comp(b, a)) ? b : a;
+}
+
+template<class T>
+constexpr T max_val(const T& a, const T& b)
+{
+    return (b > a) ? b : a;
+}
+
+template<class T, class Compare>
+constexpr T max_val(const T& a, const T& b, Compare comp)
+{
+    return (comp(a, b)) ? b : a;
 }
 
 }  // namespace irk

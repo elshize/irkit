@@ -43,6 +43,8 @@
 using std::uint32_t;
 using irk::index::document_t;
 using mapping_t = std::vector<document_t>;
+using namespace std::chrono;
+using namespace irk::cli;
 
 template<class Index, class Score>
 inline void print_results(
@@ -89,15 +91,16 @@ inline void run_and_score(
     bool stem,
     std::optional<int> trecid,
     std::string_view run_id,
-    const std::string scorer)
+    const std::string scorer,
+    ProcessingType proctype)
 {
     stem_if(query, stem);
-    auto postings = irk::cli::postings_on_fly(query, index, scorer);
-    std::vector<double> acc(index.collection_size(), 0);
-    irk::taat(postings, acc);
-    auto results = irk::aggregate_top_k<document_t, double>(
-        std::begin(acc), std::end(acc), k);
+    auto start_time = steady_clock::now();
+    auto postings = postings_on_fly(query, index, scorer);
+    auto results = process_query(index, postings, k, proctype);
     print_results<Index, double>(results, index, trecid, run_id);
+    auto total = duration_cast<milliseconds>(steady_clock::now() - start_time);
+    std::cerr << "Time: " << total.count() << " ms\n";
 }
 
 template<class Index>
@@ -110,32 +113,27 @@ inline void run_query(const Index& index,
     std::string_view run_id)
 {
     stem_if(query, stem);
-    auto start_time = std::chrono::steady_clock::now();
+    auto start_time = steady_clock::now();
 
-    auto postings = irk::query_postings(index, query);
-    auto after_fetch = std::chrono::steady_clock::now();
+    auto postings = irk::query_scored_postings(index, query);
+    auto after_fetch = steady_clock::now();
 
     std::vector<uint32_t> acc(index.collection_size(), 0);
-    auto after_init = std::chrono::steady_clock::now();
+    auto after_init = steady_clock::now();
 
     irk::taat(postings, acc);
 
-    auto after_acc = std::chrono::steady_clock::now();
+    auto after_acc = steady_clock::now();
 
     auto results = irk::aggregate_top_k<document_t, uint32_t>(
         std::begin(acc), std::end(acc), k);
-    auto end_time = std::chrono::steady_clock::now();
+    auto end_time = steady_clock::now();
 
-    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_time - start_time);
-    auto fetch = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_fetch - start_time);
-    auto init = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_init - after_fetch);
-    auto accum = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_acc - after_init);
-    auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_time - after_acc);
+    auto total = duration_cast<milliseconds>(end_time - start_time);
+    auto fetch = duration_cast<milliseconds>(after_fetch - start_time);
+    auto init = duration_cast<milliseconds>(after_init - after_fetch);
+    auto accum = duration_cast<milliseconds>(after_acc - after_init);
+    auto agg = duration_cast<milliseconds>(end_time - after_acc);
 
     print_results(results, index, trecid, run_id);
     std::cerr << "Time: " << total.count() << " ms [ ";
@@ -149,15 +147,15 @@ int main(int argc, char** argv)
 {
     auto [app, args] = irk::cli::app(
         "Query inverted index",
-        irk::cli::index_dir_opt{},
-        irk::cli::nostem_opt{},
-        irk::cli::id_range_opt{},
-        irk::cli::score_function_opt{
-            irk::cli::with_default<std::string>{"bm25"}},
-        irk::cli::k_opt{},
-        irk::cli::trec_run_opt{},
-        irk::cli::trec_id_opt{},
-        irk::cli::terms_pos{irk::cli::optional});
+        index_dir_opt{},
+        nostem_opt{},
+        id_range_opt{},
+        score_function_opt{with_default<std::string>{"bm25"}},
+        processing_type_opt{with_default<ProcessingType>{ProcessingType::DAAT}},
+        k_opt{},
+        trec_run_opt{},
+        trec_id_opt{},
+        terms_pos{optional});
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
@@ -170,7 +168,7 @@ int main(int argc, char** argv)
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
-        if (irk::cli::on_fly(args->score_function)) {
+        if (on_fly(args->score_function)) {
             run_and_score(
                 index,
                 args->index_dir,
@@ -180,7 +178,8 @@ int main(int argc, char** argv)
                 args->trec_id != -1 ? std::make_optional(args->trec_id)
                                     : std::nullopt,
                 args->trec_run,
-                args->score_function);
+                args->score_function,
+                args->processing_type);
             return 0;
         }
         run_query(
@@ -204,7 +203,7 @@ int main(int argc, char** argv)
                 query_line,
                 boost::is_any_of("\t "),
                 boost::token_compress_on);
-            if (irk::cli::on_fly(args->score_function)) {
+            if (on_fly(args->score_function)) {
                 run_and_score(
                     index,
                     args->index_dir,
@@ -213,7 +212,8 @@ int main(int argc, char** argv)
                     not args->nostem,
                     current_trecid,
                     args->trec_run,
-                    args->score_function);
+                    args->score_function,
+                    args->processing_type);
                 continue;
             }
             run_query(

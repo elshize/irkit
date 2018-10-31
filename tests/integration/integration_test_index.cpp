@@ -8,6 +8,7 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
+#include <irkit/index/score.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 

@@ -26,10 +26,16 @@
 
 #pragma once
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/max.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
 #include <nonstd/expected.hpp>
 #include <tbb/blocked_range.h>
 #include <tbb/parallel_reduce.h>
 
+#include <irkit/algorithm/max.hpp>
 #include <irkit/index.hpp>
 
 namespace ts = type_safe;
@@ -55,35 +61,36 @@ namespace detail {
         {
             std::pair<double, double> initial = {
                 std::numeric_limits<double>::max(),
-                std::numeric_limits<double>::min()};
-            auto reduce_pair = [](const auto& lhs, const auto& rhs) {
-                return std::pair<double, double>(
-                    std::min(lhs.first, rhs.first),
-                    std::max(lhs.second, rhs.second));
+                std::numeric_limits<double>::lowest()};
+            auto reduce_pair = [](auto lhs, auto rhs) {
+                auto p = std::make_pair<double, double>(
+                    irk::min_val(lhs.first, rhs.first),
+                    irk::max_val(lhs.second, rhs.second));
+                return p;
             };
-            auto reduce_range = [&index](
+            auto reduce_range = [&index, &reduce_pair](
                                     const tbb::blocked_range<term_id_t>& range,
                                     const auto& init) {
                 auto min = std::numeric_limits<double>::max();
-                auto max = std::numeric_limits<double>::min();
+                auto max = std::numeric_limits<double>::lowest();
                 for (auto term = range.begin(); term != range.end(); ++term) {
                     auto scorer = index.term_scorer<Scorer>(term);
                     for (const auto& posting : index.postings(term)) {
                         double score = scorer(
                             posting.payload(),
                             index.document_size(posting.document()));
-                        min = std::min(min, score);
-                        max = std::max(max, score);
+                        min = irk::min_val(min, score);
+                        max = irk::max_val(max, score);
                     }
                 }
-                return std::pair(min, max);
+                return reduce_pair(std::make_pair(min, max), init);
             };
             auto [min, max] = tbb::parallel_reduce(
                 tbb::blocked_range<term_id_t>(0, index.term_count()),
                 initial,
                 reduce_range,
                 reduce_pair);
-            return {min < 0 ? min: 0, max > 0 ? max : 0};
+            return {irk::min_val(min, 0.0), irk::max_val(max, 0.0)};
         }
 
         nonstd::expected<void, std::string> operator()()
@@ -91,7 +98,7 @@ namespace detail {
             namespace ba = boost::accumulators;
             using stat_accumulator = ba::accumulator_set<
                 double,
-                ba::stats<ba::tag::mean, ba::tag::variance>>;
+                ba::stats<ba::tag::mean, ba::tag::variance, ba::tag::max>>;
             auto source = DataSourceT::from(dir);
             if (not source) {
                 return source.get_unexpected();
@@ -144,11 +151,9 @@ namespace detail {
                     list_builder.add(quantize(score));
                     acc(score);
                 }
-                max_scores.push_back(*std::max_element(
-                    list_builder.values().begin(),
-                    list_builder.values().end()));
-                exp_scores.push_back(quantize(ba::mean(acc)));
-                var_scores.push_back(quantize(ba::variance(acc)));
+                max_scores.push_back(ba::max(acc));
+                exp_scores.push_back(0);
+                var_scores.push_back(0);
                 offset += list_builder.write(sout);
             }
             auto offset_table = irk::build_offset_table<>(offsets);

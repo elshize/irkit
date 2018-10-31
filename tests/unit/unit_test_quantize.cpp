@@ -61,6 +61,18 @@ TEST(LinearQuantizer, both_shifted)
     ASSERT_THAT(quantize(90.0), 11);
 }
 
+TEST(LinearQuantizer, outside_of_real_range)
+{
+    irk::LinearQuantizer quantize(
+        irk::RealRange(-10.0, 90.0), irk::IntegralRange(2, 12));
+    ASSERT_THAT(quantize(-10.0), 2);
+    ASSERT_THAT(quantize(0.0), 3);
+    ASSERT_THAT(quantize(60.0), 9);
+    ASSERT_THAT(quantize(90.0), 12);
+    ASSERT_THAT(quantize(100.0), 13);
+    ASSERT_THAT(quantize(-20), 1);
+}
+
 }  // namespace
 
 int main(int argc, char** argv)

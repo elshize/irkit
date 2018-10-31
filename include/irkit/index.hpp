@@ -32,6 +32,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -96,6 +97,15 @@ struct score_tuple {
 };
 
 namespace index {
+
+    template<class T>
+    T read_property(nlohmann::json& properties, std::string_view name)
+    {
+        if (auto pos = properties.find(name); pos != properties.end()) {
+            return *pos;
+        }
+        throw std::runtime_error(fmt::format("property {} not found", name));
+    }
 
     using boost::adaptors::filtered;
     using boost::filesystem::directory_iterator;
@@ -242,10 +252,16 @@ public:
         std::string buffer(
             data->properties_view().data(), data->properties_view().size());
         nlohmann::json properties = nlohmann::json::parse(buffer);
-        document_count_ = properties["documents"];
-        occurrences_count_ = properties["occurrences"];
-        block_size_ = properties["skip_block_size"];
-        avg_document_size_ = properties["avg_document_size"];
+        document_count_ =
+            index::read_property<std::ptrdiff_t>(properties, "documents");
+        occurrences_count_ =
+            index::read_property<std::ptrdiff_t>(properties, "occurrences");
+        block_size_ =
+            index::read_property<std::ptrdiff_t>(properties, "skip_block_size");
+        avg_document_size_ =
+            index::read_property<double>(properties, "avg_document_size");
+        max_document_size_ = index::read_property<std::ptrdiff_t>(
+            properties, "max_document_size");
     }
 
     size_type collection_size() const { return document_sizes_.size(); }
@@ -427,14 +443,17 @@ public:
         if constexpr (std::is_same_v<  // NOLINT
                           Scorer,
                           score::bm25_scorer>) {
-            return score::bm25_scorer(term_collection_frequencies_[term_id],
+            return score::bm25_scorer(
+                term_collection_frequencies_[term_id],
                 document_count_,
                 avg_document_size_);
         } else if constexpr (std::is_same_v<  // NOLINT
                                  Scorer,
                                  score::query_likelihood_scorer>) {
             return score::query_likelihood_scorer(
-                term_occurrences(term_id), occurrences_count());
+                term_occurrences(term_id),
+                occurrences_count(),
+                max_document_size_);
         }
     }
 
@@ -494,6 +513,7 @@ public:
     int64_t occurrences_count() const { return occurrences_count_; }
     int skip_block_size() const { return block_size_; }
     int avg_document_size() const { return avg_document_size_; }
+    int max_document_size() const { return max_document_size_; }
 
     const auto& terms() const
     {
@@ -550,6 +570,7 @@ private:
     std::ptrdiff_t occurrences_count_ = 0;
     int block_size_ = 0;
     double avg_document_size_ = 0;
+    std::ptrdiff_t max_document_size_ = 0;
 
     static const constexpr auto document_codec_ = document_codec_type{};
     static const constexpr auto frequency_codec_ = frequency_codec_type{};
@@ -687,13 +708,12 @@ inline auto query_scored_postings(
         decltype(unscored[0].scored(std::declval<score_fn_type>()));
     std::vector<scored_list_type> postings;
     postings.reserve(query.size());
-    for (term_id_t term_id = 0; term_id < irk::sgn(query.size()); ++term_id) {
-        score::bm25_scorer scorer(
-            index.term_collection_frequency(term_id),
-            index.collection_size(),
-            index.avg_document_size());
-        postings.push_back(unscored[term_id].scored(
-            score::BM25ScoreFn{index, std::move(scorer)}));
+    for (const auto& [idx, term] : iter::enumerate(query)) {
+        if (auto term_id = index.term_id(term); term_id.has_value()) {
+            postings.push_back(unscored[idx].scored(score::BM25ScoreFn{
+                index,
+                index.term_scorer<score::bm25_scorer>(term_id.value())}));
+        }
     }
     return postings;
 }
@@ -708,11 +728,14 @@ inline auto query_scored_postings(
         decltype(unscored[0].scored(std::declval<score_fn_type>()));
     std::vector<scored_list_type> postings;
     postings.reserve(query.size());
-    for (term_id_t term_id = 0; term_id < irk::sgn(query.size()); ++term_id) {
-        score::query_likelihood_scorer scorer(
-            index.term_occurrences(term_id), index.occurrences_count());
-        postings.push_back(unscored[term_id].scored(
-            score::QueryLikelihoodScoreFn{index, std::move(scorer)}));
+    for (const auto& [idx, term] : iter::enumerate(query)) {
+        if (auto term_id = index.term_id(term); term_id.has_value()) {
+            postings.push_back(
+                unscored[idx].scored(score::QueryLikelihoodScoreFn{
+                    index,
+                    index.term_scorer<score::query_likelihood_scorer>(
+                        term_id.value())}));
+        }
     }
     return postings;
 }

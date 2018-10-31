@@ -32,10 +32,12 @@
 #include <fmt/format.h>
 
 #include <irkit/compacttable.hpp>
+#include <irkit/daat.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/score.hpp>
+#include <irkit/taat.hpp>
 
 namespace irk::cli {
 
@@ -109,6 +111,66 @@ inline std::string ExistingDirectory(const std::string& filename)
     if (not exist) { return "Directory does not exist: " + filename; }
     if (not is_dir) { return "Directory is actually a file: " + filename; }
     return std::string();
+}
+
+enum class ProcessingType { TAAT, DAAT };
+inline std::ostream& operator<<(std::ostream& os, ProcessingType proc_type)
+{
+    switch (proc_type) {
+    case ProcessingType::TAAT: os << "taat"; break;
+    case ProcessingType::DAAT: os << "daat"; break;
+    default: throw std::domain_error("ProcessingType: non-exhaustive switch");
+    }
+    return os;
+}
+
+CLI::Option* add_processing_type(
+    CLI::App& app,
+    std::string name,
+    ProcessingType& variable,
+    std::string description = "",
+    bool defaulted = false)
+{
+    CLI::callback_t fun = [&variable](CLI::results_t res) {
+        if (res[0] == "taat") {
+            variable = ProcessingType::TAAT;
+            return true;
+        }
+        else if (res[0] == "daat") {
+            variable = ProcessingType::DAAT;
+            return true;
+        }
+        return false;
+    };
+
+    CLI::Option *opt = app.add_option(name, fun, description, defaulted);
+    opt->type_name("ProcessingType")->type_size(1);
+    if (defaulted) {
+        std::stringstream out;
+        out << variable;
+        opt->default_str(out.str());
+    }
+    return opt;
+}
+
+template<class Index, class RngRng>
+inline auto process_query(
+    const Index& index, const RngRng& postings, int k, ProcessingType type)
+{
+    using score_type =
+        std::decay_t<decltype(postings.begin()->begin()->payload())>;
+    switch (type) {
+    case ProcessingType::TAAT: {
+        std::vector<score_type> acc(index.collection_size(), 0);
+        irk::taat(postings, acc);
+        return irk::aggregate_top_k<document_t, score_type>(
+            std::begin(acc), std::end(acc), k);
+    }
+    case ProcessingType::DAAT: {
+        return daat(postings, k);
+    }
+    default: throw std::domain_error("ProcessingType: non-exhaustive switch");
+    }
 }
 
 enum class ThresholdEstimator { taily };
@@ -249,7 +311,7 @@ struct nostem_opt {
     template<class Args>
     void set(CLI::App& app, Args& args)
     {
-        app.add_option("--nostem", args->nostem, "Do not stem terms", true);
+        app.add_flag("--nostem", args->nostem, "Do not stem terms");
     }
 };
 
@@ -305,6 +367,25 @@ struct k_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option("-k", args->k, "Number of documents to retrieve", true);
+    }
+};
+
+struct processing_type_opt {
+    ProcessingType processing_type;
+
+    processing_type_opt(with_default<ProcessingType> default_val)
+        : processing_type(default_val.value)
+    {}
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        add_processing_type(
+            app,
+            "--proctype",
+            args->processing_type,
+            "Query processing type",
+            true);
     }
 };
 
@@ -403,7 +484,9 @@ postings_on_fly(const std::string& term, const Index& index, const std::string& 
             score::BM25ScoreFn{index, std::move(scorer)});
     } else if (name == "*ql") {
         score::query_likelihood_scorer scorer(
-            index.term_occurrences(term), index.occurrences_count());
+            index.term_occurrences(term),
+            index.occurrences_count(),
+            index.max_document_size());
         return index.postings(term).scored(
             score::QueryLikelihoodScoreFn{index, std::move(scorer)});
     }

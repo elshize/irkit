@@ -85,7 +85,8 @@ struct bm25_scorer {
     tag_type scoring_tag;
     double x, y, z;
 
-    bm25_scorer(int32_t documents_with_term_count,
+    bm25_scorer(
+        int32_t documents_with_term_count,
         int32_t total_document_count,
         double avg_document_size,
         double k1 = 1.2,
@@ -132,15 +133,27 @@ struct query_likelihood_scorer {
     tag_type scoring_tag;
     double mu;
     double global_component;
+    double shift;
 
     query_likelihood_scorer(
-        int32_t term_occurrences, int64_t all_occurrences, double mu = 2500)
-        : mu(mu), global_component(mu * term_occurrences / all_occurrences)
+        int32_t term_occurrences,
+        int64_t all_occurrences,
+        int32_t max_document_size,
+        double mu = 2500)
+        : mu(mu),
+          global_component(mu * term_occurrences / all_occurrences),
+          shift(compute(1, max_document_size, 0.0))
     {}
+
+    double compute(int32_t tf, int32_t document_size, double shift) const
+    {
+        return std::log(tf + global_component) - std::log(document_size + mu)
+            - shift;
+    }
 
     double operator()(int32_t tf, int32_t document_size) const
     {
-        return std::log(tf + global_component) - std::log(document_size + mu);
+        return compute(tf, document_size, shift);
     }
 };
 

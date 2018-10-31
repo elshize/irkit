@@ -109,17 +109,13 @@ void process_query(
     const Args& args,
     bool count)
 {
-    if (not args.nostem) {
-        irk::porter2_stemmer stemmer;
-        for (std::string& term : terms) {
-            term = stemmer.stem(term);
-        }
-    }
+    irk::cli::stem_if(not args.nostem, terms);
     if (count) {
         std::cout << count_postings(terms, index) << '\n';
     } else {
         if (args.score_function_defined()) {
             if (args.score_function[0] == '*') {
+                std::cout << "***" << std::endl;
                 auto postings = irk::cli::postings_on_fly(
                     terms, index, args.score_function);
                 print_postings_multiple(

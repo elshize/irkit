@@ -66,38 +66,16 @@ public:
         : real_shift_(real_range.left),
           real_length_(real_range.right - real_shift_),
           integral_shift_(integral_range.left),
-          integral_length_(integral_range.right - integral_shift_)
-    {}
+          integral_length_(integral_range.right - integral_shift_),
+          ratio_(static_cast<double>(integral_length_) / real_length_)
+    {
+        assert(integral_shift_ >= 0);
+    }
 
     std::int64_t operator()(double value)
     {
-        DEBUG_ASSERT(
-            value >= real_shift_,
-            debug_handler{},
-            fmt::format("{} < {}", value, real_shift_).c_str());
-        DEBUG_ASSERT(
-            value <= real_shift_ + real_length_,
-            debug_handler{},
-            fmt::format("{} < {}", value, real_shift_ + real_length_).c_str());
-        auto val = static_cast<int64_t>(
-                       (static_cast<double>(integral_length_) / real_length_)
-                       * (value - real_shift_))
+        return static_cast<int64_t>(ratio_ * (value - real_shift_))
             + integral_shift_;
-        DEBUG_ASSERT(
-            val >= integral_shift_,
-            debug_handler{},
-            fmt::format("{} < {} (for {})", val, integral_shift_, value)
-                .c_str());
-        DEBUG_ASSERT(
-            val <= integral_shift_ + integral_length_,
-            debug_handler{},
-            fmt::format(
-                "{} > {} (for {})",
-                val,
-                integral_shift_ + integral_length_,
-                value)
-                .c_str());
-        return val;
     }
 
 protected:
@@ -105,6 +83,7 @@ protected:
     const double real_length_;
     const std::int64_t integral_shift_;
     const std::int64_t integral_length_;
+    const double ratio_;
 };
 
 }

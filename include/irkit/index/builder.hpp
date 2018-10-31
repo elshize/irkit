@@ -229,12 +229,15 @@ public:
     {
         int64_t sizes_sum = std::accumulate(
             document_sizes_.begin(), document_sizes_.end(), 0);
+        int64_t max_document_size =
+            *std::max_element(document_sizes_.begin(), document_sizes_.end());
         nlohmann::json j = {
             {"documents", static_cast<uint32_t>(current_doc_ + 1u)},
             {"occurrences", all_occurrences_},
             {"skip_block_size", block_size_},
             {"avg_document_size",
-                static_cast<double>(sizes_sum) / document_sizes_.size()}};
+             static_cast<double>(sizes_sum) / document_sizes_.size()},
+            {"max_document_size", max_document_size}};
         out << std::setw(4) << j << std::endl;
     }
 };

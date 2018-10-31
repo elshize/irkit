@@ -123,7 +123,7 @@ public:
      */
     bool accumulate(key_type key, value_type value)
     {
-        if (value > threshold_) {
+        if (value != 0 && value > threshold_) {
             top_.emplace_back(key, value);
             if (top_.size() <= k_) {
                 std::push_heap(top_.begin(), top_.end(), result_order);

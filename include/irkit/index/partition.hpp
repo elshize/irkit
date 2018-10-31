@@ -27,6 +27,7 @@
 #pragma once
 
 #include <algorithm>
+#include <numeric>
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/max.hpp>
@@ -36,6 +37,9 @@
 #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <cppitertools/itertools.hpp>
+#include <pstl/algorithm>
+#include <pstl/execution>
+#include <pstl/numeric>
 #include <spdlog/spdlog.h>
 
 #include <irkit/algorithm/transform.hpp>
@@ -313,6 +317,19 @@ namespace detail::partition {
                 avg_shard_sizes[shard_assignment] += size;
             }
 
+            vmap<ShardId, size_t> max_shard_sizes(shard_count_);
+            std::transform(
+                std::execution::par_unseq,
+                shard_sizes.begin(),
+                shard_sizes.end(),
+                max_shard_sizes.begin(),
+                [](const auto& size_vec) {
+                    return *std::max_element(
+                        std::execution::unseq,
+                        size_vec.begin(),
+                        size_vec.end());
+                });
+
             for (auto&& [dir, sizes, avg_size] :
                  zip(shard_dirs_, shard_sizes, avg_shard_sizes))
             {
@@ -324,7 +341,8 @@ namespace detail::partition {
                 avg_size /= sizes.size();
             }
 
-            return avg_shard_sizes;
+            return std::make_pair(
+                std::move(avg_shard_sizes), std::move(max_shard_sizes));
         }
 
         /// Partitions document titles and title map.
@@ -670,14 +688,14 @@ namespace detail::partition {
                     boost::filesystem::create_directory(path);
                 }
                 titles();
-                auto avg_sizes = sizes();
-                //auto total_occurrences = postings(terms_in_batch);
+                auto [avg_sizes, max_sizes] = sizes();
                 auto total_occurrences = postings_once();
                 vmap<ShardId, size_t> document_counts(shard_count_, 0);
                 for (const auto& shard : shard_mapping_) {
                     document_counts[shard] += 1;
                 }
-                write_properties(document_counts, avg_sizes, total_occurrences);
+                write_properties(
+                    document_counts, avg_sizes, max_sizes, total_occurrences);
                 return nonstd::expected<void, std::string>();
             } catch (boost::filesystem::filesystem_error& error) {
                 return nonstd::make_unexpected(std::string(error.what()));
@@ -736,6 +754,7 @@ namespace detail::partition {
         inline void write_properties(
             const vmap<ShardId, size_t>& document_counts,
             const vmap<ShardId, size_t>& avg_document_sizes,
+            const vmap<ShardId, size_t>& max_document_sizes,
             const vmap<ShardId, frequency_t>& total_occurrences)
         {
             std::ifstream prop_stream(
@@ -750,7 +769,8 @@ namespace detail::partition {
                     {"documents", document_counts[shard]},
                     {"occurrences", total_occurrences[shard]},
                     {"skip_block_size", skip_block_size},
-                    {"avg_document_size", avg_document_sizes[shard]}};
+                    {"avg_document_size", avg_document_sizes[shard]},
+                    {"max_document_size", max_document_sizes[shard]}};
                 os << std::setw(4) << j << std::endl;
             }
         }
