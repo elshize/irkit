@@ -69,8 +69,9 @@ namespace index {
         std::vector<offset_t> frequency_offsets;
         std::vector<std::vector<offset_t>> score_offsets;
         std::vector<std::vector<inverted_index_view::score_type>> max_scores;
-        std::vector<std::vector<inverted_index_view::score_type>> exp_scores;
-        std::vector<std::vector<inverted_index_view::score_type>> var_scores;
+        // TODO: do for doubles
+        //std::vector<std::vector<inverted_index_view::score_type>> exp_scores;
+        //std::vector<std::vector<inverted_index_view::score_type>> var_scores;
         std::vector<frequency_t> term_frequencies;
         std::vector<frequency_t> term_occurrences;
 
@@ -84,8 +85,9 @@ namespace index {
         posting_vectors(std::vector<std::string> score_names = {})
             : score_offsets(score_names.size()),
               max_scores(score_names.size()),
-              exp_scores(score_names.size()),
-              var_scores(score_names.size()),
+              // TODO: do for doubles
+              //exp_scores(score_names.size()),
+              //var_scores(score_names.size()),
               cur_score_offsets(score_names.size(), 0),
               score_names(std::move(score_names))
         {}
@@ -108,10 +110,11 @@ namespace index {
                 using score_type = inverted_index_view::score_type;
                 build_compact_table<score_type>(max_scores[idx])
                     .serialize(paths.max_scores);
-                build_compact_table<score_type>(exp_scores[idx])
-                    .serialize(paths.exp_values);
-                build_compact_table<score_type>(var_scores[idx])
-                    .serialize(paths.variances);
+                // TODO: do for doubles
+                //build_compact_table<score_type>(exp_scores[idx])
+                //    .serialize(paths.exp_values);
+                //build_compact_table<score_type>(var_scores[idx])
+                //    .serialize(paths.variances);
             }
             build_compact_table<frequency_t>(term_frequencies)
                 .serialize(term_doc_freq_path(output_dir));
@@ -148,12 +151,13 @@ namespace index {
             for (auto&& [max, vec] : zip(max_score_vec, max_scores)) {
                 vec.push_back(max);
             }
-            for (auto&& [exp, vec] : zip(score_exp_vec, exp_scores)) {
-                vec.push_back(exp);
-            }
-            for (auto&& [var, vec] : zip(score_var_vec, var_scores)) {
-                vec.push_back(var);
-            }
+            // TODO: do for doubles
+            //for (auto&& [exp, vec] : zip(score_exp_vec, exp_scores)) {
+            //    vec.push_back(exp);
+            //}
+            //for (auto&& [var, vec] : zip(score_var_vec, var_scores)) {
+            //    vec.push_back(var);
+            //}
             total_occurrences += occurrences;
         }
 

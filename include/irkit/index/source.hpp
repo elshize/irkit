@@ -54,159 +54,6 @@ namespace detail {
     }
 }
 
-//class inverted_index_disk_data_source {
-//public:
-//    explicit inverted_index_disk_data_source(path dir) : dir_(std::move(dir)) {}
-//
-//    static nonstd::expected<inverted_index_disk_data_source, std::string>
-//    from(const path& dir, std::vector<std::string> score_names = {})
-//    {
-//        inverted_index_disk_data_source source(dir);
-//        source.documents_ = index::doc_ids_path(dir);
-//        source.counts_ = index::doc_counts_path(dir);
-//        source.document_offsets_ = index::doc_ids_off_path(dir);
-//        source.count_offsets_ = index::doc_counts_off_path(dir);
-//        source.term_collection_frequencies_ = index::term_doc_freq_path(dir);
-//        source.term_map_ = index::term_map_path(dir);
-//        source.title_map_ = index::title_map_path(dir);
-//        source.document_sizes_ = index::doc_sizes_path(dir);
-//        source.term_collection_occurrences_ = index::term_occurrences_path(dir);
-//        source.properties_ = index::properties_path(dir);
-//
-//        std::vector<std::string> invalid_scores;
-//        for (const auto& score_name : score_names)
-//        {
-//            auto score_paths = index::score_paths(dir, score_name);
-//            if (exists(score_paths.postings) && exists(score_paths.offsets)
-//                && exists(score_paths.max_scores)
-//                && exists(score_paths.exp_values)
-//                && exists(score_paths.variances))
-//            {
-//                source.scores_[score_name] =
-//                    index::score_paths(dir, score_name);
-//            } else {
-//                invalid_scores.push_back(score_name);
-//            }
-//        }
-//        if (not invalid_scores.empty()) {
-//            return nonstd::make_unexpected(
-//                detail::invalid_scores_message(invalid_scores));
-//        }
-//        if (not score_names.empty()) {
-//            source.default_score_ = score_names[0];
-//        }
-//        return source;
-//    }
-//
-//    path dir() { return dir_; }
-//
-//    memory_view documents_view() const { return make_memory_view(documents_); }
-//
-//    memory_view counts_view() const { return make_memory_view(counts_); }
-//
-//    memory_view document_offsets_view() const
-//    {
-//        return make_memory_view(document_offsets_);
-//    }
-//
-//    memory_view count_offsets_view() const
-//    {
-//        return make_memory_view(count_offsets_);
-//    }
-//
-//    memory_view term_collection_frequencies_view() const
-//    {
-//        return make_memory_view(term_collection_frequencies_);
-//    }
-//
-//    memory_view term_collection_occurrences_view() const
-//    {
-//        return make_memory_view(term_collection_occurrences_);
-//    }
-//
-//    memory_view term_map_source() const { return make_memory_view(term_map_); }
-//
-//    memory_view title_map_source() const
-//    {
-//        return make_memory_view(title_map_);
-//    }
-//
-//    memory_view document_sizes_view() const
-//    {
-//        return make_memory_view(document_sizes_);
-//    }
-//
-//    memory_view properties_view() const
-//    {
-//        return make_memory_view(properties_);
-//    }
-//
-//    std::optional<memory_view> scores_source() const
-//    {
-//        return not scores_.empty()
-//            ? std::make_optional<memory_view>(
-//                  make_memory_view(scores_.at(default_score_).postings))
-//            : std::nullopt;
-//    }
-//
-//    std::optional<memory_view> score_offset_source() const
-//    {
-//        return not scores_.empty()
-//            ? std::make_optional<memory_view>(
-//                  make_memory_view(scores_.at(default_score_).offsets))
-//            : std::nullopt;
-//    }
-//
-//    std::optional<memory_view> max_scores_source() const
-//    {
-//        return not scores_.empty()
-//            ? std::make_optional<memory_view>(
-//                  make_memory_view(scores_.at(default_score_).max_scores))
-//            : std::nullopt;
-//    }
-//
-//    nonstd::expected<score_tuple<memory_view>, std::string>
-//    scores_source(const std::string& name) const
-//    {
-//        if (auto pos = scores_.find(name); pos != scores_.end()) {
-//            return score_tuple<memory_view>{
-//                make_memory_view(pos->second.postings),
-//                make_memory_view(pos->second.offsets),
-//                make_memory_view(pos->second.max_scores),
-//                make_memory_view(pos->second.exp_values),
-//                make_memory_view(pos->second.variances)};
-//        }
-//        return nonstd::make_unexpected("requested score function not found");
-//    }
-//
-//    std::unordered_map<std::string, score_tuple<memory_view>>
-//    scores_sources() const
-//    {
-//        std::unordered_map<std::string, score_tuple<memory_view>> view_map;
-//        for (const auto& entry : scores_) {
-//            const auto& key = entry.first;
-//            view_map[key] = *scores_source(key);
-//        };
-//        return view_map;
-//    }
-//    const std::string& default_score() const { return default_score_; }
-//
-//private:
-//    path dir_;
-//    path documents_;
-//    path counts_;
-//    path document_offsets_;
-//    path count_offsets_;
-//    path term_collection_frequencies_;
-//    path term_collection_occurrences_;
-//    path term_map_;
-//    path title_map_;
-//    path document_sizes_;
-//    path properties_;
-//    std::unordered_map<std::string, score_tuple<path>> scores_;
-//    std::string default_score_ = "";
-//};
-
 class inverted_index_inmemory_data_source {
 public:
     explicit inverted_index_inmemory_data_source(path dir)
@@ -238,9 +85,7 @@ public:
         {
             auto score_paths = index::score_paths(dir, score_name);
             if (exists(score_paths.postings) && exists(score_paths.offsets)
-                && exists(score_paths.max_scores)
-                && exists(score_paths.exp_values)
-                && exists(score_paths.variances))
+                && exists(score_paths.max_scores))
             {
                 std::vector<char> scores;
                 std::vector<char> score_offsets;
@@ -250,13 +95,9 @@ public:
                 load_data(score_paths.postings, scores);
                 load_data(score_paths.offsets, score_offsets);
                 load_data(score_paths.max_scores, max_scores);
-                load_data(score_paths.exp_values, exp_values);
-                load_data(score_paths.variances, variances);
                 source.scores_[score_name] = {std::move(scores),
                                               std::move(score_offsets),
-                                              std::move(max_scores),
-                                              std::move(exp_values),
-                                              std::move(variances)};
+                                              std::move(max_scores)};
             } else {
                 invalid_scores.push_back(score_name);
             }
@@ -350,24 +191,23 @@ public:
             scores_.at(default_score_).max_scores.size()));
     }
 
-    nonstd::expected<score_tuple<memory_view>, std::string>
+    nonstd::expected<quantized_score_tuple<memory_view>, std::string>
     scores_source(const std::string& name) const
     {
         if (auto pos = scores_.find(name); pos != scores_.end()) {
-            return score_tuple<memory_view>{
+            return quantized_score_tuple<memory_view>{
                 make_memory_view(pos->second.postings),
                 make_memory_view(pos->second.offsets),
-                make_memory_view(pos->second.max_scores),
-                make_memory_view(pos->second.exp_values),
-                make_memory_view(pos->second.variances)};
+                make_memory_view(pos->second.max_scores)};
         }
         return nonstd::make_unexpected("requested score function not found");
     }
 
-    std::unordered_map<std::string, score_tuple<memory_view>>
+    std::unordered_map<std::string, quantized_score_tuple<memory_view>>
     scores_sources() const
     {
-        std::unordered_map<std::string, score_tuple<memory_view>> view_map;
+        std::unordered_map<std::string, quantized_score_tuple<memory_view>>
+            view_map;
         for (const auto& entry : scores_) {
             const auto& key = entry.first;
             view_map[key] = *scores_source(key);
@@ -388,7 +228,8 @@ private:
     std::vector<char> title_map_;
     std::vector<char> document_sizes_;
     std::vector<char> properties_;
-    std::unordered_map<std::string, score_tuple<std::vector<char>>> scores_;
+    std::unordered_map<std::string, quantized_score_tuple<std::vector<char>>>
+        scores_;
     std::string default_score_ = "";
 };
 
@@ -429,16 +270,12 @@ public:
         for (const std::string& score_name : score_names) {
             auto score_paths = index::score_paths(dir, score_name);
             if (exists(score_paths.postings) && exists(score_paths.offsets)
-                && exists(score_paths.max_scores)
-                && exists(score_paths.exp_values)
-                && exists(score_paths.variances))
+                && exists(score_paths.max_scores))
             {
                 source.scores_[score_name] = {
                     mapped_file_source(score_paths.postings),
                     mapped_file_source(score_paths.offsets),
-                    mapped_file_source(score_paths.max_scores),
-                    mapped_file_source(score_paths.exp_values),
-                    mapped_file_source(score_paths.variances)};
+                    mapped_file_source(score_paths.max_scores)};
             } else {
                 invalid_scores.push_back(score_name);
             }
@@ -532,32 +369,27 @@ public:
             scores_.at(default_score_).max_scores.size()));
     }
 
-    nonstd::expected<score_tuple<memory_view>, std::string>
+    nonstd::expected<quantized_score_tuple<memory_view>, std::string>
     scores_source(const std::string& name) const
     {
         if (auto pos = scores_.find(name); pos != scores_.end()) {
-            return score_tuple<memory_view>{
+            return quantized_score_tuple<memory_view>{
                 make_memory_view(
                     pos->second.postings.data(), pos->second.postings.size()),
                 make_memory_view(
                     pos->second.offsets.data(), pos->second.offsets.size()),
                 make_memory_view(
                     pos->second.max_scores.data(),
-                    pos->second.max_scores.size()),
-                make_memory_view(
-                    pos->second.exp_values.data(),
-                    pos->second.exp_values.size()),
-                make_memory_view(
-                    pos->second.variances.data(),
-                    pos->second.variances.size())};
+                    pos->second.max_scores.size())};
         }
         return nonstd::make_unexpected("requested score function not found");
     }
 
-    std::unordered_map<std::string, score_tuple<memory_view>>
+    std::unordered_map<std::string, quantized_score_tuple<memory_view>>
     scores_sources() const
     {
-        std::unordered_map<std::string, score_tuple<memory_view>> view_map;
+        std::unordered_map<std::string, quantized_score_tuple<memory_view>>
+            view_map;
         for (const auto& entry : scores_) {
             const auto& key = entry.first;
             view_map[key] = *scores_source(key);
@@ -578,7 +410,8 @@ private:
     mapped_file_source title_map_;
     mapped_file_source document_sizes_;
     mapped_file_source properties_;
-    std::unordered_map<std::string, score_tuple<mapped_file_source>> scores_;
+    std::unordered_map<std::string, quantized_score_tuple<mapped_file_source>>
+        scores_;
     std::string default_score_ = "";
 };
 

@@ -8,7 +8,7 @@ class IRKConan(ConanFile):
     license = "MIT"
     description = "Information Retrieval tools intended for academic research."
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake", "ycm"
+    generators = "cmake", "ycm", "cmake_paths"
     options = {"use_system_boost": [True, False]}
     default_options = ("use_system_boost=False",
                        "zlib:shared=True",
@@ -45,6 +45,7 @@ class IRKConan(ConanFile):
                 self.settings.compiler.version)
             cmake.definitions["CMAKE_CXX_COMPILER"] = "g++-{}".format(
                 self.settings.compiler.version)
+        cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = 'conan_paths.cmake'
         cmake.configure()
         cmake.build()
         cmake.test()
@@ -52,7 +53,6 @@ class IRKConan(ConanFile):
     def requirements(self):
         self.requires("streamvbyte/master@elshize/testing")
         self.requires("gumbo-parser/1.0@elshize/stable")
-        self.requires("rangev3/master@elshize/testing")
         self.requires("rax/master@elshize/testing")
         self.requires("irm/0.1@elshize/develop")
         self.requires("cppitertools/1.0@elshize/stable")
@@ -65,6 +65,7 @@ class IRKConan(ConanFile):
         self.requires("gtest/1.8.0@conan/stable")
         self.requires("TBB/2018_U5@conan/stable")
 
+        self.requires("range-v3/0.4.0@ericniebler/stable")
         self.requires("CLI11/1.6.0@cliutils/stable")
         self.requires("gsl_microsoft/1.0.0@bincrafters/stable")
         self.requires("debug_assert/1.3@Manu343726/testing")

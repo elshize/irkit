@@ -273,10 +273,11 @@ void index(
         auto input_score_paths = index::score_paths(input_dir, score);
         boost::filesystem::copy(
             input_score_paths.max_scores, output_score_paths.max_scores);
-        boost::filesystem::copy(
-            input_score_paths.exp_values, output_score_paths.exp_values);
-        boost::filesystem::copy(
-            input_score_paths.variances, output_score_paths.variances);
+        // TODO: do with doubles
+        //boost::filesystem::copy(
+        //    input_score_paths.exp_values, output_score_paths.exp_values);
+        //boost::filesystem::copy(
+        //    input_score_paths.variances, output_score_paths.variances);
     }
 
     auto source =

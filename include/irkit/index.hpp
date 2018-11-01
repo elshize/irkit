@@ -49,6 +49,7 @@
 #include <fmt/format.h>
 #include <gsl/span>
 #include <nlohmann/json.hpp>
+#include <nonstd/expected.hpp>
 #include <range/v3/utility/concepts.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
@@ -82,18 +83,11 @@ using index::frequency_t;
 using index::offset_t;
 using index::term_id_t;
 
-template<
-    typename P,
-    typename O = P,
-    typename M = O,
-    typename E = M,
-    typename V = E>
-struct score_tuple {
+template<typename P, typename O = P, typename M = O>
+struct quantized_score_tuple {
     P postings;
     O offsets;
     M max_scores;
-    E exp_values;
-    V variances;
 };
 
 namespace index {
@@ -147,14 +141,12 @@ namespace index {
     inline path max_scores_path(const path& dir, const std::string& name)
     { return dir / fmt::format("{}.maxscore", name); }
 
-    inline score_tuple<path>
+    inline quantized_score_tuple<path>
     score_paths(const path& dir, const std::string& name)
     {
         return {dir / fmt::format("{}.scores", name),
                 dir / fmt::format("{}.offsets", name),
-                dir / fmt::format("{}.maxscore", name),
-                dir / fmt::format("{}.expscore", name),
-                dir / fmt::format("{}.varscore", name)};
+                dir / fmt::format("{}.maxscore", name)};
     }
 
     inline std::vector<std::string> all_score_names(const path& dir)
@@ -176,6 +168,106 @@ namespace index {
             }
         }
         return names;
+    }
+
+    enum class ScoreType {
+        BM25, QueryLikelihood
+    };
+
+    struct QuantizationProperties {
+        ScoreType type{};
+        double min{};
+        double max{};
+        int32_t nbits{};
+
+        static nonstd::expected<ScoreType, std::string>
+        parse_type(std::string_view name)
+        {
+            if (name == "bm25") {
+                return ScoreType::BM25;
+            }
+            if (name == "ql") {
+                return ScoreType::QueryLikelihood;
+            }
+            return nonstd::make_unexpected(
+                fmt::format("cannot parse {} as a score type", name));
+        }
+
+        static std::string
+        name_of(ScoreType type)
+        {
+            switch (type) {
+            case ScoreType::BM25: return "bm25";
+            case ScoreType::QueryLikelihood: return "ql";
+            }
+            return "";
+        }
+    };
+
+    struct Properties {
+        int32_t skip_block_size{};
+        int64_t occurrences_count{};
+        int32_t document_count{};
+        double avg_document_size{};
+        int32_t max_document_size{};
+        std::unordered_map<std::string, QuantizationProperties>
+            quantized_scores{};
+    };
+
+    Properties read_properties(const path& index_dir)
+    {
+        Properties properties;
+        std::ifstream ifs(properties_path(index_dir).c_str());
+        nlohmann::json jprop;
+        ifs >> jprop;
+        properties.document_count = read_property<int32_t>(jprop, "documents");
+        properties.occurrences_count =
+            read_property<int64_t>(jprop, "occurrences");
+        properties.skip_block_size =
+            read_property<int32_t>(jprop, "skip_block_size");
+        properties.avg_document_size =
+            read_property<double>(jprop, "avg_document_size");
+        properties.max_document_size =
+            read_property<int32_t>(jprop, "max_document_size");
+        if (auto pos = jprop.find("quantized_scores"); pos != jprop.end()) {
+            auto elems = pos.value();
+            for (auto iter = elems.begin(); iter != elems.end(); ++iter) {
+                QuantizationProperties qp;
+                auto jqprops = iter.value();
+                std::string type_entry = jqprops["type"];
+                auto type = QuantizationProperties::parse_type(type_entry);
+                if (not type) {
+                    continue;
+                }
+                qp.type = type.value();
+                qp.nbits = read_property<int32_t>(jqprops, "bits");
+                qp.min = read_property<double>(jqprops, "min");
+                qp.max = read_property<double>(jqprops, "max");
+                properties.quantized_scores[iter.key()] = qp;
+            }
+        }
+        return properties;
+    }
+
+    void write_properties(const Properties& properties, const path& index_dir)
+    {
+        std::ofstream ofs(properties_path(index_dir).c_str());
+        nlohmann::json jprop;
+        jprop["documents"] = properties.document_count;
+        jprop["occurrences"] = properties.occurrences_count;
+        jprop["skip_block_size"] = properties.skip_block_size;
+        jprop["avg_document_size"] = properties.avg_document_size;
+        jprop["max_document_size"] = properties.max_document_size;
+        nlohmann::json quantized_jprop;
+        for (const auto& [name, score_props] : properties.quantized_scores) {
+            quantized_jprop[name] = {
+                {"type", QuantizationProperties::name_of(score_props.type)},
+                {"bits", score_props.nbits},
+                {"min", score_props.min},
+                {"max", score_props.max}};
+        }
+        jprop["quantized_scores"] = quantized_jprop;
+        ofs << jprop;
     }
 
 }  // namespace index
@@ -205,12 +297,8 @@ public:
         compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>;
     using array_stream = boost::iostreams::stream_buffer<
         boost::iostreams::basic_array_source<char>>;
-    using score_tuple_type = score_tuple<
-        memory_view,
-        offset_table_type,
-        score_table_type,
-        score_table_type,
-        score_table_type>;
+    using score_tuple_type =
+        quantized_score_tuple<memory_view, offset_table_type, score_table_type>;
 
     basic_inverted_index_view() = default;
     basic_inverted_index_view(const basic_inverted_index_view&) = default;
@@ -243,9 +331,7 @@ public:
         for (const auto& [name, tuple] : data->scores_sources()) {
             score_tuple_type t{tuple.postings,
                                offset_table_type(tuple.offsets),
-                               score_table_type(tuple.max_scores),
-                               score_table_type(tuple.exp_values),
-                               score_table_type(tuple.variances)};
+                               score_table_type(tuple.max_scores)};
             scores_.emplace(std::make_pair(name, t));
         }
         default_score_ = data->default_score();
@@ -339,31 +425,32 @@ public:
             length);
     }
 
-    auto score_expected_value(
-        term_id_type term_id, const std::string& score_fun_name) const
-    {
-        EXPECTS(term_id < term_count_);
-        return scores_.at(score_fun_name).exp_values[term_id];
-    }
+    // TODO: use but with floating points
+    //auto score_expected_value(
+    //    term_id_type term_id, const std::string& score_fun_name) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(score_fun_name).exp_values[term_id];
+    //}
 
-    auto score_expected_value(term_id_type term_id) const
-    {
-        EXPECTS(term_id < term_count_);
-        return scores_.at(default_score_).exp_values[term_id];
-    }
+    //auto score_expected_value(term_id_type term_id) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(default_score_).exp_values[term_id];
+    //}
 
-    auto score_variance(
-        term_id_type term_id, const std::string& score_fun_name) const
-    {
-        EXPECTS(term_id < term_count_);
-        return scores_.at(score_fun_name).variances[term_id];
-    }
+    //auto score_variance(
+    //    term_id_type term_id, const std::string& score_fun_name) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(score_fun_name).variances[term_id];
+    //}
 
-    auto score_variance(term_id_type term_id) const
-    {
-        EXPECTS(term_id < term_count_);
-        return scores_.at(default_score_).variances[term_id];
-    }
+    //auto score_variance(term_id_type term_id) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(default_score_).variances[term_id];
+    //}
 
     auto postings(term_id_type term_id) const
     {

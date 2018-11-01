@@ -47,14 +47,13 @@ namespace detail {
     template<class Scorer, class DataSourceT>
     class ScoreFn {
     public:
-        ScoreFn(fs::path dir_path, const std::string& name, int bits)
+        ScoreFn(fs::path dir_path, std::string name, int bits)
             : bits(bits),
               dir(std::move(dir_path)),
               scores_path(dir / (name + ".scores")),
               score_offsets_path(dir / (name + ".offsets")),
               score_max_path(dir / (name + ".maxscore")),
-              score_exp_path(dir / (name + ".expscore")),
-              score_var_path(dir / (name + ".varscore"))
+              name(std::move(name))
         {}
 
         std::pair<double, double> min_max(const inverted_index_view& index)
@@ -95,6 +94,10 @@ namespace detail {
 
         nonstd::expected<void, std::string> operator()()
         {
+            auto type = index::QuantizationProperties::parse_type(name);
+            if (not type) {
+                return nonstd::make_unexpected(type.error());
+            }
             namespace ba = boost::accumulators;
             using stat_accumulator = ba::accumulator_set<
                 double,
@@ -111,21 +114,17 @@ namespace detail {
             std::ofstream sout(scores_path.c_str());
             std::ofstream offout(score_offsets_path.c_str());
             std::ofstream maxout(score_max_path.c_str());
-            std::ofstream expout(score_exp_path.c_str());
-            std::ofstream varout(score_var_path.c_str());
             std::vector<std::size_t> offsets;
             std::vector<std::uint32_t> max_scores;
             std::vector<std::uint32_t> exp_scores;
             std::vector<std::uint32_t> var_scores;
             offsets.reserve(index.term_count());
             max_scores.reserve(index.term_count());
-            exp_scores.reserve(index.term_count());
-            var_scores.reserve(index.term_count());
 
             if (log) {
                 log->info("Calculating max score");
             }
-            auto [min_score, max_score] = min_max(index);
+            const auto [min_score, max_score] = min_max(index);
             if (log) {
                 log->info("Max score: {}; Min score: {}", max_score, min_score);
             }
@@ -152,21 +151,22 @@ namespace detail {
                     acc(score);
                 }
                 max_scores.push_back(ba::max(acc));
-                exp_scores.push_back(0);
-                var_scores.push_back(0);
                 offset += list_builder.write(sout);
             }
-            auto offset_table = irk::build_offset_table<>(offsets);
+            const auto offset_table = irk::build_offset_table<>(offsets);
             offout << offset_table;
-            auto maxscore_table =
+            const auto maxscore_table =
                 irk::build_compact_table<uint32_t>(max_scores);
             maxout << maxscore_table;
-            auto expscore_table =
-                irk::build_compact_table<uint32_t>(exp_scores);
-            expout << expscore_table;
-            auto varscore_table =
-                irk::build_compact_table<uint32_t>(var_scores);
-            varout << varscore_table;
+
+            auto props = index::read_properties(dir);
+            index::QuantizationProperties qprops;
+            qprops.type = type.value();
+            qprops.nbits = bits;
+            qprops.min = min_score;
+            qprops.max = max_score;
+            props.quantized_scores[fmt::format("{}-{}", name, bits)] = qprops;
+
             return nonstd::expected<void, std::string>();
         }
 
@@ -176,8 +176,7 @@ namespace detail {
         const fs::path scores_path;
         const fs::path score_offsets_path;
         const fs::path score_max_path;
-        const fs::path score_exp_path;
-        const fs::path score_var_path;
+        const std::string name;
     };
 
 }  // namespace detail

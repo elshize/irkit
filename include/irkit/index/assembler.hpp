@@ -127,7 +127,7 @@ public:
         auto title_map = build_lexicon(
             irk::index::titles_path(output_dir_), lexicon_block_size_);
         title_map.serialize(irk::index::title_map_path(output_dir_));
-        std::clog << "Success!" << std::endl;
+        if (log) { log->info("Success!"); }
     }
 
     //! Builds a single batch.

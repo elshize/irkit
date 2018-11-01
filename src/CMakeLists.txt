@@ -1,7 +1,10 @@
-add_executable(irk irk.cpp)
-target_link_libraries(irk CONAN_PKG::CLI11)
+find_package(CLI11 REQUIRED)
+find_package(ZLIB REQUIRED)
 
-set(COMMON_LIBRARIES irkit CONAN_PKG::CLI11)
+add_executable(irk irk.cpp)
+target_link_libraries(irk CLI11::CLI11)
+
+set(COMMON_LIBRARIES irkit CLI11::CLI11)
 
 function(add_irk TOOL_NAME)
     foreach(arg IN LISTS ARGN)
@@ -15,7 +18,7 @@ function(add_irk TOOL_NAME)
         PRIVATE -Wall -Wno-unused-local-typedefs -Wno-sign-compare -Wno-parentheses)
 endfunction()
 
-add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
+add_irk(warc ZLIB::ZLIB CONAN_PKG::gumbo-parser)
 add_irk(part)
 add_irk(lexicon)
 add_irk(table)

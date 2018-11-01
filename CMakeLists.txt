@@ -4,6 +4,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG_ASSERT")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fsanitize=undefined -fno-sanitize=alignment")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 option(IRKit_BUILD_TEST "whether or not to build the test" ON)
 option(IRKit_BUILD_INTEGRATION_TEST "whether or not to build the integration test" OFF)
@@ -35,43 +36,39 @@ add_library(irkit::irkit ALIAS irkit)
 target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
-if (IRKit_USE_SYSTEM_BOOST)
-    find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
-    target_link_libraries(irkit INTERFACE
-        Boost::boost
-        Boost::iostreams
-        Boost::filesystem
-        CONAN_PKG::rangev3
-        CONAN_PKG::jsonformoderncpp
-        CONAN_PKG::type_safe
-        CONAN_PKG::debug_assert
-        CONAN_PKG::gsl_microsoft
-        CONAN_PKG::streamvbyte
-        CONAN_PKG::rax
-        CONAN_PKG::spdlog
-        CONAN_PKG::cppitertools
-        CONAN_PKG::taily
-        CONAN_PKG::TBB
-        CONAN_PKG::ParallelSTL
-        pthread)
-else()
-    #add_definitions(-DBOOST_LOG_DYN_LINK)
-    target_link_libraries(irkit INTERFACE
-        CONAN_PKG::boost
-        CONAN_PKG::rangev3
-        CONAN_PKG::jsonformoderncpp
-        CONAN_PKG::type_safe
-        CONAN_PKG::debug_assert
-        CONAN_PKG::gsl_microsoft
-        CONAN_PKG::streamvbyte
-        CONAN_PKG::rax
-        CONAN_PKG::spdlog
-        CONAN_PKG::cppitertools
-        CONAN_PKG::taily
-        CONAN_PKG::TBB
-        CONAN_PKG::ParallelSTL
-        pthread)
-endif()
+
+find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(fmt REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(GSL REQUIRED)
+find_package(Threads REQUIRED)
+find_package(range-v3 REQUIRED)
+find_package(TBB REQUIRED)
+find_package(ParallelSTL REQUIRED)
+find_package(cppitertools REQUIRED)
+find_package(rax REQUIRED)
+find_package(taily REQUIRED)
+
+target_link_libraries(irkit INTERFACE
+    Threads::Threads
+    Boost::boost
+    Boost::iostreams
+    Boost::filesystem
+    fmt::fmt
+    spdlog::spdlog
+    nlohmann_json
+    range-v3
+    TBB::tbb
+    pstl::ParallelSTL
+    cppitertools
+    CONAN_PKG::rax
+    taily::taily
+    CONAN_PKG::type_safe
+    CONAN_PKG::debug_assert
+    CONAN_PKG::streamvbyte
+)
+
 install(DIRECTORY include/irkit DESTINATION include)
 #install(FILES irkit-config.cmake DESTINATION lib/irkit)
 install(TARGETS irkit EXPORT irkit DESTINATION lib)
