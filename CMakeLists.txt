@@ -41,7 +41,7 @@ find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
-find_package(GSL REQUIRED)
+#find_package(GSL REQUIRED)
 find_package(Threads REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(TBB REQUIRED)
@@ -67,6 +67,7 @@ target_link_libraries(irkit INTERFACE
     CONAN_PKG::type_safe
     CONAN_PKG::debug_assert
     CONAN_PKG::streamvbyte
+    CONAN_PKG::gsl_microsoft
 )
 
 install(DIRECTORY include/irkit DESTINATION include)
