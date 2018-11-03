@@ -472,8 +472,8 @@ inline bool on_fly(const std::string& scorer)
 }
 
 template<class Index>
-inline auto
-postings_on_fly(const std::string& term, const Index& index, const std::string& name)
+inline auto postings_on_fly(
+    const std::string& term, const Index& index, const std::string& name)
 {
     if (name == "*bm25") {
         score::bm25_scorer scorer(

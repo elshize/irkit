@@ -49,7 +49,6 @@ using namespace irk;
 
 int main(int argc, char** argv)
 {
-    std::optional<cli::ThresholdEstimator> estimate_method;
     auto [app, args] =
         irk::cli::app("Stem tokens", irk::cli::terms_pos{irk::cli::optional});
     CLI11_PARSE(*app, argc, argv);

@@ -352,7 +352,8 @@ namespace detail::partition {
         /// Partitions document titles and title map.
         auto titles()
         {
-            auto [buf, lex_view] = make_memory_view(index::title_map_path(input_dir_));
+            auto [buf, lex_view] =
+                make_memory_view(index::title_map_path(input_dir_));
             (void)buf;
             auto titles = load_lexicon(lex_view);
             auto keys_per_block = titles.keys_per_block();

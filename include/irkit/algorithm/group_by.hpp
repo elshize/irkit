@@ -35,7 +35,11 @@ namespace detail {
     template<class InputIt, class UnaryFunction>
     struct GroupBy;
 
-    template<class InputIt, class UnaryFunction, class AggFunction, class AggType>
+    template<
+        class InputIt,
+        class UnaryFunction,
+        class AggFunction,
+        class AggType>
     struct GroupByAggregate {
         using value_type =
             std::remove_reference_t<decltype(*std::declval<InputIt>())>;
