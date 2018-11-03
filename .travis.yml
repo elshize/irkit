@@ -41,7 +41,7 @@ matrix:
             - libluabind-dev
             - libtcl8.6
             - tcl-dev
-            #- libboost-all-dev
+            - libboost-all-dev
       install:
         - git clone https://bitbucket.org/verateam/vera.git
         - cd vera
@@ -106,8 +106,11 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
     packages:
       - g++-7
+      - cmake-data
+      - cmake
       #- libboost-all-dev
 install:
   - |
