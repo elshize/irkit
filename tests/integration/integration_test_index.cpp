@@ -38,12 +38,14 @@ auto scored(const posting_map& postings,
     int collection_size,
     int bits)
 {
+    long max_document_size =
+        *std::max_element(document_sizes.begin(), document_sizes.end());
     std::map<std::string, std::vector<posting_type>> scored;
     double max_score = 0;
     for (const auto& [term, posting_for_term] : postings)
     {
         irk::score::query_likelihood_scorer scorer(
-            occurrences[term], collection_occurrences);
+            occurrences[term], collection_occurrences, max_document_size);
         for (const auto& [doc, freq] : posting_for_term)
         {
             max_score = std::max(max_score, scorer(freq, document_sizes[doc]));
@@ -54,7 +56,7 @@ auto scored(const posting_map& postings,
     {
         std::vector<posting_type> scored_for_term;
         irk::score::query_likelihood_scorer scorer(
-            occurrences[term], collection_occurrences);
+            occurrences[term], collection_occurrences, max_document_size);
         for (const auto& [doc, freq] : posting_for_term) {
             double score = scorer(freq, document_sizes[doc]);
             long quantized_score = (long)(score * max_int / max_score);
@@ -131,7 +133,8 @@ protected:
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
-        irk::score_index<irk::score::query_likelihood_scorer,
+        irk::index::score_index<
+            irk::score::query_likelihood_scorer,
             irk::inverted_index_inmemory_data_source>(index_dir, 8);
     }
 };
@@ -176,16 +179,6 @@ TEST_F(inverted_index, mapped_file)
     // when
     auto data =
         irk::inverted_index_mapped_data_source::from(index_dir, {"ql"}).value();
-    irk::inverted_index_view index_view(&data);
-    // then
-    test(index_view, expected_index);
-}
-
-TEST_F(inverted_index, disk)
-{
-    // when
-    auto data =
-        irk::inverted_index_disk_data_source::from(index_dir, {"ql"}).value();
     irk::inverted_index_view index_view(&data);
     // then
     test(index_view, expected_index);
