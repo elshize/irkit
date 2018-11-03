@@ -94,6 +94,9 @@ before_install:
     conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
     conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
   - |
+    # Install cmake 3.11
+    pip install --user cmake
+  - |
     # Print environment
     which $CXX
     which $CC
@@ -106,11 +109,8 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
     packages:
       - g++-7
-      - cmake-data
-      - cmake
       #- libboost-all-dev
 install:
   - |
