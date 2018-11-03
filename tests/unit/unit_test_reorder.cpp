@@ -52,7 +52,7 @@ protected:
     path dir;
     reorder_test()
     {
-        dir = boost::filesystem::temp_directory_path() / "irkit_prune_test";
+        dir = boost::filesystem::temp_directory_path() / "irkit_reorder_test";
         if (exists(dir)) remove_all(dir);
         irk::index::index_assembler assembler(dir, 100, 4, 16);
         std::istringstream input(

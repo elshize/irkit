@@ -9,8 +9,9 @@ class IRKConan(ConanFile):
     description = "Information Retrieval tools intended for academic research."
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake", "ycm", "cmake_paths"
-    options = {"use_system_boost": [True, False]}
+    options = {"use_system_boost": [True, False], "no_sanitizers": [True, False]}
     default_options = ("use_system_boost=False",
+                       "no_sanitizers=False",
                        "zlib:shared=True",
                        "boost:without_math=True",
                        "boost:without_wave=True",
@@ -45,6 +46,8 @@ class IRKConan(ConanFile):
                 self.settings.compiler.version)
             cmake.definitions["CMAKE_CXX_COMPILER"] = "g++-{}".format(
                 self.settings.compiler.version)
+        if self.options.no_sanitizers:
+            cmake.definitions["IRKit_NO_SANITIZERS"] = 'ON'
         cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = 'conan_paths.cmake'
         cmake.configure()
         cmake.build()
