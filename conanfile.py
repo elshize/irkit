@@ -12,7 +12,6 @@ class IRKConan(ConanFile):
     options = {"use_system_boost": [True, False], "no_sanitizers": [True, False]}
     default_options = ("use_system_boost=False",
                        "no_sanitizers=False",
-                       "zlib:shared=True",
                        "boost:without_math=True",
                        "boost:without_wave=True",
                        "boost:without_container=True",
