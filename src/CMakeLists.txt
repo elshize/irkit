@@ -18,7 +18,7 @@ function(add_irk TOOL_NAME)
         PRIVATE -Wall -Wno-unused-local-typedefs -Wno-sign-compare -Wno-parentheses)
 endfunction()
 
-add_irk(warc ZLIB::ZLIB CONAN_PKG::gumbo-parser)
+add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
 add_irk(part)
 add_irk(lexicon)
 add_irk(table)
