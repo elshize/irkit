@@ -175,4 +175,5 @@ install:
     conan install .. --build=missing --build=fmt -o use_system_boost=True
 script:
   - cd ${TRAVIS_BUILD_DIR}
+  - conan remove boost --force
   - scripts/run-tests.sh "${SUITE}"
