@@ -112,8 +112,6 @@ addons:
       - g++-7
       - libboost-all-dev
       - libgtest-dev # GTest
-      - libfmt-dev
-      - spdlog
 install:
   - |
     # Install TBB
@@ -161,6 +159,17 @@ install:
     # Install taily
     cd ${DEPS_DIR} && git clone https://github.com/elshize/taily.git && cd taiy
     cmake . && sudo make install
+  - |
+    # Install fmt
+    cd ${DEPS_DIR} && git clone https://github.com/fmtlib/fmt.git && cd fmt
+    git checkout 5.2.1
+    cmake -DFMT_DOC=OFF -DFMT_TEST=OFF . && sudo make install
+  - |
+    # Install spdlog
+    cd ${DEPS_DIR} && git clone https://github.com/gabime/spdlog.git && cd spdlog
+    git checkout v1.2.1
+    cmake -DBUILD_TESTING=OFF -DSPDLOG_BUILD_EXAMPLES=OFF -DSPDLOG_BUILD_BENCH=OFF .
+    sudo make install
   - |
     # Set up build directory
     cd ${TRAVIS_BUILD_DIR}
