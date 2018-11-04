@@ -134,11 +134,9 @@ install:
   - |
     # Install nlohmann_json
     cd ${DEPS_DIR} && git clone https://github.com/nlohmann/json.git && cd json
-    cmake . && sudo make install
+    cmake -DBUILD_TESTING=OFF . && sudo make install
   - |
-    # Install GSL
-    cd ${DEPS_DIR} && git clone https://github.com/Microsoft/GSL.git && cd GSL
-    cmake . && sudo make install
+    # Install GSL (TODO)
   - |
     # Install Range-v3
     cd ${DEPS_DIR} && git clone https://github.com/ericniebler/range-v3.git && cd range-v3
