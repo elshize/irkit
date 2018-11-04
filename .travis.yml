@@ -24,7 +24,7 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - clang-6.0
-            #- libboost-all-dev
+            - libboost-all-dev
             - g++-7
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
@@ -95,6 +95,7 @@ before_install:
     conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
   - |
     # Install cmake 3.11
+    #export PATH=$HOME/.local/bin:$PATH
     pip install --user cmake
   - |
     # Print environment
@@ -103,21 +104,67 @@ before_install:
     $CXX --version
     which cmake
     cmake --version
-    conan --version
-    conan profile show default
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      #- libboost-all-dev
+      - libboost-all-dev
+      - libgtest-dev # GTest
+      - libfmt-dev
+      - spdlog
 install:
   - |
-    # Configure project
+    # Install TBB
+    cd ${DEPS_DIR} && git clone https://github.com/01org/tbb.git && cd tbb
+    git checkout 2018_U5
+    make
+    sudo cp build/linux_intel64_*_release/*so* /usr/lib
+    sudo cp -r include/tbb /usr/include
+  - |
+    # Fetch FindTBB
+    git clone https://github.com/elshize/FindTBB.git
+  - |
+    # Install ParallelSTL
+    cd ${DEPS_DIR} && git clone https://github.com/intel/parallelstl.git && cd parallelstl
+    cmake -DCMAKE_MODULE_PATH=${HOME}/deps/FindTBB
+    sudo cp -r include/pstl /usr/include
+    sudo cp ParallelSTLConfig.cmake /usr/lib/cmake
+    sudo cp ParallelSTLConfigVersion.cmake /usr/lib/cmake
+    sudo cp ParallelSTLTargets.cmake /usr/lib/cmake
+  - |
+    # Install nlohmann_json
+    cd ${DEPS_DIR} && git clone https://github.com/nlohmann/json.git && cd json
+    cmake . && sudo make install
+  - |
+    # Install GSL
+    cd ${DEPS_DIR} && git clone https://github.com/Microsoft/GSL.git && cd GSL
+    cmake . && sudo make install
+  - |
+    # Install Range-v3
+    cd ${DEPS_DIR} && git clone https://github.com/ericniebler/range-v3.git && cd range-v3
+    cmake -DBUILD_TESTING=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_PERF=OFF -DRANGE_V3_DOCS=OFF .
+    sudo make install
+  - |
+    # Install cppitertools
+    cd ${DEPS_DIR} && git clone https://github.com/ryanhaining/cppitertools.git
+    sudo mkdir /usr/include/cppitertools/
+    sudo cp cppitertools/*hpp /usr/include/cppitertools/
+  - |
+    # Install rax
+    cd ${DEPS_DIR} && git clone https://github.com/antirez/rax.git && cd rax
+    cc -c -fPIC -std=c99 rax.c -o librax.a
+    sudo cp rax.h /usr/include/
+    sudo cp librax.a /usr/lib/
+  - |
+    # Install taily
+    cd ${DEPS_DIR} && git clone https://github.com/elshize/taily.git && cd taiy
+    cmake . && sudo make install
+  - |
+    # Set up build directory
     cd ${TRAVIS_BUILD_DIR}
     mkdir build && cd build
-    conan install .. --build=missing --build=fmt
+    conan install .. --build=missing --build=fmt -o use_system_boost=True
 script:
-  - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"

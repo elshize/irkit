@@ -34,7 +34,6 @@ class IRKConan(ConanFile):
         self.requires("streamvbyte/master@elshize/testing")
         self.requires("gumbo-parser/1.0@elshize/stable")
         self.requires("rax/master@elshize/testing")
-        self.requires("irm/0.1@elshize/develop")
         self.requires("cppitertools/1.0@elshize/stable")
         self.requires("taily/0.1@elshize/testing")
         self.requires("ParallelSTL/20181004@elshize/stable")
