@@ -157,7 +157,7 @@ install:
     sudo cp librax.a /usr/lib/
   - |
     # Install taily
-    cd ${DEPS_DIR} && git clone https://github.com/elshize/taily.git && cd taiy
+    cd ${DEPS_DIR} && git clone https://github.com/elshize/taily.git && cd taily
     cmake . && sudo make install
   - |
     # Install fmt
