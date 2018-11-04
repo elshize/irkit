@@ -3,6 +3,7 @@ SUITE=$1
 if [ "$SUITE" == "unit" ]; then
     cd build
     cmake -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_TOOLCHAIN_FILE=conan_paths.cmake \
         -D IRKit_USE_SYSTEM_BOOST=ON \
         -D IRKit_BUILD_INTEGRATION_TEST=OFF \
         -D IRKit_BUILD_BENCHMARKS=OFF \
@@ -13,6 +14,7 @@ if [ "$SUITE" == "unit" ]; then
 elif [ "$SUITE" == "integration" ]; then
     cd build
     cmake -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_TOOLCHAIN_FILE=conan_paths.cmake \
         -D IRKit_USE_SYSTEM_BOOST=ON \
         -D IRKit_BUILD_INTEGRATION_TEST=ON \
         -D IRKit_BUILD_BENCHMARKS=OFF \
@@ -23,6 +25,7 @@ elif [ "$SUITE" == "integration" ]; then
 elif [ "$SUITE" == "benchmarks" ]; then
     cd build
     cmake -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_TOOLCHAIN_FILE=conan_paths.cmake \
         -D IRKit_USE_SYSTEM_BOOST=ON \
         -D IRKit_BUILD_INTEGRATION_TEST=OFF \
         -D IRKit_BUILD_BENCHMARKS=ON \
