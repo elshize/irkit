@@ -126,7 +126,7 @@ install:
   - |
     # Install ParallelSTL
     cd ${DEPS_DIR} && git clone https://github.com/intel/parallelstl.git && cd parallelstl
-    cmake -DCMAKE_MODULE_PATH=${DEPS_DIR}/FindTBB
+    cmake -DCMAKE_TOOLCHAIN_FILE:PATH=${DEPS_DIR}/FindTBB/toolchain.cmake .
     sudo cp -r include/pstl /usr/include
     sudo cp ParallelSTLConfig.cmake /usr/lib/cmake
     sudo cp ParallelSTLConfigVersion.cmake /usr/lib/cmake
