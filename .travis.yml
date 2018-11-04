@@ -122,7 +122,7 @@ install:
     sudo cp -r include/tbb /usr/include
   - |
     # Fetch FindTBB
-    git clone https://github.com/elshize/FindTBB.git
+    cd ${DEPS_DIR} && git clone https://github.com/elshize/FindTBB.git
   - |
     # Install ParallelSTL
     cd ${DEPS_DIR} && git clone https://github.com/intel/parallelstl.git && cd parallelstl
