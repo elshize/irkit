@@ -176,4 +176,5 @@ install:
     mkdir build && cd build
     conan install .. --build=missing --build=fmt -o use_system_boost=True
 script:
+  - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"
