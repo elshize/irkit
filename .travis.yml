@@ -24,7 +24,7 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - clang-6.0
-            #- libboost-all-dev
+            - libboost-all-dev
             - g++-7
       env:
         - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
@@ -111,13 +111,13 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      #- libboost-all-dev
+      - libboost-all-dev
 install:
   - |
     # Configure project
     cd ${TRAVIS_BUILD_DIR}
     mkdir build && cd build
-    conan install .. --build=missing --build=fmt
+    conan install .. --build=missing --build=fmt -s use_system_boost=True
 script:
   - cd ${TRAVIS_BUILD_DIR}
   - scripts/run-tests.sh "${SUITE}"
