@@ -72,6 +72,12 @@ before_install:
         (cd ${LLVM_DIR}/build/projects/libcxx && make install -j2)
         (cd ${LLVM_DIR}/build/projects/libcxxabi && make install -j2)
         touch ${LLVM_DIR}/cached
+        # Boost
+        cd ${DEPS_DIR} && git clone https://github.com/boostorg/boost.git && cd boost
+        ./bootstrap --with-toolset=clang
+        ./b2 clean
+        ./b2 toolset=clang cxxflags="-stdlib=libc++" linkflags="-stdlib=libc++"
+        export BOOST_ROOT="${DEPS_DIR}/boost"
       fi
       export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -nostdinc++ -I${LLVM_DIR}/install/include/c++/v1 -Wno-unused-command-line-argument"
       export LDFLAGS="${LDFLAGS} -L${LLVM_DIR}/install/lib -Wl,-rpath,${LLVM_DIR}/install/lib"
