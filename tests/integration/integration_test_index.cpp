@@ -11,6 +11,7 @@
 #include <irkit/index/score.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/quantize.hpp>
 
 namespace {
 
@@ -57,9 +58,11 @@ auto scored(const posting_map& postings,
         std::vector<posting_type> scored_for_term;
         irk::score::query_likelihood_scorer scorer(
             occurrences[term], collection_occurrences, max_document_size);
+        auto quantize = irk::LinearQuantizer{
+            irk::RealRange{0, max_score}, irk::IntegralRange{1, max_int}};
         for (const auto& [doc, freq] : posting_for_term) {
             double score = scorer(freq, document_sizes[doc]);
-            long quantized_score = (long)(score * max_int / max_score);
+            long quantized_score = quantize(score);
             scored_for_term.push_back({doc, quantized_score});
         }
         scored[term] = std::move(scored_for_term);
@@ -96,8 +99,9 @@ on_fly_index postings_on_fly(fs::path collection_file, int bits)
     long collection_size = doc;
     for (const auto& [term, map] : postings_map)
     {
-        for (const auto& [id, count] : map)
-        { postings[term].push_back({id, count}); }
+        for (const auto& [id, count] : map) {
+            postings[term].push_back({id, count});
+        }
         std::sort(postings[term].begin(), postings[term].end());
     }
     return {postings,
@@ -127,6 +131,7 @@ protected:
 
         // given
         collection_file = "collection.txt";
+        irk::io::enforce_exist(collection_file);
         expected_index = postings_on_fly(collection_file, 8);
         irk::index::index_assembler assembler(
             fs::path(index_dir), 32, 1024, 16);
