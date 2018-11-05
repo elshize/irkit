@@ -76,6 +76,7 @@ target_link_libraries(irkit INTERFACE
 )
 
 install(DIRECTORY include/irkit DESTINATION include)
+install(DIRECTORY include/nonstd DESTINATION include)
 #install(FILES irkit-config.cmake DESTINATION lib/irkit)
 install(TARGETS irkit EXPORT irkit DESTINATION lib)
 install(EXPORT irkit DESTINATION lib/irkit)

@@ -1,3 +1,11 @@
+function(add_unit_test TEST_NAME)
+    set(LONG_NAME "unit_test_${TEST_NAME}")
+    add_executable(${LONG_NAME} "${LONG_NAME}.cpp")
+    target_link_libraries(${LONG_NAME} irkit GTest::GTest)
+    target_compile_features(${LONG_NAME} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
+    gtest_add_tests(TARGET ${LONG_NAME} TEST_PREFIX "unit.")
+endfunction()
+
 set(VECTOR_INVERTED_LISTS vector_inverted_lists)
 add_executable(${VECTOR_INVERTED_LISTS} unit_test_vector_inverted_lists.cpp)
 target_link_libraries(${VECTOR_INVERTED_LISTS} irkit CONAN_PKG::gtest)
@@ -63,3 +71,5 @@ add_executable(${PROPERTIES} "${PROPERTIES}.cpp")
 target_link_libraries(${PROPERTIES} irkit CONAN_PKG::gtest)
 target_compile_features(${PROPERTIES} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 gtest_add_tests(TARGET ${PROPERTIES} TEST_PREFIX "unit.")
+
+add_unit_test(timer)
