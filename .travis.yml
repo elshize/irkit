@@ -5,6 +5,8 @@ env:
 cache:
   directories:
     - ${DEPS_DIR}/llvm
+    - ${DEPS_DIR}/boost
+    - ${DEPS_DIR}/tbb
 matrix:
   include:
     - os: linux
@@ -16,17 +18,18 @@ matrix:
     - os: linux
       env:
         - MATRIX_EVAL="SUITE=benchmarks && CC=gcc-7 && CXX=g++-7"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
-          packages:
-            - clang-6.0
-            - g++-7
-      env:
-        - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
+    #- os: linux
+    #  addons:
+    #    apt:
+    #      sources:
+    #        - ubuntu-toolchain-r-test
+    #        - llvm-toolchain-trusty-6.0
+    #      packages:
+    #        - clang-6.0
+    #        - g++-7
+    #        - libgtest-dev # GTest
+    #  env:
+    #    - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
     - os: linux
       env:
         - vera++
@@ -71,12 +74,15 @@ before_install:
         (cd ${LLVM_DIR}/build/projects/libcxx && make install -j2)
         (cd ${LLVM_DIR}/build/projects/libcxxabi && make install -j2)
         touch ${LLVM_DIR}/cached
-        # Boost
-        cd ${DEPS_DIR} && git clone https://github.com/boostorg/boost.git && cd boost
-        ./bootstrap --with-toolset=clang
+      fi
+      if [ ! -f ${DEPS_DIR}/boost/cached ]; then
+        cd ${DEPS_DIR} && git clone --recursive https://github.com/boostorg/boost.git && cd boost
+        git checkout boost-1.66.0
+        ./bootstrap.sh --with-toolset=clang
         ./b2 clean
         ./b2 toolset=clang cxxflags="-stdlib=libc++" linkflags="-stdlib=libc++"
         export BOOST_ROOT="${DEPS_DIR}/boost"
+        touch ${DEPS_DIR}/boost/cached
       fi
       export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -nostdinc++ -I${LLVM_DIR}/install/include/c++/v1 -Wno-unused-command-line-argument"
       export LDFLAGS="${LDFLAGS} -L${LLVM_DIR}/install/lib -Wl,-rpath,${LLVM_DIR}/install/lib"
@@ -91,7 +97,7 @@ before_install:
     if [[ $CXX = *"clang"* ]]; then
         conan profile update env.CC=clang-6.0 default
         conan profile update env.CXX=clang++-6.0 default
-        conan profile update settings.compiler.libcxx=libc++ default
+        #conan profile update settings.compiler.libcxx=libc++ default
     fi
     conan remote add irkit https://api.bintray.com/conan/elshize/irkit
     conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
@@ -120,11 +126,14 @@ addons:
 install:
   - |
     # Install TBB
-    cd ${DEPS_DIR} && git clone https://github.com/01org/tbb.git && cd tbb
-    git checkout 2018_U5
-    make
-    sudo cp build/linux_intel64_*_release/*so* /usr/lib
-    sudo cp -r include/tbb /usr/include
+    if [ ! -f ${DEPS_DIR}/tbb/cached ]; then
+      cd ${DEPS_DIR} && git clone https://github.com/01org/tbb.git && cd tbb
+      git checkout 2018_U5
+      make
+      touch ${DEPS_DIR}/tbb/cached
+    fi
+    sudo cp ${DEPS_DIR}/tbb/build/linux_intel64_*_release/*so* /usr/lib
+    sudo cp -r ${DEPS_DIR}/tbb/include/tbb /usr/include
   - |
     # Fetch FindTBB
     cd ${DEPS_DIR} && git clone https://github.com/elshize/FindTBB.git

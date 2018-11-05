@@ -54,7 +54,7 @@ class IRKConan(ConanFile):
         self.requires("spdlog/1.1.0@bincrafters/stable")
 
     def configure(self):
-        self.options["boost"].shared = False
+        self.options["taily"].use_system_boost = self.options.use_system_boost
 
     def package(self):
         cmake = CMake(self)
