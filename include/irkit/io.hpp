@@ -35,6 +35,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/dynamic_bitset.hpp>
 #include <boost/filesystem.hpp>
+#include <cppitertools/itertools.hpp>
 #include <gsl/span>
 
 #include <irkit/bitptr.hpp>
@@ -44,6 +45,7 @@
 namespace irk::io {
 
 namespace fs = boost::filesystem;
+using boost::filesystem::path;
 
 namespace detail {
     class line : public std::string {
@@ -58,13 +60,47 @@ using line_iterator = std::istream_iterator<detail::line>;
 
 class lines {
 public:
-    lines(const std::string& filename) : in_(filename) {}
+    explicit lines(const std::string& filename) : in_(filename) {}
     line_iterator begin() { return line_iterator(in_); }
     line_iterator end() { return line_iterator(); }
 
 private:
     std::ifstream in_;
 };
+
+class lines_from_stream {
+public:
+    explicit lines_from_stream(std::istream& in) : in_(in) {}
+    line_iterator begin() { return line_iterator(in_); }
+    line_iterator end() { return line_iterator(); }
+
+private:
+    std::istream& in_;
+};
+
+template<typename IntRange>
+inline void filter_lines(
+    std::istream& input, std::ostream& output, const IntRange& line_numbers)
+{
+    auto line_enum = iter::enumerate(irk::io::lines_from_stream(input));
+    auto iter = std::begin(line_enum);
+    auto end = std::end(line_enum);
+    for (auto n : line_numbers) {
+        iter = std::find_if(iter, end, [&n](const auto& entry) {
+            return entry.index == static_cast<size_t>(n);
+        });
+        output << iter->element << '\n';
+    }
+}
+
+template<typename IntRange>
+inline void filter_lines(
+    const path& input, const path& output, const IntRange& line_numbers)
+{
+    std::ifstream is(input.string());
+    std::ofstream os(output.string());
+    filter_lines(is, os, line_numbers);
+}
 
 inline void enforce_exist(const fs::path& file)
 {
@@ -129,4 +165,20 @@ void append_collection(const Collection& collection, std::vector<char>& buffer)
     }
 }
 
-};  // namespace irk::io
+template<class T>
+void write_vector(const std::vector<T>& vec, std::ostream& out)
+{
+    size_t nbytes = vec.size() * sizeof(T);
+    out.write(reinterpret_cast<char*>(&nbytes), sizeof(size_t));
+    out.write(reinterpret_cast<char*>(vec.data()), nbytes);
+}
+
+template<class Range>
+void write_lines(const Range& lines, std::ostream& out)
+{
+    for (const auto& line : lines) {
+        out << line << '\n';
+    }
+}
+
+}  // namespace irk::io

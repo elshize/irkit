@@ -31,11 +31,14 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
+#include <irkit/algorithm/accumulate.hpp>
+#include <irkit/algorithm/group_by.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/parsing/stemmer.hpp>
+
 #include "cli.hpp"
 
 using boost::filesystem::path;
@@ -59,6 +62,33 @@ void print_postings(
     }
 }
 
+template<typename Iter>
+void print_postings_multiple(
+    Iter first_posting_list,
+    Iter last_posting_list,
+    bool use_titles,
+    const irk::inverted_index_view& index)
+{
+    auto postings = merge(first_posting_list, last_posting_list);
+    using payload_type = decltype(postings.begin()->payload());
+    group_by(
+        postings.begin(),
+        postings.end(),
+        [](const auto& p) { return p.document(); })
+        .aggregate_groups(
+            [](const auto& acc, const auto& posting) {
+                return acc + posting.payload();
+            },
+            payload_type(0))
+        .for_each([use_titles, &index](const auto& id, const auto& payload) {
+            std::cout << id << "\t";
+            if (use_titles) {
+                std::cout << index.titles().key_at(id) << "\t";
+            }
+            std::cout << payload << "\n";
+        });
+}
+
 template<class Range>
 int64_t
 count_postings(const Range& terms, const irk::inverted_index_view& index)
@@ -79,20 +109,26 @@ void process_query(
     const Args& args,
     bool count)
 {
-    if (not args.nostem) {
-        irk::porter2_stemmer stemmer;
-        for (std::string& term : terms) {
-            term = stemmer.stem(term);
-        }
-    }
+    irk::cli::stem_if(not args.nostem, terms);
     if (count) {
         std::cout << count_postings(terms, index) << '\n';
     } else {
-        assert(terms.size() == 1u);
         if (args.score_function_defined()) {
-            print_postings(index.scored_postings(terms[0]), false, index);
+            if (args.score_function[0] == '*') {
+                std::cout << "***" << std::endl;
+                auto postings = irk::cli::postings_on_fly(
+                    terms, index, args.score_function);
+                print_postings_multiple(
+                    postings.begin(), postings.end(), false, index);
+            } else {
+                auto postings = query_scored_postings(index, terms);
+                print_postings_multiple(
+                    postings.begin(), postings.end(), false, index);
+            }
         } else {
-            print_postings(index.postings(terms[0]), false, index);
+            auto postings = query_postings(index, terms);
+            print_postings_multiple(
+                postings.begin(), postings.end(), false, index);
         }
     }
 }
@@ -103,8 +139,6 @@ int main(int argc, char** argv)
         "Print information about term and its posting list",
         irk::cli::index_dir_opt{},
         irk::cli::nostem_opt{},
-        // irk::cli::noheader_opt{},
-        // irk::cli::sep_opt{},
         irk::cli::score_function_opt{},
         irk::cli::id_range_opt{},
         irk::cli::terms_pos{optional});
@@ -112,28 +146,30 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     bool count = app->count("--count") == 1u;
-    if (not count && args->terms.size() != 1u) {
-        std::cerr << "Multiple terms are only supported with --count.\n";
+    std::vector<std::string> scores;
+    if (args->score_function_defined() && args->score_function[0] != '*') {
+        scores.push_back(args->score_function);
+    }
+    auto data = irk::inverted_index_mapped_data_source::from(
+        fs::path{args->index_dir}, scores);
+    if (not data) {
+        std::cerr << data.error() << std::endl;
         return 1;
     }
-
-    irk::inverted_index_mapped_data_source data(
-        path(args->index_dir),
-        args->score_function_defined()
-            ? std::make_optional(args->score_function)
-            : std::nullopt);
-    irk::inverted_index_view index(&data);
+    irk::inverted_index_view index(&data.value());
 
     if (not args->terms.empty()) {
         process_query(args->terms, index, *args, count);
         return 0;
     }
 
-    std::string line;
-    while (std::getline(std::cin, line)) {
+    for (const std::string& query_line : irk::io::lines_from_stream(std::cin)) {
         std::vector<std::string> terms;
         boost::split(
-            terms, line, boost::is_any_of("\t "), boost::token_compress_on);
+            terms,
+            query_line,
+            boost::is_any_of("\t "),
+            boost::token_compress_on);
         process_query(terms, index, *args, true);
     }
     return 0;

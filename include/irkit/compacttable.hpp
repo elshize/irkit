@@ -31,6 +31,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
+#include <debug_assert.hpp>
 #include <type_safe/index.hpp>
 
 #include <irkit/assert.hpp>
@@ -131,19 +132,20 @@ public:
     compact_table& operator=(const compact_table& other) = default;
     ~compact_table() = default;
 
-    T operator[](std::size_t term_id)
+    T operator[](std::size_t idx)
     {
-        EXPECTS(term_id < size());
-        return read_compact_value(data_, term_id, codec_);
+        EXPECTS(idx < size());
+        return read_compact_value(data_, idx, codec_);
     }
 
-    T operator[](std::size_t term_id) const
+    T operator[](std::size_t idx) const
     {
-        EXPECTS(term_id < size());
-        return read_compact_value(data_, term_id, codec_);
+        EXPECTS(idx < size());
+        return read_compact_value(data_, idx, codec_);
     }
 
     const char* data() { return data_.data(); }
+    const auto& buffer() { return data_; }
 
     const compact_table_header* header() const
     {
@@ -160,12 +162,90 @@ public:
     friend std::ostream&
     operator<<<>(std::ostream&, const compact_table<T, Codec>&);
 
-    std::vector<T> to_vector() const
+    std::ostream& serialize(std::ostream& out) const
     {
-        auto header = reinterpret_cast<const compact_table_header*>(
-            data_.data());
-        bool delta_encoded = header->flags
-            & CompactTableHeaderFlags::DeltaEncoding;
+        return out.write(data_.data(), data_.size());
+    }
+
+    void serialize(const boost::filesystem::path& file) const
+    {
+        std::ofstream os(file.string());
+        serialize(os);
+    }
+
+    std::vector<T> to_vector() const { return std::vector<T>(begin(), end()); }
+
+    class iterator : public boost::iterator_facade<
+        iterator, const T, boost::single_pass_traversal_tag> {
+    public:
+        iterator(
+            const compact_table<T, Codec, MemoryBuffer>& ref,
+            int pos,
+            int leader_idx,
+            gsl::span<const compact_table_leader> leaders)
+            : ref_(ref),
+              pos_(pos),
+              leader_idx_(leader_idx),
+              leaders_(leaders),
+              block_size_(ref.header()->block_size),
+              count_(ref.header()->count),
+              delta_encoded_(
+                  ref.header()->flags & CompactTableHeaderFlags::DeltaEncoding)
+        {
+            if (pos_ < count_) { next_buffer(); }
+        }
+
+    private:
+        friend class boost::iterator_core_access;
+
+        void next_buffer()
+        {
+            DEBUG_ASSERT(leader_idx_ < leaders_.size(), debug_handler{});
+            buffer_.clear();
+            auto leader = leaders_[leader_idx_];
+            const char* block_beg = ref_.data_.data() + leader.ptr;
+            auto len = leader_idx_++ < leaders_.size() - 1
+                ? block_size_
+                : count_ % block_size_;
+            auto decoded = delta_encoded_
+                ? delta_decode(ref_.codec_, block_beg, len)
+                : decode(ref_.codec_, block_beg, len);
+            for (const auto& v : decoded) {
+                buffer_.push_back(v);
+            }
+        }
+
+        void increment()
+        {
+            if (++pos_ % block_size_ == 0) {
+                next_buffer();
+            }
+        }
+
+        bool equal(const iterator& other) const { return pos_ == other.pos_; }
+        const T& dereference() const
+        {
+            DEBUG_ASSERT(
+                pos_ % block_size_ < static_cast<int32_t>(buffer_.size()),
+                debug_handler{});
+            return buffer_[pos_ % block_size_];
+        }
+
+        const compact_table<T, Codec, MemoryBuffer>& ref_;
+        int pos_;
+        int leader_idx_;
+        gsl::span<const compact_table_leader> leaders_;
+        int block_size_;
+        int count_;
+        bool delta_encoded_;
+        std::vector<T> buffer_;
+    };
+    using const_iterator = iterator;
+
+    iterator begin() const
+    {
+        auto header =
+            reinterpret_cast<const compact_table_header*>(data_.data());
         auto count = header->count;
         auto block_size = header->block_size;
         auto leader_count = (count + block_size - 1) / block_size;
@@ -173,21 +253,12 @@ public:
             reinterpret_cast<const compact_table_leader*>(
                 data_.data() + sizeof(*header)),
             leader_count);
-        int leader_idx = 0;
-        std::vector<T> vec(count);
-        auto out = std::begin(vec);
-        for (const auto& leader : leaders)
-        {
-            const char* block_beg = data_.data() + leader.ptr;
-            auto len = leader_idx++ < leader_count - 1 ? block_size
-                                                     : count % block_size;
-            auto decoded = delta_encoded ? delta_decode(codec_, block_beg, len)
-                                         : decode(codec_, block_beg, len);
-            for (const auto& v : decoded) { *out++ = v; }
-        }
+        return iterator(*this, 0, 0, leaders);
+    }
 
-        return vec;
-}
+    iterator end() const { return iterator(*this, header()->count, 0, {}); }
+
+    friend iterator;
 };
 
 //! Load a compact table to main memory.
@@ -307,6 +378,6 @@ namespace io {
         out.close();
     }
 
-};  // namespace io
+}  // namespace io
 
-};  // namespace irk
+}  // namespace irk

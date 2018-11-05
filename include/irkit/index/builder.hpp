@@ -86,6 +86,8 @@ public:
         document_sizes_.push_back(0);
     }
 
+    auto size() const { return document_sizes_.size(); }
+
     //! Adds a term to the current document.
     void add_term(const term_type& term)
     {
@@ -227,16 +229,19 @@ public:
     {
         int64_t sizes_sum = std::accumulate(
             document_sizes_.begin(), document_sizes_.end(), 0);
+        int64_t max_document_size =
+            *std::max_element(document_sizes_.begin(), document_sizes_.end());
         nlohmann::json j = {
             {"documents", static_cast<uint32_t>(current_doc_ + 1u)},
             {"occurrences", all_occurrences_},
             {"skip_block_size", block_size_},
             {"avg_document_size",
-                static_cast<double>(sizes_sum) / document_sizes_.size()}};
+             static_cast<double>(sizes_sum) / document_sizes_.size()},
+            {"max_document_size", max_document_size}};
         out << std::setw(4) << j << std::endl;
     }
 };
 
 using index_builder = basic_index_builder<>;
 
-};  // namespace irk
+}  // namespace irk

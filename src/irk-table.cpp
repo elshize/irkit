@@ -40,6 +40,14 @@ using irk::index::term_id_t;
 //    irk::io::dump(map, output);
 //}
 
+void run_print(const std::string& table_file)
+{
+    auto table = irk::load_compact_table<std::ptrdiff_t>(table_file);
+    for (auto value : table) {
+        std::cout << value << '\n';
+    }
+}
+
 void run_lookup(const std::string& table_file, int index)
 {
     auto table = irk::load_compact_table<std::ptrdiff_t>(table_file);
@@ -73,8 +81,18 @@ int main(int argc, char** argv)
     lookup->add_option("index", index, "Table index")
         ->required();
 
+    CLI::App* print =
+        app.add_subcommand("print", "Print all values in a table.");
+    print->add_option("table", table_file, "map file", false)
+        ->required()
+        ->check(CLI::ExistingFile);
+
     CLI11_PARSE(app, argc, argv);
 
+    if (*print) {
+        run_print(table_file);
+        return 0;
+    }
     if (*lookup) {
         run_lookup(table_file, index);
         return 0;

@@ -14,33 +14,33 @@
 
 namespace {
 
-using irk::index_merger;
-
-using Posting = irk::_posting<std::uint16_t, double>;
-
-struct FakeScore {
-    template<class Freq>
-    double operator()(Freq tf, Freq df, std::size_t collection_size) const
-    {
-        return tf;
-    }
-};
-
-std::vector<char> flatten(std::vector<std::vector<char>> vectors)
-{
-    std::vector<char> result;
-    for (std::vector<char>& vec : vectors) {
-        result.insert(result.end(), vec.begin(), vec.end());
-    }
-    return result;
-}
-
-template<class T>
-auto vb_encode(std::initializer_list<T> integers)
-{
-    irk::vbyte_codec<T> vb;
-    return irk::encode(vb, integers);
-}
+//using irk::index_merger;
+//
+//using Posting = irk::_posting<std::uint16_t, double>;
+//
+//struct FakeScore {
+//    template<class Freq>
+//    double operator()(Freq tf, Freq df, std::size_t collection_size) const
+//    {
+//        return tf;
+//    }
+//};
+//
+//std::vector<char> flatten(std::vector<std::vector<char>> vectors)
+//{
+//    std::vector<char> result;
+//    for (std::vector<char>& vec : vectors) {
+//        result.insert(result.end(), vec.begin(), vec.end());
+//    }
+//    return result;
+//}
+//
+//template<class T>
+//auto vb_encode(std::initializer_list<T> integers)
+//{
+//    irk::vbyte_codec<T> vb;
+//    return irk::encode(vb, integers);
+//}
 
 //class IndexMerging : public ::testing::Test {
 //protected:
@@ -198,7 +198,7 @@ auto vb_encode(std::initializer_list<T> integers)
 //    //EXPECT_THAT(z, ::testing::ElementsAreArray(expected_z));
 //}
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

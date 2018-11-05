@@ -35,7 +35,7 @@ TEST_F(taat, block_accumulator_vector)
     EXPECT_THAT(top[1], ::testing::Pair(1, 2));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

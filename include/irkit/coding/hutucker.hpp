@@ -238,7 +238,7 @@ namespace coding::hutucker {
         return alphabetical_bst(mem);
     }
 
-};  // namespace coding::hutucker
+}  // namespace coding::hutucker
 
 //! Hu-Tucker codec.
 /*!
@@ -396,4 +396,4 @@ public:
     }
 };
 
-};  // namespace irk::coding
+}  // namespace irk::coding

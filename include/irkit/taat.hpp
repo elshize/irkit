@@ -75,15 +75,15 @@ void accumulate(const DocumentList& documents,
     auto dit = std::begin(documents);
     auto dend = std::end(documents);
     auto pit = std::begin(payloads);
-    auto pend = std::end(payloads);
     for (; dit != dend; ++dit, ++pit) { accumulators[*dit] += *pit; }
 }
 
 template<class PostingList, class AccumulatorVec>
 void accumulate(const PostingList& postings, AccumulatorVec& accumulators)
 {
-    for (const auto posting : postings)
-    { accumulators[posting.document()] += posting.payload(); }
+    for (const auto posting : postings) {
+        accumulators[posting.document()] += posting.payload();
+    }
 }
 
 template<class PostingList, class AccumulatorVec, class DocMapping>
@@ -91,15 +91,17 @@ void map_accumulate(const PostingList& postings,
     AccumulatorVec& accumulators,
     const DocMapping& mapping)
 {
-    for (const auto posting : postings)
-    { accumulators[mapping[posting.document()]] += posting.payload(); }
+    for (const auto posting : postings) {
+        accumulators[mapping[posting.document()]] += posting.payload();
+    }
 }
 
 template<class PostingLists, class AccumulatorVec>
 void taat(const PostingLists& posting_lists, AccumulatorVec& accumulators)
 {
-    for (const auto& posting_list : posting_lists)
-    { accumulate(posting_list, accumulators); }
+    for (const auto& posting_list : posting_lists) {
+        accumulate(posting_list, accumulators);
+    }
 }
 
 template<class PostingLists, class AccumulatorVec, class DocMapping>
@@ -107,8 +109,9 @@ void taat(const PostingLists& posting_lists,
     AccumulatorVec& accumulators,
     const DocMapping& mapping)
 {
-    for (const auto& posting_list : posting_lists)
-    { map_accumulate(posting_list, accumulators, mapping); }
+    for (const auto& posting_list : posting_lists) {
+        map_accumulate(posting_list, accumulators, mapping);
+    }
 }
 
 template<class Key, class Value, class AccumulatorVec>
@@ -116,7 +119,7 @@ std::vector<std::pair<Key, Value>>
 aggregate_top_k(const AccumulatorVec& accumulators, int k)
 {
     irk::top_k_accumulator<Key, Value> top(k);
-    Key key = 0;
+    Key key(0);
     for (const auto& value : accumulators) {
         top.accumulate(key++, value);
     }
@@ -128,7 +131,7 @@ std::vector<std::pair<Key, Value>>
 aggregate_top_k(AccumulatorIter first, AccumulatorIter last, int k)
 {
     irk::top_k_accumulator<Key, Value> top(k);
-    Key key = 0;
+    Key key(0);
     for (; first != last; ++first) {
         top.accumulate(key++, *first);
     }
@@ -142,10 +145,13 @@ aggregate_top_k(const block_accumulator_vector<Value>& accumulators, int k)
     irk::top_k_accumulator<Key, Value> top(k);
     for (std::size_t block = 0; block < accumulators.max_values.size(); ++block)
     {
-        if (accumulators.max_values[block] < top.threshold()) { continue; }
-        std::size_t begin = block * accumulators.block_size;
-        std::size_t end = std::min((block + 1) * accumulators.block_size,
-            accumulators.accumulators.size());
+        if (accumulators.max_values[block] < top.threshold()) {
+            continue;
+        }
+        Key begin = static_cast<Key>(block * accumulators.block_size);
+        Key end = static_cast<Key>(std::min(
+            (block + 1) * accumulators.block_size,
+            accumulators.accumulators.size()));
         for (Key idx = begin; idx < end; ++idx) {
             top.accumulate(idx, accumulators.accumulators[idx]);
         }
@@ -153,4 +159,4 @@ aggregate_top_k(const block_accumulator_vector<Value>& accumulators, int k)
     return top.sorted();
 }
 
-};  // namespace irk
+}  // namespace irk

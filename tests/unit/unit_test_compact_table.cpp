@@ -44,6 +44,31 @@ TEST(offset_table, big_values)
     ASSERT_EQ(table[2], values[2]);
 }
 
+TEST(offset_table, iterator)
+{
+    // given
+    std::default_random_engine generator(127);
+    std::uniform_int_distribution<std::size_t> distribution(
+        0, std::numeric_limits<std::int32_t>::max());
+    std::vector<std::size_t> values;
+    int count = 10000;
+    values.reserve(count);
+    std::generate_n(std::back_inserter(values), count, [&]() {
+        return distribution(generator);
+    });
+    std::sort(std::begin(values), std::end(values));
+
+    // when
+    auto table = irk::build_offset_table(values);
+    std::vector<std::size_t> vec;
+    for (auto iter = table.begin(); iter != table.end(); ++iter) {
+        vec.push_back(*iter);
+    }
+
+    // then
+    ASSERT_THAT(vec, ::testing::ElementsAreArray(values));
+}
+
 TEST(offset_table, to_vector)
 {
     // given
@@ -66,7 +91,7 @@ TEST(offset_table, to_vector)
     ASSERT_THAT(vec, ::testing::ElementsAreArray(values));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

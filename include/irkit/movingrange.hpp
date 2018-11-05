@@ -20,24 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! \file movingrange.hpp
+//! \file
 //! \author Michal Siedlaczek
 //! \copyright MIT License
 
 #pragma once
 
+#include <iterator>
 #include <utility>
 
 namespace irk {
 
-//! A container for two ends of iterators.
-/*!
-    \author Michal Siedlaczek <http://github.com/elshize>
-
-    TODO:
-        - Needs to be generalized, for containers as well?
-        - Implement iterator methods.
- */
+/// A container for two ends of iterators.
+///
+/// \author Michal Siedlaczek <http://github.com/elshize>
+///
+/// TODO:
+///     - Needs to be generalized, for containers as well?
+///     - Implement iterator methods.
+///
 template<class Iter>
 struct moving_range {
     using iterator_type = Iter;
@@ -53,6 +54,11 @@ struct moving_range {
     moving_range(iterator_type first, iterator_type last)
         : left(first), right(last)
     {}
+    moving_range(const moving_range&) = default;
+    moving_range(moving_range&& other) noexcept = default;
+    moving_range& operator=(const moving_range&) = default;
+    moving_range& operator=(moving_range&&) noexcept = default;
+    ~moving_range() = default;
 
     bool empty() const { return left == right; }
 
@@ -60,11 +66,11 @@ struct moving_range {
     void advance() { ++left; };
 
     //! Advances the left end of the range by `n`.
-    void advance(unsigned int n) { left += n; };
+    void advance(unsigned int n) { std::advance(left, n); };
 
     iterator_type begin() const { return left; }
     iterator_type end() const { return right; }
-    auto front() const { return *left; }
+    const auto& front() const { return *left; }
 };
 
-};  // namespace irk
+}  // namespace irk

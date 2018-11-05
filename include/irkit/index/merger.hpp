@@ -27,9 +27,13 @@
 #pragma once
 
 #include <memory>
+#include <numeric>
 #include <string>
 
-#include <boost/log/trivial.hpp>
+#include <pstl/algorithm>
+#include <pstl/execution>
+#include <pstl/numeric>
+#include <spdlog/spdlog.h>
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -53,6 +57,7 @@ public:
     using document_codec_type = DocumentCodec;
     using frequency_codec_type = FrequencyCodec;
     using index_type = basic_inverted_index_view<document_codec_type>;
+    using source_type = inverted_index_mapped_data_source;
 
 private:
     class entry {
@@ -106,7 +111,7 @@ private:
     fs::path target_dir_;
     bool skip_unique_;
     std::vector<index_type> indices_;
-    std::vector<irk::inverted_index_mapped_data_source> sources_;
+    std::vector<source_type> sources_;
     std::vector<entry> heap_;
     std::ofstream terms_out_;
     std::ofstream doc_ids_;
@@ -143,7 +148,7 @@ public:
           block_size_(block_size)
     {
         for (fs::path index_dir : indices) {
-            sources_.emplace_back(index_dir);
+            sources_.emplace_back(source_type::from(index_dir).value());
             indices_.emplace_back(&sources_.back());
         }
         terms_out_.open(index::terms_path(target_dir).c_str());
@@ -219,7 +224,6 @@ public:
         std::vector<std::unique_ptr<std::ifstream>> term_streams;
         document_type shift(0);
         int index_num = 0;
-        BOOST_LOG_TRIVIAL(debug) << "Initializing heap..." << std::flush;
         for (const index_type& index : indices_) {
             term_streams.push_back(std::make_unique<std::ifstream>(
                 (sources_[index_num].dir() / "terms.txt").c_str()));
@@ -230,16 +234,20 @@ public:
             index_num++;
         }
 
-        BOOST_LOG_TRIVIAL(debug) << "Initialized.";
+        auto log = spdlog::get("buildindex");
+
         int64_t all_occurrences = 0;
         std::vector<int64_t> occurrences;
         term_id_type term_id = 0;
         while (not heap_.empty())
         {
             std::vector<entry> indices_to_merge = indices_with_next_term();
-            BOOST_LOG_TRIVIAL(debug) << "Merging term #" << term_id++
-                                     << " from " << indices_to_merge.size()
-                                     << " indices" << std::flush;
+            if (log) {
+                log->info(
+                    "Merging term #{} from {} indices",
+                    term_id++,
+                    indices_to_merge.size());
+            }
             occurrences.push_back(merge_term(indices_to_merge));
             all_occurrences += occurrences.back();
             for (entry& e : indices_to_merge) {
@@ -276,63 +284,84 @@ public:
 
     void merge_titles()
     {
-        std::cout << "xxxxx" << std::endl;
         std::ofstream tout(index::titles_path(target_dir_).c_str());
         for (const auto& index : indices_) {
-            std::cout << "I" << std::endl;
-            for (const std::string& title : index.titles())
-            {
+            for (const std::string& title : index.titles()) {
                 tout << title << std::endl;
             }
         }
     }
 
-    std::pair<int32_t, double> merge_sizes()
+    std::tuple<int32_t, double, int32_t> merge_sizes()
     {
-        std::vector<int32_t> sizes;
+        std::vector<int> range(indices_.size());
+        std::iota(range.begin(), range.end(), 0);
+        std::vector<int64_t> partial_count(indices_.size());
+        std::transform(
+            indices_.begin(),
+            indices_.end(),
+            partial_count.begin(),
+            [](const auto& index) { return index.collection_size(); });
+        std::partial_sum(
+            partial_count.begin(), partial_count.end(), partial_count.begin());
+        int32_t document_count = partial_count.back();
+
+        std::vector<int32_t> sizes(document_count);
+        std::for_each(
+            std::execution::par_unseq,
+            range.begin(),
+            range.end(),
+            [&partial_count, &sizes, this](auto idx) {
+                auto part_sizes = indices_[idx].document_sizes();
+                auto offset = partial_count[idx] - part_sizes.size();
+                std::copy(
+                    part_sizes.begin(),
+                    part_sizes.end(),
+                    std::next(sizes.begin(), offset));
+            });
+
+        int32_t max_doc_size = *std::max_element(
+            std::execution::par_unseq, sizes.begin(), sizes.end());
+        int64_t sum_doc_size = std::reduce(
+            std::execution::par_unseq, sizes.begin(), sizes.end(), 0);
+        double avg_doc_size =
+            static_cast<double>(sum_doc_size) / document_count;
+
         std::ofstream sout(index::doc_sizes_path(target_dir_).c_str());
-        int64_t sizes_sum = 0;
-        for (const auto& index : indices_) {
-            for (int32_t doc = 0; doc < index.collection_size(); ++doc)
-            {
-                int32_t size = index.document_size(
-                    static_cast<document_type>(doc));
-                sizes.push_back(size);
-                sizes_sum += size;
-            }
-        }
-        irk::compact_table<int32_t> size_table = irk::build_compact_table(
-            sizes, false);
-        sout << size_table;
-        return std::make_pair(static_cast<int32_t>(sizes.size()),
-            static_cast<double>(sizes_sum) / sizes.size());
+        sout << irk::build_compact_table(sizes, false);
+
+        return std::make_tuple(document_count, avg_doc_size, max_doc_size);
     }
 
     void write_properties(
-        int32_t documents, int64_t occurrences, double avg_doc_size)
+        int32_t documents,
+        int64_t occurrences,
+        double avg_doc_size,
+        int32_t max_doc_size)
     {
         std::ofstream out(index::properties_path(target_dir_).c_str());
-        nlohmann::json j = {
-            {"documents", documents},
-            {"occurrences", occurrences},
-            {"skip_block_size", block_size_},
-            {"avg_document_size", avg_doc_size}};
+        nlohmann::json j = {{"documents", documents},
+                            {"occurrences", occurrences},
+                            {"skip_block_size", block_size_},
+                            {"avg_document_size", avg_doc_size},
+                            {"max_document_size", max_doc_size}};
         out << std::setw(4) << j << std::endl;
     }
 
     void merge()
     {
-        BOOST_LOG_TRIVIAL(info) << "Merging titles...";
+        auto log = spdlog::get("buildindex");
+        if (log) { log->info("Merging titles"); }
         merge_titles();
-        BOOST_LOG_TRIVIAL(info) << "Merging terms...";
+        if (log) { log->info("Merging terms"); }
         int64_t occurrences = merge_terms();
-        BOOST_LOG_TRIVIAL(info) << "Merging sizes...";
-        auto [documents, avg_doc_size] = merge_sizes();
-        BOOST_LOG_TRIVIAL(info) << "Writing properties...";
-        write_properties(documents, occurrences, avg_doc_size);
+        if (log) { log->info("Merging sizes"); }
+        auto [documents, avg_doc_size, max_doc_size] = merge_sizes();
+        if (log) { log->info("Writing properties"); }
+        write_properties(documents, occurrences, avg_doc_size, max_doc_size);
     }
 };
 
 using index_merger = basic_index_merger<>;
 
-};  // namespace irk
+}  // namespace irk

@@ -32,13 +32,14 @@
 #include <unordered_map>
 #include <vector>
 
-#include <boost/log/trivial.hpp>
+#include <spdlog/spdlog.h>
 
 #include <irkit/index/builder.hpp>
 #include <irkit/index/merger.hpp>
 #include <irkit/index/metadata.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/lexicon.hpp>
+#include <irkit/sgn.hpp>
 
 namespace irk::index {
 
@@ -67,6 +68,7 @@ private:
     int batch_size_;
     int block_size_;
     int lexicon_block_size_;
+    std::optional<std::unordered_set<std::string>> spam_;
 
 public:
     //! \param output_dir       final directory of the index
@@ -74,14 +76,18 @@ public:
     //! \param block_size       size of inverted list block (and skip length)
     //! \param document_codec   codec for document IDs
     //! \param frequency_codec  codec for frequencies
-    basic_index_assembler(fs::path output_dir,
+    basic_index_assembler(
+        fs::path output_dir,
         int batch_size,
         int block_size,
-        int lexicon_block_size) noexcept
+        int lexicon_block_size,
+        std::optional<std::unordered_set<std::string>> spam =
+            std::nullopt) noexcept
         : output_dir_(std::move(output_dir)),
           batch_size_(batch_size),
           block_size_(block_size),
-          lexicon_block_size_(lexicon_block_size)
+          lexicon_block_size_(lexicon_block_size),
+          spam_(spam)
     {}
 
     //! \brief Builds all batches and assembles the final index.
@@ -98,20 +104,21 @@ public:
         fs::path work_dir = output_dir_ / ".batches";
         if (not fs::exists(work_dir)) { fs::create_directory(work_dir); }
 
+        auto log = spdlog::get("buildindex");
+
         int batch_number = 0;
         std::vector<fs::path> batch_dirs;
+        document_type next_id(0);
         while (input && input.peek() != EOF)
         {
-            BOOST_LOG_TRIVIAL(info) << "Building batch " << batch_number;
+            if (log) { log->info("Building batch {}", batch_number); }
             fs::path batch_dir = work_dir / std::to_string(batch_number);
             metadata batch_metadata(batch_dir);
-            build_batch(input,
-                batch_metadata,
-                static_cast<document_type>(batch_number * batch_size_));
+            next_id = build_batch(input, batch_metadata, next_id);
             batch_dirs.push_back(std::move(batch_dir));
             ++batch_number;
         }
-        BOOST_LOG_TRIVIAL(info) << "Merging " << batch_number << " batches";
+        if (log) { log->info("Merging {} batches", batch_number); }
         merger_type merger(output_dir_, batch_dirs, block_size_);
         merger.merge();
         auto term_map = build_lexicon(
@@ -120,7 +127,7 @@ public:
         auto title_map = build_lexicon(
             irk::index::titles_path(output_dir_), lexicon_block_size_);
         title_map.serialize(irk::index::title_map_path(output_dir_));
-        std::clog << "Success!" << std::endl;
+        if (log) { log->info("Success!"); }
     }
 
     //! Builds a single batch.
@@ -128,9 +135,10 @@ public:
     //! \param[in] input            collection stream; see assemble() for
     //!                             more details
     //! \param[in] batch_metadata   information about file paths
-    std::istream& build_batch(std::istream& input,
+    std::ptrdiff_t build_batch(
+        std::istream& input,
         metadata batch_metadata,
-        document_type first_id) const
+        document_type next_id) const
     {
         if (not fs::exists(batch_metadata.dir))
         {
@@ -151,17 +159,16 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        for (auto processed_documents_ = static_cast<int32_t>(first_id);
-             processed_documents_
-                < batch_size_ + static_cast<int32_t>(first_id);
-             processed_documents_++)
+        while (irk::sgn(builder.size()) < batch_size_)
         {
             if (not std::getline(input, line)) { break; }
-            auto doc = static_cast<document_type>(processed_documents_);
-            builder.add_document(doc);
             std::istringstream linestream(line);
             std::string title;
             linestream >> title;
+            if (spam_.has_value() && spam_->find(title) != spam_->end()) {
+                continue;
+            }
+            builder.add_document(next_id++);
             of_titles << title << '\n';
             std::string term;
             while (linestream >> term) { builder.add_term(term); }
@@ -184,10 +191,10 @@ public:
             irk::index::titles_path(batch_metadata.dir), lexicon_block_size_);
         title_map.serialize(irk::index::title_map_path(batch_metadata.dir));
 
-        return input;
+        return next_id;
     }
 };
 
 using index_assembler = basic_index_assembler<>;
 
-};  // namespace irk::index
+}  // namespace irk::index

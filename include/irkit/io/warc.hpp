@@ -115,7 +115,7 @@ namespace warc {
         }
     }
 
-};  // namespace warc
+}  // namespace warc
 
 //! Read a WARC record from an input stream.
 /*!
@@ -151,4 +151,4 @@ inline std::istream& read_warc_record(std::istream& in, warc_record& record)
     return in;
 }
 
-};  // namespace irkit::io
+}  // namespace irkit::io

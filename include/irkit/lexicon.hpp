@@ -46,13 +46,17 @@ namespace irk {
 template<class C, class M>
 class lexicon {
 public:
-    using value_type = std::ptrdiff_t;
+    using value_type = std::string;
+    using reference = value_type&;
+    using const_reference = const value_type&;
+    using difference_type = std::ptrdiff_t;
+    using index_type = std::ptrdiff_t;
     using codec_type = C;
     using memory_container = M;
 
     lexicon() = delete;
     lexicon(std::vector<std::ptrdiff_t> block_offsets,
-        std::vector<value_type> leading_indices,
+        std::vector<index_type> leading_indices,
         memory_container blocks,
         std::ptrdiff_t count,
         int keys_per_block,
@@ -72,7 +76,7 @@ public:
     lexicon& operator=(lexicon&&) noexcept = delete;
     ~lexicon() = default;
 
-    irk::memory_view block_memory_view(int block) const
+    irk::memory_view block_memory_view(std::size_t block) const
     {
         EXPECTS(block >= 0);
         EXPECTS(block < block_offsets_.size());
@@ -82,7 +86,7 @@ public:
             : blocks_.size();
         std::ptrdiff_t size = next_block_offset - block_offset;
         ENSURES(size > 0);
-        ENSURES(size <= blocks_.size());
+        ENSURES(size <= static_cast<std::ptrdiff_t>(blocks_.size()));
         if constexpr (std::is_same<memory_container,
                                    irk::memory_view>::value)  // NOLINT
         {
@@ -93,7 +97,7 @@ public:
         }
     }
 
-    std::optional<value_type> index_at(const std::string& key) const
+    std::optional<index_type> index_at(const std::string& key) const
     {
         auto block = leading_keys_->seek_le(key);
         if (not block.has_value()) { return std::nullopt; }
@@ -102,7 +106,7 @@ public:
             buffer(block_memory.data(), block_memory.size());
         irk::input_bit_stream bin(buffer);
 
-        value_type value = leading_indices_[*block];
+        index_type value = leading_indices_[*block];
         std::string k;
         codec_.reset();
         codec_.decode(bin, k);
@@ -125,7 +129,7 @@ public:
             buffer(block_memory.data(), block_memory.size());
         irk::input_bit_stream bin(buffer);
 
-        value_type value = *block_pos;
+        index_type value = *block_pos;
         std::string key;
         codec_.reset();
         codec_.decode(bin, key);
@@ -180,6 +184,7 @@ public:
     }
 
     std::ptrdiff_t size() const { return count_; }
+    bool empty() const { return count_ > 0; }
 
     class iterator : public boost::iterator_facade<
         iterator, const std::string, boost::single_pass_traversal_tag> {
@@ -232,14 +237,17 @@ public:
 
         void decode_block(int block, std::vector<std::string>& keys) const
         {
-            if (block >= lex_.block_offsets_.size()) { return; }
+            if (block
+                >= static_cast<std::ptrdiff_t>(lex_.block_offsets_.size())) {
+                return;
+            }
             auto block_memory = lex_.block_memory_view(block);
             boost::iostreams::stream<boost::iostreams::basic_array_source<char>>
                 buffer(block_memory.data(), block_memory.size());
             irk::input_bit_stream bin(buffer);
 
             codec_.reset();
-            for (value_type idx = 0; idx < keys_per_block_; ++idx)
+            for (index_type idx = 0; idx < keys_per_block_; ++idx)
             {
                 std::string key;
                 codec_.decode(bin, key);
@@ -275,9 +283,11 @@ public:
             codec_);
     }
 
+    int keys_per_block() const { return keys_per_block_; }
+
 private:
     std::vector<std::ptrdiff_t> block_offsets_;
-    std::vector<value_type> leading_indices_;
+    std::vector<index_type> leading_indices_;
     memory_container blocks_;
     std::ptrdiff_t count_;
     int keys_per_block_;
@@ -402,12 +412,12 @@ load_lexicon(const irk::memory_view& memory)
 //! Typically, both keys and corpus will be the same collection.
 //! They are separated mainly for situations when these are single-pass
 //! iterators. See overloads for a more convenient interface.
-template<class KeyIterator>
+template<class KeyIterator, class CorpusIterator>
 lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
     KeyIterator keys_begin,
     KeyIterator keys_end,
-    KeyIterator corpus_begin,
-    KeyIterator corpus_end,
+    CorpusIterator corpus_begin,
+    CorpusIterator corpus_end,
     int keys_per_block)
 {
     EXPECTS(keys_begin != keys_end);
@@ -440,10 +450,9 @@ lexicon<hutucker_codec<char>, std::vector<char>> build_lexicon(
         leading_keys->insert(leading_key, block_idx);
         pcodec.reset();
         pcodec.encode(leading_key, bout);
-        for (std::size_t idx_in_block = 1;
+        for (int idx_in_block = 1;
              idx_in_block < keys_per_block && keys_begin != keys_end;
-             ++idx_in_block, ++index, ++keys_begin)
-        {
+             ++idx_in_block, ++index, ++keys_begin) {
             pcodec.encode(*keys_begin, bout);
         }
         ++block_idx;
@@ -480,4 +489,4 @@ build_lexicon(const boost::filesystem::path& file, int keys_per_block)
         keys_per_block);
 }
 
-};  // namespace irk
+}  // namespace irk

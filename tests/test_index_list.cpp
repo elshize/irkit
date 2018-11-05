@@ -47,12 +47,7 @@ using irk::index::operator""_id;
 char vb(int n)
 {
     return n | (char)0b10000000;
-};
-
-char rvb(int n)
-{
-    return n & (char)0b01111111;
-};
+}
 
 class C_block_document_list_view {
 public:
@@ -359,7 +354,7 @@ TEST_F(block_list_builder, build_organ)  // Issue #30
     EXPECT_THAT(decoded_iter, ::testing::ElementsAreArray(documents));
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

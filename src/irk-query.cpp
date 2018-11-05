@@ -29,75 +29,35 @@
 
 #include <CLI/CLI.hpp>
 #include <CLI/Option.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
-#include "cli.hpp"
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/score.hpp>
 #include <irkit/taat.hpp>
+#include "cli.hpp"
 
 using std::uint32_t;
 using irk::index::document_t;
 using mapping_t = std::vector<document_t>;
+using namespace std::chrono;
+using namespace irk::cli;
 
-template<class Index>
-inline void run_query(const Index& index,
-    const boost::filesystem::path& dir,
-    std::vector<std::string>& query,
-    int k,
-    bool stem,
-    irk::cli::docmap* reordering,
-    std::optional<document_t> cutoff,
+template<class Index, class Score>
+inline void print_results(
+    const std::vector<std::pair<document_t, Score>>& results,
+    const Index& index,
     std::optional<int> trecid,
     std::string_view run_id)
 {
-    if (stem) {
-        irk::porter2_stemmer stemmer;
-        for (auto& term : query) {
-            term = stemmer.stem(term);
-        }
-    }
-
-    auto start_time = std::chrono::steady_clock::now();
-
-    auto postings = irk::query_postings(index, query);
-    auto after_fetch = std::chrono::steady_clock::now();
-
-    std::vector<uint32_t> acc(index.collection_size(), 0);
-    auto after_init = std::chrono::steady_clock::now();
-
-    if (reordering == nullptr) { irk::taat(postings, acc); }
-    else { irk::taat(postings, acc, reordering->doc2rank()); }
-
-    auto after_acc = std::chrono::steady_clock::now();
-
-    auto results = cutoff.has_value()
-        ? irk::aggregate_top_k<document_t, uint32_t>(
-              std::begin(acc), std::next(std::begin(acc), *cutoff), k)
-        : irk::aggregate_top_k<document_t, uint32_t>(
-              std::begin(acc), std::end(acc), k);
-    auto end_time = std::chrono::steady_clock::now();
-
-    auto total = std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_time - start_time);
-    auto fetch = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_fetch - start_time);
-    auto init = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_init - after_fetch);
-    auto accum = std::chrono::duration_cast<std::chrono::milliseconds>(
-        after_acc - after_init);
-    auto agg = std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_time - after_acc);
-
     const auto& titles = index.titles();
     int rank = 0;
     for (auto& result : results)
     {
-        std::string title = titles.key_at(reordering != nullptr
-                ? reordering->doc(result.first)
-                : result.first);
+        std::string title = titles.key_at(result.first);
         if (trecid.has_value()) {
             std::cout << *trecid << '\t'
                       << "Q0\t"
@@ -110,6 +70,72 @@ inline void run_query(const Index& index,
             std::cout << title << "\t" << result.second << '\n';
         }
     }
+}
+
+inline void stem_if(std::vector<std::string>& query, bool stem)
+{
+    if (stem) {
+        irk::porter2_stemmer stemmer;
+        for (auto& term : query) {
+            term = stemmer.stem(term);
+        }
+    }
+}
+
+template<class Index>
+inline void run_and_score(
+    const Index& index,
+    const boost::filesystem::path& dir,
+    std::vector<std::string>& query,
+    int k,
+    bool stem,
+    std::optional<int> trecid,
+    std::string_view run_id,
+    const std::string scorer,
+    ProcessingType proctype)
+{
+    stem_if(query, stem);
+    auto start_time = steady_clock::now();
+    auto postings = postings_on_fly(query, index, scorer);
+    auto results = process_query(index, postings, k, proctype);
+    print_results<Index, double>(results, index, trecid, run_id);
+    auto total = duration_cast<milliseconds>(steady_clock::now() - start_time);
+    std::cerr << "Time: " << total.count() << " ms\n";
+}
+
+template<class Index>
+inline void run_query(const Index& index,
+    const boost::filesystem::path& dir,
+    std::vector<std::string>& query,
+    int k,
+    bool stem,
+    std::optional<int> trecid,
+    std::string_view run_id)
+{
+    stem_if(query, stem);
+    auto start_time = steady_clock::now();
+
+    auto postings = irk::query_scored_postings(index, query);
+    auto after_fetch = steady_clock::now();
+
+    std::vector<uint32_t> acc(index.collection_size(), 0);
+    auto after_init = steady_clock::now();
+
+    irk::taat(postings, acc);
+
+    auto after_acc = steady_clock::now();
+
+    auto results = irk::aggregate_top_k<document_t, uint32_t>(
+        std::begin(acc), std::end(acc), k);
+    auto end_time = steady_clock::now();
+
+    auto total = duration_cast<milliseconds>(end_time - start_time);
+    auto fetch = duration_cast<milliseconds>(after_fetch - start_time);
+    auto init = duration_cast<milliseconds>(after_init - after_fetch);
+    auto accum = duration_cast<milliseconds>(after_acc - after_init);
+    auto agg = duration_cast<milliseconds>(end_time - after_acc);
+
+    print_results(results, index, trecid, run_id);
     std::cerr << "Time: " << total.count() << " ms [ ";
     std::cerr << "Fetch: " << fetch.count() << " / ";
     std::cerr << "Init: " << init.count() << " / ";
@@ -119,68 +145,87 @@ inline void run_query(const Index& index,
 
 int main(int argc, char** argv)
 {
-    auto [app, args] = irk::cli::app("Query inverted index",
-        irk::cli::index_dir_opt{},
-        irk::cli::query_opt{},
-        irk::cli::reordering_opt{},
-        irk::cli::metric_opt{},
-        irk::cli::etcutoff_opt{});
+    auto [app, args] = irk::cli::app(
+        "Query inverted index",
+        index_dir_opt{},
+        nostem_opt{},
+        id_range_opt{},
+        score_function_opt{with_default<std::string>{"bm25"}},
+        processing_type_opt{with_default<ProcessingType>{ProcessingType::DAAT}},
+        k_opt{},
+        trec_run_opt{},
+        trec_id_opt{},
+        terms_pos{optional});
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    irk::inverted_index_mapped_data_source data(dir, "bm25");
+    std::vector<std::string> scores;
+    if (args->score_function[0] != '*') {
+        scores.push_back(args->score_function);
+    }
+    auto data =
+        irk::inverted_index_mapped_data_source::from(dir, {scores}).value();
     irk::inverted_index_view index(&data);
 
-    std::unique_ptr<irk::cli::docmap> reordering = nullptr;
-    if (not args->reordering.empty()) {
-        *reordering = irk::cli::docmap::from_files(args->reordering);
-    }
-
-    if (app->count("--frac-cutoff") > 0u) {
-        args->doc_cutoff = static_cast<document_t>(
-            args->frac_cutoff * index.titles().size());
-    }
-
-    if (not args->read_files) {
-        run_query(index,
+    if (not args->terms.empty()) {
+        if (on_fly(args->score_function)) {
+            run_and_score(
+                index,
+                args->index_dir,
+                args->terms,
+                args->k,
+                not args->nostem,
+                args->trec_id != -1 ? std::make_optional(args->trec_id)
+                                    : std::nullopt,
+                args->trec_run,
+                args->score_function,
+                args->processing_type);
+            return 0;
+        }
+        run_query(
+            index,
             args->index_dir,
-            args->terms_or_files,
+            args->terms,
             args->k,
             not args->nostem,
-            reordering.get(),
-            app->count("--frac-cutoff") + app->count("--doc-cutoff") > 0u
-                ? std::make_optional(args->doc_cutoff)
-                : std::nullopt,
-            args->trecid != -1 ? std::make_optional(args->trecid)
-                               : std::nullopt,
-            args->trecrun);
+            args->trec_id != -1 ? std::make_optional(args->trec_id)
+                                : std::nullopt,
+            args->trec_run);
     }
     else {
-        std::optional<int> current_trecid = app->count("--trecid") > 0u
-            ? std::make_optional(args->trecid)
+        std::optional<int> current_trecid = app->count("--trec-id") > 0u
+            ? std::make_optional(args->trec_id)
             : std::nullopt;
-        for (const auto& file : args->terms_or_files) {
-            std::ifstream in(file);
-            std::string q;
-            while(std::getline(in, q))
-            {
-                std::istringstream qin(q);
-                std::string term;
-                std::vector<std::string> terms;
-                while (qin >> term) { terms.push_back(std::move(term)); }
-                run_query(index,
+        for (const auto& query_line : irk::io::lines_from_stream(std::cin)) {
+            std::vector<std::string> terms;
+            boost::split(
+                terms,
+                query_line,
+                boost::is_any_of("\t "),
+                boost::token_compress_on);
+            if (on_fly(args->score_function)) {
+                run_and_score(
+                    index,
                     args->index_dir,
-                    args->terms_or_files,
+                    terms,
                     args->k,
                     not args->nostem,
-                    reordering.get(),
-                    app->count("--frac-cutoff") + app->count("--doc-cutoff")
-                            > 0u
-                        ? std::make_optional(args->doc_cutoff)
-                        : std::nullopt,
                     current_trecid,
-                    args->trecrun);
-                if (current_trecid.has_value()) { current_trecid.value()++; }
+                    args->trec_run,
+                    args->score_function,
+                    args->processing_type);
+                continue;
+            }
+            run_query(
+                index,
+                args->index_dir,
+                terms,
+                args->k,
+                not args->nostem,
+                current_trecid,
+                args->trec_run);
+            if (current_trecid.has_value()) {
+                current_trecid.value()++;
             }
         }
     }

@@ -28,43 +28,33 @@
 
 #include <algorithm>
 
-#include <irkit/movingrange.hpp>
-#include <irkit/types.hpp>
-#include <irkit/unionrange.hpp>
+#include <irkit/algorithm/group_by.hpp>
 #include <irkit/utils.hpp>
 
 namespace irk {
 
-////! Returns top-*k* results, given vectors of posting lists and term weights.
-//template<class Range, class Score>
-//std::vector<pure_element_t<Range>> daat_or(
-//    const std::vector<Range>& query_postings,
-//    std::size_t k,
-//    const std::vector<Score>& weights)
-//{
-//    using Posting = pure_element_t<Range>;
-//    union_range postings_union(query_postings, weights);
-//    top_k_accumulator<Posting> topk(k);
-//    while (not postings_union.empty()) {
-//        topk.accumulate(postings_union.next_doc());
-//    }
-//    return topk.sorted();
-//}
-//
-////! Returns top-*k* results, given vectors of posting lists and term weights.
-//template<class Range, class Score>
-//std::vector<pure_element_t<Range>> wand(
-//    const std::vector<Range>& query_postings,
-//    std::size_t k,
-//    const std::vector<Score>& weights)
-//{
-//    using Posting = pure_element_t<Range>;
-//    union_range postings_union(query_postings, weights);
-//    top_k_accumulator<Posting> topk(k);
-//    while (not postings_union.empty()) {
-//        topk.accumulate(postings_union.next_doc_wand(topk.threshold()));
-//    }
-//    return topk.sorted();
-//}
+template<typename RngRng>
+auto daat(const RngRng& postings, int k)
+{
+    using document_type =
+        std::decay_t<decltype(postings.begin()->begin()->document())>;
+    using score_type =
+        std::decay_t<decltype(postings.begin()->begin()->payload())>;
+    irk::top_k_accumulator<document_type, score_type> acc(k);
+    auto merged = merge(postings);
+    group_by(
+        merged.begin(),
+        merged.end(),
+        [](const auto& p) { return p.document(); })
+        .aggregate_groups(
+            [](const auto& acc, const auto& posting) {
+                return acc + posting.payload();
+            },
+            score_type(0))
+        .for_each([&acc](const auto& id, const auto& score) {
+            acc.accumulate(id, score);
+        });
+    return acc.sorted();
+}
 
 }  // namespace irk

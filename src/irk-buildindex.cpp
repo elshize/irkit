@@ -32,6 +32,7 @@
 
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/io.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -42,6 +43,7 @@ int main(int argc, char** argv)
     int skip_block_size = 64;
     int lexicon_block_size = 256;
     bool merge_only = false;
+    std::string spam_titles;
 
     CLI::App app{"Build an inverted index."};
     app.add_flag("--merge-only", merge_only, "Merge already existing batches.");
@@ -49,7 +51,8 @@ int main(int argc, char** argv)
         batch_size,
         "Max number of documents to build in memory.",
         true);
-    app.add_option("--skip-block-size,-s",
+    app.add_option(
+        "--skip-block-size,-s",
         skip_block_size,
         "Size of skip blocks for inverted lists.",
         true);
@@ -57,11 +60,16 @@ int main(int argc, char** argv)
         skip_block_size,
         "Size of skip blocks for inverted lists.",
         true);
+    app.add_option(
+        "--spam",
+        spam_titles,
+        "A file with a list of documents to ignore",
+        false);
     app.add_option("output_dir", output_dir, "Index output directory", false)
         ->required();
-
     CLI11_PARSE(app, argc, argv);
 
+    auto log = spdlog::stderr_color_mt("buildindex");
     if (merge_only)
     {
         fs::path dir(output_dir);
@@ -79,10 +87,19 @@ int main(int argc, char** argv)
     }
     else
     {
-        irk::index::index_assembler assembler(fs::path(output_dir),
+        std::optional<std::unordered_set<std::string>> spamlist = std::nullopt;
+        if (not spam_titles.empty()) {
+            spamlist = std::make_optional<std::unordered_set<std::string>>();
+            for (const std::string& line : irk::io::lines(spam_titles)) {
+                spamlist->insert(line);
+            }
+        }
+        irk::index::index_assembler assembler(
+            fs::path(output_dir),
             batch_size,
             skip_block_size,
-            lexicon_block_size);
+            lexicon_block_size,
+            spamlist);
         assembler.assemble(std::cin);
     }
     return 0;

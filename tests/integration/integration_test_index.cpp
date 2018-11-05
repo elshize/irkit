@@ -8,8 +8,10 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
+#include <irkit/index/score.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/quantize.hpp>
 
 namespace {
 
@@ -37,12 +39,14 @@ auto scored(const posting_map& postings,
     int collection_size,
     int bits)
 {
+    long max_document_size =
+        *std::max_element(document_sizes.begin(), document_sizes.end());
     std::map<std::string, std::vector<posting_type>> scored;
     double max_score = 0;
     for (const auto& [term, posting_for_term] : postings)
     {
         irk::score::query_likelihood_scorer scorer(
-            occurrences[term], collection_occurrences);
+            occurrences[term], collection_occurrences, max_document_size);
         for (const auto& [doc, freq] : posting_for_term)
         {
             max_score = std::max(max_score, scorer(freq, document_sizes[doc]));
@@ -53,10 +57,12 @@ auto scored(const posting_map& postings,
     {
         std::vector<posting_type> scored_for_term;
         irk::score::query_likelihood_scorer scorer(
-            occurrences[term], collection_occurrences);
+            occurrences[term], collection_occurrences, max_document_size);
+        auto quantize = irk::LinearQuantizer{
+            irk::RealRange{0, max_score}, irk::IntegralRange{1, max_int}};
         for (const auto& [doc, freq] : posting_for_term) {
             double score = scorer(freq, document_sizes[doc]);
-            long quantized_score = (long)(score * max_int / max_score);
+            long quantized_score = quantize(score);
             scored_for_term.push_back({doc, quantized_score});
         }
         scored[term] = std::move(scored_for_term);
@@ -93,8 +99,9 @@ on_fly_index postings_on_fly(fs::path collection_file, int bits)
     long collection_size = doc;
     for (const auto& [term, map] : postings_map)
     {
-        for (const auto& [id, count] : map)
-        { postings[term].push_back({id, count}); }
+        for (const auto& [id, count] : map) {
+            postings[term].push_back({id, count});
+        }
         std::sort(postings[term].begin(), postings[term].end());
     }
     return {postings,
@@ -124,13 +131,15 @@ protected:
 
         // given
         collection_file = "collection.txt";
+        irk::io::enforce_exist(collection_file);
         expected_index = postings_on_fly(collection_file, 8);
         irk::index::index_assembler assembler(
             fs::path(index_dir), 32, 1024, 16);
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
-        irk::score_index<irk::score::query_likelihood_scorer,
+        irk::index::score_index<
+            irk::score::query_likelihood_scorer,
             irk::inverted_index_inmemory_data_source>(index_dir, 8);
     }
 };
@@ -173,30 +182,17 @@ void test(const irk::basic_inverted_index_view<D, F, S>& index_view,
 TEST_F(inverted_index, mapped_file)
 {
     // when
-    auto data = std::make_shared<irk::inverted_index_mapped_data_source>(
-        index_dir,
-        static_cast<std::string>(irk::score::query_likelihood_tag{}));
-    irk::inverted_index_view index_view(data.get());
+    auto data =
+        irk::inverted_index_mapped_data_source::from(index_dir, {"ql"}).value();
+    irk::inverted_index_view index_view(&data);
     // then
     test(index_view, expected_index);
 }
 
-TEST_F(inverted_index, disk)
-{
-    // when
-    auto data = std::make_shared<irk::inverted_index_disk_data_source>(
-        index_dir,
-        static_cast<std::string>(irk::score::query_likelihood_tag{}));
-    irk::inverted_index_view index_view(data.get());
-    // then
-    test(index_view, expected_index);
-}
-
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-

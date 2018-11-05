@@ -29,11 +29,15 @@
 #include <vector>
 
 #include <CLI/CLI.hpp>
+#include <fmt/format.h>
 
 #include <irkit/compacttable.hpp>
+#include <irkit/daat.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/score.hpp>
+#include <irkit/taat.hpp>
 
 namespace irk::cli {
 
@@ -88,12 +92,14 @@ inline docmap docmap::from_files(const std::string& files_prefix)
 {
     using document_table_type =
         irk::compact_table<document_t, vbyte_codec<document_t>, memory_view>;
-    auto d2r_mem = irk::make_memory_view(
+    auto [d2r_mem, d2r_view] = irk::make_memory_view(
         boost::filesystem::path(files_prefix + ".doc2rank"));
-    document_table_type doc2rank_table(d2r_mem);
-    auto r2d_mem = irk::make_memory_view(
+    (void)d2r_mem;
+    document_table_type doc2rank_table(d2r_view);
+    auto [r2d_mem, r2d_view] = irk::make_memory_view(
         boost::filesystem::path(files_prefix + ".rank2doc"));
-    document_table_type rank2doc_table(r2d_mem);
+    (void)r2d_mem;
+    document_table_type rank2doc_table(r2d_view);
     return docmap(doc2rank_table.to_vector(), rank2doc_table.to_vector());
 }
 
@@ -105,6 +111,105 @@ inline std::string ExistingDirectory(const std::string& filename)
     if (not exist) { return "Directory does not exist: " + filename; }
     if (not is_dir) { return "Directory is actually a file: " + filename; }
     return std::string();
+}
+
+enum class ProcessingType { TAAT, DAAT };
+inline std::ostream& operator<<(std::ostream& os, ProcessingType proc_type)
+{
+    switch (proc_type) {
+    case ProcessingType::TAAT: os << "taat"; break;
+    case ProcessingType::DAAT: os << "daat"; break;
+    default: throw std::domain_error("ProcessingType: non-exhaustive switch");
+    }
+    return os;
+}
+
+CLI::Option* add_processing_type(
+    CLI::App& app,
+    std::string name,
+    ProcessingType& variable,
+    std::string description = "",
+    bool defaulted = false)
+{
+    CLI::callback_t fun = [&variable](CLI::results_t res) {
+        if (res[0] == "taat") {
+            variable = ProcessingType::TAAT;
+            return true;
+        }
+        else if (res[0] == "daat") {
+            variable = ProcessingType::DAAT;
+            return true;
+        }
+        return false;
+    };
+
+    CLI::Option *opt = app.add_option(name, fun, description, defaulted);
+    opt->type_name("ProcessingType")->type_size(1);
+    if (defaulted) {
+        std::stringstream out;
+        out << variable;
+        opt->default_str(out.str());
+    }
+    return opt;
+}
+
+template<class Index, class RngRng>
+inline auto process_query(
+    const Index& index, const RngRng& postings, int k, ProcessingType type)
+{
+    using score_type =
+        std::decay_t<decltype(postings.begin()->begin()->payload())>;
+    switch (type) {
+    case ProcessingType::TAAT: {
+        std::vector<score_type> acc(index.collection_size(), 0);
+        irk::taat(postings, acc);
+        return irk::aggregate_top_k<document_t, score_type>(
+            std::begin(acc), std::end(acc), k);
+    }
+    case ProcessingType::DAAT: {
+        return daat(postings, k);
+    }
+    default: throw std::domain_error("ProcessingType: non-exhaustive switch");
+    }
+}
+
+enum class ThresholdEstimator { taily };
+inline std::ostream& operator<<(std::ostream& os, ThresholdEstimator estimator)
+{
+    switch (estimator) {
+        case ThresholdEstimator::taily:
+            os << "taily";
+            break;
+        default:
+            throw std::domain_error(
+                "ThresholdEstimator: non-exhaustive switch");
+    }
+    return os;
+}
+
+CLI::Option* add_threshold_estimator(
+    CLI::App& app,
+    std::string name,
+    std::optional<ThresholdEstimator>& variable,
+    std::string description = "",
+    bool defaulted = false)
+{
+    CLI::callback_t fun = [&variable](CLI::results_t res) {
+        if (res[0] == "taily") {
+            variable = ThresholdEstimator::taily;
+            return true;
+        }
+        return false;
+    };
+
+    CLI::Option *opt = app.add_option(name, fun, description, defaulted);
+    opt->type_name("ThresholdEstimator")->type_size(1);
+    if (defaulted) {
+        std::stringstream out;
+        out << *variable;
+        opt->default_str(out.str());
+    }
+    return opt;
 }
 
 template<class... Options>
@@ -206,7 +311,7 @@ struct nostem_opt {
     template<class Args>
     void set(CLI::App& app, Args& args)
     {
-        app.add_option("--nostem", args->nostem, "Do not stem terms", true);
+        app.add_flag("--nostem", args->nostem, "Do not stem terms");
     }
 };
 
@@ -228,6 +333,59 @@ struct sep_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option("--sep", args->separator, "Field separator", true);
+    }
+};
+
+struct trec_run_opt {
+    std::string trec_run = "null";
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("--run", args->trec_run, "Trec run ID", true);
+    }
+};
+
+struct trec_id_opt {
+    int trec_id;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option(
+            "--trec-id",
+            args->trec_id,
+            "Print in trec_eval format with this QID",
+            false);
+    }
+};
+
+struct k_opt {
+    int k = 1000;
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option("-k", args->k, "Number of documents to retrieve", true);
+    }
+};
+
+struct processing_type_opt {
+    ProcessingType processing_type;
+
+    processing_type_opt(with_default<ProcessingType> default_val)
+        : processing_type(default_val.value)
+    {}
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        add_processing_type(
+            app,
+            "--proctype",
+            args->processing_type,
+            "Query processing type",
+            true);
     }
 };
 
@@ -266,7 +424,6 @@ struct terms_pos {
 struct query_opt {
     std::vector<std::string> terms_or_files;
     int k;
-    bool nostem;
     bool read_files;
     int trecid = -1;
     std::string trecrun = "null";
@@ -277,15 +434,12 @@ struct query_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option(
-               "query (files)",
+               "query",
                args->terms_or_files,
                "Query terms, or query files if -f defined",
                false)
             ->required();
         app.add_option("-k", args->k, "Number of documents to retrieve", true);
-        app.add_flag("--nostem", args->nostem, "Skip stemming terms (Porter2)");
-        app.add_flag(
-            "-f,--file", args->read_files, "Read queries from file(s)");
         app.add_option(
             "--trecid",
             args->trecid,
@@ -309,6 +463,52 @@ inline void stem_if(bool stem, std::vector<std::string>& terms)
     if (stem) {
         irk::porter2_stemmer stemmer;
         for (auto& term : terms) { term = stemmer.stem(term); }
+    }
+}
+
+inline bool on_fly(const std::string& scorer)
+{
+    return scorer[0] == '*';
+}
+
+template<class Index>
+inline auto postings_on_fly(
+    const std::string& term, const Index& index, const std::string& name)
+{
+    if (name == "*bm25") {
+        score::bm25_scorer scorer(
+            index.term_collection_frequency(term),
+            index.collection_size(),
+            index.avg_document_size());
+        return index.postings(term).scored(
+            score::BM25ScoreFn{index, std::move(scorer)});
+    } else if (name == "*ql") {
+        score::query_likelihood_scorer scorer(
+            index.term_occurrences(term),
+            index.occurrences_count(),
+            index.max_document_size());
+        return index.postings(term).scored(
+            score::QueryLikelihoodScoreFn{index, std::move(scorer)});
+    }
+    else {
+        throw std::domain_error(
+            fmt::format("unknown score function: {}", name));
+    }
+}
+
+template<class Index, class Range>
+inline auto
+postings_on_fly(Range& terms, const Index& index, const std::string& name)
+{
+    if (name == "*bm25") {
+        return query_scored_postings(index, terms, irk::score::bm25);
+    } else if (name == "*ql") {
+        return query_scored_postings(
+            index, terms, irk::score::query_likelihood);
+    }
+    else {
+        throw std::domain_error(
+            fmt::format("unknown score function: {}", name));
     }
 }
 

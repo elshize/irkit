@@ -1738,4 +1738,4 @@ extern void debug(struct SN_env * z, int number, int line_count) {
 }
 #endif
 
-};  // namespace irk::porter2
+}  // namespace irk::porter2

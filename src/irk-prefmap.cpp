@@ -24,9 +24,11 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <iostream>
+
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
-#include <iostream>
+
 #include <irkit/prefixmap.hpp>
 
 namespace fs = boost::filesystem;

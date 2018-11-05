@@ -5,6 +5,8 @@ env:
 cache:
   directories:
     - ${DEPS_DIR}/llvm
+    - ${DEPS_DIR}/boost
+    - ${DEPS_DIR}/tbb
 matrix:
   include:
     - os: linux
@@ -24,29 +26,10 @@ matrix:
     #        - llvm-toolchain-trusty-6.0
     #      packages:
     #        - clang-6.0
-    #        - libboost-all-dev
     #        - g++-7
+    #        - libgtest-dev # GTest
     #  env:
     #    - MATRIX_EVAL="SUITE=unit && CC=clang-6.0 && CXX=clang++-6.0"
-    #- os: linux
-    #  addons:
-    #    apt:
-    #      sources:
-    #        - ubuntu-toolchain-r-test
-    #        - llvm-toolchain-trusty-6.0
-    #      packages:
-    #        - clang-6.0
-    #        - clang-tidy-6.0
-    #        - libboost-all-dev
-    #  env:
-    #    - MATRIX_EVAL="SUITE=clang-tidy && CC=clang-6.0 && CXX=clang++-6.0"
-    #  script:
-    #    - cd ${TRAVIS_BUILD_DIR}
-    #    - git clone https://github.com/llvm-mirror/clang-tools-extra/
-    #    - sudo cp clang-tools-extra/clang-tidy/tool/run-clang-tidy.py /usr/local/bin
-    #    - cd build
-    #    - cp ../.clang-tidy ./
-    #    - ../scripts/clang-tidy.sh
     - os: linux
       env:
         - vera++
@@ -92,6 +75,15 @@ before_install:
         (cd ${LLVM_DIR}/build/projects/libcxxabi && make install -j2)
         touch ${LLVM_DIR}/cached
       fi
+      if [ ! -f ${DEPS_DIR}/boost/cached ]; then
+        cd ${DEPS_DIR} && git clone --recursive https://github.com/boostorg/boost.git && cd boost
+        git checkout boost-1.66.0
+        ./bootstrap.sh --with-toolset=clang
+        ./b2 clean
+        ./b2 toolset=clang cxxflags="-stdlib=libc++" linkflags="-stdlib=libc++"
+        export BOOST_ROOT="${DEPS_DIR}/boost"
+        touch ${DEPS_DIR}/boost/cached
+      fi
       export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -nostdinc++ -I${LLVM_DIR}/install/include/c++/v1 -Wno-unused-command-line-argument"
       export LDFLAGS="${LDFLAGS} -L${LLVM_DIR}/install/lib -Wl,-rpath,${LLVM_DIR}/install/lib"
       export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LLVM_DIR}/install/lib"
@@ -105,7 +97,7 @@ before_install:
     if [[ $CXX = *"clang"* ]]; then
         conan profile update env.CC=clang-6.0 default
         conan profile update env.CXX=clang++-6.0 default
-        conan profile update settings.compiler.libcxx=libc++ default
+        #conan profile update settings.compiler.libcxx=libc++ default
     fi
     conan remote add irkit https://api.bintray.com/conan/elshize/irkit
     conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
@@ -113,14 +105,16 @@ before_install:
     conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
     conan remote add manu https://api.bintray.com/conan/manu343726/conan-packages
   - |
+    # Install cmake 3.11
+    #export PATH=$HOME/.local/bin:$PATH
+    pip install --user cmake
+  - |
     # Print environment
     which $CXX
     which $CC
     $CXX --version
     which cmake
     cmake --version
-    conan --version
-    conan profile show default
 addons:
   apt:
     sources:
@@ -128,12 +122,72 @@ addons:
     packages:
       - g++-7
       - libboost-all-dev
+      - libgtest-dev # GTest
 install:
   - |
-    # Configure project
+    # Install TBB
+    if [ ! -f ${DEPS_DIR}/tbb/cached ]; then
+      cd ${DEPS_DIR} && git clone https://github.com/01org/tbb.git && cd tbb
+      git checkout 2018_U5
+      make
+      touch ${DEPS_DIR}/tbb/cached
+    fi
+    sudo cp ${DEPS_DIR}/tbb/build/linux_intel64_*_release/*so* /usr/lib
+    sudo cp -r ${DEPS_DIR}/tbb/include/tbb /usr/include
+  - |
+    # Fetch FindTBB
+    cd ${DEPS_DIR} && git clone https://github.com/elshize/FindTBB.git
+  - |
+    # Install ParallelSTL
+    cd ${DEPS_DIR} && git clone https://github.com/intel/parallelstl.git && cd parallelstl
+    cmake -DCMAKE_TOOLCHAIN_FILE:PATH=${DEPS_DIR}/FindTBB/toolchain.cmake .
+    sudo cp -r include/pstl /usr/include
+    sudo cp ParallelSTLConfig.cmake /usr/lib/cmake
+    sudo cp ParallelSTLConfigVersion.cmake /usr/lib/cmake
+    sudo cp ParallelSTLTargets.cmake /usr/lib/cmake
+  - |
+    # Install nlohmann_json
+    cd ${DEPS_DIR} && git clone https://github.com/nlohmann/json.git && cd json
+    cmake -DBUILD_TESTING=OFF . && sudo make install
+  - |
+    # Install GSL (TODO)
+  - |
+    # Install Range-v3
+    cd ${DEPS_DIR} && git clone https://github.com/ericniebler/range-v3.git && cd range-v3
+    cmake -DBUILD_TESTING=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_PERF=OFF -DRANGE_V3_DOCS=OFF .
+    sudo make install
+  - |
+    # Install cppitertools
+    cd ${DEPS_DIR} && git clone https://github.com/ryanhaining/cppitertools.git
+    sudo mkdir /usr/include/cppitertools/
+    sudo cp cppitertools/*hpp /usr/include/cppitertools/
+  - |
+    # Install rax
+    cd ${DEPS_DIR} && git clone https://github.com/antirez/rax.git && cd rax
+    cc -c -fPIC -std=c99 rax.c -o librax.a
+    sudo cp rax.h /usr/include/
+    sudo cp librax.a /usr/lib/
+  - |
+    # Install taily
+    cd ${DEPS_DIR} && git clone https://github.com/elshize/taily.git && cd taily
+    cmake . && sudo make install
+  - |
+    # Install fmt
+    cd ${DEPS_DIR} && git clone https://github.com/fmtlib/fmt.git && cd fmt
+    git checkout 5.2.1
+    cmake -DFMT_DOC=OFF -DFMT_TEST=OFF . && sudo make install
+  - |
+    # Install spdlog
+    cd ${DEPS_DIR} && git clone https://github.com/gabime/spdlog.git && cd spdlog
+    git checkout v1.2.1
+    cmake -DBUILD_TESTING=OFF -DSPDLOG_BUILD_EXAMPLES=OFF -DSPDLOG_BUILD_BENCH=OFF .
+    sudo make install
+  - |
+    # Set up build directory
     cd ${TRAVIS_BUILD_DIR}
     mkdir build && cd build
-    conan install .. --build=missing --build=fmt -o irkit:use_system_boost=True
+    conan install .. --build=missing --build=fmt -o use_system_boost=True
 script:
   - cd ${TRAVIS_BUILD_DIR}
+  - conan remove boost --force
   - scripts/run-tests.sh "${SUITE}"

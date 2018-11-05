@@ -27,6 +27,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdint>
 #include <ostream>
 #include <vector>
 
@@ -64,6 +65,29 @@ constexpr int16_t nbytes(T n)
     return (bits + 7) / 8;
 }
 
+struct collect_type {};
+
+inline collect_type collect()
+{
+    return collect_type{};
+}
+
+template<typename Range>
+auto operator|(const Range& range, collect_type)
+{
+    using value_type =
+        std::remove_const_t<std::remove_reference_t<decltype(*range.begin())>>;
+    return std::vector<value_type>(range.begin(), range.end());
+}
+
+template<typename Range>
+auto collect(const Range& range)
+{
+    using value_type =
+        std::remove_const_t<std::remove_reference_t<decltype(*range.begin())>>;
+    return std::vector<value_type>(range.begin(), range.end());
+}
+
 //! An container accumulating top-k postings (or results).
 template<class Key, class Value>
 class top_k_accumulator {
@@ -73,7 +97,7 @@ public:
     using entry_type = std::pair<key_type, value_type>;
 private:
     std::size_t k_;
-    value_type threshold_ = 0;
+    value_type threshold_ = std::numeric_limits<value_type>::lowest();
     std::vector<entry_type> top_;
 
     static bool result_order(const entry_type& lhs, const entry_type& rhs)
@@ -99,7 +123,7 @@ public:
      */
     bool accumulate(key_type key, value_type value)
     {
-        if (value > threshold_) {
+        if (value != 0 && value > threshold_) {
             top_.emplace_back(key, value);
             if (top_.size() <= k_) {
                 std::push_heap(top_.begin(), top_.end(), result_order);
@@ -134,6 +158,8 @@ public:
      *          been accumulated.
      */
     value_type threshold() { return threshold_; }
+
+    auto size() const { return top_.size(); }
 };
 
 namespace view {
@@ -259,6 +285,6 @@ namespace view {
         });
     }
 
-};  // namespace view
+}  // namespace view
 
 }  // namespace irk

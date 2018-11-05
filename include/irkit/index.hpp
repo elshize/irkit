@@ -32,21 +32,34 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
-#include <boost/log/trivial.hpp>
+#include <boost/range/adaptors.hpp>
+#include <cppitertools/itertools.hpp>
+#include <fmt/format.h>
 #include <gsl/span>
 #include <nlohmann/json.hpp>
+#include <nonstd/expected.hpp>
 #include <range/v3/utility/concepts.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
+#include <taily.hpp>
 #include <type_safe/config.hpp>
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
 #include <type_safe/types.hpp>
 
+#include <irkit/algorithm.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/coding.hpp>
 #include <irkit/coding/stream_vbyte.hpp>
@@ -58,6 +71,7 @@
 #include <irkit/io.hpp>
 #include <irkit/lexicon.hpp>
 #include <irkit/memoryview.hpp>
+#include <irkit/quantize.hpp>
 #include <irkit/score.hpp>
 #include <irkit/types.hpp>
 
@@ -65,37 +79,198 @@ namespace ts = type_safe;
 
 namespace irk {
 
-using index::term_id_t;
+using index::frequency_t;
 using index::offset_t;
+using index::term_id_t;
+
+template<typename P, typename O = P, typename M = O>
+struct quantized_score_tuple {
+    P postings;
+    O offsets;
+    M max_scores;
+};
 
 namespace index {
 
-    inline fs::path properties_path(const fs::path& dir)
-    { return dir / "properties.json"; };
-    inline fs::path doc_ids_path(const fs::path& dir)
-    { return dir / "doc.id"; };
-    inline fs::path doc_ids_off_path(const fs::path& dir)
-    { return dir / "doc.idoff"; };
-    inline fs::path doc_counts_path(const fs::path& dir)
-    { return dir / "doc.count"; };
-    inline fs::path doc_counts_off_path(const fs::path& dir)
-    { return dir / "doc.countoff"; };
-    inline fs::path terms_path(const fs::path& dir)
-    { return dir / "terms.txt"; };
-    inline fs::path term_map_path(const fs::path& dir)
-    { return dir / "terms.map"; };
-    inline fs::path term_doc_freq_path(const fs::path& dir)
-    { return dir / "terms.docfreq"; };
-    inline fs::path titles_path(const fs::path& dir)
-    { return dir / "titles.txt"; };
-    inline fs::path title_map_path(const fs::path& dir)
-    { return dir / "titles.map"; };
-    inline fs::path doc_sizes_path(const fs::path& dir)
-    { return dir / "doc.sizes"; };
-    inline fs::path term_occurrences_path(const fs::path& dir)
-    { return dir / "term.occurrences"; };
+    template<class T>
+    T read_property(nlohmann::json& properties, std::string_view name)
+    {
+        if (auto pos = properties.find(name); pos != properties.end()) {
+            return *pos;
+        }
+        throw std::runtime_error(fmt::format("property {} not found", name));
+    }
 
-};  // namespace index
+    using boost::adaptors::filtered;
+    using boost::filesystem::directory_iterator;
+    using boost::filesystem::is_regular_file;
+    using boost::filesystem::path;
+
+    struct posting_paths {
+        path postings;
+        path offsets;
+        path max_scores;
+    };
+
+    inline path properties_path(const path& dir)
+    { return dir / "properties.json"; }
+    inline path doc_ids_path(const path& dir)
+    { return dir / "doc.id"; }
+    inline path doc_ids_off_path(const path& dir)
+    { return dir / "doc.idoff"; }
+    inline path doc_counts_path(const path& dir)
+    { return dir / "doc.count"; }
+    inline path doc_counts_off_path(const path& dir)
+    { return dir / "doc.countoff"; }
+    inline path terms_path(const path& dir)
+    { return dir / "terms.txt"; }
+    inline path term_map_path(const path& dir)
+    { return dir / "terms.map"; }
+    inline path term_doc_freq_path(const path& dir)
+    { return dir / "terms.docfreq"; }
+    inline path titles_path(const path& dir)
+    { return dir / "titles.txt"; }
+    inline path title_map_path(const path& dir)
+    { return dir / "titles.map"; }
+    inline path doc_sizes_path(const path& dir)
+    { return dir / "doc.sizes"; }
+    inline path term_occurrences_path(const path& dir)
+    { return dir / "term.occurrences"; }
+    inline path score_offset_path(const path& dir, const std::string& name)
+    { return dir / fmt::format("{}.offsets", name); }
+    inline path max_scores_path(const path& dir, const std::string& name)
+    { return dir / fmt::format("{}.maxscore", name); }
+
+    inline quantized_score_tuple<path>
+    score_paths(const path& dir, const std::string& name)
+    {
+        return {dir / fmt::format("{}.scores", name),
+                dir / fmt::format("{}.offsets", name),
+                dir / fmt::format("{}.maxscore", name)};
+    }
+
+    inline std::vector<std::string> all_score_names(const path& dir)
+    {
+        std::vector<std::string> names;
+        auto matches = [&](const path& p) {
+            return boost::algorithm::ends_with(
+                p.filename().string(), ".scores");
+        };
+        for (auto& file :
+             boost::make_iterator_range(directory_iterator(dir), {}))
+        {
+            if (is_regular_file(file.path()) && matches(file.path())) {
+                std::string filename = file.path().filename().string();
+                std::string name(
+                    filename.begin(),
+                    std::find(filename.begin(), filename.end(), '.'));
+                names.push_back(name);
+            }
+        }
+        return names;
+    }
+
+    enum class ScoreType {
+        BM25, QueryLikelihood
+    };
+
+    struct QuantizationProperties {
+        ScoreType type{};
+        double min{};
+        double max{};
+        int32_t nbits{};
+
+        static nonstd::expected<ScoreType, std::string>
+        parse_type(std::string_view name)
+        {
+            if (name == "bm25") {
+                return ScoreType::BM25;
+            }
+            if (name == "ql") {
+                return ScoreType::QueryLikelihood;
+            }
+            return nonstd::make_unexpected(
+                fmt::format("cannot parse {} as a score type", name));
+        }
+
+        static std::string
+        name_of(ScoreType type)
+        {
+            switch (type) {
+            case ScoreType::BM25: return "bm25";
+            case ScoreType::QueryLikelihood: return "ql";
+            }
+            return "";
+        }
+    };
+
+    struct Properties {
+        int32_t skip_block_size{};
+        int64_t occurrences_count{};
+        int32_t document_count{};
+        double avg_document_size{};
+        int32_t max_document_size{};
+        std::unordered_map<std::string, QuantizationProperties>
+            quantized_scores{};
+    };
+
+    Properties read_properties(const path& index_dir)
+    {
+        Properties properties;
+        std::ifstream ifs(properties_path(index_dir).c_str());
+        nlohmann::json jprop;
+        ifs >> jprop;
+        properties.document_count = read_property<int32_t>(jprop, "documents");
+        properties.occurrences_count =
+            read_property<int64_t>(jprop, "occurrences");
+        properties.skip_block_size =
+            read_property<int32_t>(jprop, "skip_block_size");
+        properties.avg_document_size =
+            read_property<double>(jprop, "avg_document_size");
+        properties.max_document_size =
+            read_property<int32_t>(jprop, "max_document_size");
+        if (auto pos = jprop.find("quantized_scores"); pos != jprop.end()) {
+            auto elems = pos.value();
+            for (auto iter = elems.begin(); iter != elems.end(); ++iter) {
+                QuantizationProperties qp;
+                auto jqprops = iter.value();
+                std::string type_entry = jqprops["type"];
+                auto type = QuantizationProperties::parse_type(type_entry);
+                if (not type) {
+                    continue;
+                }
+                qp.type = type.value();
+                qp.nbits = read_property<int32_t>(jqprops, "bits");
+                qp.min = read_property<double>(jqprops, "min");
+                qp.max = read_property<double>(jqprops, "max");
+                properties.quantized_scores[iter.key()] = qp;
+            }
+        }
+        return properties;
+    }
+
+    void write_properties(const Properties& properties, const path& index_dir)
+    {
+        std::ofstream ofs(properties_path(index_dir).c_str());
+        nlohmann::json jprop;
+        jprop["documents"] = properties.document_count;
+        jprop["occurrences"] = properties.occurrences_count;
+        jprop["skip_block_size"] = properties.skip_block_size;
+        jprop["avg_document_size"] = properties.avg_document_size;
+        jprop["max_document_size"] = properties.max_document_size;
+        nlohmann::json quantized_jprop;
+        for (const auto& [name, score_props] : properties.quantized_scores) {
+            quantized_jprop[name] = {
+                {"type", QuantizationProperties::name_of(score_props.type)},
+                {"bits", score_props.nbits},
+                {"min", score_props.min},
+                {"max", score_props.max}};
+        }
+        jprop["quantized_scores"] = quantized_jprop;
+        ofs << jprop;
+    }
+
+}  // namespace index
 
 template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
     class FrequencyCodec = irk::stream_vbyte_codec<index::frequency_t>,
@@ -122,8 +297,10 @@ public:
         compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>;
     using array_stream = boost::iostreams::stream_buffer<
         boost::iostreams::basic_array_source<char>>;
+    using score_tuple_type =
+        quantized_score_tuple<memory_view, offset_table_type, score_table_type>;
 
-    basic_inverted_index_view() = delete;
+    basic_inverted_index_view() = default;
     basic_inverted_index_view(const basic_inverted_index_view&) = default;
     basic_inverted_index_view(basic_inverted_index_view&&) noexcept = default;
     basic_inverted_index_view&
@@ -136,12 +313,9 @@ public:
     explicit basic_inverted_index_view(DataSourceT* data)
         : documents_view_(data->documents_view()),
           counts_view_(data->counts_view()),
-          scores_view_(data->scores_source()),
           document_offsets_(data->document_offsets_view()),
           count_offsets_(data->count_offsets_view()),
           document_sizes_(data->document_sizes_view()),
-          score_offsets_(std::nullopt),
-          term_max_scores_(std::nullopt),
           term_collection_frequencies_(
               data->term_collection_frequencies_view()),
           term_collection_occurrences_(
@@ -150,23 +324,30 @@ public:
           title_map_(std::move(load_lexicon(data->title_map_source()))),
           term_count_(term_collection_frequencies_.size())
     {
-        EXPECTS(document_offsets_.size() == term_count_);
-        EXPECTS(count_offsets_.size() == term_count_);
+        EXPECTS(
+            static_cast<ptrdiff_t>(document_offsets_.size()) == term_count_);
+        EXPECTS(static_cast<ptrdiff_t>(count_offsets_.size()) == term_count_);
 
-        if (data->score_offset_source().has_value())
-        {
-            score_offsets_ = std::make_optional<offset_table_type>(
-                data->score_offset_source().value());
-            term_max_scores_ = std::make_optional<score_table_type>(
-                data->max_scores_source().value());
+        for (const auto& [name, tuple] : data->scores_sources()) {
+            score_tuple_type t{tuple.postings,
+                               offset_table_type(tuple.offsets),
+                               score_table_type(tuple.max_scores)};
+            scores_.emplace(std::make_pair(name, t));
         }
+        default_score_ = data->default_score();
         std::string buffer(
             data->properties_view().data(), data->properties_view().size());
         nlohmann::json properties = nlohmann::json::parse(buffer);
-        document_count_ = properties["documents"];
-        occurrences_count_ = properties["occurrences"];
-        block_size_ = properties["skip_block_size"];
-        avg_document_size_ = properties["avg_document_size"];
+        document_count_ =
+            index::read_property<std::ptrdiff_t>(properties, "documents");
+        occurrences_count_ =
+            index::read_property<std::ptrdiff_t>(properties, "occurrences");
+        block_size_ =
+            index::read_property<std::ptrdiff_t>(properties, "skip_block_size");
+        avg_document_size_ =
+            index::read_property<double>(properties, "avg_document_size");
+        max_document_size_ = index::read_property<std::ptrdiff_t>(
+            properties, "max_document_size");
     }
 
     size_type collection_size() const { return document_sizes_.size(); }
@@ -176,12 +357,22 @@ public:
         return document_sizes_[doc];
     }
 
+    auto document_sizes() const { return document_sizes_; }
+
     auto documents(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_document_list_view<document_codec_type>(
             select(term_id, document_offsets_, documents_view_), length);
+    }
+
+    auto documents(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return documents(id.value());
+        }
+        return index::block_document_list_view<document_codec_type>();
     }
 
     auto frequencies(term_id_type term_id) const
@@ -193,18 +384,84 @@ public:
             select(term_id, count_offsets_, counts_view_), length);
     }
 
+    auto frequencies(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return frequencies(id.value());
+        }
+        return index::
+            block_payload_list_view<frequency_t, frequency_codec_type>();
+    }
+
     auto scores(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_payload_list_view<score_type, score_codec_type>(
-            select(term_id, *score_offsets_, *scores_view_), length);
+            select(
+                term_id,
+                scores_.at(default_score_).offsets,
+                scores_.at(default_score_).postings),
+            length);
     }
+
+    auto scores(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return scores(id.value());
+        }
+        return index::block_payload_list_view<score_type, score_codec_type>();
+    }
+
+    auto scores(term_id_type term_id, const std::string& score_fun_name) const
+    {
+        EXPECTS(term_id < term_count_);
+        auto length = term_collection_frequencies_[term_id];
+        return index::block_payload_list_view<score_type, score_codec_type>(
+            select(
+                term_id,
+                scores_.at(score_fun_name).offsets,
+                scores_.at(score_fun_name).postings),
+            length);
+    }
+
+    // TODO: use but with floating points
+    //auto score_expected_value(
+    //    term_id_type term_id, const std::string& score_fun_name) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(score_fun_name).exp_values[term_id];
+    //}
+
+    //auto score_expected_value(term_id_type term_id) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(default_score_).exp_values[term_id];
+    //}
+
+    //auto score_variance(
+    //    term_id_type term_id, const std::string& score_fun_name) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(score_fun_name).variances[term_id];
+    //}
+
+    //auto score_variance(term_id_type term_id) const
+    //{
+    //    EXPECTS(term_id < term_count_);
+    //    return scores_.at(default_score_).variances[term_id];
+    //}
 
     auto postings(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
+        if (length == 0) {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<frequency_type, frequency_codec_type>
+                frequencies;
+            return posting_list_view(documents, frequencies);
+        }
         auto documents = index::block_document_list_view<document_codec_type>(
             select(term_id, document_offsets_, documents_view_), length);
         auto counts = index::block_payload_list_view<frequency_type,
@@ -228,15 +485,30 @@ public:
 
     auto scored_postings(term_id_type term_id) const
     {
+        return scored_postings(term_id, default_score_);
+    }
+
+    auto scored_postings(term_id_type term_id, const std::string& score) const
+    {
         EXPECTS(term_id < term_count_);
-        if (not scores_view_.has_value())
-        { throw std::runtime_error("scores not loaded"); }
+        if (scores_.empty()) {
+            throw std::runtime_error("scores not loaded");
+        }
         auto length = term_collection_frequencies_[term_id];
+        if (length == 0) {
+            index::block_document_list_view<document_codec_type> documents;
+            index::block_payload_list_view<score_type, score_codec_type> scores;
+            return posting_list_view(documents, scores);
+        }
         auto documents = index::block_document_list_view<document_codec_type>(
             select(term_id, document_offsets_, documents_view_), length);
         auto scores =
             index::block_payload_list_view<score_type, score_codec_type>(
-                select(term_id, *score_offsets_, *scores_view_), length);
+                select(
+                    term_id,
+                    scores_.at(score).offsets,
+                    scores_.at(score).postings),
+                length);
         return posting_list_view(documents, scores);
     }
 
@@ -255,17 +527,20 @@ public:
     template<class Scorer>
     Scorer term_scorer(term_id_type term_id) const
     {
-        if constexpr (std::is_same<Scorer,
-                          score::bm25_scorer>::value) {  // NOLINT
-            return score::bm25_scorer(term_collection_frequencies_[term_id],
+        if constexpr (std::is_same_v<  // NOLINT
+                          Scorer,
+                          score::bm25_scorer>) {
+            return score::bm25_scorer(
+                term_collection_frequencies_[term_id],
                 document_count_,
                 avg_document_size_);
-        }
-        else if constexpr (std::is_same<Scorer,  // NOLINT
-                                 score::query_likelihood_scorer>::value)
-        {
+        } else if constexpr (std::is_same_v<  // NOLINT
+                                 Scorer,
+                                 score::query_likelihood_scorer>) {
             return score::query_likelihood_scorer(
-                term_occurrences(term_id), occurrences_count());
+                term_occurrences(term_id),
+                occurrences_count(),
+                max_document_size_);
         }
     }
 
@@ -279,20 +554,53 @@ public:
         return term_map_.key_at(id);
     }
 
+    const auto& term_collection_frequencies() const
+    {
+        return term_collection_frequencies_;
+    }
+
+    const auto& term_collection_occurrences() const
+    {
+        return term_collection_occurrences_;
+    }
+
+    /// Deprecated
     int32_t tdf(term_id_type term_id) const
     {
         return term_collection_frequencies_[term_id];
     }
 
-    int64_t term_occurrences(term_id_type term_id) const
+    int32_t term_collection_frequency(term_id_type term_id) const
+    {
+        return term_collection_frequencies_[term_id];
+    }
+
+    int32_t term_collection_frequency(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return term_collection_frequencies_[*id];
+        }
+        return 0;
+    }
+
+    int32_t term_occurrences(term_id_type term_id) const
     {
         return term_collection_occurrences_[term_id];
+    }
+
+    int32_t term_occurrences(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return term_collection_occurrences_[*id];
+        }
+        return 0;
     }
 
     int32_t term_count() const { return term_map_.size(); }
     int64_t occurrences_count() const { return occurrences_count_; }
     int skip_block_size() const { return block_size_; }
     int avg_document_size() const { return avg_document_size_; }
+    int max_document_size() const { return max_document_size_; }
 
     const auto& terms() const
     {
@@ -301,6 +609,10 @@ public:
     const auto& titles() const
     {
         return title_map_;
+    }
+    const auto& score_data(const std::string& name) const
+    {
+        return scores_.at(name);
     }
     document_codec_type document_codec() { return document_codec_; }
     frequency_codec_type frequency_codec() { return frequency_codec_; }
@@ -319,24 +631,33 @@ public:
         return copy_list(counts_view_, offset, out);
     }
 
+    std::vector<std::string> score_names() const
+    {
+        std::vector<std::string> names;
+        for (const auto& entry : scores_) {
+            names.push_back(entry.first);
+        }
+        return names;
+    }
+
 private:
     memory_view documents_view_;
     memory_view counts_view_;
-    std::optional<memory_view> scores_view_;
     offset_table_type document_offsets_;
     offset_table_type count_offsets_;
     size_table_type document_sizes_;
-    std::optional<offset_table_type> score_offsets_;
-    std::optional<score_table_type> term_max_scores_;
+    std::unordered_map<std::string, score_tuple_type> scores_;
+    std::string default_score_;
     frequency_table_type term_collection_frequencies_;
     frequency_table_type term_collection_occurrences_;
     lexicon<hutucker_codec<char>, memory_view> term_map_;
     lexicon<hutucker_codec<char>, memory_view> title_map_;
-    std::ptrdiff_t term_count_;
-    std::ptrdiff_t document_count_;
-    std::ptrdiff_t occurrences_count_;
-    int block_size_;
-    double avg_document_size_;
+    std::ptrdiff_t term_count_ = 0;
+    std::ptrdiff_t document_count_ = 0;
+    std::ptrdiff_t occurrences_count_ = 0;
+    int block_size_ = 0;
+    double avg_document_size_ = 0;
+    std::ptrdiff_t max_document_size_ = 0;
 
     static const constexpr auto document_codec_ = document_codec_type{};
     static const constexpr auto frequency_codec_ = frequency_codec_type{};
@@ -368,88 +689,142 @@ private:
 
 using inverted_index_view = basic_inverted_index_view<>;
 
-inline auto query_postings(const irk::inverted_index_view& index,
+/// \returns All document lists for query terms in the preserved order.
+inline auto query_documents(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.documents(std::declval<std::string>()));
+    std::vector<list_type> documents;
+    documents.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(documents), [&index](const auto& term) {
+            return index.documents(term);
+        });
+    return documents;
+}
+
+/// \returns All frequency lists for query terms in the preserved order.
+inline auto query_frequencies(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.frequencies(std::declval<std::string>()));
+    std::vector<list_type> frequencies;
+    frequencies.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(frequencies), [&index](const auto& term) {
+            return index.frequencies(term);
+        });
+    return frequencies;
+}
+
+/// \returns All score lists for query terms in the preserved order.
+inline auto query_scores(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using list_type = decltype(index.scores(std::declval<std::string>()));
+    std::vector<list_type> scores;
+    scores.reserve(query.size());
+    irk::transform_range(
+        query, std::back_inserter(scores), [&index](const auto& term) {
+            return index.scores(term);
+        });
+    return scores;
+}
+
+inline auto query_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using posting_list_type =
+        decltype(index.postings(std::declval<std::string>()));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query) {
+        postings.push_back(index.postings(term));
+    }
+    return postings;
+}
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
     const std::vector<std::string>& query)
 {
     using posting_list_type = decltype(
         index.scored_postings(std::declval<std::string>()));
     std::vector<posting_list_type> postings;
     postings.reserve(query.size());
-    for (const auto& term : query)
-    { postings.push_back(index.scored_postings(term)); }
+    for (const auto& term : query) {
+        postings.push_back(index.scored_postings(term));
+    }
     return postings;
 }
 
-template<class Scorer, class DataSourceT>
-void score_index(fs::path dir_path,
-    unsigned int bits,
-    std::optional<double> max = std::nullopt)
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    const std::vector<std::function<double(
+        irk::inverted_index_view::document_type,
+        irk::inverted_index_view::frequency_type)>> score_fns)
 {
-    std::string name(typename Scorer::tag_type{});
-    fs::path scores_path = dir_path / (name + ".scores");
-    fs::path score_offsets_path = dir_path / (name + ".offsets");
-    fs::path score_max_path = dir_path / (name + ".maxscore");
-    DataSourceT source(dir_path);
-    inverted_index_view index(&source);
-
-    double max_score;
-    if (max.has_value()) {
-        max_score = max.value();
-        BOOST_LOG_TRIVIAL(info)
-            << "Max score provided: " << max_score << std::flush;
+    using posting_list_type =
+        decltype(index.scored_postings(std::declval<std::string>())
+                     .scored(score_fns[0]));
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    auto score_iter = score_fns.begin();
+    for (const auto& term : query) {
+        postings.push_back(index.scored_postings(term).scored(*score_iter++));
     }
-    else {
-        BOOST_LOG_TRIVIAL(info) << "Calculating max score." << std::flush;
-        max_score = 0;
-        for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
-        {
-            auto scorer = index.term_scorer<Scorer>(term_id);
-            for (const auto& posting : index.postings(term_id))
-            {
-                double score = scorer(
-                    posting.payload(), index.document_size(posting.document()));
-                max_score = std::max(max_score, score);
-                ASSERT(score >= 0.0);
-            }
+    return postings;
+}
+
+using score_fn_type = std::function<double(
+    irk::inverted_index_view::document_type,
+    irk::inverted_index_view::frequency_type)>;
+
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    score::bm25_tag)
+{
+    auto unscored = query_postings(index, query);
+    using scored_list_type =
+        decltype(unscored[0].scored(std::declval<score_fn_type>()));
+    std::vector<scored_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& [idx, term] : iter::enumerate(query)) {
+        if (auto term_id = index.term_id(term); term_id.has_value()) {
+            postings.push_back(unscored[idx].scored(score::BM25ScoreFn{
+                index,
+                index.term_scorer<score::bm25_scorer>(term_id.value())}));
         }
-        BOOST_LOG_TRIVIAL(info) << "Max score: " << max_score << std::flush;
     }
+    return postings;
+}
 
-    int64_t offset = 0;
-    std::ofstream sout(scores_path.c_str());
-    std::ofstream offout(score_offsets_path.c_str());
-    std::ofstream maxout(score_max_path.c_str());
-    std::vector<std::size_t> offsets;
-    std::vector<std::uint32_t> max_scores;
-    offsets.reserve(index.term_count());
-    max_scores.reserve(index.term_count());
-
-    BOOST_LOG_TRIVIAL(info) << "Scoring..." << std::flush;
-    int64_t max_int = (1u << bits) - 1u;
-    for (term_id_t term_id = 0; term_id < index.terms().size(); term_id++)
-    {
-        offsets.push_back(offset);
-        irk::index::block_list_builder<std::uint32_t,
-            stream_vbyte_codec<std::uint32_t>,
-            false>
-            list_builder(index.skip_block_size());
-        auto scorer = index.term_scorer<Scorer>(term_id);
-        for (const auto& posting : index.postings(term_id))
-        {
-            double score = scorer(
-                posting.payload(), index.document_size(posting.document()));
-            auto quantized_score = static_cast<int64_t>(
-                (static_cast<double>(max_int) / max_score) * score);
-            ASSERT(quantized_score >= 0);
-            ASSERT(quantized_score <= max_int);
-            list_builder.add(quantized_score);
+inline auto query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query,
+    score::query_likelihood_tag)
+{
+    auto unscored = query_postings(index, query);
+    using scored_list_type =
+        decltype(unscored[0].scored(std::declval<score_fn_type>()));
+    std::vector<scored_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& [idx, term] : iter::enumerate(query)) {
+        if (auto term_id = index.term_id(term); term_id.has_value()) {
+            postings.push_back(
+                unscored[idx].scored(score::QueryLikelihoodScoreFn{
+                    index,
+                    index.term_scorer<score::query_likelihood_scorer>(
+                        term_id.value())}));
         }
-        offset += list_builder.write(sout);
     }
-    auto offset_table = irk::build_offset_table<>(offsets);
-    offout << offset_table;
-    auto maxscore_table = irk::build_compact_table<uint32_t>(max_scores);
-    maxout << maxscore_table;
-};
+    return postings;
+}
 
-};  // namespace irk
+}  // namespace irk

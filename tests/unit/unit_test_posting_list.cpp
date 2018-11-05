@@ -28,6 +28,7 @@
 #include <sstream>
 #include <vector>
 
+#include <cppitertools/itertools.hpp>
 #include <gmock/gmock.h>
 #include <gsl/span>
 #include <gtest/gtest.h>
@@ -36,6 +37,7 @@
 #define protected public
 #include <irkit/index/vector_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
+#include <irkit/movingrange.hpp>
 
 namespace {
 
@@ -97,6 +99,32 @@ TEST(posting_list_view, lookup)
     ASSERT_EQ(postings.lookup(31), postings.end());
 }
 
+TEST(posting_list_view, union_view)
+{
+    std::vector<irk::posting_list_view<
+        irk::vector_document_list<int>,
+        irk::vector_payload_list<int>>>
+        posting_lists;
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{0, 1, 4}),
+        irk::vector_payload_list(std::vector<int>{0, 0, 0}));
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{0, 2, 4}),
+        irk::vector_payload_list(std::vector<int>{1, 1, 1}));
+    posting_lists.emplace_back(
+        irk::vector_document_list(std::vector<int>{1, 2, 4}),
+        irk::vector_payload_list(std::vector<int>{2, 2, 2}));
+
+    auto postings = irk::merge(posting_lists);
+    std::vector<int> docs_only(postings.size());
+    std::transform(
+        postings.begin(),
+        postings.end(),
+        docs_only.begin(),
+        [](const auto& posting) { return posting.document(); });
+    ASSERT_THAT(docs_only, ::testing::ElementsAre(0, 0, 1, 1, 2, 2, 4, 4, 4));
+}
+
 //TEST(posting_list_view, pair_conversion)
 //{
 //    std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
@@ -114,7 +142,30 @@ TEST(posting_list_view, lookup)
 //    ASSERT_THAT(pairs, ::testing::ElementsAreArray(expected));
 //}
 
-};  // namespace
+TEST(scored_posting_list_view, forward_iterator)
+{
+    std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
+    std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
+    irk::vector_document_list vdl(documents);
+    irk::vector_payload_list vpl(payloads);
+    vdl.block_size(3);
+    vpl.block_size(3);
+
+    auto plus_one = [](auto doc, auto tf){
+        return tf + 1;
+    };
+
+    irk::posting_list_view postings(vdl, vpl);
+    int idx = 0;
+    auto scored_postings = postings.scored(plus_one);
+    for (auto posting : scored_postings) {
+        ASSERT_EQ(posting.document(), documents[idx]);
+        ASSERT_EQ(posting.payload(), payloads[idx] + 1);
+        idx++;
+    }
+}
+
+}  // namespace
 
 int main(int argc, char** argv)
 {

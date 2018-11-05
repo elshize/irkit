@@ -30,6 +30,7 @@
 #include <optional>
 #include <range/v3/utility/concepts.hpp>
 
+#include <irkit/index/types.hpp>
 #include <irkit/types.hpp>
 
 //! Scoring functions and utilities.
@@ -41,11 +42,11 @@ struct scoring_function_tag {
 
 struct bm25_tag : public scoring_function_tag {
     explicit operator std::string() override { return "bm25"; }
-};
+} bm25;
 
 struct query_likelihood_tag : public scoring_function_tag {
     explicit operator std::string() override { return "ql"; }
-};
+} query_likelihood;
 
 template<class ScoreFn, class Doc, class Freq>
 using score_result_t = decltype(std::declval<ScoreFn>()(
@@ -84,7 +85,8 @@ struct bm25_scorer {
     tag_type scoring_tag;
     double x, y, z;
 
-    bm25_scorer(int32_t documents_with_term_count,
+    bm25_scorer(
+        int32_t documents_with_term_count,
         int32_t total_document_count,
         double avg_document_size,
         double k1 = 1.2,
@@ -108,22 +110,67 @@ struct bm25_scorer {
     }
 };
 
+//! A BM25 scorer.
+template<class Index>
+struct BM25ScoreFn {
+    const Index& index;
+    bm25_scorer scorer;
+
+    BM25ScoreFn(const Index& index, bm25_scorer scorer)
+        : index(index), scorer(scorer)
+    {}
+
+    //! Returns the BM25 score.
+    double operator()(index::document_t doc, index::frequency_t freq) const
+    {
+        return scorer(freq, index.document_size(doc));
+    }
+};
+
 //! A query likelihood scorer.
 struct query_likelihood_scorer {
     using tag_type = query_likelihood_tag;
     tag_type scoring_tag;
     double mu;
     double global_component;
+    double shift;
 
     query_likelihood_scorer(
-        int32_t term_occurrences, int32_t all_occurrences, double mu = 2500)
-        : mu(mu), global_component(mu * term_occurrences * all_occurrences)
+        int32_t term_occurrences,
+        int64_t all_occurrences,
+        int32_t max_document_size,
+        double mu = 2500)
+        : mu(mu),
+          global_component(mu * term_occurrences / all_occurrences),
+          shift(compute(1, max_document_size, 0.0))
     {}
+
+    double compute(int32_t tf, int32_t document_size, double shift) const
+    {
+        return std::log(tf + global_component) - std::log(document_size + mu)
+            - shift;
+    }
 
     double operator()(int32_t tf, int32_t document_size) const
     {
-        return std::log(tf + global_component) - std::log(document_size + mu);
+        return compute(tf, document_size, shift);
     }
 };
 
-};  // namespace irk::score
+template<class Index>
+struct QueryLikelihoodScoreFn {
+    const Index& index;
+    query_likelihood_scorer scorer;
+
+    QueryLikelihoodScoreFn(const Index& index, query_likelihood_scorer scorer)
+        : index(index), scorer(scorer)
+    {}
+
+    //! Returns the BM25 score.
+    double operator()(index::document_t doc, index::frequency_t freq) const
+    {
+        return scorer(freq, index.document_size(doc));
+    }
+};
+
+}  // namespace irk::score

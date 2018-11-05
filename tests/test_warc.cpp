@@ -124,7 +124,7 @@ TEST_F(WarcRecord, response)
     EXPECT_EQ(record.content(), "Content...");
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

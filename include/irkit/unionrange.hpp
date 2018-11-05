@@ -202,4 +202,4 @@ public:
     bool empty() const { return heap_.empty(); }
 };
 
-};  // namespace irk
+}  // namespace irk

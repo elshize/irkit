@@ -80,4 +80,4 @@ std::ostream& operator<<(std::ostream& o, _posting<Doc, Score> posting)
     return o << posting.doc << ":" << posting.score;
 }
 
-};  // namespace irk
+}  // namespace irk

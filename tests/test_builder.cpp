@@ -219,7 +219,7 @@ TEST_F(IndexBuilderWrite, write_term_occurrences)
     EXPECT_EQ(occurrences[2], 2);
 }
 
-};  // namespace
+}  // namespace
 
 int main(int argc, char** argv)
 {

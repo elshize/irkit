@@ -38,6 +38,7 @@
 #include <irkit/index/block.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
+#include <irkit/sgn.hpp>
 
 namespace irk::index
 {
@@ -64,8 +65,8 @@ struct block_position_t {
 
     bool operator!=(const block_position_t& other) const
     {
-        const int64_t* p1 = reinterpret_cast<const int64_t*>(&block);
-        const int64_t* p2 = reinterpret_cast<const int64_t*>(&other.block);
+        auto p1 = reinterpret_cast<const int64_t*>(&block);
+        auto p2 = reinterpret_cast<const int64_t*>(&other.block);
         return *p1 != *p2;
     }
 };
@@ -99,8 +100,8 @@ public:
 
     block_iterator(const block_iterator&) = default;
     block_iterator(block_iterator&&) noexcept = default;
-    block_iterator& operator=(const block_iterator&) = delete;
-    block_iterator& operator=(block_iterator&&) noexcept = delete;
+    block_iterator& operator=(const block_iterator&) = default;
+    block_iterator& operator=(block_iterator&&) noexcept = default;
     ~block_iterator() = default;
 
     /*!
@@ -109,16 +110,17 @@ public:
      * comparing iterators, it is not checked whether they belong to the same
      * list: this check must be performed by the user if required.
      */
-    block_iterator(const view_type& view,
+    block_iterator(
+        const view_type& view,
         difference_type block,
         difference_type pos,
         int block_size)
-        : view_(view),
+        : view_(std::cref(view)),
           pos_(block, pos),
           block_size_(block_size),
-          block_count_(view_.blocks_.size())  //,
-          //decoded_block_num_(-1),
-          //decoded_block_(block_size_)
+          block_count_(view_.get().blocks_.size())  //,
+    // decoded_block_num_(-1),
+    // decoded_block_(block_size_)
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -145,7 +147,7 @@ public:
         pos_.off = block == pos_.block ? pos_.off : 0;
         pos_.block = block;
         ensure_decoded();
-        const auto& decoded_block = view_.decoded_blocks_[block];
+        const auto& decoded_block = view_.get().decoded_blocks_[block];
         while (decoded_block[pos_.off] < val) { pos_.off++; }
         return *this;
     };
@@ -181,51 +183,54 @@ public:
     //! Returns the index of the current posting.
     int idx() const { return block_size_ * pos_.block + pos_.off; }
 
+    //! Returns block size.
+    auto block_size() const { return block_size_; }
+
 private:
     friend class boost::iterator_core_access;
     void increment()
     {
         pos_.off++;
-        pos_.block += pos_.off / view_.block_size_;
-        pos_.off %= view_.block_size_;
+        pos_.block += pos_.off / view_.get().block_size_;
+        pos_.off %= view_.get().block_size_;
     }
     void advance(difference_type n)
     {
         pos_.off += n;
-        pos_.block += pos_.off / view_.block_size_;
-        pos_.off %= view_.block_size_;
+        pos_.block += pos_.off / view_.get().block_size_;
+        pos_.off %= view_.get().block_size_;
     }
     bool equal(const self_type& other) const { return pos_ == other.pos_; }
     const value_type& dereference() const
     {
         ensure_decoded();
-        return view_.decoded_blocks_[pos_.block][pos_.off];
+        return view_.get().decoded_blocks_[pos_.block][pos_.off];
     }
 
     //! Decodes and caches the current block if not decoded.
     void ensure_decoded() const
     {
-        auto& decoded_block = view_.decoded_blocks_[pos_.block];
+        auto& decoded_block = view_.get().decoded_blocks_[pos_.block];
         if (decoded_block.empty())
         {
             auto count = pos_.block < block_count_ - 1
                 ? block_size_
-                : view_.length_ - ((block_count_ - 1) * block_size_);
+                : view_.get().length_ - ((block_count_ - 1) * block_size_);
             if constexpr (delta_encoded) {  // NOLINT
                 auto preceding = pos_.block > 0
-                    ? view_.blocks_[pos_.block - 1].back()
+                    ? view_.get().blocks_[pos_.block - 1].back()
                     : 0_id;
                 decoded_block.resize(block_size_);
-                view_.codec_.delta_decode(
-                    std::begin(view_.blocks_[pos_.block].data()),
+                view_.get().codec_.delta_decode(
+                    std::begin(view_.get().blocks_[pos_.block].data()),
                     std::begin(decoded_block),
                     count,
                     preceding);
             }
             else {
                 decoded_block.resize(block_size_);
-                view_.codec_.decode(
-                    std::begin(view_.blocks_[pos_.block].data()),
+                view_.get().codec_.decode(
+                    std::begin(view_.get().blocks_[pos_.block].data()),
                     std::begin(decoded_block),
                     count);
             }
@@ -235,24 +240,26 @@ private:
     //! Returns the block of the next greater of equal element.
     int nextgeq_block(int block, value_type id) const
     {
-        while (block < view_.blocks_.size()
-            && view_.blocks_[block].back() < id)
-        { block++; }
+        while (block < sgn(view_.get().blocks_.size())
+               && view_.get().blocks_[block].back() < id) {
+            block++;
+        }
         return block;
     }
 
     //! Emulates `end()` call on the view.
     void finish()
     {
-        pos_.block = view_.length_ / view_.block_size_;
-        pos_.off = (view_.length_ - ((block_count_ - 1) * block_size_))
+        pos_.block = view_.get().length_ / view_.get().block_size_;
+        pos_.off = (view_.get().length_ - ((block_count_ - 1) * block_size_))
             % block_size_;
     }
 
-    const view_type& view_;
+    //const view_type& view_;
+    std::reference_wrapper<const view_type> view_;
     block_position_t pos_;
     int32_t block_size_;
-    const std::size_t block_count_;
+    int32_t block_count_;
 };
 
 //class decoded_block_iterator : public boost::iterator_facade<
@@ -281,6 +288,11 @@ public:
         boost::iostreams::back_insert_device<std::vector<char>>;
 
     explicit block_list_builder(int block_size) : block_size_(block_size) {}
+    block_list_builder(const block_list_builder&) = default;
+    block_list_builder(block_list_builder&&) noexcept = default;
+    block_list_builder& operator=(const block_list_builder&) = default;
+    block_list_builder& operator=(block_list_builder&&) noexcept = default;
+    virtual ~block_list_builder() = default;
 
     void add(value_type id) { values_.push_back(id); }
 
@@ -292,6 +304,8 @@ public:
 
         gsl::index pos = 0;
         value_type previous_doc(0);
+        (void)previous_doc;  // To remove -Wunused-but-set-variable warning due
+                             // to `if constexpr` block later on.
         const int32_t num_blocks = (values_.size() + block_size_ - 1)
             / block_size_;
         for (gsl::index block = 0; block < num_blocks; ++block)
@@ -344,6 +358,9 @@ public:
 
         return list_byte_size;
     }
+
+    auto size() const { return values_.size(); }
+    const auto& values() const { return values_; }
 
 private:
     int expanded_size(int list_byte_size) const
@@ -436,6 +453,7 @@ public:
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
 
     int32_t size() const { return length_; }
+    int32_t block_size() const { return block_size_; }
     int64_t memory_size() const { return memory_.size(); }
     memory_view memory() const { return memory_; }
 
@@ -461,4 +479,4 @@ using block_document_list_view = block_list_view<document_t, Codec, document_t>;
 template<class Payload, class Codec>
 using block_payload_list_view = block_list_view<Payload, Codec, std::nullopt_t>;
 
-};  // namespace irk::index
+}  // namespace irk::index

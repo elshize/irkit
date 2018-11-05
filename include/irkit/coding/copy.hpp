@@ -50,4 +50,4 @@ struct copy_codec {
     }
 };
 
-};  // namespace irk
+}  // namespace irk

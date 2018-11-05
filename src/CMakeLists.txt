@@ -1,7 +1,10 @@
-add_executable(irk irk.cpp)
-target_link_libraries(irk CONAN_PKG::CLI11)
+find_package(CLI11 REQUIRED)
+find_package(ZLIB REQUIRED)
 
-set(COMMON_LIBRARIES irkit CONAN_PKG::CLI11)
+add_executable(irk irk.cpp)
+target_link_libraries(irk CLI11::CLI11)
+
+set(COMMON_LIBRARIES irkit CLI11::CLI11)
 
 function(add_irk TOOL_NAME)
     foreach(arg IN LISTS ARGN)
@@ -15,7 +18,7 @@ function(add_irk TOOL_NAME)
         PRIVATE -Wall -Wno-unused-local-typedefs -Wno-sign-compare -Wno-parentheses)
 endfunction()
 
-add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
+#add_irk(warc CONAN_PKG::zlib CONAN_PKG::gumbo-parser)
 add_irk(part)
 add_irk(lexicon)
 add_irk(table)
@@ -28,13 +31,16 @@ add_irk(disect)
 add_irk(hits)
 add_irk(docidmap)
 add_irk(terminfo)
-add_irk(optet CONAN_PKG::irm)
 add_irk(shardmap)
+add_irk(reorder)
+add_irk(partidx)
+add_irk(threshold)
+add_irk(stem)
 
 install(
     TARGETS
         irk
-        irk-warc
+        #irk-warc
         irk-part
         irk-buildindex
         irk-score
@@ -47,6 +53,9 @@ install(
         irk-hits
         irk-docidmap
         irk-terminfo
-        irk-optet
         irk-shardmap
+        irk-reorder
+        irk-partidx
+        irk-threshold
+        irk-stem
     DESTINATION bin)

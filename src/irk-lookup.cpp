@@ -70,8 +70,11 @@ int main(int argc, char** argv)
     bool scores_defined = app.count("--scores") > 0;
 
     try {
-        irk::inverted_index_mapped_data_source data(fs::path{dir},
-            scores_defined ? std::make_optional(scoring) : std::nullopt);
+        std::vector<std::string> scores;
+        if (scores_defined) { scores.push_back(scoring); }
+        auto data =
+            irk::inverted_index_mapped_data_source::from(fs::path{dir}, scores)
+                .value();
         irk::inverted_index_view index(&data);
 
         term_id_t term_id = use_id ? std::stoi(term)

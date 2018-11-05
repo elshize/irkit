@@ -28,9 +28,12 @@
 
 #include <CLI/CLI.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
 
 #include <irkit/lexicon.hpp>
 #include <irkit/memoryview.hpp>
+
+using boost::iostreams::mapped_file_source;
 
 void run_build(const std::string& input,
     const std::string& output,
@@ -43,8 +46,8 @@ void run_build(const std::string& input,
 
 void run_lookup(const std::string& lexicon_file, const std::string& key)
 {
-    auto lex = irk::load_lexicon(
-        irk::make_memory_view(boost::filesystem::path(lexicon_file)));
+    mapped_file_source m(lexicon_file);
+    auto lex = irk::load_lexicon(irk::make_memory_view(m.data(), m.size()));
     auto idx = lex.index_at(key);
     if (idx.has_value()) {
         std::cout << idx.value() << std::endl;

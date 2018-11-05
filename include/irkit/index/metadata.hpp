@@ -27,6 +27,7 @@
 #pragma once
 
 #include <boost/filesystem.hpp>
+
 #include <irkit/index.hpp>
 
 namespace irk::index {
@@ -50,4 +51,4 @@ struct metadata {
     explicit metadata(fs::path dir) : dir(std::move(dir)) {}
 };
 
-};  // namespace irk::index
+}  // namespace irk::index

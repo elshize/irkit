@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     CLI11_PARSE(app, argc, argv);
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_disk_data_source data(dir);
+    irk::inverted_index_mapped_data_source data(dir);
     irk::inverted_index_view index(&data);
     std::cout << " done." << std::endl;
 

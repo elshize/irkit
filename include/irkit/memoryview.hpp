@@ -121,7 +121,7 @@ public:
     //! Returns a new memory view defined by a half-open range [lo, hi).
     irk::memory_view operator()(std::ptrdiff_t lo, std::ptrdiff_t hi) const
     {
-        EXPECTS(lo < hi);
+        EXPECTS(lo <= hi);
         return range(lo, hi - lo);
     }
 
@@ -357,9 +357,14 @@ private:
     }
 };
 
-inline memory_view make_memory_view(const boost::filesystem::path& file_path)
+inline std::pair<std::vector<char>, memory_view>
+make_memory_view(const boost::filesystem::path& file_path)
 {
-    return memory_view(disk_memory_source(file_path));
+    std::vector<char> container;
+    io::load_data(file_path, container);
+    return std::pair(
+        std::move(container),
+        memory_view(pointer_memory_source(container.data(), container.size())));
 }
 
-};  // namespace irk
+}  // namespace irk

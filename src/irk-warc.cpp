@@ -94,15 +94,13 @@ struct body_writer {
 
     void operator()(const std::string& content)
     {
-        std::regex term_pattern("(\\S+)");
-        auto term_iter = std::sregex_iterator(
-            content.begin(), content.end(), term_pattern);
-        if (term_iter != std::sregex_iterator())
-        {
+        std::regex term_pattern("(\\w+)");
+        auto term_iter =
+            std::sregex_iterator(content.begin(), content.end(), term_pattern);
+        if (term_iter != std::sregex_iterator()) {
             write_term(term_iter->str(), z, lowercase);
             term_iter++;
-            for (; term_iter != std::sregex_iterator(); term_iter++)
-            {
+            for (; term_iter != std::sregex_iterator(); term_iter++) {
                 std::cout << " ";
                 write_term(term_iter->str(), z, lowercase);
             }
@@ -129,6 +127,25 @@ void print_field(char f,
         std::string content = irk::parsing::html::cleantext(record.content());
         write_body(content);
         break;
+    }
+}
+
+void process(
+    std::istream& in,
+    const std::vector<char>& fields,
+    const std::string& field_separator,
+    const body_writer& writer)
+{
+    irkit::io::warc_record record;
+    while (irkit::io::read_warc_record(in, record)) {
+        if (record.type() == "response") {
+            auto it = fields.begin();
+            print_field(*it++, record, writer);
+            for (; it != fields.end(); it++) {
+                std::cout << field_separator;
+                print_field(*it, record, writer);
+            }
+        }
     }
 }
 
@@ -163,7 +180,6 @@ int main(int argc, char** argv)
         ->expected(1)
         ->check(check_fields(available_fields));
     app.add_option("input", input_files, "input WARC files", false)
-        ->required()
         ->check(CLI::ExistingFile);
 
     CLI11_PARSE(app, argc, argv);
@@ -187,24 +203,17 @@ int main(int argc, char** argv)
         }
     }
 
-    for (auto& input_file : input_files) {
-        std::ifstream fin(input_file);
-        boost::iostreams::filtering_istream in;
-        if (app.count("--zip") != 0u) {
-            in.push(boost::iostreams::gzip_decompressor());
-        }
-        in.push(fin);
-
-        irkit::io::warc_record record;
-        while (irkit::io::read_warc_record(in, record)) {
-            if (record.type() == "response") {
-                auto it = fields.begin();
-                print_field(*it++, record, writer);
-                for (; it != fields.end(); it++) {
-                    std::cout << field_separator;
-                    print_field(*it, record, writer);
-                }
+    if (input_files.empty()) {
+        process(std::cin, fields, field_separator, writer);
+    } else {
+        for (auto& input_file : input_files) {
+            std::ifstream fin(input_file);
+            boost::iostreams::filtering_istream in;
+            if (app.count("--zip") != 0u) {
+                in.push(boost::iostreams::gzip_decompressor());
             }
+            in.push(fin);
+            process(in, fields, field_separator, writer);
         }
     }
     if (app.count("--stem") != 0u) { irk::porter2::close_env(z); }
