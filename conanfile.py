@@ -52,6 +52,7 @@ class IRKConan(ConanFile):
         self.requires("gsl_microsoft/1.0.0@bincrafters/stable")
         self.requires("jsonformoderncpp/3.1.2@vthiery/stable")
         self.requires("spdlog/1.1.0@bincrafters/stable")
+        self.requires("catch2/2.4.1@bincrafters/stable")
 
     def configure(self):
         self.options["taily"].use_system_boost = self.options.use_system_boost

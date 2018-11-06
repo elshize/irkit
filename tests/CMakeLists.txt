@@ -1,10 +1,14 @@
 cmake_policy(SET CMP0054 NEW)
 cmake_policy(SET CMP0057 NEW)
 
+find_package(Catch2 REQUIRED)
 find_package(GTest REQUIRED)
 include(GoogleTest)
 include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
+
+include(CTest)
+include(Catch)
 
 # TODO: Move to `unit` folder.
 configure_file(randstr.txt randstr.txt COPYONLY)
@@ -16,7 +20,6 @@ set(TEST_SOURCES
     test_coding.cpp
     test_daat.cpp
     test_io.cpp
-    test_merger.cpp
     test_prefixmap.cpp
     test_radix_tree.cpp
     test_taat.cpp
