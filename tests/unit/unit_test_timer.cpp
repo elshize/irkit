@@ -41,10 +41,10 @@ TEST(run_with_timer, no_return)
     ASSERT_EQ(static_cast<int>(slept_for.count()), 10);
 }
 
-TEST(run_with_timer, with_return)
+TEST(run_with_timer, handler)
 {
     int elapsed;
-    int result = irk::run_with_timer<std::chrono::milliseconds>(
+    int result = irk::run_with_timer_ret<std::chrono::milliseconds>(
         []() {
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
             return 70;
@@ -53,7 +53,28 @@ TEST(run_with_timer, with_return)
             elapsed = static_cast<int>(time.count());
         });
     ASSERT_EQ(result, 70);
-    ASSERT_EQ(elapsed, 10);
+}
+
+TEST(run_with_timer, returning)
+{
+    auto [result, time] =
+        irk::run_with_timer_ret<std::chrono::milliseconds>([]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            return 70;
+        });
+    (void)time;
+    ASSERT_EQ(result, 70);
+}
+
+TEST(format, time)
+{
+    int64_t hours = 1;
+    int64_t mins = 15;
+    int64_t secs = 57;
+    int64_t mills = 124;
+    int64_t t = mills + secs * 1000 + mins * 1000 * 60 + hours * 1000 * 60 * 60;
+    std::chrono::milliseconds time{t};
+    ASSERT_THAT(irk::format_time(time), ::testing::StrEq("01:15:57.124"));
 }
 
 }  // namespace

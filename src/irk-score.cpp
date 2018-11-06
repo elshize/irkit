@@ -24,6 +24,7 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <unordered_set>
@@ -36,6 +37,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/score.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/timer.hpp>
 
 namespace fs = boost::filesystem;
 using source_type = irk::inverted_index_mapped_data_source;
@@ -77,16 +79,21 @@ int main(int argc, char** argv)
 
     tbb::task_scheduler_init init(threads);
     log->info("Initiating scoring using {} threads", threads);
-
+    auto score_bm25 =
+        irk::index::score_index<irk::score::bm25_scorer, source_type>;
+    auto score_ql = irk::index::
+        score_index<irk::score::query_likelihood_scorer, source_type>;
     fs::path dir_path(dir);
-    if (scorer == "bm25") {
-        irk::index::score_index<irk::score::bm25_scorer, source_type>(
-            dir, bits);
-    } else if (scorer == "ql") {
-        irk::index::
-            score_index<irk::score::query_likelihood_scorer, source_type>(
-                dir, bits);
-    }
-    log->info("Done.");
+    irk::run_with_timer<std::chrono::milliseconds>(
+        [&]() {
+            if (scorer == "bm25") {
+                score_bm25(dir, bits);
+            } else if (scorer == "ql") {
+                score_ql(dir, bits);
+            }
+        },
+        [&](const auto& time) {
+            log->info("Done in {}", irk::format_time(time));
+        });
     return 0;
 }

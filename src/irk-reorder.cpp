@@ -24,6 +24,7 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <chrono>
 #include <iostream>
 
 #include <CLI/CLI.hpp>
@@ -34,6 +35,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/reorder.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/timer.hpp>
 #include "cli.hpp"
 
 using boost::filesystem::path;
@@ -80,14 +82,22 @@ int main(int argc, char** argv)
     auto log = spdlog::stderr_color_mt("stderr");
     path dir(args->index_dir);
     std::vector<document_t> permutation;
-    log->info("Computing permutation...");
-    if (ordering_file.empty()) {
-        permutation = compute_permutation(std::cin, dir);
-    } else {
-        std::ifstream in(ordering_file);
-        permutation = compute_permutation(in, dir);
-    }
-    irk::reorder::index(dir, path(output_dir), permutation);
-    log->info("Finished.");
+    irk::run_with_timer<std::chrono::milliseconds>(
+        [&]() {
+            log->info("Computing permutation...");
+            if (ordering_file.empty()) {
+                permutation = compute_permutation(std::cin, dir);
+            } else {
+                std::ifstream in(ordering_file);
+                permutation = compute_permutation(in, dir);
+            }
+        },
+        irk::cli::log_finished{log});
+    irk::run_with_timer<std::chrono::milliseconds>(
+        [&]() {
+            log->info("Reordering...");
+            irk::reorder::index(dir, path(output_dir), permutation);
+        },
+        irk::cli::log_finished{log});
     return 0;
 }

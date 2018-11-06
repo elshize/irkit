@@ -115,7 +115,6 @@ void process_query(
     } else {
         if (args.score_function_defined()) {
             if (args.score_function[0] == '*') {
-                std::cout << "***" << std::endl;
                 auto postings = irk::cli::postings_on_fly(
                     terms, index, args.score_function);
                 print_postings_multiple(
