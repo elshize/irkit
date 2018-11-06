@@ -65,3 +65,4 @@ tags
 *.back
 *tidy/
 standardese
+conan_ycm_flags.json
