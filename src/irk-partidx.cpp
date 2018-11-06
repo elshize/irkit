@@ -24,6 +24,7 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <chrono>
 #include <iostream>
 
 #include <CLI/CLI.hpp>
@@ -35,6 +36,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/partition.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/timer.hpp>
 #include <irkit/utils.hpp>
 #include "cli.hpp"
 
@@ -136,23 +138,28 @@ int main(int argc, char** argv)
 
     auto log = spdlog::stderr_color_mt("partition");
     path dir(args->index_dir);
-    auto shard_map = map_in.empty() ? build_shard_map(dir, shard_files)
-                                    : load_shard_map(map_in);
-    if (map_in.empty()) {
-        shard_count = shard_files.size();
-    }
-    if (not map_out.empty()) {
-        try {
-            auto tab = build_compact_table<ShardId, vbyte_codec<ShardId>>(
-                shard_map.as_vector());
-            std::ofstream os(map_out);
-            tab.serialize(os);
-            log->info("Mapping written to: {}", map_out);
-        } catch (std::exception& e) {
-            log->error("Error while saving the map: {}", e.what());
-        }
-    }
-    irk::partition_index(
-        dir, path(output_dir), shard_map, shard_count, batch_size);
+    irk::run_with_timer<std::chrono::milliseconds>(
+        [&]() {
+            auto shard_map = map_in.empty() ? build_shard_map(dir, shard_files)
+                                            : load_shard_map(map_in);
+            if (map_in.empty()) {
+                shard_count = shard_files.size();
+            }
+            if (not map_out.empty()) {
+                try {
+                    auto tab =
+                        build_compact_table<ShardId, vbyte_codec<ShardId>>(
+                            shard_map.as_vector());
+                    std::ofstream os(map_out);
+                    tab.serialize(os);
+                    log->info("Mapping written to: {}", map_out);
+                } catch (std::exception& e) {
+                    log->error("Error while saving the map: {}", e.what());
+                }
+            }
+            irk::partition_index(
+                dir, path(output_dir), shard_map, shard_count, batch_size);
+        },
+        irk::cli::log_finished{log});
     return 0;
 }

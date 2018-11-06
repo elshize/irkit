@@ -26,10 +26,12 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include <CLI/CLI.hpp>
 #include <fmt/format.h>
+#include <spdlog/spdlog.h>
 
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
@@ -38,6 +40,7 @@
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/score.hpp>
 #include <irkit/taat.hpp>
+#include <irkit/timer.hpp>
 
 namespace irk::cli {
 
@@ -511,5 +514,14 @@ postings_on_fly(Range& terms, const Index& index, const std::string& name)
             fmt::format("unknown score function: {}", name));
     }
 }
+
+struct log_finished {
+    std::shared_ptr<spdlog::logger> log;
+    template<class Unit>
+    void operator()(const Unit& time) const
+    {
+        log->info("Finished in {}", irk::format_time(time));
+    }
+};
 
 }  // namespace irk::cli

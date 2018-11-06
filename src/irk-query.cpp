@@ -38,6 +38,7 @@
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/score.hpp>
 #include <irkit/taat.hpp>
+#include <irkit/timer.hpp>
 #include "cli.hpp"
 
 using std::uint32_t;
@@ -95,11 +96,11 @@ inline void run_and_score(
     ProcessingType proctype)
 {
     stem_if(query, stem);
-    auto start_time = steady_clock::now();
-    auto postings = postings_on_fly(query, index, scorer);
-    auto results = process_query(index, postings, k, proctype);
-    print_results<Index, double>(results, index, trecid, run_id);
-    auto total = duration_cast<milliseconds>(steady_clock::now() - start_time);
+    auto total = irk::run_with_timer<std::chrono::milliseconds>([&]() {
+        auto postings = postings_on_fly(query, index, scorer);
+        auto results = process_query(index, postings, k, proctype);
+        print_results<Index, double>(results, index, trecid, run_id);
+    });
     std::cerr << "Time: " << total.count() << " ms\n";
 }
 
@@ -115,32 +116,25 @@ inline void run_query(const Index& index,
     stem_if(query, stem);
     auto start_time = steady_clock::now();
 
-    auto postings = irk::query_scored_postings(index, query);
-    auto after_fetch = steady_clock::now();
-
-    std::vector<uint32_t> acc(index.collection_size(), 0);
-    auto after_init = steady_clock::now();
-
-    irk::taat(postings, acc);
-
-    auto after_acc = steady_clock::now();
-
-    auto results = irk::aggregate_top_k<document_t, uint32_t>(
-        std::begin(acc), std::end(acc), k);
+    auto [postings, fetch_time] = irk::run_with_timer_ret<milliseconds>(
+        [&]() { return irk::query_scored_postings(index, query); });
+    auto [acc, init_time] = irk::run_with_timer_ret<milliseconds>(
+        [&]() { return std::vector<uint32_t>(index.collection_size(), 0); });
+    auto acc_time =
+        irk::run_with_timer<milliseconds>([&]() { irk::taat(postings, acc); });
+    auto [results, agg_time] = irk::run_with_timer_ret<milliseconds>([&]() {
+        return irk::aggregate_top_k<document_t, uint32_t>(
+            std::begin(acc), std::end(acc), k);
+    });
     auto end_time = steady_clock::now();
-
     auto total = duration_cast<milliseconds>(end_time - start_time);
-    auto fetch = duration_cast<milliseconds>(after_fetch - start_time);
-    auto init = duration_cast<milliseconds>(after_init - after_fetch);
-    auto accum = duration_cast<milliseconds>(after_acc - after_init);
-    auto agg = duration_cast<milliseconds>(end_time - after_acc);
 
     print_results(results, index, trecid, run_id);
     std::cerr << "Time: " << total.count() << " ms [ ";
-    std::cerr << "Fetch: " << fetch.count() << " / ";
-    std::cerr << "Init: " << init.count() << " / ";
-    std::cerr << "Acc: " << accum.count() << " / ";
-    std::cerr << "Agg: " << agg.count() << " ]\n";
+    std::cerr << "Fetch: " << fetch_time.count() << " / ";
+    std::cerr << "Init: " << init_time.count() << " / ";
+    std::cerr << "Acc: " << acc_time.count() << " / ";
+    std::cerr << "Agg: " << agg_time.count() << " ]\n";
 }
 
 int main(int argc, char** argv)

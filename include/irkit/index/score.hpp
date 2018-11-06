@@ -98,6 +98,8 @@ namespace detail {
             if (not type) {
                 return nonstd::make_unexpected(type.error());
             }
+            auto props = index::read_properties(dir);
+
             namespace ba = boost::accumulators;
             using stat_accumulator = ba::accumulator_set<
                 double,
@@ -159,7 +161,6 @@ namespace detail {
                 irk::build_compact_table<uint32_t>(max_scores);
             maxout << maxscore_table;
 
-            auto props = index::read_properties(dir);
             index::QuantizationProperties qprops;
             qprops.type = type.value();
             qprops.nbits = bits;

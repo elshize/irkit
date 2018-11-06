@@ -24,6 +24,7 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#include <chrono>
 #include <string>
 #include <vector>
 
@@ -33,6 +34,7 @@
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/io.hpp>
+#include <irkit/timer.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -72,35 +74,50 @@ int main(int argc, char** argv)
     auto log = spdlog::stderr_color_mt("buildindex");
     if (merge_only)
     {
-        fs::path dir(output_dir);
-        fs::path batch_dir = dir / ".batches";
-        std::vector<fs::path> batch_dirs{
-            fs::directory_iterator(batch_dir), fs::directory_iterator()};
-        irk::index_merger merger(dir, batch_dirs, skip_block_size);
-        merger.merge();
-        auto term_map = irk::build_lexicon(
-            irk::index::terms_path(output_dir), lexicon_block_size);
-        term_map.serialize(irk::index::term_map_path(output_dir));
-        auto title_map = irk::build_lexicon(
-            irk::index::titles_path(output_dir), lexicon_block_size);
-        title_map.serialize(irk::index::title_map_path(output_dir));
+        irk::run_with_timer<std::chrono::milliseconds>(
+            [&]() {
+                fs::path dir(output_dir);
+                fs::path batch_dir = dir / ".batches";
+                std::vector<fs::path> batch_dirs{
+                    fs::directory_iterator(batch_dir),
+                    fs::directory_iterator()};
+                irk::index_merger merger(dir, batch_dirs, skip_block_size);
+                merger.merge();
+                auto term_map = irk::build_lexicon(
+                    irk::index::terms_path(output_dir), lexicon_block_size);
+                term_map.serialize(irk::index::term_map_path(output_dir));
+                auto title_map = irk::build_lexicon(
+                    irk::index::titles_path(output_dir), lexicon_block_size);
+                title_map.serialize(irk::index::title_map_path(output_dir));
+            },
+            [&](const auto& time) {
+                log->info("Merged in {}", irk::format_time(time));
+            });
     }
     else
     {
-        std::optional<std::unordered_set<std::string>> spamlist = std::nullopt;
-        if (not spam_titles.empty()) {
-            spamlist = std::make_optional<std::unordered_set<std::string>>();
-            for (const std::string& line : irk::io::lines(spam_titles)) {
-                spamlist->insert(line);
-            }
-        }
-        irk::index::index_assembler assembler(
-            fs::path(output_dir),
-            batch_size,
-            skip_block_size,
-            lexicon_block_size,
-            spamlist);
-        assembler.assemble(std::cin);
+        using spam_list_type = std::unordered_set<std::string>;
+        std::optional<spam_list_type> spamlist = std::nullopt;
+        irk::run_with_timer<std::chrono::milliseconds>(
+            [&]() {
+                if (not spam_titles.empty()) {
+                    spamlist = std::make_optional<spam_list_type>();
+                    for (const std::string& line :
+                         irk::io::lines(spam_titles)) {
+                        spamlist->insert(line);
+                    }
+                }
+                irk::index::index_assembler assembler(
+                    fs::path(output_dir),
+                    batch_size,
+                    skip_block_size,
+                    lexicon_block_size,
+                    spamlist);
+                assembler.assemble(std::cin);
+            },
+            [&](const auto& time) {
+                log->info("Built in {}", irk::format_time(time));
+            });
     }
     return 0;
 }
