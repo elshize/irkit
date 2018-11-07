@@ -288,7 +288,7 @@ calc_score_stats(const fs::path& dir_path)
     }
     Index index(&source.value());
     detail::ScoreStatsFn fn{dir_path, std::string{ScoreTag{}}};
-    std::vector<term_id_t> term_ids{index.term_count()};
+    std::vector<term_id_t> term_ids(index.term_count());
     std::iota(term_ids.begin(), term_ids.end(), term_id_t{0});
     fn(term_ids, [&](term_id_t id) {
         return index.postings(id).scored(index.term_scorer(id, ScoreTag{}));
