@@ -523,24 +523,22 @@ public:
         return scored_postings(*idopt);
     }
 
-    template<class Scorer>
-    Scorer term_scorer(term_id_type term_id) const
+    auto term_scorer(term_id_type term_id, score::bm25_tag) const
     {
-        if constexpr (std::is_same_v<  // NOLINT
-                          Scorer,
-                          score::bm25_scorer>) {
-            return score::bm25_scorer(
-                term_collection_frequencies_[term_id],
-                document_count_,
-                avg_document_size_);
-        } else if constexpr (std::is_same_v<  // NOLINT
-                                 Scorer,
-                                 score::query_likelihood_scorer>) {
-            return score::query_likelihood_scorer(
-                term_occurrences(term_id),
-                occurrences_count(),
-                max_document_size_);
-        }
+        return score::BM25ScoreFn{*this,
+                                  score::bm25_scorer(
+                                      term_collection_frequencies_[term_id],
+                                      document_count_,
+                                      avg_document_size_)};
+    }
+
+    auto term_scorer(term_id_type term_id, score::query_likelihood_tag) const
+    {
+        return score::QueryLikelihoodScoreFn{*this,
+                                             score::query_likelihood_scorer(
+                                                 term_occurrences(term_id),
+                                                 occurrences_count(),
+                                                 max_document_size_)};
     }
 
     std::optional<term_id_type> term_id(const std::string& term) const
@@ -796,9 +794,8 @@ inline auto query_scored_postings(
     postings.reserve(query.size());
     for (const auto& [idx, term] : iter::enumerate(query)) {
         if (auto term_id = index.term_id(term); term_id.has_value()) {
-            postings.push_back(unscored[idx].scored(score::BM25ScoreFn{
-                index,
-                index.term_scorer<score::bm25_scorer>(term_id.value())}));
+            postings.push_back(unscored[idx].scored(
+                index.term_scorer(term_id.value(), score::bm25)));
         }
     }
     return postings;
@@ -816,11 +813,8 @@ inline auto query_scored_postings(
     postings.reserve(query.size());
     for (const auto& [idx, term] : iter::enumerate(query)) {
         if (auto term_id = index.term_id(term); term_id.has_value()) {
-            postings.push_back(
-                unscored[idx].scored(score::QueryLikelihoodScoreFn{
-                    index,
-                    index.term_scorer<score::query_likelihood_scorer>(
-                        term_id.value())}));
+            postings.push_back(unscored[idx].scored(
+                index.term_scorer(term_id.value(), score::query_likelihood)));
         }
     }
     return postings;

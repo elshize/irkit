@@ -24,6 +24,7 @@ add_irk(lexicon)
 add_irk(table)
 add_irk(buildindex)
 add_irk(score)
+add_irk(scorestats)
 add_irk(postings)
 add_irk(query)
 add_irk(lookup)
@@ -44,6 +45,7 @@ install(
         irk-part
         irk-buildindex
         irk-score
+        irk-scorestats
         irk-postings
         irk-query
         irk-lookup

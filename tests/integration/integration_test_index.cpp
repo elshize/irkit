@@ -139,7 +139,7 @@ protected:
         std::ifstream input(collection_file);
         assembler.assemble(input);
         irk::index::score_index<
-            irk::score::query_likelihood_scorer,
+            irk::score::query_likelihood_tag,
             irk::inverted_index_inmemory_data_source>(index_dir, 8);
     }
 };
