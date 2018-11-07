@@ -292,8 +292,7 @@ public:
         memory_view>;
     using score_table_type =
         compact_table<score_type, irk::vbyte_codec<score_type>, memory_view>;
-    using size_table_type =
-        compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>;
+    using size_table_type = std::vector<int32_t>;
     using array_stream = boost::iostreams::stream_buffer<
         boost::iostreams::basic_array_source<char>>;
     using score_tuple_type =
@@ -314,7 +313,10 @@ public:
           counts_view_(data->counts_view()),
           document_offsets_(data->document_offsets_view()),
           count_offsets_(data->count_offsets_view()),
-          document_sizes_(data->document_sizes_view()),
+          document_sizes_(
+              compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>(
+                  data->document_sizes_view())
+                  .to_vector()),
           term_collection_frequencies_(
               data->term_collection_frequencies_view()),
           term_collection_occurrences_(
