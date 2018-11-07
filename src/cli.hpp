@@ -32,6 +32,7 @@
 #include <CLI/CLI.hpp>
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
+#include <tbb/task_scheduler_init.h>
 
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
@@ -370,6 +371,17 @@ struct k_opt {
     void set(CLI::App& app, Args& args)
     {
         app.add_option("-k", args->k, "Number of documents to retrieve", true);
+    }
+};
+
+struct threads_opt {
+    int threads = tbb::task_scheduler_init::default_num_threads();
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        app.add_option(
+            "--threads,-j", args->threads, "Number of threads", true);
     }
 };
 

@@ -85,7 +85,7 @@ protected:
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
         irk::index::score_index<
-            irk::score::bm25_scorer,
+            irk::score::bm25_tag,
             irk::inverted_index_mapped_data_source>(input_dir, 8);
         output_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test_shards";
         if (exists(output_dir)) remove_all(output_dir);

@@ -80,9 +80,9 @@ int main(int argc, char** argv)
     tbb::task_scheduler_init init(threads);
     log->info("Initiating scoring using {} threads", threads);
     auto score_bm25 =
-        irk::index::score_index<irk::score::bm25_scorer, source_type>;
-    auto score_ql = irk::index::
-        score_index<irk::score::query_likelihood_scorer, source_type>;
+        irk::index::score_index<irk::score::bm25_tag, source_type>;
+    auto score_ql =
+        irk::index::score_index<irk::score::query_likelihood_tag, source_type>;
     fs::path dir_path(dir);
     irk::run_with_timer<std::chrono::milliseconds>(
         [&]() {

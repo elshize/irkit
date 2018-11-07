@@ -82,3 +82,4 @@ gtest_add_tests(TARGET ${PROPERTIES} TEST_PREFIX "unit.")
 
 add_unit_test(timer)
 add_catch2_unit_test(merger)
+add_catch2_unit_test(scorestats)

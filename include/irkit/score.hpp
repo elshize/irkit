@@ -166,7 +166,6 @@ struct QueryLikelihoodScoreFn {
         : index(index), scorer(scorer)
     {}
 
-    //! Returns the BM25 score.
     double operator()(index::document_t doc, index::frequency_t freq) const
     {
         return scorer(freq, index.document_size(doc));

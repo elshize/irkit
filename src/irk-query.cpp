@@ -208,16 +208,16 @@ int main(int argc, char** argv)
                     args->trec_run,
                     args->score_function,
                     args->processing_type);
-                continue;
+            } else {
+                run_query(
+                    index,
+                    args->index_dir,
+                    terms,
+                    args->k,
+                    not args->nostem,
+                    current_trecid,
+                    args->trec_run);
             }
-            run_query(
-                index,
-                args->index_dir,
-                terms,
-                args->k,
-                not args->nostem,
-                current_trecid,
-                args->trec_run);
             if (current_trecid.has_value()) {
                 current_trecid.value()++;
             }

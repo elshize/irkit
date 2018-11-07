@@ -166,11 +166,29 @@ void append_collection(const Collection& collection, std::vector<char>& buffer)
 }
 
 template<class T>
+std::vector<T> read_vector(std::istream& in)
+{
+    size_t nbytes;
+    in.read(reinterpret_cast<char*>(&nbytes), sizeof(size_t));
+    auto size = nbytes / sizeof(T);
+    std::vector<T> vec(size);
+    in.read(reinterpret_cast<char*>(vec.data()), nbytes);
+    return vec;
+}
+
+template<class T>
+std::vector<T> read_vector(const boost::filesystem::path& file)
+{
+    std::ifstream is(file.c_str());
+    return read_vector<T>(is);
+}
+
+template<class T>
 void write_vector(const std::vector<T>& vec, std::ostream& out)
 {
     size_t nbytes = vec.size() * sizeof(T);
-    out.write(reinterpret_cast<char*>(&nbytes), sizeof(size_t));
-    out.write(reinterpret_cast<char*>(vec.data()), nbytes);
+    out.write(reinterpret_cast<const char*>(&nbytes), sizeof(size_t));
+    out.write(reinterpret_cast<const char*>(vec.data()), nbytes);
 }
 
 template<class Range>

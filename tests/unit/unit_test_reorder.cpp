@@ -74,7 +74,7 @@ protected:
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
         irk::index::score_index<
-            irk::score::bm25_scorer,
+            irk::score::bm25_tag,
             irk::inverted_index_mapped_data_source>(dir, 8);
     }
 };
