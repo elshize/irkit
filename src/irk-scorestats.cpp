@@ -71,9 +71,13 @@ int main(int argc, char** argv)
     irk::run_with_timer<std::chrono::milliseconds>(
         [&]() {
             if (score_function == "bm25") {
-                calc_bm25(index_dir);
+                if (auto res = calc_bm25(index_dir); not res) {
+                    log->error("Fatal error: {}", res.error());
+                }
             } else if (score_function == "ql") {
-                calc_ql(index_dir);
+                if (auto res = calc_ql(index_dir); not res) {
+                    log->error("Fatal error: {}", res.error());
+                }
             }
         },
         irk::cli::log_finished{log});
