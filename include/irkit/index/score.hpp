@@ -161,9 +161,8 @@ namespace detail {
                 for (auto term = range.begin(); term != range.end(); ++term) {
                     auto scorer = index.term_scorer(term, ScoreTag{});
                     for (const auto& posting : index.postings(term)) {
-                        double score = scorer(
-                            posting.payload(),
-                            index.document_size(posting.document()));
+                        double score =
+                            scorer(posting.document(), posting.payload());
                         min = irk::min_val(min, score);
                         max = irk::max_val(max, score);
                     }
@@ -232,9 +231,8 @@ namespace detail {
                 stat_accumulator acc;
                 auto scorer = index.term_scorer(term_id, ScoreTag{});
                 for (const auto& posting : index.postings(term_id)) {
-                    double score = scorer(
-                        posting.payload(),
-                        index.document_size(posting.document()));
+                    double score =
+                        scorer(posting.document(), posting.payload());
                     list_builder.add(quantize(score));
                     acc(score);
                 }
