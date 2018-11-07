@@ -33,11 +33,21 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
+#include <irkit/timer.hpp>
 
 template<class T>
 inline void do_not_optimize_away(T&& datum)
 {
     asm volatile("" : "+r"(datum));  // NOLINT
+}
+
+auto print(const std::string& label, size_t count)
+{
+    return [=](std::chrono::nanoseconds elapsed) {
+        auto ns_per_int = static_cast<double>(elapsed.count()) / count;
+        std::cout << label << ": " << ns_per_int << " ns/p; "
+                  << 1'000 / ns_per_int << " mln p/s\n";
+    };
 }
 
 int main(int argc, char** argv)
@@ -52,74 +62,82 @@ int main(int argc, char** argv)
     CLI11_PARSE(app, argc, argv);
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_mapped_data_source data(dir);
-    irk::inverted_index_view index(&data);
+    auto data = irk::inverted_index_mapped_data_source::from(dir);
+    irk::inverted_index_view index(&data.value());
     std::cout << " done." << std::endl;
 
-    std::chrono::nanoseconds together_elapsed(0);
-
     auto term_id = index.term_id(term).value_or(0);
-    {
-        std::chrono::nanoseconds elapsed(0);
-        auto document_list = index.documents(term_id);
-        auto last = document_list.end();
-        auto docit = document_list.begin();
-        auto start = std::chrono::steady_clock::now();
-        for (; docit != last; ++docit) {
-            irk::index::document_t d = *docit;
-            asm volatile("" : "+r"(d));  // NOLINT
-        }
-        auto end = std::chrono::steady_clock::now();
-        elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
-            end - start);
-        auto ns_per_int = static_cast<double>(elapsed.count())
-            / document_list.size();
-        std::cout << "Documents only: " << ns_per_int
-                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
-    }
+    auto count = index.term_collection_frequency(term_id);
 
-    {
-        std::chrono::nanoseconds elapsed(0);
-        auto document_list = index.documents(term_id);
-        auto frequency_list = index.frequencies(term_id);
-        auto last = document_list.end();
-        auto docit = document_list.begin();
-        auto freqit = frequency_list.begin();
-        auto start = std::chrono::steady_clock::now();
-        for (; docit != last; ++docit, ++freqit) {
-            irk::index::document_t d = *docit;
-            irk::index::document_t f = *freqit;
-            asm volatile("" : "+r"(d));  // NOLINT
-            asm volatile("" : "+r"(f));  // NOLINT
-        }
-        auto end = std::chrono::steady_clock::now();
-        elapsed += std::chrono::duration_cast<std::chrono::nanoseconds>(
-            end - start);
-        auto ns_per_int = static_cast<double>(elapsed.count())
-            / document_list.size();
-        std::cout << "Documents and frequencies independently: " << ns_per_int
-                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
-    }
+    irk::run_with_timer<std::chrono::nanoseconds>(
+        [&]() {
+            auto document_list = index.documents(term_id);
+            auto last = document_list.end();
+            auto docit = document_list.begin();
+            for (; docit != last; ++docit) {
+                irk::index::document_t d = *docit;
+                asm volatile("" : "+r"(d));  // NOLINT
+            }
+            return document_list.size();
+        },
+        print("Documents only", count));
 
-    {
-        auto posting_list = index.postings(term_id);
-        auto it = posting_list.begin();
-        auto last = posting_list.end();
-        auto start = std::chrono::steady_clock::now();
-        for (auto p : posting_list) {
-            irk::index::document_t d = p.document();
-            irk::index::document_t f = p.payload();
-            asm volatile("" : "+r"(d));  // NOLINT
-            asm volatile("" : "+r"(f));  // NOLINT
-        }
-        auto end = std::chrono::steady_clock::now();
-        together_elapsed +=
-            std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        auto ns_per_int = static_cast<double>(together_elapsed.count())
-            / posting_list.size();
-        std::cout << "As posting_list_view: " << ns_per_int
-                  << " ns/p; " << 1'000 / ns_per_int << " mln p/s" << std::endl;
-    }
+    irk::run_with_timer<std::chrono::nanoseconds>(
+        [&]() {
+            auto frequency_list = index.frequencies(term_id);
+            auto last = frequency_list.end();
+            auto docit = frequency_list.begin();
+            for (; docit != last; ++docit) {
+                auto d = *docit;
+                asm volatile("" : "+r"(d));  // NOLINT
+            }
+        },
+        print("Frequencies only", count));
+
+    irk::run_with_timer<std::chrono::nanoseconds>(
+        [&]() {
+            auto document_list = index.documents(term_id);
+            auto frequency_list = index.frequencies(term_id);
+            auto last = document_list.end();
+            auto docit = document_list.begin();
+            auto freqit = frequency_list.begin();
+            for (; docit != last; ++docit, ++freqit) {
+                irk::index::document_t d = *docit;
+                irk::index::frequency_t f = *freqit;
+                asm volatile("" : "+r"(d));  // NOLINT
+                asm volatile("" : "+r"(f));  // NOLINT
+            }
+        },
+        print("Documents and frequencies independently", count));
+
+    irk::run_with_timer<std::chrono::nanoseconds>(
+        [&]() {
+            auto posting_list = index.postings(term_id);
+            auto it = posting_list.begin();
+            auto last = posting_list.end();
+            for (auto p : posting_list) {
+                irk::index::document_t d = p.document();
+                irk::index::frequency_t f = p.payload();
+                asm volatile("" : "+r"(d));  // NOLINT
+                asm volatile("" : "+r"(f));  // NOLINT
+            }
+        },
+        print("As posting_list_view", count));
+
+    irk::run_with_timer<std::chrono::nanoseconds>(
+        [&]() {
+            auto posting_list = index.postings(term_id).scored(
+                index.term_scorer(term_id, irk::score::bm25));
+            auto it = posting_list.begin();
+            auto last = posting_list.end();
+            for (auto p : posting_list) {
+                irk::index::document_t d = p.document();
+                double s = p.payload();
+                asm volatile("" : "+r"(d));  // NOLINT
+                asm volatile("" : "+r"(s));  // NOLINT
+            }
+        },
+        print("Scored posting list BM25", count));
 
     return 0;
 }
