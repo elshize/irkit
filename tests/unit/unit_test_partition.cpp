@@ -290,7 +290,7 @@ void test_postings(
     const path& input_dir, const irk::vmap<ShardId, path>& shard_dirs)
 {
     auto source =
-        irk::inverted_index_mapped_data_source::from(input_dir, {"bm25"})
+        irk::inverted_index_mapped_data_source::from(input_dir, {"bm25-8"})
             .value();
     irk::inverted_index_view index(&source);
     std::vector<irk::inverted_index_mapped_data_source> shard_sources;
@@ -300,7 +300,7 @@ void test_postings(
         shard_dirs.end(),
         std::back_inserter(shard_sources),
         [](const path& dir) {
-            return irk::inverted_index_mapped_data_source::from(dir, {"bm25"})
+            return irk::inverted_index_mapped_data_source::from(dir, {"bm25-8"})
                 .value();
         });
     int sh = 0;
@@ -314,7 +314,7 @@ void test_postings(
     std::vector<std::vector<uint32_t>> max_scores;
     irk::transform_range(
         shards, std::back_inserter(max_scores), [](const auto& shard) {
-            return shard.score_data("bm25").max_scores.to_vector();
+            return shard.score_data("bm25-8").max_scores.to_vector();
         });
     // TODO: do with doubles
     //auto exp_values =

@@ -183,7 +183,8 @@ TEST_F(inverted_index, mapped_file)
 {
     // when
     auto data =
-        irk::inverted_index_mapped_data_source::from(index_dir, {"ql"}).value();
+        irk::inverted_index_mapped_data_source::from(index_dir, {"ql-8"})
+            .value();
     irk::inverted_index_view index_view(&data);
     // then
     test(index_view, expected_index);
