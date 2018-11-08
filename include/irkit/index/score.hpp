@@ -133,13 +133,14 @@ namespace detail {
     template<class ScoreTag, class DataSourceT>
     class ScoreFn {
     public:
-        ScoreFn(fs::path dir_path, std::string name, int bits)
+        ScoreFn(fs::path dir_path, std::string type_name, int bits)
             : bits(bits),
+              name(fmt::format("{}-{}", type_name, bits)),
               dir(std::move(dir_path)),
               scores_path(dir / (name + ".scores")),
               score_offsets_path(dir / (name + ".offsets")),
               score_max_path(dir / (name + ".maxscore")),
-              name(std::move(name))
+              type_name(std::move(type_name))
         {}
 
         std::pair<double, double> min_max(const inverted_index_view& index)
@@ -179,7 +180,7 @@ namespace detail {
 
         nonstd::expected<void, std::string> operator()()
         {
-            auto type = index::QuantizationProperties::parse_type(name);
+            auto type = index::QuantizationProperties::parse_type(type_name);
             if (not type) {
                 return nonstd::make_unexpected(type.error());
             }
@@ -250,18 +251,20 @@ namespace detail {
             qprops.nbits = bits;
             qprops.min = min_score;
             qprops.max = max_score;
-            props.quantized_scores[fmt::format("{}-{}", name, bits)] = qprops;
+            props.quantized_scores[name] = qprops;
+            index::write_properties(props, dir);
 
             return nonstd::expected<void, std::string>();
         }
 
     private:
         const int bits;
+        const std::string name;
         const fs::path dir;
         const fs::path scores_path;
         const fs::path score_offsets_path;
         const fs::path score_max_path;
-        const std::string name;
+        const std::string type_name;
     };
 
 }  // namespace detail
