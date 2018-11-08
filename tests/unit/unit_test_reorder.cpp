@@ -235,12 +235,12 @@ TEST_F(reorder_test, reorder)
     boost::filesystem::create_directory(output_dir);
 
     auto source =
-        irk::inverted_index_inmemory_data_source::from(dir, {"bm25"}).value();
+        irk::inverted_index_inmemory_data_source::from(dir, {"bm25-8"}).value();
     irk::inverted_index_view index(&source);
     irk::reorder::index(dir, output_dir, {8, 0, 9, 5, 2, 6, 1, 4});
 
     auto rsource =
-        irk::inverted_index_inmemory_data_source::from(output_dir, {"bm25"})
+        irk::inverted_index_inmemory_data_source::from(output_dir, {"bm25-8"})
             .value();
     irk::inverted_index_view rindex(&rsource);
 
