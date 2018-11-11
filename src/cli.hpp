@@ -34,6 +34,7 @@
 #include <spdlog/spdlog.h>
 #include <tbb/task_scheduler_init.h>
 
+#include <irkit/algorithm/query.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
 #include <irkit/index/types.hpp>
@@ -171,7 +172,7 @@ inline auto process_query(
             std::begin(acc), std::end(acc), k);
     }
     case ProcessingType::DAAT: {
-        return daat(postings, k);
+        return daat(gsl::make_span(postings), k);
     }
     default: throw std::domain_error("ProcessingType: non-exhaustive switch");
     }
@@ -496,14 +497,14 @@ inline auto postings_on_fly(
             index.collection_size(),
             index.avg_document_size());
         return index.postings(term).scored(
-            score::BM25ScoreFn{index, std::move(scorer)});
+            score::BM25TermScorer{index, std::move(scorer)});
     } else if (name == "*ql") {
         score::query_likelihood_scorer scorer(
             index.term_occurrences(term),
             index.occurrences_count(),
             index.max_document_size());
         return index.postings(term).scored(
-            score::QueryLikelihoodScoreFn{index, std::move(scorer)});
+            score::QueryLikelihoodTermScorer{index, std::move(scorer)});
     }
     else {
         throw std::domain_error(

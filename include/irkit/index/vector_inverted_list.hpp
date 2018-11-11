@@ -31,6 +31,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
+#include <irkit/index/types.hpp>
+
 namespace irk {
 
 namespace fs = boost::filesystem;
@@ -101,6 +103,7 @@ public:
 
     auto block() const { return block_; }
     auto pos() const { return pos_; }
+    const index::term_id_t& term_id() const { return view_.get().term_id(); }
 
 private:
     friend class boost::iterator_core_access;
@@ -173,8 +176,8 @@ public:
     using const_iterator = iterator;
 
     vector_document_list() = default;
-    vector_document_list(std::vector<value_type> vec)
-        : ids_(std::move(vec)), block_size_(ids_.size())
+    vector_document_list(index::term_id_t term_id, std::vector<value_type> vec)
+        : term_id_(term_id), ids_(std::move(vec)), block_size_(ids_.size())
     {}
     vector_document_list(const vector_document_list&) = default;
     vector_document_list(vector_document_list&&) noexcept = default;
@@ -198,9 +201,11 @@ public:
         return iterator(*this, block, pos);
     }
     iterator lookup(value_type id) const { return begin().nextgeq(id); }
+    const index::term_id_t& term_id() const { return term_id_; }
 
 private:
     friend iterator;
+    index::term_id_t term_id_;
     std::vector<value_type> ids_;
     size_type block_size_ = 0;
 };
@@ -214,8 +219,8 @@ public:
     using iterator = vector_block_iterator<self_type, false>;
     using const_iterator = iterator;
 
-    vector_payload_list(std::vector<value_type> vec)
-        : ids_(std::move(vec)), block_size_(ids_.size())
+    vector_payload_list(index::term_id_t term_id, std::vector<value_type> vec)
+        : term_id_(term_id), ids_(std::move(vec)), block_size_(ids_.size())
     {}
     vector_payload_list(const vector_payload_list&) = default;
     vector_payload_list(vector_payload_list&&) noexcept = default;
@@ -245,6 +250,7 @@ public:
 
 private:
     friend iterator;
+    index::term_id_t term_id_;
     std::vector<value_type> ids_;
     size_type block_size_ = 0;
 };

@@ -40,7 +40,7 @@ namespace {
 TEST(vector_document_list, forward_iterator)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
+    irk::vector_document_list vdl(0, documents);
     vdl.block_size(3);
 
     std::vector<long> from_list(vdl.begin(), vdl.end());
@@ -50,7 +50,7 @@ TEST(vector_document_list, forward_iterator)
 TEST(vector_document_list, moveto)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
+    irk::vector_document_list vdl(0, documents);
     vdl.block_size(3);
 
     ASSERT_EQ(*vdl.begin().moveto(0), 0);
@@ -79,7 +79,7 @@ TEST(vector_document_list, moveto)
 TEST(vector_document_list, nextgeq)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
+    irk::vector_document_list vdl(0, documents);
     vdl.block_size(3);
 
     ASSERT_EQ(*vdl.begin().nextgeq(0), 0);
@@ -100,7 +100,7 @@ TEST(vector_document_list, nextgeq)
 TEST(vector_document_list, lookup)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
+    irk::vector_document_list vdl(0, documents);
     vdl.block_size(3);
 
     ASSERT_EQ(*vdl.lookup(0), 0);
@@ -121,7 +121,7 @@ TEST(vector_document_list, lookup)
 TEST(vector_payload_list, forward_iterator)
 {
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_payload_list vpl(payloads);
+    irk::vector_payload_list vpl(0, payloads);
     vpl.block_size(3);
 
     std::vector<double> from_list(vpl.begin(), vpl.end());
@@ -132,8 +132,8 @@ TEST(vector_payload_list, alignment)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
-    irk::vector_payload_list vpl(payloads);
+    irk::vector_document_list vdl(0, documents);
+    irk::vector_payload_list vpl(0, payloads);
     vdl.block_size(3);
     vpl.block_size(3);
 

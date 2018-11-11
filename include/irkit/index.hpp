@@ -365,7 +365,9 @@ public:
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_document_list_view<document_codec_type>(
-            select(term_id, document_offsets_, documents_view_), length);
+            term_id,
+            select(term_id, document_offsets_, documents_view_),
+            length);
     }
 
     auto documents(const std::string& term) const
@@ -380,9 +382,9 @@ public:
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
-        return index::block_payload_list_view<frequency_type,
-            frequency_codec_type>(
-            select(term_id, count_offsets_, counts_view_), length);
+        return index::
+            block_payload_list_view<frequency_type, frequency_codec_type>(
+                term_id, select(term_id, count_offsets_, counts_view_), length);
     }
 
     auto frequencies(const std::string& term) const
@@ -399,6 +401,7 @@ public:
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_payload_list_view<score_type, score_codec_type>(
+            term_id,
             select(
                 term_id,
                 scores_.at(default_score_).offsets,
@@ -419,6 +422,7 @@ public:
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         return index::block_payload_list_view<score_type, score_codec_type>(
+            term_id,
             select(
                 term_id,
                 scores_.at(score_fun_name).offsets,
@@ -464,10 +468,12 @@ public:
             return posting_list_view(documents, frequencies);
         }
         auto documents = index::block_document_list_view<document_codec_type>(
-            select(term_id, document_offsets_, documents_view_), length);
-        auto counts = index::block_payload_list_view<frequency_type,
-            frequency_codec_type>(
-            select(term_id, count_offsets_, counts_view_), length);
+            term_id,
+            select(term_id, document_offsets_, documents_view_),
+            length);
+        auto counts = index::
+            block_payload_list_view<frequency_type, frequency_codec_type>(
+                term_id, select(term_id, count_offsets_, counts_view_), length);
         return posting_list_view(documents, counts);
     }
 
@@ -502,9 +508,12 @@ public:
             return posting_list_view(documents, scores);
         }
         auto documents = index::block_document_list_view<document_codec_type>(
-            select(term_id, document_offsets_, documents_view_), length);
+            term_id,
+            select(term_id, document_offsets_, documents_view_),
+            length);
         auto scores =
             index::block_payload_list_view<score_type, score_codec_type>(
+                term_id,
                 select(
                     term_id,
                     scores_.at(score).offsets,
@@ -527,20 +536,20 @@ public:
 
     auto term_scorer(term_id_type term_id, score::bm25_tag) const
     {
-        return score::BM25ScoreFn{*this,
-                                  score::bm25_scorer(
-                                      term_collection_frequencies_[term_id],
-                                      document_count_,
-                                      avg_document_size_)};
+        return score::BM25TermScorer{*this,
+                                     score::bm25_scorer(
+                                         term_collection_frequencies_[term_id],
+                                         document_count_,
+                                         avg_document_size_)};
     }
 
     auto term_scorer(term_id_type term_id, score::query_likelihood_tag) const
     {
-        return score::QueryLikelihoodScoreFn{*this,
-                                             score::query_likelihood_scorer(
-                                                 term_occurrences(term_id),
-                                                 occurrences_count(),
-                                                 max_document_size_)};
+        return score::QueryLikelihoodTermScorer{*this,
+                                                score::query_likelihood_scorer(
+                                                    term_occurrences(term_id),
+                                                    occurrences_count(),
+                                                    max_document_size_)};
     }
 
     std::optional<term_id_type> term_id(const std::string& term) const

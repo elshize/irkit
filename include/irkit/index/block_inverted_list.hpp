@@ -118,9 +118,7 @@ public:
         : view_(std::cref(view)),
           pos_(block, pos),
           block_size_(block_size),
-          block_count_(view_.get().blocks_.size())  //,
-    // decoded_block_num_(-1),
-    // decoded_block_(block_size_)
+          block_count_(view_.get().blocks_.size())
     {}
 
     //! Move to the next position greater or equal `val`.
@@ -185,6 +183,8 @@ public:
 
     //! Returns block size.
     auto block_size() const { return block_size_; }
+
+    const index::term_id_t& term_id() const { return view_.get().term_id(); }
 
 private:
     friend class boost::iterator_core_access;
@@ -255,29 +255,11 @@ private:
             % block_size_;
     }
 
-    //const view_type& view_;
     std::reference_wrapper<const view_type> view_;
     block_position_t pos_;
     int32_t block_size_;
     int32_t block_count_;
 };
-
-//class decoded_block_iterator : public boost::iterator_facade<
-//        decoded_block_iterator,
-//        const typename ListView::value_type,
-//        boost::forward_traversal_tag> {
-//public:
-//    using view_type = ListView;
-//    using self_type = block_iterator<view_type, delta_encoded>;
-//    using difference_type = int;
-//    using value_type = typename ListView::value_type;
-//
-//    block_iterator(const block_iterator&) = default;
-//    block_iterator(block_iterator&&) noexcept = default;
-//    block_iterator& operator=(const block_iterator&) = delete;
-//    block_iterator& operator=(block_iterator&&) noexcept = delete;
-//    ~block_iterator() = default;
-//};
 
 template<class Value, class Codec, bool delta_encoded = false>
 class block_list_builder {
@@ -390,8 +372,8 @@ public:
     using codec_type = Codec;
 
     block_list_view() = default;
-    block_list_view(irk::memory_view mem, int32_t length)
-        : length_(length), memory_(std::move(mem))
+    block_list_view(term_id_t term_id, irk::memory_view mem, int32_t length)
+        : term_id_(term_id), length_(length), memory_(std::move(mem))
     {
         auto pos = memory_.begin();
         irk::vbyte_codec<int64_t> vb;
@@ -462,7 +444,10 @@ public:
         return out.write(memory_.data(), memory_.size());
     }
 
+    const index::term_id_t& term_id() const { return term_id_; }
+
 private:
+    index::term_id_t term_id_{};
     int32_t length_ = 0;
     int32_t block_size_ = 0;
     irk::memory_view memory_{};

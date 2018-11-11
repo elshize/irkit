@@ -27,4 +27,7 @@
 #pragma once
 
 #include "algorithm/accumulate.hpp"
+#include "algorithm/group_by.hpp"
+#include "algorithm/max.hpp"
+#include "algorithm/query.hpp"
 #include "algorithm/transform.hpp"

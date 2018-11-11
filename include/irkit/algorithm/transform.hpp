@@ -96,7 +96,6 @@ constexpr OutputIt transform_ranges(
         std::begin(input_range1),
         std::end(input_range1),
         std::begin(input_range2),
-        std::end(input_range2),
         d_first,
         binary_op);
 }

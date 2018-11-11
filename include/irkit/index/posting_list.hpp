@@ -34,6 +34,7 @@
 
 #include <irkit/assert.hpp>
 #include <irkit/movingrange.hpp>
+#include <irkit/index/types.hpp>
 
 namespace irk {
 
@@ -72,6 +73,10 @@ public:
         const payload_type& payload() const
         {
             return *(payload_iterator_.get());
+        }
+        const index::term_id_t& term_id() const
+        {
+            return document_iterator_.get().term_id();
         }
         explicit operator std::pair<document_type, payload_type>() const
         {
@@ -201,6 +206,7 @@ public:
     {
         return scored_posting_list_view(*this, std::move(score_fn));
     }
+    const index::term_id_t& term_id() const { return documents_.term_id(); }
 
 private:
     document_list_type documents_;
@@ -248,6 +254,10 @@ public:
         double payload() const
         {
             return score_fn_(document(), unscored_payload());
+        }
+        const index::term_id_t& term_id() const
+        {
+            return posting_.get().term_id();
         }
         explicit operator std::pair<document_type, payload_type>() const
         {
@@ -364,6 +374,7 @@ public:
         return unscored_list_.payload_list();
     }
     auto block_size() const { return unscored_list_.block_size(); }
+    const index::term_id_t& term_id() const { return unscored_list_.term_id(); }
 
 private:
     unscored_type unscored_list_;
