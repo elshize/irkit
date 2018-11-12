@@ -36,6 +36,7 @@
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index/block.hpp>
+#include <irkit/index/raw_inverted_list.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/sgn.hpp>
@@ -172,6 +173,11 @@ public:
         return *this;
     }
 
+    raw_inverted_list<value_type> fetch() const
+    {
+        return raw_inverted_list<value_type>(term_id(), *this, end());
+    }
+
     //! Returns the current block number.
     int block() const { return pos_.block; }
 
@@ -253,6 +259,17 @@ private:
         pos_.block = view_.get().length_ / view_.get().block_size_;
         pos_.off = (view_.get().length_ - ((block_count_ - 1) * block_size_))
             % block_size_;
+    }
+
+    //! Emulates `end()` call on the view.
+    block_iterator end() const
+    {
+        return block_iterator{
+            view_,
+            view_.get().length_ / view_.get().block_size_,
+            (view_.get().length_ - ((block_count_ - 1) * block_size_))
+                % block_size_,
+            block_count_};
     }
 
     std::reference_wrapper<const view_type> view_;
@@ -433,6 +450,10 @@ public:
 
     //! Finds the position of `id` or the next greater.
     iterator lookup(value_type id) const { return begin().nextgeq(id); };
+    raw_inverted_list<value_type> fetch(value_type id) const
+    {
+        return begin().fetch();
+    };
 
     int32_t size() const { return length_; }
     int32_t block_size() const { return block_size_; }

@@ -40,11 +40,11 @@ struct scoring_function_tag {
     virtual explicit operator std::string() = 0;
 };
 
-struct bm25_tag : public scoring_function_tag {
+constexpr struct bm25_tag : public scoring_function_tag {
     explicit operator std::string() override { return "bm25"; }
 } bm25;
 
-struct query_likelihood_tag : public scoring_function_tag {
+constexpr struct query_likelihood_tag : public scoring_function_tag {
     explicit operator std::string() override { return "ql"; }
 } query_likelihood;
 

@@ -162,14 +162,9 @@ template<class Index, class RngRng>
 inline auto process_query(
     const Index& index, const RngRng& postings, int k, ProcessingType type)
 {
-    using score_type =
-        std::decay_t<decltype(postings.begin()->begin()->payload())>;
     switch (type) {
     case ProcessingType::TAAT: {
-        std::vector<score_type> acc(index.collection_size(), 0);
-        irk::taat(postings, acc);
-        return irk::aggregate_top_k<document_t, score_type>(
-            std::begin(acc), std::end(acc), k);
+        return taat(gsl::make_span(postings), index.collection_size(), k);
     }
     case ProcessingType::DAAT: {
         return daat(gsl::make_span(postings), k);

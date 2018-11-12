@@ -35,6 +35,7 @@
 #include <irkit/assert.hpp>
 #include <irkit/movingrange.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/index/raw_inverted_list.hpp>
 
 namespace irk {
 
@@ -207,6 +208,16 @@ public:
         return scored_posting_list_view(*this, std::move(score_fn));
     }
     const index::term_id_t& term_id() const { return documents_.term_id(); }
+
+    using raw_list =
+        raw_inverted_list<raw_posting<document_type, payload_type>>;
+    raw_list fetch() const
+    {
+        return raw_list(term_id(), begin(), end(), [](const auto& posting) {
+            return raw_posting<document_type, payload_type>(
+                posting.document(), posting.payload());
+        });
+    }
 
 private:
     document_list_type documents_;

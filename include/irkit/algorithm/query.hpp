@@ -41,11 +41,13 @@ namespace detail {
 
     template<class T>
     // requires ScoredPostingList<T>
-    using score_type = decltype(std::declval<T>().begin()->payload());
+    using score_type =
+        std::decay_t<decltype(std::declval<T>().begin()->payload())>;
 
     template<class T>
     // requires PostingList<T>
-    using document_type = decltype(std::declval<T>().begin()->document());
+    using document_type =
+        std::decay_t<decltype(std::declval<T>().begin()->document())>;
 
     auto moving_range_order = [](const auto& lhs, const auto& rhs) {
         if (rhs.empty()) {
@@ -169,9 +171,8 @@ auto daat(gsl::span<const T> postings, int k)
 {
     using Iterator = decltype(std::cbegin(std::declval<T>()));
     using Range = irk::moving_range<Iterator>;
-    using Score = std::decay_t<detail::score_type<decltype(*postings.begin())>>;
-    using Document =
-        std::decay_t<detail::document_type<decltype(*postings.begin())>>;
+    using Score = detail::score_type<decltype(*postings.begin())>;
+    using Document = detail::document_type<decltype(*postings.begin())>;
 
     std::vector<Range> ranges;
     for (const auto& posting_list : postings) {
@@ -194,8 +195,7 @@ auto daat(gsl::span<const T> postings, gsl::span<const F> score_fns, int k)
     using Iterator = decltype(std::cbegin(std::declval<T>()));
     using Range = std::pair<int, irk::moving_range<Iterator>>;
     using Score = double;
-    using Document =
-        std::decay_t<detail::document_type<decltype(*postings.begin())>>;
+    using Document = detail::document_type<decltype(*postings.begin())>;
 
     std::vector<Range> ranges;
     irk::transform_ranges(
