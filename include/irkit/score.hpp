@@ -40,11 +40,11 @@ struct scoring_function_tag {
     virtual explicit operator std::string() = 0;
 };
 
-struct bm25_tag : public scoring_function_tag {
+constexpr struct bm25_tag : public scoring_function_tag {
     explicit operator std::string() override { return "bm25"; }
 } bm25;
 
-struct query_likelihood_tag : public scoring_function_tag {
+constexpr struct query_likelihood_tag : public scoring_function_tag {
     explicit operator std::string() override { return "ql"; }
 } query_likelihood;
 
@@ -110,13 +110,25 @@ struct bm25_scorer {
     }
 };
 
+template<class Index>
+struct BM25PostingScorer {
+    const Index& index;
+    bm25_scorer scorer;
+    ptrdiff_t document_size;
+
+    double operator()(index::frequency_t freq) const
+    {
+        return scorer(freq, document_size);
+    }
+};
+
 //! A BM25 scorer.
 template<class Index>
-struct BM25ScoreFn {
+struct BM25TermScorer {
     const Index& index;
     bm25_scorer scorer;
 
-    BM25ScoreFn(const Index& index, bm25_scorer scorer)
+    BM25TermScorer(const Index& index, bm25_scorer scorer)
         : index(index), scorer(scorer)
     {}
 
@@ -124,6 +136,11 @@ struct BM25ScoreFn {
     double operator()(index::document_t doc, index::frequency_t freq) const
     {
         return scorer(freq, index.document_size(doc));
+    }
+
+    BM25PostingScorer<Index> operator()(index::document_t doc) const
+    {
+        return {index, scorer, index.document_size(doc)};
     }
 };
 
@@ -158,17 +175,35 @@ struct query_likelihood_scorer {
 };
 
 template<class Index>
-struct QueryLikelihoodScoreFn {
+struct QueryLikelihoodPostingScorer {
+    const Index& index;
+    query_likelihood_scorer scorer;
+    ptrdiff_t document_size;
+
+    double operator()(index::frequency_t freq) const
+    {
+        return scorer(freq, document_size);
+    }
+};
+
+template<class Index>
+struct QueryLikelihoodTermScorer {
     const Index& index;
     query_likelihood_scorer scorer;
 
-    QueryLikelihoodScoreFn(const Index& index, query_likelihood_scorer scorer)
+    QueryLikelihoodTermScorer(
+        const Index& index, query_likelihood_scorer scorer)
         : index(index), scorer(scorer)
     {}
 
     double operator()(index::document_t doc, index::frequency_t freq) const
     {
         return scorer(freq, index.document_size(doc));
+    }
+
+    QueryLikelihoodPostingScorer<Index> operator()(index::document_t doc) const
+    {
+        return {index, scorer, index.document_size(doc)};
     }
 };
 

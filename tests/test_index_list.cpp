@@ -70,8 +70,10 @@ public:
 
     using view_type = irk::index::block_document_list_view<
         irk::vbyte_codec<irk::index::document_t>>;
-    view_type view = view_type(irk::make_memory_view(gsl::span<const char>(
-                                   &memory[3], memory.size() - 6)),
+    view_type view = view_type(
+        0,
+        irk::make_memory_view(
+            gsl::span<const char>(&memory[3], memory.size() - 6)),
         5 /* frequency */);
 
     std::vector<document_t> documents = {9_id, 11_id, 12_id, 22_id, 27_id};
@@ -97,8 +99,10 @@ public:
 
     using view_type = irk::index::block_payload_list_view<std::int32_t,
         irk::vbyte_codec<std::int32_t>>;
-    view_type view = view_type(irk::make_memory_view(gsl::span<const char>(
-                                   &memory[3], memory.size() - 6)),
+    view_type view = view_type(
+        0,
+        irk::make_memory_view(
+            gsl::span<const char>(&memory[3], memory.size() - 6)),
         5 /* frequency */);
 
     std::vector<std::int32_t> payloads = {9, 2, 1, 10, 5};
@@ -232,7 +236,7 @@ TEST(move_equals_end, vbyte)
     std::string str = buffer.str();
     std::vector<char> data(str.begin(), str.end());
 
-    irk::index::block_document_list_view<irk::vbyte_codec<document_t>> view(
+    irk::index::block_document_list_view<irk::vbyte_codec<document_t>> view(0,
         irk::make_memory_view(data), 4);
     auto i = view.end();
     auto j = view.begin().nextgeq(100);
@@ -318,8 +322,8 @@ TEST_F(block_list_builder, build_organ)  // Issue #30
     builder.write(buffer);
     auto s = buffer.str();
     std::vector<char> data(s.begin(), s.end());
-    irk::index::block_document_list_view<irk::vbyte_codec<document_t>>
-       view(irk::make_memory_view(data), documents.size());
+    irk::index::block_document_list_view<irk::vbyte_codec<document_t>> view(
+        0, irk::make_memory_view(data), documents.size());
 
     document_t prev = 0;
     const int32_t num_blocks = (documents.size() + 63) / 64;

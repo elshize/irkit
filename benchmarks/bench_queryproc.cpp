@@ -38,6 +38,7 @@
 #include <cppitertools/itertools.hpp>
 #include <fmt/format.h>
 
+#include <irkit/algorithm/query.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/score.hpp>
@@ -52,6 +53,31 @@ using boost::accumulators::tag::mean;
 using boost::accumulators::tag::min;
 using boost::accumulators::tag::variance;
 
+template<class Index, class RngRng>
+auto scorers(const Index& index, const RngRng& postings, irk::score::bm25_tag)
+{
+    std::vector<irk::score::BM25TermScorer<Index>> scorers;
+    for (const auto& posting_list : postings) {
+        scorers.push_back(
+            index.term_scorer(posting_list.term_id(), irk::score::bm25));
+    }
+    return scorers;
+}
+
+template<class Index, class RngRng>
+auto scorers(
+    const Index& index,
+    const RngRng& postings,
+    irk::score::query_likelihood_tag)
+{
+    std::vector<irk::score::QueryLikelihoodTermScorer<Index>> scorers;
+    for (const auto& posting_list : postings) {
+        scorers.push_back(index.term_scorer(
+            posting_list.term_id(), irk::score::query_likelihood));
+    }
+    return scorers;
+}
+
 template<class Index>
 inline auto run_query(
     const Index& index,
@@ -62,13 +88,39 @@ inline auto run_query(
     ProcessingType proctype)
 {
     if (on_fly(scorer)) {
+        if (proctype == ProcessingType::TAAT) {
+            return irk::run_with_timer<std::chrono::nanoseconds>([&]() {
+                const auto postings = irk::fetched_query_postings(index, query);
+                if (scorer == "*bm25") {
+                    const auto bm25_scorers =
+                        scorers(index, postings, irk::score::bm25);
+                    irk::taat(
+                        gsl::make_span(postings),
+                        gsl::make_span(bm25_scorers),
+                        index.collection_size(),
+                        k);
+                } else {
+                    const auto ql_scorers =
+                        scorers(index, postings, irk::score::query_likelihood);
+                    irk::taat(
+                        gsl::make_span(postings),
+                        gsl::make_span(ql_scorers),
+                        index.collection_size(),
+                        k);
+                }
+            });
+        }
         return irk::run_with_timer<std::chrono::nanoseconds>([&]() {
-            auto postings = postings_on_fly(query, index, scorer);
-            process_query(index, postings, k, proctype);
+            const auto postings = irk::fetched_query_postings(index, query);
+            if (scorer == "*bm25") {
+                irk::daat(postings, k, index, irk::score::bm25);
+            } else {
+                irk::daat(postings, k, index, irk::score::query_likelihood);
+            }
         });
     } else {
         return irk::run_with_timer<std::chrono::nanoseconds>([&]() {
-            auto postings = irk::query_postings(index, query);
+            auto postings = irk::query_scored_postings(index, query);
             process_query(index, postings, k, proctype);
         });
     }
@@ -76,7 +128,7 @@ inline auto run_query(
 
 int main(int argc, char** argv)
 {
-    int repeat = 50;
+    int repeat = 10;
     auto [app, args] = irk::cli::app(
         "Query processing benchmark",
         index_dir_opt{},

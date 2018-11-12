@@ -45,8 +45,8 @@ TEST(posting_list_view, forward_iterator)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
-    irk::vector_payload_list vpl(payloads);
+    irk::vector_document_list vdl(0, documents);
+    irk::vector_payload_list vpl(0, payloads);
     vdl.block_size(3);
     vpl.block_size(3);
 
@@ -71,8 +71,8 @@ TEST(posting_list_view, lookup)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30.1};
-    irk::vector_document_list vdl(documents);
-    irk::vector_payload_list vpl(payloads);
+    irk::vector_document_list vdl(0, documents);
+    irk::vector_payload_list vpl(0, payloads);
     vdl.block_size(3);
     vpl.block_size(3);
 
@@ -106,14 +106,14 @@ TEST(posting_list_view, union_view)
         irk::vector_payload_list<int>>>
         posting_lists;
     posting_lists.emplace_back(
-        irk::vector_document_list(std::vector<int>{0, 1, 4}),
-        irk::vector_payload_list(std::vector<int>{0, 0, 0}));
+        irk::vector_document_list(0, std::vector<int>{0, 1, 4}),
+        irk::vector_payload_list(0, std::vector<int>{0, 0, 0}));
     posting_lists.emplace_back(
-        irk::vector_document_list(std::vector<int>{0, 2, 4}),
-        irk::vector_payload_list(std::vector<int>{1, 1, 1}));
+        irk::vector_document_list(0, std::vector<int>{0, 2, 4}),
+        irk::vector_payload_list(0, std::vector<int>{1, 1, 1}));
     posting_lists.emplace_back(
-        irk::vector_document_list(std::vector<int>{1, 2, 4}),
-        irk::vector_payload_list(std::vector<int>{2, 2, 2}));
+        irk::vector_document_list(0, std::vector<int>{1, 2, 4}),
+        irk::vector_payload_list(0, std::vector<int>{2, 2, 2}));
 
     auto postings = irk::merge(posting_lists);
     std::vector<int> docs_only(postings.size());
@@ -146,8 +146,8 @@ TEST(scored_posting_list_view, forward_iterator)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(documents);
-    irk::vector_payload_list vpl(payloads);
+    irk::vector_document_list vdl(0, documents);
+    irk::vector_payload_list vpl(0, payloads);
     vdl.block_size(3);
     vpl.block_size(3);
 
