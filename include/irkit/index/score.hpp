@@ -184,7 +184,7 @@ namespace detail {
             if (not type) {
                 return nonstd::make_unexpected(type.error());
             }
-            auto props = index::read_properties(dir);
+            auto props = index::Properties::read(dir);
 
             namespace ba = boost::accumulators;
             using stat_accumulator = ba::accumulator_set<
@@ -252,7 +252,7 @@ namespace detail {
             qprops.min = min_score;
             qprops.max = max_score;
             props.quantized_scores[name] = qprops;
-            index::write_properties(props, dir);
+            index::Properties::write(props, dir);
 
             return nonstd::expected<void, std::string>();
         }

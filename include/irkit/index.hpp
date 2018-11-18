@@ -91,15 +91,6 @@ struct quantized_score_tuple {
 
 namespace index {
 
-    template<class T>
-    T read_property(nlohmann::json& properties, std::string_view name)
-    {
-        if (auto pos = properties.find(name); pos != properties.end()) {
-            return *pos;
-        }
-        throw std::runtime_error(fmt::format("property {} not found", name));
-    }
-
     using boost::adaptors::filtered;
     using boost::filesystem::directory_iterator;
     using boost::filesystem::is_regular_file;
@@ -262,63 +253,117 @@ namespace index {
         int32_t max_document_size{};
         std::unordered_map<std::string, QuantizationProperties>
             quantized_scores{};
-    };
+        std::optional<int32_t> shard_count{};
 
-    Properties read_properties(const path& index_dir)
-    {
-        Properties properties;
-        std::ifstream ifs(properties_path(index_dir).c_str());
-        nlohmann::json jprop;
-        ifs >> jprop;
-        properties.document_count = read_property<int32_t>(jprop, "documents");
-        properties.occurrences_count =
-            read_property<int64_t>(jprop, "occurrences");
-        properties.skip_block_size =
-            read_property<int32_t>(jprop, "skip_block_size");
-        properties.avg_document_size =
-            read_property<double>(jprop, "avg_document_size");
-        properties.max_document_size =
-            read_property<int32_t>(jprop, "max_document_size");
-        if (auto pos = jprop.find("quantized_scores"); pos != jprop.end()) {
-            auto elems = pos.value();
-            for (auto iter = elems.begin(); iter != elems.end(); ++iter) {
-                QuantizationProperties qp;
-                auto jqprops = iter.value();
-                std::string type_entry = jqprops["type"];
-                auto type = QuantizationProperties::parse_type(type_entry);
-                if (not type) {
-                    continue;
-                }
-                qp.type = type.value();
-                qp.nbits = read_property<int32_t>(jqprops, "bits");
-                qp.min = read_property<double>(jqprops, "min");
-                qp.max = read_property<double>(jqprops, "max");
-                properties.quantized_scores[iter.key()] = qp;
+        struct Fields {
+            static constexpr auto Documents = "documents";
+            static constexpr auto Occurrences = "occurrences";
+            static constexpr auto SkipBlockSize = "skip_block_size";
+            static constexpr auto AvgDocumentSize = "avg_document_size";
+            static constexpr auto MaxDocumentSize = "max_document_size";
+            static constexpr auto ShardCount = "shard_count";
+
+            static constexpr auto QuantizedScores = "quantized_scores";
+            static constexpr auto Type = "type";
+            static constexpr auto Bits = "bits";
+            static constexpr auto Min = "min";
+            static constexpr auto Max = "max";
+        };
+
+        template<class T>
+        static T
+        read_property(const nlohmann::json& properties, std::string_view name)
+        {
+            if (auto pos = properties.find(name); pos != properties.end()) {
+                return *pos;
             }
+            throw std::runtime_error(
+                fmt::format("property {} not found", name));
         }
-        return properties;
-    }
 
-    void write_properties(const Properties& properties, const path& index_dir)
-    {
-        std::ofstream ofs(properties_path(index_dir).c_str());
-        nlohmann::json jprop;
-        jprop["documents"] = properties.document_count;
-        jprop["occurrences"] = properties.occurrences_count;
-        jprop["skip_block_size"] = properties.skip_block_size;
-        jprop["avg_document_size"] = properties.avg_document_size;
-        jprop["max_document_size"] = properties.max_document_size;
-        nlohmann::json quantized_jprop;
-        for (const auto& [name, score_props] : properties.quantized_scores) {
-            quantized_jprop[name] = {
-                {"type", QuantizationProperties::name_of(score_props.type)},
-                {"bits", score_props.nbits},
-                {"min", score_props.min},
-                {"max", score_props.max}};
+        static Properties read(const path& index_dir)
+        {
+            Properties properties;
+            std::ifstream ifs(properties_path(index_dir).c_str());
+            nlohmann::json jprop;
+            ifs >> jprop;
+            return read(jprop);
         }
-        jprop["quantized_scores"] = quantized_jprop;
-        ofs << jprop;
-    }
+
+        static Properties read(const memory_view& view)
+        {
+            std::string_view buffer(view.data(), view.size());
+            nlohmann::json jprop = nlohmann::json::parse(buffer);
+            return read(jprop);
+        }
+
+        static Properties read(const nlohmann::json& jprop)
+        {
+            Properties properties;
+            properties.document_count = read_property<int32_t>(
+                jprop, Fields::Documents);
+            properties.occurrences_count = read_property<int64_t>(
+                jprop, Fields::Occurrences);
+            properties.skip_block_size = read_property<int32_t>(
+                jprop, Fields::SkipBlockSize);
+            properties.avg_document_size = read_property<double>(
+                jprop, Fields::AvgDocumentSize);
+            properties.max_document_size = read_property<int32_t>(
+                jprop, Fields::MaxDocumentSize);
+            if (auto pos = jprop.find(Fields::QuantizedScores);
+                pos != jprop.end())
+            {
+                auto elems = pos.value();
+                for (auto iter = elems.begin(); iter != elems.end(); ++iter) {
+                    QuantizationProperties qp;
+                    auto jqprops = iter.value();
+                    std::string type_entry = jqprops[Fields::Type];
+                    auto type = QuantizationProperties::parse_type(type_entry);
+                    if (not type) {
+                        continue;
+                    }
+                    qp.type = type.value();
+                    qp.nbits = read_property<int32_t>(jqprops, Fields::Bits);
+                    qp.min = read_property<double>(jqprops, Fields::Min);
+                    qp.max = read_property<double>(jqprops, Fields::Max);
+                    properties.quantized_scores[iter.key()] = qp;
+                }
+            }
+            if (auto pos = jprop.find(Fields::ShardCount); pos != jprop.end()) {
+                properties.shard_count = std::make_optional<int32_t>(
+                    pos.value());
+            }
+            return properties;
+        }
+
+        static void write(const Properties& properties, const path& index_dir)
+        {
+            std::ofstream ofs(properties_path(index_dir).c_str());
+            nlohmann::json jprop;
+            jprop[Fields::Documents] = properties.document_count;
+            jprop[Fields::Occurrences] = properties.occurrences_count;
+            jprop[Fields::SkipBlockSize] = properties.skip_block_size;
+            jprop[Fields::AvgDocumentSize] = properties.avg_document_size;
+            jprop[Fields::MaxDocumentSize] = properties.max_document_size;
+            if (not properties.quantized_scores.empty()) {
+                nlohmann::json quantized_jprop;
+                for (const auto& [name, score_props] :
+                     properties.quantized_scores) {
+                    quantized_jprop[name] = {
+                        {Fields::Type,
+                         QuantizationProperties::name_of(score_props.type)},
+                        {Fields::Bits, score_props.nbits},
+                        {Fields::Min, score_props.min},
+                        {Fields::Max, score_props.max}};
+                }
+                jprop[Fields::QuantizedScores] = quantized_jprop;
+            }
+            if (properties.shard_count) {
+                jprop[Fields::ShardCount] = properties.shard_count.value();
+            }
+            ofs << jprop;
+        }
+    };
 
     template<class T>
     gsl::span<const T> span_vector(const memory_view& mem)
@@ -401,19 +446,12 @@ public:
             scores_.emplace(std::make_pair(name, t));
         }
         default_score_ = data->default_score();
-        std::string buffer(
-            data->properties_view().data(), data->properties_view().size());
-        nlohmann::json properties = nlohmann::json::parse(buffer);
-        document_count_ =
-            index::read_property<std::ptrdiff_t>(properties, "documents");
-        occurrences_count_ =
-            index::read_property<std::ptrdiff_t>(properties, "occurrences");
-        block_size_ =
-            index::read_property<std::ptrdiff_t>(properties, "skip_block_size");
-        avg_document_size_ =
-            index::read_property<double>(properties, "avg_document_size");
-        max_document_size_ = index::read_property<std::ptrdiff_t>(
-            properties, "max_document_size");
+        auto props = index::Properties::read(data->properties_view());
+        document_count_ = props.document_count;
+        occurrences_count_ = props.occurrences_count;
+        block_size_ = props.skip_block_size;
+        avg_document_size_ = props.avg_document_size;
+        max_document_size_ = props.max_document_size;
     }
 
     size_type collection_size() const { return document_sizes_.size(); }

@@ -104,7 +104,7 @@ TEST_F(PropertiesTest, read)
     }
 
     // when
-    auto deserialized = irk::index::read_properties(index_dir);
+    auto deserialized = irk::index::Properties::read(index_dir);
 
     // then
     EXPECT_EQ(deserialized.skip_block_size, properties.skip_block_size);
@@ -133,7 +133,7 @@ TEST_F(PropertiesTest, write)
 
     // when
     nlohmann::json written;
-    irk::index::write_properties(properties, index_dir);
+    irk::index::Properties::write(properties, index_dir);
     {
         std::ifstream is((index_dir / "properties.json").c_str());
         is >> written;

@@ -349,13 +349,13 @@ public:
         double avg_doc_size,
         int32_t max_doc_size)
     {
-        std::ofstream out(index::properties_path(target_dir_).c_str());
-        nlohmann::json j = {{"documents", documents},
-                            {"occurrences", occurrences},
-                            {"skip_block_size", block_size_},
-                            {"avg_document_size", avg_doc_size},
-                            {"max_document_size", max_doc_size}};
-        out << std::setw(4) << j << std::endl;
+        index::Properties props;
+        props.document_count = documents;
+        props.occurrences_count = occurrences;
+        props.skip_block_size = block_size_;
+        props.avg_document_size = avg_doc_size;
+        props.max_document_size = max_doc_size;
+        index::Properties::write(props, target_dir_);
     }
 
     void merge()
