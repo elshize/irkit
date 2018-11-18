@@ -40,6 +40,7 @@
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/threshold.hpp>
 #include <irkit/utils.hpp>
+#include <irkit/value.hpp>
 #include "cli.hpp"
 
 using boost::filesystem::path;
@@ -70,36 +71,36 @@ void threshold(
     std::cout << threshold << '\n';
 }
 
-//auto estimate_taily(
-//    const irk::inverted_index_view& index,
-//    std::vector<std::string>& terms,
-//    int topk,
-//    const std::string& scorer)
-//{
-//    std::vector<taily::FeatureStatistics> feature_stats(terms.size());
-//    irk::transform_range(
-//        terms, std::begin(feature_stats), [&](const auto& term) {
-//            if (auto id = index.term_id(term); id.has_value()) {
-//                if (irk::cli::on_fly(scorer)) {
-//                    auto scores = iter::imap(
-//                        [](const auto& posting) {
-//                            double score = posting.score();
-//                            return score + 30.0;
-//                        },
-//                        irk::cli::postings_on_fly(term, index, scorer));
-//                    return taily::FeatureStatistics::from_features(scores);
-//                }
-//                return taily::FeatureStatistics{
-//                    static_cast<double>(index.score_expected_value(*id)),
-//                    static_cast<double>(index.score_variance(*id)),
-//                    index.term_collection_frequency(*id)};
-//            }
-//            return taily::FeatureStatistics{0, 0, 0};
-//        });
-//    taily::CollectionStatistics stats{
-//        std::move(feature_stats), index.collection_size()};
-//    return taily::estimate_cutoff(stats, topk) - 30.0;
-//}
+auto estimate_taily(
+    const irk::inverted_index_view& index,
+    std::vector<std::string>& terms,
+    int topk,
+    const std::string& scorer)
+{
+    std::vector<taily::FeatureStatistics> feature_stats(terms.size());
+    auto means = irtl::value(index.score_mean(scorer), "failed to fetch means");
+    auto vars = irtl::value(index.score_mean(scorer),
+                            "failed to fetch variances");
+    irk::transform_range(
+        terms, std::begin(feature_stats), [&](const auto& term) {
+            if (auto id = index.term_id(term); id.has_value()) {
+                if (irk::cli::on_fly(scorer)) {
+                    auto scores = iter::imap(
+                        [](const auto& posting) { return posting.score(); },
+                        irk::cli::postings_on_fly(term, index, scorer));
+                    return taily::FeatureStatistics::from_features(scores);
+                }
+                return taily::FeatureStatistics{
+                    static_cast<double>(means[*id]),
+                    static_cast<double>(vars[*id]),
+                    index.term_collection_frequency(*id)};
+            }
+            return taily::FeatureStatistics{0, 0, 0};
+        });
+    taily::CollectionStatistics stats{
+        std::move(feature_stats), index.collection_size()};
+    return taily::estimate_cutoff(stats, topk);
+}
 
 void estimate(
     const irk::inverted_index_view& index,
@@ -113,10 +114,11 @@ void estimate(
     if (irk::cli::on_fly(scorer)) {
         double threshold;
         switch (estimate_method) {
-        case cli::ThresholdEstimator::taily:
-            //threshold = estimate_taily(index, terms, topk, scorer);
-            throw std::domain_error("taily not supported yet");
+        case cli::ThresholdEstimator::taily: {
+            std::string name(std::next(scorer.begin()), scorer.end());
+            threshold = estimate_taily(index, terms, topk, name);
             break;
+        }
         default:
             throw std::domain_error(
                 "ThresholdEstimator: non-exhaustive switch");

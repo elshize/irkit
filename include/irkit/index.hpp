@@ -105,6 +105,57 @@ namespace index {
     using boost::filesystem::is_regular_file;
     using boost::filesystem::path;
 
+    template<class T>
+    struct ScoreStats {
+        std::optional<T> max{};
+        std::optional<T> mean{};
+        std::optional<T> var{};
+    };
+
+    template<class T>
+    using ScoreStatsMap = std::unordered_map<std::string, ScoreStats<T>>;
+
+    inline ScoreStatsMap<path> find_score_stats_paths(const path& dir)
+    {
+        ScoreStatsMap<path> map{};
+        for (const auto& name : {"bm25", "ql"}) {
+            auto& paths = (map[name] = {});
+            auto max_path = dir / fmt::format("{}.max", name);
+            auto mean_path = dir / fmt::format("{}.mean", name);
+            auto var_path = dir / fmt::format("{}.var", name);
+            if (exists(max_path)) {
+                paths.max = max_path;
+            }
+            if (exists(mean_path)) {
+                paths.mean = mean_path;
+            }
+            if (exists(var_path)) {
+                paths.var = var_path;
+            }
+        }
+        return map;
+    }
+
+    template<class T, class UnaryFun>
+    auto transform_score_stats_map(const ScoreStatsMap<T>& map, UnaryFun f)
+    {
+        using U = decltype(f(std::declval<T>()));
+        ScoreStatsMap<U> new_map;
+        for (const auto& [name, data] : map) {
+            auto& stats = (new_map[name] = {});
+            stats.max = data.max.has_value()
+                ? std::make_optional(f(data.max.value()))
+                : std::optional<U>{};
+            stats.mean = data.mean.has_value()
+                ? std::make_optional(f(data.mean.value()))
+                : std::optional<U>{};
+            stats.var = data.var.has_value()
+                ? std::make_optional(f(data.var.value()))
+                : std::optional<U>{};
+        };
+        return new_map;
+    }
+
     struct posting_paths {
         path postings;
         path offsets;
@@ -269,6 +320,16 @@ namespace index {
         ofs << jprop;
     }
 
+    template<class T>
+    gsl::span<const T> span_vector(const memory_view& mem)
+    {
+        size_t nbytes = mem.range(0, sizeof(size_t)).as<size_t>();
+        auto size = nbytes / sizeof(T);
+        auto vec = mem.range(sizeof(size_t), nbytes);
+        return gsl::make_span<const T>(
+            reinterpret_cast<const T*>(vec.data()), size);
+    }
+
 }  // namespace index
 
 template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
@@ -328,6 +389,10 @@ public:
         EXPECTS(
             static_cast<ptrdiff_t>(document_offsets_.size()) == term_count_);
         EXPECTS(static_cast<ptrdiff_t>(count_offsets_.size()) == term_count_);
+
+        score_stats_ = index::transform_score_stats_map(
+            data->score_stats_views(),
+            [](const auto& view) { return index::span_vector<float>(view); });
 
         for (const auto& [name, tuple] : data->scores_sources()) {
             score_tuple_type t{tuple.postings,
@@ -430,32 +495,20 @@ public:
             length);
     }
 
-    // TODO: use but with floating points
-    //auto score_expected_value(
-    //    term_id_type term_id, const std::string& score_fun_name) const
-    //{
-    //    EXPECTS(term_id < term_count_);
-    //    return scores_.at(score_fun_name).exp_values[term_id];
-    //}
+    auto score_max(const std::string& name) const
+    {
+        return score_stats_.at(name).max;
+    }
 
-    //auto score_expected_value(term_id_type term_id) const
-    //{
-    //    EXPECTS(term_id < term_count_);
-    //    return scores_.at(default_score_).exp_values[term_id];
-    //}
+    auto score_mean(const std::string& name) const
+    {
+        return score_stats_.at(name).mean;
+    }
 
-    //auto score_variance(
-    //    term_id_type term_id, const std::string& score_fun_name) const
-    //{
-    //    EXPECTS(term_id < term_count_);
-    //    return scores_.at(score_fun_name).variances[term_id];
-    //}
-
-    //auto score_variance(term_id_type term_id) const
-    //{
-    //    EXPECTS(term_id < term_count_);
-    //    return scores_.at(default_score_).variances[term_id];
-    //}
+    auto score_var(const std::string& name) const
+    {
+        return score_stats_.at(name).var;
+    }
 
     auto postings(term_id_type term_id) const
     {
@@ -654,6 +707,7 @@ private:
     offset_table_type document_offsets_;
     offset_table_type count_offsets_;
     size_table_type document_sizes_;
+    index::ScoreStatsMap<gsl::span<const float>> score_stats_{};
     std::unordered_map<std::string, score_tuple_type> scores_;
     std::string default_score_;
     frequency_table_type term_collection_frequencies_;
