@@ -762,22 +762,25 @@ namespace detail::partition {
             const vmap<ShardId, size_t>& max_document_sizes,
             const vmap<ShardId, frequency_t>& total_occurrences)
         {
+            auto input_props = index::Properties::read(input_dir_);
             std::ifstream prop_stream(
                 index::properties_path(input_dir_).string());
-            nlohmann::json properties;
-            prop_stream >> properties;
-            size_t skip_block_size = properties["skip_block_size"];
+
             for (auto&& [idx, dir] : enumerate(shard_dirs_)) {
                 ShardId shard(idx);
-                std::ofstream os(index::properties_path(dir).string());
-                nlohmann::json j = {
-                    {"documents", document_counts[shard]},
-                    {"occurrences", total_occurrences[shard]},
-                    {"skip_block_size", skip_block_size},
-                    {"avg_document_size", avg_document_sizes[shard]},
-                    {"max_document_size", max_document_sizes[shard]}};
-                os << std::setw(4) << j << std::endl;
+                index::Properties shard_props{};
+                shard_props.document_count = document_counts[shard];
+                shard_props.occurrences_count = total_occurrences[shard];
+                shard_props.skip_block_size = input_props.skip_block_size;
+                shard_props.avg_document_size = avg_document_sizes[shard];
+                shard_props.max_document_size = max_document_sizes[shard];
+                index::Properties::write(shard_props, dir);
             }
+
+            input_props.shard_count = shard_count_;
+            index::Properties::write(
+                input_props,
+                shard_dirs_.begin()->parent_path() / "properties.json");
         }
 
         const int32_t shard_count_;
