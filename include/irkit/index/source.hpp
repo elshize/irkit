@@ -41,7 +41,8 @@ using boost::filesystem::exists;
 using boost::filesystem::path;
 using boost::iostreams::mapped_file_source;
 
-namespace detail {
+namespace source::detail {
+
     inline std::string
     invalid_scores_message(const std::vector<std::string>& names)
     {
@@ -52,7 +53,8 @@ namespace detail {
         }
         return os.str();
     }
-}
+
+}  // namespace source::detail
 
 class inverted_index_inmemory_data_source {
 public:
@@ -80,6 +82,13 @@ public:
             source.term_collection_occurrences_);
         load_data(index::properties_path(dir), source.properties_);
 
+        source.score_stats_ = index::transform_score_stats_map(
+            index::find_score_stats_paths(dir), [](const auto& path) {
+                std::vector<char> data;
+                load_data(path, data);
+                return data;
+            });
+
         std::vector<std::string> invalid_scores;
         for (const std::string& score_name : score_names)
         {
@@ -104,7 +113,7 @@ public:
         }
         if (not invalid_scores.empty()) {
             return nonstd::make_unexpected(
-                detail::invalid_scores_message(invalid_scores));
+                source::detail::invalid_scores_message(invalid_scores));
         }
         if (not score_names.empty()) {
             source.default_score_ = score_names[0];
@@ -165,6 +174,50 @@ public:
     memory_view properties_view() const
     {
         return make_memory_view(properties_.data(), properties_.size());
+    }
+
+    template<class ScoreTag, class UnaryFun>
+    std::optional<memory_view>
+    score_stat_view(ScoreTag tag, UnaryFun accessor) const
+    {
+        static_assert(
+            std::is_base_of<score::scoring_function_tag, ScoreTag>(),
+            "invalid score tag");
+        auto stat = accessor(score_stats_.at(static_cast<std::string>(tag)));
+        if (stat) {
+            return make_memory_view(stat.value());
+        } else {
+            return std::nullopt;
+        }
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_max_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.max; });
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_mean_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.mean; });
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_var_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.var; });
+    }
+
+    auto score_stats_views() const
+    {
+        return index::transform_score_stats_map(
+            score_stats_, [](const auto& vec) {
+                return make_memory_view(vec.data(), vec.size());
+            });
     }
 
     std::optional<memory_view> scores_source() const
@@ -228,6 +281,7 @@ private:
     std::vector<char> title_map_;
     std::vector<char> document_sizes_;
     std::vector<char> properties_;
+    index::ScoreStatsMap<std::vector<char>> score_stats_{};
     std::unordered_map<std::string, quantized_score_tuple<std::vector<char>>>
         scores_;
     std::string default_score_ = "";
@@ -266,6 +320,10 @@ public:
             index::term_occurrences_path(dir));
         source.properties_.open(index::properties_path(dir));
 
+        source.score_stats_ = index::transform_score_stats_map(
+            index::find_score_stats_paths(dir),
+            [](const auto& path) { return mapped_file_source{path}; });
+
         std::vector<std::string> invalid_scores;
         for (const std::string& score_name : score_names) {
             auto score_paths = index::score_paths(dir, score_name);
@@ -282,7 +340,7 @@ public:
         }
         if (not invalid_scores.empty()) {
             return nonstd::make_unexpected(
-                detail::invalid_scores_message(invalid_scores));
+                source::detail::invalid_scores_message(invalid_scores));
         }
         if (not score_names.empty()) {
             source.default_score_ = score_names[0];
@@ -343,6 +401,50 @@ public:
     memory_view properties_view() const
     {
         return make_memory_view(properties_.data(), properties_.size());
+    }
+
+    template<class ScoreTag, class UnaryFun>
+    std::optional<memory_view>
+    score_stat_view(ScoreTag tag, UnaryFun accessor) const
+    {
+        static_assert(
+            std::is_base_of<score::scoring_function_tag, ScoreTag>(),
+            "invalid score tag");
+        auto stat = accessor(score_stats_.at(static_cast<std::string>(tag)));
+        if (stat) {
+            return make_memory_view(stat->data(), stat->size());
+        } else {
+            return std::nullopt;
+        }
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_max_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.max; });
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_mean_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.mean; });
+    }
+
+    template<class ScoreTag>
+    std::optional<memory_view> score_var_view(ScoreTag tag) const
+    {
+        return score_stat_view(
+            tag, [](const auto& stats) { return stats.var; });
+    }
+
+    auto score_stats_views() const
+    {
+        return index::transform_score_stats_map(
+            score_stats_, [](const auto& file) {
+                return make_memory_view(file.data(), file.size());
+            });
     }
 
     std::optional<memory_view> scores_source() const
@@ -410,6 +512,7 @@ private:
     mapped_file_source title_map_;
     mapped_file_source document_sizes_;
     mapped_file_source properties_;
+    index::ScoreStatsMap<mapped_file_source> score_stats_{};
     std::unordered_map<std::string, quantized_score_tuple<mapped_file_source>>
         scores_;
     std::string default_score_ = "";
