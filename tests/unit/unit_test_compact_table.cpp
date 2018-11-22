@@ -91,6 +91,28 @@ TEST(offset_table, to_vector)
     ASSERT_THAT(vec, ::testing::ElementsAreArray(values));
 }
 
+TEST(offset_table, to_vector_equal_count_and_block)
+{
+    // given
+    std::default_random_engine generator(127);
+    std::uniform_int_distribution<std::size_t> distribution(
+        0, std::numeric_limits<std::int32_t>::max());
+    std::vector<std::size_t> values;
+    int count = 10000;
+    values.reserve(count);
+    std::generate_n(std::back_inserter(values), count, [&]() {
+        return distribution(generator);
+    });
+    std::sort(std::begin(values), std::end(values));
+
+    // when
+    auto table = irk::build_offset_table(values, 10000);
+    auto vec = table.to_vector();
+
+    // then
+    ASSERT_THAT(vec, ::testing::ElementsAreArray(values));
+}
+
 }  // namespace
 
 int main(int argc, char** argv)

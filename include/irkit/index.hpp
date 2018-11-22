@@ -414,7 +414,7 @@ public:
     ~basic_inverted_index_view() = default;
 
     template<class DataSourceT>
-    explicit basic_inverted_index_view(DataSourceT* data)
+    explicit basic_inverted_index_view(const DataSourceT* data)
         : documents_view_(data->documents_view()),
           counts_view_(data->counts_view()),
           document_offsets_(data->document_offsets_view()),
@@ -872,6 +872,20 @@ inline auto query_scored_postings(
     postings.reserve(query.size());
     for (const auto& term : query) {
         postings.push_back(index.scored_postings(term));
+    }
+    return postings;
+}
+
+inline auto fetched_query_scored_postings(
+    const irk::inverted_index_view& index,
+    const std::vector<std::string>& query)
+{
+    using posting_list_type = decltype(
+        index.scored_postings(std::declval<std::string>()).fetch());
+    std::vector<posting_list_type> postings;
+    postings.reserve(query.size());
+    for (const auto& term : query) {
+        postings.push_back(index.scored_postings(term).fetch());
     }
     return postings;
 }

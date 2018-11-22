@@ -27,6 +27,7 @@ add_irk(score)
 add_irk(scorestats)
 add_irk(postings)
 add_irk(query)
+add_irk(queryshards)
 add_irk(lookup)
 add_irk(disect)
 add_irk(hits)
@@ -48,6 +49,7 @@ install(
         irk-scorestats
         irk-postings
         irk-query
+        irk-queryshards
         irk-lookup
         irk-disect
         irk-table

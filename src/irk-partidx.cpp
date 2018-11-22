@@ -55,8 +55,8 @@ build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
     log->info("Building shard map");
     ShardId last_shard(shards.size() - 1);
     vmap<document_t, ShardId> map(titles.size(), last_shard);
-    int mapped_documents(0);
-    int missing_documents(0);
+    int mapped_documents{0};
+    int missing_documents{0};
     ShardId shard_id(0);
     for (const auto& shard_file : shards) {
         log->info("Mapping shard {0}", static_cast<size_t>(shard_id));

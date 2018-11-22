@@ -347,7 +347,7 @@ struct trec_run_opt {
 };
 
 struct trec_id_opt {
-    int trec_id;
+    int trec_id = -1;
 
     template<class Args>
     void set(CLI::App& app, Args& args)

@@ -32,6 +32,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <debug_assert.hpp>
+#include <fmt/format.h>
 #include <type_safe/index.hpp>
 
 #include <irkit/assert.hpp>
@@ -207,6 +208,7 @@ public:
             auto len = leader_idx_++ < leaders_.size() - 1
                 ? block_size_
                 : count_ % block_size_;
+            if (len == 0) { len = block_size_; }
             auto decoded = delta_encoded_
                 ? delta_decode(ref_.codec_, block_beg, len)
                 : decode(ref_.codec_, block_beg, len);
@@ -217,7 +219,7 @@ public:
 
         void increment()
         {
-            if (++pos_ % block_size_ == 0) {
+            if (++pos_ % block_size_ == 0 && pos_ < count_) {
                 next_buffer();
             }
         }
@@ -244,15 +246,14 @@ public:
 
     iterator begin() const
     {
-        auto header =
-            reinterpret_cast<const compact_table_header*>(data_.data());
+        auto header = reinterpret_cast<const compact_table_header*>(
+            data_.data());
         auto count = header->count;
         auto block_size = header->block_size;
         auto leader_count = (count + block_size - 1) / block_size;
-        gsl::span<const compact_table_leader> leaders(
-            reinterpret_cast<const compact_table_leader*>(
-                data_.data() + sizeof(*header)),
-            leader_count);
+        auto leader_ptr = reinterpret_cast<const compact_table_leader*>(
+            data_.data() + sizeof(*header));
+        gsl::span<const compact_table_leader> leaders(leader_ptr, leader_count);
         return iterator(*this, 0, 0, leaders);
     }
 

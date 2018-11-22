@@ -33,6 +33,7 @@
 #include <fmt/format.h>
 
 #include <irkit/index.hpp>
+#include <irkit/value.hpp>
 #include <nonstd/expected.hpp>
 
 namespace irk {
@@ -516,6 +517,38 @@ private:
     std::unordered_map<std::string, quantized_score_tuple<mapped_file_source>>
         scores_;
     std::string default_score_ = "";
+};
+
+template<class ShardSource>
+class index_cluster_data_source {
+public:
+    static std::shared_ptr<const index_cluster_data_source>
+    from(const path& dir, std::vector<std::string> score_names = {})
+    {
+        int32_t shard_count = irtl::value(
+            index::Properties::read(dir).shard_count,
+            "not a cluster: shard count undefined");
+        irk::vmap<ShardId, ShardSource> shards;
+        for (auto shard : iter::range(shard_count)) {
+            auto shard_dir = dir / fmt::format("{:03d}", shard);
+            shards.push_back(
+                irtl::value(ShardSource::from(shard_dir, score_names)));
+        }
+        return std::make_shared<index_cluster_data_source<ShardSource>>(
+            index_cluster_data_source(dir, std::move(shards)));
+    }
+
+    int shard_count() const { return irk::sgn(shards_.size()); }
+    const irk::vmap<ShardId, ShardSource> shards() const { return shards_; }
+
+private:
+    explicit index_cluster_data_source(path dir,
+                                       irk::vmap<ShardId, ShardSource>&& shards)
+        : dir_(std::move(dir)), shards_(shards)
+    {}
+
+    const path dir_;
+    const irk::vmap<ShardId, ShardSource> shards_;
 };
 
 }  // namespace irk
