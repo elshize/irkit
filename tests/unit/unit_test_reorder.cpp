@@ -37,9 +37,9 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/reorder.hpp>
 #include <irkit/index/score.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace {
 
@@ -170,11 +170,11 @@ TEST_F(reorder_test, compute_mask)
 }
 
 class mock_block_list_builder
-    : public irk::index::block_list_builder<int, irk::vbyte_codec<int>, false> {
+    : public ir::Standard_Block_List_Builder<int, irk::vbyte_codec<int>, false> {
 public:
     MOCK_METHOD1(add, void(int));
     mock_block_list_builder()
-        : block_list_builder<int, irk::vbyte_codec<int>, false>(10)
+        : ir::Standard_Block_List_Builder<int, irk::vbyte_codec<int>, false>(10)
     {}
     mock_block_list_builder(const mock_block_list_builder&) = default;
 };

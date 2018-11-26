@@ -35,20 +35,21 @@
 
 #define private public
 #define protected public
-#include <irkit/index/vector_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
+#include <irkit/index/vector_inverted_list.hpp>
+#include <irkit/list/vector_block_list.hpp>
 #include <irkit/movingrange.hpp>
 
 namespace {
+
+using ir::Vector_Block_List;
 
 TEST(posting_list_view, forward_iterator)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(0, documents);
-    irk::vector_payload_list vpl(0, payloads);
-    vdl.block_size(3);
-    vpl.block_size(3);
+    Vector_Block_List<long> vdl{0, documents, 3};
+    Vector_Block_List<double> vpl{0, payloads, 3};
 
     irk::posting_list_view postings(vdl, vpl);
     int idx = 0;
@@ -71,10 +72,8 @@ TEST(posting_list_view, lookup)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30.1};
-    irk::vector_document_list vdl(0, documents);
-    irk::vector_payload_list vpl(0, payloads);
-    vdl.block_size(3);
-    vpl.block_size(3);
+    Vector_Block_List<long> vdl{0, documents, 3};
+    Vector_Block_List<double> vpl{0, payloads, 3};
 
     irk::posting_list_view postings(vdl, vpl);
 
@@ -101,19 +100,14 @@ TEST(posting_list_view, lookup)
 
 TEST(posting_list_view, union_view)
 {
-    std::vector<irk::posting_list_view<
-        irk::vector_document_list<int>,
-        irk::vector_payload_list<int>>>
+    std::vector<irk::posting_list_view<Vector_Block_List<int>, Vector_Block_List<int>>>
         posting_lists;
-    posting_lists.emplace_back(
-        irk::vector_document_list(0, std::vector<int>{0, 1, 4}),
-        irk::vector_payload_list(0, std::vector<int>{0, 0, 0}));
-    posting_lists.emplace_back(
-        irk::vector_document_list(0, std::vector<int>{0, 2, 4}),
-        irk::vector_payload_list(0, std::vector<int>{1, 1, 1}));
-    posting_lists.emplace_back(
-        irk::vector_document_list(0, std::vector<int>{1, 2, 4}),
-        irk::vector_payload_list(0, std::vector<int>{2, 2, 2}));
+    posting_lists.emplace_back(Vector_Block_List<int>(0, std::vector<int>{0, 1, 4}, 3),
+                               Vector_Block_List<int>(0, std::vector<int>{0, 0, 0}, 3));
+    posting_lists.emplace_back(Vector_Block_List<int>(0, std::vector<int>{0, 2, 4}, 3),
+                               Vector_Block_List<int>(0, std::vector<int>{1, 1, 1}, 3));
+    posting_lists.emplace_back(Vector_Block_List<int>(0, std::vector<int>{1, 2, 4}, 3),
+                               Vector_Block_List<int>(0, std::vector<int>{2, 2, 2}, 3));
 
     auto postings = irk::merge(posting_lists);
     std::vector<int> docs_only(postings.size());
@@ -146,10 +140,8 @@ TEST(scored_posting_list_view, forward_iterator)
 {
     std::vector<long> documents = {0, 1, 4, 6, 9, 11, 30};
     std::vector<double> payloads = {0, 1, 4, 6, 9, 11, 30};
-    irk::vector_document_list vdl(0, documents);
-    irk::vector_payload_list vpl(0, payloads);
-    vdl.block_size(3);
-    vpl.block_size(3);
+    ir::Vector_Block_List vdl{0, documents, 3};
+    ir::Vector_Block_List vpl{0, payloads, 3};
 
     auto plus_one = [](auto doc, auto tf){
         return tf + 1;

@@ -37,12 +37,14 @@
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace irk::reorder {
 
 using index::document_t;
 using index::frequency_t;
 using index::term_id_t;
+using ir::Standard_Block_List_Builder;
 
 template<typename Table>
 auto sizes(const Table& size_table, const std::vector<document_t>& permutation)
@@ -136,8 +138,7 @@ std::streamsize write_document_list(
     int block_size,
     const std::vector<document_t>& map)
 {
-    irk::index::block_list_builder<T, irk::stream_vbyte_codec<T>, delta>
-        builder(block_size);
+    Standard_Block_List_Builder<T, irk::stream_vbyte_codec<T>, delta> builder(block_size);
     std::vector<T> v(values.begin(), values.end());
     auto it = boost::make_permutation_iterator(std::begin(v), std::begin(mask));
     auto end = boost::make_permutation_iterator(std::end(v), std::end(mask));
@@ -154,8 +155,7 @@ std::pair<std::streamsize, frequency_t> write_freq_list(
     std::ostream& os,
     int block_size)
 {
-    irk::index::block_list_builder<T, irk::stream_vbyte_codec<T>, delta>
-        builder(block_size);
+    Standard_Block_List_Builder<T, irk::stream_vbyte_codec<T>, delta> builder(block_size);
     std::vector<T> v(values.begin(), values.end());
     auto it = boost::make_permutation_iterator(std::begin(v), std::begin(mask));
     auto end = boost::make_permutation_iterator(std::end(v), std::end(mask));
@@ -174,8 +174,7 @@ std::streamsize write_score_list(
     std::ostream& os,
     int block_size)
 {
-    irk::index::block_list_builder<T, irk::stream_vbyte_codec<T>, delta>
-        builder(block_size);
+    Standard_Block_List_Builder<T, irk::stream_vbyte_codec<T>, delta> builder(block_size);
     std::vector<T> v(values.begin(), values.end());
     return write_score_list(builder, v, mask, os);
 }

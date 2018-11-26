@@ -64,11 +64,11 @@
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/io.hpp>
 #include <irkit/lexicon.hpp>
+#include <irkit/list/standard_block_list.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/quantize.hpp>
 #include <irkit/score.hpp>
@@ -382,27 +382,31 @@ template<class DocumentCodec = irk::stream_vbyte_codec<index::document_t>,
     class ScoreCodec = irk::stream_vbyte_codec<std::uint32_t>>
 class basic_inverted_index_view {
 public:
-    using document_type = index::document_t;
-    using document_codec_type = DocumentCodec;
+    using document_type        = index::document_t;
+    using document_codec_type  = DocumentCodec;
     using frequency_codec_type = FrequencyCodec;
-    using score_codec_type = ScoreCodec;
-    using frequency_type = index::frequency_t;
-    using size_type = int32_t;
-    using score_type = std::uint32_t;
-    using term_id_type = index::term_id_t;
-    using offset_table_type = compact_table<index::offset_t,
-        irk::vbyte_codec<index::offset_t>,
-        memory_view>;
+    using score_codec_type     = ScoreCodec;
+    using frequency_type       = index::frequency_t;
+    using size_type            = int32_t;
+    using score_type           = std::uint32_t;
+    using term_id_type         = index::term_id_t;
+    using offset_table_type    = compact_table<index::offset_t,
+                                            irk::vbyte_codec<index::offset_t>,
+                                            memory_view>;
     using frequency_table_type = compact_table<frequency_type,
-        irk::vbyte_codec<frequency_type>,
-        memory_view>;
-    using score_table_type =
-        compact_table<score_type, irk::vbyte_codec<score_type>, memory_view>;
-    using size_table_type = std::vector<int32_t>;
-    using array_stream = boost::iostreams::stream_buffer<
+                                               irk::vbyte_codec<frequency_type>,
+                                               memory_view>;
+    using score_table_type = compact_table<score_type, irk::vbyte_codec<score_type>, memory_view>;
+    using size_table_type      = std::vector<int32_t>;
+    using array_stream         = boost::iostreams::stream_buffer<
         boost::iostreams::basic_array_source<char>>;
-    using score_tuple_type =
-        quantized_score_tuple<memory_view, offset_table_type, score_table_type>;
+    using score_tuple_type    = quantized_score_tuple<memory_view,
+                                                   offset_table_type,
+                                                   score_table_type>;
+    using document_list_type  = ir::Standard_Block_Document_List<document_codec_type>;
+    using frequency_list_type = ir::Standard_Block_Payload_List<frequency_type,
+                                                                frequency_codec_type>;
+    using score_list_type     = ir::Standard_Block_Payload_List<score_type, score_codec_type>;
 
     basic_inverted_index_view() = default;
     basic_inverted_index_view(const basic_inverted_index_view&) = default;
@@ -467,10 +471,8 @@ public:
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
-        return index::block_document_list_view<document_codec_type>(
-            term_id,
-            select(term_id, document_offsets_, documents_view_),
-            length);
+        return document_list_type{
+            term_id, select(term_id, document_offsets_, documents_view_), length};
     }
 
     auto documents(const std::string& term) const
@@ -478,16 +480,14 @@ public:
         if (auto id = term_id(term); id.has_value()) {
             return documents(id.value());
         }
-        return index::block_document_list_view<document_codec_type>();
+        return document_list_type{};
     }
 
     auto frequencies(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
-        return index::
-            block_payload_list_view<frequency_type, frequency_codec_type>(
-                term_id, select(term_id, count_offsets_, counts_view_), length);
+        return frequency_list_type{term_id, select(term_id, count_offsets_, counts_view_), length};
     }
 
     auto frequencies(const std::string& term) const
@@ -495,21 +495,18 @@ public:
         if (auto id = term_id(term); id.has_value()) {
             return frequencies(id.value());
         }
-        return index::
-            block_payload_list_view<frequency_t, frequency_codec_type>();
+        return frequency_list_type{};
     }
 
     auto scores(term_id_type term_id) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
-        return index::block_payload_list_view<score_type, score_codec_type>(
-            term_id,
-            select(
-                term_id,
-                scores_.at(default_score_).offsets,
-                scores_.at(default_score_).postings),
-            length);
+        return score_list_type(term_id,
+                               select(term_id,
+                                      scores_.at(default_score_).offsets,
+                                      scores_.at(default_score_).postings),
+                               length);
     }
 
     auto scores(const std::string& term) const
@@ -517,20 +514,18 @@ public:
         if (auto id = term_id(term); id.has_value()) {
             return scores(id.value());
         }
-        return index::block_payload_list_view<score_type, score_codec_type>();
+        return score_list_type{};
     }
 
     auto scores(term_id_type term_id, const std::string& score_fun_name) const
     {
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
-        return index::block_payload_list_view<score_type, score_codec_type>(
-            term_id,
-            select(
-                term_id,
-                scores_.at(score_fun_name).offsets,
-                scores_.at(score_fun_name).postings),
-            length);
+        return score_list_type{term_id,
+                               select(term_id,
+                                      scores_.at(score_fun_name).offsets,
+                                      scores_.at(score_fun_name).postings),
+                               length};
     }
 
     auto score_max(const std::string& name) const
@@ -553,30 +548,24 @@ public:
         EXPECTS(term_id < term_count_);
         auto length = term_collection_frequencies_[term_id];
         if (length == 0) {
-            index::block_document_list_view<document_codec_type> documents;
-            index::block_payload_list_view<frequency_type, frequency_codec_type>
-                frequencies;
-            return posting_list_view(documents, frequencies);
+            document_list_type documents;
+            frequency_list_type frequencies;
+            return posting_list_view{documents, frequencies};
         }
-        auto documents = index::block_document_list_view<document_codec_type>(
-            term_id,
-            select(term_id, document_offsets_, documents_view_),
-            length);
-        auto counts = index::
-            block_payload_list_view<frequency_type, frequency_codec_type>(
-                term_id, select(term_id, count_offsets_, counts_view_), length);
-        return posting_list_view(documents, counts);
+        auto documents = document_list_type{
+            term_id, select(term_id, document_offsets_, documents_view_), length};
+        auto counts = frequency_list_type{
+            term_id, select(term_id, count_offsets_, counts_view_), length};
+        return posting_list_view{documents, counts};
     }
 
     auto postings(const std::string& term) const
     {
         auto idopt = term_id(term);
-        if (not idopt.has_value())
-        {
-            index::block_document_list_view<document_codec_type> documents;
-            index::block_payload_list_view<frequency_type, frequency_codec_type>
-                frequencies;
-            return posting_list_view(documents, frequencies);
+        if (not idopt.has_value()) {
+            document_list_type documents;
+            frequency_list_type frequencies;
+            return posting_list_view{documents, frequencies};
         }
         return postings(*idopt);
     }
@@ -594,23 +583,17 @@ public:
         }
         auto length = term_collection_frequencies_[term_id];
         if (length == 0) {
-            index::block_document_list_view<document_codec_type> documents;
-            index::block_payload_list_view<score_type, score_codec_type> scores;
-            return posting_list_view(documents, scores);
+            document_list_type documents;
+            score_list_type scores;
+            return posting_list_view{documents, scores};
         }
-        auto documents = index::block_document_list_view<document_codec_type>(
+        auto documents = document_list_type{
+            term_id, select(term_id, document_offsets_, documents_view_), length};
+        auto scores = score_list_type{
             term_id,
-            select(term_id, document_offsets_, documents_view_),
-            length);
-        auto scores =
-            index::block_payload_list_view<score_type, score_codec_type>(
-                term_id,
-                select(
-                    term_id,
-                    scores_.at(score).offsets,
-                    scores_.at(score).postings),
-                length);
-        return posting_list_view(documents, scores);
+            select(term_id, scores_.at(score).offsets, scores_.at(score).postings),
+            length};
+        return posting_list_view{documents, scores};
     }
 
     auto scored_postings(const std::string& term) const
@@ -618,9 +601,9 @@ public:
         auto idopt = term_id(term);
         if (not idopt.has_value())
         {
-            index::block_document_list_view<document_codec_type> documents;
-            index::block_payload_list_view<score_type, score_codec_type> scores;
-            return posting_list_view(documents, scores);
+            document_list_type documents;
+            score_list_type scores;
+            return posting_list_view{documents, scores};
         }
         return scored_postings(*idopt);
     }
@@ -628,19 +611,17 @@ public:
     auto term_scorer(term_id_type term_id, score::bm25_tag) const
     {
         return score::BM25TermScorer{*this,
-                                     score::bm25_scorer(
-                                         term_collection_frequencies_[term_id],
-                                         document_count_,
-                                         avg_document_size_)};
+                                     score::bm25_scorer(term_collection_frequencies_[term_id],
+                                                        document_count_,
+                                                        avg_document_size_)};
     }
 
     auto term_scorer(term_id_type term_id, score::query_likelihood_tag) const
     {
-        return score::QueryLikelihoodTermScorer{*this,
-                                                score::query_likelihood_scorer(
-                                                    term_occurrences(term_id),
-                                                    occurrences_count(),
-                                                    max_document_size_)};
+        return score::QueryLikelihoodTermScorer{
+            *this,
+            score::query_likelihood_scorer(
+                term_occurrences(term_id), occurrences_count(), max_document_size_)};
     }
 
     std::optional<term_id_type> term_id(const std::string& term) const

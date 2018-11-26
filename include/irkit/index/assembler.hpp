@@ -39,7 +39,7 @@
 #include <irkit/index/metadata.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/lexicon.hpp>
-#include <irkit/sgn.hpp>
+#include <irkit/sgnd.hpp>
 
 namespace irk::index {
 
@@ -159,8 +159,7 @@ public:
 
         builder_type builder(block_size_);
         std::string line;
-        while (irk::sgn(builder.size()) < batch_size_)
-        {
+        while (irk::sgnd(builder.size()) < batch_size_) {
             if (not std::getline(input, line)) { break; }
             std::istringstream linestream(line);
             std::string title;

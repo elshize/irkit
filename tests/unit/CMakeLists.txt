@@ -80,7 +80,12 @@ target_link_libraries(${PROPERTIES} irkit CONAN_PKG::gtest)
 target_compile_features(${PROPERTIES} PRIVATE ${IRKit_CXX_PRIVATE_FEATURES})
 gtest_add_tests(TARGET ${PROPERTIES} TEST_PREFIX "unit.")
 
+message(STATUS "${CMAKE_CURRENT_BINARY_DIR}/../../bin/doclist.txt")
+configure_file(doclist.txt "../../bin/doclist.txt" COPYONLY)
+
 add_unit_test(timer)
 add_catch2_unit_test(merger)
 add_catch2_unit_test(scorestats)
 add_catch2_unit_test(query_algorithms)
+add_catch2_unit_test(block_iterator)
+add_catch2_unit_test(standard_block_list)

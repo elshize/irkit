@@ -38,7 +38,7 @@
 #include <irkit/index/block.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
-#include <irkit/sgn.hpp>
+#include <irkit/sgnd.hpp>
 
 namespace irk {
 
@@ -145,7 +145,7 @@ public:
     auto end() const { return elements_.cend(); };
 
     auto lookup(value_type id) const { return begin().nextgeq(id); };
-    int64_t size() const { return irk::sgn(elements_.size()); }
+    int64_t size() const { return irk::sgnd(elements_.size()); }
     const index::term_id_t& term_id() const { return term_id_; }
 
 private:

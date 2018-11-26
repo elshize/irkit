@@ -45,9 +45,9 @@
 #include <irkit/algorithm/transform.hpp>
 #include <irkit/assert.hpp>
 #include <irkit/index.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace irk {
 
@@ -266,43 +266,56 @@ namespace detail::partition {
     }
 
     /// Computes ID mapping from global to local document ID.
-    static std::vector<document_t> compute_document_mapping(
-        const vmap<document_t, ShardId>& shard_mapping, const int shard_count)
+    static vmap<document_t>
+    compute_document_mapping(const vmap<document_t, ShardId>& shard_mapping,
+                             const int shard_count)
     {
         vmap<ShardId, document_t> next_id(shard_count, 0);
-        std::vector<document_t> document_mapping(shard_mapping.size());
+        vmap<document_t> document_mapping(shard_mapping.size());
         for (auto&& [document, shard] : zip(document_mapping, shard_mapping)) {
             document = next_id[shard]++;
         }
         return document_mapping;
     }
 
+    /// Computes ID mapping from local to global document ID.
+    static vmap<ShardId, vmap<document_t>>
+    compute_reverse_mapping(const vmap<document_t, ShardId>& shard_mapping,
+                            const int shard_count)
+    {
+        vmap<ShardId, vmap<document_t>> reverse_mapping(shard_count);
+        for (auto global_id : iter::range(shard_mapping.size())) {
+            auto shard = shard_mapping[global_id];
+            reverse_mapping[shard].push_back(global_id);
+        }
+        return reverse_mapping;
+    }
+
     /// A convenient wrapper for a set of functions for index partitioning.
     class Partition {
     public:
         using score_type = inverted_index_view::score_type;
-        using document_builder_type = index::block_list_builder<
-            document_t,
-            stream_vbyte_codec<document_t>,
-            true>;
-        using frequency_builder_type = index::
-            block_list_builder<frequency_t, stream_vbyte_codec<frequency_t>>;
-        using score_builder_type = index::
-            block_list_builder<score_type, stream_vbyte_codec<score_type>>;
+        using document_builder_type = ir::
+            Standard_Block_List_Builder<document_t, stream_vbyte_codec<document_t>, true>;
+        using frequency_builder_type = ir::
+            Standard_Block_List_Builder<frequency_t, stream_vbyte_codec<frequency_t>, false>;
+        using score_builder_type = ir::
+            Standard_Block_List_Builder<score_type, stream_vbyte_codec<score_type>, false>;
 
-        Partition(
-            int32_t shard_count,
-            int32_t document_count,
-            const path& input_dir,
-            const vmap<ShardId, path>& shard_dirs,
-            const vmap<document_t, ShardId>& shard_mapping,
-            const std::vector<document_t>& document_mapping)
+        Partition(int32_t shard_count,
+                  int32_t document_count,
+                  const path& input_dir,
+                  const vmap<ShardId, path>& shard_dirs,
+                  const vmap<document_t, ShardId>& shard_mapping,
+                  const vmap<document_t>& document_mapping,
+                  const vmap<ShardId, vmap<document_t>>& reverse_mapping)
             : shard_count_(shard_count),
               document_count_(document_count),
               input_dir_(input_dir),
               shard_dirs_(shard_dirs),
               shard_mapping_(shard_mapping),
-              document_mapping_(document_mapping)
+              document_mapping_(document_mapping),
+              reverse_mapping_(reverse_mapping)
         {}
 
         /// Partitions document sizes.
@@ -569,7 +582,7 @@ namespace detail::partition {
                 }
                 for (ShardId shard : ShardId::range(shard_count_)) {
                     auto& document_builder = document_builders[shard];
-                    if (document_builder.size() > 0u) {
+                    if (document_builder.size() > 0) {
                         outputs[shard].write(
                             term_id,
                             document_builder,
@@ -618,16 +631,11 @@ namespace detail::partition {
                 for (auto term_id : iter::range(index.term_count())) {
                     auto document_builder =
                         filter_document_lists(index.documents(term_id), shard);
-                    if (document_builder.size() > 0u) {
-                        auto freq_builder =
-                            filter_freq_lists(index.postings(term_id), shard);
+                    if (document_builder.size() > 0) {
+                        auto freq_builder = filter_freq_lists(index.postings(term_id), shard);
                         auto score_builders = filter_score_lists(
                             index, term_id, index.score_names(), shard);
-                        out.write(
-                            term_id,
-                            document_builder,
-                            freq_builder,
-                            score_builders);
+                        out.write(term_id, document_builder, freq_builder, score_builders);
                     }
                 }
                 total_occurrences.push_back(vectors.total_occurrences);
@@ -701,6 +709,8 @@ namespace detail::partition {
                 }
                 write_properties(
                     document_counts, avg_sizes, max_sizes, total_occurrences);
+                write_reverse_mappings();
+                copy_term_tables();
                 return nonstd::expected<void, std::string>();
             } catch (boost::filesystem::filesystem_error& error) {
                 return nonstd::make_unexpected(std::string(error.what()));
@@ -745,15 +755,34 @@ namespace detail::partition {
                     shard_dir, index.score_names(), vectors[shard], mode);
                 for (auto&& [idx, term_id] : iter::enumerate(term_batch)) {
                     auto& document_builder = document_builders[idx][shard];
-                    if (document_builder.size() > 0u) {
-                        out.write(
-                            term_id,
-                            document_builder,
-                            frequency_builders[idx][shard],
-                            score_builders[idx][shard]);
+                    if (document_builder.size() > 0) {
+                        out.write(term_id,
+                                  document_builder,
+                                  frequency_builders[idx][shard],
+                                  score_builders[idx][shard]);
                     }
                 }
             }
+        }
+
+        inline void write_reverse_mappings() const
+        {
+            for (auto&& [idx, dir] : enumerate(shard_dirs_)) {
+                std::ofstream os((dir / "reverse.map").string());
+                io::write_vector(reverse_mapping_[ShardId(idx)].as_vector(),
+                                 os);
+            }
+        }
+
+        inline void copy_term_tables()
+        {
+            auto cluster_dir = shard_dirs_.begin()->parent_path();
+            boost::filesystem::copy(index::term_doc_freq_path(input_dir_),
+                                    index::term_doc_freq_path(cluster_dir));
+            boost::filesystem::copy(index::term_occurrences_path(input_dir_),
+                                    index::term_occurrences_path(cluster_dir));
+            boost::filesystem::copy(index::term_map_path(input_dir_),
+                                    index::term_map_path(cluster_dir));
         }
 
         inline void write_properties(
@@ -763,8 +792,6 @@ namespace detail::partition {
             const vmap<ShardId, frequency_t>& total_occurrences)
         {
             auto input_props = index::Properties::read(input_dir_);
-            std::ifstream prop_stream(
-                index::properties_path(input_dir_).string());
 
             for (auto&& [idx, dir] : enumerate(shard_dirs_)) {
                 ShardId shard(idx);
@@ -788,7 +815,8 @@ namespace detail::partition {
         const path& input_dir_;
         const vmap<ShardId, path>& shard_dirs_;
         const vmap<document_t, ShardId>& shard_mapping_;
-        const std::vector<document_t>& document_mapping_;
+        const vmap<document_t>& document_mapping_;
+        const vmap<ShardId, vmap<document_t>>& reverse_mapping_;
     };
 
 }  // namespace detail::partition
@@ -811,8 +839,10 @@ nonstd::expected<void, std::string> partition_index(
 {
     int32_t document_count = shard_mapping.size();
     auto shard_dirs = detail::partition::resolve_paths(output_dir, shard_count);
-    auto document_mapping =
-        detail::partition::compute_document_mapping(shard_mapping, shard_count);
+    auto document_mapping = detail::partition::compute_document_mapping(
+        shard_mapping, shard_count);
+    auto reverse_mapping = detail::partition::compute_reverse_mapping(
+        shard_mapping, shard_count);
     auto log = spdlog::get("partition");
     if (log) {
         log->info(
@@ -828,7 +858,8 @@ nonstd::expected<void, std::string> partition_index(
         input_dir,
         shard_dirs,
         shard_mapping,
-        document_mapping);
+        document_mapping,
+        reverse_mapping);
     return partition.index(terms_in_batch);
 }
 

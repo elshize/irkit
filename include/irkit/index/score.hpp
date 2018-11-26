@@ -41,6 +41,7 @@
 #include <irkit/coding/copy.hpp>
 #include <irkit/index.hpp>
 #include <irkit/io.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace ts = type_safe;
 
@@ -224,10 +225,9 @@ namespace detail {
             for (term_id_t term_id = 0; term_id < index.terms().size();
                  term_id++) {
                 offsets.push_back(offset);
-                irk::index::block_list_builder<
-                    std::uint32_t,
-                    stream_vbyte_codec<std::uint32_t>,
-                    false>
+                ir::Standard_Block_List_Builder<std::uint32_t,
+                                                stream_vbyte_codec<std::uint32_t>,
+                                                false>
                     list_builder(index.skip_block_size());
                 stat_accumulator acc;
                 auto scorer = index.term_scorer(term_id, ScoreTag{});

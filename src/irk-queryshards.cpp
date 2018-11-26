@@ -48,7 +48,7 @@ using namespace irk::cli;
 int main(int argc, char** argv)
 {
     auto [app, args] = irk::cli::app(
-        "Query inverted index",
+        "Query index cluster",
         index_dir_opt{},
         nostem_opt{},
         id_range_opt{},
@@ -65,33 +65,33 @@ int main(int argc, char** argv)
         scores.push_back(args->score_function);
     }
     boost::filesystem::path dir(args->index_dir);
-    auto source = irk::index_cluster_data_source<
-        irk::inverted_index_mapped_data_source>::from(dir, scores);
-    irk::index_cluster index(source);
+    auto source = irk::Index_Cluster_Data_Source<irk::inverted_index_mapped_data_source>::from(
+        dir, scores);
+    irk::Index_Cluster index{source};
 
     if (not args->terms.empty()) {
-        irk::run_shards(true,
+        irk::run_shards(irk::cli::on_fly(args->score_function),
                         index,
                         args->terms,
                         args->k,
                         args->score_function,
                         args->processing_type,
-                        args->trec_id != -1 ? std::make_optional(args->trec_id)
-                                            : std::nullopt,
+                        args->trec_id != -1 ? std::make_optional(args->trec_id) : std::nullopt,
                         args->trec_run);
     }
     else {
-        //irk::run_queries(app->count("--trec-id") > 0u
-        //                     ? std::make_optional(args->trec_id)
-        //                     : std::nullopt,
-        //                 [&](const auto& current_trecid, const auto& terms) {
-        //                     irk::run_and_print(index,
-        //                                        terms,
-        //                                        args->k,
-        //                                        args->score_function,
-        //                                        args->processing_type,
-        //                                        current_trecid,
-        //                                        args->trec_run);
-        //                 });
+        irk::run_queries(app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)
+                                                      : std::nullopt,
+                         [&, args = args.get()](const auto& current_trecid, const auto& terms) {
+                             irk::run_shards(irk::cli::on_fly(args->score_function),
+                                             index,
+                                             args->terms,
+                                             args->k,
+                                             args->score_function,
+                                             args->processing_type,
+                                             args->trec_id != -1 ? std::make_optional(args->trec_id)
+                                                                 : std::nullopt,
+                                             args->trec_run);
+                         });
     }
 }

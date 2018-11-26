@@ -32,6 +32,8 @@
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
 
+#include <irkit/vmap.hpp>
+
 namespace irk {
 
 namespace ts = type_safe;
@@ -46,6 +48,7 @@ struct ShardId
     : ts::strong_typedef<ShardId, details::shard_base_type>,
       ts::strong_typedef_op::equality_comparison<ShardId, bool>,
       ts::strong_typedef_op::relational_comparison<ShardId, bool>,
+      ts::strong_typedef_op::increment<ShardId>,
       ts::strong_typedef_op::addition<ShardId>,
       ts::strong_typedef_op::subtraction<ShardId>,
       ts::strong_typedef_op::mixed_addition<ShardId, details::shard_base_type>,
@@ -75,69 +78,6 @@ std::ostream& operator<<(std::ostream& os, const ShardId& shard)
 {
     return os << static_cast<details::shard_base_type>(shard);
 }
-
-template<typename K, typename V>
-class vmap : protected std::vector<V> {
-public:
-    using reference = V&;
-    using const_reference = const V&;
-    using size_type = typename std::vector<V>::size_type;
-    using std::vector<V>::push_back;
-    using std::vector<V>::emplace_back;
-    using std::vector<V>::size;
-    using std::vector<V>::empty;
-    using std::vector<V>::begin;
-    using std::vector<V>::cbegin;
-    using std::vector<V>::end;
-    using std::vector<V>::cend;
-
-    vmap() : std::vector<V>(){};
-    ~vmap() = default;
-    explicit vmap(size_type count) : std::vector<V>(count){};
-    vmap(size_type count, const V& value) : std::vector<V>(count, value){};
-    vmap(std::initializer_list<V> init) : std::vector<V>(init) {}
-    vmap(const vmap& other) : std::vector<V>(other){};
-    vmap(vmap&& other) noexcept : std::vector<V>(other){};
-
-    template<class InputIt>
-    vmap(InputIt first, InputIt last) : std::vector<V>(first, last)
-    {}
-
-    vmap& operator=(const vmap& other) {
-        std::vector<V>::operator=(other);
-        return *this;
-    };
-    vmap& operator=(vmap&& other) noexcept {
-        std::vector<V>::operator=(other);
-        return *this;
-    };
-    reference operator[](K id)
-    {
-        return std::vector<V>::operator[](static_cast<size_type>(id));
-    }
-    const_reference operator[](K id) const
-    {
-        return std::vector<V>::operator[](static_cast<size_type>(id));
-    }
-    const std::vector<V>& as_vector() const { return *this; }
-
-    auto entries()
-    {
-        return iter::zip(
-            iter::imap(
-                [](const auto& idx) { return static_cast<K>(idx); },
-                iter::range(size())),
-            *this);
-    }
-    auto entries() const
-    {
-        return iter::zip(
-            iter::imap(
-                [](const auto& idx) { return static_cast<K>(idx); },
-                iter::range(size())),
-            *this);
-    }
-};
 
 }  // namespace irk
 

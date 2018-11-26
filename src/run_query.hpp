@@ -60,6 +60,26 @@ auto fetch_scorers(const Index& index, const Rng& terms)
     return scorers;
 }
 
+template<class ScoreTag, class IndexCluster, class Index, class Rng>
+auto fetch_global_scorers(const IndexCluster& index_cluster,
+                          const Index& shard_index,
+                          const Rng& terms)
+{
+    using scorer_type = decltype(
+        index_cluster.term_scorer(shard_index, 0, ScoreTag{}));
+    std::vector<scorer_type> scorers;
+    for (const auto& term : terms) {
+        if (auto term_id = index_cluster.term_id(term); term_id) {
+            scorers.push_back(index_cluster.term_scorer(
+                shard_index, term_id.value(), ScoreTag{}));
+        } else {
+            scorers.push_back(
+                index_cluster.term_scorer(shard_index, 0, ScoreTag{}));
+        }
+    }
+    return scorers;
+}
+
 template<class ScoreTag, class Index, class StrRng>
 inline auto run_query_with_scoring(const Index& index,
                                    const StrRng& query,
@@ -185,23 +205,66 @@ inline auto run_and_print(const Index& index,
     }
 }
 
-//template<class IndexCluster, class ShardIndex>
-//auto rescore(index::document_t doc,
-//               const std::string& title,
-//               const IndexCluster& cluster,
-//               const ShardIndex& shard_index,
-//               const std::string& scorer)
-//{
-//    if (scorer == "*bm25") {
-//        //return shard_index.term_scorer<score::bm25_tag>(doc, cluster)();
-//        return shard_index.term_scorer(doc, score::bm25)(doc, shard_index.);
-//    } else {
-//        //return run_query_with_scoring<score::query_likelihood_tag>(
-//        //    index, query, k, proctype);
-//    }
-//}
+template<class StrRng, class ResultVec, class ShardIndex, class Scorer>
+void rescore(ResultVec& results,
+             const ShardIndex& shard_index,
+             const StrRng& query,
+             const std::vector<Scorer>& scorers)
+{
+    EXPECTS(query.size() == scorers.size());
+    std::sort(std::begin(results), std::end(results), [](const auto& lhs, const auto& rhs) {
+        return lhs.first < rhs.first;
+    });
+    std::for_each(
+        std::begin(results), std::end(results), [](auto&& result) { result.second = 0.0; });
+    for (const auto& [term, scorer] : iter::zip(query, scorers)) {
+        auto term_postings = shard_index.postings(term);
+        auto pos = term_postings.begin();
+        auto end = term_postings.end();
+        for (auto&& result : results) {
+            pos.advance_to(result.first);
+            if (pos == end) {
+                break;
+            }
+            if (pos->document() == result.first) {
+                result.second += scorer(pos->document(), pos->payload());
+            }
+        }
+    }
+}
 
-template<bool on_fly, class IndexCluster, class StrRng>
+template<class ScoreTag, class IndexCluster, class StrRng>
+inline auto run_shards(const IndexCluster& index,
+                       const StrRng& query,
+                       const int k,
+                       const std::string scorer,
+                       irk::cli::ProcessingType proctype,
+                       std::optional<int> trecid,
+                       std::string_view run_id,
+                       ScoreTag score_tag)
+{
+    using Document = decltype(
+        irk::run_query<true>(
+            index.shard(std::declval<ShardId>()), query, k, scorer, proctype)[0]
+            .first);
+    irk::top_k_accumulator<std::string, double> acc(k);
+    for (auto shard_id : ShardId::range(index.shard_count())) {
+        const auto& shard_index = index.shard(shard_id);
+        auto global_scorers = fetch_global_scorers<ScoreTag>(
+            index, shard_index, query);
+        auto results = irk::run_query<true>(
+            shard_index, query, k, scorer, proctype);
+        rescore(results, shard_index, query, global_scorers);
+        const auto& titles = shard_index.titles();
+        for (auto&& [doc, score] : results) {
+            auto title = titles.key_at(doc);
+            acc.accumulate(title, score);
+        }
+    }
+    print_results(acc.sorted(), trecid, run_id);
+}
+
+template<class IndexCluster, class StrRng>
 inline auto run_shards(const IndexCluster& index,
                        const StrRng& query,
                        const int k,
@@ -210,24 +273,13 @@ inline auto run_shards(const IndexCluster& index,
                        std::optional<int> trecid,
                        std::string_view run_id)
 {
-    using Document = decltype(
-        irk::run_query<on_fly>(
-            index.shard(std::declval<ShardId>()), query, k, scorer, proctype)[0]
-            .first);
-    using Score = decltype(
-        irk::run_query<on_fly>(
-            index.shard(std::declval<ShardId>()), query, k, scorer, proctype)[0]
-            .second);
+    using Score = typename IndexCluster::score_type;
     irk::top_k_accumulator<std::string, Score> acc(k);
     for (const auto& shard_index : index.shards()) {
-        auto results = irk::run_query<on_fly>(
-            shard_index, query, k, scorer, proctype);
+        auto results       = irk::run_query<false>(shard_index, query, k, scorer, proctype);
         const auto& titles = shard_index.titles();
         for (auto&& [doc, score] : results) {
             auto title = titles.key_at(doc);
-            //if constexpr (on_fly) {
-            //    // TODO: rescore(doc, title, cluster, shard_index);
-            //}
             acc.accumulate(title, score);
         }
     }
@@ -245,11 +297,14 @@ inline void run_shards(const bool on_fly,
                        std::string_view run_id)
 {
     if (on_fly) {
-        irk::run_shards<true>(
-            index, query, k, scorer, proctype, trecid, run_id);
+        if (scorer == "*bm25") {
+            irk::run_shards(index, query, k, scorer, proctype, trecid, run_id, score::bm25);
+        } else {
+            irk::run_shards(
+                index, query, k, scorer, proctype, trecid, run_id, score::query_likelihood);
+        }
     } else {
-        irk::run_shards<false>(
-            index, query, k, scorer, proctype, trecid, run_id);
+        irk::run_shards(index, query, k, scorer, proctype, trecid, run_id);
     }
 }
 
@@ -258,10 +313,7 @@ inline void run_queries(std::optional<int> current_trecid, Fn run)
 {
     for (const auto& query_line : irk::io::lines_from_stream(std::cin)) {
         std::vector<std::string> terms;
-        boost::split(terms,
-                     query_line,
-                     boost::is_any_of("\t "),
-                     boost::token_compress_on);
+        boost::split(terms, query_line, boost::is_any_of("\t "), boost::token_compress_on);
         run(current_trecid, terms);
         if (current_trecid.has_value()) {
             current_trecid.value()++;

@@ -33,24 +33,75 @@
 namespace irk {
 
 template<class InvertedIndex>
-class basic_index_cluster {
+class Basic_Index_Cluster {
 public:
+    using size_type = typename InvertedIndex::size_type;
+    using document_type = typename InvertedIndex::document_type;
+    using score_type = typename InvertedIndex::score_type;
+    using term_id_type = typename InvertedIndex::term_id_type;
+    using frequency_table_type = typename InvertedIndex::frequency_table_type;
+
     template<class ShardSource>
-    basic_index_cluster(
-        std::shared_ptr<const index_cluster_data_source<ShardSource>> source)
+    constexpr Basic_Index_Cluster(
+        std::shared_ptr<Index_Cluster_Data_Source<ShardSource> const> source)
+        : properties_(source->properties()),
+          reverse_mapping_(source->reverse_mapping()),
+          term_collection_frequencies_(source->term_collection_frequencies_view()),
+          term_collection_occurrences_(source->term_collection_occurrences_view()),
+          term_map_(std::move(load_lexicon(source->term_map_view())))
     {
         for (const auto& shard_source : source->shards()) {
             shards_.emplace_back(&shard_source);
         }
     }
 
-    const InvertedIndex shard(ShardId shard) const { return shards_[shard]; }
-    const auto& shards() const { return shards_; }
+    [[nodiscard]] auto shard_count() const { return irk::sgnd(shards_.size()); }
+    [[nodiscard]] auto shard(ShardId shard) const -> InvertedIndex const& { return shards_[shard]; }
+    [[nodiscard]] auto const& shards() const { return shards_; }
+    [[nodiscard]] auto const& reverse_mapping() const { return reverse_mapping_; }
+    [[nodiscard]] auto const& reverse_mapping(ShardId shard) const
+    {
+        return reverse_mapping_[shard];
+    }
+
+    [[nodiscard]] auto term_id(std::string const& term) const -> std::optional<term_id_type>
+    {
+        return term_map_.index_at(term);
+    }
+
+    [[nodiscard]] auto term(term_id_type const& id) const -> std::string
+    {
+        return term_map_.key_at(id);
+    }
+
+    [[nodiscard]] auto
+    term_scorer(InvertedIndex const& shard, term_id_type term_id, score::bm25_tag) const
+    {
+        return score::BM25TermScorer{shard,
+                                     score::bm25_scorer(term_collection_frequencies_[term_id],
+                                                        properties_.document_count,
+                                                        properties_.avg_document_size)};
+    }
+
+    [[nodiscard]] auto
+    term_scorer(InvertedIndex const& shard, term_id_type term_id, score::query_likelihood_tag) const
+    {
+        return score::QueryLikelihoodTermScorer{
+            shard,
+            score::query_likelihood_scorer(term_collection_occurrences_[term_id],
+                                           properties_.occurrences_count,
+                                           properties_.max_document_size)};
+    }
 
 private:
-    irk::vmap<ShardId, InvertedIndex> shards_;
+    index::Properties properties_;
+    vmap<ShardId, vmap<index::document_t>> const& reverse_mapping_;
+    vmap<ShardId, InvertedIndex> shards_;
+    frequency_table_type term_collection_frequencies_;
+    frequency_table_type term_collection_occurrences_;
+    lexicon<hutucker_codec<char>, memory_view> term_map_;
 };
 
-using index_cluster = basic_index_cluster<inverted_index_view>;
+using Index_Cluster = Basic_Index_Cluster<inverted_index_view>;
 
 }  // namespace irk

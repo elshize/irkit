@@ -10,11 +10,12 @@
 #include <irkit/coding/copy.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/builder.hpp>
+#include <irkit/index/types.hpp>
 #include <irkit/io.hpp>
 
 namespace {
 
-using irk::index::operator""_id;
+using irk::literals::operator""_id;
 
 template<class Term, class TermId>
 void assert_term_map(std::unordered_map<Term, TermId>& actual,
