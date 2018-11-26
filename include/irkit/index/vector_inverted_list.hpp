@@ -179,6 +179,11 @@ public:
     vector_document_list(index::term_id_t term_id, std::vector<value_type> vec)
         : term_id_(term_id), ids_(std::move(vec)), block_size_(ids_.size())
     {}
+    vector_document_list(index::term_id_t term_id,
+                         std::vector<value_type> vec,
+                         size_type block_size)
+        : term_id_(term_id), ids_(std::move(vec)), block_size_(block_size)
+    {}
     vector_document_list(const vector_document_list&) = default;
     vector_document_list(vector_document_list&&) noexcept = default;
     vector_document_list& operator=(const vector_document_list&) = default;

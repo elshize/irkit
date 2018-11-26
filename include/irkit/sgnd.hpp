@@ -27,13 +27,15 @@
 #pragma once
 
 #include <type_traits>
+#include <utility>
 
 namespace irk {
 
 template<typename Int>
-inline auto sgn(Int value)
+[[nodiscard]] inline constexpr auto
+sgnd(Int&& value) -> std::make_signed_t<std::remove_reference_t<Int>>
 {
-    return static_cast<std::make_signed_t<Int>>(value);
+    return static_cast<std::make_signed_t<std::remove_reference_t<Int>>>(std::forward<Int>(value));
 }
 
 }  // namespace irk

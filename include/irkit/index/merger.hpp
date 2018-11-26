@@ -38,6 +38,7 @@
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace irk {
 
@@ -249,12 +250,12 @@ public:
         term_dfs_.push_back(doc_ids.size());
 
         // Write documents and counts.
-        index::block_list_builder<document_type, document_codec_type, true>
-            doc_list_builder(block_size_);
+        ir::Standard_Block_List_Builder<document_type, document_codec_type, true> doc_list_builder(
+            block_size_);
         for (const auto& doc : doc_ids) { doc_list_builder.add(doc); }
         doc_offset_ += doc_list_builder.write(doc_ids_);
 
-        index::block_list_builder<frequency_type, frequency_codec_type, false>
+        ir::Standard_Block_List_Builder<frequency_type, frequency_codec_type, false>
             count_list_builder(block_size_);
         for (const auto& count : doc_counts) { count_list_builder.add(count); }
         count_offset_ += count_list_builder.write(doc_counts_);

@@ -25,8 +25,7 @@ set(TEST_SOURCES
     test_taat.cpp
     test_warc.cpp
     test_block.cpp
-    test_memoryview.cpp
-    test_index_list.cpp)
+    test_memoryview.cpp)
 foreach(TEST_SRC ${TEST_SOURCES})
     get_filename_component (TEST_SRC_NAME ${TEST_SRC} NAME_WE)
     add_executable(${TEST_SRC_NAME} ${TEST_SRC})

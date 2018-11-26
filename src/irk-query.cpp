@@ -68,8 +68,7 @@ int main(int argc, char** argv)
     if (args->score_function[0] != '*') {
         scores.push_back(args->score_function);
     }
-    auto data = irk::inverted_index_mapped_data_source::from(dir, {scores})
-                    .value();
+    auto data = irk::inverted_index_mapped_data_source::from(dir, {scores}).value();
     irk::inverted_index_view index(&data);
 
     if (not args->terms.empty()) {
@@ -78,16 +77,13 @@ int main(int argc, char** argv)
                            args->k,
                            args->score_function,
                            args->processing_type,
-                           args->trec_id != -1
-                               ? std::make_optional(args->trec_id)
-                               : std::nullopt,
+                           args->trec_id != -1 ? std::make_optional(args->trec_id) : std::nullopt,
                            args->trec_run);
     }
     else {
         irk::run_queries(
-            app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)
-                                         : std::nullopt,
-            [&](const auto& current_trecid, const auto& terms) {
+            app->count("--trec-id") > 0u ? std::make_optional(args->trec_id) : std::nullopt,
+            [&, args = args.get()](const auto& current_trecid, const auto& terms) {
                 irk::run_and_print(index,
                                    terms,
                                    args->k,

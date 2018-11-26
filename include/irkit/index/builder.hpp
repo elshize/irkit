@@ -36,8 +36,8 @@
 
 #include <irkit/coding.hpp>
 #include <irkit/compacttable.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/list/standard_block_list.hpp>
 
 namespace irk {
 
@@ -51,6 +51,10 @@ public:
     using frequency_type = index::frequency_t;
     using document_codec_type = DocumentCodec;
     using frequency_codec_type = FrequencyCodec;
+    using document_list_builder_type = ir::
+        Standard_Block_List_Builder<document_type, document_codec_type, true>;
+    using frequency_list_builder_type = ir::
+        Standard_Block_List_Builder<frequency_type, frequency_codec_type, false>;
 
 private:
     struct doc_freq_pair {
@@ -163,8 +167,7 @@ public:
         {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            index::block_list_builder<document_type, document_codec_type, true>
-                list_builder(block_size_);
+            document_list_builder_type list_builder(block_size_);
             for (const auto& posting : postings_[term_id]) {
                 list_builder.add(posting.doc);
             }
@@ -183,11 +186,10 @@ public:
         for (auto& term : sorted_terms_.value()) {
             offsets.push_back(offset);
             term_id_type term_id = term_map_[term];
-            index::
-                block_list_builder<frequency_type, frequency_codec_type, false>
-                    list_builder(block_size_);
-            for (const auto& posting : postings_[term_id])
-            { list_builder.add(posting.freq); }
+            frequency_list_builder_type list_builder(block_size_);
+            for (const auto& posting : postings_[term_id]) {
+                list_builder.add(posting.freq);
+            }
             offset += list_builder.write(out);
         }
         offset_table<> offset_table = build_offset_table<>(offsets);

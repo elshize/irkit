@@ -132,9 +132,16 @@ public:
         }
         ~iterator() = default;
 
-        iterator& moveto(document_type doc)
+        iterator& advance_to(document_type doc)
         {
-            document_iterator_.moveto(doc);
+            document_iterator_.advance_to(doc);
+            payload_iterator_.align(document_iterator_);
+            return *this;
+        }
+
+        [[deprecated]] iterator& moveto(document_type doc)
+        {
+            document_iterator_.advance_to(doc);
             payload_iterator_.align(document_iterator_);
             return *this;
         }
@@ -142,13 +149,13 @@ public:
         iterator nextgeq(document_type doc) const
         {
             iterator iter(*this);
-            iter.moveto(doc);
+            iter.advance_to(doc);
             return iter;
         }
 
         document_type document() const { return *document_iterator_; }
         payload_type payload() const { return *payload_iterator_; }
-        int idx() const { return document_iterator_.idx(); }
+        auto idx() const { return document_iterator_.idx(); }
         const posting_view& current_posting() const { return current_posting_; }
 
     private:

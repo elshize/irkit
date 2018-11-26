@@ -45,7 +45,7 @@
 #include <irkit/coding/hutucker.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/radix_tree.hpp>
-#include <irkit/sgn.hpp>
+#include <irkit/sgnd.hpp>
 #include <irkit/utils.hpp>
 
 namespace irk {
@@ -468,7 +468,7 @@ public:
 
     std::string operator[](const Index& val) const
     {
-        assert(val < sgn(size_));
+        assert(val < sgnd(size_));
         if (reverse_lookup_.empty()) { init_reverse_lookup(); }
         auto block_pos = std::prev(std::upper_bound(
             reverse_lookup_.begin(), reverse_lookup_.end(), val));

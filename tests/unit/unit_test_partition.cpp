@@ -43,6 +43,7 @@
 #include <irkit/index/partition.hpp>
 #include <irkit/index/score.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/io.hpp>
 
 namespace {
 
@@ -61,7 +62,8 @@ protected:
     path output_dir;
     irk::vmap<ShardId, path> shard_dirs;
     irk::vmap<irk::index::document_t, ShardId> shard_map;
-    std::vector<document_t> document_mapping;
+    irk::vmap<document_t> document_mapping;
+    irk::vmap<ShardId, irk::vmap<document_t>> reverse_mapping;
     partition_test()
     {
         input_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test";
@@ -96,12 +98,19 @@ protected:
         shard_dirs = irk::detail::partition::resolve_paths(output_dir, 3);
         document_mapping =
             irk::detail::partition::compute_document_mapping(shard_map, 3);
+        reverse_mapping =
+            irk::detail::partition::compute_reverse_mapping(shard_map, 3);
     }
 
     irk::detail::partition::Partition partition()
     {
-        return irk::detail::partition::Partition(
-            3, 10, input_dir, shard_dirs, shard_map, document_mapping);
+        return irk::detail::partition::Partition(3,
+                                                 10,
+                                                 input_dir,
+                                                 shard_dirs,
+                                                 shard_map,
+                                                 document_mapping,
+                                                 reverse_mapping);
     }
 };
 
@@ -213,9 +222,18 @@ TEST_F(partition_test, titles)
 
 TEST_F(partition_test, compute_document_mapping)
 {
-    std::vector<document_t> docmap =
-        irk::detail::partition::compute_document_mapping(shard_map, 3);
+    irk::vmap<document_t>
+        docmap = irk::detail::partition::compute_document_mapping(shard_map, 3);
     ASSERT_THAT(docmap, ::testing::ElementsAre(0, 0, 0, 1, 1, 1, 2, 3, 2, 2));
+}
+
+TEST_F(partition_test, compute_reverse_mapping)
+{
+    auto revmap = irk::detail::partition::compute_reverse_mapping(shard_map, 3);
+    ASSERT_EQ(revmap.size(), 3);
+    ASSERT_THAT(revmap[ShardId(0)], ::testing::ElementsAre(0, 5, 9));
+    ASSERT_THAT(revmap[ShardId(1)], ::testing::ElementsAre(1, 4, 6, 7));
+    ASSERT_THAT(revmap[ShardId(2)], ::testing::ElementsAre(2, 3, 8));
 }
 
 void test_props(
@@ -395,6 +413,19 @@ void test_postings(
     }
 }
 
+void test_reverse_mappings(
+    const irk::vmap<ShardId, path>& shard_dirs,
+    const irk::vmap<ShardId, irk::vmap<document_t>>& exp_reverse)
+{
+    ShardId shard{0};
+    for (const path& dir : shard_dirs) {
+        auto revmap = irk::io::read_vector<document_t>(dir / "reverse.map");
+        ASSERT_THAT(
+            revmap,
+            ::testing::ElementsAreArray(exp_reverse[shard++].as_vector()));
+    }
+}
+
 TEST_F(partition_test, index)
 {
     irk::partition_index(input_dir, output_dir, shard_map, 3, 10);
@@ -402,6 +433,7 @@ TEST_F(partition_test, index)
     test_props(input_dir, shard_paths);
     test_term_frequencies(input_dir, shard_paths);
     test_postings(input_dir, shard_paths);
+    test_reverse_mappings(shard_paths, reverse_mapping);
 }
 
 }  // namespace
