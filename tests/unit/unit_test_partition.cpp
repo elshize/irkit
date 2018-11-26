@@ -39,7 +39,6 @@
 
 #include <irkit/index.hpp>
 #include <irkit/index/assembler.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/partition.hpp>
 #include <irkit/index/score.hpp>
 #include <irkit/index/types.hpp>
