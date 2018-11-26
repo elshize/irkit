@@ -321,14 +321,10 @@ void test_postings(
             return irk::inverted_index_mapped_data_source::from(dir, {"bm25-8"})
                 .value();
         });
-    int sh = 0;
-    std::transform(
-        shard_sources.begin(),
-        shard_sources.end(),
-        std::back_inserter(shards),
-        [&sh](const auto& source) {
-            return irk::inverted_index_view(&source);
-        });
+    std::transform(shard_sources.begin(),
+                   shard_sources.end(),
+                   std::back_inserter(shards),
+                   [](const auto& source) { return irk::inverted_index_view(&source); });
     std::vector<std::vector<uint32_t>> max_scores;
     irk::transform_range(
         shards, std::back_inserter(max_scores), [](const auto& shard) {

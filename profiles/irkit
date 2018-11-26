@@ -17,4 +17,4 @@ rule=T013
 rule=T017
 rule=T018
 rule=T019
-parameter=max-line-length=80
+parameter=max-line-length=100

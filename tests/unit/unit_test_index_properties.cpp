@@ -83,18 +83,6 @@ protected:
     }
 };
 
-using ::testing::get;
-MATCHER(QuantizationPropertiesEq, "")
-{
-    auto quantization_properties_equal =
-        [](const irk::index::QuantizationProperties& lhs,
-           const irk::index::QuantizationProperties& rhs) {
-            return lhs.type == rhs.type && lhs.nbits == rhs.nbits
-                && lhs.min == rhs.min && lhs.max == rhs.max;
-        };
-    return quantization_properties_equal(get<0>(arg), get<1>(arg));
-}
-
 TEST_F(PropertiesTest, read)
 {
     // given

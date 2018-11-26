@@ -30,7 +30,6 @@
 #include <optional>
 #include <range/v3/utility/concepts.hpp>
 
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/types.hpp>
 

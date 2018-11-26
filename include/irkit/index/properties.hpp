@@ -63,7 +63,6 @@
 #include <irkit/coding/stream_vbyte.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/daat.hpp>
-#include <irkit/index/block_inverted_list.hpp>
 #include <irkit/index/posting_list.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/io.hpp>
