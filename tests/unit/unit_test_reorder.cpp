@@ -24,15 +24,17 @@
 //! \author     Michal Siedlaczek
 //! \copyright  MIT License
 
+#define CATCH_CONFIG_MAIN
+
 #include <algorithm>
 #include <random>
 #include <sstream>
 #include <unordered_set>
 #include <vector>
 
-#include <gmock/gmock.h>
+#include <catch2/catch.hpp>
+#include <fakeit.hpp>
 #include <gsl/span>
-#include <gtest/gtest.h>
 #include <tbb/task_scheduler_init.h>
 
 #include <irkit/index.hpp>
@@ -40,20 +42,148 @@
 #include <irkit/index/reorder.hpp>
 #include <irkit/index/score.hpp>
 #include <irkit/list/standard_block_list.hpp>
-
-namespace {
+#include "common.hpp"
 
 using boost::filesystem::exists;
 using boost::filesystem::path;
 using boost::filesystem::remove_all;
 
-class reorder_test : public ::testing::Test {
-protected:
-    path dir;
-    reorder_test()
+using namespace fakeit;
+
+template<typename T, typename List>
+std::vector<std::pair<std::string, T>>
+unify_list(const List& postings,
+           irk::lexicon<irk::hutucker_codec<char>, irk::memory_view> lexicon,
+           const std::unordered_set<std::string>& blacklist)
+{
+    std::vector<std::pair<std::string, T>> unified;
+    for (const auto& posting : postings) {
+        std::string title = lexicon.key_at(posting.document());
+        if (blacklist.count(title) == 0u) {
+            unified.emplace_back(title, posting.payload());
+        }
+    }
+    std::sort(unified.begin(), unified.end(), [](const auto& lhs, const auto& rhs) {
+        return lhs.first < rhs.first;
+    });
+    return unified;
+}
+
+TEST_CASE("Reorder", "[reorder][unit]")
+{
+    SECTION("Size")
     {
-        dir = boost::filesystem::temp_directory_path() / "irkit_reorder_test";
-        if (exists(dir)) remove_all(dir);
+        auto size_table = irk::build_compact_table<int32_t>(
+            std::vector<int32_t>{10, 20, 30, 40, 50, 60});
+        GIVEN("exhaustive mapping")
+        {
+            std::vector<irk::index::document_t> map{2, 0, 3, 1, 5, 4};
+            WHEN("reorder sizes")
+            {
+                auto reordered = irk::reorder::sizes(size_table, map);
+                THEN("equal expected of full size")
+                {
+                    REQUIRE(std::vector<int32_t>(reordered.begin(), reordered.end())
+                            == std::vector<int32_t>{30, 10, 40, 20, 60, 50});
+                }
+            }
+        }
+        GIVEN("non-exhaustive mapping")
+        {
+            std::vector<irk::index::document_t> map{2, 0, 3, 1};
+            WHEN("reorder sizes")
+            {
+                auto reordered = irk::reorder::sizes(size_table, map);
+                THEN("equal expected with shorter length")
+                {
+                    REQUIRE(std::vector<int32_t>(reordered.begin(), reordered.end())
+                            == std::vector<int32_t>{30, 10, 40, 20});
+                }
+            }
+        }
+    }
+
+    GIVEN("a lexicon and a mapping")
+    {
+        auto lex = irk::build_lexicon(std::vector<std::string>{"a", "b", "c", "d", "e", "f"}, 16);
+        std::vector<irk::index::document_t> map{2, 0, 3, 1, 5, 4};
+        WHEN("reorder titles")
+        {
+            auto reordered = irk::reorder::titles(lex, map);
+            THEN("titles are reoredered correctly")
+            {
+                REQUIRE(reordered.size() == 6);
+                REQUIRE(reordered.key_at(0) == "c");
+                REQUIRE(reordered.key_at(1) == "a");
+                REQUIRE(reordered.key_at(2) == "d");
+                REQUIRE(reordered.key_at(3) == "b");
+                REQUIRE(reordered.key_at(4) == "f");
+                REQUIRE(reordered.key_at(5) == "e");
+            }
+        }
+    }
+
+    SECTION("Document map")
+    {
+        auto max = std::numeric_limits<irk::index::document_t>::max();
+        std::vector<irk::index::document_t> permutation{2, 0, 1, 5};
+        auto map = irk::reorder::docmap(permutation, 6);
+        REQUIRE(map == std::vector<irk::index::document_t>{1, 2, 0, max, max, 3});
+    }
+
+    SECTION("Compute mask")
+    {
+        auto [documents, permutation, expected] = GENERATE(
+            table<std::vector<int>, std::vector<int>, std::vector<int>>(
+                {{{0, 1, 5}, {2, 0, 3, 1, 5, 4}, {0, 1, 2}},
+                 {{0, 1, 2, 3, 4, 5}, {2, 0, 3, 1, 5, 4}, {2, 0, 3, 1, 5, 4}},
+                 {{0, 1, 2, 4, 5}, {2, 0, 3, 1, 5, 4}, {2, 0, 1, 4, 3}},
+                 {{0, 1, 2, 4, 5}, {2, 0, 3}, {2, 0}},
+                 {{0, 1, 2, 3, 4, 5}, {2, 0, 3}, {2, 0, 3}}}));
+        REQUIRE(irk::reorder::compute_mask(documents, irk::reorder::docmap(permutation, 6))
+                == expected);
+    }
+    SECTION("Write score list")
+    {
+        struct BuilderInterface {
+            virtual void add(int) = 0;
+            virtual auto write(std::ostream&) -> std::streamsize = 0;
+        };
+        GIVEN("a trivial order")
+        {
+            Mock<BuilderInterface> builder;
+            Fake(Method(builder, add), Method(builder, write));
+            BuilderInterface& ref = builder.get();
+            irk::reorder::write_score_list(
+                ref, std::vector<int>{0, 1, 5}, std::vector<int>{0, 1, 2}, std::cout);
+            Verify(Method(builder, add).Using(0),
+                   Method(builder, add).Using(1),
+                   Method(builder, add).Using(5));
+            VerifyNoOtherInvocations(Method(builder, add));
+        }
+        GIVEN("mapping that reorders documents")
+        {
+            Mock<BuilderInterface> builder;
+            Fake(Method(builder, add), Method(builder, write));
+            irk::reorder::write_score_list(builder.get(),
+                                           std::vector<int>{0, 1, 2, 4, 5},
+                                           std::vector<int>{2, 0, 1, 4, 3},
+                                           std::cout);
+            Verify(Method(builder, add).Using(2),
+                   Method(builder, add).Using(0),
+                   Method(builder, add).Using(1),
+                   Method(builder, add).Using(5),
+                   Method(builder, add).Using(4));
+            VerifyNoOtherInvocations(Method(builder, add));
+        }
+    }
+}
+
+TEST_CASE("Reorder index", "[reorder][unit]")
+{
+    GIVEN("A test index")
+    {
+        auto dir = irk::test::tmpdir();
         irk::index::index_assembler assembler(dir, 100, 4, 16);
         std::istringstream input(
             "Doc00 Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n"
@@ -73,216 +203,52 @@ protected:
             "felis gravida.\n"
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
-        irk::index::score_index<
-            irk::score::bm25_tag,
-            irk::inverted_index_mapped_data_source>(dir, 8);
-    }
-};
+        irk::index::score_index<irk::score::bm25_tag, irk::inverted_index_mapped_data_source>(dir, 8);
 
-TEST_F(reorder_test, sizes)
-{
-    // given
-    auto size_table = irk::build_compact_table<int32_t>(
-        std::vector<int32_t>{10, 20, 30, 40, 50, 60});
-    std::vector<irk::index::document_t> map{2, 0, 3, 1, 5, 4};
+        WHEN("index is reordered and loaded")
+        {
+            auto output_dir = irk::test::tmpdir();
+            auto source = irk::inverted_index_inmemory_data_source::from(dir, {"bm25-8"}).value();
+            irk::inverted_index_view index(&source);
+            irk::reorder::index(dir, output_dir, {8, 0, 9, 5, 2, 6, 1, 4});
 
-    // when
-    auto reordered = irk::reorder::sizes(size_table, map);
+            auto rsource = irk::inverted_index_inmemory_data_source::from(output_dir, {"bm25-8"})
+                               .value();
+            irk::inverted_index_view rindex(&rsource);
+            std::unordered_set<std::string> removed_documents{"Doc03", "Doc07"};
 
-    // then
-    ASSERT_THAT(
-        reordered,
-        ::testing::ElementsAreArray(
-            std::vector<int32_t>{30, 10, 40, 20, 60, 50}));
-}
-
-TEST_F(reorder_test, sizes_shorter)
-{
-    // given
-    auto size_table = irk::build_compact_table<int32_t>(
-        std::vector<int32_t>{10, 20, 30, 40, 50, 60});
-    std::vector<irk::index::document_t> map{2, 0, 3, 1};
-
-    // when
-    auto reordered = irk::reorder::sizes(size_table, map);
-
-    // then
-    ASSERT_THAT(
-        reordered,
-        ::testing::ElementsAreArray(std::vector<int32_t>{30, 10, 40, 20}));
-}
-
-TEST_F(reorder_test, titles)
-{
-    // given
-    auto lex = irk::build_lexicon(
-        std::vector<std::string>{"a", "b", "c", "d", "e", "f"}, 16);
-    std::vector<irk::index::document_t> map{2, 0, 3, 1, 5, 4};
-
-    // when
-    auto reordered = irk::reorder::titles(lex, map);
-
-    // then
-    ASSERT_EQ(reordered.size(), 6);
-    ASSERT_THAT(reordered.key_at(0), ::testing::StrEq("c"));
-    ASSERT_THAT(reordered.key_at(1), ::testing::StrEq("a"));
-    ASSERT_THAT(reordered.key_at(2), ::testing::StrEq("d"));
-    ASSERT_THAT(reordered.key_at(3), ::testing::StrEq("b"));
-    ASSERT_THAT(reordered.key_at(4), ::testing::StrEq("f"));
-    ASSERT_THAT(reordered.key_at(5), ::testing::StrEq("e"));
-}
-
-TEST_F(reorder_test, docmap)
-{
-    auto max = std::numeric_limits<irk::index::document_t>::max();
-    std::vector<irk::index::document_t> permutation{2, 0, 1, 5};
-    auto map = irk::reorder::docmap(permutation, 6);
-    ASSERT_THAT(map, ::testing::ElementsAre(1, 2, 0, max, max, 3));
-}
-
-TEST_F(reorder_test, compute_mask)
-{
-    ASSERT_THAT(
-        irk::reorder::compute_mask(
-            std::vector<int>{0, 1, 5},
-            irk::reorder::docmap(std::vector<int>{2, 0, 3, 1, 5, 4}, 6)),
-        testing::ElementsAre(0, 1, 2));
-    ASSERT_THAT(
-        irk::reorder::compute_mask(
-            std::vector<int>{0, 1, 2, 3, 4, 5},
-            irk::reorder::docmap(std::vector<int>{2, 0, 3, 1, 5, 4}, 6)),
-        testing::ElementsAre(2, 0, 3, 1, 5, 4));
-    ASSERT_THAT(
-        irk::reorder::compute_mask(
-            std::vector<int>{0, 1, 2, 4, 5},
-            irk::reorder::docmap(std::vector<int>{2, 0, 3, 1, 5, 4}, 6)),
-        testing::ElementsAre(2, 0, 1, 4, 3));
-    ASSERT_THAT(
-        irk::reorder::compute_mask(
-            std::vector<int>{0, 1, 2, 4, 5},
-            irk::reorder::docmap(std::vector<int>{2, 0, 3}, 6)),
-        testing::ElementsAre(2, 0));
-    ASSERT_THAT(
-        irk::reorder::compute_mask(
-            std::vector<int>{0, 1, 2, 3, 4, 5},
-            irk::reorder::docmap(std::vector<int>{2, 0, 3}, 6)),
-        testing::ElementsAre(2, 0, 3));
-}
-
-class mock_block_list_builder
-    : public ir::Standard_Block_List_Builder<int, irk::vbyte_codec<int>, false> {
-public:
-    MOCK_METHOD1(add, void(int));
-    mock_block_list_builder()
-        : ir::Standard_Block_List_Builder<int, irk::vbyte_codec<int>, false>(10)
-    {}
-    mock_block_list_builder(const mock_block_list_builder&) = default;
-};
-
-TEST_F(reorder_test, write_score_list)
-{
-    mock_block_list_builder builder;
-    EXPECT_CALL(builder, add(0));
-    EXPECT_CALL(builder, add(1));
-    EXPECT_CALL(builder, add(5));
-    irk::reorder::write_score_list(
-        builder,
-        std::vector<int>{0, 1, 5},
-        std::vector<int>{0, 1, 2},
-        std::cout);
-}
-
-TEST_F(reorder_test, write_score_list_reordered)
-{
-    mock_block_list_builder builder;
-    EXPECT_CALL(builder, add(2));
-    EXPECT_CALL(builder, add(0));
-    EXPECT_CALL(builder, add(1));
-    EXPECT_CALL(builder, add(5));
-    EXPECT_CALL(builder, add(4));
-    irk::reorder::write_score_list(
-        builder,
-        std::vector<int>{0, 1, 2, 4, 5},
-        std::vector<int>{2, 0, 1, 4, 3},
-        std::cout);
-}
-
-template<typename T, typename List>
-std::vector<std::pair<std::string, T>> unify_list(
-    const List& postings,
-    irk::lexicon<irk::hutucker_codec<char>, irk::memory_view> lexicon,
-    const std::unordered_set<std::string>& blacklist)
-{
-    std::vector<std::pair<std::string, T>> unified;
-    for (const auto& posting : postings) {
-        std::string title = lexicon.key_at(posting.document());
-        if (blacklist.count(title) == 0u) {
-            unified.emplace_back(title, posting.payload());
+            THEN("terms are the same as original")
+            {
+                REQUIRE(std::vector<std::string>(rindex.terms().begin(), rindex.terms().end())
+                        == std::vector<std::string>(index.terms().begin(), index.terms().end()));
+            }
+            THEN("titles are correctly reordered")
+            {
+                REQUIRE(
+                    std::vector<std::string>(rindex.titles().begin(), rindex.titles().end())
+                    == std::vector<std::string>{
+                           "Doc08", "Doc00", "Doc09", "Doc05", "Doc02", "Doc06", "Doc01", "Doc04"});
+            }
+            THEN("frequency postings are correct")
+            {
+                for (const auto& term : index.terms()) {
+                    auto expected = unify_list<irk::index::frequency_t>(
+                        index.postings(term), index.titles(), removed_documents);
+                    auto reordered = unify_list<irk::index::frequency_t>(
+                        rindex.postings(term), rindex.titles(), {});
+                    REQUIRE(reordered == expected);
+                }
+            }
+            THEN("scored postings are correct")
+            {
+                for (const auto& term : index.terms()) {
+                    auto expected = unify_list<irk::inverted_index_view::score_type>(
+                        index.scored_postings(term), index.titles(), removed_documents);
+                    auto reordered = unify_list<irk::inverted_index_view::score_type>(
+                        rindex.scored_postings(term), rindex.titles(), {});
+                    REQUIRE(reordered == expected);
+                }
+            }
         }
     }
-    std::sort(
-        unified.begin(), unified.end(), [](const auto& lhs, const auto& rhs) {
-            return lhs.first < rhs.first;
-        });
-    return unified;
-}
-
-TEST_F(reorder_test, reorder)
-{
-    auto output_dir =
-        boost::filesystem::temp_directory_path() / "irkit_prune_test_reordered";
-    if (exists(output_dir)) remove_all(output_dir);
-    boost::filesystem::create_directory(output_dir);
-
-    auto source =
-        irk::inverted_index_inmemory_data_source::from(dir, {"bm25-8"}).value();
-    irk::inverted_index_view index(&source);
-    irk::reorder::index(dir, output_dir, {8, 0, 9, 5, 2, 6, 1, 4});
-
-    auto rsource =
-        irk::inverted_index_inmemory_data_source::from(output_dir, {"bm25-8"})
-            .value();
-    irk::inverted_index_view rindex(&rsource);
-
-    std::unordered_set<std::string> removed_documents{"Doc03", "Doc07"};
-
-    ASSERT_THAT(
-        std::vector<std::string>(
-            rindex.titles().begin(), rindex.titles().end()),
-        ::testing::ElementsAre(
-            "Doc08",
-            "Doc00",
-            "Doc09",
-            "Doc05",
-            "Doc02",
-            "Doc06",
-            "Doc01",
-            "Doc04"));
-    ASSERT_THAT(
-        std::vector<std::string>(rindex.terms().begin(), rindex.terms().end()),
-        ::testing::ElementsAreArray(std::vector<std::string>(
-            rindex.terms().begin(), rindex.terms().end())));
-    for (const auto& term : index.terms()) {
-        auto expected = unify_list<irk::index::frequency_t>(
-            index.postings(term), index.titles(), removed_documents);
-        auto reordered = unify_list<irk::index::frequency_t>(
-            rindex.postings(term), rindex.titles(), {});
-        ASSERT_THAT(reordered, ::testing::ElementsAreArray(expected));
-    }
-    for (const auto& term : index.terms()) {
-        auto expected = unify_list<irk::inverted_index_view::score_type>(
-            index.scored_postings(term), index.titles(), removed_documents);
-        auto reordered = unify_list<irk::inverted_index_view::score_type>(
-            rindex.scored_postings(term), rindex.titles(), {});
-        ASSERT_THAT(reordered, ::testing::ElementsAreArray(expected));
-    }
-}
-
-}  // namespace
-
-int main(int argc, char** argv)
-{
-    tbb::task_scheduler_init init(4);
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
