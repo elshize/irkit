@@ -149,13 +149,12 @@ TEST_CASE("Reorder", "[reorder][unit]")
             virtual void add(int) = 0;
             virtual auto write(std::ostream&) -> std::streamsize = 0;
         };
+        Mock<BuilderInterface> builder;
+        Fake(Method(builder, add), Method(builder, write));
         GIVEN("a trivial order")
         {
-            Mock<BuilderInterface> builder;
-            Fake(Method(builder, add), Method(builder, write));
-            BuilderInterface& ref = builder.get();
             irk::reorder::write_score_list(
-                ref, std::vector<int>{0, 1, 5}, std::vector<int>{0, 1, 2}, std::cout);
+                builder.get(), std::vector<int>{0, 1, 5}, std::vector<int>{0, 1, 2}, std::cout);
             Verify(Method(builder, add).Using(0),
                    Method(builder, add).Using(1),
                    Method(builder, add).Using(5));
@@ -163,8 +162,6 @@ TEST_CASE("Reorder", "[reorder][unit]")
         }
         GIVEN("mapping that reorders documents")
         {
-            Mock<BuilderInterface> builder;
-            Fake(Method(builder, add), Method(builder, write));
             irk::reorder::write_score_list(builder.get(),
                                            std::vector<int>{0, 1, 2, 4, 5},
                                            std::vector<int>{2, 0, 1, 4, 3},
