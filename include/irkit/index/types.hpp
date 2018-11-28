@@ -32,7 +32,7 @@
 #include <type_safe/index.hpp>
 #include <type_safe/strong_typedef.hpp>
 
-#include <irkit/vmap.hpp>
+#include <irkit/vector.hpp>
 
 namespace irk {
 

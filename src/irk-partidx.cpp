@@ -45,7 +45,7 @@ using irk::index::document_t;
 using std::uint32_t;
 using namespace irk;
 
-vmap<document_t, ShardId>
+Vector<document_t, ShardId>
 build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
 {
     auto data = inverted_index_mapped_data_source::from(index_dir).value();
@@ -54,7 +54,7 @@ build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
     auto log = spdlog::get("partition");
     log->info("Building shard map");
     ShardId last_shard(shards.size() - 1);
-    vmap<document_t, ShardId> map(titles.size(), last_shard);
+    Vector<document_t, ShardId> map(titles.size(), last_shard);
     int mapped_documents{0};
     int missing_documents{0};
     ShardId shard_id(0);
@@ -79,13 +79,13 @@ build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
     return map;
 }
 
-vmap<document_t, ShardId>
+Vector<document_t, ShardId>
 load_shard_map(const std::string& map_in)
 {
     auto log = spdlog::get("partition");
     if (log) { log->info("Loading shard mapping from {}", map_in); }
     auto tab = load_compact_table<ShardId, vbyte_codec<ShardId>>(map_in);
-    return vmap<document_t, ShardId>(tab.begin(), tab.end());
+    return Vector<document_t, ShardId>(tab.begin(), tab.end());
 }
 
 int main(int argc, char** argv)

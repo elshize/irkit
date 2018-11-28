@@ -59,10 +59,10 @@ class partition_test : public ::testing::Test {
 protected:
     path input_dir;
     path output_dir;
-    irk::vmap<ShardId, path> shard_dirs;
-    irk::vmap<irk::index::document_t, ShardId> shard_map;
-    irk::vmap<document_t> document_mapping;
-    irk::vmap<ShardId, irk::vmap<document_t>> reverse_mapping;
+    irk::Vector<ShardId, path> shard_dirs;
+    irk::Vector<irk::index::document_t, ShardId> shard_map;
+    irk::Vector<document_t> document_mapping;
+    irk::Vector<ShardId, irk::Vector<document_t>> reverse_mapping;
     partition_test()
     {
         input_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test";
@@ -221,7 +221,7 @@ TEST_F(partition_test, titles)
 
 TEST_F(partition_test, compute_document_mapping)
 {
-    irk::vmap<document_t>
+    irk::Vector<document_t>
         docmap = irk::detail::partition::compute_document_mapping(shard_map, 3);
     ASSERT_THAT(docmap, ::testing::ElementsAre(0, 0, 0, 1, 1, 1, 2, 3, 2, 2));
 }
@@ -236,7 +236,7 @@ TEST_F(partition_test, compute_reverse_mapping)
 }
 
 void test_props(
-    const path& input_dir, const irk::vmap<ShardId, path>& shard_dirs)
+    const path& input_dir, const irk::Vector<ShardId, path>& shard_dirs)
 {
     auto source =
         irk::inverted_index_mapped_data_source::from(input_dir).value();
@@ -259,7 +259,7 @@ void test_props(
 
 void test_term_frequencies(
     const path& input_dir,
-    const irk::vmap<ShardId, path>& shard_dirs)
+    const irk::Vector<ShardId, path>& shard_dirs)
 {
     auto source =
         irk::inverted_index_mapped_data_source::from(input_dir).value();
@@ -304,7 +304,7 @@ using accumulator = a::accumulator_set<
     a::stats<a::tag::mean, a::tag::variance, a::tag::max>>;
 
 void test_postings(
-    const path& input_dir, const irk::vmap<ShardId, path>& shard_dirs)
+    const path& input_dir, const irk::Vector<ShardId, path>& shard_dirs)
 {
     auto source =
         irk::inverted_index_mapped_data_source::from(input_dir, {"bm25-8"})
@@ -409,15 +409,13 @@ void test_postings(
 }
 
 void test_reverse_mappings(
-    const irk::vmap<ShardId, path>& shard_dirs,
-    const irk::vmap<ShardId, irk::vmap<document_t>>& exp_reverse)
+    const irk::Vector<ShardId, path>& shard_dirs,
+    const irk::Vector<ShardId, irk::Vector<document_t>>& exp_reverse)
 {
     ShardId shard{0};
     for (const path& dir : shard_dirs) {
         auto revmap = irk::io::read_vector<document_t>(dir / "reverse.map");
-        ASSERT_THAT(
-            revmap,
-            ::testing::ElementsAreArray(exp_reverse[shard++].as_vector()));
+        ASSERT_THAT(revmap, ::testing::ElementsAreArray(exp_reverse[shard++].as_vector()));
     }
 }
 

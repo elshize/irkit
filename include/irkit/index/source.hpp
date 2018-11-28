@@ -576,8 +576,8 @@ public:
     {
         int32_t shard_count = irtl::value(index::Properties::read(dir).shard_count,
                                           "not a cluster: shard count undefined");
-        irk::vmap<ShardId, ShardSource> shards;
-        vmap<ShardId, vmap<document_type>> reverse_mapping;
+        Vector<ShardId, ShardSource> shards;
+        Vector<ShardId, Vector<document_type>> reverse_mapping;
         for (auto shard : iter::range(shard_count)) {
             auto shard_dir = dir / fmt::format("{:03d}", shard);
             shards.push_back(irtl::value(ShardSource::from(shard_dir, score_names)));
@@ -598,8 +598,8 @@ public:
 
 private:
     explicit Index_Cluster_Data_Source(path dir,
-                                       vmap<ShardId, ShardSource>&& shards,
-                                       vmap<ShardId, vmap<index::document_t>>&& reverse_mapping)
+                                       Vector<ShardId, ShardSource>&& shards,
+                                       Vector<ShardId, Vector<index::document_t>>&& reverse_mapping)
         : MappedTablesSource<Self>(dir),
           dir_(std::move(dir)),
           shards_(shards),
@@ -607,9 +607,9 @@ private:
     {}
 
     path dir_;
-    vmap<ShardId, ShardSource> shards_;
-    vmap<index::document_t, ShardId> shard_mapping_;
-    vmap<ShardId, vmap<index::document_t>> reverse_mapping_;
+    Vector<ShardId, ShardSource> shards_;
+    Vector<index::document_t, ShardId> shard_mapping_;
+    Vector<ShardId, Vector<index::document_t>> reverse_mapping_;
 };
 
 }  // namespace irk

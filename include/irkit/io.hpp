@@ -185,18 +185,18 @@ std::vector<T> read_vector(const boost::filesystem::path& file)
 }
 
 template<class K, class V = K>
-vmap<K, V> read_vmap(std::istream& in)
+Vector<K, V> read_vmap(std::istream& in)
 {
     size_t nbytes;
     in.read(reinterpret_cast<char*>(&nbytes), sizeof(size_t));
     auto size = nbytes / sizeof(V);
-    vmap<K, V> vec(size);
+    Vector<K, V> vec(size);
     in.read(reinterpret_cast<char*>(vec.data()), nbytes);
     return vec;
 }
 
 template<class K, class V = K>
-vmap<K, V> read_vmap(const boost::filesystem::path& file)
+Vector<K, V> read_vmap(const boost::filesystem::path& file)
 {
     std::ifstream is(file.c_str());
     return read_vmap<K, V>(is);

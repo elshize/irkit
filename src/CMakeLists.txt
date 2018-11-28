@@ -38,6 +38,7 @@ add_irk(reorder)
 add_irk(partidx)
 add_irk(threshold)
 add_irk(stem)
+add_irk(vector)
 
 install(
     TARGETS
@@ -62,4 +63,5 @@ install(
         irk-partidx
         irk-threshold
         irk-stem
+        irk-vector
     DESTINATION bin)

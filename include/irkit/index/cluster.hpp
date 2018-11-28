@@ -95,8 +95,8 @@ public:
 
 private:
     index::Properties properties_;
-    vmap<ShardId, vmap<index::document_t>> const& reverse_mapping_;
-    vmap<ShardId, InvertedIndex> shards_;
+    Vector<ShardId, Vector<index::document_t>> const& reverse_mapping_;
+    Vector<ShardId, InvertedIndex> shards_;
     frequency_table_type term_collection_frequencies_;
     frequency_table_type term_collection_occurrences_;
     lexicon<hutucker_codec<char>, memory_view> term_map_;

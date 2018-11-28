@@ -255,9 +255,9 @@ namespace index {
 namespace detail::partition {
 
     /// Resolves output paths to all shards.
-    vmap<ShardId, path> resolve_paths(const path& output_dir, int shard_count)
+    Vector<ShardId, path> resolve_paths(const path& output_dir, int shard_count)
     {
-        vmap<ShardId, path> paths(shard_count);
+        Vector<ShardId, path> paths(shard_count);
         std::generate_n(
             paths.begin(), shard_count, [&output_dir, shard = 0]() mutable {
                 return output_dir / fmt::format("{:03d}", shard++);
@@ -266,12 +266,12 @@ namespace detail::partition {
     }
 
     /// Computes ID mapping from global to local document ID.
-    static vmap<document_t>
-    compute_document_mapping(const vmap<document_t, ShardId>& shard_mapping,
+    static Vector<document_t>
+    compute_document_mapping(const Vector<document_t, ShardId>& shard_mapping,
                              const int shard_count)
     {
-        vmap<ShardId, document_t> next_id(shard_count, 0);
-        vmap<document_t> document_mapping(shard_mapping.size());
+        Vector<ShardId, document_t> next_id(shard_count, 0);
+        Vector<document_t> document_mapping(shard_mapping.size());
         for (auto&& [document, shard] : zip(document_mapping, shard_mapping)) {
             document = next_id[shard]++;
         }
@@ -279,11 +279,10 @@ namespace detail::partition {
     }
 
     /// Computes ID mapping from local to global document ID.
-    static vmap<ShardId, vmap<document_t>>
-    compute_reverse_mapping(const vmap<document_t, ShardId>& shard_mapping,
-                            const int shard_count)
+    static Vector<ShardId, Vector<document_t>>
+    compute_reverse_mapping(const Vector<document_t, ShardId>& shard_mapping, const int shard_count)
     {
-        vmap<ShardId, vmap<document_t>> reverse_mapping(shard_count);
+        Vector<ShardId, Vector<document_t>> reverse_mapping(shard_count);
         for (auto global_id : iter::range(shard_mapping.size())) {
             auto shard = shard_mapping[global_id];
             reverse_mapping[shard].push_back(global_id);
@@ -305,10 +304,10 @@ namespace detail::partition {
         Partition(int32_t shard_count,
                   int32_t document_count,
                   const path& input_dir,
-                  const vmap<ShardId, path>& shard_dirs,
-                  const vmap<document_t, ShardId>& shard_mapping,
-                  const vmap<document_t>& document_mapping,
-                  const vmap<ShardId, vmap<document_t>>& reverse_mapping)
+                  const Vector<ShardId, path>& shard_dirs,
+                  const Vector<document_t, ShardId>& shard_mapping,
+                  const Vector<document_t>& document_mapping,
+                  const Vector<ShardId, Vector<document_t>>& reverse_mapping)
             : shard_count_(shard_count),
               document_count_(document_count),
               input_dir_(input_dir),
@@ -324,8 +323,8 @@ namespace detail::partition {
             using size_type = inverted_index_view::size_type;
             auto size_table = irk::load_compact_table<size_type>(
                 index::doc_sizes_path(input_dir_));
-            vmap<ShardId, std::vector<size_type>> shard_sizes(shard_count_);
-            vmap<ShardId, size_t> avg_shard_sizes(shard_count_, 0);
+            Vector<ShardId, std::vector<size_type>> shard_sizes(shard_count_);
+            Vector<ShardId, size_t> avg_shard_sizes(shard_count_, 0);
 
             for (const auto& [shard_assignment, size] :
                  zip(shard_mapping_, size_table))
@@ -334,7 +333,7 @@ namespace detail::partition {
                 avg_shard_sizes[shard_assignment] += size;
             }
 
-            vmap<ShardId, size_t> max_shard_sizes(shard_count_);
+            Vector<ShardId, size_t> max_shard_sizes(shard_count_);
             std::transform(
                 std::execution::par_unseq,
                 shard_sizes.begin(),
@@ -370,7 +369,7 @@ namespace detail::partition {
             (void)buf;
             auto titles = load_lexicon(lex_view);
             auto keys_per_block = titles.keys_per_block();
-            vmap<ShardId, std::vector<std::string>> shard_titles(shard_count_);
+            Vector<ShardId, std::vector<std::string>> shard_titles(shard_count_);
             for (const auto& [shard, title] : zip(shard_mapping_, titles)) {
                 shard_titles[shard].push_back(title);
             }
@@ -447,12 +446,11 @@ namespace detail::partition {
         }
 
         template<typename DocumentList>
-        vmap<ShardId, document_builder_type>
-        build_document_lists(const DocumentList& documents)
+        Vector<ShardId, document_builder_type> build_document_lists(const DocumentList& documents)
         {
             const auto& block_size = documents.block_size();
-            vmap<ShardId, document_builder_type> builders(
-                shard_count_, document_builder_type(block_size));
+            Vector<ShardId, document_builder_type> builders(shard_count_,
+                                                            document_builder_type(block_size));
             for (auto&& id : documents) {
                 auto shard = shard_mapping_[id];
                 auto local_doc_id = document_mapping_[id];
@@ -462,12 +460,11 @@ namespace detail::partition {
         }
 
         template<typename PostingList>
-        vmap<ShardId, frequency_builder_type>
-        build_payload_lists(const PostingList& postings)
+        Vector<ShardId, frequency_builder_type> build_payload_lists(const PostingList& postings)
         {
             const auto& block_size = postings.block_size();
-            vmap<ShardId, frequency_builder_type> builders(
-                shard_count_, frequency_builder_type(block_size));
+            Vector<ShardId, frequency_builder_type> builders(shard_count_,
+                                                             frequency_builder_type(block_size));
             for (auto&& posting : postings) {
                 auto shard = shard_mapping_[posting.document()];
                 builders[shard].add(posting.payload());
@@ -476,14 +473,13 @@ namespace detail::partition {
         }
 
         template<typename Index>
-        vmap<ShardId, std::vector<score_builder_type>> build_score_lists(
-            const Index& index,
-            term_id_t term_id,
-            const std::vector<std::string>& score_names)
+        Vector<ShardId, std::vector<score_builder_type>>
+        build_score_lists(const Index& index,
+                          term_id_t term_id,
+                          const std::vector<std::string>& score_names)
         {
             size_t block_size = index.documents(0).block_size();
-            vmap<ShardId, std::vector<score_builder_type>> builders(
-                document_count_);
+            Vector<ShardId, std::vector<score_builder_type>> builders(document_count_);
             for (auto& builder : builders) {
                 for (const auto& _ : score_names) {
                     (void)_;
@@ -535,16 +531,16 @@ namespace detail::partition {
         inline auto postings_once()
         {
             auto log = spdlog::get("partition");
-            vmap<ShardId, frequency_t> total_occurrences;
+            Vector<ShardId, frequency_t> total_occurrences;
             auto source = inverted_index_mapped_data_source::from(
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);
             auto score_names = index.score_names();
 
-            vmap<ShardId, index::posting_vectors> vectors(
-                shard_count_, index::posting_vectors(score_names));
-            vmap<ShardId, index::posting_streams<std::ofstream>> outputs;
+            Vector<ShardId, index::posting_vectors> vectors(shard_count_,
+                                                            index::posting_vectors(score_names));
+            Vector<ShardId, index::posting_streams<std::ofstream>> outputs;
             for (ShardId shard : ShardId::range(shard_dirs_.size())) {
                 outputs.emplace_back(
                     shard_dirs_[shard], score_names, vectors[shard]);
@@ -562,14 +558,14 @@ namespace detail::partition {
                 auto scores = score_vectors(index, term_id, score_names);
 
                 const auto& block_size = index.skip_block_size();
-                vmap<ShardId, document_builder_type> document_builders(
+                Vector<ShardId, document_builder_type> document_builders(
                     shard_count_, document_builder_type(block_size));
-                vmap<ShardId, frequency_builder_type> frequency_builders(
+                Vector<ShardId, frequency_builder_type> frequency_builders(
                     shard_count_, frequency_builder_type(block_size));
-                vmap<ShardId, std::vector<score_builder_type>> score_builders(
+                Vector<ShardId, std::vector<score_builder_type>> score_builders(
                     shard_count_,
-                    std::vector<score_builder_type>(
-                        score_names.size(), score_builder_type(block_size)));
+                    std::vector<score_builder_type>(score_names.size(),
+                                                    score_builder_type(block_size)));
                 for (auto idx : iter::range(documents.size())) {
                     auto id = documents[idx];
                     auto shard = shard_mapping_[id];
@@ -613,7 +609,7 @@ namespace detail::partition {
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);
-            vmap<ShardId, frequency_t> total_occurrences;
+            Vector<ShardId, frequency_t> total_occurrences;
             for (const auto& [shard, shard_dir] :
                  iter::zip(ShardId::range(shard_count_), shard_dirs_))
             {
@@ -656,7 +652,7 @@ namespace detail::partition {
                               input_dir_, index::all_score_names(input_dir_))
                               .value();
             inverted_index_view index(&source);
-            vmap<ShardId, index::posting_vectors> vectors(
+            Vector<ShardId, index::posting_vectors> vectors(
                 shard_count_, index::posting_vectors(index.score_names()));
             auto nterms = index.term_count();
             auto batches = iter::chunked(iter::range(nterms), terms_in_batch);
@@ -680,7 +676,7 @@ namespace detail::partition {
                     index.score_names(),
                     std::ios_base::app);
             }
-            vmap<ShardId, frequency_t> total_occurrences;
+            Vector<ShardId, frequency_t> total_occurrences;
             if (log) { log->info("Writing..."); }
             for (auto&& [shard, shard_vectors] : vectors.entries()) {
                 total_occurrences.push_back(shard_vectors.total_occurrences);
@@ -703,7 +699,7 @@ namespace detail::partition {
                 titles();
                 auto [avg_sizes, max_sizes] = sizes();
                 auto total_occurrences = postings_once();
-                vmap<ShardId, size_t> document_counts(shard_count_, 0);
+                Vector<ShardId, size_t> document_counts(shard_count_, 0);
                 for (const auto& shard : shard_mapping_) {
                     document_counts[shard] += 1;
                 }
@@ -719,12 +715,11 @@ namespace detail::partition {
 
         /// Partitions posting-like data for a range of terms.
         template<typename Index, typename BatchRange>
-        inline void postings_batch(
-            const Index& index,
-            const BatchRange& term_batch,
-            vmap<ShardId, index::posting_vectors>& vectors,
-            const std::vector<std::string>& score_names,
-            std::ios_base::openmode mode)
+        inline void postings_batch(const Index& index,
+                                   const BatchRange& term_batch,
+                                   Vector<ShardId, index::posting_vectors>& vectors,
+                                   const std::vector<std::string>& score_names,
+                                   std::ios_base::openmode mode)
         {
             auto log = spdlog::get("partition");
             if (log) {
@@ -734,11 +729,9 @@ namespace detail::partition {
                     term_batch.back());
                 log->info("Building...");
             }
-            std::vector<vmap<ShardId, document_builder_type>> document_builders;
-            std::vector<vmap<ShardId, frequency_builder_type>>
-                frequency_builders;
-            std::vector<vmap<ShardId, std::vector<score_builder_type>>>
-                score_builders;
+            std::vector<Vector<ShardId, document_builder_type>> document_builders;
+            std::vector<Vector<ShardId, frequency_builder_type>> frequency_builders;
+            std::vector<Vector<ShardId, std::vector<score_builder_type>>> score_builders;
             for (const auto& term_id : term_batch) {
                 document_builders.push_back(
                     build_document_lists(index.documents(term_id)));
@@ -785,11 +778,10 @@ namespace detail::partition {
                                     index::term_map_path(cluster_dir));
         }
 
-        inline void write_properties(
-            const vmap<ShardId, size_t>& document_counts,
-            const vmap<ShardId, size_t>& avg_document_sizes,
-            const vmap<ShardId, size_t>& max_document_sizes,
-            const vmap<ShardId, frequency_t>& total_occurrences)
+        inline void write_properties(const Vector<ShardId, size_t>& document_counts,
+                                     const Vector<ShardId, size_t>& avg_document_sizes,
+                                     const Vector<ShardId, size_t>& max_document_sizes,
+                                     const Vector<ShardId, frequency_t>& total_occurrences)
         {
             auto input_props = index::Properties::read(input_dir_);
 
@@ -813,10 +805,10 @@ namespace detail::partition {
         const int32_t shard_count_;
         const int32_t document_count_;
         const path& input_dir_;
-        const vmap<ShardId, path>& shard_dirs_;
-        const vmap<document_t, ShardId>& shard_mapping_;
-        const vmap<document_t>& document_mapping_;
-        const vmap<ShardId, vmap<document_t>>& reverse_mapping_;
+        const Vector<ShardId, path>& shard_dirs_;
+        const Vector<document_t, ShardId>& shard_mapping_;
+        const Vector<document_t>& document_mapping_;
+        const Vector<ShardId, Vector<document_t>>& reverse_mapping_;
     };
 
 }  // namespace detail::partition
@@ -833,7 +825,7 @@ namespace detail::partition {
 nonstd::expected<void, std::string> partition_index(
     const path& input_dir,
     const path& output_dir,
-    const vmap<document_t, ShardId>& shard_mapping,
+    const Vector<document_t, ShardId>& shard_mapping,
     int shard_count,
     int terms_in_batch)
 {
