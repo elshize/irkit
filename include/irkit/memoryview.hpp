@@ -271,18 +271,21 @@ public:
         const boost::iostreams::mapped_file_source& file)
         : file_(file)
     {}
-    const char_type* data() const { return file_.data(); }
-    std::ptrdiff_t size() const { return file_.size(); }
-    char operator[](std::ptrdiff_t n) const { return data()[n]; }
 
-    pointer_memory_source<char_type>
-    range(std::ptrdiff_t first, std::ptrdiff_t size) const
+    [[nodiscard]] auto data() const -> char_type const*
+    {
+        return reinterpret_cast<char_type const*>(file_.data());
+    }
+    [[nodiscard]] auto size() const -> std::ptrdiff_t { return file_.size(); }
+    [[nodiscard]] auto operator[](std::ptrdiff_t n) const -> char_type { return data()[n]; }
+    [[nodiscard]] auto
+    range(std::ptrdiff_t first, std::ptrdiff_t size) const -> pointer_memory_source<char_type>
     {
         return pointer_memory_source(file_.data() + first, size);
     }
 
 private:
-    const boost::iostreams::mapped_file_source& file_;
+    boost::iostreams::mapped_file_source const& file_;
 };
 
 //! A memory source that loads data from disk.
