@@ -34,6 +34,7 @@
 
 #include <irkit/index.hpp>
 #include <irkit/value.hpp>
+#include <irkit/vector.hpp>
 #include <nonstd/expected.hpp>
 
 namespace irk {
@@ -41,6 +42,7 @@ namespace irk {
 using boost::filesystem::exists;
 using boost::filesystem::path;
 using boost::iostreams::mapped_file_source;
+using ir::Vector;
 
 namespace source::detail {
 

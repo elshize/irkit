@@ -29,8 +29,9 @@
 #include <vector>
 
 #include <cppitertools/itertools.hpp>
+#include <gsl/span>
 
-namespace irk {
+namespace ir {
 
 /// A (potentially) type-safe vector.
 ///
@@ -83,27 +84,27 @@ public:
     using std::vector<V, Allocator>::swap;
 
     Vector() noexcept(noexcept(Allocator())) : std::vector<V, Allocator>() {}
-    explicit Vector(const Allocator& alloc) noexcept : std::vector<V, Allocator>(alloc) {}
-    Vector(size_type count, const V& value, const Allocator& alloc = Allocator())
+    explicit Vector(Allocator const& alloc) noexcept : std::vector<V, Allocator>(alloc) {}
+    Vector(size_type count, V const& value, Allocator const& alloc = Allocator())
         : std::vector<V, Allocator>(count, value, alloc)
     {}
-    explicit Vector(size_type count, const Allocator& alloc = Allocator())
+    explicit Vector(size_type count, Allocator const& alloc = Allocator())
         : std::vector<V, Allocator>(count, alloc)
     {}
     template<class InputIt>
-    Vector(InputIt first, InputIt last, const Allocator& alloc = Allocator())
+    Vector(InputIt first, InputIt last, Allocator const& alloc = Allocator())
         : std::vector<V, Allocator>(first, last, alloc)
     {}
-    Vector(const Vector& other) : std::vector<V, Allocator>(other) {}
-    Vector(const Vector& other, const Allocator& alloc) : std::vector<V, Allocator>(other, alloc) {}
+    Vector(Vector const& other) : std::vector<V, Allocator>(other) {}
+    Vector(Vector const& other, const Allocator& alloc) : std::vector<V, Allocator>(other, alloc) {}
     Vector(Vector&& other) noexcept : std::vector<V, Allocator>(other) {}
-    Vector(Vector&& other, const Allocator& alloc) : std::vector<V, Allocator>(other, alloc) {}
-    Vector(std::initializer_list<V> init, const Allocator& alloc = Allocator())
+    Vector(Vector&& other, Allocator const& alloc) : std::vector<V, Allocator>(other, alloc) {}
+    Vector(std::initializer_list<V> init, Allocator const& alloc = Allocator())
         : std::vector<V, Allocator>(init, alloc)
     {}
     ~Vector() = default;
 
-    Vector& operator=(const Vector& other)
+    Vector& operator=(Vector const& other)
     {
         std::vector<V, Allocator>::operator=(other);
         return *this;
@@ -119,10 +120,21 @@ public:
         return *this;
     }
 
-    reference operator[](K id) { return std::vector<V>::operator[](static_cast<size_type>(id)); }
-    const_reference operator[](K id) const
+    reference operator[](K key)
     {
-        return std::vector<V>::operator[](static_cast<size_type>(id));
+        return std::vector<V, Allocator>::operator[](static_cast<size_type>(key));
+    }
+    const_reference operator[](K key) const
+    {
+        return std::vector<V, Allocator>::operator[](static_cast<size_type>(key));
+    }
+    reference at(K key)
+    {
+        return std::vector<V, Allocator>::at(static_cast<size_type>(key));
+    }
+    const_reference at(K key) const
+    {
+        return std::vector<V, Allocator>::at(static_cast<size_type>(key));
     }
 
     std::vector<V> const& as_vector() const { return *this; }
@@ -130,17 +142,13 @@ public:
     auto entries()
     {
         return iter::zip(
-            iter::imap(
-                [](const auto& idx) { return static_cast<K>(idx); },
-                iter::range(size())),
+            iter::imap([](auto const& idx) { return static_cast<K>(idx); }, iter::range(size())),
             *this);
     }
     auto entries() const
     {
         return iter::zip(
-            iter::imap(
-                [](const auto& idx) { return static_cast<K>(idx); },
-                iter::range(size())),
+            iter::imap([](auto const& idx) { return static_cast<K>(idx); }, iter::range(size())),
             *this);
     }
 };
@@ -182,4 +190,70 @@ bool operator>=(const Vector<K, V, Alloc>& lhs, const Vector<K, V, Alloc>& rhs)
     return lhs.as_vector() >= rhs.as_vector();
 }
 
-}  // namespace irk
+template<typename K, typename V = K>
+class Vector_View : protected gsl::span<std::add_const_t<V>> {
+public:
+    using element_type = std::add_const_t<V>;
+    using gsl::span<element_type>::value_type;
+    using gsl::span<element_type>::index_type;
+    using gsl::span<element_type>::pointer;
+    using gsl::span<element_type>::reference;
+
+    using gsl::span<element_type>::iterator;
+    using gsl::span<element_type>::const_iterator;
+    using gsl::span<element_type>::reverse_iterator;
+    using gsl::span<element_type>::const_reverse_iterator;
+
+    using size_type = std::int64_t;
+
+    constexpr Vector_View() noexcept = default;
+    template<typename M>
+    explicit Vector_View(M&& memory_view)
+        : gsl::span<element_type>(reinterpret_cast<V const*>(memory_view.data()),
+                                  memory_view.size() / sizeof(V))
+    {}
+    ~Vector_View() noexcept = default;
+    using gsl::span<element_type>::size;
+    using gsl::span<element_type>::size_bytes;
+    using gsl::span<element_type>::empty;
+
+    using gsl::span<element_type>::data;
+    using gsl::span<element_type>::begin;
+    using gsl::span<element_type>::end;
+    using gsl::span<element_type>::cbegin;
+    using gsl::span<element_type>::cend;
+    using gsl::span<element_type>::rbegin;
+    using gsl::span<element_type>::rend;
+    using gsl::span<element_type>::crbegin;
+    using gsl::span<element_type>::crend;
+
+    [[nodiscard]] constexpr auto
+    operator[](K key) -> typename gsl::span<element_type>::reference const
+    {
+        return data()[key];
+    }
+    [[nodiscard]] constexpr auto at(K key) const -> typename gsl::span<element_type>::reference
+    {
+        return gsl::span<element_type>::operator[](key);
+    }
+
+    template<typename M>
+    [[nodiscard]] constexpr static Vector_View load(M memory_view)
+    {
+        return Vector_View(
+            gsl::span<element_type>(memory_view.data() + sizeof(gsl::span<element_type>::size_type),
+                                    compute_size(memory_view)));
+    }
+
+private:
+    template<typename M>
+    [[nodiscard]] constexpr static auto compute_size(M const& memory)
+    {
+        using usize = std::make_unsigned_t<size_type>;
+        usize nbytes = *reinterpret_cast<usize const*>(memory.data());
+        nbytes = (nbytes << 8) >> 8;
+        return nbytes / sizeof(V);
+    }
+};
+
+}  // namespace ir

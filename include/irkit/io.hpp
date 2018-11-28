@@ -42,8 +42,11 @@
 #include <irkit/bitstream.hpp>
 #include <irkit/coding.hpp>
 #include <irkit/index/types.hpp>
+#include <irkit/vector.hpp>
 
 namespace irk::io {
+
+using ir::Vector;
 
 namespace fs = boost::filesystem;
 using boost::filesystem::path;
