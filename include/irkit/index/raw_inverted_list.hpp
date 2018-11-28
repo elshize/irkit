@@ -82,7 +82,7 @@ public:
         : term_id_(term_id), pos_(std::move(pos)), end_(std::move(end))
     {}
 
-    raw_iterator& moveto(value_type val)
+    constexpr auto advance_to(value_type val) -> raw_iterator&
     {
         while (pos_ != end_ && *pos_ < val) {
             ++pos_;
@@ -90,10 +90,10 @@ public:
         return *this;
     };
 
-    raw_iterator nextgeq(value_type val)
+    [[nodiscard]] constexpr auto next_ge(value_type val) -> raw_iterator
     {
         raw_iterator next(*this);
-        next.moveto(val);
+        next.advance_to(val);
         return next;
     };
 

@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     auto count = index.term_collection_frequency(term_id);
 
     irk::run_with_timer<std::chrono::nanoseconds>(
-        [&]() {
+        [&] {
             auto document_list = index.documents(term_id);
             auto last = document_list.end();
             auto docit = document_list.begin();
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
         print("Documents only", count));
 
     irk::run_with_timer<std::chrono::nanoseconds>(
-        [&]() {
+        [&] {
             auto frequency_list = index.frequencies(term_id);
             auto last = frequency_list.end();
             auto docit = frequency_list.begin();
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
         print("Frequencies only", count));
 
     irk::run_with_timer<std::chrono::nanoseconds>(
-        [&]() {
+        [&] {
             auto document_list = index.documents(term_id);
             auto frequency_list = index.frequencies(term_id);
             auto last = document_list.end();
@@ -111,10 +111,8 @@ int main(int argc, char** argv)
         print("Documents and frequencies independently", count));
 
     irk::run_with_timer<std::chrono::nanoseconds>(
-        [&]() {
+        [&] {
             auto posting_list = index.postings(term_id);
-            auto it = posting_list.begin();
-            auto last = posting_list.end();
             for (auto p : posting_list) {
                 irk::index::document_t d = p.document();
                 irk::index::frequency_t f = p.payload();
@@ -125,7 +123,7 @@ int main(int argc, char** argv)
         print("As posting_list_view", count));
 
     irk::run_with_timer<std::chrono::nanoseconds>(
-        [&]() {
+        [&] {
             auto posting_list = index.postings(term_id).scored(
                 index.term_scorer(term_id, irk::score::bm25));
             auto it = posting_list.begin();

@@ -139,13 +139,6 @@ public:
             return *this;
         }
 
-        [[deprecated]] iterator& moveto(document_type doc)
-        {
-            document_iterator_.advance_to(doc);
-            payload_iterator_.align(document_iterator_);
-            return *this;
-        }
-
         iterator nextgeq(document_type doc) const
         {
             iterator iter(*this);
@@ -330,16 +323,16 @@ public:
         }
         ~iterator() = default;
 
-        iterator& moveto(document_type doc)
+        iterator& advance_to(document_type doc)
         {
-            unscored_.moveto(doc);
+            unscored_.advance_to(doc);
             return *this;
         }
 
-        iterator nextgeq(document_type doc) const
+        [[nodiscard]] iterator next_ge(document_type doc) const
         {
             iterator iter(*this);
-            iter.moveto(doc);
+            iter.advance_to(doc);
             return iter;
         }
 

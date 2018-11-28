@@ -36,7 +36,6 @@
 #define private public
 #define protected public
 #include <irkit/index/posting_list.hpp>
-#include <irkit/index/vector_inverted_list.hpp>
 #include <irkit/list/vector_block_list.hpp>
 #include <irkit/movingrange.hpp>
 

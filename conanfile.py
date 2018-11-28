@@ -37,6 +37,7 @@ class IRKConan(ConanFile):
         self.requires("cppitertools/1.0@elshize/stable")
         self.requires("taily/0.1@elshize/testing")
         self.requires("ParallelSTL/20181004@elshize/stable")
+        self.requires("FakeIt/2.0.5@gasuketsu/stable")
 
         if not self.options.use_system_boost:
             self.requires("boost/1.66.0@conan/stable")
