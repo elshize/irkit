@@ -67,7 +67,9 @@ inline int32_t frequency(
     term_id_t id,
     std::vector<double> id_range)
 {
-    if (id_range == std::vector{0.0, 1.0}) { return index.tdf(id); }
+    if (id_range == std::vector{0.0, 1.0}) {
+        return index.term_collection_frequency(id);
+    }
     auto [first_id, last_id] = to_ids(id_range, index);
     auto postings = index.postings(id);
     auto begin = postings.lookup(first_id);

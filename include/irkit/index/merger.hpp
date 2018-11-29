@@ -211,7 +211,7 @@ public:
             term_id, doc_ids_);
         count_offset_ += index_entry.index()->copy_frequency_list(
             term_id, doc_counts_);
-        term_dfs_.push_back(index_entry.index()->tdf(term_id));
+        term_dfs_.push_back(index_entry.index()->term_collection_frequency(term_id));
         return index_entry.index()->term_occurrences(term_id);
     }
 

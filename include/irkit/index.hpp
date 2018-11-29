@@ -73,6 +73,7 @@
 #include <irkit/quantize.hpp>
 #include <irkit/score.hpp>
 #include <irkit/types.hpp>
+#include <irkit/vector.hpp>
 
 namespace ts = type_safe;
 
@@ -419,18 +420,16 @@ public:
 
     template<class DataSourceT>
     explicit basic_inverted_index_view(const DataSourceT* data)
-        : documents_view_(data->documents_view()),
+        : dir_(data->dir()),
+          documents_view_(data->documents_view()),
           counts_view_(data->counts_view()),
           document_offsets_(data->document_offsets_view()),
           count_offsets_(data->count_offsets_view()),
-          document_sizes_(
-              compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>(
-                  data->document_sizes_view())
-                  .to_vector()),
-          term_collection_frequencies_(
-              data->term_collection_frequencies_view()),
-          term_collection_occurrences_(
-              data->term_collection_occurrences_view()),
+          document_sizes_(compact_table<int32_t, irk::vbyte_codec<int32_t>, memory_view>(
+                              data->document_sizes_view())
+                              .to_vector()),
+          term_collection_frequencies_(data->term_collection_frequencies_view()),
+          term_collection_occurrences_(data->term_collection_occurrences_view()),
           term_map_(std::move(load_lexicon(data->term_map_source()))),
           title_map_(std::move(load_lexicon(data->title_map_source()))),
           term_count_(term_collection_frequencies_.size())
@@ -458,7 +457,12 @@ public:
         max_document_size_ = props.max_document_size;
     }
 
-    size_type collection_size() const { return document_sizes_.size(); }
+    [[nodiscard]] auto dir() const noexcept -> boost::filesystem::path { return dir_; }
+    [[nodiscard]] auto collection_size() const -> size_type { return document_sizes_.size(); }
+    [[nodiscard]] auto shards() const -> ir::Vector<ShardId, basic_inverted_index_view>
+    {
+        return {*this};
+    }
 
     size_type document_size(document_type doc) const
     {
@@ -644,12 +648,6 @@ public:
         return term_collection_occurrences_;
     }
 
-    /// Deprecated
-    int32_t tdf(term_id_type term_id) const
-    {
-        return term_collection_frequencies_[term_id];
-    }
-
     int32_t term_collection_frequency(term_id_type term_id) const
     {
         return term_collection_frequencies_[term_id];
@@ -721,6 +719,7 @@ public:
     }
 
 private:
+    boost::filesystem::path dir_;
     memory_view documents_view_;
     memory_view counts_view_;
     offset_table_type document_offsets_;

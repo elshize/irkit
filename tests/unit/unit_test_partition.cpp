@@ -272,9 +272,8 @@ void test_term_frequencies(
         irk::inverted_index_view shard(&shard_source);
         for (const auto& [global_id, term] : iter::enumerate(index.terms())) {
             if (auto local_id = shard.term_id(term); local_id) {
-                cumulative[global_id] += shard.tdf(local_id.value());
-                cumulative_occ[global_id] +=
-                    shard.term_occurrences(local_id.value());
+                cumulative[global_id] += shard.term_collection_frequency(local_id.value());
+                cumulative_occ[global_id] += shard.term_occurrences(local_id.value());
             }
         }
     }
@@ -421,7 +420,7 @@ void test_reverse_mappings(
 
 TEST_F(partition_test, index)
 {
-    irk::partition_index(input_dir, output_dir, shard_map, 3, 10);
+    irk::partition_index(input_dir, output_dir, shard_map, 3);
     auto shard_paths = irk::detail::partition::resolve_paths(output_dir, 3);
     test_props(input_dir, shard_paths);
     test_term_frequencies(input_dir, shard_paths);
