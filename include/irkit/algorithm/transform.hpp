@@ -146,10 +146,7 @@ constexpr UnaryOperation inplace_transform_range(
         policy, std::begin(input_range), std::end(input_range), unary_op);
 }
 
-template<class InputIt,
-         class OutputIt,
-         class UnaryOperation,
-         class UnaryPredicate>
+template<class InputIt, class OutputIt, class UnaryOperation, class UnaryPredicate>
 constexpr OutputIt transform_if(InputIt first,
                                 InputIt last,
                                 OutputIt d_first,
@@ -158,26 +155,20 @@ constexpr OutputIt transform_if(InputIt first,
 {
     for (; first != last; ++first) {
         if (unary_pred(*first)) {
-            *d_first++ = *first;
+            *d_first++ = unary_op(*first);
         }
     }
     return d_first;
 }
 
-template<class InputRange,
-         class OutputIt,
-         class UnaryOperation,
-         class UnaryPredicate>
+template<class InputRange, class OutputIt, class UnaryOperation, class UnaryPredicate>
 constexpr OutputIt transform_range_if(const InputRange& input_range,
                                       OutputIt d_first,
                                       UnaryOperation unary_op,
                                       UnaryPredicate unary_pred)
 {
-    return transform_if(std::begin(input_range),
-                        std::end(input_range),
-                        d_first,
-                        unary_op,
-                        unary_pred);
+    return transform_if(
+        std::begin(input_range), std::end(input_range), d_first, unary_op, unary_pred);
 }
 
 }  // namespace irk
