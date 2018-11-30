@@ -88,6 +88,51 @@ load_shard_map(const std::string& map_in)
     return Vector<document_t, ShardId>(tab.begin(), tab.end());
 }
 
+void add_options(CLI::App* app,
+                 std::vector<std::string>& shard_files,
+                 std::string& output_dir,
+                 std::string& map_out,
+                 std::string& map_in,
+                 int& shard_count)
+{
+    auto shards_option = app->add_option(
+        "shards",
+        shard_files,
+        "Files describing shards:\t"
+        "The files must contain a whitespace-delimited list of TREC IDs. "
+        "The documents in the first file will be assigned to shard 0, "
+        "the second file to shard 1, and so on. "
+        "If a given document repeats, it will be overwritten. "
+        "Documents that don't exist in the index will be ignored. "
+        "Documents in the index not present in any input file will be "
+        "appended to the last shard.",
+        false);
+    app->add_option("-o,--output", output_dir, "Output directory", false)->required();
+    auto map_in_option = app->add_option(
+        "--map-in", map_in, "Use this mapping instead of computing from files", false);
+    auto shard_count_option = app->add_option(
+        "--shard-count", shard_count, "Number of shards", false);
+    auto map_out_option = app->add_option(
+        "--map-out", map_out, "Store mapping in this file", false);
+
+    map_in_option->excludes(shards_option);
+    map_in_option->excludes(map_out_option);
+    map_in_option->needs(shard_count_option);
+
+    shard_count_option->excludes(map_out_option);
+    shard_count_option->excludes(shards_option);
+    shard_count_option->needs(map_in_option);
+
+    map_out_option->excludes(map_in_option);
+    map_out_option->excludes(shard_count_option);
+    map_out_option->needs(shards_option);
+
+    if (not map_in_option and not shards_option) {
+        std::clog << "Must define either shard files or a shard map\n";
+        std::exit(1);
+    }
+}
+
 int main(int argc, char** argv)
 {
     std::vector<std::string> shard_files;
@@ -95,45 +140,8 @@ int main(int argc, char** argv)
     std::string map_out;
     std::string map_in;
     int shard_count;
-    int batch_size = 100000;
-    auto [app, args] = irk::cli::app(
-        "Build mapping from document to shard",
-        cli::index_dir_opt{});
-    app->add_option(
-           "shards",
-           shard_files,
-           "Files describing shards:\t"
-           "The files must contain a whitespace-delimited list of TREC IDs. "
-           "The documents in the first file will be assigned to shard 0, "
-           "the second file to shard 1, and so on. "
-           "If a given document repeats, it will be overwritten. "
-           "Documents that don't exist in the index will be ignored. "
-           "Documents in the index not present in any input file will be "
-           "appended to the last shard.",
-           false)
-        ->required();
-    app->add_option("-o,--output", output_dir, "Output directory", false)
-        ->required();
-    auto map_in_option = app->add_option(
-        "--map-in",
-        map_in,
-        "Use this mapping instead of computing from files",
-        false);
-    auto shard_count_option = app->add_option(
-        "--shard-count", shard_count, "Number of shards", false);
-    auto map_out_option = app->add_option(
-        "--map-out", map_out, "Store mapping in this file", false);
-    app->add_option(
-        "-b,--batch-size",
-        batch_size,
-        "Number of terms to process in memory at a time",
-        true);
-    map_in_option->excludes(map_out_option);
-    map_in_option->needs(shard_count_option);
-    shard_count_option->needs(map_in_option);
-    shard_count_option->excludes(map_out_option);
-    map_out_option->excludes(map_in_option);
-    map_out_option->excludes(shard_count_option);
+    auto [app, args] = irk::cli::app("Build mapping from document to shard", cli::index_dir_opt{});
+    add_options(app.get(), shard_files, output_dir, map_out, map_in, shard_count);
     CLI11_PARSE(*app, argc, argv);
 
     auto log = spdlog::stderr_color_mt("partition");
@@ -147,9 +155,8 @@ int main(int argc, char** argv)
             }
             if (not map_out.empty()) {
                 try {
-                    auto tab =
-                        build_compact_table<ShardId, vbyte_codec<ShardId>>(
-                            shard_map.as_vector());
+                    auto tab = build_compact_table<ShardId, vbyte_codec<ShardId>>(
+                        shard_map.as_vector());
                     std::ofstream os(map_out);
                     tab.serialize(os);
                     log->info("Mapping written to: {}", map_out);
@@ -157,8 +164,7 @@ int main(int argc, char** argv)
                     log->error("Error while saving the map: {}", e.what());
                 }
             }
-            irk::partition_index(
-                dir, path(output_dir), shard_map, shard_count, batch_size);
+            irk::partition_index(dir, path(output_dir), shard_map, shard_count);
         },
         irk::cli::log_finished{log});
     return 0;

@@ -45,7 +45,6 @@ public:
     constexpr Basic_Index_Cluster(
         std::shared_ptr<Index_Cluster_Data_Source<ShardSource> const> source)
         : properties_(source->properties()),
-          reverse_mapping_(source->reverse_mapping()),
           term_collection_frequencies_(source->term_collection_frequencies_view()),
           term_collection_occurrences_(source->term_collection_occurrences_view()),
           term_map_(std::move(load_lexicon(source->term_map_view())))
@@ -53,16 +52,16 @@ public:
         for (const auto& shard_source : source->shards()) {
             shards_.emplace_back(&shard_source);
         }
+
+        score_stats_ = index::transform_score_stats_map(
+            source->score_stats_views(),
+            [](const auto& view) { return index::span_vector<float>(view); });
     }
 
+    [[nodiscard]] auto dir() const noexcept -> boost::filesystem::path { return dir_; }
     [[nodiscard]] auto shard_count() const { return irk::sgnd(shards_.size()); }
     [[nodiscard]] auto shard(ShardId shard) const -> InvertedIndex const& { return shards_[shard]; }
     [[nodiscard]] auto const& shards() const { return shards_; }
-    [[nodiscard]] auto const& reverse_mapping() const { return reverse_mapping_; }
-    [[nodiscard]] auto const& reverse_mapping(ShardId shard) const
-    {
-        return reverse_mapping_[shard];
-    }
 
     [[nodiscard]] auto term_id(std::string const& term) const -> std::optional<term_id_type>
     {
@@ -93,13 +92,45 @@ public:
                                            properties_.max_document_size)};
     }
 
+    [[nodiscard]] auto collection_size() const noexcept -> int32_t
+    {
+        return properties_.document_count;
+    }
+
+    [[nodiscard]] auto score_max(const std::string& name) const
+    {
+        return score_stats_.at(name).max;
+    }
+    [[nodiscard]] auto score_mean(const std::string& name) const
+    {
+        return score_stats_.at(name).mean;
+    }
+    [[nodiscard]] auto score_var(const std::string& name) const
+    {
+        return score_stats_.at(name).var;
+    }
+
+    int32_t term_collection_frequency(term_id_type term_id) const
+    {
+        return term_collection_frequencies_[term_id];
+    }
+
+    int32_t term_collection_frequency(const std::string& term) const
+    {
+        if (auto id = term_id(term); id.has_value()) {
+            return term_collection_frequencies_[*id];
+        }
+        return 0;
+    }
+
 private:
+    boost::filesystem::path dir_;
     index::Properties properties_;
-    Vector<ShardId, Vector<index::document_t>> const& reverse_mapping_;
     Vector<ShardId, InvertedIndex> shards_;
     frequency_table_type term_collection_frequencies_;
     frequency_table_type term_collection_occurrences_;
     lexicon<hutucker_codec<char>, memory_view> term_map_;
+    index::ScoreStatsMap<gsl::span<float const>> score_stats_{};
 };
 
 using Index_Cluster = Basic_Index_Cluster<inverted_index_view>;

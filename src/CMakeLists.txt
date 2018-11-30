@@ -39,6 +39,7 @@ add_irk(partidx)
 add_irk(threshold)
 add_irk(stem)
 add_irk(vector)
+add_irk(taily)
 
 install(
     TARGETS
@@ -64,4 +65,5 @@ install(
         irk-threshold
         irk-stem
         irk-vector
+        irk-taily
     DESTINATION bin)

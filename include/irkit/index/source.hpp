@@ -124,7 +124,7 @@ public:
         return source;
     }
 
-    path dir() { return dir_; }
+    [[nodiscard]] auto dir() const -> path const& { return dir_; }
 
     memory_view documents_view() const
     {
@@ -296,7 +296,7 @@ public:
     explicit inverted_index_mapped_data_source(path dir) : dir_(std::move(dir))
     {}
     static nonstd::expected<inverted_index_mapped_data_source, std::string>
-    from(const path& dir, std::vector<std::string> score_names = {})
+    from(path const& dir, std::vector<std::string> score_names = {})
     {
         inverted_index_mapped_data_source source(dir);
         io::enforce_exist(index::doc_ids_path(dir));
@@ -351,7 +351,7 @@ public:
         return source;
     }
 
-    path dir() { return dir_; }
+    [[nodiscard]] auto dir() const -> path const& { return dir_; }
 
     memory_view documents_view() const
     {
@@ -564,54 +564,64 @@ private:
     mapped_file_source term_map_{};
 };
 
+template<class T>
+struct Mapped_Score_Statistics_Source {
+public:
+    Mapped_Score_Statistics_Source(path const& dir)
+    {
+        score_stats_ = index::transform_score_stats_map(
+            index::find_score_stats_paths(dir),
+            [](const auto& path) { return mapped_file_source{path}; });
+    }
+
+    [[nodiscard]] auto score_stats_views() const
+    {
+        return index::transform_score_stats_map(
+            score_stats_, [](const auto& vec) { return make_memory_view(vec.data(), vec.size()); });
+    }
+
+private:
+    index::ScoreStatsMap<mapped_file_source> score_stats_{};
+};
+
 template<class ShardSource>
 class Index_Cluster_Data_Source
     : public PropertySource<Index_Cluster_Data_Source<ShardSource>>,
-      public MappedTablesSource<Index_Cluster_Data_Source<ShardSource>> {
+      public MappedTablesSource<Index_Cluster_Data_Source<ShardSource>>,
+      public Mapped_Score_Statistics_Source<Index_Cluster_Data_Source<ShardSource>> {
     using document_type = irk::index::document_t;
     using Self = Index_Cluster_Data_Source<ShardSource>;
     using size_type = std::int32_t;
 
 public:
+    Index_Cluster_Data_Source() = default;
+    Index_Cluster_Data_Source(path dir, Vector<ShardId, ShardSource>&& shards)
+        : MappedTablesSource<Self>(dir),
+          Mapped_Score_Statistics_Source<Self>(dir),
+          dir_(std::move(dir)),
+          shards_(shards)
+    {}
     [[nodiscard]] static auto from(const path& dir, std::vector<std::string> score_names = {})
-        -> std::shared_ptr<const Index_Cluster_Data_Source>
+        -> std::shared_ptr<Index_Cluster_Data_Source const>
     {
         int32_t shard_count = irtl::value(index::Properties::read(dir).shard_count,
                                           "not a cluster: shard count undefined");
         Vector<ShardId, ShardSource> shards;
-        Vector<ShardId, Vector<document_type>> reverse_mapping;
         for (auto shard : iter::range(shard_count)) {
             auto shard_dir = dir / fmt::format("{:03d}", shard);
             shards.push_back(irtl::value(ShardSource::from(shard_dir, score_names)));
-            reverse_mapping.push_back(io::read_vmap<document_type>(shard_dir / "reverse.mapping"));
         }
-        return std::make_shared<Index_Cluster_Data_Source<ShardSource>>(
-            Index_Cluster_Data_Source(dir, std::move(shards), std::move(reverse_mapping)));
+        return std::make_shared<Index_Cluster_Data_Source<ShardSource>>(dir, std::move(shards));
     }
 
     [[nodiscard]] auto shard_count() const -> size_type { return irk::sgnd(shards_.size()); }
     [[nodiscard]] auto const& shards() const noexcept { return shards_; }
-    [[nodiscard]] auto const& reverse_mapping() const noexcept { return reverse_mapping_; }
-    [[nodiscard]] auto const& reverse_mapping(ShardId shard) const
-    {
-        return reverse_mapping_[shard];
-    }
     [[nodiscard]] auto const& dir() const noexcept { return dir_; }
 
 private:
-    explicit Index_Cluster_Data_Source(path dir,
-                                       Vector<ShardId, ShardSource>&& shards,
-                                       Vector<ShardId, Vector<index::document_t>>&& reverse_mapping)
-        : MappedTablesSource<Self>(dir),
-          dir_(std::move(dir)),
-          shards_(shards),
-          reverse_mapping_(reverse_mapping)
-    {}
-
     path dir_;
     Vector<ShardId, ShardSource> shards_;
     Vector<index::document_t, ShardId> shard_mapping_;
-    Vector<ShardId, Vector<index::document_t>> reverse_mapping_;
 };
 
 }  // namespace irk

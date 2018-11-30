@@ -69,9 +69,6 @@ namespace index {
         std::vector<offset_t> frequency_offsets;
         std::vector<std::vector<offset_t>> score_offsets;
         std::vector<std::vector<inverted_index_view::score_type>> max_scores;
-        // TODO: do for doubles
-        //std::vector<std::vector<inverted_index_view::score_type>> exp_scores;
-        //std::vector<std::vector<inverted_index_view::score_type>> var_scores;
         std::vector<frequency_t> term_frequencies;
         std::vector<frequency_t> term_occurrences;
 
@@ -85,9 +82,6 @@ namespace index {
         posting_vectors(std::vector<std::string> score_names = {})
             : score_offsets(score_names.size()),
               max_scores(score_names.size()),
-              // TODO: do for doubles
-              //exp_scores(score_names.size()),
-              //var_scores(score_names.size()),
               cur_score_offsets(score_names.size(), 0),
               score_names(std::move(score_names))
         {}
@@ -110,11 +104,6 @@ namespace index {
                 using score_type = inverted_index_view::score_type;
                 build_compact_table<score_type>(max_scores[idx])
                     .serialize(paths.max_scores);
-                // TODO: do for doubles
-                //build_compact_table<score_type>(exp_scores[idx])
-                //    .serialize(paths.exp_values);
-                //build_compact_table<score_type>(var_scores[idx])
-                //    .serialize(paths.variances);
             }
             build_compact_table<frequency_t>(term_frequencies)
                 .serialize(term_doc_freq_path(output_dir));
@@ -151,13 +140,6 @@ namespace index {
             for (auto&& [max, vec] : zip(max_score_vec, max_scores)) {
                 vec.push_back(max);
             }
-            // TODO: do for doubles
-            //for (auto&& [exp, vec] : zip(score_exp_vec, exp_scores)) {
-            //    vec.push_back(exp);
-            //}
-            //for (auto&& [var, vec] : zip(score_var_vec, var_scores)) {
-            //    vec.push_back(var);
-            //}
             total_occurrences += occurrences;
         }
 
@@ -547,11 +529,8 @@ namespace detail::partition {
             }
             auto term_count = index.term_count();
             for (auto term_id : iter::range(term_count)) {
-                if (log) {
-                    log->info(
-                        "Partitioning postings for term {}/{}",
-                        term_id,
-                        term_count);
+                if (log and term_id % 100000 == 0) {
+                    log->info("Partitioning postings for term {}/{}", term_id, term_count);
                 }
                 auto documents = document_vector(index.documents(term_id));
                 auto frequencies = frequency_vector(index.frequencies(term_id));
@@ -644,55 +623,33 @@ namespace detail::partition {
             return total_occurrences;
         }
 
-        /// Partitions all posting-like data.
-        inline auto postings_(size_t terms_in_batch)
+        [[nodiscard]] std::vector<std::string> scores_with_stats() const
         {
-            auto log = spdlog::get("partition");
-            auto source = inverted_index_mapped_data_source::from(
-                              input_dir_, index::all_score_names(input_dir_))
-                              .value();
-            inverted_index_view index(&source);
-            Vector<ShardId, index::posting_vectors> vectors(
-                shard_count_, index::posting_vectors(index.score_names()));
-            auto nterms = index.term_count();
-            auto batches = iter::chunked(iter::range(nterms), terms_in_batch);
-            auto nbatches = (nterms + terms_in_batch) / terms_in_batch;
-            auto first_batch = *batches.begin();
-            int batch(0);
-            if (log) { log->info("Batch {}/{}", batch++, nbatches); }
-            postings_batch(
-                index,
-                std::vector<size_t>(first_batch.begin(), first_batch.end()),
-                vectors,
-                index.score_names(),
-                std::ios_base::binary);
-            for (auto&& term_batch :
-                 iter::slice(batches, size_t(1), nbatches)) {
-                if (log) { log->info("Batch {}/{}", batch++, nbatches); }
-                postings_batch(
-                    index,
-                    std::vector<size_t>(term_batch.begin(), term_batch.end()),
-                    vectors,
-                    index.score_names(),
-                    std::ios_base::app);
-            }
-            Vector<ShardId, frequency_t> total_occurrences;
-            if (log) { log->info("Writing..."); }
-            for (auto&& [shard, shard_vectors] : vectors.entries()) {
-                total_occurrences.push_back(shard_vectors.total_occurrences);
-                shard_vectors.write(
-                    input_dir_,
-                    shard_dirs_[shard],
-                    index.terms().keys_per_block(),
-                    index.score_names());
-            }
-            return total_occurrences;
+            auto score_stats = index::find_score_stats_paths(input_dir_);
+            std::vector<std::string> names;
+            irk::transform_range_if(score_stats,
+                                    std::back_inserter(names),
+                                    [](auto const& entry) -> std::string { return entry.first; },
+                                    [](auto const& entry) -> bool {
+                                        auto const& stats = entry.second;
+                                        return stats.max or stats.mean or stats.var;
+                                    });
+            return names;
         }
 
         /// Partitions the entire index.
-        nonstd::expected<void, std::string> index(size_t terms_in_batch)
+        nonstd::expected<void, std::string> index()
         {
             try {
+                auto log = spdlog::get("partition");
+                if (log) {
+                    for (auto const& score_name : scores_with_stats()) {
+                        log->warn(
+                            "Detected score statistics for {} that will NOT be computed for shards "
+                            "at this point. Run `irk-scorestats` to do so.",
+                            score_name);
+                    }
+                }
                 for (const auto& path : shard_dirs_) {
                     boost::filesystem::create_directory(path);
                 }
@@ -713,51 +670,6 @@ namespace detail::partition {
             }
         }
 
-        /// Partitions posting-like data for a range of terms.
-        template<typename Index, typename BatchRange>
-        inline void postings_batch(const Index& index,
-                                   const BatchRange& term_batch,
-                                   Vector<ShardId, index::posting_vectors>& vectors,
-                                   const std::vector<std::string>& score_names,
-                                   std::ios_base::openmode mode)
-        {
-            auto log = spdlog::get("partition");
-            if (log) {
-                log->info(
-                    "Processing terms [{}, {}]",
-                    term_batch.front(),
-                    term_batch.back());
-                log->info("Building...");
-            }
-            std::vector<Vector<ShardId, document_builder_type>> document_builders;
-            std::vector<Vector<ShardId, frequency_builder_type>> frequency_builders;
-            std::vector<Vector<ShardId, std::vector<score_builder_type>>> score_builders;
-            for (const auto& term_id : term_batch) {
-                document_builders.push_back(
-                    build_document_lists(index.documents(term_id)));
-                frequency_builders.push_back(
-                    build_payload_lists(index.postings(term_id)));
-                score_builders.push_back(
-                    build_score_lists(index, term_id, score_names));
-            }
-            if (log) { log->info("Writing..."); }
-            for (const auto& [shard, shard_dir] :
-                 iter::zip(ShardId::range(shard_count_), shard_dirs_))
-            {
-                index::posting_streams<std::ofstream> out(
-                    shard_dir, index.score_names(), vectors[shard], mode);
-                for (auto&& [idx, term_id] : iter::enumerate(term_batch)) {
-                    auto& document_builder = document_builders[idx][shard];
-                    if (document_builder.size() > 0) {
-                        out.write(term_id,
-                                  document_builder,
-                                  frequency_builders[idx][shard],
-                                  score_builders[idx][shard]);
-                    }
-                }
-            }
-        }
-
         inline void write_reverse_mappings() const
         {
             for (auto&& [idx, dir] : enumerate(shard_dirs_)) {
@@ -769,13 +681,26 @@ namespace detail::partition {
 
         inline void copy_term_tables()
         {
+            auto copy = [](auto from, auto to) {
+                boost::filesystem::copy_file(
+                    from, to, boost::filesystem::copy_option::overwrite_if_exists);
+            };
             auto cluster_dir = shard_dirs_.begin()->parent_path();
-            boost::filesystem::copy(index::term_doc_freq_path(input_dir_),
-                                    index::term_doc_freq_path(cluster_dir));
-            boost::filesystem::copy(index::term_occurrences_path(input_dir_),
-                                    index::term_occurrences_path(cluster_dir));
-            boost::filesystem::copy(index::term_map_path(input_dir_),
-                                    index::term_map_path(cluster_dir));
+            copy(index::term_doc_freq_path(input_dir_), index::term_doc_freq_path(cluster_dir));
+            copy(index::term_occurrences_path(input_dir_),
+                 index::term_occurrences_path(cluster_dir));
+            copy(index::term_map_path(input_dir_), index::term_map_path(cluster_dir));
+            for (auto const& [name, path] : index::find_score_stats_paths(input_dir_)) {
+                if (path.max) {
+                    copy(path.max.value(), cluster_dir / fmt::format("{}.max", name));
+                }
+                if (path.mean) {
+                    copy(path.mean.value(), cluster_dir / fmt::format("{}.mean", name));
+                }
+                if (path.var) {
+                    copy(path.var.value(), cluster_dir / fmt::format("{}.var", name));
+                }
+            }
         }
 
         inline void write_properties(const Vector<ShardId, size_t>& document_counts,
@@ -820,39 +745,31 @@ namespace detail::partition {
 /// \param output_dir       a directory to write the resulting shards to
 /// \param shard_mapping    `i`-th value is the shard assigned to document `i`
 /// \param shard_count      total number of shards
-/// \param terms_in_batch   how many terms at a time to process in memory
-///                         before flushing to disk
-nonstd::expected<void, std::string> partition_index(
-    const path& input_dir,
-    const path& output_dir,
-    const Vector<document_t, ShardId>& shard_mapping,
-    int shard_count,
-    int terms_in_batch)
+nonstd::expected<void, std::string>
+partition_index(const path& input_dir,
+                const path& output_dir,
+                const Vector<document_t, ShardId>& shard_mapping,
+                int shard_count)
 {
     int32_t document_count = shard_mapping.size();
     auto shard_dirs = detail::partition::resolve_paths(output_dir, shard_count);
-    auto document_mapping = detail::partition::compute_document_mapping(
-        shard_mapping, shard_count);
-    auto reverse_mapping = detail::partition::compute_reverse_mapping(
-        shard_mapping, shard_count);
+    auto document_mapping = detail::partition::compute_document_mapping(shard_mapping, shard_count);
+    auto reverse_mapping = detail::partition::compute_reverse_mapping(shard_mapping, shard_count);
     auto log = spdlog::get("partition");
     if (log) {
-        log->info(
-            "Partitioning index {} into {} shards in {} [batch size = {}]",
-            input_dir.string(),
-            shard_count,
-            output_dir.string(),
-            terms_in_batch);
+        log->info("Partitioning index {} into {} shards in {}",
+                  input_dir.string(),
+                  shard_count,
+                  output_dir.string());
     }
-    auto partition = detail::partition::Partition(
-        shard_count,
-        document_count,
-        input_dir,
-        shard_dirs,
-        shard_mapping,
-        document_mapping,
-        reverse_mapping);
-    return partition.index(terms_in_batch);
+    auto partition = detail::partition::Partition(shard_count,
+                                                  document_count,
+                                                  input_dir,
+                                                  shard_dirs,
+                                                  shard_mapping,
+                                                  document_mapping,
+                                                  reverse_mapping);
+    return partition.index();
 }
 
 }  // namespace irk

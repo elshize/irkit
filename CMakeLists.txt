@@ -32,6 +32,7 @@ set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 add_definitions(-DBOOST_NO_AUTO_PTR)
 add_definitions(-Dnsel_CONFIG_CONFIRMS_COMPILATION_ERRORS=1)
+add_definitions(-DBOOST_NO_CXX11_SCOPED_ENUMS)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
@@ -43,7 +44,7 @@ target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
-find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
+find_package(Boost COMPONENTS iostreams filesystem system REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
@@ -59,6 +60,7 @@ target_link_libraries(irkit INTERFACE
     Threads::Threads
     Boost::boost
     Boost::iostreams
+    Boost::system
     Boost::filesystem
     fmt::fmt
     spdlog::spdlog
