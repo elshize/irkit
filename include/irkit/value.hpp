@@ -34,7 +34,7 @@
 namespace irtl {
 
 template<class T>
-inline T value(std::optional<T>&& opt, std::string_view msg = {})
+[[nodiscard]] inline T value(std::optional<T>&& opt, std::string_view msg = {})
 {
     if (not opt) {
         std::clog << "bad optional access";
@@ -48,7 +48,7 @@ inline T value(std::optional<T>&& opt, std::string_view msg = {})
 }
 
 template<class T>
-inline T value(const std::optional<T>& opt, std::string_view msg = {})
+[[nodiscard]] inline T value(const std::optional<T>& opt, std::string_view msg = {})
 {
     if (not opt) {
         std::clog << "bad optional access";
@@ -62,7 +62,7 @@ inline T value(const std::optional<T>& opt, std::string_view msg = {})
 }
 
 template<class T, class E>
-inline T value(nonstd::expected<T, E>&& exp, std::string_view msg = {})
+[[nodiscard]] inline T value(nonstd::expected<T, E>&& exp, std::string_view msg = {})
 {
     if (not exp) {
         std::clog << "bad expected access: ";
@@ -76,7 +76,7 @@ inline T value(nonstd::expected<T, E>&& exp, std::string_view msg = {})
 }
 
 template<class T, class E>
-inline T value(const nonstd::expected<T, E>& exp, std::string_view msg = {})
+[[nodiscard]] inline T value(const nonstd::expected<T, E>& exp, std::string_view msg = {})
 {
     if (not exp) {
         std::clog << "bad expected access: ";

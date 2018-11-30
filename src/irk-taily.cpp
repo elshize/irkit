@@ -93,7 +93,7 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
     boost::filesystem::path dir(args->index_dir);
 
-    auto source = irk::Index_Cluster_Data_Source<irk::inverted_index_mapped_data_source>::from(dir);
+    auto source = irk::Index_Cluster_Data_Source<irk::Inverted_Index_Mapped_Source>::from(dir);
     irk::Index_Cluster cluster{source};
 
     auto first_trecid = app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)

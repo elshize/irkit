@@ -69,8 +69,7 @@ int main(int argc, char** argv)
 
     auto log = spdlog::get("partition");
     boost::filesystem::path dir(index_dir);
-    irk::inverted_index_mapped_data_source data(dir);
-    irk::inverted_index_view index(&data);
+    irk::inverted_index_view index(irtl::value(irk::Inverted_Index_Mapped_Source::from(dir)));
     const auto& title_map = index.titles();
 
     log->info("Computing mappings");

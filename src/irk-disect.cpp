@@ -147,8 +147,8 @@ int main(int argc, char** argv)
         if (scores_defined) {
             scores.push_back(scoring);
         }
-        auto data = irk::inverted_index_mapped_data_source::from(fs::path{dir}, scores).value();
-        irk::inverted_index_view index(&data);
+        auto data = irtl::value(irk::Inverted_Index_Mapped_Source::from(fs::path{dir}, scores));
+        irk::inverted_index_view index(data);
 
         term_id_t term_id = use_id ? std::stoi(term) : index.term_id(term).value();
         disect_document_list(index.documents(term_id).memory(),

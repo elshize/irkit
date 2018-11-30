@@ -50,7 +50,7 @@ public:
           term_map_(std::move(load_lexicon(source->term_map_view())))
     {
         for (const auto& shard_source : source->shards()) {
-            shards_.emplace_back(&shard_source);
+            shards_.emplace_back(shard_source);
         }
 
         score_stats_ = index::transform_score_stats_map(

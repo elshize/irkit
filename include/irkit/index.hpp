@@ -419,7 +419,7 @@ public:
     ~basic_inverted_index_view() = default;
 
     template<class DataSourceT>
-    explicit basic_inverted_index_view(const DataSourceT* data)
+    explicit basic_inverted_index_view(std::shared_ptr<DataSourceT const> data)
         : dir_(data->dir()),
           documents_view_(data->documents_view()),
           counts_view_(data->counts_view()),
@@ -430,8 +430,8 @@ public:
                               .to_vector()),
           term_collection_frequencies_(data->term_collection_frequencies_view()),
           term_collection_occurrences_(data->term_collection_occurrences_view()),
-          term_map_(std::move(load_lexicon(data->term_map_source()))),
-          title_map_(std::move(load_lexicon(data->title_map_source()))),
+          term_map_(std::move(load_lexicon(data->term_map_view()))),
+          title_map_(std::move(load_lexicon(data->title_map_view()))),
           term_count_(term_collection_frequencies_.size())
     {
         EXPECTS(

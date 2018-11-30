@@ -40,14 +40,13 @@
 #include <irkit/timer.hpp>
 
 namespace fs = boost::filesystem;
-using source_type = irk::inverted_index_mapped_data_source;
+using source_type = irk::Inverted_Index_Mapped_Source;
 
 struct valid_scoring_function {
     std::unordered_set<std::string> available_scorers;
     std::string operator()(const std::string& scorer)
     {
-        if (available_scorers.find(scorer) == available_scorers.end())
-        {
+        if (available_scorers.find(scorer) == available_scorers.end()) {
             std::ostringstream str;
             str << "Unknown scorer requested. Must select one of:";
             for (const std::string& s : available_scorers) {
@@ -69,8 +68,7 @@ int main(int argc, char** argv)
     int threads = tbb::task_scheduler_init::default_num_threads();
 
     CLI::App app{"Compute impact scores of postings in an inverted index."};
-    app.add_option("-d,--index-dir", dir, "index directory", true)
-        ->check(CLI::ExistingDirectory);
+    app.add_option("-d,--index-dir", dir, "index directory", true)->check(CLI::ExistingDirectory);
     app.add_option("-b,--bits", bits, "number of bits for a score", true);
     app.add_option("-j,--threads", threads, "number of threads", true);
     app.add_option("scorer", scorer, "scoring function", true)
@@ -79,10 +77,8 @@ int main(int argc, char** argv)
 
     tbb::task_scheduler_init init(threads);
     log->info("Initiating scoring using {} threads", threads);
-    auto score_bm25 =
-        irk::index::score_index<irk::score::bm25_tag, source_type>;
-    auto score_ql =
-        irk::index::score_index<irk::score::query_likelihood_tag, source_type>;
+    auto score_bm25 = irk::index::score_index<irk::score::bm25_tag, source_type>;
+    auto score_ql = irk::index::score_index<irk::score::query_likelihood_tag, source_type>;
     fs::path dir_path(dir);
     irk::run_with_timer<std::chrono::milliseconds>(
         [&]() {
@@ -92,8 +88,6 @@ int main(int argc, char** argv)
                 score_ql(dir, bits);
             }
         },
-        [&](const auto& time) {
-            log->info("Done in {}", irk::format_time(time));
-        });
+        [&](const auto& time) { log->info("Done in {}", irk::format_time(time)); });
     return 0;
 }

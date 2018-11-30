@@ -65,8 +65,8 @@ int main(int argc, char** argv)
         scores.push_back(args->score_function);
     }
     boost::filesystem::path dir(args->index_dir);
-    auto source = irk::Index_Cluster_Data_Source<irk::inverted_index_mapped_data_source>::from(
-        dir, scores);
+    auto source = irk::Index_Cluster_Data_Source<irk::Inverted_Index_Mapped_Source>::from(dir,
+                                                                                          scores);
     irk::Index_Cluster index{source};
 
     if (not args->terms.empty()) {

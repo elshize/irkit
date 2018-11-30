@@ -30,13 +30,13 @@
 
 #include <irkit/index/assembler.hpp>
 #include <irkit/index/score.hpp>
+#include <irkit/index/scoreable_index.hpp>
 
 namespace irk::test {
 
 auto tmpdir()
 {
-    auto test_dir = boost::filesystem::temp_directory_path()
-        / boost::filesystem::unique_path();
+    auto test_dir = boost::filesystem::temp_directory_path() / boost::filesystem::unique_path();
     if (boost::filesystem::exists(test_dir)) {
         boost::filesystem::remove(test_dir);
     }
@@ -44,7 +44,9 @@ auto tmpdir()
     return test_dir;
 }
 
-void build_test_index(const boost::filesystem::path& index_dir)
+void build_test_index(const boost::filesystem::path& index_dir,
+                      bool score = true,
+                      bool calc_stats = true)
 {
     irk::index::index_assembler assembler(index_dir, 100, 4, 16);
     std::istringstream input(
@@ -65,9 +67,13 @@ void build_test_index(const boost::filesystem::path& index_dir)
         "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
     assembler.assemble(input);
 
-    irk::index::score_index<
-        irk::score::bm25_tag,
-        irk::inverted_index_mapped_data_source>(index_dir, 8);
+    if (score) {
+        irk::index::score_index<irk::score::bm25_tag, irk::Inverted_Index_Mapped_Source>(index_dir,
+                                                                                         8);
+    }
+    if (calc_stats) {
+        irk::Scoreable_Index::from(index_dir, "bm25").calc_score_stats();
+    }
 }
 
 }  // namespace irk::test

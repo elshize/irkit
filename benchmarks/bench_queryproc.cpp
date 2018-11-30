@@ -144,12 +144,12 @@ int main(int argc, char** argv)
     if (args->score_function[0] != '*') {
         scores.push_back(args->score_function);
     }
-    auto data = irk::inverted_index_mapped_data_source::from(dir, scores);
+    auto data = irk::Inverted_Index_Mapped_Source::from(dir, scores);
     if (not data) {
         std::cerr << data.error() << '\n';
         return 1;
     }
-    irk::inverted_index_view index(&data.value());
+    irk::inverted_index_view index(data.value());
 
     for (const auto& query_line : irk::io::lines_from_stream(std::cin)) {
         std::vector<std::string> terms;

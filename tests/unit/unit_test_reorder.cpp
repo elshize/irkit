@@ -200,18 +200,17 @@ TEST_CASE("Reorder index", "[reorder][unit]")
             "felis gravida.\n"
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
-        irk::index::score_index<irk::score::bm25_tag, irk::inverted_index_mapped_data_source>(dir, 8);
+        irk::index::score_index<irk::score::bm25_tag, irk::Inverted_Index_Mapped_Source>(dir, 8);
 
         WHEN("index is reordered and loaded")
         {
             auto output_dir = irk::test::tmpdir();
-            auto source = irk::inverted_index_inmemory_data_source::from(dir, {"bm25-8"}).value();
-            irk::inverted_index_view index(&source);
+            auto source = irk::Inverted_Index_Mapped_Source::from(dir, {"bm25-8"}).value();
+            irk::inverted_index_view index(source);
             irk::reorder::index(dir, output_dir, {8, 0, 9, 5, 2, 6, 1, 4});
 
-            auto rsource = irk::inverted_index_inmemory_data_source::from(output_dir, {"bm25-8"})
-                               .value();
-            irk::inverted_index_view rindex(&rsource);
+            auto rsource = irk::Inverted_Index_Mapped_Source::from(output_dir, {"bm25-8"}).value();
+            irk::inverted_index_view rindex(rsource);
             std::unordered_set<std::string> removed_documents{"Doc03", "Doc07"};
 
             THEN("terms are the same as original")
