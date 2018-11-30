@@ -43,7 +43,7 @@ target_include_directories(irkit INTERFACE
     $<BUILD_INTERFACE:${IRKit_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
-find_package(Boost COMPONENTS iostreams filesystem REQUIRED)
+find_package(Boost COMPONENTS iostreams filesystem system REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
@@ -59,6 +59,7 @@ target_link_libraries(irkit INTERFACE
     Threads::Threads
     Boost::boost
     Boost::iostreams
+    Boost::system
     Boost::filesystem
     fmt::fmt
     spdlog::spdlog

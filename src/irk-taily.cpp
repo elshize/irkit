@@ -99,11 +99,14 @@ int main(int argc, char** argv)
     auto first_trecid = app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)
                                                      : std::nullopt;
     if (not args->terms.empty()) {
+        irk::cli::stem_if(not args->nostem, args->terms);
         run_taily(cluster, args->terms, args->k, first_trecid);
     } else {
-        irk::run_queries(first_trecid,
-                         [&, k = args->k](auto const& current_trecid, auto const& terms) {
-                             run_taily(cluster, terms, k, current_trecid);
-                         });
+        irk::run_queries(
+            first_trecid,
+            [&, k = args->k, nostem = args->nostem](auto const& current_trecid, auto& terms) {
+                irk::cli::stem_if(not nostem, terms);
+                run_taily(cluster, terms, k, current_trecid);
+            });
     }
 }
