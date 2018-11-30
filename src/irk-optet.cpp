@@ -157,8 +157,8 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     boost::filesystem::path dir(args->index_dir);
-    auto data = irk::inverted_index_mapped_data_source::from(dir, {"bm25"});
-    irk::inverted_index_view index(&data.value());
+    auto data = irk::Inverted_Index_Mapped_Source::from(dir, {"bm25"});
+    irk::inverted_index_view index(irtl::value(data));
 
     std::optional<irk::cli::docmap> reordering(std::nullopt);
     if (not args->reordering.empty()) {

@@ -173,9 +173,8 @@ int main(int argc, char** argv)
     if (args->score_function[0] != '*') {
         scores.push_back(args->score_function);
     }
-    auto data =
-        irk::inverted_index_mapped_data_source::from(dir, scores).value();
-    irk::inverted_index_view index(&data);
+    irk::inverted_index_view index(
+        irtl::value(irk::Inverted_Index_Mapped_Source::from(dir, scores)));
 
     if (not args->terms.empty()) {
         if (estimate_method.has_value()) {

@@ -47,8 +47,8 @@ std::vector<document_t>
 compute_permutation(std::istream& in, const path& input_dir)
 {
     std::vector<document_t> permutation;
-    auto source = inverted_index_mapped_data_source::from(input_dir).value();
-    inverted_index_view index(&source);
+    auto source = irtl::value(Inverted_Index_Mapped_Source::from(input_dir));
+    inverted_index_view index(source);
     permutation.reserve(index.collection_size());
     const auto& titles = index.titles();
     std::string title;

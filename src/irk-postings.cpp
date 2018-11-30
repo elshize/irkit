@@ -42,7 +42,7 @@
 #include "cli.hpp"
 
 using boost::filesystem::path;
-using irk::inverted_index_mapped_data_source;
+using irk::Inverted_Index_Mapped_Source;
 using irk::inverted_index_view;
 using irk::cli::optional;
 using irk::index::term_id_t;
@@ -149,13 +149,8 @@ int main(int argc, char** argv)
     if (args->score_function_defined() && args->score_function[0] != '*') {
         scores.push_back(args->score_function);
     }
-    auto data = irk::inverted_index_mapped_data_source::from(
-        fs::path{args->index_dir}, scores);
-    if (not data) {
-        std::cerr << data.error() << std::endl;
-        return 1;
-    }
-    irk::inverted_index_view index(&data.value());
+    auto data = irk::Inverted_Index_Mapped_Source::from(fs::path{args->index_dir}, scores);
+    irk::inverted_index_view index(irtl::value(data));
 
     if (not args->terms.empty()) {
         process_query(args->terms, index, *args, count);

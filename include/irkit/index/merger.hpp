@@ -103,7 +103,7 @@ public:
     using document_codec_type = DocumentCodec;
     using frequency_codec_type = FrequencyCodec;
     using index_type = basic_inverted_index_view<document_codec_type>;
-    using source_type = inverted_index_mapped_data_source;
+    using source_type = Inverted_Index_Mapped_Source;
 
 private:
     class entry {
@@ -157,7 +157,7 @@ private:
     fs::path target_dir_;
     bool skip_unique_;
     std::vector<index_type> indices_;
-    std::vector<source_type> sources_;
+    std::vector<std::shared_ptr<source_type const>> sources_;
     std::vector<entry> heap_;
     std::ofstream terms_out_;
     std::ofstream doc_ids_;
@@ -194,8 +194,8 @@ public:
           block_size_(block_size)
     {
         for (fs::path index_dir : indices) {
-            sources_.emplace_back(source_type::from(index_dir).value());
-            indices_.emplace_back(&sources_.back());
+            sources_.push_back(source_type::from(index_dir).value());
+            indices_.emplace_back(sources_.back());
         }
         terms_out_.open(index::terms_path(target_dir).c_str());
         doc_ids_.open(index::doc_ids_path(target_dir).c_str());
@@ -272,7 +272,7 @@ public:
         int index_num = 0;
         for (const index_type& index : indices_) {
             term_streams.push_back(std::make_unique<std::ifstream>(
-                (sources_[index_num].dir() / "terms.txt").c_str()));
+                (sources_[index_num]->dir() / "terms.txt").c_str()));
             std::string current_term;
             *term_streams.back() >> current_term;
             heap_.emplace_back(index_num, 0, &index, shift, current_term);

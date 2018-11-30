@@ -514,10 +514,9 @@ namespace detail::partition {
         {
             auto log = spdlog::get("partition");
             Vector<ShardId, frequency_t> total_occurrences;
-            auto source = inverted_index_mapped_data_source::from(
-                              input_dir_, index::all_score_names(input_dir_))
-                              .value();
-            inverted_index_view index(&source);
+            auto source = irtl::value(
+                Inverted_Index_Mapped_Source::from(input_dir_, index::all_score_names(input_dir_)));
+            inverted_index_view index(source);
             auto score_names = index.score_names();
 
             Vector<ShardId, index::posting_vectors> vectors(shard_count_,
@@ -584,10 +583,9 @@ namespace detail::partition {
         inline auto postings(size_t terms_in_batch)
         {
             auto log = spdlog::get("partition");
-            auto source = inverted_index_mapped_data_source::from(
-                              input_dir_, index::all_score_names(input_dir_))
-                              .value();
-            inverted_index_view index(&source);
+            auto source = irtl::value(
+                Inverted_Index_Mapped_Source::from(input_dir_, index::all_score_names(input_dir_)));
+            inverted_index_view index(source);
             Vector<ShardId, frequency_t> total_occurrences;
             for (const auto& [shard, shard_dir] :
                  iter::zip(ShardId::range(shard_count_), shard_dirs_))

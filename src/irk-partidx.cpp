@@ -48,8 +48,8 @@ using namespace irk;
 Vector<document_t, ShardId>
 build_shard_map(const path& index_dir, const std::vector<std::string>& shards)
 {
-    auto data = inverted_index_mapped_data_source::from(index_dir).value();
-    inverted_index_view index(&data);
+    auto data = irtl::value(Inverted_Index_Mapped_Source::from(index_dir));
+    inverted_index_view index(data);
     auto titles = index.titles();
     auto log = spdlog::get("partition");
     log->info("Building shard map");

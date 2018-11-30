@@ -279,10 +279,8 @@ void index(
         //    input_score_paths.variances, output_score_paths.variances);
     }
 
-    auto source =
-        inverted_index_mapped_data_source::from(input_dir, score_functions)
-            .value();
-    inverted_index_view index(&source);
+    auto source = irtl::value(Inverted_Index_Mapped_Source::from(input_dir, score_functions));
+    inverted_index_view index(source);
 
     auto log = spdlog::get("stderr");
     if (log) { log->info("Reordering titles..."); }

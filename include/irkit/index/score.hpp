@@ -188,14 +188,13 @@ namespace detail {
             auto props = index::Properties::read(dir);
 
             namespace ba = boost::accumulators;
-            using stat_accumulator = ba::accumulator_set<
-                double,
-                ba::stats<ba::tag::mean, ba::tag::variance, ba::tag::max>>;
+            using stat_accumulator = ba::
+                accumulator_set<double, ba::stats<ba::tag::mean, ba::tag::variance, ba::tag::max>>;
             auto source = DataSourceT::from(dir);
             if (not source) {
                 return source.get_unexpected();
             }
-            inverted_index_view index(&source.value());
+            inverted_index_view index(source.value());
 
             auto log = spdlog::get("score");
 

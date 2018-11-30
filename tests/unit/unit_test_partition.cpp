@@ -85,9 +85,8 @@ protected:
             "dignissim felis gravida.\n"
             "Doc09 Cras pulvinar ante in massa euismod tempor.\n");
         assembler.assemble(input);
-        irk::index::score_index<
-            irk::score::bm25_tag,
-            irk::inverted_index_mapped_data_source>(input_dir, 8);
+        irk::index::score_index<irk::score::bm25_tag, irk::Inverted_Index_Mapped_Source>(input_dir,
+                                                                                         8);
         output_dir = boost::filesystem::temp_directory_path() / "irkit_partition_test_shards";
         if (exists(output_dir)) remove_all(output_dir);
         boost::filesystem::create_directory(output_dir);
@@ -238,15 +237,13 @@ TEST_F(partition_test, compute_reverse_mapping)
 void test_props(
     const path& input_dir, const irk::Vector<ShardId, path>& shard_dirs)
 {
-    auto source =
-        irk::inverted_index_mapped_data_source::from(input_dir).value();
-    irk::inverted_index_view index(&source);
+    auto source = irk::Inverted_Index_Mapped_Source::from(input_dir).value();
+    irk::inverted_index_view index(source);
     size_t cumulative(0);
     size_t cumulative_occ(0);
     for (const path& dir : shard_dirs) {
-        auto shard_source =
-            irk::inverted_index_mapped_data_source::from(dir).value();
-        irk::inverted_index_view shard(&shard_source);
+        auto shard_source = irk::Inverted_Index_Mapped_Source::from(dir).value();
+        irk::inverted_index_view shard(shard_source);
         std::ifstream prop_stream(irk::index::properties_path(dir).string());
         nlohmann::json properties;
         prop_stream >> properties;
@@ -261,15 +258,13 @@ void test_term_frequencies(
     const path& input_dir,
     const irk::Vector<ShardId, path>& shard_dirs)
 {
-    auto source =
-        irk::inverted_index_mapped_data_source::from(input_dir).value();
-    irk::inverted_index_view index(&source);
+    auto source = irk::Inverted_Index_Mapped_Source::from(input_dir).value();
+    irk::inverted_index_view index(source);
     std::vector<frequency_t> cumulative(index.term_count(), 0);
     std::vector<frequency_t> cumulative_occ(index.term_count(), 0);
     for (const path& dir : shard_dirs) {
-        auto shard_source =
-            irk::inverted_index_mapped_data_source::from(dir).value();
-        irk::inverted_index_view shard(&shard_source);
+        auto shard_source = irk::Inverted_Index_Mapped_Source::from(dir).value();
+        irk::inverted_index_view shard(shard_source);
         for (const auto& [global_id, term] : iter::enumerate(index.terms())) {
             if (auto local_id = shard.term_id(term); local_id) {
                 cumulative[global_id] += shard.term_collection_frequency(local_id.value());
@@ -305,24 +300,20 @@ using accumulator = a::accumulator_set<
 void test_postings(
     const path& input_dir, const irk::Vector<ShardId, path>& shard_dirs)
 {
-    auto source =
-        irk::inverted_index_mapped_data_source::from(input_dir, {"bm25-8"})
-            .value();
-    irk::inverted_index_view index(&source);
-    std::vector<irk::inverted_index_mapped_data_source> shard_sources;
+    auto source = irk::Inverted_Index_Mapped_Source::from(input_dir, {"bm25-8"}).value();
+    irk::inverted_index_view index(source);
+    std::vector<std::shared_ptr<irk::Inverted_Index_Mapped_Source const>> shard_sources;
     std::vector<irk::inverted_index_view> shards;
-    std::transform(
-        shard_dirs.begin(),
-        shard_dirs.end(),
-        std::back_inserter(shard_sources),
-        [](const path& dir) {
-            return irk::inverted_index_mapped_data_source::from(dir, {"bm25-8"})
-                .value();
-        });
+    std::transform(shard_dirs.begin(),
+                   shard_dirs.end(),
+                   std::back_inserter(shard_sources),
+                   [](const path& dir) {
+                       return irk::Inverted_Index_Mapped_Source::from(dir, {"bm25-8"}).value();
+                   });
     std::transform(shard_sources.begin(),
                    shard_sources.end(),
                    std::back_inserter(shards),
-                   [](const auto& source) { return irk::inverted_index_view(&source); });
+                   [](const auto& source) { return irk::inverted_index_view(source); });
     std::vector<std::vector<uint32_t>> max_scores;
     irk::transform_range(
         shards, std::back_inserter(max_scores), [](const auto& shard) {

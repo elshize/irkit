@@ -36,6 +36,7 @@
 #include <irkit/index/source.hpp>
 #include <irkit/parsing/stemmer.hpp>
 #include <irkit/taat.hpp>
+#include <irkit/value.hpp>
 #include "cli.hpp"
 
 using std::uint32_t;
@@ -94,18 +95,16 @@ inline int64_t occurrences(
 int main(int argc, char** argv)
 {
     std::vector<std::string> terms;
-    auto [app, args] = irk::cli::app(
-        "Print information about term and its posting list",
-        irk::cli::index_dir_opt{},
-        irk::cli::nostem_opt{},
-        irk::cli::noheader_opt{},
-        irk::cli::sep_opt{},
-        irk::cli::id_range_opt{});
+    auto [app, args] = irk::cli::app("Print information about term and its posting list",
+                                     irk::cli::index_dir_opt{},
+                                     irk::cli::nostem_opt{},
+                                     irk::cli::noheader_opt{},
+                                     irk::cli::sep_opt{},
+                                     irk::cli::id_range_opt{});
     app->add_option("terms", terms, "Term(s)", false)->required();
     CLI11_PARSE(*app, argc, argv);
     boost::filesystem::path dir(args->index_dir);
-    irk::inverted_index_mapped_data_source data(dir);
-    irk::inverted_index_view index(&data);
+    irk::inverted_index_view index(irtl::value(irk::Inverted_Index_Mapped_Source::from(dir)));
 
     const std::string sep = args->separator;
     if (not args->noheader) {

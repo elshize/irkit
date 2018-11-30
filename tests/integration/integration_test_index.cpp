@@ -138,9 +138,8 @@ protected:
 
         std::ifstream input(collection_file);
         assembler.assemble(input);
-        irk::index::score_index<
-            irk::score::query_likelihood_tag,
-            irk::inverted_index_inmemory_data_source>(index_dir, 8);
+        irk::index::score_index<irk::score::query_likelihood_tag,
+                                irk::Inverted_Index_Mapped_Source>(index_dir, 8);
     }
 };
 
@@ -182,10 +181,8 @@ void test(const irk::basic_inverted_index_view<D, F, S>& index_view,
 TEST_F(inverted_index, mapped_file)
 {
     // when
-    auto data =
-        irk::inverted_index_mapped_data_source::from(index_dir, {"ql-8"})
-            .value();
-    irk::inverted_index_view index_view(&data);
+    auto data = irk::Inverted_Index_Mapped_Source::from(index_dir, {"ql-8"}).value();
+    irk::inverted_index_view index_view(data);
     // then
     test(index_view, expected_index);
 }

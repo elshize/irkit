@@ -108,9 +108,7 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     path dir(args->index_dir);
-    irk::inverted_index_mapped_data_source data(dir);
-    irk::inverted_index_view index(&data);
-    build_shard_map(
-        shard_files, index.titles(), dir / (mapping_name + ".shardmap"));
+    irk::inverted_index_view index(irtl::value(irk::Inverted_Index_Mapped_Source::from(dir)));
+    build_shard_map(shard_files, index.titles(), dir / (mapping_name + ".shardmap"));
     return 0;
 }

@@ -62,8 +62,8 @@ int main(int argc, char** argv)
     CLI11_PARSE(app, argc, argv);
     std::cout << "Loading index...";
     boost::filesystem::path dir(index_dir);
-    auto data = irk::inverted_index_mapped_data_source::from(dir);
-    irk::inverted_index_view index(&data.value());
+    auto data = irk::Inverted_Index_Mapped_Source::from(dir);
+    irk::inverted_index_view index(data.value());
     std::cout << " done." << std::endl;
 
     auto term_id = index.term_id(term).value_or(0);
