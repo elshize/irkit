@@ -32,6 +32,7 @@ set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DGSL_THROW_ON_CONTRACT_VIOLATION)
 add_definitions(-DBOOST_NO_AUTO_PTR)
 add_definitions(-Dnsel_CONFIG_CONFIRMS_COMPILATION_ERRORS=1)
+add_definitions(-DBOOST_NO_CXX11_SCOPED_ENUMS)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
