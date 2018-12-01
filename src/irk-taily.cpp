@@ -35,24 +35,24 @@
 
 using namespace irk::cli;
 using irtl::value;
-using taily::CollectionStatistics;
-using taily::FeatureStatistics;
+using taily::Feature_Statistics;
+using taily::Query_Statistics;
 
 template<typename Index>
 inline auto query_stats(Index const& index, std::vector<std::string> const& terms)
-    -> std::vector<FeatureStatistics>
+    -> std::vector<Feature_Statistics>
 {
     const std::string ql{"ql"};
     auto means = value(index.score_mean(ql), "no means found");
     auto variances = value(index.score_var(ql), "no variances found");
-    std::vector<FeatureStatistics> stats(terms.size());
+    std::vector<Feature_Statistics> stats(terms.size());
     irk::transform_range(terms, std::begin(stats), [&](auto const& term) {
         if (auto id = index.term_id(term); id) {
-            return FeatureStatistics{means[id.value()],
-                                     variances[id.value()],
-                                     index.term_collection_frequency(id.value())};
+            return Feature_Statistics{means[id.value()],
+                                      variances[id.value()],
+                                      index.term_collection_frequency(id.value())};
         } else {
-            return FeatureStatistics{0, 0, 0};
+            return Feature_Statistics{0, 0, 0};
         }
     });
     return stats;
@@ -63,10 +63,10 @@ inline void run_taily(irk::Index_Cluster const& cluster,
                       int ntop,
                       std::optional<int> trec_id)
 {
-    CollectionStatistics global_stats{query_stats(cluster, terms), cluster.collection_size()};
-    std::vector<CollectionStatistics> shard_stats;
+    Query_Statistics global_stats{query_stats(cluster, terms), cluster.collection_size()};
+    std::vector<Query_Statistics> shard_stats;
     irk::transform_range(cluster.shards(), std::back_inserter(shard_stats), [&](auto const& shard) {
-        return CollectionStatistics{query_stats(shard, terms), shard.collection_size()};
+        return Query_Statistics{query_stats(shard, terms), shard.collection_size()};
     });
     std::vector<double> scores = taily::score_shards(global_stats, shard_stats, ntop);
 
