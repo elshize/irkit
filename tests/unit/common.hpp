@@ -41,6 +41,7 @@ auto tmpdir()
         boost::filesystem::remove(test_dir);
     }
     boost::filesystem::create_directory(test_dir);
+    std::cerr << "Created a tmp dir " << test_dir.c_str() << '\n';
     return test_dir;
 }
 

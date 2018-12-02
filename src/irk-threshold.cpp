@@ -77,7 +77,7 @@ auto estimate_taily(
     int topk,
     const std::string& scorer)
 {
-    std::vector<taily::FeatureStatistics> feature_stats(terms.size());
+    std::vector<taily::Feature_Statistics> feature_stats(terms.size());
     auto means = irtl::value(index.score_mean(scorer), "failed to fetch means");
     auto vars = irtl::value(index.score_mean(scorer),
                             "failed to fetch variances");
@@ -88,17 +88,15 @@ auto estimate_taily(
                     auto scores = iter::imap(
                         [](const auto& posting) { return posting.score(); },
                         irk::cli::postings_on_fly(term, index, scorer));
-                    return taily::FeatureStatistics::from_features(scores);
+                    return taily::Feature_Statistics::from_features(scores);
                 }
-                return taily::FeatureStatistics{
-                    static_cast<double>(means[*id]),
-                    static_cast<double>(vars[*id]),
-                    index.term_collection_frequency(*id)};
+                return taily::Feature_Statistics{static_cast<double>(means[*id]),
+                                                 static_cast<double>(vars[*id]),
+                                                 index.term_collection_frequency(*id)};
             }
-            return taily::FeatureStatistics{0, 0, 0};
+            return taily::Feature_Statistics{0, 0, 0};
         });
-    taily::CollectionStatistics stats{
-        std::move(feature_stats), index.collection_size()};
+    taily::Query_Statistics stats{std::move(feature_stats), index.collection_size()};
     return taily::estimate_cutoff(stats, topk);
 }
 
