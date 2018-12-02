@@ -40,6 +40,7 @@
 #include <irkit/index/types.hpp>
 #include <irkit/memoryview.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/query_engine.hpp>
 #include <irkit/score.hpp>
 #include <irkit/taat.hpp>
 #include <irkit/timer.hpp>
@@ -150,6 +151,34 @@ CLI::Option* add_processing_type(
 
     CLI::Option *opt = app.add_option(name, fun, description, defaulted);
     opt->type_name("ProcessingType")->type_size(1);
+    if (defaulted) {
+        std::stringstream out;
+        out << variable;
+        opt->default_str(out.str());
+    }
+    return opt;
+}
+
+CLI::Option* add_traversal_type(CLI::App& app,
+                                std::string name,
+                                Traversal_Type& variable,
+                                std::string description = "",
+                                bool defaulted = false)
+{
+    CLI::callback_t fun = [&variable](CLI::results_t res) {
+        if (res[0] == "taat") {
+            variable = Traversal_Type::TAAT;
+            return true;
+        }
+        else if (res[0] == "daat") {
+            variable = Traversal_Type::DAAT;
+            return true;
+        }
+        return false;
+    };
+
+    CLI::Option *opt = app.add_option(name, fun, description, defaulted);
+    opt->type_name("Traversal Type")->type_size(1);
     if (defaulted) {
         std::stringstream out;
         out << variable;
@@ -378,6 +407,19 @@ struct threads_opt {
     {
         app.add_option(
             "--threads,-j", args->threads, "Number of threads", true);
+    }
+};
+
+struct traversal_type_opt {
+    Traversal_Type traversal_type;
+
+    traversal_type_opt(with_default<Traversal_Type> default_val) : traversal_type(default_val.value)
+    {}
+
+    template<class Args>
+    void set(CLI::App& app, Args& args)
+    {
+        add_traversal_type(app, "--traversal", args->traversal_type, "Query traversal type", true);
     }
 };
 

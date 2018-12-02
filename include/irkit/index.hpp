@@ -420,7 +420,8 @@ public:
 
     template<class DataSourceT>
     explicit basic_inverted_index_view(std::shared_ptr<DataSourceT const> data)
-        : dir_(data->dir()),
+        : data_handle_(data),
+          dir_(data->dir()),
           documents_view_(data->documents_view()),
           counts_view_(data->counts_view()),
           document_offsets_(data->document_offsets_view()),
@@ -719,6 +720,7 @@ public:
     }
 
 private:
+    std::shared_ptr<void const> data_handle_;
     boost::filesystem::path dir_;
     memory_view documents_view_;
     memory_view counts_view_;

@@ -39,11 +39,14 @@
 #include <irkit/score.hpp>
 #include <irkit/taat.hpp>
 #include <irkit/timer.hpp>
+#include <irkit/query_engine.hpp>
 #include "cli.hpp"
 #include "run_query.hpp"
 
-using std::uint32_t;
+using irk::Query_Engine;
+using irk::Traversal_Type;
 using irk::index::document_t;
+using std::uint32_t;
 using mapping_t = std::vector<document_t>;
 using namespace std::chrono;
 using namespace irk::cli;
@@ -56,7 +59,7 @@ int main(int argc, char** argv)
         nostem_opt{},
         id_range_opt{},
         score_function_opt{with_default<std::string>{"bm25"}},
-        processing_type_opt{with_default<ProcessingType>{ProcessingType::DAAT}},
+        traversal_type_opt{with_default<Traversal_Type>{Traversal_Type::DAAT}},
         k_opt{},
         trec_run_opt{},
         trec_id_opt{},
@@ -65,32 +68,27 @@ int main(int argc, char** argv)
 
     boost::filesystem::path dir(args->index_dir);
     std::vector<std::string> scores;
-    if (args->score_function[0] != '*') {
+    if (Query_Engine::is_quantized(args->score_function)) {
         scores.push_back(args->score_function);
     }
     auto data = irk::Inverted_Index_Mapped_Source::from(dir, {scores});
     irk::inverted_index_view index(irtl::value(data));
+    auto engine = Query_Engine::from(
+        index,
+        args->nostem,
+        args->score_function,
+        args->traversal_type,
+        app->count("--trec-id") > 0u ? std::make_optional(args->trec_id) : std::optional<int>{},
+        args->trec_run);
 
     if (not args->terms.empty()) {
-        irk::run_and_print(index,
-                           args->terms,
-                           args->k,
-                           args->score_function,
-                           args->processing_type,
-                           args->trec_id != -1 ? std::make_optional(args->trec_id) : std::nullopt,
-                           args->trec_run);
+        engine.run_query(args->terms, args->k);
     }
     else {
-        irk::run_queries(
-            app->count("--trec-id") > 0u ? std::make_optional(args->trec_id) : std::nullopt,
-            [&, args = args.get()](const auto& current_trecid, const auto& terms) {
-                irk::run_and_print(index,
-                                   terms,
-                                   args->k,
-                                   args->score_function,
-                                   args->processing_type,
-                                   current_trecid,
-                                   args->trec_run);
-            });
+        irk::run_queries(app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)
+                                                      : std::nullopt,
+                         [&, k = args->k](const auto& current_trecid, const auto& terms) {
+                             engine.run_query(terms, k);
+                         });
     }
 }
