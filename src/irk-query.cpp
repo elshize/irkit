@@ -32,14 +32,15 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
+#include <irkit/algorithm/query.hpp>
 #include <irkit/compacttable.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/query_engine.hpp>
 #include <irkit/score.hpp>
 #include <irkit/taat.hpp>
 #include <irkit/timer.hpp>
-#include <irkit/query_engine.hpp>
 #include "cli.hpp"
 #include "run_query.hpp"
 
@@ -73,6 +74,7 @@ int main(int argc, char** argv)
     }
     auto data = irk::Inverted_Index_Mapped_Source::from(dir, {scores});
     irk::inverted_index_view index(irtl::value(data));
+    auto const& titles = index.titles();
     auto engine = Query_Engine::from(
         index,
         args->nostem,
@@ -80,15 +82,28 @@ int main(int argc, char** argv)
         args->traversal_type,
         app->count("--trec-id") > 0u ? std::make_optional(args->trec_id) : std::optional<int>{},
         args->trec_run);
-
-    if (not args->terms.empty()) {
-        engine.run_query(args->terms, args->k);
+    if (not args->terms.empty())
+    {
+        engine.run_query(args->terms, args->k).print([&](int rank, auto document, auto score) {
+            std::string title = titles.key_at(document);
+            std::cout << title << "\t" << score << '\n';
+        });
     }
     else {
-        irk::run_queries(app->count("--trec-id") > 0u ? std::make_optional(args->trec_id)
-                                                      : std::nullopt,
-                         [&, k = args->k](const auto& current_trecid, const auto& terms) {
-                             engine.run_query(terms, k);
-                         });
+        std::optional<int> trec_id = app->count("--trec-id") > 0u
+            ? std::make_optional(args->trec_id)
+            : std::nullopt;
+        irk::for_each_query(std::cin, not args->nostem, [&, k = args->k](auto id, auto terms) {
+            engine.run_query(terms, k).print([&, run_id = args->trec_run](
+                                                 int rank, auto document, auto score) {
+                std::string title = titles.key_at(document);
+                if (trec_id.has_value()) {
+                    std::cout << (*trec_id + id) << '\t' << "Q0\t" << title << "\t" << rank << "\t"
+                              << score << "\t" << run_id << "\n";
+                } else {
+                    std::cout << title << "\t" << score << '\n';
+                }
+            });
+        });
     }
 }
