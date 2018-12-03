@@ -177,10 +177,9 @@ public:
                           Score_Tag score_tag,
                           Traversal_Tag traversal_tag,
                           std::optional<int> trec_id,
-                          std::string run_id,
-                          std::ostream& out = std::cout)
+                          std::string run_id)
         : self_(std::make_shared<Impl<Index, Score_Tag, Traversal_Tag>>(
-              index, nostem, score_tag, traversal_tag, trec_id, std::move(run_id), out))
+              index, nostem, score_tag, traversal_tag, trec_id, std::move(run_id)))
     {}
 
     [[nodiscard]] Query_Result_List run_query(gsl::span<std::string const> query_terms, int k)
@@ -199,15 +198,14 @@ public:
                                            std::string const& score_function,
                                            Traversal_Type traversal_type,
                                            std::optional<int> trec_id,
-                                           std::string const& run_id,
-                                           std::ostream& out = std::cout)
+                                           std::string const& run_id)
     {
         if (is_quantized(score_function)) {
             switch (traversal_type) {
             case Traversal_Type::TAAT:
-                return Query_Engine(index, nostem, empty_tag, taat_traversal, trec_id, run_id, out);
+                return Query_Engine(index, nostem, empty_tag, taat_traversal, trec_id, run_id);
             case Traversal_Type::DAAT:
-                return Query_Engine(index, nostem, empty_tag, daat_traversal, trec_id, run_id, out);
+                return Query_Engine(index, nostem, empty_tag, daat_traversal, trec_id, run_id);
             }
             throw std::runtime_error("unknown traversal type");
         } else {
@@ -215,30 +213,20 @@ public:
             case Traversal_Type::TAAT:
                 if (score_function == "bm25") {
                     return Query_Engine(
-                        index, nostem, score::bm25, taat_traversal, trec_id, run_id, out);
+                        index, nostem, score::bm25, taat_traversal, trec_id, run_id);
                 } else if (score_function == "ql") {
-                    return Query_Engine(index,
-                                        nostem,
-                                        score::query_likelihood,
-                                        taat_traversal,
-                                        trec_id,
-                                        run_id,
-                                        out);
+                    return Query_Engine(
+                        index, nostem, score::query_likelihood, taat_traversal, trec_id, run_id);
                 } else {
                     throw std::runtime_error("unknown score function type");
                 }
             case Traversal_Type::DAAT:
                 if (score_function == "bm25") {
                     return Query_Engine(
-                        index, nostem, score::bm25, taat_traversal, trec_id, run_id, out);
+                        index, nostem, score::bm25, taat_traversal, trec_id, run_id);
                 } else if (score_function == "ql") {
-                    return Query_Engine(index,
-                                        nostem,
-                                        score::query_likelihood,
-                                        taat_traversal,
-                                        trec_id,
-                                        run_id,
-                                        out);
+                    return Query_Engine(
+                        index, nostem, score::query_likelihood, taat_traversal, trec_id, run_id);
                 } else {
                     throw std::runtime_error("unknown score function type");
                 }
@@ -268,15 +256,13 @@ private:
                       Score_Tag score_tag,
                       Traversal_Tag traversal_tag,
                       std::optional<int> trec_id,
-                      std::string run_id,
-                      std::ostream& out)
+                      std::string run_id)
             : index_(index),
               nostem_(nostem),
               scorer_(score_tag),
               traversal_tag_(traversal_tag),
               trec_id_(trec_id),
-              run_id_(std::move(run_id)),
-              out_(out)
+              run_id_(std::move(run_id))
         {}
 
         [[nodiscard]] auto run_query_with_precomputed(gsl::span<std::string const> query_terms,
@@ -352,7 +338,6 @@ private:
         Traversal_Tag traversal_tag_;
         std::optional<int> trec_id_;
         std::string run_id_;
-        std::ostream& out_;
     };
 
 private:

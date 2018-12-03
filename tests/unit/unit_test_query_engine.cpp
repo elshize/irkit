@@ -53,20 +53,13 @@ TEST_CASE("Query_Engine", "[query_engine][unit]")
             irk::Inverted_Index_Mapped_Source::from(dir, scores).value()};
         SECTION("run a query with a query engine")
         {
-            std::ostringstream out;
+            std::vector<int> docs;
             auto engine = irk::Query_Engine::from(
-                index, false, score_function, traversal, std::optional<int>{}, "null", out);
-            engine.run_query(query, 2);
-            THEN("got correct results")
-            {
-                std::istringstream in(out.str());
-                std::string doc;
-                in >> doc;
-                REQUIRE(doc == "Doc00");
-                in >> doc;
-                in >> doc;
-                REQUIRE(doc == "Doc02");
-            }
+                index, false, score_function, traversal, std::optional<int>{}, "null");
+            engine.run_query(query, 2).print([&](auto rank, auto doc, auto score) {
+                docs.push_back(doc);
+            });
+            THEN("got correct results") { REQUIRE(docs == std::vector<int>{0, 2}); }
         }
     }
 }
