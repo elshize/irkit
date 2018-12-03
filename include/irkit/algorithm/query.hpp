@@ -35,6 +35,7 @@
 #include <irkit/algorithm/transform.hpp>
 #include <irkit/io.hpp>
 #include <irkit/movingrange.hpp>
+#include <irkit/parsing/stemmer.hpp>
 #include <irkit/taat.hpp>
 #include <irkit/utils.hpp>
 
@@ -231,6 +232,9 @@ void for_each_query(std::istream& input,
     for (const auto& query_line : irk::io::lines_from_stream(input)) {
         std::vector<std::string> terms;
         boost::split(terms, query_line, boost::is_any_of("\t "), boost::token_compress_on);
+        if (stem) {
+            irk::inplace_transform_range(terms, irk::porter2_stemmer{});
+        }
         f(counter++, terms);
     }
 }

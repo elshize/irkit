@@ -30,9 +30,10 @@
 #include <CLI/CLI.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
-
+#include <boost/te.hpp>
 #include <irkit/algorithm/accumulate.hpp>
 #include <irkit/algorithm/group_by.hpp>
+#include <irkit/algorithm/query.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
 #include <irkit/index/source.hpp>
@@ -40,6 +41,7 @@
 #include <irkit/parsing/stemmer.hpp>
 
 #include "cli.hpp"
+#include "run_query.hpp"
 
 using boost::filesystem::path;
 using irk::Inverted_Index_Mapped_Source;
@@ -132,6 +134,18 @@ void process_query(
     }
 }
 
+struct Index_Like {
+    void count_postings(gsl::span<std::string const> terms, std::ostream& out) const
+    {
+        boost::te::call([](auto const& self,
+                           gsl::span<std::string const> terms,
+                           auto& out) { self.count_postings(terms, out); },
+                        *this,
+                        terms,
+                        out);
+    }
+};
+
 int main(int argc, char** argv)
 {
     auto [app, args] = irk::cli::app(
@@ -145,26 +159,35 @@ int main(int argc, char** argv)
     CLI11_PARSE(*app, argc, argv);
 
     bool count = app->count("--count") == 1u;
-    std::vector<std::string> scores;
-    if (args->score_function_defined() && args->score_function[0] != '*') {
-        scores.push_back(args->score_function);
-    }
-    auto data = irk::Inverted_Index_Mapped_Source::from(fs::path{args->index_dir}, scores);
-    irk::inverted_index_view index(irtl::value(data));
+    if (count) {
+        //boost::te::poly<Index_Like> index = irk::Runnable_Index::from(args->index_dir);
+        //if (not args->terms.empty()) {
+        //    irk::cli::stem_if(not args->nostem, args->terms);
+        //    index.count_postings(args->terms, std::cout);
+        //} else {
+        //    irk::for_each_query(std::cin, true, [&](int qid, auto terms) {
+        //        index.count_postings(terms, std::cout);
+        //    });
+        //}
+        return 0;
+    } else {
+        std::vector<std::string> scores;
+        if (args->score_function_defined() && args->score_function[0] != '*') {
+            scores.push_back(args->score_function);
+        }
+        auto data = irk::Inverted_Index_Mapped_Source::from(fs::path{args->index_dir}, scores);
+        irk::inverted_index_view index(irtl::value(data));
 
-    if (not args->terms.empty()) {
-        process_query(args->terms, index, *args, count);
+        if (not args->terms.empty()) {
+            process_query(args->terms, index, *args, count);
+            return 0;
+        }
+
+        for (const std::string& query_line : irk::io::lines_from_stream(std::cin)) {
+            std::vector<std::string> terms;
+            boost::split(terms, query_line, boost::is_any_of("\t "), boost::token_compress_on);
+            process_query(terms, index, *args, true);
+        }
         return 0;
     }
-
-    for (const std::string& query_line : irk::io::lines_from_stream(std::cin)) {
-        std::vector<std::string> terms;
-        boost::split(
-            terms,
-            query_line,
-            boost::is_any_of("\t "),
-            boost::token_compress_on);
-        process_query(terms, index, *args, true);
-    }
-    return 0;
 }

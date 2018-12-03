@@ -36,7 +36,6 @@
 #include <irkit/algorithm/query.hpp>
 #include <irkit/coding/vbyte.hpp>
 #include <irkit/index.hpp>
-#include <irkit/index/runnable_index.hpp>
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/parsing/stemmer.hpp>
