@@ -460,9 +460,10 @@ public:
 
     [[nodiscard]] auto dir() const noexcept -> boost::filesystem::path { return dir_; }
     [[nodiscard]] auto collection_size() const -> size_type { return document_sizes_.size(); }
-    [[nodiscard]] auto shards() const -> ir::Vector<ShardId, basic_inverted_index_view>
+    [[nodiscard]] auto shards() const
+        -> gsl::span<basic_inverted_index_view<DocumentCodec, FrequencyCodec, ScoreCodec> const>
     {
-        return {*this};
+        return gsl::make_span(this, 1);
     }
 
     size_type document_size(document_type doc) const

@@ -61,7 +61,10 @@ public:
     [[nodiscard]] auto dir() const noexcept -> boost::filesystem::path { return dir_; }
     [[nodiscard]] auto shard_count() const { return irk::sgnd(shards_.size()); }
     [[nodiscard]] auto shard(ShardId shard) const -> InvertedIndex const& { return shards_[shard]; }
-    [[nodiscard]] auto const& shards() const { return shards_; }
+    [[nodiscard]] auto shards() const -> gsl::span<InvertedIndex const>
+    {
+        return gsl::make_span<InvertedIndex const>(shards_.data(), shards_.size());
+    }
 
     [[nodiscard]] auto term_id(std::string const& term) const -> std::optional<term_id_type>
     {

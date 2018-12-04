@@ -40,6 +40,8 @@ add_irk(threshold)
 add_irk(stem)
 add_irk(vector)
 add_irk(taily)
+add_irk(extract-posting-count)
+add_irk(extract-results)
 
 install(
     TARGETS
@@ -66,4 +68,6 @@ install(
         irk-stem
         irk-vector
         irk-taily
+        irk-extract-posting-count
+        irk-extract-results
     DESTINATION bin)

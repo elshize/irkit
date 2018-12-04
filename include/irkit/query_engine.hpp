@@ -28,9 +28,9 @@
 
 #include <iostream>
 #include <string>
-#include <variant>
 
-#include <boost/filesystem.hpp>
+#include <boost/te.hpp>
+#include <fmt/format.h>
 #include <gsl/span>
 #include <irkit/algorithm/query.hpp>
 #include <irkit/parsing/stemmer.hpp>
@@ -109,6 +109,66 @@ fetched_query_scored_postings(Index const& index, gsl::span<std::string const>& 
     return postings;
 }
 
+struct Printable : boost::te::poly<Printable> {
+    using boost::te::poly<Printable>::poly;
+
+    void print(std::ostream& out) const
+    {
+        boost::te::call([](auto const& self, auto& out) { out << self; }, *this, out);
+    }
+};
+std::ostream& operator<<(std::ostream& os, Printable const& p)
+{
+    p.print(os);
+    return os;
+}
+
+struct Query_Result_List {
+    std::vector<std::pair<irk::index::document_t, Printable>> results;
+
+    template<class Score>
+    Query_Result_List(std::vector<std::pair<irk::index::document_t, Score>> results)
+        : self_(std::make_shared<Impl<Score>>(results))
+    {}
+
+    void print(std::function<void(int, irk::index::document_t, Printable)> f) const
+    {
+        self_->print(f);
+    }
+
+private:
+    struct Result
+    {
+        Result() = default;
+        Result(Result const&) = default;
+        Result(Result&&) noexcept = default;
+        Result& operator=(Result const&) = default;
+        Result& operator=(Result&&) noexcept = default;
+        virtual ~Result() = default;
+        virtual void print(std::function<void(int, irk::index::document_t, Printable)> f) const = 0;
+    };
+
+    template<class Score>
+    class Impl : public Result {
+    public:
+        explicit Impl(std::vector<std::pair<irk::index::document_t, Score>> results)
+            : results_(results)
+        {}
+        void print(std::function<void(int, irk::index::document_t, Printable)> f) const override
+        {
+            int rank = 0;
+            for (auto& result : results_) {
+                f(rank++, result.first, result.second);
+            }
+        }
+    private:
+        std::vector<std::pair<irk::index::document_t, Score>> results_;
+    };
+
+private:
+    std::shared_ptr<Result> self_;
+};
+
 class Query_Engine {
 public:
     template<class Index, class Score_Tag, class Traversal_Tag>
@@ -117,15 +177,14 @@ public:
                           Score_Tag score_tag,
                           Traversal_Tag traversal_tag,
                           std::optional<int> trec_id,
-                          std::string run_id,
-                          std::ostream& out = std::cout)
+                          std::string run_id)
         : self_(std::make_shared<Impl<Index, Score_Tag, Traversal_Tag>>(
-              index, nostem, score_tag, traversal_tag, trec_id, std::move(run_id), out))
+              index, nostem, score_tag, traversal_tag, trec_id, std::move(run_id)))
     {}
 
-    void run_query(gsl::span<std::string const> query_terms, int k)
+    [[nodiscard]] Query_Result_List run_query(gsl::span<std::string const> query_terms, int k)
     {
-        self_->run_query(query_terms, k);
+        return self_->run_query(query_terms, k);
     }
 
     [[nodiscard]] static auto is_quantized(std::string const& name) -> bool
@@ -139,15 +198,14 @@ public:
                                            std::string const& score_function,
                                            Traversal_Type traversal_type,
                                            std::optional<int> trec_id,
-                                           std::string const& run_id,
-                                           std::ostream& out = std::cout)
+                                           std::string const& run_id)
     {
         if (is_quantized(score_function)) {
             switch (traversal_type) {
             case Traversal_Type::TAAT:
-                return Query_Engine(index, nostem, empty_tag, taat_traversal, trec_id, run_id, out);
+                return Query_Engine(index, nostem, empty_tag, taat_traversal, trec_id, run_id);
             case Traversal_Type::DAAT:
-                return Query_Engine(index, nostem, empty_tag, daat_traversal, trec_id, run_id, out);
+                return Query_Engine(index, nostem, empty_tag, daat_traversal, trec_id, run_id);
             }
             throw std::runtime_error("unknown traversal type");
         } else {
@@ -155,30 +213,20 @@ public:
             case Traversal_Type::TAAT:
                 if (score_function == "bm25") {
                     return Query_Engine(
-                        index, nostem, score::bm25, taat_traversal, trec_id, run_id, out);
+                        index, nostem, score::bm25, taat_traversal, trec_id, run_id);
                 } else if (score_function == "ql") {
-                    return Query_Engine(index,
-                                        nostem,
-                                        score::query_likelihood,
-                                        taat_traversal,
-                                        trec_id,
-                                        run_id,
-                                        out);
+                    return Query_Engine(
+                        index, nostem, score::query_likelihood, taat_traversal, trec_id, run_id);
                 } else {
                     throw std::runtime_error("unknown score function type");
                 }
             case Traversal_Type::DAAT:
                 if (score_function == "bm25") {
                     return Query_Engine(
-                        index, nostem, score::bm25, taat_traversal, trec_id, run_id, out);
+                        index, nostem, score::bm25, taat_traversal, trec_id, run_id);
                 } else if (score_function == "ql") {
-                    return Query_Engine(index,
-                                        nostem,
-                                        score::query_likelihood,
-                                        taat_traversal,
-                                        trec_id,
-                                        run_id,
-                                        out);
+                    return Query_Engine(
+                        index, nostem, score::query_likelihood, taat_traversal, trec_id, run_id);
                 } else {
                     throw std::runtime_error("unknown score function type");
                 }
@@ -196,7 +244,8 @@ private:
         Engine& operator=(Engine const&) = default;
         Engine& operator=(Engine&&) noexcept = default;
         virtual ~Engine() = default;
-        virtual void run_query(gsl::span<std::string const> query_terms, int k) = 0;
+        [[nodiscard]] virtual Query_Result_List
+        run_query(gsl::span<std::string const> query_terms, int k) = 0;
     };
 
     template<class Index, class Score_Tag, class Traversal_Tag>
@@ -207,15 +256,13 @@ private:
                       Score_Tag score_tag,
                       Traversal_Tag traversal_tag,
                       std::optional<int> trec_id,
-                      std::string run_id,
-                      std::ostream& out)
+                      std::string run_id)
             : index_(index),
               nostem_(nostem),
               scorer_(score_tag),
               traversal_tag_(traversal_tag),
               trec_id_(trec_id),
-              run_id_(std::move(run_id)),
-              out_(out)
+              run_id_(std::move(run_id))
         {}
 
         [[nodiscard]] auto run_query_with_precomputed(gsl::span<std::string const> query_terms,
@@ -260,17 +307,12 @@ private:
             auto const& titles = index_.titles();
             int rank = 0;
             for (auto& result : results) {
-                std::string title = titles.key_at(result.first);
-                if (trec_id_.has_value()) {
-                    out_ << *trec_id_ << '\t' << "Q0\t" << title << "\t" << rank++ << "\t"
-                         << result.second << "\t" << run_id_ << "\n";
-                } else {
-                    out_ << title << "\t" << result.second << '\n';
-                }
+                print_(rank++, result.first, result.second);
             }
         }
 
-        void run_query(gsl::span<std::string const> query_terms, int k) override
+        [[nodiscard]] Query_Result_List
+        run_query(gsl::span<std::string const> query_terms, int k) override
         {
             std::vector<std::string> stemmed_terms;
             if (not nostem_) {
@@ -282,15 +324,13 @@ private:
             if constexpr (std::is_base_of_v<score::scoring_function_tag, Score_Tag>) {
                 auto results = run_query_with_scoring(
                     query_terms, k, index_, scorer_, traversal_tag_);
-                print_results(gsl::make_span(results));
+                return Query_Result_List(std::move(results));
             } else {
                 auto results = run_query_with_precomputed(query_terms, k, index_, traversal_tag_);
-                print_results(gsl::make_span(results));
-            }
-            if (trec_id_) {
-                *trec_id_ += *trec_id_;
+                return Query_Result_List(std::move(results));
             }
         }
+
     private:
         Index const& index_;
         bool nostem_;
@@ -298,7 +338,6 @@ private:
         Traversal_Tag traversal_tag_;
         std::optional<int> trec_id_;
         std::string run_id_;
-        std::ostream& out_;
     };
 
 private:
@@ -306,3 +345,14 @@ private:
 };
 
 }  // namespace irk
+
+template<>
+struct fmt::formatter<irk::Printable> : formatter<string_view> {
+    template<typename FormatContext>
+    auto format(irk::Printable p, FormatContext& ctx)
+    {
+        std::ostringstream os;
+        os << p;
+        return formatter<string_view>::format(os.str(), ctx);
+    }
+};
