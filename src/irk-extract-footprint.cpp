@@ -47,20 +47,20 @@
 using boost::filesystem::path;
 using irk::Inverted_Index_Mapped_Source;
 using irk::inverted_index_view;
-using irk::Query_Engine;
 using irk::cli::optional;
 using irk::index::term_id_t;
-using namespace irk::cli;
+using irk::Query_Engine;
 
 int main(int argc, char** argv)
 {
-    auto [app, args] = irk::cli::app("Extract posting counts",
-                                     index_dir_opt{},
-                                     nostem_opt{},
-                                     k_opt{},
-                                     score_function_opt{with_default<std::string>{"bm25"}});
+    auto [app, args] = irk::cli::app("Extract query footprint for queries",
+                                     irk::cli::index_dir_opt{},
+                                     irk::cli::nostem_opt{},
+                                     irk::cli::k_opt{},
+                                     irk::cli::score_function_opt{});
     CLI11_PARSE(*app, argc, argv);
-    auto index = irk::Shard_Container::from(args->index_dir);
+    auto index = irk::Shard_Container::from(args->index_dir,
+                                            gsl::make_span(&args->score_function, 1));
     std::vector<Query_Engine> shard_engines;
     irk::transform_range(
         index.shards(),
@@ -69,14 +69,31 @@ int main(int argc, char** argv)
             return irk::Query_Engine::from(
                 shard, false, sf, irk::Traversal_Type::TAAT, std::optional<int>{}, "null");
         });
-    std::cout << "query,shard,rank,document,score\n";
+    std::cout << "query,shard,footprint\n";
     irk::for_each_query(std::cin, not args->nostem, [&, k = args->k](int qid, auto terms) {
-        for (auto shard_id : iter::range(shard_engines.size())) {
-            shard_engines[shard_id].run_query(terms, k).print([&](int rank,
-                                                                  auto document,
-                                                                  auto score) {
-                std::cout << fmt::format("{},{},{},{},{}\n", qid, shard_id, rank, document, score);
-            });
+        int shard_id{0};
+        for (auto const& shard : index.shards()) {
+            auto results = shard_engines[shard_id].run_query(terms, k);
+            auto top_documents = results.top_documents();
+            std::sort(top_documents.begin(), top_documents.end());
+            std::unordered_map<irk::index::document_t, int> term_counts(results.size());
+            auto document_lists = irk::query_documents(shard, terms);
+            auto iterators = irk::begins(gsl::make_span(document_lists));
+            auto ends = irk::ends(gsl::make_span(document_lists));
+            for (auto doc : top_documents) {
+                for (auto&& [iterator, end] : iter::zip(iterators, ends)) {
+                    iterator.advance_to(doc);
+                    if (iterator != end && *iterator == doc) {
+                        term_counts[doc] += 1;
+                    }
+                }
+            };
+            double footprint = 0.0;
+            for ([[maybe_unused]] auto&& [doc, count] : term_counts) {
+                footprint += static_cast<double>(count) / terms.size();
+            }
+            footprint /= term_counts.size();
+            std::cout << fmt::format("{},{},{}\n", qid, shard_id, footprint);
         }
     });
     return 0;

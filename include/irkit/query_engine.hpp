@@ -124,7 +124,7 @@ std::ostream& operator<<(std::ostream& os, Printable const& p)
 }
 
 struct Query_Result_List {
-    std::vector<std::pair<irk::index::document_t, Printable>> results;
+    using result_type = std::pair<irk::index::document_t, Printable>;
 
     template<class Score>
     Query_Result_List(std::vector<std::pair<irk::index::document_t, Score>> results)
@@ -136,6 +136,14 @@ struct Query_Result_List {
         self_->print(f);
     }
 
+    [[nodiscard]] auto top_documents() const -> std::vector<index::document_t>
+    {
+        return self_->top_documents();
+    }
+    [[nodiscard]] auto size() const { return self_->size(); }
+    ///[[nodiscard]] auto begin() const { return self_->results().begin(); }
+    ///[[nodiscard]] auto end() const { return self_->results().end(); }
+
 private:
     struct Result
     {
@@ -146,6 +154,8 @@ private:
         Result& operator=(Result&&) noexcept = default;
         virtual ~Result() = default;
         virtual void print(std::function<void(int, irk::index::document_t, Printable)> f) const = 0;
+        [[nodiscard]] virtual std::vector<irk::index::document_t> top_documents() const = 0;
+        [[nodiscard]] virtual std::ptrdiff_t size() const = 0;
     };
 
     template<class Score>
@@ -161,6 +171,15 @@ private:
                 f(rank++, result.first, result.second);
             }
         }
+        [[nodiscard]] std::vector<index::document_t> top_documents() const override
+        {
+            std::vector<irk::index::document_t> top(results_.size());
+            irk::transform_range(
+                results_, top.begin(), [](auto const& result) { return result.first; });
+            return top;
+        }
+        [[nodiscard]] std::ptrdiff_t size() const override { return results_.size(); }
+
     private:
         std::vector<std::pair<irk::index::document_t, Score>> results_;
     };

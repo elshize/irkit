@@ -574,4 +574,13 @@ struct log_finished {
     }
 };
 
+[[nodiscard]] std::vector<std::string> filter_quantized(gsl::span<std::string const> names)
+{
+    std::vector<std::string> filtered;
+    std::copy_if(names.begin(), names.end(), std::back_inserter(filtered), [](auto const& name) {
+        return std::find(name.begin(), name.end(), '-') != name.end();
+    });
+    return filtered;
+}
+
 }  // namespace irk::cli

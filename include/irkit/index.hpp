@@ -773,9 +773,8 @@ private:
 using inverted_index_view = basic_inverted_index_view<>;
 
 /// \returns All document lists for query terms in the preserved order.
-inline auto query_documents(
-    const irk::inverted_index_view& index,
-    const std::vector<std::string>& query)
+inline auto
+query_documents(const irk::inverted_index_view& index, gsl::span<std::string const> query)
 {
     using list_type = decltype(index.documents(std::declval<std::string>()));
     std::vector<list_type> documents;
@@ -932,6 +931,30 @@ inline auto query_scored_postings(
         }
     }
     return postings;
+}
+
+template<class T>
+inline auto begins(gsl::span<T> containers)
+{
+    using iterator_type = decltype(containers.begin()->begin());
+    std::vector<iterator_type> iterators;
+    iterators.reserve(containers.size());
+    irk::transform_range(containers, std::back_inserter(iterators), [](auto const& container) {
+        return container.begin();
+    });
+    return iterators;
+}
+
+template<class T>
+inline auto ends(gsl::span<T> containers)
+{
+    using iterator_type = decltype(containers.begin()->begin());
+    std::vector<iterator_type> iterators;
+    iterators.reserve(containers.size());
+    irk::transform_range(containers, std::back_inserter(iterators), [](auto const& container) {
+        return container.end();
+    });
+    return iterators;
 }
 
 }  // namespace irk

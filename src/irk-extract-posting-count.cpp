@@ -39,6 +39,7 @@
 #include <irkit/index/source.hpp>
 #include <irkit/index/types.hpp>
 #include <irkit/parsing/stemmer.hpp>
+#include <irkit/shard_container.hpp>
 
 #include "cli.hpp"
 #include "run_query.hpp"
@@ -49,35 +50,12 @@ using irk::inverted_index_view;
 using irk::cli::optional;
 using irk::index::term_id_t;
 
-struct Shard_Container : boost::te::poly<Shard_Container> {
-    using boost::te::poly<Shard_Container>::poly;
-
-    [[nodiscard]] auto shards() const -> gsl::span<irk::inverted_index_view const>
-    {
-        return boost::te::call<gsl::span<irk::inverted_index_view const>>(
-            [](auto const& self) { return self.shards(); }, *this);
-    }
-
-    [[nodiscard]] static Shard_Container from(boost::filesystem::path const& dir)
-    {
-        auto props = irk::index::Properties::read(dir);
-        if (props.shard_count) {
-            auto source = irk::Index_Cluster_Data_Source<irk::Inverted_Index_Mapped_Source>::from(
-                dir);
-            return irk::Index_Cluster(source);
-        } else {
-            auto source = irtl::value(irk::Inverted_Index_Mapped_Source::from(dir));
-            return irk::inverted_index_view(source);
-        }
-    }
-};
-
 int main(int argc, char** argv)
 {
     auto [app, args] = irk::cli::app(
         "Extract posting counts", irk::cli::index_dir_opt{}, irk::cli::nostem_opt{});
     CLI11_PARSE(*app, argc, argv);
-    auto index = Shard_Container::from(args->index_dir);
+    auto index = irk::Shard_Container::from(args->index_dir);
     std::cout << "query,shard,postings\n";
     irk::for_each_query(std::cin, not args->nostem, [&](int qid, auto terms) {
         int shard_id{0};

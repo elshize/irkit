@@ -42,6 +42,7 @@ add_irk(vector)
 add_irk(taily)
 add_irk(extract-posting-count)
 add_irk(extract-results)
+add_irk(extract-footprint)
 
 install(
     TARGETS
@@ -70,4 +71,5 @@ install(
         irk-taily
         irk-extract-posting-count
         irk-extract-results
+        irk-extract-footprint
     DESTINATION bin)
